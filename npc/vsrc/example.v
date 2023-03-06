@@ -1,2 +1,3 @@
-module example();
+module example(
+);
 endmodule
