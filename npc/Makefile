@@ -13,7 +13,7 @@ endif
 VSRC := ./vsrc
 CSRC := ./csrc
 
-VSRC_OBJ := ./vsrc/example.v
+VSRC_OBJ := ./vsrc/top.v
 CSRC_OBJ := ./csrc/main.cpp
 
 VERILATOR_INPUT = -f $(VSRC_OBJ) $(CSRC_OBJ)
@@ -41,7 +41,7 @@ sim:
 	$(VERILATOR) $(VERILATOR_FLAGS) $(VERILATOR_INPUT)
 	@echo "Finish building and verilating."
 	@echo "-- RUN ---------------------"
-	./obj_dir/Vexample +trace
+	./obj_dir/Vtop +trace
 	@echo "-- DONE --------------------"
 
 include ../Makefile
