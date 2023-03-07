@@ -6,6 +6,8 @@ module top(
 );
   wire led_sw;
 
+//双控开关用于控制流水灯是否显示
+
   switch switch1(
     .a(sw[0]),
     .b(sw[1]),
