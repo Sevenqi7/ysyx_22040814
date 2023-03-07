@@ -10,32 +10,21 @@ VERILATOR = $(VERILATOR_ROOT)/bin/verilator
 VERILATOR_COVERAGE = $(VERILATOR_ROOT)/bin/verilator_coverage
 endif
 
-VSRC := ./vsrc
-CSRC := ./csrc
+TOPNAME := top
 
-VSRC_OBJ := ./vsrc/top.v
-CSRC_OBJ := ./csrc/main.cpp
+# OBJ_DIR := ./obj_dir
+VSRC_OBJ := $(shell find $(abspath ./vsrc) -name "*.v")
+CSRC_OBJ := $(shell find $(abspath ./csrc) -name "*.c" -or -name "*.cc" -or -name "*.cpp")
 
 VERILATOR_INPUT = -f $(VSRC_OBJ) $(CSRC_OBJ)
 
-#generate C++ code and excutable file
-VERILATOR_FLAGS += -cc --exe
-
-#optimisation
-VERILATOR_FLAGS += -Os -x-assign 0
-
-#print all warnings
-VERILATOR_FLAGS += -Wall
-
-#generate waveforms
-VERILATOR_FLAGS += --trace
-
-#auto build when verilating
-VERILATOR_FLAGS += --build -y
+VERILATOR_FLAGS += -cc --exe -OS -x-assign 0 -Wall --trace --build -y
 
 sim:
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 #	@echo "Write this Makefile by your self."
+	@rm -rf $(OBJ_DIR)
+	$(shell mkdir logs)
 	@echo "-- VERILATE ----------------"
 	@echo "Verilating..."
 	$(VERILATOR) $(VERILATOR_FLAGS) $(VERILATOR_INPUT)
