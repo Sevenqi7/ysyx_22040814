@@ -27,7 +27,7 @@ CSRC_OBJ += $(SRC_AUTO_BIND)
 # VERILATOR_INPUT = -f $(VSRC_OBJ) $(CSRC_OBJ)
 
 INCFLAGS = $(addprefix -I, $(INC_PATH))
-VERILATOR_FLAGS += -cc --exe -OS -MMD -x-assign 0 -Wall --trace --build
+VERILATOR_FLAGS += -cc --exe -OS -MMD -x-assign 0 -j 6 -Wall --trace --build
 CFLAGS += $(INCFLAGS) -DTOP_NAME="\"V$(TOPNAME)\""
 LDFLAGS += -lSDL2 -lSDL2_image
 
@@ -36,11 +36,13 @@ $(SRC_AUTO_BIND): $(NXDC_FILES)
 
 all: $(BIN)
 #	@echo "Write this Makefile by your self."
-	@rm -rf $(OBJ_DIR)
+	
 	$(shell mkdir -p $(BUILD_DIR))
+	@rm -rf $(OBJ_DIR)
 
 
 $(BIN): $(VSRC_OBJ) $(CSRC_OBJ) $(NVBOARD_ARCHIVE)
+
 	$(VERILATOR) $(VERILATOR_FLAGS) $^ \
 	$(addprefix -CFLAGS , $(CFLAGS)) $(addprefix -LDFLAGS , $(LDFLAGS)) \
 	--top-module $(TOPNAME) \
@@ -62,4 +64,6 @@ sim:
 	./obj_dir/Vtop +trace
 	@echo "-- DONE --------------------"
 
+clean:
+	rm -rf $(OBJ_DIR)
 include ../Makefile

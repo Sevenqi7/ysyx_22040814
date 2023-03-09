@@ -1,34 +1,26 @@
 module top(
-  input clk,
-  input rst,
-  input [1:0] sw,
-  output [15:0] ledr
+  input  [9:0] io_sw,
+  output [1:0] io_led
 );
-  wire led_sw;
-
-//双控开关用于控制流水灯是否显示
-
-  switch switch1(
-    .a(sw[0]),
-    .b(sw[1]),
-    .f(led_sw)
+  wire [1:0] twobitsmux4_1_io_in_0; // @[top.scala 12:31]
+  wire [1:0] twobitsmux4_1_io_in_1; // @[top.scala 12:31]
+  wire [1:0] twobitsmux4_1_io_in_2; // @[top.scala 12:31]
+  wire [1:0] twobitsmux4_1_io_in_3; // @[top.scala 12:31]
+  wire [1:0] twobitsmux4_1_io_select; // @[top.scala 12:31]
+  wire [1:0] twobitsmux4_1_io_out; // @[top.scala 12:31]
+  MyParameterizedMux twobitsmux4_1 ( // @[top.scala 12:31]
+    .io_in_0(twobitsmux4_1_io_in_0),
+    .io_in_1(twobitsmux4_1_io_in_1),
+    .io_in_2(twobitsmux4_1_io_in_2),
+    .io_in_3(twobitsmux4_1_io_in_3),
+    .io_select(twobitsmux4_1_io_select),
+    .io_out(twobitsmux4_1_io_out)
   );
-
-  led led1(
-    .clk(clk),
-    .rst(rst),
-    .sw(led_sw),
-    .ledr(ledr)
-  );
-
-
-
-// initial begin
-//     if ($test$plusargs("trace") != 0) begin
-//         $display("[%0t] Tracing to logs/vlt_dump.vcd...\n", $time);
-//         $dumpfile("logs/vlt_dump.vcd");
-//         $dumpvars();
-//     end
-//         $display("[%0t] Model running...\n", $time);
-//    end
+  assign io_led = twobitsmux4_1_io_out; // @[top.scala 17:12]
+  assign twobitsmux4_1_io_in_0 = io_sw[3:2]; // @[top.scala 15:40]
+  assign twobitsmux4_1_io_in_1 = io_sw[5:4]; // @[top.scala 15:40]
+  assign twobitsmux4_1_io_in_2 = io_sw[7:6]; // @[top.scala 15:40]
+  assign twobitsmux4_1_io_in_3 = io_sw[9:8]; // @[top.scala 15:40]
+  assign twobitsmux4_1_io_select = io_sw[1:0]; // @[top.scala 13:37]
 endmodule
+
