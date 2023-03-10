@@ -57,11 +57,8 @@ static int cmd_help(char *args);
 
 static int cmd_si(char *args)
 {
-    Log("ee");
-    Log("args:%d",args[0]);
-    Log("ee");
-
-    cpu_exec(args[0]);
+    int steps = args ? atoi((const char *)args) : 1;
+    cpu_exec(steps);
     return 0;
 }
 
