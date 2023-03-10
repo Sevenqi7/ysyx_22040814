@@ -73,7 +73,7 @@ static int cmd_x(char *args)
     char *str;
     strtok(args, " ");
     str = args + strlen(args) + 1;
-    vaddr_t addr = *args;
+    vaddr_t addr = atoi(args);
     int bytes = *str;
     for(int i=0;i<bytes;i++)
         printf("%lx:%08lx\n", addr, paddr_read(addr, 4));
