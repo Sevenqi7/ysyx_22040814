@@ -17,6 +17,7 @@
 #include <cpu/cpu.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+#include <memory/paddr.h>
 #include "sdb.h"
 
 static int is_batch_mode = false;
@@ -64,6 +65,19 @@ static int cmd_si(char *args)
 
 static int cmd_x(char *args)
 {
+    if(!args)
+    {
+      printf("usage: x <READ_NUM> <ADDR>");
+      return 0;
+    }
+    char *str;
+    strtok(args, " ");
+    str = args + strlen(args) + 1;
+    vaddr_t addr = *args;
+    int bytes = *str;
+    for(int i=0;i<bytes;i++)
+        printf("%lx:%08lx\n", addr, paddr_read(addr, 4));
+    
     return 0;
 }
 
