@@ -78,8 +78,8 @@ static int cmd_x(char *args)
     vaddr_t addr = strtol(args, &temp, 16);
     int bytes = atoi(str);
     Log("Bytes:%lu addr:%d", addr, bytes);
-    for(int i=0;i<bytes;i++)
-        printf("%lx:%08lx\n", addr, paddr_read(addr, 4));
+    for(int i=0;i<bytes;i++, addr+=4)
+        printf("0x%lx:%08lx\n", addr, paddr_read(addr, 4));
     
     return 0;
 }
