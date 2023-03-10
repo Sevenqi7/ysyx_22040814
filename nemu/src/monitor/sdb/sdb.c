@@ -43,14 +43,14 @@ static char* rl_gets() {
 }
 
 static int cmd_c(char *args) {
-  cpu_exec(-1);
-  return 0;
+    cpu_exec(-1);
+    return 0;
 }
 
 
 static int cmd_q(char *args) {
-  nemu_state.state = NEMU_QUIT;
-  return -1;
+    nemu_state.state = NEMU_QUIT;
+    return -1;
 }
 
 static int cmd_help(char *args);
@@ -62,6 +62,11 @@ static int cmd_si(char *args)
     return 0;
 }
 
+static int cmd_x(char *args)
+{
+    return 0;
+}
+
 static struct {
   const char *name;
   const char *description;
@@ -70,7 +75,8 @@ static struct {
   { "help", "Display information about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
-  { "si", "Step next N commands, 1 if N is not given", cmd_si}
+  { "si", "Step next N commands, 1 if N is not given", cmd_si},
+  { "x", "Print the content of memory with a given address.", cmd_x}
 
   /* TODO: Add more commands */
 
