@@ -101,13 +101,13 @@ void sdb_mainloop() {
     cmd_c(NULL);
     return;
   }
-  Log("unreach");
   for (char *str; (str = rl_gets()) != NULL; ) {
     char *str_end = str + strlen(str);
 
     /* extract the first token as the command */
     char *cmd = strtok(str, " ");
     if (cmd == NULL) { continue; }
+  Log("TEST FOR Q");
 
     /* treat the remaining string as the arguments,
      * which may need further parsing
