@@ -107,7 +107,6 @@ void sdb_mainloop() {
     /* extract the first token as the command */
     char *cmd = strtok(str, " ");
     if (cmd == NULL) { continue; }
-  Log("TEST FOR Q");
 
     /* treat the remaining string as the arguments,
      * which may need further parsing
@@ -116,6 +115,7 @@ void sdb_mainloop() {
     if (args >= str_end) {
       args = NULL;
     }
+  Log("TEST FOR Q");
 
 #ifdef CONFIG_DEVICE
     extern void sdl_clear_event_queue();
