@@ -75,7 +75,7 @@ static int cmd_x(char *args)
     str = args + strlen(args) + 1;
     args += 2;
     char *temp = NULL;
-    vaddr_t addr = strtol(str, &temp, 16);
+    vaddr_t addr = strtol(args, &temp, 16);
     int bytes = atoi(str);
     Log("Bytes:%lu addr:%d", addr, bytes);
     for(int i=0;i<bytes;i++)
