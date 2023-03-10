@@ -115,7 +115,6 @@ void sdb_mainloop() {
     if (args >= str_end) {
       args = NULL;
     }
-  Log("TEST FOR Q");
 
 #ifdef CONFIG_DEVICE
     extern void sdl_clear_event_queue();
@@ -129,6 +128,7 @@ void sdb_mainloop() {
         break;
       }
     }
+  Log("TEST FOR Q");
 
     if (i == NR_CMD) { printf("Unknown command '%s'\n", cmd); }
   }
