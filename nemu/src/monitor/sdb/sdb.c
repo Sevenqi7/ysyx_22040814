@@ -59,6 +59,8 @@ static int cmd_si(char *args)
 {
     Log("ee");
     Log("args:%d",args[0]);
+    Log("ee");
+
     cpu_exec(args[0]);
     return 0;
 }
