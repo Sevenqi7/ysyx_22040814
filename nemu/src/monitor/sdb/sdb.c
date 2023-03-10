@@ -101,6 +101,7 @@ void sdb_mainloop() {
     cmd_c(NULL);
     return;
   }
+
   for (char *str; (str = rl_gets()) != NULL; ) {
     char *str_end = str + strlen(str);
 
@@ -128,7 +129,6 @@ void sdb_mainloop() {
         break;
       }
     }
-  Log("TEST FOR Q");
 
     if (i == NR_CMD) { printf("Unknown command '%s'\n", cmd); }
   }
