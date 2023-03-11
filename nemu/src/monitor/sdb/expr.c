@@ -117,7 +117,6 @@ static bool make_token(char *e) {
               Log("position:%d", position);
               memcpy(tokens[nr_token].str, &e[position], substr_len);
               tokens[nr_token].str[substr_len] = '\0';
-              tokens[nr_token++].type = rules[i].token_type;
           default: 
               tokens[nr_token++].type = rules[i].token_type;
         }
