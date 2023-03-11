@@ -209,6 +209,7 @@ word_t eval(int p, int q)
         assert(flag == true);
         word_t val1 = eval(p, op-1);
         word_t val2 = eval(op+1, q);
+        // Log("val1:%d val2:%d op_type: %c", val1, val2, tokens[op].type);
         switch(tokens[op].type)
         {
             case '+': return val1 + val2;
