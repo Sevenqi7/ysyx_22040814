@@ -114,7 +114,7 @@ static bool make_token(char *e) {
         switch (rules[i].token_type) {
           // default: TODO();
           case(TK_NUM || TK_REGISTER):
-              memcpy(tokens[nr_token].str, &e[position], substr_len);
+              memcpy(tokens[nr_token].str, &e[position-substr_len], substr_len);
               tokens[nr_token].str[substr_len] = '\0';
               tokens[nr_token++].type = rules[i].token_type;
           default: 
