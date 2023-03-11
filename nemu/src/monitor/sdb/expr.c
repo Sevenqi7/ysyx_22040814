@@ -204,7 +204,7 @@ word_t eval(int p, int q)
             flag = true;
             op = op2;
         }
-        for(int i=0;i<nr_token-1;i++)
+        for(int i=0;i<nr_token;i++)
         {
             Log("token[%d]: %d\n", i, tokens[i].type);
             Log("flag = %d", flag);
