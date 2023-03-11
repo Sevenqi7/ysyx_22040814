@@ -204,6 +204,7 @@ word_t eval(int p, int q)
         for(int i=0;i<nr_token-1;i++)
         {
             Log("token[%d]: %d\n", i, tokens[i].type);
+            Log("flag = %d", flag);
         }
         assert(flag == true);
         word_t val1 = eval(p, op-1);
