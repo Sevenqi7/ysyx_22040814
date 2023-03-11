@@ -156,7 +156,7 @@ bool check_parentheses(int p, int q)
 
 word_t eval(int p, int q)
 { 
-    Log("p: %d q: %d", p, q);
+    // Log("p: %d q: %d", p, q);
     if(p > q)
         return -1;
     else if(p == q)
@@ -205,11 +205,7 @@ word_t eval(int p, int q)
             flag = true;
             op = op2;
         }
-        for(int i=0;i<nr_token;i++)
-        {
-            Log("token[%d]: %d\n", i, tokens[i].type);
-            Log("flag = %d", flag);
-        }
+     
         assert(flag == true);
         word_t val1 = eval(p, op-1);
         word_t val2 = eval(op+1, q);
