@@ -74,7 +74,8 @@ static int cmd_x(char *args)
     char *str_end = args + strlen(args);
     strtok(args, " ");
     char *str = args + strlen(args) + 1;
-    args += 2;
+    if(!strncmp("0x", args, 2))
+        args += 2;
     char *temp = NULL;
     vaddr_t addr = strtol(args, &temp, 16);
     int bytes = str < str_end ? atoi(str) : 1;
