@@ -104,7 +104,6 @@ static bool make_token(char *e) {
             printf("Numeric constant too large.\n");
             return true;
         }
-        position += substr_len;
 
         /* TODO: Now a new token is recognized with rules[i]. Add codes
          * to record the token in the array `tokens'. For certain types
@@ -116,13 +115,14 @@ static bool make_token(char *e) {
           case(TK_NUM):
           case(TK_REGISTER):
               Log("position:%d", position);
-              memcpy(tokens[nr_token].str, &e[position-substr_len], substr_len);
+              memcpy(tokens[nr_token].str, &e[position], substr_len);
               tokens[nr_token].str[substr_len] = '\0';
               tokens[nr_token++].type = rules[i].token_type;
           default: 
               tokens[nr_token++].type = rules[i].token_type;
         }
 
+        position += substr_len;
         break;
       }
     }
