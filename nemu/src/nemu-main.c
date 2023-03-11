@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
   init_monitor(argc, argv);
 #endif
   bool s;
-  expr("$t0 $t1", &s);
+  Log("test expr: 1213 + 2131 = %lu\n", expr("1213+2131", &s));
   /* Start engine. */
   engine_start();
 

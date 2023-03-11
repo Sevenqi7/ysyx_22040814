@@ -18,6 +18,7 @@
 /* We use the POSIX regex functions to process regular expressions.
  * Type 'man regex' for more information about POSIX regex functions.
  */
+#include <stdbool.h>
 #include <regex.h>
 
 enum {
@@ -41,6 +42,8 @@ static struct rule {
   {"\\+", '+'},         // plus
   {"\\*", '*'},         // multiply
   {"\\/", '/'},         // divide
+  {"(", '('},
+  {")", ')'},
   {"&&", TK_LOGIC_AND}, // logical and
   {"\\|\\|", TK_LOGIC_OR},  //logical or
   {"!=", TK_UNEQ},      // unequal
@@ -131,6 +134,86 @@ static bool make_token(char *e) {
   return true;
 }
 
+bool check_parentheses(int p, int q)
+{
+    bool flag = false;
+    if(p < q && tokens[p].type == '(')
+    {
+        int pair = 1;
+        for(int i=p+1;i<q;i++)
+        {
+            if(tokens[i].type == '(')
+                pair++;
+            else if(tokens[i].type == ')')
+                pair--;
+        }
+        if(pair == 1 && tokens[q].type == ')')
+            flag = true;
+    }
+    
+    return flag;
+}
+
+word_t eval(int p, int q)
+{ 
+    if(p > q)
+        return -1;
+    else if(p == q)
+    {
+        if(tokens[p].type == TK_NUM)
+            return atoi(tokens[p].str);
+        else
+            panic("An nonnumeric single token!\n");
+    }
+    else if(check_parentheses(p, q))
+        return eval(p+1, q-1);
+    else
+    {
+        //op: the location of the main operation
+        //op2: the location of a '*' or '/' operation. when there is not '+' or '-', op2 will be main operation
+        int op = -1, pari = 0, op2 = -1;
+        
+        bool flag = false;
+        // Search for a '+' or '-' as the main operation
+        for(int i=q;i>p && !flag;i--)
+        {
+            if(pari == 0)
+            {
+                switch(tokens[i].type)
+                {
+                    case '+':
+                    case '-':
+                        op = i;
+                        flag = true;
+                        break;
+                    default:
+                        continue;
+                }
+            }
+            if(tokens[i].type == ')')
+                pari++;
+            else if(tokens[i].type == '(')
+                pari--;
+        }
+        // if not found, search for a '*' or '/' as main operation
+        if(!flag && op2 != -1)
+        {
+            flag = true;
+            op = op2;
+        }
+        assert(flag == true);
+        word_t val1 = eval(p, op-1);
+        word_t val2 = eval(op, q);
+        switch(tokens[op].type)
+        {
+            case '+': return val1 + val2;
+            case '-': return val1 - val2;
+            case '*': return val1 * val2;
+            case '/': return val1 / val2;
+            default : assert(0);
+        }
+    }
+}
 
 word_t expr(char *e, bool *success) {
   if (!make_token(e)) {
@@ -139,7 +222,7 @@ word_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  // TODO();
+  TODO();
 
   return 0;
 }
