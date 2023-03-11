@@ -114,7 +114,6 @@ static bool make_token(char *e) {
           // default: TODO();
           case(TK_NUM):
           case(TK_REGISTER):
-              Log("position:%d", position);
               memcpy(tokens[nr_token].str, &e[position], substr_len);
               tokens[nr_token].str[substr_len] = '\0';
           default: 
@@ -210,7 +209,7 @@ word_t eval(int p, int q)
         assert(flag == true);
         word_t val1 = eval(p, op-1);
         word_t val2 = eval(op+1, q);
-        Log("val1:%lu val2:%lu op_type: %c", val1, val2, (char)tokens[op].type);
+        // Log("val1:%lu val2:%lu op_type: %c", val1, val2, (char)tokens[op].type);
         switch(tokens[op].type)
         {
             case '+': return val1 + val2;
