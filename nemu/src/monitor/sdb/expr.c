@@ -22,7 +22,8 @@
 
 enum {
   TK_NOTYPE = 256, TK_EQ,
-  TK_NUM, TK_LOGIC_OR
+  TK_NUM, TK_LOGIC_OR, TK_LOGIC_AND, 
+  TK_REGISTER, TK_UNEQ
   /* TODO: Add more token types */
 
 };
@@ -40,8 +41,11 @@ static struct rule {
   {"\\+", '+'},         // plus
   {"\\*", '*'},         // multiply
   {"\\/", '/'},         // divide
+  {"&&", TK_LOGIC_AND}, // logical and
   {"\\|\\|", TK_LOGIC_OR},  //logical or
+  {"!=", TK_UNEQ},      // unequal
   {"==", TK_EQ},        // equal
+  // {"\\$[a-dA- D][hlHL]|\\$[eE]?(ax|dx|cx|bx|bp|si|di|sp)",TK_REGISTER}
 };
 
 #define NR_REGEX ARRLEN(rules)
