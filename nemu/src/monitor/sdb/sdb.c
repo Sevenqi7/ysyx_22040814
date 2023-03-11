@@ -20,6 +20,7 @@
 #include <memory/paddr.h>
 #include "sdb.h"
 
+
 static int is_batch_mode = false;
 
 void init_regex();
@@ -84,6 +85,21 @@ static int cmd_x(char *args)
     return 0;
 }
 
+static int cmd_info(char *args)
+{
+    if (!args)
+    {
+        printf("usage: info -r <REG> / info -w <WATCHPOINT>\n");
+        return 0;
+    }
+    if (!strcmp("r", args))
+    {
+        isa_reg_display();
+        return 0;
+    }
+    return 0;
+}
+
 static struct {
   const char *name;
   const char *description;
@@ -93,7 +109,8 @@ static struct {
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
   { "si", "Step next N commands, 1 if N is not given", cmd_si},
-  { "x", "Print the content of memory with a given address.", cmd_x}
+  { "x", "Print the content of memory with a given address.", cmd_x},
+  { "info", "Print the content of register(-r) or watchpoing(-w).", cmd_info}
 
   /* TODO: Add more commands */
 
