@@ -87,15 +87,16 @@ static int cmd_x(char *args)
 
 static int cmd_info(char *args)
 {
-    if (!args)
+    if(!args)
     {
-        printf("usage: info -r <REG> / info -w <WATCHPOINT>\n");
+        printf("usage: <REG>: info r /<WATCHPOINT> info w\n");
         return 0;
     }
-    if (!strcmp("r", args))
-    {
+    if(!strcmp("r", args))
         isa_reg_display();
-        return 0;
+    else if(!strcmp("w", args))
+    {
+        return 0;        
     }
     return 0;
 }
