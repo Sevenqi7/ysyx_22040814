@@ -160,8 +160,11 @@ word_t eval(int p, int q)
         return -1;
     else if(p == q)
     {
+        int start = 0;
+        while(tokens[p].str[start] == ' ')
+            start++;
         if(tokens[p].type == TK_NUM)
-            return atoi(tokens[p].str);
+            return atoi(&tokens[p].str[start]);
         else
             panic("An nonnumeric single token!\n");
     }
