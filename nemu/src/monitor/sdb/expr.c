@@ -96,6 +96,11 @@ static bool make_token(char *e) {
         Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
             i, rules[i].regex, position, substr_len, substr_len, substr_start);
 
+        if(substr_len > sizeof(tokens->str))
+        {
+            printf("Numeric constant too large.\n");
+            return true;
+        }
         position += substr_len;
 
         /* TODO: Now a new token is recognized with rules[i]. Add codes
@@ -105,7 +110,7 @@ static bool make_token(char *e) {
 
         switch (rules[i].token_type) {
           // default: TODO();
-          case(TK_NUM):
+          case(TK_NUM || TK_REGISTER):
               memcpy(tokens[nr_token].str, &e[position], substr_len);
               tokens[nr_token].str[substr_len] = '\0';
               tokens[nr_token++].type = rules[i].token_type;

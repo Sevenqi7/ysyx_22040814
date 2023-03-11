@@ -14,6 +14,7 @@
 ***************************************************************************************/
 
 #include <common.h>
+#include </home/seven7/Documents/学业/一生一芯/ysyx-workbench/nemu/src/monitor/sdb/sdb.h>
 
 void init_monitor(int, char *[]);
 void am_init_monitor();
@@ -27,7 +28,8 @@ int main(int argc, char *argv[]) {
 #else
   init_monitor(argc, argv);
 #endif
-
+  bool s;
+  expr("$t0 $t1", &s);
   /* Start engine. */
   engine_start();
 
