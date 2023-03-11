@@ -45,7 +45,9 @@ static struct rule {
   {"\\|\\|", TK_LOGIC_OR},  //logical or
   {"!=", TK_UNEQ},      // unequal
   {"==", TK_EQ},        // equal
-  // {"\\$[a-dA- D][hlHL]|\\$[eE]?(ax|dx|cx|bx|bp|si|di|sp)",TK_REGISTER}
+  {"\\$0|\\$t[0-6p]|\\$a[0-7]|\\$s[0-9]+|\\$gp|\\$ra|\\$sp", TK_REGISTER},
+  {"[0-9]+", TK_NUM}
+  // {"\\\$[a-dA- D][hlHL]|\\\$[eE]?(ax|dx|cx|bx|bp|si|di|sp)",TK_REGISTER}
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -103,6 +105,10 @@ static bool make_token(char *e) {
 
         switch (rules[i].token_type) {
           // default: TODO();
+          case(TK_NUM):
+              memcpy(tokens[nr_token].str, &e[position], substr_len);
+              tokens[nr_token].str[substr_len] = '\0';
+              tokens[nr_token++].type = rules[i].token_type;
           default: 
               tokens[nr_token++].type = rules[i].token_type;
         }
