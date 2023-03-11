@@ -207,7 +207,8 @@ word_t eval(int p, int q)
         }
      
         assert(flag == true);
-        int not_space = op, not_space2 = op;
+        //skip all space
+        int not_space = op-1, not_space2 = op+1;
         while(tokens[not_space].type == TK_NOTYPE)
             not_space--;
         while(tokens[not_space2].type == TK_NOTYPE)
