@@ -201,6 +201,10 @@ word_t eval(int p, int q)
             flag = true;
             op = op2;
         }
+        for(int i=0;i<nr_token-1;i++)
+        {
+            Log("token[%d]: %d\n", i, tokens[i].type);
+        }
         assert(flag == true);
         word_t val1 = eval(p, op-1);
         word_t val2 = eval(op, q);
@@ -220,9 +224,9 @@ word_t expr(char *e, bool *success) {
     *success = false;
     return 0;
   }
-
+  assert(nr_token > 0);
   /* TODO: Insert codes to evaluate the expression. */
-  return eval(0, nr_token);
+  return eval(0, nr_token-1);
 
   // return 0;
 }
