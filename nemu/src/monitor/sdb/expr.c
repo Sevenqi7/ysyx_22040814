@@ -42,8 +42,8 @@ static struct rule {
   {"\\+", '+'},         // plus
   {"\\*", '*'},         // multiply
   {"\\/", '/'},         // divide
-  {"(", '('},
-  {")", ')'},
+  {"\\(", '('},
+  {"\\)", ')'},
   {"&&", TK_LOGIC_AND}, // logical and
   {"\\|\\|", TK_LOGIC_OR},  //logical or
   {"!=", TK_UNEQ},      // unequal
