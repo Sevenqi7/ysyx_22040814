@@ -113,7 +113,8 @@ static bool make_token(char *e) {
 
         switch (rules[i].token_type) {
           // default: TODO();
-          case(TK_NUM || TK_REGISTER):
+          case(TK_NUM):
+          case(TK_REGISTER):
               Log("position:%d", position);
               memcpy(tokens[nr_token].str, &e[position-substr_len], substr_len);
               tokens[nr_token].str[substr_len] = '\0';
