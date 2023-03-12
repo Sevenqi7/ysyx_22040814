@@ -80,14 +80,14 @@ static int cmd_x(char *args)
     // vaddr_t addr = strtol(args, &temp, 16);
     bool success = false;
     vaddr_t addr = expr(str, &success);
-    int bytes = expr(args, &success);
+    int times = expr(args, &success);
     if(!success)
     {
         printf("Wrong Arguments!\n");
         return 0;
     }
     // Log("Bytes:%lu addr:%d", addr, bytes);
-    for(int i=0;i<bytes * 4;i++, addr+=4)
+    for(int i=0;i<times;i++, addr+=4)
     {
         printf("0x%lx: ", addr);
         for(int j=0;j<4;j++)
