@@ -19,13 +19,14 @@
  */
 #include <stdbool.h>
 #include <stdlib.h>
+#include <memory/paddr.h>
 #include <regex.h>
 
 
 enum {
-  TK_NOTYPE = 256, TK_EQ,
-  TK_NUM, TK_HEXNUM, TK_LOGIC_OR, TK_LOGIC_AND, 
-  TK_REGISTER, TK_UNEQ, TK_DEREF
+  TK_NOTYPE = 256, TK_NUM, TK_HEXNUM,TK_REGISTER, 
+  TK_EQ,TK_LOGIC_OR, TK_LOGIC_AND, 
+  TK_UNEQ, TK_DEREF
   /* TODO: Add more token types */
 
 };
@@ -175,13 +176,20 @@ long eval(int p, int q)
         return -1;
     else if(p == q)
     {
-        // int start = 0;
-        // while(tokens[p].str[start] == ' ')
-        //     start++;
         if(tokens[p].type == TK_NUM)
-            return atoi(tokens[p].str);
+        {   
+            if(tokens[p-1].type == TK_DEREF)
+                return paddr_read(atoi(tokens[p].str), 4);
+            else
+                return atoi(tokens[p].str);
+        }
         else if(tokens[p].type == TK_HEXNUM)
-            return strtol(tokens[p].str, NULL, 16);
+        {
+            if(tokens[p-1].type == TK_DEREF)
+                return paddr_read(strtol(tokens[p].str, NULL, 16), 4);
+            else
+                return strtol(tokens[p].str, NULL, 16);
+        }
         else if(tokens[p].type == TK_REGISTER)
         {
             bool success;
@@ -281,6 +289,18 @@ word_t expr(char *e, bool *success) {
   }
   assert(nr_token > 0);
   *success = true;
+  for (int i = 0; i < nr_token; i ++) 
+  { 
+      int j;
+      for(j=i-1;tokens[j].type != TK_NOTYPE && j >= 0;j--);
+      if (tokens[i].type == '*' && (i == 0 || tokens[j].type == '(' || 
+          tokens[j].type == '+' || tokens[j].type == '-' || 
+          tokens[j].type == '*' || tokens[j].type == '/' ||
+          tokens[j].type >= TK_EQ || tokens[j].type <= TK_UNEQ)) 
+      {
+          tokens[i].type = TK_DEREF;
+      }
+  }
   /* TODO: Insert codes to evaluate the expression. */
   return (word_t)eval(0, nr_token-1);
 
