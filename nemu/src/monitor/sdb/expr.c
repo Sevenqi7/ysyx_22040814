@@ -205,7 +205,7 @@ word_t eval(int p, int q)
             flag = true;
             op = op2;
         }
-     
+        Log("op=%d", op);
         assert(flag == true);
         //skip all space
         int not_space = op-1, not_space2 = op+1;
