@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
   int i=0;
   bool s;
   Log("result is:%lu", expr("0x50 + 0x10 + 2", &s));
-  assert(0);
+  // assert(0);
   do{
       unsigned long result;
       assert(fscanf(fp, "%lu", &result));
