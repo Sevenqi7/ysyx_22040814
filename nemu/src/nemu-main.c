@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
       assert(fscanf(fp, "%d", &result));
       Log("result=%d", result);
       char* ret = fgets(str, 65534, fp);
-      Log("position13:%d", str[13]);
+      str[strlen(str)-1] = '\0';
       if(ret) Log("expression:%s", str);
       assert(expr(str, &s) == result);
   }while(i++<100);
