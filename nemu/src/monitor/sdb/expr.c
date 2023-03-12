@@ -140,7 +140,7 @@ bool check_parentheses(int p, int q)
     bool flag = false;
     if(p < q && tokens[p].type == '(')
     {
-        int pair = 1;
+        int pair = 0;
         for(int i=p+1;i<=q;i++)
         {
             if(tokens[i].type == '(')
@@ -148,7 +148,7 @@ bool check_parentheses(int p, int q)
             else if(tokens[i].type == ')')
                 pair--;
         }
-        if(pair == 1 && tokens[q].type == ')')
+        if(pair == 0 && tokens[q].type == ')')
             flag = true;
     }
     
