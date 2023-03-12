@@ -40,6 +40,7 @@ static struct rule {
 
   {" +", TK_NOTYPE},    // spaces
   {"\\+", '+'},         // plus
+  {"-", '-'},           // sub
   {"\\*", '*'},         // multiply
   {"\\/", '/'},         // divide
   {"\\(", '('},
