@@ -205,7 +205,7 @@ word_t eval(int p, int q)
                     case '/':
                         op2 = i;
                     default:
-                        continue;
+                        break;
                 }
             }
         }
