@@ -29,14 +29,13 @@ int main(int argc, char *argv[]) {
 #else
   init_monitor(argc, argv);
 #endif
-  FILE *fp = fopen("/home/seven7/Documents/学业/一生一芯/ysyx-workbench/nemu/tools/gen-expr/build/input", "r");
+  FILE *fp = fopen("/home/seven7/Documents/学业/一生一芯/ysyx-workbench/nemu/tools/gen-expr/input", "r");
   
   char str[65535];
   int i=0;
   bool s;
   assert(expr("(8/  4    *   (   9     -    8   )) ", &s) == 2);
   assert(expr("(8/  4    *   (   9     -    8   ))", &s) == 2);
-  printf("%ld\n",sizeof(int));
   do{
       unsigned long result;
       assert(fscanf(fp, "%lu", &result));
