@@ -37,9 +37,9 @@ int main(int argc, char *argv[]) {
   do{
       int result;
       assert(fscanf(fp, "%d", &result));
+      Log("result=%d", result);
       char* ret = fgets(str, 65534, fp);
-      if(ret) Log("result=%d", result);
-      Log("expression:%s", str);
+      if(ret) Log("expression:%s", str);
       assert(expr(str, &s) == result);
   }while(i++<100);
   /* Start engine. */
