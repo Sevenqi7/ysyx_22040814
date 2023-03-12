@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
 #else
   init_monitor(argc, argv);
 #endif
-  FILE *fp = popen("/home/seven7/Documents/学业/一生一芯/ysyx-workbench/nemu/tools/gen-expr/build/input", "r");
+  FILE *fp = fopen("/home/seven7/Documents/学业/一生一芯/ysyx-workbench/nemu/tools/gen-expr/build/input", "r");
   
   char str[65535];
   int i=0;
