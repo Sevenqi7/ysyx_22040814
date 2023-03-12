@@ -216,7 +216,14 @@ long eval(int p, int q)
             op = op2;
         }
         Log("op=%d", op);
-        assert(flag == true);
+        if(flag != true)
+        {
+            for(int i=p;i<=q;i++)
+            {
+                Log("Token[i]: %c", tokens[i].type);
+            }
+            assert(flag == true);
+        }
         //skip all space
         int not_space = op-1, not_space2 = op+1;
         while(tokens[not_space].type == TK_NOTYPE)
