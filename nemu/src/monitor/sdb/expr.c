@@ -19,11 +19,12 @@
  * Type 'man regex' for more information about POSIX regex functions.
  */
 #include <stdbool.h>
+#include <stdlib.h>
 #include <regex.h>
 
 enum {
   TK_NOTYPE = 256, TK_EQ,
-  TK_NUM, TK_LOGIC_OR, TK_LOGIC_AND, 
+  TK_NUM, TK_HEXNUM, TK_LOGIC_OR, TK_LOGIC_AND, 
   TK_REGISTER, TK_UNEQ
   /* TODO: Add more token types */
 
@@ -50,6 +51,7 @@ static struct rule {
   {"!=", TK_UNEQ},      // unequal
   {"==", TK_EQ},        // equal
   {"\\$0|\\$t[0-6p]|\\$a[0-7]|\\$s[0-9]+|\\$gp|\\$ra|\\$sp", TK_REGISTER},
+  {"0x[0-9]+|0X[0-9]", TK_HEXNUM},
   {"[0-9]+", TK_NUM}
   // {"\\\$[a-dA- D][hlHL]|\\\$[eE]?(ax|dx|cx|bx|bp|si|di|sp)",TK_REGISTER}
 };
@@ -177,6 +179,8 @@ long eval(int p, int q)
         //     start++;
         if(tokens[p].type == TK_NUM)
             return atoi(tokens[p].str);
+        else if(tokens[p].type == TK_HEXNUM)
+            return strtol(tokens[p].str, NULL, 16);
         else
             panic("An nonnumeric single token!\n");
     }
@@ -220,18 +224,9 @@ long eval(int p, int q)
             flag = true;
             op = op2;
         }
-        Log("op=%d", op);
-        if(flag != true)
-        {
-            for(int i=p;i<=q;i++)
-            {
-                if(tokens[i].type == TK_NUM)
-                    Log("Token[i]: %d", atoi(tokens[i].str));
-                else
-                    Log("Token[i]: %c", tokens[i].type);
-            }
-            assert(flag == true);
-        }
+        // Log("op=%d", op);
+        assert(flag == true);
+        
         //skip all space
         int not_space = op-1, not_space2 = op+1;
         while(tokens[not_space].type == TK_NOTYPE)
