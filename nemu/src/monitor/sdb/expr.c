@@ -148,8 +148,9 @@ bool check_parentheses(int p, int q)
                 pair++;
             else if(tokens[i].type == ')')
                 pair--;
-            if(pair < 0)
+            if(pair < 0 )
                 return false;
+            Log("i:%d, pair: %d", i, pair);
         }
         if(pair == 0 && tokens[q].type == ')')
             flag = true;
