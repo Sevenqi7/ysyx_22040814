@@ -31,8 +31,58 @@ static char *code_format =
 "  return 0; "
 "}";
 
+static int pos;
+
+static unsigned int choose(unsigned int a)
+{
+    return (unsigned int) rand() % a;
+}
+
+static void gen(char c)
+{
+    buf[pos++] = c;
+}
+
+
+static void gen_space(int times)
+{
+    for(int i=0;i<times;i++)
+        gen(' ');
+}
+
+static void gen_num(void)
+{
+    gen_space(rand() % 4);
+    gen('0' + choose(10));
+    gen_space(rand() % 4);
+}
+
+static void gen_rand_op(void)
+{
+    gen_space(rand() % 4);
+    switch(choose(4))
+    {
+        case 0:
+            gen('+');break;
+        case 1:
+            gen('-');break;
+        case 2:
+            gen('*');break;
+        default:
+            gen('/');break;
+    }
+    gen_space(rand() % 4);
+}
+
 static void gen_rand_expr() {
-  buf[0] = '\0';
+    if(pos > 60000)
+        return;
+    switch (rand() % 3) {
+    case 0: gen_num(); break;
+    case 1: gen('('); gen_rand_expr(); gen(')'); break;
+    default: gen_rand_expr(); gen_rand_op(); gen_rand_expr(); break;
+  }
+    // buf[pos++] = '\0';
 }
 
 int main(int argc, char *argv[]) {
@@ -44,7 +94,11 @@ int main(int argc, char *argv[]) {
   }
   int i;
   for (i = 0; i < loop; i ++) {
+    pos = 0;
     gen_rand_expr();
+    buf[pos++] = '\0';
+    // printf("pos=%d\n", pos);
+    // printf("%s\n", buf);
 
     sprintf(code_buf, code_format, buf);
 
@@ -58,10 +112,11 @@ int main(int argc, char *argv[]) {
 
     fp = popen("/tmp/.expr", "r");
     assert(fp != NULL);
-
     int result;
-    fscanf(fp, "%d", &result);
-    pclose(fp);
+    int a = fscanf(fp, "%d", &result);
+    a = 0;
+    if(!a)
+      pclose(fp);
 
     printf("%u %s\n", result, buf);
   }

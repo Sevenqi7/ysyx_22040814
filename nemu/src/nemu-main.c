@@ -16,6 +16,7 @@
 #include <common.h>
 #include </home/seven7/Documents/学业/一生一芯/ysyx-workbench/nemu/src/monitor/sdb/sdb.h>
 
+#include <stdio.h>
 void init_monitor(int, char *[]);
 void am_init_monitor();
 void engine_start();
@@ -28,8 +29,16 @@ int main(int argc, char *argv[]) {
 #else
   init_monitor(argc, argv);
 #endif
+  FILE *fp = popen("/home/seven7/Documents/学业/一生一芯/ysyx-workbench/nemu/tools/gen-expr/build/input", "r");
+  char str[65535];
+  int i=0;
   bool s;
-  Log("test expr: 1213 + 2131 = %lu\n", expr("1213 + 2131", &s));
+  do{
+      int result;
+      assert(fscanf(fp, "%d", &result));
+      assert(fgets(str, 65534, fp));
+      assert(expr(str, &s) == result);
+  }while(i++<100);
   /* Start engine. */
   engine_start();
 
