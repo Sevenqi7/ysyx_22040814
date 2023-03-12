@@ -39,12 +39,12 @@ int main(int argc, char *argv[]) {
   do{
       unsigned long result;
       assert(fscanf(fp, "%lu", &result));
-      Log("result=%lu", result);
       char* ret = fgets(str, 65534, fp);
       str[strlen(str)-1] = '\0';
 
       if(ret) Log("expression:%s", str);
       unsigned long get_result = expr(str, &s);
+      Log("result=%lu", result);
       Log("get_result=%lu", get_result);
       assert(get_result == result);
   }while(i++<100);
