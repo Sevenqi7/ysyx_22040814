@@ -49,6 +49,20 @@ static int cmd_c(char *args) {
     return 0;
 }
 
+static int cmd_p(char *args)
+{
+    if(!args)
+    {
+        printf("Usage: p <EXPRESSION>\n");
+        return 0;
+    }
+    bool success = false;
+    word_t result = expr(args, &success);
+    if(!success)
+        printf("Arugments Wrong!\n");
+    printf("%lu\n", result);
+    return 0;
+}
 
 static int cmd_q(char *args) {
     nemu_state.state = NEMU_QUIT;
@@ -127,6 +141,7 @@ static struct {
 } cmd_table [] = {
   { "help", "Display information about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
+  { "p", "Display the value of the given expression.", cmd_p},
   { "q", "Exit NEMU", cmd_q },
   { "si", "Step next N commands, 1 if N is not given", cmd_si},
   { "x", "Print the content of memory with a given address.", cmd_x},
