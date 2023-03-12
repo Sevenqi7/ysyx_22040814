@@ -200,23 +200,26 @@ long eval(int p, int q)
                 pari++;
             else if(tokens[i].type == '(')
                 pari--;
-            switch(tokens[i].type)
+            if(pari == 0)
             {
-                case TK_LOGIC_AND:
-                    if(op[0] == -1)
-                      op[0] = i;
-                    break;
-                case '+':
-                case '-':
-                    if(op[1] == -1)
-                      op[1] = i;
-                    break;
-                case '*':
-                case '/':
-                    if(op[2] == -1)
-                        op[2] = i;
-                default:
-                     break;
+                switch(tokens[i].type)
+                {
+                    case TK_LOGIC_AND:
+                        if(op[0] == -1)
+                          op[0] = i;
+                        break;
+                    case '+':
+                    case '-':
+                        if(op[1] == -1)
+                          op[1] = i;
+                        break;
+                    case '*':
+                    case '/':
+                        if(op[2] == -1)
+                            op[2] = i;
+                    default:
+                        break;
+                }
             }
         }
         // if not found, search for a '*' or '/' as main operation
