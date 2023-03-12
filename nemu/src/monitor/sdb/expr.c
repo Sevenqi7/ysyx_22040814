@@ -162,7 +162,7 @@ bool check_parentheses(int p, int q)
 
 long eval(int p, int q)
 { 
-    Log("p: %d q: %d", p, q);
+    // Log("p: %d q: %d", p, q);
     while(tokens[p].type == TK_NOTYPE)
         p++;
     while(tokens[q].type == TK_NOTYPE)
