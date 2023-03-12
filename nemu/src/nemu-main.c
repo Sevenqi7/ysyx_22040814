@@ -38,7 +38,7 @@ int main(int argc, char *argv[]) {
   assert(expr("(8/  4    *   (   9     -    8   ))", &s) == 2);
 
   do{
-      int result;
+      unsigned int result;
       assert(fscanf(fp, "%d", &result));
       Log("result=%d", result);
       char* ret = fgets(str, 65534, fp);
