@@ -224,7 +224,7 @@ long eval(int p, int q)
         }
         // if not found, search for a '*' or '/' as main operation
         int op_type = -1;
-        for(int i=0;i<2;i++)
+        for(int i=0;i<3;i++)
         {
             if(op[i] != -1)
             {
