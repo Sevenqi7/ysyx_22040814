@@ -156,7 +156,7 @@ bool check_parentheses(int p, int q)
     return flag;
 }
 
-word_t eval(int p, int q)
+long eval(int p, int q)
 { 
     Log("p: %d q: %d", p, q);
     while(tokens[p].type == TK_NOTYPE)
@@ -245,7 +245,7 @@ word_t expr(char *e, bool *success) {
   }
   assert(nr_token > 0);
   /* TODO: Insert codes to evaluate the expression. */
-  return eval(0, nr_token-1);
+  return (word_t)eval(0, nr_token-1);
 
   // return 0;
 }
