@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
   int i=0;
   bool s;
   word_t a = 1-3;
-  printf("%lu", a);
+  printf("\n%lu", a);
   assert(0);
   // assert(expr("((((   7))) /(5   ) +(  9 *  0    +3    -     1   +   7    / (  9 )) + (   2   *    4   ))", &s) == 2);
   // assert(expr("(8/  4    *   (   9     -    8   ))", &s) == 2);
