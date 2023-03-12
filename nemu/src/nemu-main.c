@@ -49,7 +49,7 @@ int main(int argc, char *argv[]) {
       Log("result=%lu", result);
       Log("get_result=%lu", get_result);
       assert(get_result == result);
-  }while(i++<100);
+  }while(i++<99);
   /* Start engine. */
   engine_start();
 
