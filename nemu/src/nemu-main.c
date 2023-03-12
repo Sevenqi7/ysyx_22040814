@@ -43,9 +43,10 @@ int main(int argc, char *argv[]) {
       Log("result=%lu", result);
       char* ret = fgets(str, 65534, fp);
       str[strlen(str)-1] = '\0';
-    
+
       if(ret) Log("expression:%s", str);
-      assert(expr(str, &s) == result);
+      unsigned long get_result = expr(str, &s);
+      assert(get_result == result);
   }while(i++<100);
   /* Start engine. */
   engine_start();
