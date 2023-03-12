@@ -173,6 +173,10 @@ word_t eval(int p, int q)
         return eval(p+1, q-1);
     else
     {
+        while(tokens[p].type == TK_NOTYPE)
+            p++;
+        if(p == q)
+            return eval(p, q);
         //op: the location of the main operation
         //op2: the location of a '*' or '/' operation. when there is not '+' or '-', op2 will be main operation
         int op = -1, pari = 0, op2 = -1;
