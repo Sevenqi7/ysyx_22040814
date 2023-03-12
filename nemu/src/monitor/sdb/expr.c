@@ -213,6 +213,7 @@ word_t eval(int p, int q)
             not_space--;
         while(tokens[not_space2].type == TK_NOTYPE)
             not_space2++;
+        Log("1: %d, 2:%d", not_space, not_space2);
         word_t val1 = eval(p, not_space);
         word_t val2 = eval(not_space2, q);
         // Log("val1:%lu val2:%lu op_type: %c", val1, val2, (char)tokens[op].type);
