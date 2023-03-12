@@ -26,8 +26,8 @@ static char code_buf[65536 + 128] = {}; // a little larger than `buf`
 static char *code_format =
 "#include <stdio.h>\n"
 "int main() { "
-"  unsigned result = %s; "
-"  printf(\"%%u\", result); "
+"  unsigned long result = %s; "
+"  printf(\"%%lu\", result); "
 "  return 0; "
 "}";
 
@@ -75,7 +75,7 @@ static void gen_rand_op(void)
 }
 
 static void gen_rand_expr() {
-    if(pos > 60000)
+    if(pos > 10000)
         return;
     switch (rand() % 3) {
     case 0: gen_num(); break;
