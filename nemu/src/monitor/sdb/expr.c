@@ -157,7 +157,7 @@ bool check_parentheses(int p, int q)
 
 word_t eval(int p, int q)
 { 
-    // Log("p: %d q: %d", p, q);
+    Log("p: %d q: %d", p, q);
     if(p > q)
         return -1;
     else if(p == q)
