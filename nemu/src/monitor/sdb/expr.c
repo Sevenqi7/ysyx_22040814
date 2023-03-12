@@ -14,7 +14,6 @@
 ***************************************************************************************/
 
 #include <isa.h>
-
 /* We use the POSIX regex functions to process regular expressions.
  * Type 'man regex' for more information about POSIX regex functions.
  */
@@ -22,10 +21,11 @@
 #include <stdlib.h>
 #include <regex.h>
 
+
 enum {
   TK_NOTYPE = 256, TK_EQ,
   TK_NUM, TK_HEXNUM, TK_LOGIC_OR, TK_LOGIC_AND, 
-  TK_REGISTER, TK_UNEQ
+  TK_REGISTER, TK_UNEQ, TK_DEREF
   /* TODO: Add more token types */
 
 };
@@ -182,6 +182,15 @@ long eval(int p, int q)
             return atoi(tokens[p].str);
         else if(tokens[p].type == TK_HEXNUM)
             return strtol(tokens[p].str, NULL, 16);
+        else if(tokens[p].type == TK_REGISTER)
+        {
+            bool success;
+            word_t ret = isa_reg_str2val(tokens[p].str, &success);
+            if(success)
+                return ret;
+            else
+                panic("Unknown register!\n");
+        }
         else
             panic("An nonnumeric single token!\n");
     }
@@ -271,6 +280,7 @@ word_t expr(char *e, bool *success) {
     return 0;
   }
   assert(nr_token > 0);
+  *success = true;
   /* TODO: Insert codes to evaluate the expression. */
   return (word_t)eval(0, nr_token-1);
 
