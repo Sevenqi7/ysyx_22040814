@@ -17,7 +17,9 @@
 #include <cpu/cpu.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+#include <memory/paddr.h>
 #include "sdb.h"
+
 
 static int is_batch_mode = false;
 
@@ -43,16 +45,80 @@ static char* rl_gets() {
 }
 
 static int cmd_c(char *args) {
-  cpu_exec(-1);
-  return 0;
+    cpu_exec(-1);
+    return 0;
 }
 
 
 static int cmd_q(char *args) {
-  return -1;
+    nemu_state.state = NEMU_QUIT;
+    return -1;
 }
 
 static int cmd_help(char *args);
+
+static int cmd_si(char *args)
+{
+    int steps = args ? atoi((const char *)args) : 1;
+    cpu_exec(steps);
+    return 0;
+}
+
+static int cmd_x(char *args)
+{
+    if(!args)
+    {
+      printf("usage: x <READ_NUM> <ADDR>");
+      return 0;
+    }
+    char *str_end = args + strlen(args);
+    strtok(args, " ");
+    char *str = args + strlen(args) + 1;
+    int times;
+    vaddr_t addr;
+    bool success = false;
+    if(str > str_end)
+    {
+        times = 1;
+        addr = expr(args, &success);
+    }
+    else
+    {
+        times = expr(args, &success);
+        addr = expr(str, &success);        
+    }
+    if(!success)
+    {
+        printf("Wrong Arguments!\n");
+        return 0;
+    }
+    // Log("Bytes:%lu addr:%d", addr, bytes);
+    for(int i=0;i<times;i++, addr+=4)
+    {
+        printf("0x%lx: ", addr);
+        for(int j=0;j<4;j++)
+            printf("%02lx  ", paddr_read(addr+j, 1));
+        printf("\n");
+    }
+    
+    return 0;
+}
+
+static int cmd_info(char *args)
+{
+    if(!args)
+    {
+        printf("usage: <REG>: info r /<WATCHPOINT> info w\n");
+        return 0;
+    }
+    if(!strcmp("r", args))
+        isa_reg_display();
+    else if(!strcmp("w", args))
+    {
+        return 0;        
+    }
+    return 0;
+}
 
 static struct {
   const char *name;
@@ -62,6 +128,9 @@ static struct {
   { "help", "Display information about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
+  { "si", "Step next N commands, 1 if N is not given", cmd_si},
+  { "x", "Print the content of memory with a given address.", cmd_x},
+  { "info", "Print the content of register(-r) or watchpoing(-w).", cmd_info}
 
   /* TODO: Add more commands */
 
