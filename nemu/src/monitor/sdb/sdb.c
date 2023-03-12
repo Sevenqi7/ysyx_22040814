@@ -71,7 +71,7 @@ static int cmd_x(char *args)
       printf("usage: x <READ_NUM> <ADDR>");
       return 0;
     }
-    char *str_end = args + strlen(args);
+    // char *str_end = args + strlen(args);
     strtok(args, " ");
     char *str = args + strlen(args) + 1;
     // if(!strncmp("0x", args, 2))
@@ -79,13 +79,13 @@ static int cmd_x(char *args)
     // char *temp = NULL;
     // vaddr_t addr = strtol(args, &temp, 16);
     bool success = false;
-    vaddr_t addr = expr(args, &success);
+    vaddr_t addr = expr(str, &success);
+    int bytes = expr(args, &success);
     if(!success)
     {
         printf("Wrong Arguments!\n");
         return 0;
     }
-    int bytes = str < str_end ? atoi(str) : 1;
     // Log("Bytes:%lu addr:%d", addr, bytes);
     for(int i=0;i<bytes * 4;i++, addr++)
         printf("0x%lx:%02lx\n", addr, paddr_read(addr, 1));
