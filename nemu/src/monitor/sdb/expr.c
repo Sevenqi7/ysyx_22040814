@@ -207,7 +207,8 @@ long eval(int p, int q)
                         break;
                     case '*':
                     case '/':
-                        op2 = i;
+                      if(op2 == -1)
+                          op2 = i;
                     default:
                         break;
                 }
