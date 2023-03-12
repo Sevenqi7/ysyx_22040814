@@ -34,12 +34,14 @@ int main(int argc, char *argv[]) {
   char str[65535];
   int i=0;
   bool s;
+  assert(expr("(8/  4    *   (   9     -    8   ))", &s));
   do{
       int result;
       assert(fscanf(fp, "%d", &result));
       Log("result=%d", result);
       char* ret = fgets(str, 65534, fp);
       str[strlen(str)-1] = '\0';
+    
       if(ret) Log("expression:%s", str);
       assert(expr(str, &s) == result);
   }while(i++<100);
