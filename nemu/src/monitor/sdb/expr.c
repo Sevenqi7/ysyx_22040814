@@ -150,11 +150,11 @@ bool check_parentheses(int p, int q)
                 pair--;
             if(pair < 0 )
                 return false;
-            Log("i:%d, pair: %d", i, pair);
+            // Log("i:%d, pair: %d", i, pair);
         }
         if(pair == 0 && tokens[q].type == ')')
             flag = true;
-        Log("pair:%d", pair);
+        // Log("pair:%d", pair);
     }
     // Log("flag: %d", flag);
     return flag;
