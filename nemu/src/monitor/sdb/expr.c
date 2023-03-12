@@ -241,7 +241,7 @@ long eval(int p, int q)
         Log("1: %d, 2:%d", not_space, not_space2);
         long val1 = eval(p, not_space);
         long val2 = eval(not_space2, q);
-        // Log("val1:%lu val2:%lu op_type: %c", val1, val2, (char)tokens[op].type);
+        Log("val1:%lu val2:%lu op_type: %c", val1, val2, (char)tokens[op].type);
         switch(tokens[op].type)
         {
             case '+': return val1 + val2;
