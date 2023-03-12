@@ -188,6 +188,10 @@ word_t eval(int p, int q)
         // Search for a '+' or '-' as the main operation
         for(int i=q;i>p && !flag;i--)
         {
+            if(tokens[i].type == ')')
+                pari++;
+            else if(tokens[i].type == '(')
+                pari--;
             if(pari == 0)
             {
                 switch(tokens[i].type)
@@ -197,14 +201,13 @@ word_t eval(int p, int q)
                         op = i;
                         flag = true;
                         break;
+                    case '*':
+                    case '/':
+                        op2 = i;
                     default:
                         continue;
                 }
             }
-            if(tokens[i].type == ')')
-                pari++;
-            else if(tokens[i].type == '(')
-                pari--;
         }
         // if not found, search for a '*' or '/' as main operation
         if(!flag && op2 != -1)
