@@ -161,11 +161,11 @@ word_t eval(int p, int q)
         return -1;
     else if(p == q)
     {
-        int start = 0;
-        while(tokens[p].str[start] == ' ')
-            start++;
+        // int start = 0;
+        // while(tokens[p].str[start] == ' ')
+        //     start++;
         if(tokens[p].type == TK_NUM)
-            return atoi(&tokens[p].str[start]);
+            return atoi(tokens[p].str);
         else
             panic("An nonnumeric single token!\n");
     }
@@ -175,6 +175,8 @@ word_t eval(int p, int q)
     {
         while(tokens[p].type == TK_NOTYPE)
             p++;
+        while(tokens[q].type == TK_NOTYPE)
+            q--;
         if(p == q)
             return eval(p, q);
         //op: the location of the main operation
