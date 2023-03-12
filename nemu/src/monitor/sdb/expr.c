@@ -252,7 +252,10 @@ long eval(int p, int q)
         // Log("val1:%lu val2:%lu op_type: %c", val1, val2, (char)tokens[op].type);
         switch(tokens[op_type].type)
         {
+            case TK_LOGIC_OR: return val1 || val2;
             case TK_LOGIC_AND: return val1 && val2;
+            case TK_EQ: return val1 == val2;
+            case TK_UNEQ: return val1 != val2;
             case '+': return val1 + val2;
             case '-': return val1 - val2;
             case '*': return val1 * val2;
