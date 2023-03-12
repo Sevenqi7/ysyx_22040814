@@ -292,7 +292,7 @@ word_t expr(char *e, bool *success) {
   for (int i = 0; i < nr_token; i ++) 
   { 
       int j;
-      for(j=i-1;tokens[j].type != TK_NOTYPE && j >= 0;j--);
+      for(j=i-1;tokens[j].type == TK_NOTYPE && j >= 0;j--);
       if (tokens[i].type == '*' && (i == 0 || tokens[j].type == '(' || 
           tokens[j].type == '+' || tokens[j].type == '-' || 
           tokens[j].type == '*' || tokens[j].type == '/' ||
