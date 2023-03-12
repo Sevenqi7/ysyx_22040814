@@ -40,7 +40,7 @@ int main(int argc, char *argv[]) {
   do{
       unsigned int result;
       assert(fscanf(fp, "%d", &result));
-      Log("result=%d", result);
+      Log("result=%u", result);
       char* ret = fgets(str, 65534, fp);
       str[strlen(str)-1] = '\0';
     
