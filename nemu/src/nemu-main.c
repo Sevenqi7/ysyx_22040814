@@ -46,6 +46,7 @@ int main(int argc, char *argv[]) {
 
       if(ret) Log("expression:%s", str);
       unsigned long get_result = expr(str, &s);
+      Log("get_result=%lu", get_result);
       assert(get_result == result);
   }while(i++<100);
   /* Start engine. */
