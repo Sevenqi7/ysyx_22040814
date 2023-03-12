@@ -139,16 +139,17 @@ bool check_parentheses(int p, int q)
 {
     bool flag = false;
     
-    if(p < q && tokens[p].type == '(')
+    if(p < q && tokens[p].type == '(' && tokens[q].type == ')')
     {
         int pair = 0;
-        for(int i=p+1;i<q;i++)
+        for(int i=p;i<=q;i++)
         {
             if(tokens[i].type == '(')
                 pair++;
             else if(tokens[i].type == ')')
                 pair--;
-            Log("i:%d, pair: %d", i, pair);
+            if(pair < 0)
+                return false;
         }
         if(pair == 0 && tokens[q].type == ')')
             flag = true;
