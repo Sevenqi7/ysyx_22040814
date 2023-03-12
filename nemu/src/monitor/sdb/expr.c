@@ -220,7 +220,10 @@ long eval(int p, int q)
         {
             for(int i=p;i<=q;i++)
             {
-                Log("Token[i]: %c", tokens[i].type);
+                if(tokens[i].type == TK_NUM)
+                    Log("Token[i]: %d", atoi(tokens[i].str));
+                else
+                    Log("Token[i]: %c", tokens[i].type);
             }
             assert(flag == true);
         }
