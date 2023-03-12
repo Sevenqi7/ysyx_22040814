@@ -26,7 +26,7 @@ static char code_buf[65536 + 128] = {}; // a little larger than `buf`
 static char *code_format =
 "#include <stdio.h>\n"
 "int main() { "
-"  unsigned long long result = -1; "
+"  unsigned long long result = %s; "
 "  printf(\"%%llu\", result); "
 "  return 0; "
 "}";
@@ -112,13 +112,13 @@ int main(int argc, char *argv[]) {
 
     fp = popen("/tmp/.expr", "r");
     assert(fp != NULL);
-    int result;
-    int a = fscanf(fp, "%d", &result);
+    unsigned long long result;
+    int a = fscanf(fp, "%llu", &result);
     a = 0;
     if(!a)
       pclose(fp);
 
-    printf("%u %s\n", result, buf);
+    printf("%llu %s\n", result, buf);
   }
   return 0;
 }
