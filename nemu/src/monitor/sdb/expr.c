@@ -190,7 +190,7 @@ long eval(int p, int q)
     else
     {
         //op: the location of the main operation. op[0] has the highest priority
-        int op[3] = {-1, -1, -1}, pari = 0;
+        int op[5] = {-1, -1, -1, -1, -1}, pari = 0;
 
         // Search for a '+' or '-' as the main operation
 
@@ -204,19 +204,23 @@ long eval(int p, int q)
             {
                 switch(tokens[i].type)
                 {
+                    case TK_LOGIC_OR:
+                        if(op[0] == -1) op[0] = i;
+                        break;
                     case TK_LOGIC_AND:
-                        if(op[0] == -1)
-                          op[0] = i;
+                        if(op[1] == -1) op[1] = i;
+                        break;
+                    case TK_EQ:
+                    case TK_UNEQ:
+                        if(op[2] == -1) op[2] = i;
                         break;
                     case '+':
                     case '-':
-                        if(op[1] == -1)
-                          op[1] = i;
+                        if(op[3] == -1) op[3] = i;
                         break;
                     case '*':
                     case '/':
-                        if(op[2] == -1)
-                            op[2] = i;
+                        if(op[4] == -1) op[4] = i;
                     default:
                         break;
                 }
@@ -224,7 +228,7 @@ long eval(int p, int q)
         }
         // if not found, search for a '*' or '/' as main operation
         int op_type = -1;
-        for(int i=0;i<3;i++)
+        for(int i=0;i<5;i++)
         {
             if(op[i] != -1)
             {
