@@ -71,16 +71,22 @@ static int cmd_x(char *args)
       printf("usage: x <READ_NUM> <ADDR>");
       return 0;
     }
-    // char *str_end = args + strlen(args);
+    char *str_end = args + strlen(args);
     strtok(args, " ");
     char *str = args + strlen(args) + 1;
-    // if(!strncmp("0x", args, 2))
-    //     args += 2;
-    // char *temp = NULL;
-    // vaddr_t addr = strtol(args, &temp, 16);
+    int times;
+    vaddr_t addr;
     bool success = false;
-    vaddr_t addr = expr(str, &success);
-    int times = expr(args, &success);
+    if(str > str_end)
+    {
+        times = 1;
+        addr = expr(args, &success);
+    }
+    else
+    {
+        times = expr(args, &success);
+        addr = expr(str, &success);        
+    }
     if(!success)
     {
         printf("Wrong Arguments!\n");
