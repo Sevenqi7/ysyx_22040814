@@ -138,6 +138,7 @@ static bool make_token(char *e) {
 bool check_parentheses(int p, int q)
 {
     bool flag = false;
+    
     if(p < q && tokens[p].type == '(')
     {
         int pair = 0;
@@ -151,7 +152,7 @@ bool check_parentheses(int p, int q)
         if(pair == 0 && tokens[q].type == ')')
             flag = true;
     }
-    
+    Log("flag: %d", flag);
     return flag;
 }
 
