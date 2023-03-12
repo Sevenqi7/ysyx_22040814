@@ -106,9 +106,13 @@ int main(int argc, char *argv[]) {
     assert(fp != NULL);
     fputs(code_buf, fp);
     fclose(fp);
-
-    int ret = system("gcc -m64 /tmp/.code.c -o -Wall /tmp/.expr");
-    if (ret != 0) continue;
+    int ret;
+    if((ret  = system("gcc -m64 -O2 -Wall -Werror /tmp/.code.c -o /tmp/.expr")) != 0)
+    {
+        i--;
+        continue;
+    }
+    // if (ret != 0) continue;
 
     fp = popen("/tmp/.expr", "r");
     assert(fp != NULL);
