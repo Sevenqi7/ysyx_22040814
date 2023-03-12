@@ -138,6 +138,7 @@ static bool make_token(char *e) {
 bool check_parentheses(int p, int q)
 {
     bool flag = false;
+
     if(p < q && tokens[p].type == '(')
     {
         int pair = 1;
@@ -158,6 +159,11 @@ bool check_parentheses(int p, int q)
 word_t eval(int p, int q)
 { 
     Log("p: %d q: %d", p, q);
+    while(tokens[p].type == TK_NOTYPE)
+        p++;
+    while(tokens[q].type == TK_NOTYPE)
+        q--;
+
     if(p > q)
         return -1;
     else if(p == q)
@@ -174,12 +180,6 @@ word_t eval(int p, int q)
         return eval(p+1, q-1);
     else
     {
-        while(tokens[p].type == TK_NOTYPE)
-            p++;
-        while(tokens[q].type == TK_NOTYPE)
-            q--;
-        if(p == q)
-            return eval(p, q);
         //op: the location of the main operation
         //op2: the location of a '*' or '/' operation. when there is not '+' or '-', op2 will be main operation
         int op = -1, pari = 0, op2 = -1;
