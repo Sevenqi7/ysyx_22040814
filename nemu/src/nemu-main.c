@@ -34,6 +34,7 @@ int main(int argc, char *argv[]) {
   char str[65535];
   int i=0;
   bool s;
+  assert(expr("1210 == 1210", &s));
   Log("result is:%lu", expr("0x50 + 0x10 + 2", &s));
   // assert(0);
   do{
