@@ -89,8 +89,10 @@ static int cmd_x(char *args)
     // Log("Bytes:%lu addr:%d", addr, bytes);
     for(int i=0;i<bytes * 4;i++, addr++)
     {
-        // for(int j=0;j<4;j++)
+          printf("0x%lx: ", addr);
+        for(int j=0;j<4;j++)
             printf("0x%lx:%02lx  ", addr, paddr_read(addr, 1));
+          printf("\n");
     }
     
     return 0;
