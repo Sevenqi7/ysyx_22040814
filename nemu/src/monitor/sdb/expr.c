@@ -138,10 +138,9 @@ static bool make_token(char *e) {
 bool check_parentheses(int p, int q)
 {
     bool flag = false;
-    int pair = 0;
     if(p < q && tokens[p].type == '(')
     {
-        pair = 1;
+        int pair = 1;
         for(int i=p+1;i<=q;i++)
         {
             if(tokens[i].type == '(')
@@ -150,7 +149,7 @@ bool check_parentheses(int p, int q)
                 pair--;
         }
         if(pair == 1 && tokens[q].type == ')')
-          flag = true;
+            flag = true;
     }
     
     return flag;
