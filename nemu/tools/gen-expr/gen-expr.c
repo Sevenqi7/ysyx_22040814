@@ -27,7 +27,7 @@ static char *code_format =
 "#include <stdio.h>\n"
 "int main() { "
 "  unsigned long result = %s; "
-"  printf(\"%%lu\", result); "
+"  printf(\"%%lu\", (unsigned long)1-3); "
 "  return 0; "
 "}";
 
