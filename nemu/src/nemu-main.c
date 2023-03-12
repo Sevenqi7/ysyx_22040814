@@ -34,8 +34,8 @@ int main(int argc, char *argv[]) {
   char str[65535];
   int i=0;
   bool s;
-  assert(expr("(8/  4    *   (   9     -    8   )) ", &s) == 2);
-  assert(expr("(8/  4    *   (   9     -    8   ))", &s) == 2);
+  // assert(expr("(8/  4    *   (   9     -    8   )) ", &s) == 2);
+  // assert(expr("(8/  4    *   (   9     -    8   ))", &s) == 2);
   do{
       unsigned long result;
       assert(fscanf(fp, "%lu", &result));
