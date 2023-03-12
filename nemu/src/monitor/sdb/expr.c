@@ -189,47 +189,52 @@ long eval(int p, int q)
         return eval(p+1, q-1);
     else
     {
-        //op: the location of the main operation
-        //op2: the location of a '*' or '/' operation. when there is not '+' or '-', op2 will be main operation
-        int op = -1, pari = 0, op2 = -1;
-        
-        bool flag = false;
+        //op: the location of the main operation. op[0] has the highest priority
+        int op[3] = {-1, -1, -1}, pari = 0;
+
         // Search for a '+' or '-' as the main operation
-        for(int i=q;i>p && !flag;i--)
+
+        for(int i=q;i>p;i--)
         {
             if(tokens[i].type == ')')
                 pari++;
             else if(tokens[i].type == '(')
                 pari--;
-            if(pari == 0)
+            switch(tokens[i].type)
             {
-                switch(tokens[i].type)
-                {
-                    case '+':
-                    case '-':
-                        op = i;
-                        flag = true;
-                        break;
-                    case '*':
-                    case '/':
-                      if(op2 == -1)
-                          op2 = i;
-                    default:
-                        break;
-                }
+                case TK_LOGIC_AND:
+                    if(op[0] == -1)
+                      op[0] = i;
+                    break;
+                case '+':
+                case '-':
+                    if(op[1] == -1)
+                      op[1] = i;
+                    break;
+                case '*':
+                case '/':
+                    if(op[2] == -1)
+                        op[2] = i;
+                default:
+                     break;
             }
         }
         // if not found, search for a '*' or '/' as main operation
-        if(!flag && op2 != -1)
+        int op_type = -1;
+        for(int i=0;i<2;i++)
         {
-            flag = true;
-            op = op2;
+            if(op[i] != -1)
+            {
+                op_type = op[i];
+                break;
+            }
         }
+
         // Log("op=%d", op);
-        assert(flag == true);
+        assert(op_type != -1);
         
         //skip all space
-        int not_space = op-1, not_space2 = op+1;
+        int not_space = op_type-1, not_space2 = op_type+1;
         while(tokens[not_space].type == TK_NOTYPE)
             not_space--;
         while(tokens[not_space2].type == TK_NOTYPE)
@@ -238,8 +243,9 @@ long eval(int p, int q)
         long val1 = eval(p, not_space);
         long val2 = eval(not_space2, q);
         // Log("val1:%lu val2:%lu op_type: %c", val1, val2, (char)tokens[op].type);
-        switch(tokens[op].type)
+        switch(tokens[op_type].type)
         {
+            case TK_LOGIC_AND: return val1 && val2;
             case '+': return val1 + val2;
             case '-': return val1 - val2;
             case '*': return val1 * val2;
