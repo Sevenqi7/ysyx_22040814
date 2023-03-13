@@ -76,7 +76,7 @@ static int cmd_w(char *args)
     Log("cmd_w %s\n", args);
     if(!args)
         printf("Usage: w <EXPRESSION>\n");
-    else if(add_watchpoint(args))
+    else if(!add_watchpoint(args))
         printf("Invalid Expression.\n");
     return 0;
 }
