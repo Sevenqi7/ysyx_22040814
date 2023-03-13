@@ -147,7 +147,7 @@ bool check_watchpoints()
 
 void display_watchpoints()
 {
-    WP *p = free_;
+    WP *p = head;
     if(!p)
     {
         printf("No valid watchpoints\n");
@@ -155,7 +155,7 @@ void display_watchpoints()
     printf("NO     EXPR          VAL\n");
     while(p)
     {
-        printf("%d     %s          %lu\n", p->NO, p->expr, p->val);
+        printf("%d     %s                %lu\n", p->NO, p->expr, p->val);
         p = p->next;
     }
 }
