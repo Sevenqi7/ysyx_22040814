@@ -102,6 +102,7 @@ bool add_watchpoint(char *expr_)
     p->status = WP_BUSY;
     bool s;
     p->old_val = expr(expr_, &s);
+    Log("success:%d", s);
     return s;
 }
 
