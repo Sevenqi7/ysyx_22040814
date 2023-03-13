@@ -76,7 +76,7 @@ static int cmd_w(char *args)
     int wp_num;
     if(!args)
         printf("Usage: w <EXPRESSION>\n");
-    else if(!(wp_num = add_watchpoint(args)))
+    else if((wp_num = add_watchpoint(args)))
         printf("Invalid Expression.\n");
     else
         printf("Watchpoint %d: %s\n", wp_num, args);
