@@ -164,6 +164,7 @@ static int cmd_info(char *args)
         isa_reg_display();
     else if(!strcmp("w", args))
     {
+        display_watchpoints();
         return 0;        
     }
     return 0;

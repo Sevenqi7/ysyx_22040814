@@ -144,3 +144,14 @@ bool check_watchpoints()
     }
     return flag;
 }
+
+void display_watchpoints()
+{
+    WP *p = free_;
+    printf("NO     EXPR          VAL");
+    while(p)
+    {
+        printf("%d     %s          %lu", p->NO, p->expr, p->val);
+        p = p->next;
+    }
+}
