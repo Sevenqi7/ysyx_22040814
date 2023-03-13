@@ -176,20 +176,10 @@ long eval(int p, int q)
         return -1;
     else if(p == q)
     {
-        if(tokens[p].type == TK_NUM)
-        {   
-            if(tokens[p-1].type == TK_DEREF)
-                return paddr_read(atoi(tokens[p].str), 4);
-            else
-                return atoi(tokens[p].str);
-        }
+        if(tokens[p].type == TK_NUM)    
+            return atoi(tokens[p].str);
         else if(tokens[p].type == TK_HEXNUM)
-        {
-            if(tokens[p-1].type == TK_DEREF)
-                return paddr_read(strtol(tokens[p].str, NULL, 16), 4);
-            else
-                return strtol(tokens[p].str, NULL, 16);
-        }
+            return strtol(tokens[p].str, NULL, 16);
         else if(tokens[p].type == TK_REGISTER)
         {
             bool success;
@@ -253,6 +243,7 @@ long eval(int p, int q)
             if(op[i] != -1)
             {
                 op_type = op[i];
+                Log("op_type = i");
                 break;
             }
         }
