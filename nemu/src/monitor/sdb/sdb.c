@@ -71,6 +71,15 @@ static int cmd_q(char *args) {
 
 static int cmd_help(char *args);
 
+static int cmd_w(char *args)
+{
+    if(!args)
+        printf("Usage: w <EXPRESSION>\n");
+    else if(add_watchpoint(args))
+        printf("Invalid Expression.\n");
+    return 0;
+}
+
 static int cmd_si(char *args)
 {
     int steps = args ? atoi((const char *)args) : 1;
@@ -145,6 +154,7 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
   { "si", "Step next N commands, 1 if N is not given", cmd_si},
   { "x", "Print the content of memory with a given address.", cmd_x},
+  { "w", "Set watchpoint.", cmd_w},
   { "info", "Print the content of register(-r) or watchpoing(-w).", cmd_info}
 
   /* TODO: Add more commands */
