@@ -49,20 +49,6 @@ static int cmd_c(char *args) {
     return 0;
 }
 
-static int cmd_p(char *args)
-{
-    if(!args)
-    {
-        printf("Usage: p <EXPRESSION>\n");
-        return 0;
-    }
-    bool success = false;
-    word_t result = expr(args, &success);
-    if(!success)
-        printf("Arugments Wrong!\n");
-    printf("%lu\n", result);
-    return 0;
-}
 
 static int cmd_q(char *args) {
     nemu_state.state = NEMU_QUIT;
@@ -70,36 +56,6 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_help(char *args);
-
-static int cmd_w(char *args)
-{
-    int wp_num;
-    if(!args)
-        printf("Usage: w <EXPRESSION>\n");
-    else if((wp_num = add_watchpoint(args)))
-        printf("Invalid Expression.\n");
-    else
-        printf("Watchpoint %d: %s\n", wp_num, args);
-    return 0;
-}
-
-static int cmd_d(char *args)
-{
-    int wp_num;
-    if(!args)
-    {
-        printf("Usage: d <WATCHPOINT_NUM>\n");
-    }
-    else
-    {
-        wp_num = atoi(args);
-        if(del_watchpoint(wp_num))
-            printf("Watchpoint %d deleted.\n", wp_num);
-        else
-            printf("Watchpoint %d doesn't exist.\n", wp_num);
-    }
-    return 0;
-}
 
 static int cmd_si(char *args)
 {
@@ -171,12 +127,9 @@ static struct {
 } cmd_table [] = {
   { "help", "Display information about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
-  { "p", "Display the value of the given expression.", cmd_p},
   { "q", "Exit NEMU", cmd_q },
   { "si", "Step next N commands, 1 if N is not given", cmd_si},
   { "x", "Print the content of memory with a given address.", cmd_x},
-  { "w", "Set watchpoint.", cmd_w},
-  { "d", "Delete watchpoint.", cmd_d},
   { "info", "Print the content of register(-r) or watchpoing(-w).", cmd_info}
 
   /* TODO: Add more commands */

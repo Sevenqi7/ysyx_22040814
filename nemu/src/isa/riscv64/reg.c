@@ -33,11 +33,9 @@ void isa_reg_display() {
 word_t isa_reg_str2val(const char *s, bool *success) {
   int i;
   *success = false;
-  for(i=1;i<32;i++)
-    if(!strcmp(s+1, regs[i])) 
+  for(i=0;i<32;i++)
+    if(!strcmp(s, regs[i])) 
         break;
-  if(!strcmp(s, regs[0])) {*success = true; return 0;}
-  if(!strcmp(s, "$pc")) {*success = true; return cpu.pc;}
   if(i < 32)
   {
       *success = true;
