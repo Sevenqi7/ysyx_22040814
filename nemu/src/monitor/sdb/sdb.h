@@ -19,7 +19,7 @@
 #include <common.h>
 
 word_t expr(char *e, bool *success);
-bool add_watchpoint(char *expr);
+int add_watchpoint(char *expr);
 bool del_watchpoint(int NO);
 bool check_watchpoints();
 

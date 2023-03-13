@@ -95,7 +95,7 @@ void free_wp(WP *wp)
     }
 }
 
-bool add_watchpoint(char *expr_)
+int add_watchpoint(char *expr_)
 {
     WP *p = new_wp();
     memcpy(p->expr, expr_, strlen(expr_)+1);
@@ -103,7 +103,7 @@ bool add_watchpoint(char *expr_)
     bool s;
     p->old_val = expr(expr_, &s);
     Log("success:%d", s);
-    return s;
+    return (p-head+1);
 }
 
 bool check_watchpoints()

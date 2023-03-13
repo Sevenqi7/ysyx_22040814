@@ -74,10 +74,13 @@ static int cmd_help(char *args);
 static int cmd_w(char *args)
 {
     Log("cmd_w %s\n", args);
+    int wp_num;
     if(!args)
         printf("Usage: w <EXPRESSION>\n");
-    else if(!add_watchpoint(args))
+    else if(!(wp_num = add_watchpoint(args)))
         printf("Invalid Expression.\n");
+    else
+        printf("Watchpoint %d: %s\n", wp_num, args);
     return 0;
 }
 
