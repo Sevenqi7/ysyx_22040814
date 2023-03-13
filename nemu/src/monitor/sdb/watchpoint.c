@@ -54,7 +54,7 @@ void init_wp_pool() {
 WP* new_wp()
 {
     WP *p = free_, *q = p;
-    while(p->status == WP_BUSY && p)
+    while(p && p->status == WP_BUSY)
     {
         q = p;
         p = p->next;
@@ -98,7 +98,6 @@ void free_wp(WP *wp)
 int add_watchpoint(char *expr_)
 {
     WP *p = new_wp();
-    Log("newwp");
     memcpy(p->expr, expr_, strlen(expr_)+1);
     p->status = WP_BUSY;
     bool s;
