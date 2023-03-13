@@ -95,7 +95,7 @@ void free_wp(WP *wp)
     }
 }
 
-bool check_watchpoint()
+bool check_watchpoints()
 {
     WP *p = head;
     bool flag = false;
