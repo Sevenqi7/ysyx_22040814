@@ -51,7 +51,7 @@ static struct rule {
   {"\\|\\|", TK_LOGIC_OR},  //logical or
   {"!=", TK_UNEQ},      // unequal
   {"==", TK_EQ},        // equal
-  {"\\$0|\\$t[0-6p]|\\$a[0-7]|\\$s[0-9]+|\\$gp|\\$ra|\\$sp", TK_REGISTER},
+  {"\\$0|\\$t[0-6p]|\\$a[0-7]|\\$s[0-9]+|\\$gp|\\$ra|\\$sp|\\$pc", TK_REGISTER},
   {"0x[0-9]+|0X[0-9]", TK_HEXNUM},
   {"[0-9]+", TK_NUM}
   // {"\\\$[a-dA- D][hlHL]|\\\$[eE]?(ax|dx|cx|bx|bp|si|di|sp)",TK_REGISTER}
@@ -176,20 +176,10 @@ long eval(int p, int q)
         return -1;
     else if(p == q)
     {
-        if(tokens[p].type == TK_NUM)
-        {   
-            if(tokens[p-1].type == TK_DEREF)
-                return paddr_read(atoi(tokens[p].str), 4);
-            else
-                return atoi(tokens[p].str);
-        }
+        if(tokens[p].type == TK_NUM)    
+            return atoi(tokens[p].str);
         else if(tokens[p].type == TK_HEXNUM)
-        {
-            if(tokens[p-1].type == TK_DEREF)
-                return paddr_read(strtol(tokens[p].str, NULL, 16), 4);
-            else
-                return strtol(tokens[p].str, NULL, 16);
-        }
+            return strtol(tokens[p].str, NULL, 16);
         else if(tokens[p].type == TK_REGISTER)
         {
             bool success;
@@ -207,11 +197,11 @@ long eval(int p, int q)
     else
     {
         //op: the location of the main operation. op[0] has the highest priority
-        int op[5] = {-1, -1, -1, -1, -1}, pari = 0;
+        int op[6] = {-1, -1, -1, -1, -1, -1}, pari = 0;
 
         // Search for a '+' or '-' as the main operation
 
-        for(int i=q;i>p;i--)
+        for(int i=q;i>=p;i--)
         {
             if(tokens[i].type == ')')
                 pari++;
@@ -238,6 +228,9 @@ long eval(int p, int q)
                     case '*':
                     case '/':
                         if(op[4] == -1) op[4] = i;
+                        break;
+                    case TK_DEREF:
+                        if(op[5] == -1) op[5] = i;
                     default:
                         break;
                 }
@@ -245,11 +238,12 @@ long eval(int p, int q)
         }
         // if not found, search for a '*' or '/' as main operation
         int op_type = -1;
-        for(int i=0;i<5;i++)
+        for(int i=0;i<6;i++)
         {
             if(op[i] != -1)
             {
                 op_type = op[i];
+                Log("op_type = i");
                 break;
             }
         }
@@ -257,12 +251,16 @@ long eval(int p, int q)
         // Log("op=%d", op);
         assert(op_type != -1);
         
+
         //skip all space
         int not_space = op_type-1, not_space2 = op_type+1;
         while(tokens[not_space].type == TK_NOTYPE)
             not_space--;
         while(tokens[not_space2].type == TK_NOTYPE)
             not_space2++;
+        //deref token
+        if(tokens[op_type].type == TK_DEREF)
+            return paddr_read(eval(not_space2, q), 8);
         // Log("1: %d, 2:%d", not_space, not_space2);
         long val1 = eval(p, not_space);
         long val2 = eval(not_space2, q);
@@ -298,7 +296,8 @@ word_t expr(char *e, bool *success) {
           tokens[j].type == '*' || tokens[j].type == '/' ||
           (tokens[j].type >= TK_EQ && tokens[j].type <= TK_UNEQ))) 
       {
-          tokens[i].type = TK_DEREF;
+            Log("position %d is DEREF", i);
+            tokens[i].type = TK_DEREF;
       }
   }
   /* TODO: Insert codes to evaluate the expression. */

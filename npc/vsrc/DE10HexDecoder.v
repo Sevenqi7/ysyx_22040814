@@ -2,10 +2,11 @@ module DE10HexDecoder(
   input  [7:0] io_in,
   output [6:0] io_out
 );
-  wire [3:0] _GEN_0 = io_in == 8'hf ? 4'he : 4'h0; // @[DE10Decoder.scala 11:12 27:{30,39}]
-  wire [3:0] _GEN_1 = io_in == 8'he ? 4'h6 : _GEN_0; // @[DE10Decoder.scala 26:{30,39}]
-  wire [5:0] _GEN_2 = io_in == 8'hd ? 6'h21 : {{2'd0}, _GEN_1}; // @[DE10Decoder.scala 25:{30,39}]
-  wire [6:0] _GEN_3 = io_in == 8'hc ? 7'h43 : {{1'd0}, _GEN_2}; // @[DE10Decoder.scala 24:{30,39}]
+  wire [6:0] offlight = 7'b1111111;
+  wire [6:0] _GEN_0 = io_in == 8'hf ? 7'he : offlight; // @[DE10Decoder.scala 11:12 27:{30,39}]
+  wire [6:0] _GEN_1 = io_in == 8'he ? 7'h6 : _GEN_0; // @[DE10Decoder.scala 26:{30,39}]
+  wire [6:0] _GEN_2 = io_in == 8'hd ? 7'h21 : _GEN_1; // @[DE10Decoder.scala 25:{30,39}]
+  wire [6:0] _GEN_3 = io_in == 8'hc ? 7'h46 : _GEN_2; // @[DE10Decoder.scala 24:{30,39}]
   wire [6:0] _GEN_4 = io_in == 8'hb ? 7'h3 : _GEN_3; // @[DE10Decoder.scala 23:{30,39}]
   wire [6:0] _GEN_5 = io_in == 8'ha ? 7'h8 : _GEN_4; // @[DE10Decoder.scala 22:{30,39}]
   wire [6:0] _GEN_6 = io_in == 8'h9 ? 7'h10 : _GEN_5; // @[DE10Decoder.scala 21:{30,39}]

@@ -21,6 +21,7 @@ typedef struct watchpoint {
   int NO;
   struct watchpoint *next;
   char expr[1024];
+  word_t old_val;
   int status;
   /* TODO: Add more members if necessary */
 
@@ -61,7 +62,7 @@ WP* new_wp()
     if(!p) assert(0);
     q->next = p->next;
     p->next = NULL;
-    if(head)
+    if(!head)
         head = p;
     else
     {
@@ -92,4 +93,52 @@ void free_wp(WP *wp)
         while(q->next) q = q->next;
         q->next = p;
     }
+}
+
+int add_watchpoint(char *expr_)
+{
+    WP *p = new_wp();
+    memcpy(p->expr, expr_, strlen(expr_)+1);
+    p->status = WP_BUSY;
+    bool s;
+    p->old_val = expr(expr_, &s);
+    Log("success:%d", s);
+    return p->NO;
+}
+
+bool del_watchpoint(int NO)
+{
+    WP *p = head;
+    if(p) return false;
+    for(;p;p=p->next)
+    {
+        if(p->NO == NO)
+        {
+            p->status = WP_FREE;
+            free_wp(p);
+            return true;
+        }
+    }
+    return false;
+}
+
+bool check_watchpoints()
+{
+    WP *p = head;
+    bool flag = false;
+    if(!p) return false;
+    for(;p;p=p->next)
+    {
+        bool success = false;
+        word_t val = expr(p->expr, &success);
+        if(success && val != p->old_val)
+        {
+            p->old_val = val;
+            printf("Watchpoint %d: %s\n", p->NO, p->expr);
+            printf("Old Value is :%lu\n", p->old_val);
+            printf("New Value is :%lu\n", val);
+            flag = true;
+        }
+    }
+    return flag;
 }
