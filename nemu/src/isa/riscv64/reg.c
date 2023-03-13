@@ -36,8 +36,8 @@ word_t isa_reg_str2val(const char *s, bool *success) {
   for(i=1;i<32;i++)
     if(!strcmp(s+1, regs[i])) 
         break;
-  if(!strcmp(s, regs[0])) i = 0;
-  if(!strcmp(s, "$pc")) return cpu.pc;
+  if(!strcmp(s, regs[0])) {*success = true; return 0;}
+  if(!strcmp(s, "$pc")) {*success = true; return cpu.pc;}
   if(i < 32)
   {
       *success = true;
