@@ -103,7 +103,7 @@ int add_watchpoint(char *expr_)
     bool s;
     p->old_val = expr(expr_, &s);
     Log("success:%d", s);
-    return (p-head+1);
+    return p->NO;
 }
 
 bool check_watchpoints()
@@ -117,7 +117,7 @@ bool check_watchpoints()
         word_t val = expr(p->expr, &success);
         if(success && val != p->old_val)
         {
-            printf("Watchpoint %d\n", i);
+            printf("Watchpoint %d\n", p->NO);
             printf("Old Value is :%lu\n", p->old_val);
             printf("New Value is :%lu\n", val);
             flag = true;
