@@ -81,7 +81,7 @@ static int cmd_w(char *args)
         return 0;
     }
     wp_num = add_watchpoint(args);
-    if(wp_num)
+    if(wp_num < 0)
         printf("Invalid Expression.\n");
     else
         printf("Watchpoint %d: %s\n", wp_num, args);
