@@ -305,7 +305,8 @@ word_t expr(char *e, bool *success) {
           tokens[j].type == '*' || tokens[j].type == '/' ||
           (tokens[j].type >= TK_EQ && tokens[j].type <= TK_UNEQ))) 
       {
-          tokens[i].type = TK_DEREF;
+            Log("position %d is DEREF", i);
+            tokens[i].type = TK_DEREF;
       }
   }
   /* TODO: Insert codes to evaluate the expression. */
