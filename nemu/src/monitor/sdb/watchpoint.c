@@ -56,6 +56,8 @@ WP* new_wp()
     WP *p = free_, *q = p;
     while(p->next && p->status == WP_BUSY)
     {
+        if(p->status == WP_FREE)
+            break;
         q = p;
         p = p->next;
     }
