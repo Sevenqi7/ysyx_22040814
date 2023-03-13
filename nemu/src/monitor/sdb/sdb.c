@@ -73,6 +73,7 @@ static int cmd_help(char *args);
 
 static int cmd_w(char *args)
 {
+    Log("cmd_w %s\n", args);
     if(!args)
         printf("Usage: w <EXPRESSION>\n");
     else if(add_watchpoint(args))
