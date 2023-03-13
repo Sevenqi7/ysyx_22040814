@@ -201,7 +201,7 @@ long eval(int p, int q)
 
         // Search for a '+' or '-' as the main operation
 
-        for(int i=q;i>p;i--)
+        for(int i=q;i>=p;i--)
         {
             if(tokens[i].type == ')')
                 pari++;
