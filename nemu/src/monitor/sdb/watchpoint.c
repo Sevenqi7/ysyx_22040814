@@ -151,6 +151,7 @@ void display_watchpoints()
     if(!p)
     {
         printf("No valid watchpoints\n");
+        return ;
     }
     printf("NO     EXPR          VAL\n");
     while(p)
