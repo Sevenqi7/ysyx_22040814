@@ -51,7 +51,7 @@ static struct rule {
   {"\\|\\|", TK_LOGIC_OR},  //logical or
   {"!=", TK_UNEQ},      // unequal
   {"==", TK_EQ},        // equal
-  {"\\$0|\\$t[0-6p]|\\$a[0-7]|\\$s[0-9]+|\\$gp|\\$ra|\\$sp", TK_REGISTER},
+  {"\\$0|\\$t[0-6p]|\\$a[0-7]|\\$s[0-9]+|\\$gp|\\$ra|\\$sp|\\$pc", TK_REGISTER},
   {"0x[0-9]+|0X[0-9]", TK_HEXNUM},
   {"[0-9]+", TK_NUM}
   // {"\\\$[a-dA- D][hlHL]|\\\$[eE]?(ax|dx|cx|bx|bp|si|di|sp)",TK_REGISTER}
