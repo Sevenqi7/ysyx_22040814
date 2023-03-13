@@ -54,7 +54,7 @@ void init_wp_pool() {
 WP* new_wp()
 {
     WP *p = free_, *q = p;
-    while(p && p->status == WP_BUSY)
+    while(p->next && p->status == WP_BUSY)
     {
         q = p;
         p = p->next;
