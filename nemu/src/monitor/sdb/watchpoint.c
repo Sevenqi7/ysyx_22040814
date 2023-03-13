@@ -59,7 +59,7 @@ WP* new_wp()
         q = p;
         p = p->next;
     }
-    if(!p) assert(0);
+    if(p->status == WP_BUSY) assert(0);
     q->next = p->next;
     p->next = NULL;
     if(!head)
