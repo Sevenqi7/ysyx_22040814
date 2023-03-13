@@ -133,9 +133,9 @@ bool check_watchpoints()
         word_t new_val = expr(p->expr, &success);
         if(success && new_val != p->val)
         {
-            p->val = new_val;
             printf("Watchpoint %d: %s\n", p->NO, p->expr);
             printf("Old Value is :%lu\n", p->val);
+            p->val = new_val;
             printf("New Value is :%lu\n", new_val);
             flag = true;
         }
