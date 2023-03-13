@@ -54,12 +54,14 @@ void init_wp_pool() {
 WP* new_wp()
 {
     WP *p = free_, *q = p;
-    while(p->status == WP_BUSY && p)
+    while(p->next && p->status == WP_BUSY)
     {
         q = p;
         p = p->next;
     }
-    if(!p) assert(0);
+    Log("p->status:%d, p->NO:%d", p->status, p->NO);
+    if(p->status == WP_BUSY) assert(0);
+    if(free_ == p) free_ = p->next;
     q->next = p->next;
     p->next = NULL;
     if(!head)
@@ -141,4 +143,20 @@ bool check_watchpoints()
         }
     }
     return flag;
+}
+
+void display_watchpoints()
+{
+    WP *p = head;
+    if(!p)
+    {
+        printf("No valid watchpoints\n");
+        return ;
+    }
+    printf("NO     EXPR          VAL\n");
+    while(p)
+    {
+        printf("%d     %s             %lu\n", p->NO, p->expr, p->val);
+        p = p->next;
+    }
 }

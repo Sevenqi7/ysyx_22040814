@@ -29,26 +29,23 @@ int main(int argc, char *argv[]) {
 #else
   init_monitor(argc, argv);
 #endif
-  FILE *fp = fopen("/home/seven7/Documents/学业/一生一芯/ysyx-workbench/nemu/tools/gen-expr/input", "r");
+  // FILE *fp = fopen("/home/seven7/Documents/学业/一生一芯/ysyx-workbench/nemu/tools/gen-expr/input", "r");
   
-  char str[65535];
-  int i=0;
-  bool s;
-  assert(expr("1210 == 1210", &s));
-  Log("result is:%lu", expr("0x50 + 0x10 + 2", &s));
-  // assert(0);
-  do{
-      unsigned long result;
-      assert(fscanf(fp, "%lu", &result));
-      char* ret = fgets(str, 65534, fp);
-      str[strlen(str)-1] = '\0';
+  // char str[65535];
+  // int i=0;
+  // bool s;
+  // do{
+  //     unsigned long result;
+  //     assert(fscanf(fp, "%lu", &result));
+  //     char* ret = fgets(str, 65534, fp);
+  //     str[strlen(str)-1] = '\0';
 
-      if(ret) Log("expression:%s", str);
-      unsigned long get_result = expr(str, &s);
-      Log("result=%lu", result);
-      Log("get_result=%lu", get_result);
-      assert(get_result == result);
-  }while(i++<9999);
+  //     if(ret) Log("expression:%s", str);
+  //     unsigned long get_result = expr(str, &s);
+  //     Log("result=%lu", result);
+  //     Log("get_result=%lu", get_result);
+  //     assert(get_result == result);
+  // }while(i++<9999);
   /* Start engine. */
   engine_start();
 
