@@ -98,6 +98,7 @@ void free_wp(WP *wp)
 int add_watchpoint(char *expr_)
 {
     WP *p = new_wp();
+    Log("newwp");
     memcpy(p->expr, expr_, strlen(expr_)+1);
     p->status = WP_BUSY;
     bool s;
