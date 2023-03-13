@@ -21,6 +21,7 @@ typedef struct watchpoint {
   int NO;
   struct watchpoint *next;
   char expr[1024];
+  word_t old_val;
   int status;
   /* TODO: Add more members if necessary */
 
@@ -92,4 +93,24 @@ void free_wp(WP *wp)
         while(q->next) q = q->next;
         q->next = p;
     }
+}
+
+bool check_watchpoint()
+{
+    WP *p = head;
+    bool flag = false;
+    if(!p) return false;
+    for(int i=1;p;i++)
+    {
+        bool success = false;
+        word_t val = expr(p->expr, &success);
+        if(success && val != p->old_val)
+        {
+            printf("Watchpoint %d\n", i);
+            printf("Old Value is :%lu\n", p->old_val);
+            printf("New Value is :%lu\n", val);
+            flag = true;
+        }
+    }
+    return flag;
 }
