@@ -83,6 +83,24 @@ static int cmd_w(char *args)
     return 0;
 }
 
+static int cmd_d(char *args)
+{
+    int wp_num;
+    if(!args)
+    {
+        printf("Usage: d <WATCHPOINT_NUM>\n");
+    }
+    else
+    {
+        wp_num = atoi(args);
+        if(del_watchpoint(wp_num))
+            printf("Watchpoint %d deleted.\n", wp_num);
+        else
+            printf("Watchpoint %d doesn't exist.\n", wp_num);
+    }
+    return 0;
+}
+
 static int cmd_si(char *args)
 {
     int steps = args ? atoi((const char *)args) : 1;
@@ -158,6 +176,7 @@ static struct {
   { "si", "Step next N commands, 1 if N is not given", cmd_si},
   { "x", "Print the content of memory with a given address.", cmd_x},
   { "w", "Set watchpoint.", cmd_w},
+  { "d", "Delete watchpoint.", cmd_d},
   { "info", "Print the content of register(-r) or watchpoing(-w).", cmd_info}
 
   /* TODO: Add more commands */

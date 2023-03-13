@@ -106,6 +106,22 @@ int add_watchpoint(char *expr_)
     return p->NO;
 }
 
+bool del_watchpoint(int NO)
+{
+    WP *p = head;
+    if(p) return false;
+    for(;p;p=p->next)
+    {
+        if(p->NO == NO)
+        {
+            p->status = WP_FREE;
+            free_wp(p);
+            return true;
+        }
+    }
+    return false;
+}
+
 bool check_watchpoints()
 {
     WP *p = head;
