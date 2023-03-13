@@ -61,6 +61,7 @@ WP* new_wp()
         q = p;
         p = p->next;
     }
+    Log("p->status:%d, p->NO:%d", p->status, p->NO);
     if(p->status == WP_BUSY) assert(0);
     q->next = p->next;
     p->next = NULL;
