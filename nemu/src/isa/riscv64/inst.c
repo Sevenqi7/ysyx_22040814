@@ -40,7 +40,7 @@ static void decode_operand(Decode *s, int *rd, word_t *src1, word_t *src2, word_
   int rs2 = BITS(i, 24, 20);
   *rd     = BITS(i, 11, 7);
   immJ();
-  Log("immj:0x%lx", *imm);
+  Log("immj:0x%lx rs1:%d. rs2:%d rd:%d", *imm, rs1, rs2, *rd);
   switch (type) {
     case TYPE_I: src1R();          immI(); break;
     case TYPE_U:                   immU(); break;
