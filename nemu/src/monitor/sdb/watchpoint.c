@@ -21,7 +21,7 @@ typedef struct watchpoint {
   int NO;
   struct watchpoint *next;
   char expr[1024];
-  word_t old_val;
+  word_t val;
   int status;
   /* TODO: Add more members if necessary */
 
@@ -101,7 +101,7 @@ int add_watchpoint(char *expr_)
     memcpy(p->expr, expr_, strlen(expr_)+1);
     p->status = WP_BUSY;
     bool s;
-    p->old_val = expr(expr_, &s);
+    p->val = expr(expr_, &s);
     Log("success:%d", s);
     return p->NO;
 }
@@ -130,13 +130,13 @@ bool check_watchpoints()
     for(;p;p=p->next)
     {
         bool success = false;
-        word_t val = expr(p->expr, &success);
-        if(success && val != p->old_val)
+        word_t new_val = expr(p->expr, &success);
+        if(success && new_val != p->val)
         {
-            p->old_val = val;
             printf("Watchpoint %d: %s\n", p->NO, p->expr);
-            printf("Old Value is :%lu\n", p->old_val);
-            printf("New Value is :%lu\n", val);
+            printf("Old Value is :%lu\n", p->val);
+            p->val = new_val;
+            printf("New Value is :%lu\n", new_val);
             flag = true;
         }
     }
