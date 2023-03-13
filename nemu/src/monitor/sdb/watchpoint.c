@@ -62,7 +62,7 @@ WP* new_wp()
     if(!p) assert(0);
     q->next = p->next;
     p->next = NULL;
-    if(head)
+    if(!head)
         head = p;
     else
     {
