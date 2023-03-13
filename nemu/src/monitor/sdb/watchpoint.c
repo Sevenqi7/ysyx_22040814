@@ -111,7 +111,7 @@ bool check_watchpoints()
     WP *p = head;
     bool flag = false;
     if(!p) return false;
-    for(int i=1;p;i++)
+    for(;p;p=p->next)
     {
         bool success = false;
         word_t val = expr(p->expr, &success);
