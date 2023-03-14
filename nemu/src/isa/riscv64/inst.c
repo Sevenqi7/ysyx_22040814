@@ -54,7 +54,7 @@ static void decode_operand(Decode *s, int *rd, word_t *src1, word_t *src2, word_
 
 static int decode_exec(Decode *s) {
   int rd = 0;
-  word_t src1 = 0, src2 = 0, imm = 0;
+  word_t src1 = 0, src2 = 0, imm = 0, shamt = BITS(s->isa.inst.val, 24, 20);
   s->dnpc = s->snpc;
 
 #define INSTPAT_INST(s) ((s)->isa.inst.val)
@@ -79,6 +79,8 @@ static int decode_exec(Decode *s) {
   INSTPAT("??????? ????? ????? 001 ????? 11000 11", bne    , B, s->dnpc = (src1 != src2) ? s->pc + imm : s->snpc);
   INSTPAT("??????? ????? ????? 000 ????? 00110 11", addiw  , I, R(rd) = (uint32_t)(src1 + imm));
   INSTPAT("0000000 ????? ????? 000 ????? 01110 11", addw   , R, R(rd) = (uint32_t)(src1 + src2));
+  INSTPAT("0100000 ????? ????? 101 ????? 00100 11", srai   , I, R(rd) = src1 >> shamt);
+
 
 
 
