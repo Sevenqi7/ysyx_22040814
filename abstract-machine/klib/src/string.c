@@ -93,15 +93,14 @@ void *memcpy(void *out, const void *in, size_t n) {
 }
 
 int memcmp(const void *s1, const void *s2, size_t n) {
-    const unsigned char *p1 = s1, *p2 = s2;
+    const unsigned char *p = s1, *q = s2;
     size_t i;
 
     for (i = 0; i < n; i++) {
-        if (p1[i] != p2[i]) {
-            return (p1[i] < p2[i]) ? -1 : 1;
+        if (p[i] != q[i]) {
+            return (p[i] < q[i]) ? -1 : 1;
         }
     }
-
     return 0;
 }
 
