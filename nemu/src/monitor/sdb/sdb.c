@@ -267,7 +267,6 @@ void sdb_get_symbol_list(char *elf_path)
           lseek(fd, shdr.sh_offset, SEEK_SET);
           int sym_num = shdr.sh_size / sizeof(Elf64_Sym);
           printf("syn_num:%d\n", sym_num);
-          assert(0);
           for(int j=0;j<sym_num;j++)
           {
               if(read(fd, &sym, sizeof(Elf64_Sym)) != sizeof(Elf64_Sym))
@@ -275,6 +274,7 @@ void sdb_get_symbol_list(char *elf_path)
                   printf("Failed to read symbol info!\n");
                   return ;
               }
+              printf("sym.st_info = %d\n", sym.st_info);
               if(sym.st_info == STT_FUNC)
               {
                   assert(0);
