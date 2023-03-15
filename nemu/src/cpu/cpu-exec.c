@@ -43,7 +43,7 @@ void device_update();
 
 void display_itrace()
 {
-    printf("\nItrace Info\n");
+    printf("\nItrace Info : q\n");
     char printbuf[150];
     memset(printbuf, ' ', 150);
     int i = g_itrace_base;
@@ -53,6 +53,7 @@ void display_itrace()
       if(i == g_itrace_end) memcpy(printbuf, "-->", 3);
       printf("%s\n", printbuf);
     }while(i != g_itrace_end);
+    printf("\nItrace Info End\n");
 }
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
