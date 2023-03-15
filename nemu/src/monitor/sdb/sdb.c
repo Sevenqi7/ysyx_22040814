@@ -229,7 +229,7 @@ void sdb_set_batch_mode() {
 
 void sdb_get_symbol_list(char *elf_path)
 {
-  Log("elf path:%s", elf_path);
+  // Log("elf path:%s", elf_path);
   int fd = open(elf_path, O_RDONLY, 0);
   if(fd == -1)
   {
