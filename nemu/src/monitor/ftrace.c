@@ -80,7 +80,7 @@ void display_ftrace()
         {
             j--;
             for(int k=0;k<2*j;k++) printf(" ");
-            printf("ret  [%s]", f_trace_buf.function[i].f_name);
+            printf("ret  [%s]\n", f_trace_buf.function[i].f_name);
         }
     }
 }
