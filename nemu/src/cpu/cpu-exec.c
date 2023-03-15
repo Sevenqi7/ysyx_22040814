@@ -43,7 +43,7 @@ void device_update();
 
 void display_itrace()
 {
-    printf("\nItrace Info");
+    printf("\nItrace Info\n");
     char printbuf[150];
     memset(printbuf, ' ', 150);
     int i = g_itrace_base;
