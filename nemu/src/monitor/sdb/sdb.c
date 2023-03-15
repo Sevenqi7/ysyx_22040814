@@ -266,6 +266,7 @@ void sdb_get_symbol_list(char *elf_path)
           Elf64_Sym sym;
           lseek(fd, shdr.sh_offset, SEEK_SET);
           int sym_num = shdr.sh_size / sizeof(Elf64_Sym);
+          printf("syn_num:%d\n", sym_num);
           assert(0);
           for(int j=0;j<sym_num;j++)
           {
