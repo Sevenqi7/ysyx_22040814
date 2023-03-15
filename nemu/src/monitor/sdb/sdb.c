@@ -222,6 +222,9 @@ static int cmd_help(char *args) {
 }
 
 void sdb_set_batch_mode() {
+  Log("excute debugging");
+  Log("excute debugging");
+
   is_batch_mode = true;
 }
 
