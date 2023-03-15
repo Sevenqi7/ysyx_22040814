@@ -18,12 +18,14 @@
 
 #include <isa.h>
 
+#define MAX_INST_STORE    10
+
 typedef struct Decode {
   vaddr_t pc;
   vaddr_t snpc; // static next pc
   vaddr_t dnpc; // dynamic next pc
   ISADecodeInfo isa;
-  IFDEF(CONFIG_ITRACE, char logbuf[128]);
+  IFDEF(CONFIG_ITRACE, char logbuf[MAX_INST_STORE][128]);
 } Decode;
 
 // --- pattern matching mechanism ---
