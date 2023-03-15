@@ -229,13 +229,13 @@ void sdb_set_batch_mode() {
 
 void sdb_get_symbol_list(char *elf_path)
 {
-  Log("elf path:%s", elf_path);
   int fd = open(elf_path, O_RDONLY, 0);
   if(fd == -1)
   {
     printf("Failed to open elf file!\n");
     return ;
   }
+  Log("elf path:%s", elf_path);
   Elf64_Ehdr ehdr;
   if(read(fd, &ehdr, sizeof(Elf64_Ehdr)) != sizeof(Elf64_Ehdr))
   {
