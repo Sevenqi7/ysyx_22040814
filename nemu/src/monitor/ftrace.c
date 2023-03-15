@@ -38,7 +38,7 @@ void ftrace_check_jal(vaddr_t jump_addr, vaddr_t ret_addr, int rs1, int rd)
             {
                 f_trace_buf.function[f_trace_buf.f_trace_end] = f_trace_buf.function[i];
                 f_trace_buf.is_ret[f_trace_buf.f_trace_end] = true;
-                f_trace_buf.call_pc[f_trace_buf.f_trace_end] = jump_addr - 4;
+                f_trace_buf.call_pc[f_trace_buf.f_trace_end] = ret_addr - 4;
 
                 // Log("%s ret", f_trace_buf.function[f_trace_buf.f_trace_end].f_name);
                 f_trace_buf.f_trace_end++;
@@ -53,7 +53,7 @@ void ftrace_check_jal(vaddr_t jump_addr, vaddr_t ret_addr, int rs1, int rd)
             f_trace_buf.function[f_trace_buf.f_trace_end] = f_info[i];
             f_trace_buf.ret_addr[f_trace_buf.f_trace_end] = ret_addr;
             f_trace_buf.is_ret[f_trace_buf.f_trace_end] = false;
-            f_trace_buf.call_pc[f_trace_buf.f_trace_end] = jump_addr - 4;
+            f_trace_buf.call_pc[f_trace_buf.f_trace_end] = ret_addr - 4;
 
             // Log("f_trace_end:%d", f_trace_buf.f_traceq_end);
             // Log("jump to 0x%lx(%s)", f_trace_buf.function[f_trace_buf.f_trace_end].f_addr, f_trace_buf.function[f_trace_buf.f_trace_end].f_name);
