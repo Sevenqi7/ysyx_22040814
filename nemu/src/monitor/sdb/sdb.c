@@ -254,7 +254,6 @@ void sdb_get_symbol_list(char *elf_path)
       return ;
   }
   lseek(fd, ehdr.e_shoff, SEEK_SET);
-  printf("f_info_num:%d\n", ehdr.e_shnum);
   for(int i=0;i<ehdr.e_shnum;i++)
   {
       if(read(fd, &shdr, sizeof(Elf64_Shdr)) != sizeof(Elf64_Shdr))
@@ -264,7 +263,6 @@ void sdb_get_symbol_list(char *elf_path)
       }
       if(shdr.sh_type == SHT_SYMTAB)
       {
-          assert(0);
           Elf64_Sym sym;
           lseek(fd, shdr.sh_offset, SEEK_SET);
           int sym_num = shdr.sh_size / sizeof(Elf64_Sym);
@@ -277,6 +275,7 @@ void sdb_get_symbol_list(char *elf_path)
               }
               if(sym.st_info == STT_FUNC)
               {
+                  assert(0);
                   char *func_name = strtab + sym.st_name;
                   memcpy(f_info[f_info_num].f_name, func_name, strlen(func_name)+1);
                   f_info[f_info_num].f_addr = sym.st_value;
