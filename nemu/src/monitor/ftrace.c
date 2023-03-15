@@ -28,14 +28,14 @@ static struct function_call_stack
 
 void ftrace_check_jal(vaddr_t jump_addr, vaddr_t ret_addr, int rd)
 {
-    for(int i=0;i<MAX_FTRACE_INFO_SIZE;i++)
+    for(int i=0;i<f_info_num;i++)
     {
         if(f_info[i].f_addr == jump_addr)
         {
             f_trace_buf.function[f_trace_buf.f_trace_end] = f_info[i];
             f_trace_buf.ret_addr[f_trace_buf.f_trace_end] = ret_addr;
             f_trace_buf.is_ret[f_trace_buf.f_trace_end] = false;
-            Log("jump to %lx(%s)", f_trace_buf.function[f_trace_buf.f_trace_end].f_addr, f_trace_buf.function[f_trace_buf.f_trace_end].f_name);
+            Log("jump to 0x%lx(%s)", f_trace_buf.function[f_trace_buf.f_trace_end].f_addr, f_trace_buf.function[f_trace_buf.f_trace_end].f_name);
             // Log("retaddr is %lx", f_trace_buf.ret_addr[f_trace_buf.f_trace_end]);
             f_trace_buf.f_trace_end++;
             return ;
@@ -44,7 +44,6 @@ void ftrace_check_jal(vaddr_t jump_addr, vaddr_t ret_addr, int rd)
 
     if(jump_addr == f_trace_buf.ret_addr[f_trace_buf.f_trace_end-1])
     {
-        assert(0);
         f_trace_buf.function[f_trace_buf.f_trace_end] = f_trace_buf.function[f_trace_buf.f_trace_end-1];
         f_trace_buf.is_ret[f_trace_buf.f_trace_end] = true;
         Log("%s ret", f_trace_buf.function[f_trace_buf.f_trace_end].f_name);
