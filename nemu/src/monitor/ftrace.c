@@ -44,7 +44,7 @@ void ftrace_check_jal(vaddr_t jump_addr, vaddr_t ret_addr, int rd)
         }
     }
 
-    if(jump_addr == f_trace_buf.ret_addr[f_trace_buf.f_trace_end-1])
+    if(f_trace_buf.f_trace_end != 0 && jump_addr == f_trace_buf.ret_addr[f_trace_buf.f_trace_end-1])
     {
         f_trace_buf.function[f_trace_buf.f_trace_end] = f_trace_buf.function[f_trace_buf.f_trace_end-1];
         f_trace_buf.is_ret[f_trace_buf.f_trace_end] = true;
