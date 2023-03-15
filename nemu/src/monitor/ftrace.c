@@ -26,7 +26,7 @@ static struct function_call_stack
     int f_trace_end;
 }f_trace_buf = {.f_trace_end = 0, .is_ret = {false}};
 
-void ftrace_check_jal(vaddr_t jump_addr, vaddr_t ret_addr, int rd)
+void ftrace_check_jal(vaddr_t jump_addr, vaddr_t ret_addr, int rs1, int rd)
 {
     Log("jump_addr:%lx ret_addr:%lx rd:%d", jump_addr, ret_addr, rd);
     if(rd == 0)
@@ -67,14 +67,6 @@ void ftrace_check_jalr(vaddr_t jump_addr, vaddr_t ret_addr, int rd)
             f_trace_buf.ret_addr[f_trace_buf.f_trace_end] = ret_addr;
             f_trace_buf.is_ret[f_trace_buf.f_trace_end] = false;
             Log("jump to %lx", f_trace_buf.function[f_trace_buf.f_trace_end].f_addr);
-            f_trace_buf.f_trace_end++;
-            return ;
-        }
-        else if(f_info[i].f_addr == f_trace_buf.ret_addr[f_trace_buf.f_trace_end])
-        {
-            f_trace_buf.function[f_trace_buf.f_trace_end] = f_info[i];
-            f_trace_buf.is_ret[f_trace_buf.f_trace_end] = false;
-            Log("%lx ret", f_trace_buf.function[f_trace_buf.f_trace_end].f_addr);
             f_trace_buf.f_trace_end++;
             return ;
         }
