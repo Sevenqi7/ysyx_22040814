@@ -277,7 +277,7 @@ void sdb_get_symbol_list(char *elf_path)
               printf("%d: sym.st_info = %d\n", j, sym.st_info);
               if((sym.st_info & 0xf) == STT_FUNC)
               {
-                  assert(0);
+                  // assert(0);
                   char *func_name = strtab + sym.st_name;
                   memcpy(f_info[f_info_num].f_name, func_name, strlen(func_name)+1);
                   f_info[f_info_num].f_addr = sym.st_value;
