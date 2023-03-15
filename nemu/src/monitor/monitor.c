@@ -23,6 +23,7 @@ void init_difftest(char *ref_so_file, long img_size, int port);
 void init_device();
 void init_sdb();
 void init_disasm(const char *triple);
+static char *elf_file = NULL;
 
 static void welcome() {
   Log("Trace: %s", MUXDEF(CONFIG_TRACE, ANSI_FMT("ON", ANSI_FG_GREEN), ANSI_FMT("OFF", ANSI_FG_RED)));
@@ -30,6 +31,7 @@ static void welcome() {
         "to record the trace. This may lead to a large log file. "
         "If it is not necessary, you can disable it in menuconfig"));
   Log("Build time: %s, %s", __TIME__, __DATE__);
+  Log("Elf symbol loaded:%s", elf_file);
   printf("Welcome to %s-NEMU!\n", ANSI_FMT(str(__GUEST_ISA__), ANSI_FG_YELLOW ANSI_BG_RED));
   printf("For help, type \"help\"\n");
   // Log("Exercise: Please remove me in the source code and compile NEMU again.");
@@ -40,12 +42,7 @@ static void welcome() {
 #include <getopt.h>
 
 void sdb_set_batch_mode();
-void sdb_get_symbol_list(char *elf_path)
-{
-  // Log("excute debugging");
-  // Log("excute debugging");
-    return;
-}
+void sdb_get_symbol_list(char *elf_path);
 
 static char *log_file = NULL;
 static char *diff_so_file = NULL;
@@ -91,7 +88,7 @@ static int parse_args(int argc, char *argv[]) {
       case 'p': sscanf(optarg, "%d", &difftest_port); break;
       case 'l': log_file = optarg; break;
       case 'd': diff_so_file = optarg; break;
-      case 'e': sdb_get_symbol_list(optarg); break;
+      case 'e': elf_file = optarg; sdb_get_symbol_list(optarg); break;
       case 1: img_file = optarg; return 0;
       default:
         printf("Usage: %s [OPTION...] IMAGE [args]\n\n", argv[0]);
