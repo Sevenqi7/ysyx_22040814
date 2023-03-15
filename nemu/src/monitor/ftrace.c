@@ -69,12 +69,12 @@ void display_ftrace()
     int i = 0, j = 0;
     for(;i<f_trace_buf.f_trace_end;i++)
     {
-        printf("%lx:", f_trace_buf.call_pc[i]);
+        printf("0x%lx:", f_trace_buf.call_pc[i]);
         if(f_trace_buf.is_ret[i] == false)
         {
             j++;
             for(int k=0;k<2*j;k++) printf(" ");
-            printf("call[%s@%lx]\n", f_trace_buf.function[i].f_name, f_trace_buf.function[i].f_addr);
+            printf("call[%s@0x%lx]\n", f_trace_buf.function[i].f_name, f_trace_buf.function[i].f_addr);
         }
         else
         {
