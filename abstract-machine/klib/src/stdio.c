@@ -52,7 +52,6 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
                   char num[11];       //max of int is 2147483647
                   int x = va_arg(ap, int);
                   itoa(x, num);
-                  assert(num[0] == '1');
                   for(int j=0;num[j];j++) *p++ = num[j], len++;
                   break;
               default:
