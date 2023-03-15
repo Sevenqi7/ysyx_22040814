@@ -21,20 +21,21 @@ static struct function_info
 static struct function_call_stack
 {
     struct function_info function[MAX_FTRACE_STACK_SIZE];
+    vaddr_t ret_addr[MAX_FTRACE_STACK_SIZE];
     int  f_stack_top;
 }f_call_stack = {.f_stack_top = 0};
 
-void ftrace_check_jal(uint32_t jump_addr, int rd)
+void ftrace_check_jal(vaddr_t jump_addr, vaddr_t ret_addr, int rd)
 {
     for(int i=0;i<MAX_FTRACE_INFO_SIZE;i++)
     {
         if(f_info[i].f_addr == jump_addr)
         {
-            f_call_stack.function[f_call_stack.f_stack_top++] = f_info[i];
-            break;
+            f_call_stack.function[f_call_stack.f_stack_top] = f_info[i];
+            f_call_stack.ret_addr[f_call_stack.f_stack_top] = ret_addr;
+            return ;
         }
     }
-    Log("callstackaddr:%x", f_call_stack.function[0].f_addr);
 }
 
 void sdb_get_symbol_list(char *elf_path)
