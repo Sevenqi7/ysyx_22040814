@@ -157,7 +157,6 @@ static int cmd_x(char *args)
             printf("%02lx  ", paddr_read(addr+j, 1));
         printf("\n");
     }
-    Log("221211111111111111");
     return 0;
 }
 
@@ -288,7 +287,7 @@ void sdb_get_symbol_list(char *elf_path)
       }
   }
   free(strtab);
-  // Log("Funciton symbol load success.");
+  Log("Funciton symbol load success.");
 
 }
 
