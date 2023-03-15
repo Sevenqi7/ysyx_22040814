@@ -94,7 +94,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   memcpy(g_itrace_buf[g_itrace_end], s->logbuf, strlen(s->logbuf)+1);
   if(g_itrace_num < MAX_ITRACE_STORE) g_itrace_num++;
   else  g_itrace_base = g_itrace_base < MAX_ITRACE_STORE - 1 ? g_itrace_base+1 : 0;
-  g_itrace_end = g_itrace_end < MAX_ITRACE_STORE - 1 ? g_itrace_end : 0;
+  g_itrace_end = g_itrace_end < MAX_ITRACE_STORE - 1 ? g_itrace_end+1 : 0;
 #endif
 }
 
