@@ -248,6 +248,7 @@ void sdb_get_symbol_list(char *elf_path)
       return ;
   }
   char *shstrtab = malloc(shdr.sh_size);
+  lseek(fd, shdr.sh_offset, SEEK_SET);
   if(read(fd, shstrtab, shdr.sh_size) != shdr.sh_size)
   {
       printf("Failed to read section .shstrtab!\n");
