@@ -102,7 +102,7 @@ static int itoa(int x, char str[])
     *p-- = '\0';
     char *q = str;
     if(sign == -1) q++;
-    for(q=str;q<p;q++,p--)
+    for(;q<p;q++,p--)
     {
         char temp = *p;
         *p = *q;
