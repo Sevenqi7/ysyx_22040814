@@ -253,6 +253,7 @@ void sdb_get_symbol_list(char *elf_path)
       printf("Failed to read string table!\n");
       return ;
   }
+  printf("strtab:%s\n", strtab);
   lseek(fd, ehdr.e_shoff, SEEK_SET);
   for(int i=0;i<ehdr.e_shnum;i++)
   {
