@@ -253,8 +253,6 @@ void sdb_get_symbol_list(char *elf_path)
       printf("Failed to read string table!\n");
       return ;
   }
-  if(shdr.sh_type == SHT_STRTAB)
-      assert(0);
   lseek(fd, ehdr.e_shoff, SEEK_SET);
   for(int i=0;i<ehdr.e_shnum;i++)
   {
@@ -276,11 +274,11 @@ void sdb_get_symbol_list(char *elf_path)
                   printf("Failed to read symbol info!\n");
                   return ;
               }
-              printf("%d: sym.st_info = %d\n", j, sym.st_info);
               if((sym.st_info & 0xf) == STT_FUNC)
               {
                   // assert(0);
                   char *func_name = strtab + sym.st_name;
+                  printf("funcanem:%s", func_name);
                   memcpy(f_info[f_info_num].f_name, func_name, strlen(func_name)+1);
                   f_info[f_info_num].f_addr = sym.st_value;
                   f_info_num++;
