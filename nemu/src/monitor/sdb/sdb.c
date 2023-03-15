@@ -29,7 +29,7 @@ static int f_info_num = 0;
 static struct function_info
 {
     uint32_t f_addr;
-    char f_name[128];
+    char f_name[64];
 }f_info[32];
 
 void init_regex();
