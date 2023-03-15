@@ -47,7 +47,7 @@ void ftrace_check_jal(vaddr_t jump_addr, vaddr_t ret_addr, int rs1, int rd)
     {
         if(f_info[i].f_addr == jump_addr)
         {
-            f_trace_buf.function[f_trace_buf.f_trace_end] = f_info[i];
+            // f_trace_buf.function[f_trace_buf.f_trace_end] = f_info[i];
             // f_trace_buf.ret_addr[f_trace_buf.f_trace_end] = ret_addr;
             f_trace_buf.is_ret[f_trace_buf.f_trace_end] = false;
             Log("jump to 0x%lx(%s)", f_trace_buf.function[f_trace_buf.f_trace_end].f_addr, f_trace_buf.function[f_trace_buf.f_trace_end].f_name);
