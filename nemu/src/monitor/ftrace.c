@@ -8,13 +8,33 @@
 #include <stdlib.h>
 #include <elf.h>
 
+#define MAX_FTRACE_INFO_SIZE 32
+#define MAX_FTRACE_STACK_SIZE 32
+
 static int f_info_num = 0;
 static struct function_info
 {
     uint32_t f_addr;
     char f_name[64];
-}f_info[32];
+}f_info[MAX_FTRACE_INFO_SIZE];
 
+static struct function_call_stack
+{
+    struct function_info function[MAX_FTRACE_STACK_SIZE];
+    int  f_stack_top;
+}f_call_stack = {.f_stack_top = 0};
+
+void ftrace_check_jal(uint32_t jump_addr, int rd)
+{
+    for(int i=0;i<MAX_FTRACE_INFO_SIZE;i++)
+    {
+        if(f_info[i].f_addr == jump_addr)
+        {
+            f_call_stack.function[f_call_stack.f_stack_top++] = f_info[i];
+            break;
+        }
+    }
+}
 
 void sdb_get_symbol_list(char *elf_path)
 {
@@ -77,7 +97,7 @@ void sdb_get_symbol_list(char *elf_path)
           Elf64_Sym sym;
           lseek(fd, shdr.sh_offset, SEEK_SET);
           int sym_num = shdr.sh_size / sizeof(Elf64_Sym);
-          printf("syn_num:%d\n", sym_num);
+        //   printf("syn_num:%d\n", sym_num);
           for(int j=0;j<sym_num;j++)
           {
               if(read(fd, &sym, sizeof(Elf64_Sym)) != sizeof(Elf64_Sym))
@@ -97,10 +117,7 @@ void sdb_get_symbol_list(char *elf_path)
           
       }
   }
-  for(int i=0;i<f_info_num;i++)
-  {
-      printf("funcname:%s funcaddress:%x\n", f_info[i].f_name, f_info[i].f_addr);
-  }
+
   free(strtab);
   free(shstrtab);
 }
