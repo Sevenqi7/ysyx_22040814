@@ -45,7 +45,6 @@ void display_itrace()
 {
     int i = g_itrace_base;
     do{
-      Log("itrace:%d", i);
       printf("%s\n", g_itrace_buf[i]);
       i = i < MAX_ITRACE_STORE - 1 ? i + 1 : 0;
     }while(i != g_itrace_end);
@@ -95,6 +94,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   if(g_itrace_num < MAX_ITRACE_STORE) g_itrace_num++;
   else  g_itrace_base = g_itrace_base < MAX_ITRACE_STORE - 1 ? g_itrace_base+1 : 0;
   g_itrace_end = g_itrace_end < MAX_ITRACE_STORE - 1 ? g_itrace_end+1 : 0;
+  Log("base:%d, end:%d, num:%d", g_itrace_base, g_itrace_end, g_itrace_num);
 #endif
 }
 
