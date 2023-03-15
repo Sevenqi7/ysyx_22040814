@@ -235,13 +235,13 @@ void sdb_get_symbol_list(char *elf_path)
     printf("Failed to open elf file!\n");
     return ;
   }
-  Log("elf path:%s", elf_path);
   Elf64_Ehdr ehdr;
   if(read(fd, &ehdr, sizeof(Elf64_Ehdr)) != sizeof(Elf64_Ehdr))
   {
       printf("Failed to read Elf Header\n");
       return ;
   }
+  Log("elf path:%s", elf_path);
   Log("excute debugging");
   lseek(fd, ehdr.e_shoff + ehdr.e_shentsize * ehdr.e_shstrndx, SEEK_SET);
   Elf64_Shdr shdr;
