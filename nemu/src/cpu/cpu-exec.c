@@ -46,6 +46,7 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
   if(check_watchpoints())
       nemu_state.state = NEMU_STOP;
 #endif
+  g_store_pos = g_store_pos > MAX_INST_STORE ? 0 : g_store_pos + 1;
 }
 
 static void exec_once(Decode *s, vaddr_t pc) {
@@ -76,7 +77,6 @@ static void exec_once(Decode *s, vaddr_t pc) {
 #else
   p[0] = '\0'; // the upstream llvm does not support loongarch32r
 #endif
-  g_store_pos = g_store_pos > MAX_INST_STORE ? 0 : g_store_pos + 1;
 #endif
 }
 
