@@ -261,9 +261,10 @@ void sdb_get_symbol_list(char *elf_path)
       lseek(fd, ehdr.e_shoff + ehdr.e_shentsize * i, SEEK_SET);
       if(read(fd, &shdr, sizeof(Elf64_Shdr)) != sizeof(Elf64_Shdr))
           return;
-      if(shdr.sh_type == SHT_STRTAB ){
+      if(shdr.sh_type == SHT_STRTAB && !strcmp(".strtab", shstrtab + shdr.sh_name)){
           assert(0);
-          break;}
+          break;
+      }
   }
 
   char *strtab = malloc(shdr.sh_size);
