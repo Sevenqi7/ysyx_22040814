@@ -83,7 +83,6 @@ static int cmd_help(char *args);
 static int cmd_w(char *args)
 {
     int wp_num;
-    Log("cmdw");
     if(!args)
     {
         printf("Usage: w <EXPRESSION>\n");
