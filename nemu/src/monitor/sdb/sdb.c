@@ -225,10 +225,10 @@ void sdb_set_batch_mode() {
   is_batch_mode = true;
 }
 
-void sdb_get_symbol_list(char *elf_path)
-{
-  Log("excute debugging");
-  Log("excute debugging");
+// void sdb_get_symbol_list(char *elf_path)
+// {
+//   Log("excute debugging");
+//   Log("excute debugging");
 
   // int fd = open(elf_path, O_RDONLY, 0);
   // if(fd == -1)
@@ -292,7 +292,7 @@ void sdb_get_symbol_list(char *elf_path)
   // free(strtab);
   // Log("Funciton symbol load success.");
 
-}
+// }
 
 void sdb_mainloop() {
   if (is_batch_mode) {
