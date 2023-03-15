@@ -14,16 +14,17 @@
 static int f_info_num = 0;
 static struct function_info
 {
-    uint32_t f_addr;
+    vaddr_t f_addr;
     char f_name[64];
 }f_info[MAX_FTRACE_INFO_SIZE];
 
 static struct function_call_stack
 {
-    struct function_info function[MAX_FTRACE_STACK_SIZE];
+    struct function_info function[MAX_FTRACE_STACK_SIZE];    
+    bool is_ret[MAX_FTRACE_STACK_SIZE];
     vaddr_t ret_addr[MAX_FTRACE_STACK_SIZE];
-    int  f_stack_top;
-}f_call_stack = {.f_stack_top = 0};
+    int f_trace_end;
+}f_trace_buf = {.f_trace_end = 0, .is_ret = {false}};
 
 void ftrace_check_jal(vaddr_t jump_addr, vaddr_t ret_addr, int rd)
 {
@@ -31,8 +32,18 @@ void ftrace_check_jal(vaddr_t jump_addr, vaddr_t ret_addr, int rd)
     {
         if(f_info[i].f_addr == jump_addr)
         {
-            f_call_stack.function[f_call_stack.f_stack_top] = f_info[i];
-            f_call_stack.ret_addr[f_call_stack.f_stack_top] = ret_addr;
+            f_trace_buf.function[f_trace_buf.f_trace_end] = f_info[i];
+            f_trace_buf.ret_addr[f_trace_buf.f_trace_end] = ret_addr;
+            f_trace_buf.is_ret[f_trace_buf.f_trace_end] = false;
+            f_trace_buf.f_trace_end++;
+            return ;
+        }
+        else if(f_info[i].f_addr == f_trace_buf.ret_addr[f_trace_buf.f_trace_end])
+        {
+            f_trace_buf.function[f_trace_buf.f_trace_end] = f_info[i];
+            f_trace_buf.is_ret[f_trace_buf.f_trace_end] = false;
+            Log("%lx ret", f_trace_buf.function[f_trace_buf.f_trace_end].f_addr);
+            f_trace_buf.f_trace_end++;
             return ;
         }
     }
