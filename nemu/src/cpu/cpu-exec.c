@@ -43,6 +43,7 @@ void device_update();
 
 void display_itrace()
 {
+    printf("\n\nItrace Store Num: %d\n\n", MAX_ITRACE_STORE);
     int i = g_itrace_base;
     do{
       printf("%s\n", g_itrace_buf[i]);
