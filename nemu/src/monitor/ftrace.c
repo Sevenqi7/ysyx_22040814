@@ -9,7 +9,7 @@
 #include <elf.h>
 
 #define MAX_FTRACE_INFO_SIZE 32
-#define MAX_FTRACE_STACK_SIZE 96
+#define MAX_FTRACE_STACK_SIZE 512
 
 static int f_info_num = 0;
 static struct function_info
