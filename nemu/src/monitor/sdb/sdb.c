@@ -288,7 +288,8 @@ void sdb_get_symbol_list(char *elf_path)
       }
   }
   free(strtab);
-  
+  char a[200000] = "0";
+  printf("%s", a);
   // Log("Funciton symbol load success.");
 
 }
