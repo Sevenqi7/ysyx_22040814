@@ -88,6 +88,7 @@ static void exec_once(Decode *s, vaddr_t pc) {
   p[0] = '\0'; // the upstream llvm does not support loongarch32r
 #endif
   g_store_pos = g_store_pos < MAX_ITRACE_STORE - 1 ? g_store_pos+1  : 0;
+  Log("g_store_pos:%lu", g_store_pos);
   memcpy(g_itrace_buf[g_store_pos], s->logbuf, strlen(s->logbuf)+1);
 #endif
 }
