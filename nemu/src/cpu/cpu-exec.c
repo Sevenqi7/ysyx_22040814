@@ -42,6 +42,8 @@ void display_itrace()
 {
     int i = g_store_pos;
     do{
+  Log("g_store_pos:%lu", g_store_pos);
+
       printf("%s\n", g_itrace_buf[g_store_pos]);
       i = i < MAX_ITRACE_STORE - 1 ? i + 1 : 0;
     }while(i != g_store_pos);
