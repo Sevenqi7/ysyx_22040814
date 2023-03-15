@@ -274,7 +274,7 @@ void sdb_get_symbol_list(char *elf_path)
                   printf("Failed to read symbol info!\n");
                   return ;
               }
-              printf("sym.st_info = %d\n", sym.st_info);
+              printf("%d: sym.st_info = %d\n", j, sym.st_info);
               if(sym.st_info == STT_FUNC)
               {
                   assert(0);
