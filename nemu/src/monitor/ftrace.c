@@ -28,7 +28,7 @@ static struct function_call_stack
 
 void ftrace_check_jal(vaddr_t jump_addr, vaddr_t ret_addr, int rs1, int rd)
 {
-    Log("jump_addr:%lx ret_addr:%lx rd:%d", jump_addr, ret_addr, rd);
+    Log("jump_addr:%lx ret_addr:%lx rd:%d, rs1:%d", jump_addr, ret_addr, rd, rs1);
     if(rd == 0 && rs1 == 1)
     {
         for(int i=f_trace_buf.f_trace_end-1;i >= 0;i--)
