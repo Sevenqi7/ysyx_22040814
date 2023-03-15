@@ -28,25 +28,26 @@
 #define MAX_ITRACE_STORE 10
 
 char g_itrace_buf[MAX_ITRACE_STORE][128];
-
+static uint32_t g_itrace_base = 0;
+static uint32_t g_itrace_end = 0;
+static uint32_t g_itrace_num = 0;
+    
 
 CPU_state cpu = {};
 uint64_t g_nr_guest_inst = 0;
 static uint64_t g_timer = 0; // unit: us
 static bool g_print_step = false;
-static uint64_t g_store_pos = 0;
+
 
 void device_update();
 
 void display_itrace()
 {
-    int i = g_store_pos;
+    int i = g_itrace_base;
     do{
-      Log("g_store_pos:%d", i);
-
       printf("%s\n", g_itrace_buf[i]);
       i = i < MAX_ITRACE_STORE - 1 ? i + 1 : 0;
-    }while(i != g_store_pos);
+    }while(i != g_itrace_end);
 }
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
@@ -89,8 +90,10 @@ static void exec_once(Decode *s, vaddr_t pc) {
 #else
   p[0] = '\0'; // the upstream llvm does not support loongarch32r
 #endif
-  g_store_pos = g_store_pos < MAX_ITRACE_STORE - 1 ? g_store_pos+1  : 0;
-  memcpy(g_itrace_buf[g_store_pos], s->logbuf, strlen(s->logbuf)+1);
+  memcpy(g_itrace_buf[g_itrace_end], s->logbuf, strlen(s->logbuf)+1);
+  if(g_itrace_num < MAX_ITRACE_STORE) g_itrace_num++;
+  else  g_itrace_base = g_itrace_base < MAX_ITRACE_STORE - 1 ? g_itrace_base+1 : 0;
+  g_itrace_end = g_itrace_end < MAX_ITRACE_STORE - 1 ? g_itrace_end : 0;
 #endif
 }
 
