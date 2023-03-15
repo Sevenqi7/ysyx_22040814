@@ -157,7 +157,7 @@ static int cmd_x(char *args)
             printf("%02lx  ", paddr_read(addr+j, 1));
         printf("\n");
     }
-    
+    Log("2");
     return 0;
 }
 
