@@ -227,6 +227,9 @@ void sdb_set_batch_mode() {
 
 void sdb_get_symbol_list(char *elf_path)
 {
+  Log("excute debugging");
+  Log("excute debugging");
+
   int fd = open(elf_path, O_RDONLY, 0);
   if(fd == -1)
   {
@@ -239,7 +242,7 @@ void sdb_get_symbol_list(char *elf_path)
       printf("Failed to read Elf Header\n");
       return ;
   }
-  // Log("excute debugging");
+  Log("excute debugging");
   // Log("elf path:%s", elf_path);
   lseek(fd, ehdr.e_shoff + ehdr.e_shentsize * ehdr.e_shstrndx, SEEK_SET);
   Elf64_Shdr shdr;
@@ -287,7 +290,7 @@ void sdb_get_symbol_list(char *elf_path)
       }
   }
   free(strtab);
-  Log("Funciton symbol load success.");
+  // Log("Funciton symbol load success.");
 
 }
 
