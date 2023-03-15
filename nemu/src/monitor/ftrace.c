@@ -22,13 +22,14 @@ static struct function_call_stack
 {
     struct function_info function[MAX_FTRACE_STACK_SIZE];    
     bool is_ret[MAX_FTRACE_STACK_SIZE];
+    vaddr_t call_pc[MAX_FTRACE_STACK_SIZE];
     vaddr_t ret_addr[MAX_FTRACE_STACK_SIZE];
     int f_trace_end;
 }f_trace_buf = {.f_trace_end = 0, .is_ret = {false}};
 
 void ftrace_check_jal(vaddr_t jump_addr, vaddr_t ret_addr, int rs1, int rd)
 {
-    Log("jump_addr:%lx ret_addr:%lx rd:%d, rs1:%d", jump_addr, ret_addr, rd, rs1);
+    // Log("jump_addr:%lx ret_addr:%lx rd:%d, rs1:%d", jump_addr, ret_addr, rd, rs1);
     if(rd == 0 && rs1 == 1)
     {
         for(int i=f_trace_buf.f_trace_end-1;i >= 0;i--)
@@ -37,6 +38,8 @@ void ftrace_check_jal(vaddr_t jump_addr, vaddr_t ret_addr, int rs1, int rd)
             {
                 f_trace_buf.function[f_trace_buf.f_trace_end] = f_trace_buf.function[i];
                 f_trace_buf.is_ret[f_trace_buf.f_trace_end] = true;
+                f_trace_buf.call_pc[f_trace_buf.f_trace_end] = jump_addr - 4;
+
                 // Log("%s ret", f_trace_buf.function[f_trace_buf.f_trace_end].f_name);
                 f_trace_buf.f_trace_end++;
                 break;
@@ -50,11 +53,34 @@ void ftrace_check_jal(vaddr_t jump_addr, vaddr_t ret_addr, int rs1, int rd)
             f_trace_buf.function[f_trace_buf.f_trace_end] = f_info[i];
             f_trace_buf.ret_addr[f_trace_buf.f_trace_end] = ret_addr;
             f_trace_buf.is_ret[f_trace_buf.f_trace_end] = false;
+            f_trace_buf.call_pc[f_trace_buf.f_trace_end] = jump_addr - 4;
+
             // Log("f_trace_end:%d", f_trace_buf.f_traceq_end);
             // Log("jump to 0x%lx(%s)", f_trace_buf.function[f_trace_buf.f_trace_end].f_addr, f_trace_buf.function[f_trace_buf.f_trace_end].f_name);
 
             f_trace_buf.f_trace_end++;
             return ;
+        }
+    }
+}
+
+void display_ftrace()
+{
+    int i = 0, j = 0;
+    for(;i<f_trace_buf.f_trace_end;i++)
+    {
+        printf("%lx:", f_trace_buf.call_pc[i]);
+        if(f_trace_buf.is_ret[i] == false)
+        {
+            j++;
+            for(int k=0;k<2*j;k++) printf(" ");
+            printf("call[%s@%lx]\n", f_trace_buf.function[i].f_name, f_trace_buf.function[i].f_addr);
+        }
+        else
+        {
+            j--;
+            for(int k=0;k<2*j;k++) printf(" ");
+            printf("ret  [%s]", f_trace_buf.function[i].f_name);
         }
     }
 }
