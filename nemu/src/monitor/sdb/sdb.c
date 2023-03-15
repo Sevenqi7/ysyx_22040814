@@ -284,6 +284,10 @@ void sdb_get_symbol_list(char *elf_path)
           
       }
   }
+  for(int i=0;i<f_info_num;i++)
+  {
+      printf("funcname:%s funcaddress:%x\n", f_info[i].f_name, f_info[i].f_addr);
+  }
   free(strtab);
 }
 
