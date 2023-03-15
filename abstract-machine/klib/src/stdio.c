@@ -49,7 +49,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
                   for(int j=0;str[j];j++) *p++ = str[j], len++;
                   break;
               case 'd':
-                  char num[11];       //max of int is 2147483647
+                  char num[32];       //max of int is 2147483647
                   int x = va_arg(ap, int);
                   itoa(x, num);
                   for(int j=0;num[j];j++) *p++ = num[j], len++;
@@ -64,6 +64,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
           len++;
       }
   }
+  *p = '\0';
   
   return len;
 }
