@@ -254,6 +254,7 @@ void sdb_get_symbol_list(char *elf_path)
       return ;
   }
   lseek(fd, ehdr.e_shoff, SEEK_SET);
+  printf("f_info_num:%d\n", ehdr.e_shnum);
   for(int i=0;i<ehdr.e_shnum;i++)
   {
       if(read(fd, &shdr, sizeof(Elf64_Shdr)) != sizeof(Elf64_Shdr))
@@ -284,7 +285,6 @@ void sdb_get_symbol_list(char *elf_path)
           
       }
   }
-  printf("f_info_num:%d\n", f_info_num);
   for(int i=0;i<f_info_num;i++)
   {
       printf("funcname:%s funcaddress:%x\n", f_info[i].f_name, f_info[i].f_addr);
