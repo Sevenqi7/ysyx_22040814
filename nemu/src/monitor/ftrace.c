@@ -29,20 +29,20 @@ static struct function_call_stack
 void ftrace_check_jal(vaddr_t jump_addr, vaddr_t ret_addr, int rs1, int rd)
 {
     Log("jump_addr:%lx ret_addr:%lx rd:%d, rs1:%d", jump_addr, ret_addr, rd, rs1);
-    if(rd == 0 && rs1 == 1)
-    {
-        for(int i=f_trace_buf.f_trace_end-1;i >= 0;i--)
-        {
-            if(f_trace_buf.ret_addr[i] == jump_addr)
-            {
-                f_trace_buf.function[f_trace_buf.f_trace_end] = f_trace_buf.function[i];
-                f_trace_buf.is_ret[f_trace_buf.f_trace_end] = true;
-                Log("%s ret", f_trace_buf.function[f_trace_buf.f_trace_end].f_name);
-                f_trace_buf.f_trace_end++;
-                break;
-            }
-        }
-    }
+    // if(rd == 0 && rs1 == 1)
+    // {
+    //     for(int i=f_trace_buf.f_trace_end-1;i >= 0;i--)
+    //     {
+    //         if(f_trace_buf.ret_addr[i] == jump_addr)
+    //         {
+    //             f_trace_buf.function[f_trace_buf.f_trace_end] = f_trace_buf.function[i];
+    //             f_trace_buf.is_ret[f_trace_buf.f_trace_end] = true;
+    //             Log("%s ret", f_trace_buf.function[f_trace_buf.f_trace_end].f_name);
+    //             f_trace_buf.f_trace_end++;
+    //             break;
+    //         }
+    //     }
+    // }
     for(int i=0;i<f_info_num;i++)
     {
         if(f_info[i].f_addr == jump_addr)
