@@ -35,6 +35,7 @@ void ftrace_check_jal(vaddr_t jump_addr, vaddr_t ret_addr, int rd)
             f_trace_buf.function[f_trace_buf.f_trace_end] = f_info[i];
             f_trace_buf.ret_addr[f_trace_buf.f_trace_end] = ret_addr;
             f_trace_buf.is_ret[f_trace_buf.f_trace_end] = false;
+            Log("%lx ret", f_trace_buf.function[f_trace_buf.f_trace_end].f_addr);
             f_trace_buf.f_trace_end++;
             return ;
         }
