@@ -43,11 +43,15 @@ void device_update();
 
 void display_itrace()
 {
-    printf("\n\nItrace Store Num: %d\n\n", MAX_ITRACE_STORE);
+    printf("\nItrace Store Num: %d\n\n", MAX_ITRACE_STORE);
+    char printbuf[150];
+    memset(printbuf, ' ', 150);
     int i = g_itrace_base;
     do{
-      printf("%s\n", g_itrace_buf[i]);
+      memcpy(&printbuf[10], g_itrace_buf, strlen(g_itrace_buf[i])+1);
       i = i < MAX_ITRACE_STORE - 1 ? i + 1 : 0;
+      if(i == g_itrace_end) memcpy(printbuf, "-->", 3);
+      printf("%s\n", printbuf);
     }while(i != g_itrace_end);
 }
 
