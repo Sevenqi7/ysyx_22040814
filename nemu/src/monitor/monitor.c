@@ -40,7 +40,7 @@ static void welcome() {
 #include <getopt.h>
 
 void sdb_set_batch_mode();
-void sdb_get_symbol_list();
+extern void sdb_get_symbol_list();
 
 static char *log_file = NULL;
 static char *diff_so_file = NULL;
