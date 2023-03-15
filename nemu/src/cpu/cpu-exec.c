@@ -25,6 +25,9 @@
  * You can modify this value as you want.
  */
 #define MAX_INST_TO_PRINT 10
+#define MAX_ITRACE_STORE 10
+
+char g_itrace_buf[MAX_ITRACE_STORE][128];
 
 
 CPU_state cpu = {};
@@ -35,18 +38,26 @@ static uint64_t g_store_pos = 0;
 
 void device_update();
 
+void display_itrace()
+{
+    int i = g_store_pos;
+    do{
+      printf("%s\n", g_itrace_buf[g_store_pos]);
+      i = i < MAX_ITRACE_STORE - 1 ? i + 1 : 0;
+    }while(i != g_store_pos);
+}
+
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
-  if (ITRACE_COND) { log_write("%s\n", _this->logbuf[g_store_pos]); }
+  if (ITRACE_COND) { log_write("%s\n", _this->logbuf); }
 #endif
-  if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf[g_store_pos])); }
+  if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
   IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
 
 #ifdef CONFIG_WATCHPOINT
   if(check_watchpoints())
       nemu_state.state = NEMU_STOP;
 #endif
-  g_store_pos = g_store_pos < MAX_INST_STORE-1 ? g_store_pos+1 : 0;
 }
 
 static void exec_once(Decode *s, vaddr_t pc) {
@@ -55,8 +66,8 @@ static void exec_once(Decode *s, vaddr_t pc) {
   isa_exec_once(s);
   cpu.pc = s->dnpc;
 #ifdef CONFIG_ITRACE
-  char *p = s->logbuf[g_store_pos];
-  p += snprintf(p, sizeof(s->logbuf[g_store_pos]), FMT_WORD ":", s->pc);
+  char *p = s->logbuf;
+  p += snprintf(p, sizeof(s->logbuf), FMT_WORD ":", s->pc);
   int ilen = s->snpc - s->pc;
   int i;
   uint8_t *inst = (uint8_t *)&s->isa.inst.val;
@@ -71,12 +82,13 @@ static void exec_once(Decode *s, vaddr_t pc) {
   p += space_len;
 #ifndef CONFIG_ISA_loongarch32r
   void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
-  disassemble(p, s->logbuf[g_store_pos] + sizeof(s->logbuf[g_store_pos]) - p,
+  disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
-  Log("pos:%lu p: %s", g_store_pos, s->logbuf[g_store_pos]);
 #else
   p[0] = '\0'; // the upstream llvm does not support loongarch32r
 #endif
+  g_store_pos = g_store_pos < MAX_ITRACE_STORE - 1 ? g_store_pos+1  : 0;
+  memcpy(g_itrace_buf[g_store_pos], s->logbuf, strlen(s->logbuf)+1);
 #endif
 }
 
@@ -124,8 +136,9 @@ void cpu_exec(uint64_t n) {
 
   switch (nemu_state.state) {
     case NEMU_RUNNING: nemu_state.state = NEMU_STOP; break;
-
-    case NEMU_END: case NEMU_ABORT:
+    case NEMU_ABORT:
+      display_itrace();
+    case NEMU_END: 
       Log("nemu: %s at pc = " FMT_WORD,
           (nemu_state.state == NEMU_ABORT ? ANSI_FMT("ABORT", ANSI_FG_RED) :
            (nemu_state.halt_ret == 0 ? ANSI_FMT("HIT GOOD TRAP", ANSI_FG_GREEN) :
