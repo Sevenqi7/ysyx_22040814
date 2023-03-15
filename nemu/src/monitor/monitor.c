@@ -42,9 +42,9 @@ static void welcome() {
 void sdb_set_batch_mode();
 void sdb_get_symbol_list(char *elf_path)
 {
-  Log("excute debugging");
-  Log("excute debugging");
-    
+  // Log("excute debugging");
+  // Log("excute debugging");
+    return;
 }
 
 static char *log_file = NULL;
