@@ -37,7 +37,7 @@ void ftrace_check_jal(vaddr_t jump_addr, vaddr_t ret_addr, int rs1, int rd)
             {
                 f_trace_buf.function[f_trace_buf.f_trace_end] = f_trace_buf.function[i];
                 f_trace_buf.is_ret[f_trace_buf.f_trace_end] = true;
-                Log("%s ret", f_trace_buf.function[f_trace_buf.f_trace_end].f_name);
+                // Log("%s ret", f_trace_buf.function[f_trace_buf.f_trace_end].f_name);
                 f_trace_buf.f_trace_end++;
                 break;
             }
@@ -51,7 +51,7 @@ void ftrace_check_jal(vaddr_t jump_addr, vaddr_t ret_addr, int rs1, int rd)
             f_trace_buf.ret_addr[f_trace_buf.f_trace_end] = ret_addr;
             f_trace_buf.is_ret[f_trace_buf.f_trace_end] = false;
             // Log("f_trace_end:%d", f_trace_buf.f_traceq_end);
-            Log("jump to 0x%lx(%s)", f_trace_buf.function[f_trace_buf.f_trace_end].f_addr, f_trace_buf.function[f_trace_buf.f_trace_end].f_name);
+            // Log("jump to 0x%lx(%s)", f_trace_buf.function[f_trace_buf.f_trace_end].f_addr, f_trace_buf.function[f_trace_buf.f_trace_end].f_name);
 
             f_trace_buf.f_trace_end++;
             return ;
@@ -59,21 +59,6 @@ void ftrace_check_jal(vaddr_t jump_addr, vaddr_t ret_addr, int rs1, int rd)
     }
 }
 
-void ftrace_check_jalr(vaddr_t jump_addr, vaddr_t ret_addr, int rd)
-{
-    for(int i=0;i<MAX_FTRACE_INFO_SIZE;i++)
-    {
-        if(f_info[i].f_addr == jump_addr)
-        {
-            f_trace_buf.function[f_trace_buf.f_trace_end] = f_info[i];
-            f_trace_buf.ret_addr[f_trace_buf.f_trace_end] = ret_addr;
-            f_trace_buf.is_ret[f_trace_buf.f_trace_end] = false;
-            Log("jump to %lx", f_trace_buf.function[f_trace_buf.f_trace_end].f_addr);
-            f_trace_buf.f_trace_end++;
-            return ;
-        }
-    }
-}
 
 void sdb_get_symbol_list(char *elf_path)
 {
