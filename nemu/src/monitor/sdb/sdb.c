@@ -253,9 +253,9 @@ void sdb_get_symbol_list(char *elf_path)
       lseek(fd, shdr.sh_name, SEEK_SET);
       if(read(fd, section_name, 19) == 0)
           return;
-      assert(0);
       if(shdr.sh_type == SHT_STRTAB && !strcmp(".strtab", section_name))
       {
+      assert(0);
           printf("strtab found\n");
           break;
       }
