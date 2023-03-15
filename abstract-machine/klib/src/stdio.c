@@ -94,11 +94,11 @@ static int itoa(int x, char str[])
         x = -x;   
     }
 
-    for(int i=0;x;i++)
+    do
     {
         *p++ = x % 10 + '0';
         x /= 10;
-    }
+    }while(x);
     *p-- = '\0';
     char *q = str;
     if(sign == -1) q++;
