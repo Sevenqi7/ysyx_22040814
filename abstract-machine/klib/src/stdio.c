@@ -5,7 +5,7 @@
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
-static int itoa(int x, char str[]);
+static void itoa(int x, char str[]);
 
 int printf(const char *fmt, ...) {
   va_list args;
@@ -84,32 +84,30 @@ int vsnprintf(char *out, size_t n, const char *fmt, va_list ap) {
   panic("Not implemented");
 }
 
-static int itoa(int x, char str[])
+static void itoa(int n, char s[])
 {
-    char *p = str;
-    int sign = x;
-    if(x < 0)
-    {
-        *p++ = '-';
-        x = -x;   
+    int i, sign;
+
+    if ((sign = n) < 0)  
+        n = -n;          
+
+    i = 0;
+    do {
+        s[i++] = n % 10 + '0';  
+    } while ((n /= 10) > 0);   
+
+    if (sign < 0)
+        s[i++] = '-';
+
+    s[i] = '\0';
+
+    int j, temp;
+    for (j = 0, i--; j < i; j++, i--) {
+        temp = s[j];
+        s[j] = s[i];
+        s[i] = temp;
     }
 
-    do
-    {
-        *p++ = x % 10 + '0';
-        x /= 10;
-    }while(x);
-    *p-- = '\0';
-    char *q = str;
-    if(sign == -1) q++;
-    for(;q<p;q++,p--)
-    {
-        char temp = *p;
-        *p = *q;
-        *q = temp;
-    }
-
-    return strlen(str);
 }
 
 #endif
