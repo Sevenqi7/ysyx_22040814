@@ -28,6 +28,19 @@ static struct function_call_stack
 
 void ftrace_check_jal(vaddr_t jump_addr, vaddr_t ret_addr, int rd)
 {
+    if(rd == 1 && ret_addr == 0)
+    {
+        for(int i=f_trace_buf.f_trace_end-1;i >= 0;i--)
+        {
+            if(f_trace_buf.ret_addr[i] == jump_addr)
+            {
+                f_trace_buf.function[f_trace_buf.f_trace_end] = f_trace_buf.function[i];
+                f_trace_buf.is_ret[f_trace_buf.f_trace_end] = true;
+                f_trace_buf.f_trace_end++;
+                Log("%s ret", f_trace_buf.function[f_trace_buf.f_trace_end].f_name);
+            }
+        }
+    }
     for(int i=0;i<f_info_num;i++)
     {
         if(f_info[i].f_addr == jump_addr)
