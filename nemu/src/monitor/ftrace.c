@@ -34,6 +34,7 @@ void ftrace_check_jal(uint32_t jump_addr, int rd)
             break;
         }
     }
+    Log("callstackaddr:%x", f_call_stack.function[0].f_addr);
 }
 
 void sdb_get_symbol_list(char *elf_path)
