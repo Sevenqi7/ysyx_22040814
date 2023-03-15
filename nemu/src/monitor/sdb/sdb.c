@@ -239,13 +239,27 @@ void sdb_get_symbol_list(char *elf_path)
       printf("Failed to read Elf Header\n");
       return ;
   }
-  lseek(fd, ehdr.e_shoff + ehdr.e_shentsize * ehdr.e_shstrndx, SEEK_SET);
+
   Elf64_Shdr shdr;
-  if(read(fd, &shdr, sizeof(shdr)) != sizeof(Elf64_Shdr))
+  for(int i=0;i<ehdr.e_shnum;i++)
   {
-      printf("Failed to read section header of string table!\n");
-      return ;
+      char section_name[20];
+      lseek(fd, ehdr.e_shoff + ehdr.e_shentsize * i, SEEK_SET);
+      if(read(fd, &shdr, sizeof(Elf64_Shdr)) != sizeof(Elf64_Shdr))
+      {
+          printf("Failed to read Elf Section Header!\n");
+          return ;
+      }
+      lseek(fd, shdr.sh_name, SEEK_SET);
+      if(read(fd, section_name, 19) == 0)
+          return;
+      if(shdr.sh_type == SHT_STRTAB && !strcmp(".strtab", section_name))
+      {
+          printf("strtab found\n");
+          break;
+      }
   }
+  assert(0);
   char *strtab = malloc(shdr.sh_size);
   lseek(fd, shdr.sh_offset, SEEK_SET);
   if(read(fd, strtab, shdr.sh_size) != shdr.sh_size)
