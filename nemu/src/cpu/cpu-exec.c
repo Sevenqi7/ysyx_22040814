@@ -69,11 +69,11 @@ static void exec_once(Decode *s, vaddr_t pc) {
   space_len = space_len * 3 + 1;
   memset(p, ' ', space_len);
   p += space_len;
-  Log("pos:%lu p: %s", g_store_pos, s->logbuf[g_store_pos]);
 #ifndef CONFIG_ISA_loongarch32r
   void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
   disassemble(p, s->logbuf[g_store_pos] + sizeof(s->logbuf[g_store_pos]) - p,
       MUXDEF(CONFIG_ISA_x86, s->snpc, s->pc), (uint8_t *)&s->isa.inst.val, ilen);
+  Log("pos:%lu p: %s", g_store_pos, s->logbuf[g_store_pos]);
 #else
   p[0] = '\0'; // the upstream llvm does not support loongarch32r
 #endif
