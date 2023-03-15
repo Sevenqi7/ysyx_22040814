@@ -289,7 +289,7 @@ void sdb_get_symbol_list(char *elf_path)
       }
   }
   free(strtab);
-  Log("Funciton symbol load success.");
+  // Log("Funciton symbol load success.");
 
 }
 
