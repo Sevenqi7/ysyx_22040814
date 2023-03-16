@@ -22,12 +22,28 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
   //   .width = 0, .height = 0,
   //   .vmemsz = 0
   // };
-      uint32_t screen_size = inl(VGACTL_ADDR);
-      cfg->width = screen_size >> 16;
-      cfg->height = screen_size & 0x0f;
+      uint32_t screen_size = (cfg->width << 16) | cfg->height;
+      outl(VGACTL_ADDR, screen_size);
 }
 
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
+  int width, height;
+  int screen_size = inl(VGACTL_ADDR);
+  width = screen_size >> 16;
+  height = screen_size & 0xffff;
+  uint32_t draw_addr = FB_ADDR + ctl->y * width;
+  uint32_t *pixel = (uint32_t *)ctl->pixels;
+  for(int i=ctl->y;i<ctl->y+ctl->h;i++)
+  {
+      if(i > height) break;
+      for(int k=ctl->x;k<ctl->x+ctl->w;k++)
+      {
+          if(k > width) break;
+          *((uint32_t *)(uintptr_t)(draw_addr)) = *pixel++;
+          draw_addr++;
+      }
+      draw_addr = FB_ADDR + i * width;
+  }
   if (ctl->sync) {
     outl(SYNC_ADDR, 1);
   }
