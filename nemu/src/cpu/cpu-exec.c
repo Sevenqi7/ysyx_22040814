@@ -30,8 +30,9 @@
 char g_itrace_buf[MAX_ITRACE_STORE][128];
 static uint32_t g_itrace_base = 0;
 static uint32_t g_itrace_end = 0;
+#ifdef CONFIG_ITRACE
 static uint32_t g_itrace_num = 0;
-    
+#endif
 
 CPU_state cpu = {};
 uint64_t g_nr_guest_inst = 0;
