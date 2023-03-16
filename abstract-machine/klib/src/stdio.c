@@ -44,6 +44,7 @@ int printf(const char *fmt, ...) {
                     memset(num2, 0, 20);
                     for(int j=0;fmt[i] > '9' || fmt[i] <'0';i++)
                         num2[j++] = fmt[i] - '0';
+                    assert(0);
                     if(fmt[i] == 'd')
                     { 
                         int zero_num = 0;
