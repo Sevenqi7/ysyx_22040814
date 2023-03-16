@@ -60,6 +60,8 @@ static int decode_exec(Decode *s) {
   // int rs1 = BITS(s->isa.inst.val, 19, 15);
   word_t src1 = 0, src2 = 0, imm = 0, shamt = BITS(s->isa.inst.val, 25, 20);
   s->dnpc = s->snpc;
+  if(rd == 0)
+  Log("s1 value:%lx", cpu.gpr[9]);
 
 #define INSTPAT_INST(s) ((s)->isa.inst.val)
 #define INSTPAT_MATCH(s, name, type, ... /* execute body */ ) { \
