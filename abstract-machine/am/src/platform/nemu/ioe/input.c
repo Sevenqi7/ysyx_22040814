@@ -9,6 +9,5 @@ void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
   if(scan_code)printf("Gotaaa key :%d\n", scan_code);
 
   kbd->keydown = scan_code & KEYDOWN_MASK;
-  // if(kbd->keydown)
-  kbd->keycode = scan_code & 0x7FFF;
+  kbd->keycode = scan_code & (~KEYDOWN_MASK);
 }
