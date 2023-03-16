@@ -41,13 +41,13 @@ int printf(const char *fmt, ...) {
                 case '0':
                     i++;
                     char num2[20];
-                    memset(num2, 0, 20);
+                    memset(num2, -1, 20);
                     for(int j=0;fmt[i] < '9' || fmt[i] >'0';i++)
                         num2[j++] = fmt[i] - '0';
                     if(fmt[i] == 'd')
                     { 
                         int zero_num = 0;
-                        for(int j=0;num2[j];j++) zero_num = zero_num * 10 + num2[j];
+                        for(int j=0;num2[j] != -1;j++) zero_num = zero_num * 10 + num2[j];
                         int x = va_arg(args, int);
                         itoa(x, num2);
                         int j=0;
