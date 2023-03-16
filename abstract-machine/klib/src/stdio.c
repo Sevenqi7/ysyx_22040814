@@ -7,89 +7,92 @@
 
 static void itoa(int x, char str[]);
 
-#include <stdarg.h>
 
-void putch(char c);
-
-void print_int(int num, int base, int is_signed, int width, char pad_char) {
-    char digits[16] = "0123456789abcdef";
-    char buf[32];
-    int i = 0, neg = 0;
-
-    if (is_signed && num < 0) {
-        neg = 1;
-        num = -num;
-    }
-
-    do {
-        buf[i++] = digits[num % base];
-    } while ((num /= base) > 0);
-
-    if (is_signed && neg) {
-        buf[i++] = '-';
-    }
-
-    if (i < width) {
-        int padding = width - i;
-        while (padding-- > 0) {
-            putch(pad_char);
+int printf(const char *format, ...) {
+  va_list args;
+  va_start(args, format);
+  int count = 0;
+  while (*format != '\0') {
+    if (*format == '%') {
+      format++;
+      if (*format == '%') {
+        putch('%');
+        count++;
+      } else if (*format == 'c') {
+        char c = va_arg(args, int);
+        putch(c);
+        count++;
+      } else if (*format == 'd' || *format == 'i') {
+        int num = va_arg(args, int);
+        if (num < 0) {
+          putch('-');
+          count++;
+          num = -num;
         }
-    }
-
-    while (i > 0) {
-        putch(buf[--i]);
-    }
-}
-
-int printf(const char* fmt, ...) {
-    va_list ap;
-    va_start(ap, fmt);
-
-    while (*fmt) {
-        if (*fmt == '%') {
-            ++fmt;
-            int width = 0;
-            char pad_char = ' ';
-
-            if (*fmt == '0') {
-                pad_char = '0';
-                ++fmt;
-                while (*fmt >= '0' && *fmt <= '9') {
-                    width = width * 10 + (*fmt - '0');
-                    ++fmt;
-                }
-            } else {
-                while (*fmt >= '0' && *fmt <= '9') {
-                    width = width * 10 + (*fmt - '0');
-                    ++fmt;
-                }
-            }
-
-            if (*fmt == 'd' || *fmt == 'i') {
-                int num = va_arg(ap, int);
-                print_int(num, 10, 1, width, pad_char);
-            } else if (*fmt == 'u') {
-                unsigned int num = va_arg(ap, unsigned int);
-                print_int(num, 10, 0, width, pad_char);
-            } else if (*fmt == 'x') {
-                unsigned int num = va_arg(ap, unsigned int);
-                print_int(num, 16, 0, width, pad_char);
-            } else if (*fmt == 's') {
-                char* str = va_arg(ap, char*);
-                while (*str) {
-                    putch(*str++);
-                }
-            }
+        int digits = 0;
+        int tmp = num;
+        while (tmp) {
+          tmp /= 10;
+          digits++;
+        }
+        while (digits < (*++format - '0')) {
+          putch('0');
+          count++;
+        }
+        if (num == 0) {
+          putch('0');
+          count++;
         } else {
-            putch(*fmt);
+          while (num) {
+            int digit = num % 10;
+            putch(digit + '0');
+            count++;
+            num /= 10;
+          }
         }
-
-        ++fmt;
+      } else if (*format == 's') {
+        char *str = va_arg(args, char *);
+        while (*str) {
+          putch(*str++);
+          count++;
+        }
+      } else if (*format == 'x' || *format == 'X') {
+        unsigned int num = va_arg(args, unsigned int);
+        char hex_digits[] = "0123456789ABCDEF";
+        int shift = (*format == 'x' ? 0 : 4);
+        int mask = 0xF << shift;
+        int digits = 0;
+        unsigned int tmp = num;
+        while (tmp) {
+          tmp >>= 4;
+          digits++;
+        }
+        while (digits < (*++format - '0')) {
+          putch('0');
+          count++;
+        }
+        if (num == 0) {
+          putch('0');
+          count++;
+        } else {
+          while (num) {
+            int digit = (num & mask) >> shift;
+            putch(hex_digits[digit]);
+            count++;
+            num >>= 4;
+          }
+        }
+      }
+    } else {
+      putch(*format);
+      count++;
     }
-
-    va_end(ap);
-    return 0;
+    format++;
+  }
+  va_end(args);
+  return count;
 }
+
 
 
 // int printf(const char *fmt, ...) {
