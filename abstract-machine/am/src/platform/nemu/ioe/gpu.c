@@ -31,9 +31,8 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   int screen_size = inl(VGACTL_ADDR);
   width = screen_size >> 16;
   height = screen_size & 0xffff;
-  uint32_t draw_addr = FB_ADDR + ctl->y * width;
+  uint32_t draw_addr = FB_ADDR + ctl->x * width;
   uint32_t *pixel = (uint32_t *)ctl->pixels;
-  while(1);
   for(int i=ctl->y;i<ctl->y+ctl->h;i++)
   {
       if(i > height) break;
