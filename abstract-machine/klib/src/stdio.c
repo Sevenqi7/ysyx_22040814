@@ -7,70 +7,150 @@
 
 static void itoa(int x, char str[]);
 
-int printf(const char *fmt, ...) {
-  va_list args;
-  va_start(args, fmt);
-  int ret = 0;
-  for(int i=0;fmt[i];i++)
-  {
-      if(fmt[i] == '%')
-      {
-          i++;
-          switch(fmt[i])
-          {
-                case 'c':
-                  char ch = va_arg(args, int);
-                  putch(ch), ret++; 
-                  break;
-                case 's': 
-                  for(char *s = va_arg(args, char *);*s;s++) putch(*s), ret++;
-                  break;
-                case 'd':
-                  char num[32];       //max of int is 2147483647
-                  int x = va_arg(args, int);
-                  itoa(x, num);
-                  for(int j=0;num[j];j++) putch(num[j]);
-                  break;
-                case 'u':
-                    unsigned int n = va_arg(args, uint32_t);
-                    do{
-                        char ch = n % 10 + '0';
-                        putch(ch);
-                    } while(n /= 10);
-                  break;
-                case '0':
+int printf(const char* format, ...)
+{
+    va_list args;
+    va_start(args, format);
+
+    int count = 0;
+
+    while (*format != '\0')
+    {
+        if (*format == '%')
+        {
+            format++;
+
+            if (*format == '\0')
+                break;
+
+            if (*format == '%')
+            {
+                putch('%');
+                count++;
+            }
+            else if (*format == 'x')
+            {
+                unsigned int value = va_arg(args, unsigned int);
+                char buffer[9];
+                int i = 0;
+
+                do
+                {
+                    buffer[i++] = "0123456789abcdef"[value % 16];
+                    value /= 16;
+                } while (value != 0);
+
+                while (i > 0)
+                {
+                    putch(buffer[--i]);
+                    count++;
+                }
+            }
+            else if (*format == '0' && *(format + 1) == '2' && *(format + 2) == 'x')
+            {
+                format += 2;
+                unsigned int value = va_arg(args, unsigned int);
+                char buffer[3];
+                int i = 0;
+
+                do
+                {
+                    buffer[i++] = "0123456789abcdef"[value % 16];
+                    value /= 16;
+                } while (value != 0);
+
+                while (i < 2)
+                {
+                    putch('0');
+                    count++;
                     i++;
-                    char num2[20];
-                    memset(num2, 10, 20);
-                    for(int j=0;fmt[i] < '9' && fmt[i] >'0';i++)
-                        num2[j++] = fmt[i] - '0';
-                    if(fmt[i] == 'd')
-                    { 
-                        int zero_num = 0;
-                        for(int j=0;num2[j] != 10;j++) 
-                            zero_num = zero_num * 10 + num2[j];
-                        int x = va_arg(args, int);
-                        itoa(x, num2);
-                        int j=0;
-                        for(j=0;x;j++)  x /= 10;
-                        while(--zero_num > j) putch('0');
-                        for(j=0;num2[j];j++) putch(num2[j]);
-                    }
-                    break;
-                default:
-                    putch(fmt[i]);
-                    while(1);
-                    panic("Unimplemented argument!");
-          }
-      }
-      else
-      {
-            putch(fmt[i]);
-      }
-  } 
-  va_end(args);
-  return ret;
+                }
+
+                while (i > 0)
+                {
+                    putch(buffer[--i]);
+                    count++;
+                }
+            }
+        }
+        else
+        {
+            putch(*format);
+            count++;
+        }
+
+        format++;
+    }
+
+    va_end(args);
+
+    return count;
 }
+
+// int printf(const char *fmt, ...) {
+//   va_list args;
+//   va_start(args, fmt);
+//   int ret = 0;
+//   for(int i=0;fmt[i];i++)
+//   {
+//       if(fmt[i] == '%')
+//       {
+//           i++;
+//           switch(fmt[i])
+//           {
+//                 case 'c':
+//                   char ch = va_arg(args, int);
+//                   putch(ch), ret++; 
+//                   break;
+//                 case 's': 
+//                   for(char *s = va_arg(args, char *);*s;s++) putch(*s), ret++;
+//                   break;
+//                 case 'd':
+//                   char num[32];       //max of int is 2147483647
+//                   int x = va_arg(args, int);
+//                   itoa(x, num);
+//                   for(int j=0;num[j];j++) putch(num[j]);
+//                   break;
+//                 case 'u':
+//                     unsigned int n = va_arg(args, uint32_t);
+//                     do{
+//                         char ch = n % 10 + '0';
+//                         putch(ch);
+//                     } while(n /= 10);
+//                   break;
+//                 case '0':
+//                     i++;
+//                     char num2[20];
+//                     memset(num2, 10, 20);
+//                     for(int j=0;fmt[i] < '9' && fmt[i] >'0';i++)
+//                         num2[j++] = fmt[i] - '0';
+//                     if(fmt[i] == 'd')
+//                     { 
+//                         int zero_num = 0;
+//                         for(int j=0;num2[j] != 10;j++) 
+//                             zero_num = zero_num * 10 + num2[j];
+//                         int x = va_arg(args, int);
+//                         itoa(x, num2);
+//                         int j=0;
+//                         for(j=0;x;j++)  x /= 10;
+//                         while(--zero_num > j) putch('0');
+//                         for(j=0;num2[j];j++) putch(num2[j]);
+//                     }
+//                     break;
+//                 default:
+//                     putch(fmt[i]);
+//                     while(1);
+//                     panic("Unimplemented argument!");
+//           }
+//       }
+//       else
+//       {
+//             putch(fmt[i]);
+//       }
+//   } 
+//   va_end(args);
+//   return ret;
+// }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
   int len = 0;
