@@ -24,7 +24,7 @@ bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
   {
       if(ref_r->gpr[i] != cpu.gpr[i])
       {
-          Log("Difftest found %s value is %lx, should be %lx", regs[i], cpu.gpr[i], ref_r->gpr[i]);
+          Log("Difftest found %s value is 0x%lx, should be 0x%lx", regs[i], cpu.gpr[i], ref_r->gpr[i]);
           return false;
       }
   }
