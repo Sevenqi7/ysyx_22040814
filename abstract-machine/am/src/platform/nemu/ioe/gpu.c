@@ -15,14 +15,14 @@ void __am_gpu_init() {
 }
 
 void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
-  // *cfg = (AM_GPU_CONFIG_T) {
-  //   .present = true, .has_accel = false,
-  //   .width = 0, .height = 0,
-  //   .vmemsz = 0
-  // };
-      uint32_t screen_size = inl(VGACTL_ADDR);
-      cfg->width = screen_size >> 16;
-      cfg->height = screen_size & 0x0f;
+  *cfg = (AM_GPU_CONFIG_T) {
+    .present = true, .has_accel = false,
+    .width = 0, .height = 0,
+    .vmemsz = 0
+  };
+      // uint32_t screen_size = inl(VGACTL_ADDR);
+      // cfg->width = screen_size >> 16;
+      // cfg->height = screen_size & 0x0f;
 }
 
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
