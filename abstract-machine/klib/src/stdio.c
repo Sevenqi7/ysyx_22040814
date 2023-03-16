@@ -44,7 +44,6 @@ int printf(const char *fmt, ...) {
                     memset(num2, 0, 20);
                     for(int j=0;fmt[i] > '9' || fmt[i] <'0';i++)
                         num2[j++] = fmt[i] - '0';
-                    assert(0);
                     if(fmt[i] == 'd')
                     { 
                         int zero_num = 0;
@@ -55,8 +54,8 @@ int printf(const char *fmt, ...) {
                         for(j=0;x;j++)  x /= 10;
                         while(zero_num > j) putch('0');
                         for(j=0;num2[j];j++) putch(num2[j]);
-                        break;
                     }
+                    break;
                 default:
                     panic("Unimplemented argument!");
           }
