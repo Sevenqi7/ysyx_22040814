@@ -37,28 +37,28 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   uint32_t *pixel = (uint32_t *)ctl->pixels;
   if(ctl->x)
   printf("\nx:%d, y:%d\n", ctl->x, ctl->y);
-  // for(int i=ctl->y;i<ctl->y+ctl->h;i++)
-  // {
-  //     if(i >= height) break;
-  //     int k;
-  //     for(k=ctl->x;k<ctl->x+ctl->w;k++)
-  //     {
-  //         if(k >= width) break;
-  //         *draw_addr++ = *pixel++;
-  //     }
-  //     draw_addr = (uint32_t *)(uintptr_t)(FB_ADDR + i * 400 + ctl->x);
-  // }
-  for(int i=ctl->x;i<ctl->x+ctl->w;i++)
+  for(int i=ctl->y;i<ctl->y+ctl->h;i++)
   {
-      if(i >= width) break;
+      if(i >= height) break;
       int k;
-      for(k=ctl->y;k<ctl->y+ctl->h;k++)
+      for(k=ctl->x;k<ctl->x+ctl->w;k++)
       {
-          if(k >= height) break;
+          if(k >= width) break;
           *draw_addr++ = *pixel++;
       }
-      draw_addr = (uint32_t *)(uintptr_t)(FB_ADDR + k * 400 + ctl->x);
+      draw_addr = (uint32_t *)(uintptr_t)(FB_ADDR + i * 400 + ctl->x);
   }
+  // for(int i=ctl->x;i<ctl->x+ctl->w;i++)
+  // {
+  //     if(i >= width) break;
+  //     int k;
+  //     for(k=ctl->y;k<ctl->y+ctl->h;k++)
+  //     {
+  //         if(k >= height) break;
+  //         *draw_addr++ = *pixel++;
+  //     }
+  //     draw_addr = (uint32_t *)(uintptr_t)(FB_ADDR + k * 400 + ctl->x);
+  // }
   
   if (ctl->sync) {
     outl(SYNC_ADDR, 1);
