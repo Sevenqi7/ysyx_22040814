@@ -7,85 +7,90 @@
 
 static void itoa(int x, char str[]);
 
-int printf(const char* format, ...)
-{
-    va_list args;
-    va_start(args, format);
+#include <stdarg.h>
 
-    int count = 0;
+void putch(char c);
 
-    while (*format != '\0')
-    {
-        if (*format == '%')
-        {
-            format++;
+void print_int(int num, int base, int is_signed, int width, char pad_char) {
+    char digits[16] = "0123456789abcdef";
+    char buf[32];
+    int i = 0, neg = 0;
 
-            if (*format == '\0')
-                break;
-
-            if (*format == '%')
-            {
-                putch('%');
-                count++;
-            }
-            else if (*format == 'x')
-            {
-                unsigned int value = va_arg(args, unsigned int);
-                char buffer[9];
-                int i = 0;
-
-                do
-                {
-                    buffer[i++] = "0123456789abcdef"[value % 16];
-                    value /= 16;
-                } while (value != 0);
-
-                while (i > 0)
-                {
-                    putch(buffer[--i]);
-                    count++;
-                }
-            }
-            else if (*format == '0' && *(format + 1) == '2' && *(format + 2) == 'x')
-            {
-                format += 2;
-                unsigned int value = va_arg(args, unsigned int);
-                char buffer[3];
-                int i = 0;
-
-                do
-                {
-                    buffer[i++] = "0123456789abcdef"[value % 16];
-                    value /= 16;
-                } while (value != 0);
-
-                while (i < 2)
-                {
-                    putch('0');
-                    count++;
-                    i++;
-                }
-
-                while (i > 0)
-                {
-                    putch(buffer[--i]);
-                    count++;
-                }
-            }
-        }
-        else
-        {
-            putch(*format);
-            count++;
-        }
-
-        format++;
+    if (is_signed && num < 0) {
+        neg = 1;
+        num = -num;
     }
 
-    va_end(args);
+    do {
+        buf[i++] = digits[num % base];
+    } while ((num /= base) > 0);
 
-    return count;
+    if (is_signed && neg) {
+        buf[i++] = '-';
+    }
+
+    if (i < width) {
+        int padding = width - i;
+        while (padding-- > 0) {
+            putch(pad_char);
+        }
+    }
+
+    while (i > 0) {
+        putch(buf[--i]);
+    }
 }
+
+int printf(const char* fmt, ...) {
+    va_list ap;
+    va_start(ap, fmt);
+
+    while (*fmt) {
+        if (*fmt == '%') {
+            ++fmt;
+            int width = 0;
+            char pad_char = ' ';
+
+            if (*fmt == '0') {
+                pad_char = '0';
+                ++fmt;
+                while (*fmt >= '0' && *fmt <= '9') {
+                    width = width * 10 + (*fmt - '0');
+                    ++fmt;
+                }
+            } else {
+                while (*fmt >= '0' && *fmt <= '9') {
+                    width = width * 10 + (*fmt - '0');
+                    ++fmt;
+                }
+            }
+
+            if (*fmt == 'd' || *fmt == 'i') {
+                int num = va_arg(ap, int);
+                print_int(num, 10, 1, width, pad_char);
+            } else if (*fmt == 'u') {
+                unsigned int num = va_arg(ap, unsigned int);
+                print_int(num, 10, 0, width, pad_char);
+            } else if (*fmt == 'x') {
+                unsigned int num = va_arg(ap, unsigned int);
+                print_int(num, 16, 0, width, pad_char);
+            } else if (*fmt == 's') {
+                char* str = va_arg(ap, char*);
+                while (*str) {
+                    putch(*str++);
+                }
+            }
+        } else {
+            putch(*fmt);
+        }
+
+        ++fmt;
+    }
+
+    va_end(ap);
+    return 0;
+}
+
 
 // int printf(const char *fmt, ...) {
 //   va_list args;
