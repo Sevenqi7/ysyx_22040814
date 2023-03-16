@@ -154,6 +154,11 @@ config MTRACE
   bool "Enable memory tracer"
   default y
 
+config FTRACE
+  depends on TRACE
+  bool "Enable function call tracer"
+  default 0
+
 config WATCHPOINT
   bool "Enable Watchpoint"
   default y
