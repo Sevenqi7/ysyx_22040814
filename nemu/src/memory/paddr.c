@@ -58,8 +58,8 @@ void init_mem() {
 
 word_t paddr_read(paddr_t addr, int len) {
   word_t read_data = 0;
-  // assert(addr == 0xa0000048);
   if (likely(in_pmem(addr))) {
+  assert(addr == 0xa0000048);
     read_data = pmem_read(addr, len);
     #ifdef CONFIG_MTRACE
       printf("      Read data 0x%lx with %d bytes from 0x%x\n", read_data, len, addr);
