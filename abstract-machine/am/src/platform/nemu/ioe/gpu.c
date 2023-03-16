@@ -37,7 +37,6 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   uint32_t *pixel = (uint32_t *)ctl->pixels;
   if(ctl->x)
   printf("\nx:%d, y:%d\n", ctl->x, ctl->y);
-  while(1);
   for(int i=ctl->y;i<ctl->y+ctl->h;i++)
   {
       if(i >= height) break;
@@ -45,8 +44,8 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
       for(k=ctl->x;k<ctl->x+ctl->w;k++)
       {
           if(k >= width) break;
-          *draw_addr++ = *pixel++;
       }
+          *draw_addr++ = *pixel++;
       draw_addr = (uint32_t *)(uintptr_t)(FB_ADDR + i * 400 + ctl->x);
   }
   if (ctl->sync) {
