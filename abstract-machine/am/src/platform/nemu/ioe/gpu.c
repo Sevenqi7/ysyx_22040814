@@ -43,9 +43,9 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
       if(i >= height) break;
       for(int k=ctl->x;k<ctl->x+ctl->w;k++)
       {
+          if(k >= width) break;
           printf("reac\n");
           while(1);
-          if(k >= width) break;
           *((uint32_t *)(uintptr_t)(draw_addr)) = *pixel++;
           draw_addr++;
       }
