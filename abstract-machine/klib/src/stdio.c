@@ -46,6 +46,7 @@ int printf(const char *fmt, ...) {
                         num2[j++] = fmt[i] - '0';
                     if(fmt[i] == 'd')
                     { 
+                        assert(0);
                         int zero_num = 0;
                         for(int j=0;num2[j] != -1;j++) zero_num = zero_num * 10 + num2[j];
                         int x = va_arg(args, int);
