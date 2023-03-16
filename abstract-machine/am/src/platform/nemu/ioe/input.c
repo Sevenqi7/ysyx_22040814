@@ -6,6 +6,8 @@
 
 void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
   int scan_code = inl(KBD_ADDR);
+  printf("Got key :%d\n", scan_code);
+
   kbd->keydown = scan_code & KEYDOWN_MASK;
   if(!kbd->keydown)
       kbd->keycode = scan_code;
