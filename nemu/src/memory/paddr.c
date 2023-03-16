@@ -67,6 +67,7 @@ word_t paddr_read(paddr_t addr, int len) {
     }
   IFDEF(CONFIG_DEVICE, 
   assert(addr != 0xa0000048);
+
       read_data = mmio_read(addr, len);
       return read_data;
       );
