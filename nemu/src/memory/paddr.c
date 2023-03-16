@@ -58,7 +58,6 @@ void init_mem() {
 
 word_t paddr_read(paddr_t addr, int len) {
   word_t read_data = 0;
-  assert(addr != 0xa0000048);
   if (likely(in_pmem(addr))) {
     read_data = pmem_read(addr, len);
     #ifdef CONFIG_MTRACE
@@ -67,6 +66,7 @@ word_t paddr_read(paddr_t addr, int len) {
     return read_data;
     }
   IFDEF(CONFIG_DEVICE, 
+  assert(addr != 0xa0000048);
       read_data = mmio_read(addr, len);
       return read_data;
       );
