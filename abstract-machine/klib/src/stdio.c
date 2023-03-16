@@ -44,9 +44,9 @@ int printf(const char *fmt, ...) {
                     memset(num2, -1, 20);
                     for(int j=0;fmt[i] < '9' && fmt[i] >'0';i++)
                         num2[j++] = fmt[i] - '0';
-                    assert(0);
                     if(fmt[i] == 'd')
                     { 
+                    assert(0);
                         int zero_num = 0;
                         for(int j=0;num2[j] != -1;j++) zero_num = zero_num * 10 + num2[j];
                         int x = va_arg(args, int);
