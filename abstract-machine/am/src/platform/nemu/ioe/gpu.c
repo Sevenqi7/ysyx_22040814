@@ -38,7 +38,7 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
 }
 
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
-  while(1);
+  // while(1);
 
   uint32_t *draw_addr = (uint32_t *)(uintptr_t)(FB_ADDR + ctl->y * 400 + ctl->x);
   uint32_t *pixel = (uint32_t *)ctl->pixels;
