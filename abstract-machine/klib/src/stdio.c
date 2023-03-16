@@ -18,16 +18,33 @@ int printf(const char *fmt, ...) {
           i++;
           switch(fmt[i])
           {
-              case 'c':
+                case 'c':
                   char ch = va_arg(args, int);
                   putch(ch), ret++; 
                   break;
-              case 's': 
+                case 's': 
                   for(char *s = va_arg(args, char *);*s;s++) putch(*s), ret++;
                   break;
-              default:
-                  panic("Unimplemented argument!");
+                case 'd':
+                  char num[32];       //max of int is 2147483647
+                  int x = va_arg(args, int);
+                  itoa(x, num);
+                  for(int j=0;num[j];j++) putch(num[j]);
+                  break;
+                case 'u':
+                    unsigned int n = va_arg(args, uint32_t);
+                    do{
+                        char ch = n % 10 + '0';
+                        putch(ch);
+                    } while(n /= 10);
+                  break;
+                default:
+                    panic("Unimplemented argument!");
           }
+      }
+      else
+      {
+            putch(fmt[i]);
       }
   } 
   va_end(args);
