@@ -41,6 +41,8 @@ static void decode_operand(Decode *s, int *rd, word_t *src1, word_t *src2, word_
   int rs2 = BITS(i, 24, 20);
   *rd     = BITS(i, 11, 7);
   immB();
+  if(*rd == 9)
+    Log("s1 value:%lx", cpu.gpr[9]);
   // Log("immB:0x%lx rs1:%d. rs2:%d rd:%d", *imm, rs1, rs2, *rd);
   switch (type) {
     case TYPE_I: src1R();          immI(); break;
@@ -60,8 +62,6 @@ static int decode_exec(Decode *s) {
   // int rs1 = BITS(s->isa.inst.val, 19, 15);
   word_t src1 = 0, src2 = 0, imm = 0, shamt = BITS(s->isa.inst.val, 25, 20);
   s->dnpc = s->snpc;
-  if(rd == 9)
-  Log("s1 value:%lx", cpu.gpr[9]);
 
 #define INSTPAT_INST(s) ((s)->isa.inst.val)
 #define INSTPAT_MATCH(s, name, type, ... /* execute body */ ) { \
