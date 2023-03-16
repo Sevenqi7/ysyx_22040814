@@ -7,7 +7,7 @@
 void __am_gpu_init() {
   int i;
   uint32_t screen_size = inl(VGACTL_ADDR);
-
+  printf("%d\n", screen_size);
   int w = screen_size >> 16;  // TODO: get the correct width
   int h = screen_size & 0xffff;  // TODO: get the correct height
   printf("\nw:%d, h:%d\n", w, h);
