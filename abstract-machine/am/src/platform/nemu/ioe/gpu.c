@@ -28,6 +28,7 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
 
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   int width, height;
+  while(1) putch('1');
   int screen_size = inl(VGACTL_ADDR);
   width = screen_size >> 16;
   height = screen_size & 0xffff;
