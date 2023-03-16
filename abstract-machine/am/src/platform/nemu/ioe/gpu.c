@@ -15,7 +15,12 @@ void __am_gpu_init() {
   int h = screen_size & 0xffff;  // TODO: get the correct height
   printf("\nw:%d, h:%d\n", w, h);
   uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
-  for (i = 0; i < w * h; i ++) fb[i] = i;
+  // for (i = 0; i < w * h; i ++) fb[i] = i;
+  for(i=0;i<w;i++)
+  {
+      for(int j=0;j<h;j++)
+          *fb++ = 65530;
+  }
   outl(SYNC_ADDR, 1);
 }
 
