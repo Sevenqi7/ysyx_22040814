@@ -19,7 +19,7 @@ void __am_gpu_init() {
   // for (i = 0; i < w * h; i ++) fb[i] = i;
   for(i=0;i<h;i++)
   {
-      memset(fb, (i+1)*1000, 1000);
+      memset(fb, (i+1)*1000, w * 4);
       fb += w;
   }
   outl(SYNC_ADDR, 1);
