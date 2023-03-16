@@ -8,6 +8,8 @@
 #include <stdlib.h>
 #include <elf.h>
 
+#ifdef CONFIG_WTRACE
+
 #define MAX_FTRACE_INFO_SIZE 32
 #define MAX_FTRACE_STACK_SIZE 512
 
@@ -171,3 +173,5 @@ void sdb_get_symbol_list(char *elf_path)
   free(strtab);
   free(shstrtab);
 }
+
+#endif

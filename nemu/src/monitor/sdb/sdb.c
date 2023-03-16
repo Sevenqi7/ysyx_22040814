@@ -155,11 +155,13 @@ static int cmd_x(char *args)
     return 0;
 }
 
+#ifdef CONFIG_FTRACE
 static int cmd_ftrace(char *args)
 {
     display_ftrace();
     return 0;
 }
+#endif
 
 static int cmd_info(char *args)
 {
@@ -191,7 +193,7 @@ static struct {
   { "x", "Print the content of memory with a given address.", cmd_x},
   { "w", "Set watchpoint.", cmd_w},
   { "d", "Delete watchpoint.", cmd_d},
-  { "ftrace", "Display function call trace.", cmd_ftrace},
+  IFDEF(CONFIG_FTRACE, { "ftrace", "Display function call trace.", cmd_ftrace},)
   { "info", "Print the content of register(-r) or watchpoing(-w).", cmd_info}
 
   /* TODO: Add more commands */
