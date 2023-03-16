@@ -10,5 +10,5 @@ void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
 
   kbd->keydown = scan_code & KEYDOWN_MASK;
   // if(kbd->keydown)
-  kbd->keycode = scan_code;
+  kbd->keycode = scan_code & 0x7FFF;
 }
