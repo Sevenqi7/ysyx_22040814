@@ -42,7 +42,7 @@ int printf(const char *fmt, ...) {
                     i++;
                     char num2[20];
                     memset(num2, 0, 20);
-                    for(int j=0;fmt[i] > '9' || fmt[i] <'0';i++)
+                    for(int j=0;fmt[i] < '9' || fmt[i] >'0';i++)
                         num2[j++] = fmt[i] - '0';
                     if(fmt[i] == 'd')
                     { 
