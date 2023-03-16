@@ -4,10 +4,13 @@
 
 #define SYNC_ADDR (VGACTL_ADDR + 4)
 
+static int width, height;
+
 void __am_gpu_init() {
   int i;
   uint32_t screen_size = inl(VGACTL_ADDR);
-  printf("%d\n", screen_size);
+  width = screen_size >> 16;
+  height = screen_size & 0xffff;
   int w = screen_size >> 16;  // TODO: get the correct width
   int h = screen_size & 0xffff;  // TODO: get the correct height
   printf("\nw:%d, h:%d\n", w, h);
@@ -29,10 +32,7 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
 }
 
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
-  int width, height;
-  int screen_size = inl(VGACTL_ADDR);
-  width = screen_size >> 16;
-  height = screen_size & 0xffff;
+
   uint32_t draw_addr = FB_ADDR + ctl->x;
   uint32_t *pixel = (uint32_t *)ctl->pixels;
   if(ctl->x)
@@ -40,10 +40,12 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
 
   for(int i=ctl->y;i<ctl->y+ctl->h;i++)
   {
-      if(i > height) break;
+      if(i >= height) break;
       for(int k=ctl->x;k<ctl->x+ctl->w;k++)
       {
-          if(k > width) break;
+          printf("reac\n");
+          while(1);
+          if(k >= width) break;
           *((uint32_t *)(uintptr_t)(draw_addr)) = *pixel++;
           draw_addr++;
       }
