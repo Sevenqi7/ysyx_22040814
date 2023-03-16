@@ -65,6 +65,7 @@ word_t paddr_read(paddr_t addr, int len) {
     #endif
     return read_data;
     }
+  assert(addr == 0xa0000048);
   IFDEF(CONFIG_DEVICE, read_data = mmio_read(addr, len));
   return read_data;
   #ifdef CONFIG_MTRACE
