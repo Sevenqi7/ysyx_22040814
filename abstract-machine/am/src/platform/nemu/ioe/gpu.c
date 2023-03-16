@@ -17,11 +17,11 @@ void __am_gpu_init() {
   printf("\nw:%d, h:%d\n", w, h);
   uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
   // for (i = 0; i < w * h; i ++) fb[i] = i;
-  for(i=0;i<h;i++) ;;
-  // {
+  for(i=0;i<h/2;i++) 
+  {
       memset(fb, (i+1)*1000, w * 4);
       fb += w;
-  // }
+  }
   outl(SYNC_ADDR, 1);
 }
 
