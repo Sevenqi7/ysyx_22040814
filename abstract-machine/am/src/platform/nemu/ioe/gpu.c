@@ -22,8 +22,10 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
   //   .width = 0, .height = 0,
   //   .vmemsz = 0
   // };
-      uint32_t screen_size = (cfg->width << 16) | cfg->height;
-      outl(VGACTL_ADDR, screen_size);
+      
+      uint32_t screen_size = inl(VGACTL_ADDR);
+      cfg->width = screen_size >> 16;
+      cfg->height = screen_size & 0xffff;
 }
 
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
