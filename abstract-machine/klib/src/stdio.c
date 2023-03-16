@@ -56,7 +56,7 @@ int printf(const char *fmt, ...) {
                         itoa(x, num2);
                         int j=0;
                         for(j=0;x;j++)  x /= 10;
-                        while(zero_num > j) putch('0');
+                        while(zero_num-- > j) putch('0');
                         for(j=0;num2[j];j++) putch(num2[j]);
                     }
                     break;
