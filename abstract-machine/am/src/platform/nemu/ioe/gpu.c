@@ -10,6 +10,7 @@ void __am_gpu_init() {
 
   int w = screen_size >> 16;  // TODO: get the correct width
   int h = screen_size & 0xf0;  // TODO: get the correct height
+  printf("\nw:%d, h:%d\n", w, h);
   uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
   for (i = 0; i < w * h; i ++) fb[i] = i;
   outl(SYNC_ADDR, 1);
@@ -28,8 +29,6 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
 
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   if (ctl->sync) {
-    // printf("\n\nstart sync\n\n");
-    while(1);
     outl(SYNC_ADDR, 1);
   }
 }
