@@ -75,8 +75,9 @@ void vga_update_screen() {
   // then zero out the sync register
   if(vgactl_port_base[1])
   {
-      assert(0);
       update_screen();
+      Log("sync");
+      assert(0);
       vgactl_port_base[1] = 0;
   }
 }
