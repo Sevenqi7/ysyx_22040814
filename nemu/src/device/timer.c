@@ -22,6 +22,7 @@ static uint32_t *rtc_port_base = NULL;
 static void rtc_io_handler(uint32_t offset, int len, bool is_write) {
   Log("offset:%d, len:%d, is_write:%d", offset, len ,is_write);
   assert(offset == 0 || offset == 4);
+  assert(0);
   if (!is_write && offset == 4) {
     assert(0);
     uint64_t us = get_time();
