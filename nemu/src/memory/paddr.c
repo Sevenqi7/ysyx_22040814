@@ -66,9 +66,11 @@ word_t paddr_read(paddr_t addr, int len) {
     return read_data;
     }
   IFDEF(CONFIG_DEVICE, 
-  assert(addr != 0xa0000048);
-
       read_data = mmio_read(addr, len);
+      if(addr == 0xa0000048)
+      {
+          Log("cnmd data:%lx", read_data);
+      }
       return read_data;
       );
 
