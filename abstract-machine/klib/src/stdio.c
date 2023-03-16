@@ -48,6 +48,8 @@ int printf(const char *fmt, ...) {
                     { 
                         int zero_num = 0;
                         assert(num2[0] == 2);
+                        assert(num2[1] == -1);
+                        assert(0);
                         for(int j=0;num2[j] != -1;j++) zero_num = zero_num * 10 + num2[j];
                         assert(0);
                         int x = va_arg(args, int);
