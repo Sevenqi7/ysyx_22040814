@@ -33,6 +33,7 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   height = screen_size & 0xffff;
   uint32_t draw_addr = FB_ADDR + ctl->x * width;
   uint32_t *pixel = (uint32_t *)ctl->pixels;
+  if(ctl->x)
   printf("\nx:%d, y:%d\n", ctl->x, ctl->y);
 
   for(int i=ctl->y;i<ctl->y+ctl->h;i++)
