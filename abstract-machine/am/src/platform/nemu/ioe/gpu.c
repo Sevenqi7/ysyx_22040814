@@ -19,7 +19,11 @@ void __am_gpu_init() {
   for(i=0;i<w;i++)
   {
       for(int j=0;j<h;j++)
+      {
+        if(j > h / 2)
           *fb++ = 65530;
+        else *fb++ = 15000;
+      }
   }
   outl(SYNC_ADDR, 1);
 }
