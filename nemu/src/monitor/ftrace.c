@@ -8,11 +8,11 @@
 #include <stdlib.h>
 #include <elf.h>
 
-#ifdef CONFIG_WTRACE
 
 #define MAX_FTRACE_INFO_SIZE 32
 #define MAX_FTRACE_STACK_SIZE 512
 
+#ifdef CONFIG_WTRACE
 static int f_info_num = 0;
 static struct function_info
 {
@@ -86,10 +86,12 @@ void display_ftrace()
         }
     }
 }
+#endif
 
 
 void sdb_get_symbol_list(char *elf_path)
 {
+    #ifdef CONFIG_FTRACE
   int fd = open(elf_path, O_RDONLY, 0);
   if(fd == -1)
   {
@@ -172,6 +174,5 @@ void sdb_get_symbol_list(char *elf_path)
 
   free(strtab);
   free(shstrtab);
+  #endif
 }
-
-#endif
