@@ -51,6 +51,7 @@ int printf(const char *fmt, ...) {
                         assert(num2[1] == 10);
                         for(int j=0;num2[j] != 10;j++) 
                             zero_num = zero_num * 10 + num2[j];
+                        assert(zero_num == 2);
                         int x = va_arg(args, int);
                         itoa(x, num2);
                         int j=0;
