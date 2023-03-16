@@ -48,9 +48,11 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
       }
       draw_addr = (uint32_t *)(uintptr_t)(FB_ADDR + i * 400 + ctl->x);
   }
+  
   if (ctl->sync) {
     outl(SYNC_ADDR, 1);
   }
+  while(1);
 }
 
 void __am_gpu_status(AM_GPU_STATUS_T *status) {
