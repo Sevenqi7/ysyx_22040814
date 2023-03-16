@@ -8,21 +8,9 @@
 static int width, height;
 
 void __am_gpu_init() {
-  int i;
   uint32_t screen_size = inl(VGACTL_ADDR);
   width = screen_size >> 16;
   height = screen_size & 0xffff;
-  int w = screen_size >> 16;  // TODO: get the correct width
-  int h = screen_size & 0xffff;  // TODO: get the correct height
-  printf("\nw:%d, h:%d\n", w, h);
-  uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
-  for (i = 0; i < w * h; i ++) fb[i] = i;
-  // for(i=0;i<h/2;i++) 
-  // {
-  //     memset(fb, (i+1)*1000, w * 4);
-  //     fb += w;
-  // }
-  outl(SYNC_ADDR, 1);
 }
 
 void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
