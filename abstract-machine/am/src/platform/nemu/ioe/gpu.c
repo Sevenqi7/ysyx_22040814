@@ -37,7 +37,7 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   uint32_t *pixel = (uint32_t *)ctl->pixels;
   if(ctl->x)
   printf("\nx:%d, y:%d\n", ctl->x, ctl->y);
-
+  while(1);
   for(int i=ctl->y;i<ctl->y+ctl->h;i++)
   {
       if(i >= height) break;
