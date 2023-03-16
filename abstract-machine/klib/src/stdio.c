@@ -47,16 +47,13 @@ int printf(const char *fmt, ...) {
                     if(fmt[i] == 'd')
                     { 
                         int zero_num = 0;
-                        assert(num2[0] == 2);
-                        assert(num2[1] == 10);
                         for(int j=0;num2[j] != 10;j++) 
                             zero_num = zero_num * 10 + num2[j];
-                        assert(zero_num == 2);
                         int x = va_arg(args, int);
                         itoa(x, num2);
                         int j=0;
                         for(j=0;x;j++)  x /= 10;
-                        while(zero_num-- > j) putch('0');
+                        while(--zero_num > j) putch('0');
                         for(j=0;num2[j];j++) putch(num2[j]);
                     }
                     break;
