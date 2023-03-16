@@ -77,7 +77,7 @@ void vga_update_screen() {
   {
       update_screen();
       Log("sync");
-      assert(0);
+      // assert(0);
       vgactl_port_base[1] = 0;
   }
 }

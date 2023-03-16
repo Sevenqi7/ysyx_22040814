@@ -28,7 +28,8 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
 
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   if (ctl->sync) {
-    printf("\n\nstart sync\n\n");
+    // printf("\n\nstart sync\n\n");
+    while(1);
     outl(SYNC_ADDR, 1);
   }
 }
