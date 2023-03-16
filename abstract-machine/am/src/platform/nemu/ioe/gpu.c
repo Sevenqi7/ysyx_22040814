@@ -33,7 +33,7 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
 
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
 
-  uint32_t draw_addr = FB_ADDR + ctl->x;
+  uint32_t *draw_addr = (uint32_t *)(uintptr_t)(FB_ADDR + ctl->y * 400);
   uint32_t *pixel = (uint32_t *)ctl->pixels;
   if(ctl->x)
   printf("\nx:%d, y:%d\n", ctl->x, ctl->y);
@@ -41,15 +41,12 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   for(int i=ctl->y;i<ctl->y+ctl->h;i++)
   {
       if(i >= height) break;
+      draw_addr = (uint32_t *)(uintptr_t)(FB_ADDR + ctl->x);
       for(int k=ctl->x;k<ctl->x+ctl->w;k++)
       {
           if(k >= width) break;
-          printf("reac\n");
-          while(1);
-          *((uint32_t *)(uintptr_t)(draw_addr)) = *pixel++;
-          draw_addr++;
+          *draw_addr++ = *pixel++;
       }
-      draw_addr = FB_ADDR + i * width;
   }
   if (ctl->sync) {
     outl(SYNC_ADDR, 1);
