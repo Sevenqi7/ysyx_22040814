@@ -64,7 +64,7 @@ word_t paddr_read(paddr_t addr, int len) {
     #ifdef CONFIG_MTRACE
       printf("      Read data 0x%lx with %d bytes from 0x%x\n", read_data, len, addr);
     #endif
-    // return read_data;
+    return read_data;
     }
   IFDEF(CONFIG_DEVICE, read_data = mmio_read(addr, len));
   return read_data;
