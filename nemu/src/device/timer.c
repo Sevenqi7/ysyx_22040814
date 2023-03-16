@@ -20,6 +20,7 @@
 static uint32_t *rtc_port_base = NULL;
 
 static void rtc_io_handler(uint32_t offset, int len, bool is_write) {
+  Log("offset:%d, len:%d, is_write:%d", offset, len ,is_write);
   assert(0);
   assert(offset == 0 || offset == 4);
   if (!is_write && offset == 4) {
