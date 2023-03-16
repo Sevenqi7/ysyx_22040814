@@ -16,12 +16,12 @@ void __am_gpu_init() {
   int h = screen_size & 0xffff;  // TODO: get the correct height
   printf("\nw:%d, h:%d\n", w, h);
   uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
-  // for (i = 0; i < w * h; i ++) fb[i] = i;
-  for(i=0;i<h/2;i++) 
-  {
-      memset(fb, (i+1)*1000, w * 4);
-      fb += w;
-  }
+  for (i = 0; i < w * h; i ++) fb[i] = i;
+  // for(i=0;i<h/2;i++) 
+  // {
+  //     memset(fb, (i+1)*1000, w * 4);
+  //     fb += w;
+  // }
   outl(SYNC_ADDR, 1);
 }
 
@@ -40,7 +40,7 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   // while(1);
 
-  uint32_t *draw_addr = (uint32_t *)(uintptr_t)(FB_ADDR + ctl->y * 400 + ctl->x);
+  uint32_t *draw_addr = (uint32_t *)(uintptr_t)(FB_ADDR )+ ctl->y * 400 + ctl->x;
   uint32_t *pixel = (uint32_t *)ctl->pixels;
   if(ctl->x)
   printf("\nx:%d, y:%d\n", ctl->x, ctl->y);
@@ -54,7 +54,7 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
           if(k >= width) break;
           *draw_addr++ = *pixel++;
       }
-      draw_addr = (uint32_t *)(uintptr_t)(FB_ADDR + i * 400 + ctl->x);
+      draw_addr = (uint32_t *)(uintptr_t)(FB_ADDR) + i * 400 + ctl->x;
   }
   // for(int i=ctl->x;i<ctl->x+ctl->w;i++)
   // {
