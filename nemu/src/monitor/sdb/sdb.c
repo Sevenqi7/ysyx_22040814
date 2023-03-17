@@ -18,6 +18,9 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <memory/paddr.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <elf.h>
 #include "sdb.h"
 
 
@@ -25,6 +28,7 @@ static int is_batch_mode = false;
 
 void init_regex();
 void init_wp_pool();
+void display_ftrace();
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {
@@ -74,7 +78,6 @@ static int cmd_help(char *args);
 static int cmd_w(char *args)
 {
     int wp_num;
-    Log("cmdw");
     if(!args)
     {
         printf("Usage: w <EXPRESSION>\n");
@@ -149,9 +152,16 @@ static int cmd_x(char *args)
             printf("%02lx  ", paddr_read(addr+j, 1));
         printf("\n");
     }
-    
     return 0;
 }
+
+#ifdef CONFIG_FTRACE
+static int cmd_ftrace(char *args)
+{
+    display_ftrace();
+    return 0;
+}
+#endif
 
 static int cmd_info(char *args)
 {
@@ -183,6 +193,7 @@ static struct {
   { "x", "Print the content of memory with a given address.", cmd_x},
   { "w", "Set watchpoint.", cmd_w},
   { "d", "Delete watchpoint.", cmd_d},
+  IFDEF(CONFIG_FTRACE, { "ftrace", "Display function call trace.", cmd_ftrace},)
   { "info", "Print the content of register(-r) or watchpoing(-w).", cmd_info}
 
   /* TODO: Add more commands */
@@ -217,6 +228,8 @@ static int cmd_help(char *args) {
 void sdb_set_batch_mode() {
   is_batch_mode = true;
 }
+
+
 
 void sdb_mainloop() {
   if (is_batch_mode) {

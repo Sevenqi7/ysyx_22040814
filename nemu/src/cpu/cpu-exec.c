@@ -25,13 +25,37 @@
  * You can modify this value as you want.
  */
 #define MAX_INST_TO_PRINT 10
+#define MAX_ITRACE_STORE 10
+
+char g_itrace_buf[MAX_ITRACE_STORE][128];
+static uint32_t g_itrace_base = 0;
+static uint32_t g_itrace_end = 0;
+#ifdef CONFIG_ITRACE
+static uint32_t g_itrace_num = 0;
+#endif
 
 CPU_state cpu = {};
 uint64_t g_nr_guest_inst = 0;
 static uint64_t g_timer = 0; // unit: us
 static bool g_print_step = false;
 
+
 void device_update();
+
+void display_itrace()
+{
+    printf("\nItrace Info : q\n\n");
+    char printbuf[150];
+    memset(printbuf, ' ', 150);
+    int i = g_itrace_base;
+    do{
+      memcpy(&printbuf[10], g_itrace_buf[i], strlen(g_itrace_buf[i])+1);
+      i = i < MAX_ITRACE_STORE - 1 ? i + 1 : 0;
+      if(i == g_itrace_end) memcpy(printbuf, "-->", 3);
+      printf("%s\n", printbuf);
+    }while(i != g_itrace_end);
+    printf("\nItrace Info End\n");
+}
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
@@ -43,7 +67,6 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_WATCHPOINT
   if(check_watchpoints())
       nemu_state.state = NEMU_STOP;
-  Log("nemu_state: %d", nemu_state.state);
 #endif
 }
 
@@ -67,7 +90,6 @@ static void exec_once(Decode *s, vaddr_t pc) {
   space_len = space_len * 3 + 1;
   memset(p, ' ', space_len);
   p += space_len;
-
 #ifndef CONFIG_ISA_loongarch32r
   void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
   disassemble(p, s->logbuf + sizeof(s->logbuf) - p,
@@ -75,6 +97,11 @@ static void exec_once(Decode *s, vaddr_t pc) {
 #else
   p[0] = '\0'; // the upstream llvm does not support loongarch32r
 #endif
+  memcpy(g_itrace_buf[g_itrace_end], s->logbuf, strlen(s->logbuf)+1);
+  if(g_itrace_num < MAX_ITRACE_STORE) g_itrace_num++;
+  else  g_itrace_base = g_itrace_base < MAX_ITRACE_STORE - 1 ? g_itrace_base+1 : 0;
+  g_itrace_end = g_itrace_end < MAX_ITRACE_STORE - 1 ? g_itrace_end+1 : 0;
+  // Log("base:%d, end:%d, num:%d", g_itrace_base, g_itrace_end, g_itrace_num);
 #endif
 }
 
@@ -122,8 +149,9 @@ void cpu_exec(uint64_t n) {
 
   switch (nemu_state.state) {
     case NEMU_RUNNING: nemu_state.state = NEMU_STOP; break;
-
-    case NEMU_END: case NEMU_ABORT:
+    case NEMU_ABORT:
+      display_itrace();
+    case NEMU_END: 
       Log("nemu: %s at pc = " FMT_WORD,
           (nemu_state.state == NEMU_ABORT ? ANSI_FMT("ABORT", ANSI_FG_RED) :
            (nemu_state.halt_ret == 0 ? ANSI_FMT("HIT GOOD TRAP", ANSI_FG_GREEN) :

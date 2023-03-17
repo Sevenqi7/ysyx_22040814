@@ -52,7 +52,7 @@ static struct rule {
   {"!=", TK_UNEQ},      // unequal
   {"==", TK_EQ},        // equal
   {"\\$0|\\$t[0-6p]|\\$a[0-7]|\\$s[0-9]+|\\$gp|\\$ra|\\$sp|\\$pc", TK_REGISTER},
-  {"0x[0-9]+|0X[0-9]", TK_HEXNUM},
+  {"0x[0-9a-fA-f]+|0X[0-9a-fA-f]", TK_HEXNUM},
   {"[0-9]+", TK_NUM}
   // {"\\\$[a-dA- D][hlHL]|\\\$[eE]?(ax|dx|cx|bx|bp|si|di|sp)",TK_REGISTER}
 };
@@ -97,11 +97,11 @@ static bool make_token(char *e) {
     /* Try all rules one by one. */
     for (i = 0; i < NR_REGEX; i ++) {
       if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
-        char *substr_start = e + position;
+        // char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;
 
-        Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
-            i, rules[i].regex, position, substr_len, substr_len, substr_start);
+        // Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
+        //     i, rules[i].regex, position, substr_len, substr_len, substr_start);
 
         if(substr_len > sizeof(tokens->str))
         {

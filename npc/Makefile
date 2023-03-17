@@ -1,69 +1,37 @@
-ifeq ($(VERILATOR_ROOT),)
-VERILATOR = verilator
-VERILATOR_COVERAGE = verilator_coverage
-else
-export VERILATOR_ROOT
-VERILATOR = $(VERILATOR_ROOT)/bin/verilator
-VERILATOR_COVERAGE = $(VERILATOR_ROOT)/bin/verilator_coverage
-endif
-
-default: all
-
-TOPNAME := top
-INC_PATH ?=
-
-include ../nvboard/scripts/nvboard.mk
-
 BUILD_DIR = ./build
-OBJ_DIR := ./build/obj_dir
-BIN = $(BUILD_DIR)/$(TOPNAME)
 
-NXDC_FILES = ./top.nxdc
-SRC_AUTO_BIND = $(abspath $(BUILD_DIR)/auto_bind.cpp)
-VSRC_OBJ := $(shell find $(abspath ./vsrc) -name "*.v")
-CSRC_OBJ := $(shell find $(abspath ./csrc) -name "*.c" -or -name "*.cc" -or -name "*.cpp")
-CSRC_OBJ += $(SRC_AUTO_BIND)
+export PATH := $(PATH):$(abspath ./utils)
 
-# VERILATOR_INPUT = -f $(VSRC_OBJ) $(CSRC_OBJ)
+test:
+	mill -i __.test
 
-INCFLAGS = $(addprefix -I, $(INC_PATH))
-VERILATOR_FLAGS += -cc --exe -OS -MMD -x-assign 0 -j 6 --trace --build
-CFLAGS += $(INCFLAGS) -DTOP_NAME="\"V$(TOPNAME)\""
-LDFLAGS += -lSDL2 -lSDL2_image
+verilog:
+	$(call git_commit, "generate verilog")
+	mkdir -p $(BUILD_DIR)
+	mill -i __.test.runMain Elaborate -td $(BUILD_DIR)
 
-$(SRC_AUTO_BIND): $(NXDC_FILES)
-	python3 $(NVBOARD_HOME)/scripts/auto_pin_bind.py $^ $@
+help:
+	mill -i __.test.runMain Elaborate --help
 
-all: $(BIN)
-#	@echo "Write this Makefile by your self."
-	
-	$(shell mkdir -p $(BUILD_DIR))
-	@rm -rf $(OBJ_DIR)
+compile:
+	mill -i __.compile
 
+bsp:
+	mill -i mill.bsp.BSP/install
 
-$(BIN): $(VSRC_OBJ) $(CSRC_OBJ) $(NVBOARD_ARCHIVE)
+reformat:
+	mill -i __.reformat
 
-	$(VERILATOR) $(VERILATOR_FLAGS) $^ \
-	$(addprefix -CFLAGS , $(CFLAGS)) $(addprefix -LDFLAGS , $(LDFLAGS)) \
-	--top-module $(TOPNAME) \
-	--Mdir $(OBJ_DIR) -o $(abspath $(BIN))
+checkformat:
+	mill -i __.checkFormat
 
-run: $(BIN)
-	$(abspath $(BIN))
+clean:
+	-rm -rf $(BUILD_DIR)
+
+.PHONY: test verilog help compile bsp reformat checkformat clean
 
 sim:
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
-#	@echo "Write this Makefile by your self."
-	@rm -rf $(OBJ_DIR)
-	$(shell mkdir logs)
-	@echo "-- VERILATE ----------------"
-	@echo "Verilating..."
-	$(BIN)
-	@echo "Finish building and verilating."
-	@echo "-- RUN ---------------------"
-	./obj_dir/Vtop +trace
-	@echo "-- DONE --------------------"
+	@echo "Write this Makefile by yourself."
 
-clean:
-	rm -rf $(OBJ_DIR)
 include ../Makefile
