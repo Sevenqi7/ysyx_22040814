@@ -1,11 +1,14 @@
 module top(
+    input clk,
     input in1,
     input in2,
-    output out
+    output reg out
 );
 
 
-assign out = in1 | in2;
+always@(posedge  clk) begin
+      out <= in1 | in2;
+end
 
    initial begin
       if ($test$plusargs("trace") != 0) begin
