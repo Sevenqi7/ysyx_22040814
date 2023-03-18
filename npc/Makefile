@@ -42,7 +42,7 @@ VERILATOR_COVERAGE = $(VERILATOR_ROOT)/bin/verilator_coverage
 endif
 
 TOPNAME := top
-INC_PATH ?=
+# INC_PATH ?=
 
 BUILD_DIR = ./build
 OBJ_DIR := ./build/obj_dir
@@ -51,7 +51,7 @@ BIN = $(BUILD_DIR)/$(TOPNAME)
 VSRC_OBJ := $(shell find $(abspath ./vsrc) -name "*.v")
 CSRC_OBJ := $(shell find $(abspath ./csrc) -name "*.c" -or -name "*.cc" -or -name "*.cpp")
 
-INCFLAGS = $(addprefix -I, $(INC_PATH))
+# INCFLAGS = $(addprefix -I, $(INC_PATH))
 VERILATOR_FLAGS += -cc --exe -OS -MMD -x-assign 0 -j 6 --trace --build
 # CLFAGS += $(INCFLAGS) -DTOP_NAME="\"V$(TOPNAME)\""
 # LDFLAGS += -lSDL2 -lSDL2_image
