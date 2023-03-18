@@ -51,23 +51,22 @@ int main(int argc, char** argv, char** env) {
     // Using unique_ptr is similar to "Vtop* top = new Vtop" then deleting at end.
     // "TOP" will be the hierarchical name of the module.
     const std::unique_ptr<Vtop> top{new Vtop{contextp.get(), "TOP"}};
-
-    // Set Vtop's input signals
-    top->in1 = 0;
-    top->in2 = 0;
+    top->clk = 0;
+    int cnt = 0;
     // Simulate until $finish
-    while (1) {
+    while (cnt > 10) {
         contextp->timeInc(1);  // 1 timeprecision period passes...
+        top->clk = !top->clk;
+
         if (!top->clk) {
             if (contextp->time() > 1 && contextp->time() < 10) {
                 top->in1 = !1;  // Assert reset
             } else {
                 top->in2 = !0;  // Deassert reset
             }
+            cnt++;
         }
-
         top->eval();
-
     }
 
     // Final model cleanup

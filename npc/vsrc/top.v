@@ -8,6 +8,8 @@ module top(
 
 always@(posedge  clk) begin
       out <= in1 | in2;
+      //$finish;
+      $display("output");
 end
 
    initial begin
