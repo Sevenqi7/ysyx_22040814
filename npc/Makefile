@@ -32,10 +32,50 @@ clean:
 
 .PHONY: test verilog help compile bsp reformat checkformat clean
 
-run:
+ifeq ($(VERILATOR_ROOT),)
+VERILATOR = verilator
+VERILATOR_COVERAGE = verilator_coverage
+else
+export VERILATOR_ROOT
+VERILATOR = $(VERILATOR_ROOT)/bin/verilator
+VERILATOR_COVERAGE = $(VERILATOR_ROOT)/bin/verilator_coverage
+endif
+
+TOPNAME := top
+INC_PATH ?=
+
+BUILD_DIR = ./build
+OBJ_DIR := ./build/obj_dir
+BIN = $(BUILD_DIR)/$(TOPNAME)
+
+VSRC_OBJ := $(shell find $(abspath ./vsrc) -name "*.v")
+CSRC_OBJ := $(shell find $(abspath ./csrc) -name "*.c" -or -name "*.cc" -or -name "*.cpp")
+
+INCFLAGS = $(addprefix -I, $(INC_PATH))
+VERILATOR_FLAGS += -cc --exe -OS -MMD -x-assign 0 -j 6 --trace --build
+CLFAGS += $(INCFLAGS) -DTOP_NAME="\"V$(TOPNAME)\""
+LDFLAGS += -lSDL2 -lSDL2_image
+
+$(BIN): $(VSRC_OBJ) $(CSRC_OBJ)
+	$(VERILATOR) $(VERILATOR_FLAGS) $^ \
+	$(addprefix -CFLAGS , $(CFLAGS)) $(addprefix -LDFLAGS , $(LDFLAGS)) \
+	--top-module $(TOPNAME) \
+	--Mdir $(OBJ_DIR) -o $(abspath $(BIN))
+
+run: $(BIN)
+	$(abspath $(BIN))
 	
 sim:
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
-	@echo "Write this Makefile by yourself."
+	# @echo "Write this Makefile by yourself."
+	@rm -rf $(OBJ_DIR)
+	$(shell mkdir logs)
+	@echo "-- VERILATE ----------------"
+	@echo "Verilating..."
+	$(BIN)
+	@echo "Finish building and verilating."
+	@echo "-- RUN ---------------------"
+	./obj_dir/Vtop +trace
+	@echo "-- DONE --------------------"
 
 include ../Makefile
