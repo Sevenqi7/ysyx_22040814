@@ -57,6 +57,7 @@ CLFAGS += $(INCFLAGS) -DTOP_NAME="\"V$(TOPNAME)\""
 LDFLAGS += -lSDL2 -lSDL2_image
 
 $(BIN): $(VSRC_OBJ) $(CSRC_OBJ)
+
 	$(VERILATOR) $(VERILATOR_FLAGS) $^ \
 	$(addprefix -CFLAGS , $(CFLAGS)) $(addprefix -LDFLAGS , $(LDFLAGS)) \
 	--top-module $(TOPNAME) \
