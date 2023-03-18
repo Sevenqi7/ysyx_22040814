@@ -68,7 +68,6 @@ run: $(BIN)
 sim:
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 	# @echo "Write this Makefile by yourself."
-	@rm -rf $(OBJ_DIR)
 	$(shell mkdir logs)
 	@echo "-- VERILATE ----------------"
 	@echo "Verilating..."
