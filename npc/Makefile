@@ -74,7 +74,7 @@ sim:
 	$(BIN)
 	@echo "Finish building and verilating."
 	@echo "-- RUN ---------------------"
-	./build/obj_dir/top +trace
+	./build/top +trace
 	@echo "-- DONE --------------------"
 
 include ../Makefile
