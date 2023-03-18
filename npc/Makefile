@@ -59,7 +59,6 @@ VERILATOR_FLAGS += -cc --exe -OS -MMD -x-assign 0 -j 6 --trace --build
 $(BIN): $(VSRC_OBJ) $(CSRC_OBJ)
 
 	$(VERILATOR) $(VERILATOR_FLAGS) $^ \
-	# $(addprefix -CFLAGS , $(CFLAGS)) $(addprefix -LDFLAGS , $(LDFLAGS)) \
 	--top-module $(TOPNAME) \
 	--Mdir $(OBJ_DIR) -o $(abspath $(BIN))
 
