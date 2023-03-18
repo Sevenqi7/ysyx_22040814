@@ -55,9 +55,8 @@ int main(int argc, char** argv, char** env) {
     // Set Vtop's input signals
     top->in1 = 0;
     top->in2 = 0;
-
     // Simulate until $finish
-    while (!contextp->gotFinish()) {
+    while (1) {
         contextp->timeInc(1);  // 1 timeprecision period passes...
         if (!top->clk) {
             if (contextp->time() > 1 && contextp->time() < 10) {
