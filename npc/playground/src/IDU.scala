@@ -22,7 +22,7 @@ class IDU extends Module{
     val io = IO(new Bundle{
         val IF_Inst = Input(UInt(32.W))
         val IF_pc = Input(UInt(64.W))
-        val ID_npc = Output(UInt(32.W))
+        val ID_npc = Output(UInt(64.W))
         
         val ID_ALU_Data1 = Output(UInt(64.W))
         val ID_ALU_Data2 = Output(UInt(64.W))
