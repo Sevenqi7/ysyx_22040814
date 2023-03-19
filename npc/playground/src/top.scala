@@ -5,6 +5,7 @@ class top extends Module{
     val io = IO(new Bundle{
         val inst = Input(UInt(32.W))
         val IF_pc = Output(UInt(64.W))
+        val ALUResult = Output(UInt(64.W))
     })
 
     val inst_fetch_unit = Module(new IFU)
@@ -30,4 +31,5 @@ class top extends Module{
     inst_decode_unit.io.EX_RegWriteData := excute_unit.io.EX_RegWriteData
     inst_decode_unit.io.EX_RegWriteEn   := excute_unit.io.EX_RegWriteEn
     inst_decode_unit.io.EX_RegWriteID   := excute_unit.io.EX_RegWriteID
+    io.ALUResult := excute_unit.io.EX_RegWriteData
 }

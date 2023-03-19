@@ -103,24 +103,22 @@ endmodule
 module top(	// <stdin>:248:10
   input         clock,
                 reset,
-                io_clock,
-                io_reset,
   input  [31:0] io_inst,
   output [63:0] io_IF_pc);
 
-  wire [63:0] _inst_decode_unit_io_ID_npc;	// top.scala:13:34
-  wire [63:0] _inst_fetch_unit_io_IF_pc;	// top.scala:12:33
-  IFU inst_fetch_unit (	// top.scala:12:33
+  wire [63:0] _inst_decode_unit_io_ID_npc;	// top.scala:11:34
+  wire [63:0] _inst_fetch_unit_io_IF_pc;	// top.scala:10:33
+  IFU inst_fetch_unit (	// top.scala:10:33
     .clock     (clock),
     .reset     (reset),
-    .io_IF_npc (_inst_decode_unit_io_ID_npc),	// top.scala:13:34
+    .io_IF_npc (_inst_decode_unit_io_ID_npc),	// top.scala:11:34
     .io_IF_pc  (_inst_fetch_unit_io_IF_pc)
   );
-  IDU inst_decode_unit (	// top.scala:13:34
+  IDU inst_decode_unit (	// top.scala:11:34
     .io_IF_Inst (io_inst),
-    .io_IF_pc   (_inst_fetch_unit_io_IF_pc),	// top.scala:12:33
+    .io_IF_pc   (_inst_fetch_unit_io_IF_pc),	// top.scala:10:33
     .io_ID_npc  (_inst_decode_unit_io_ID_npc)
   );
-  assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:248:10, top.scala:12:33
+  assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:248:10, top.scala:10:33
 endmodule
 
