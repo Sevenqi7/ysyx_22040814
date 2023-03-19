@@ -50,10 +50,9 @@ int main(int argc, char **argv, char **env)
     int cnt = 0;
     while (!contextp->gotFinish())
     {
-        top->eval();
         contextp->timeInc(1); // 1 timeprecision period passes...
-        top->io_inst = pmem_read(top->io_IF_pc);    
         top->clock = !top->clock;
+        top->io_inst = pmem_read(top->io_IF_pc);    
         if (!top->clock) {
             if (contextp->time() > 1 && contextp->time() < 10) {
                 top->reset = !0;  // Assert reset
@@ -61,6 +60,7 @@ int main(int argc, char **argv, char **env)
                 top->reset = !1;  // Deassert reset
             }
         }
+        top->eval();
         printf("time=%ld clk=%x rst=%x inst=%x IF_pc=%lx\n", contextp->time(), top->clock, top->reset, top->io_inst, top->io_IF_pc);
         if(cnt++ > 20) break;
     }
