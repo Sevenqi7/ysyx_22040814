@@ -51,9 +51,7 @@ int main(int argc, char **argv, char **env)
     while (!contextp->gotFinish())
     {
         contextp->timeInc(1); // 1 timeprecision period passes...
-        top->io_inst = pmem_read(top->io_IF_pc);
-        top->eval();
-    
+        top->io_inst = pmem_read(top->io_IF_pc);    
         top->clock = !top->clock;
         if (!top->clock) {
             if (contextp->time() > 1 && contextp->time() < 10) {
