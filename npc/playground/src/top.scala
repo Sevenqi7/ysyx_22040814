@@ -32,4 +32,5 @@ class top extends Module{
     inst_decode_unit.io.EX_RegWriteEn   := excute_unit.io.EX_RegWriteEn
     inst_decode_unit.io.EX_RegWriteID   := excute_unit.io.EX_RegWriteID
     io.ALUResult := excute_unit.io.EX_RegWriteData
+
 }
