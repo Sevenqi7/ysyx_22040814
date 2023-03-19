@@ -82,8 +82,8 @@ class IDU extends Module{
     rd := io.IF_Inst(11, 7)
     rs1 := io.IF_Inst(19, 15)
     rs2 := io.IF_Inst(24, 20)
-    rs1_data := Mux(rs1 === 0, 0, GPR(rs1))
-    rs2_data := Mux(rs2 === 0, 0, GPR(rs2))
+    rs1_data := Mux(rs1 === 0.U, 0.U, GPR(rs1))
+    rs2_data := Mux(rs2 === 0.U, 0.U, GPR(rs2))
 
     when(io.EX_RegWriteEn.asBool())
     {
