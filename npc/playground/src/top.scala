@@ -13,6 +13,7 @@ class top extends Module{
 
     io.IF_pc := inst_fetch_unit.io.IF_pc
     inst_fetch_unit.io.IF_npc := inst_decode_unit.io.ID_npc
+    inst_dcode_unit.io.IF_pc  := inst_fetch_unit.io.IF_pc
     inst_decode_unit.io.IF_Inst := io.inst
 
     // val ID_ALU_Data1 := inst_decode_unit.io.ID_ALU_Data1

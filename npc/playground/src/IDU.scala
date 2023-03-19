@@ -45,7 +45,7 @@ class IDU extends Module{
     inst_decoder.io.inst := io.IF_Inst
     opType := inst_decoder.io.opType
     instType := inst_decoder.io.instType
-
+    io.ID_optype := opType
 
     //all kinds of imm
     val immI = Wire(UInt(32.W))
