@@ -20,8 +20,9 @@ uint64_t inst_mem[MEMSIZE];
 
 uint32_t pmem_read(uint64_t addr)
 {
-    if(addr > 0x80000000)
+    if(addr >= 0x80000000)
         return (uint32_t)inst_mem[addr & 0xFF];
+    return 0;
 }
 
 
@@ -39,24 +40,29 @@ int main(int argc, char **argv, char **env)
     Verilated::mkdir("logs");
     const std::unique_ptr<VerilatedContext> contextp{new VerilatedContext};
     contextp->debug(0);
-    contextp->randReset(2);
+    contextp->randReset(3);
     contextp->traceEverOn(true);
     contextp->commandArgs(argc, argv);
     const std::unique_ptr<Vtop> top{new Vtop{contextp.get(), "TOP"}};
 
     top->reset = !0;
     top->clock = 0;
-
+    int cnt = 0;
     while (!contextp->gotFinish())
     {
         contextp->timeInc(1); // 1 timeprecision period passes...
         top->clock = !top->clock;
         top->io_inst = pmem_read(top->io_IF_pc);
+        if (!top->clock) {
+            if (contextp->time() > 1 && contextp->time() < 10) {
+                top->reset = !0;  // Assert reset
+            } else {
+                top->reset = !1;  // Deassert reset
+            }
+        }
         top->eval();
-        // VL_PRINTF("[%" VL_PRI64 "d] clk=%x rstl=%x iquad=%" VL_PRI64 "x"
-        //           " -> oquad=%" VL_PRI64 "x owide=%x_%08x_%08x\n",
-        //           contextp->time(), top->clk, top->reset_l, top->in_quad, top->out_quad,
-        //           top->out_wide[2], top->out_wide[1], top->out_wide[0]);
+        printf("time=%ld clk=%x rst=%x inst=%x IF_pc=%lx\n", contextp->time(), top->clock, top->reset, top->io_inst, top->io_IF_pc);
+        if(cnt++ > 20) break;
     }
 
     top->final();
