@@ -51,7 +51,7 @@ int main(int argc, char **argv, char **env)
     {
         contextp->timeInc(1); // 1 timeprecision period passes...
         top->clock = !top->clock;
-        top->io_inst = pmem_read(top->io_IF_pc)
+        top->io_inst = pmem_read(top->io_IF_pc);
         top->eval();
         // VL_PRINTF("[%" VL_PRI64 "d] clk=%x rstl=%x iquad=%" VL_PRI64 "x"
         //           " -> oquad=%" VL_PRI64 "x owide=%x_%08x_%08x\n",
