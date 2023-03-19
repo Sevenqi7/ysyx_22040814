@@ -72,7 +72,7 @@ sim: $(BIN)
 	$(shell mkdir logs)
 	@echo "-- VERILATE ----------------"
 	@echo "Verilating..."
-	$(abspath $(BIN))
+	$(BIN)
 	@echo "Finish building and verilating."
 	@echo "-- RUN ---------------------"
 	./build/top +trace
