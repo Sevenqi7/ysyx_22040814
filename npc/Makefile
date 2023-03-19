@@ -72,7 +72,9 @@ sim: $(BIN)
 	$(shell mkdir logs)
 	@echo "-- VERILATE ----------------"
 	@echo "Verilating..."
-	$(BIN)
+	$(VERILATOR) $(VERILATOR_FLAGS) $^ \
+	--top-module $(TOPNAME) \
+	--Mdir $(OBJ_DIR) -o $(abspath $(BIN))
 	@echo "Finish building and verilating."
 	@echo "-- RUN ---------------------"
 	./build/top +trace

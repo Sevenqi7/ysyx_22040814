@@ -520,5 +520,11 @@ module top(	// <stdin>:252:10
   );
   assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:252:10, top.scala:11:33
   assign io_ALUResult = _excute_unit_io_EX_RegWriteData;	// <stdin>:252:10, top.scala:13:29
+
+initial begin
+  $dumpfile("/home/seven7/Documents/学业/一生一芯/ysyx-workbench/npc/logs/waves.vcd");
+  $dumpvars(0, top);
+end
+
 endmodule
 
