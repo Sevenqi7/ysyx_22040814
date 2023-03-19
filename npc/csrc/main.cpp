@@ -16,11 +16,22 @@
 
 #define MEMSIZE 2048
 
-uint64_t 
+uint64_t inst_mem[MEMSIZE];
+
+uint32_t pmem_read(uint64_t addr)
+{
+    if(addr > 0x80000000)
+        return (uint32_t)inst_mem[addr & 0xFF];
+}
 
 
 int main(int argc, char **argv, char **env)
 {
+
+    for(int i=0;i<10;i++)
+    {
+        inst_mem[i] = 0xfff58593;
+    }
 
     if (false && argc && argv && env)
     {
