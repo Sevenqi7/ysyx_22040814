@@ -65,7 +65,7 @@ $(BIN): $(VSRC_OBJ) $(CSRC_OBJ)
 run: $(BIN)
 	$(abspath $(BIN))
 	
-sim:
+sim: $(BIN)
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 	# @echo "Write this Makefile by yourself."
 	@rm $(BIN)
