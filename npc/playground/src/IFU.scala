@@ -8,5 +8,5 @@ class IFU extends Module{
     })
     val pcReg = RegInit(0x80000000.S(64.W))
     pcReg := RegNext(io.IF_npc)
-    io.IF_pc := pcReg
+    io.IF_pc := pcReg.asUInt
 }
