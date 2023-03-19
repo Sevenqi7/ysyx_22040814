@@ -42,7 +42,7 @@ module IFU(	// <stdin>:2:10
   reg [63:0] pcReg_REG;	// IFU.scala:10:21
   always @(posedge clock) begin
     if (reset)
-      pcReg <= 64'h0;	// IFU.scala:9:24
+      pcReg <= 64'h80000000;	// IFU.scala:9:24
     else
       pcReg <= pcReg_REG;	// IFU.scala:9:24, :10:21
     pcReg_REG <= io_IF_npc;	// IFU.scala:10:21
