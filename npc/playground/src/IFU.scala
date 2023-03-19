@@ -6,7 +6,7 @@ class IFU extends Module{
         val IF_npc = Input(UInt(32.W))
         val IF_pc = Output(UInt(32.W))
     })
-    val pcReg = RegInit(0x80000000.UInt(32.W))
+    val pcReg = RegInit(0x80000000.U(32.W))
     pcReg := RegNext(io.IF_npc)
     io.IF_pc := pcReg
 }
