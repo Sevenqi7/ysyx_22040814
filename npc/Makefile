@@ -52,9 +52,9 @@ VSRC_OBJ := $(shell find $(abspath ./vsrc) -name "*.v")
 CSRC_OBJ := $(shell find $(abspath ./csrc) -name "*.c" -or -name "*.cc" -or -name "*.cpp")
 
 # INCFLAGS = $(addprefix -I, $(INC_PATH))
-VERILATOR_FLAGS += -cc --exe -OS -MMD -x-assign 0 -j 6 --trace --build
 # CLFAGS += $(INCFLAGS) -DTOP_NAME="\"V$(TOPNAME)\""
 # LDFLAGS += -lSDL2 -lSDL2_image
+VERILATOR_FLAGS += -cc --exe -OS -MMD -x-assign 0 -j 6 --trace --build
 
 $(BIN): $(VSRC_OBJ) $(CSRC_OBJ)
 
