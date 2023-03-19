@@ -141,13 +141,13 @@ module IDU(	// <stdin>:62:10
   wire [31:0][63:0] _GEN = {{GPR_31}, {GPR_30}, {GPR_29}, {GPR_28}, {GPR_27}, {GPR_26}, {GPR_25}, {GPR_24}, {GPR_23},
                 {GPR_22}, {GPR_21}, {GPR_20}, {GPR_19}, {GPR_18}, {GPR_17}, {GPR_16}, {GPR_15}, {GPR_14},
                 {GPR_13}, {GPR_12}, {GPR_11}, {GPR_10}, {GPR_9}, {GPR_8}, {GPR_7}, {GPR_6}, {GPR_5},
-                {GPR_4}, {GPR_3}, {GPR_2}, {GPR_1}, {GPR_0}};	// IDU.scala:74:22, :85:14
-  wire [63:0]       _GEN_0;	// IDU.scala:85:14
+                {GPR_4}, {GPR_3}, {GPR_2}, {GPR_1}, {GPR_0}};	// IDU.scala:74:22, :85:20
+  wire [63:0]       _GEN_0;	// IDU.scala:85:20
   /* synopsys infer_mux_override */
-  assign _GEN_0 = _GEN[io_IF_Inst[19:15]] /* cadence map_to_mux */;	// IDU.scala:83:22, :85:14
-  wire [63:0]       _GEN_1;	// IDU.scala:86:14
+  assign _GEN_0 = _GEN[io_IF_Inst[19:15]] /* cadence map_to_mux */;	// IDU.scala:83:22, :85:20
+  wire [63:0]       _GEN_1;	// IDU.scala:86:20
   /* synopsys infer_mux_override */
-  assign _GEN_1 = _GEN[io_IF_Inst[24:20]] /* cadence map_to_mux */;	// IDU.scala:84:22, :85:14, :86:14
+  assign _GEN_1 = _GEN[io_IF_Inst[24:20]] /* cadence map_to_mux */;	// IDU.scala:84:22, :85:20, :86:20
   reg  [63:0]       GPR_REG;	// IDU.scala:90:41
   wire              _io_ID_RegWriteEn_T = _inst_decoder_io_instType == 3'h1;	// IDU.scala:44:30, :97:19
   wire              _io_ID_RegWriteEn_T_1 = _inst_decoder_io_instType == 3'h0;	// IDU.scala:44:30, :97:42
@@ -188,7 +188,7 @@ module IDU(	// <stdin>:62:10
       GPR_31 <= 64'h0;	// IDU.scala:74:{22,30}
     end
     else begin
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h0)	// IDU.scala:74:22, :89:5, :90:31
+      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h0)	// IDU.scala:74:22, :85:25, :89:5, :90:31
         GPR_0 <= GPR_REG;	// IDU.scala:74:22, :90:41
       if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h1)	// IDU.scala:74:22, :89:5, :90:31
         GPR_1 <= GPR_REG;	// IDU.scala:74:22, :90:41
@@ -444,16 +444,17 @@ module IDU(	// <stdin>:62:10
                 io_IF_Inst[20], io_IF_Inst[30:21], 1'h0} : _inst_decoder_io_instType == 3'h5 ? io_IF_pc +
                 {31'h0, {21{io_IF_Inst[31]}}, io_IF_Inst[7], io_IF_Inst[30:25], io_IF_Inst[11:8], 1'h0} :
                 {32'h0, io_IF_pc[31:0] + 32'h4};	// <stdin>:62:10, Cat.scala:33:92, IDU.scala:44:30, :48:18, :58:36, :61:{80,107,128}, :62:{54,76,101}, :67:25, :69:{19,40}, :70:{19,40}, Mux.scala:101:16
-  assign io_ID_ALU_Data1 = _io_ID_RegWriteEn_T | _io_ID_RegWriteEn_T_1 | _io_ID_ALU_Data2_T_1 ? _GEN_0 : 64'h0;	// <stdin>:62:10, IDU.scala:74:30, :85:14, :97:{19,42,53,65}, Mux.scala:101:16
-  assign io_ID_ALU_Data2 = _io_ID_RegWriteEn_T | _io_ID_ALU_Data2_T_1 ? _GEN_1 : {32'h0, _io_ID_RegWriteEn_T_1 ?
-                {{20{io_IF_Inst[31]}}, io_IF_Inst[31:20]} : 32'h0};	// <stdin>:62:10, Bitwise.scala:77:12, Cat.scala:33:92, IDU.scala:58:{36,53}, :86:14, :97:{19,42,65}, :101:30, Mux.scala:101:16
+  assign io_ID_ALU_Data1 = ~(_io_ID_RegWriteEn_T | _io_ID_RegWriteEn_T_1 | _io_ID_ALU_Data2_T_1) | io_IF_Inst[19:15]
+                == 5'h0 ? 64'h0 : _GEN_0;	// <stdin>:62:10, IDU.scala:74:30, :83:22, :85:{20,25}, :97:{19,42,53,65}, Mux.scala:101:16
+  assign io_ID_ALU_Data2 = _io_ID_RegWriteEn_T | _io_ID_ALU_Data2_T_1 ? (io_IF_Inst[24:20] == 5'h0 ? 64'h0 : _GEN_1) :
+                {32'h0, _io_ID_RegWriteEn_T_1 ? {{20{io_IF_Inst[31]}}, io_IF_Inst[31:20]} : 32'h0};	// <stdin>:62:10, Bitwise.scala:77:12, Cat.scala:33:92, IDU.scala:58:{36,53}, :74:30, :84:22, :85:25, :86:{20,25}, :97:{19,42,65}, :101:30, Mux.scala:101:16
   assign io_ID_optype = {1'h0, _inst_decoder_io_opType};	// <stdin>:62:10, IDU.scala:44:30, :48:18
   assign io_ID_RegWriteID = io_IF_Inst[11:7];	// <stdin>:62:10, IDU.scala:60:80
   assign io_ID_RegWriteEn = _io_ID_RegWriteEn_T | _io_ID_RegWriteEn_T_1 | _inst_decoder_io_instType == 3'h2 |
                 _io_ID_RegWriteEn_T_5;	// <stdin>:62:10, IDU.scala:44:30, :69:19, :97:{19,42}, :106:{85,97}
 endmodule
 
-module EXU(	// <stdin>:229:10
+module EXU(	// <stdin>:233:10
   input  [63:0] io_ID_ALU_Data1,
                 io_ID_ALU_Data2,
   input  [3:0]  io_ID_optype,
@@ -464,12 +465,12 @@ module EXU(	// <stdin>:229:10
   output        io_EX_RegWriteEn);
 
   assign io_EX_RegWriteData = io_ID_optype == 4'h1 ? io_ID_ALU_Data1 + io_ID_ALU_Data2 : io_ID_optype == 4'h2 ?
-                io_ID_ALU_Data1 - io_ID_ALU_Data2 : 64'h0;	// <stdin>:229:10, EXU.scala:25:{23,52}, :26:{23,52}, Mux.scala:101:16
-  assign io_EX_RegWriteID = io_ID_RegWriteID;	// <stdin>:229:10
-  assign io_EX_RegWriteEn = io_ID_RegWriteEn;	// <stdin>:229:10
+                io_ID_ALU_Data1 - io_ID_ALU_Data2 : 64'h0;	// <stdin>:233:10, EXU.scala:25:{23,52}, :26:{23,52}, Mux.scala:101:16
+  assign io_EX_RegWriteID = io_ID_RegWriteID;	// <stdin>:233:10
+  assign io_EX_RegWriteEn = io_ID_RegWriteEn;	// <stdin>:233:10
 endmodule
 
-module top(	// <stdin>:248:10
+module top(	// <stdin>:252:10
   input         clock,
                 reset,
   input  [31:0] io_inst,
@@ -517,7 +518,7 @@ module top(	// <stdin>:248:10
     .io_EX_RegWriteID   (_excute_unit_io_EX_RegWriteID),
     .io_EX_RegWriteEn   (_excute_unit_io_EX_RegWriteEn)
   );
-  assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:248:10, top.scala:11:33
-  assign io_ALUResult = _excute_unit_io_EX_RegWriteData;	// <stdin>:248:10, top.scala:13:29
+  assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:252:10, top.scala:11:33
+  assign io_ALUResult = _excute_unit_io_EX_RegWriteData;	// <stdin>:252:10, top.scala:13:29
 endmodule
 

@@ -16,9 +16,8 @@
 
 #define MEMSIZE 2048
 
-class Memory{
-    uint64_t Mem[MEMSIZE]
-}
+uint64_t 
+
 
 int main(int argc, char **argv, char **env)
 {
@@ -41,8 +40,8 @@ int main(int argc, char **argv, char **env)
     {
         contextp->timeInc(1); // 1 timeprecision period passes...
         top->clock = !top->clock;
-        top->ioinst = pmem_read(top->io_IF_pc)
-                          top->eval();
+        top->io_inst = pmem_read(top->io_IF_pc)
+        top->eval();
         // VL_PRINTF("[%" VL_PRI64 "d] clk=%x rstl=%x iquad=%" VL_PRI64 "x"
         //           " -> oquad=%" VL_PRI64 "x owide=%x_%08x_%08x\n",
         //           contextp->time(), top->clk, top->reset_l, top->in_quad, top->out_quad,
