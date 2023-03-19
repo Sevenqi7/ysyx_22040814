@@ -520,5 +520,14 @@ module top(	// <stdin>:252:10
   );
   assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:252:10, top.scala:11:33
   assign io_ALUResult = _excute_unit_io_EX_RegWriteData;	// <stdin>:252:10, top.scala:13:29
+
+  initial begin
+    if ($test$plusargs("trace") != 0) begin
+        $display("[%0t] Tracing to logs/vlt_dump.vcd...\n", $time);
+        $dumpfile("logs/vlt_dump.vcd");
+        $dumpvars();
+    end
+    $display("[%0t] Model running...\n", $time);
+  end
 endmodule
 
