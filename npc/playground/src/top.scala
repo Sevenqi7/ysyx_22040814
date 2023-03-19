@@ -3,6 +3,8 @@ import chisel3.util._
 
 class top extends Module{
     val io = IO(new Bundle{
+        val clock = Input(Clock())
+        val reset = Input(Reset())
         val inst = Input(UInt(32.W))
         val IF_pc = Output(UInt(64.W))
     })
