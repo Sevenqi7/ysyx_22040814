@@ -5,7 +5,7 @@ import InstType._
 
 class InstDecoder extends RawModule{
     val io = IO(new Bundle{
-        val inst = Input(UInt(31.W))
+        val inst = Input(UInt(32.W))
         val instType = Output(UInt(3.W))
         val opType = Output(UInt(3.W))
     })
