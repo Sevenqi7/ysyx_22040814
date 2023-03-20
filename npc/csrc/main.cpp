@@ -12,9 +12,9 @@
 #include <verilated.h>
 
 // Include model header, generated from Verilating "top.v"
-#include "Vtop.h"
 #include "svdpi.h"
-#include "Vour__Dpi.h"
+#include "Vtop__Dpi.h"
+#include "Vtop.h"
 
 #define MEMSIZE 2048
 
@@ -29,7 +29,7 @@ uint32_t pmem_read(uint64_t addr)
 
 uint64_t now_inst;
 
-int is_ebreak(uint32_t inst)
+int is_ebreak(unsigned int inst)
 {
     return (inst == 0x00100073);
 }
