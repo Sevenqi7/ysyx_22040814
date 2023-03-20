@@ -48,7 +48,7 @@ BUILD_DIR = ./build
 OBJ_DIR := ./build/obj_dir
 BIN = $(BUILD_DIR)/$(TOPNAME)
 
-VSRC_OBJ := $(shell find $(abspath ./vsrc) -name "*.v")
+VSRC_OBJ := $(shell find $(abspath ./vsrc) -name "*.sv")
 CSRC_OBJ := $(shell find $(abspath ./csrc) -name "*.c" -or -name "*.cc" -or -name "*.cpp")
 
 # INCFLAGS = $(addprefix -I, $(INC_PATH))
