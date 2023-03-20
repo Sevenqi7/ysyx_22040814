@@ -22,7 +22,7 @@ class IDU extends Module{
         
     })
     def sext(value: UInt, width: UInt): UInt = {
-        val signBit = value(width - 1)
+        val signBit = value(width - 1.U)
         val extension = Fill(width - value.getWidth, signBit)
         Cat(extension, value)
     }
