@@ -2,6 +2,7 @@ import chisel3._
 import chisel3.util._
 import OpType._
 import InstType._
+import FuSource._
 
 class IDU extends Module{
     val io = IO(new Bundle{
@@ -25,9 +26,12 @@ class IDU extends Module{
     //Decode
     val InstInfo = ListLookup(io.IF_Inst, List(0.U, 0.U, 0.U), RV64IInstr.table)
     val instType = Wire(UInt(3.W))
-    io.ID_optype    := InstInfo(2)
+    val opType   = Wire(UInt(3.W))
+    
+    opType    := InstInfo(4)
     instType        := InstInfo(0)
     
+    io.ID_optype    := opType
 
     //all kinds of imm
     val immI = Wire(UInt(64.W))
@@ -73,17 +77,33 @@ class IDU extends Module{
     }
 
     //Analyse the operation
+    val src1 = Wire(UInt(3.W))
+    val src2 = Wire(UInt(3.W))
+    val imm  = Wire(UInt(64.W))
 
+    src1 := InstInfo(2)
+    src2 := InstInfo(3)
+    
+
+    imm := MuxCase(0.U, Seq(
+        (instType === TYPE_I, immI),
+        (instType === TYPE_B, immB),
+        (instType === TYPE_U, immU),
+        (instType === TYPE_S, immS)
+    ))
 
     io.ID_ALU_Data1 := MuxCase(0.U, Seq(
-        (instType === TYPE_R || instType === TYPE_I || instType === TYPE_S, rs1_data),
-        (io.ID_optype   === AUIPC, io.IF_pc)
+        (src1 === ZERO, 0.U     ),
+        (src1 === PC  , io.IF_pc),
+        (src1 === RS1 , rs1_data),
+        (src1 === NPC , io.IF_pc+4.U)
     ))
 
     io.ID_ALU_Data2 := MuxCase(0.U, Seq(
-        (instType === TYPE_R || instType === TYPE_S, rs2_data),
-        (instType === TYPE_I, immI),
-        (instType === TYPE_U, immU)
+        (src2 === ZERO, 0.U     ),
+        (src2 === PC  , io.IF_pc),
+        (src2 === RS2 , rs1_data),
+        (src2 === IMM , imm     )
     ))
 
     io.ID_RegWriteID := rd
@@ -101,9 +121,10 @@ object RV64IInstr{
 
     //I Type
     def ADDI    = BitPat("b??????? ????? ????? 000 ????? 00100 11")
+    def JALR    = BitPat("b??????? ????? ????? 000 ????? 11001 11")
 
     //J Type
-    def JALR    = BitPat("b??????? ????? ????? 000 ????? 11001 11")
+    def JAL     = BitPat("b??????? ????? ????? ??? ????? 11011 11")
     // def ADDIW   = BitPat("b???????_?????_?????_000_?????_0011011")
     // def SLLIW   = BitPat("b0000000_?????_?????_001_?????_0011011")
     // def SRLIW   = BitPat("b0000000_?????_?????_101_?????_0011011")
@@ -119,13 +140,14 @@ object RV64IInstr{
     val table = Array(
 
     // Special insts
-    EBREAK         -> List(TYPE_N, FuType.slu, OpType.OP_PLUS),
+    EBREAK         -> List(TYPE_N, FuType.slu, ZERO, ZERO, OpType.OP_PLUS),
 
     //U Type
-    AUIPC          -> List(TYPE_U, FuType.alu, OpType.AUIPC),
+    AUIPC          -> List(TYPE_U, FuType.alu, PC  , IMM , OpType.OP_PLUS),
 
     //I Type
-    ADDI           -> List(TYPE_I, FuType.alu, OpType.OP_PLUS),
+    ADDI           -> List(TYPE_I, FuType.alu, RS1 , IMM , OpType.OP_PLUS),
+    JALR           -> List(TYPE_I, FuType.alu, NPC , ZERO, OpType.OP_PLUS),
     // ADDIW          -> List(TYPE_I, FuType.alu, OpType.addw),
     // SLLIW          -> List(TYPE_I, FuType.alu, OpType.sllw),
     // SRLIW          -> List(TYPE_I, FuType.alu, OpType.srlw),
@@ -140,6 +162,6 @@ object RV64IInstr{
     // SD             -> List(InstrS, FuType.lsu, LSUOpType.sd)
 
     //J Type
-    JALR          -> List(TYPE_I, FuType.alu, OpType.OP_PLUS)
+    JAL            -> List(TYPE_J, FuType.none, NPC, ZERO, OpType.OP_PLUS)
     )
 }
