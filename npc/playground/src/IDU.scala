@@ -120,7 +120,7 @@ object RV64IInstr{
     EBREAK         -> List(TYPE_N, FuType.slu, OpType.OP_PLUS),
 
     //U Type
-    AUIPC          -> List(TYPE_U, FuType.alu, OpType.AUIPC)
+    AUIPC          -> List(TYPE_U, FuType.alu, OpType.AUIPC),
 
     //I Type
     ADDI           -> List(TYPE_I, FuType.alu, OpType.OP_PLUS)
