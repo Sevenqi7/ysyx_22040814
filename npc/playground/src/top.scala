@@ -3,6 +3,7 @@ import chisel3.util._
 import chisel3.experimental._
 
 class sim extends BlackBox with HasBlackBoxPath{
+    val io = IO(new Bundle)
     addPath("/home/seven7/Documents/学业/一生一芯/ysyx-workbench/npc/playground/verilog/sim.v")
 }
 
