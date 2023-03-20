@@ -77,7 +77,7 @@ class IDU extends Module{
 
     io.ID_ALU_Data1 := MuxCase(0.U, Seq(
         (instType === TYPE_R || instType === TYPE_I || instType === TYPE_S, rs1_data),
-        (opType   === AUIPC, io.IF_pc)
+        (io.ID_optype   === AUIPC, io.IF_pc)
     ))
 
     io.ID_ALU_Data2 := MuxCase(0.U, Seq(
