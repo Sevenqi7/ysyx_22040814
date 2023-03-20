@@ -29,9 +29,10 @@ uint32_t pmem_read(uint64_t addr)
 
 uint64_t now_inst;
 
-int is_ebreak(unsigned int inst)
+void ebreak()
 {
-    return (inst == 0x00100073);
+    printf("EBREAK executed, ending simulate...\n");
+    while(1);
 }
 
 

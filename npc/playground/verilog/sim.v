@@ -1,4 +1,6 @@
-import "DPI-C" function int is_ebreak(input unsigned int inst);
+import "DPI-C" function void ebreak();
+
+`define EBREAK_INST 0x00100073
 
 module sim(input [31:0] inst);
 
@@ -11,14 +13,11 @@ module sim(input [31:0] inst);
       $display("[%0t] Model running...\n", $time);
    end
 
-   reg flag
-   always@(*) begin
-      flag = is_ebreak(inst);
-      if(flag)
-      {
+   always@(INST == EBREAK_INST) begin
+      if(flag) begin
          $display("EBREAK detected, ending simulate...\n");
          $finish();
-      }
+      end
    end
 
 endmodule

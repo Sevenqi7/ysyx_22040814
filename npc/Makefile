@@ -11,7 +11,7 @@ verilog:
 	$(call git_commit, "generate verilog")
 	mkdir -p $(BUILD_DIR)
 	mill -i __.test.runMain Elaborate -td $(BUILD_DIR)
-	cp $(shell find $(abspath $(BUILD_DIR)) -name "*.sv") $(VSRC)
+	cp $(shell find $(abspath $(BUILD_DIR)) -name "*.v") $(VSRC)
 help:
 	mill -i __.test.runMain Elaborate --help
 
@@ -48,13 +48,13 @@ BUILD_DIR = ./build
 OBJ_DIR := ./build/obj_dir
 BIN = $(BUILD_DIR)/$(TOPNAME)
 
-VSRC_OBJ := $(shell find $(abspath ./vsrc) -name "*.sv")
+VSRC_OBJ := $(shell find $(abspath ./vsrc) -name "*.v")
 CSRC_OBJ := $(shell find $(abspath ./csrc) -name "*.c" -or -name "*.cc" -or -name "*.cpp")
 
 # INCFLAGS = $(addprefix -I, $(INC_PATH))
 # CLFAGS += $(INCFLAGS) -DTOP_NAME="\"V$(TOPNAME)\""
 # LDFLAGS += -lSDL2 -lSDL2_image
-VERILATOR_FLAGS += -cc --exe -OS -MMD -x-assign 0 -j 6 --trace --build --sc
+VERILATOR_FLAGS += -cc --exe -OS -MMD -x-assign 0 -j 6 --trace --build
 
 $(BIN): $(VSRC_OBJ) $(CSRC_OBJ)
 
