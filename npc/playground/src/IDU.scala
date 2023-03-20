@@ -48,6 +48,60 @@ class IDU extends Module{
     immJ := Cat(Fill(44, io.IF_Inst(31)), (io.IF_Inst(30, 21) | (io.IF_Inst(20) << 10) | (io.IF_Inst(19, 12) << 11) | (io.IF_Inst(31, 31) << 19)))
     shamt := io.IF_Inst(25, 20)
 
+    
+    //GPR
+    val GPR = RegInit(VecInit(Seq.fill(32)(0.U(64.W))))
+    val rs1 = Wire(UInt(5.W))
+    val rs2 = Wire(UInt(5.W))
+    val rd  = Wire(UInt(5.W))
+    
+    val rs1_data = Wire(UInt(64.W))
+    val rs2_data = Wire(UInt(64.W))
+    
+    rd := io.IF_Inst(11, 7)
+    rs1 := io.IF_Inst(19, 15)
+    rs2 := io.IF_Inst(24, 20)
+    rs1_data := Mux(rs1 === 0.U, 0.U, GPR(rs1))
+    rs2_data := Mux(rs2 === 0.U, 0.U, GPR(rs2))
+    
+    when(io.EX_RegWriteEn.asBool())
+    {
+        GPR(io.EX_RegWriteID) := io.EX_RegWriteData
+    }
+    
+    //Analyse the operation
+    val src1 = Wire(UInt(3.W))
+    val src2 = Wire(UInt(3.W))
+    val imm  = Wire(UInt(64.W))
+    
+    src1 := InstInfo(2)
+    src2 := InstInfo(3)
+    
+    
+    imm := MuxCase(0.U, Seq(
+        (instType === TYPE_I, immI),
+        (instType === TYPE_B, immB),
+        (instType === TYPE_U, immU),
+        (instType === TYPE_S, immS)
+        ))
+        
+    io.ID_ALU_Data1 := MuxCase(0.U, Seq(
+        (src1 === ZERO, 0.U     ),
+        (src1 === PC  , io.IF_pc),
+        (src1 === RS1 , rs1_data),
+        (src1 === NPC , io.IF_pc+4.U)
+    ))
+            
+    io.ID_ALU_Data2 := MuxCase(0.U, Seq(
+        (src2 === ZERO, 0.U     ),
+        (src2 === PC  , io.IF_pc),
+        (src2 === RS2 , rs1_data),
+        (src2 === IMM , imm     )
+        ))
+                
+        io.ID_RegWriteID := rd
+        io.ID_RegWriteEn := (instType === TYPE_R) || (instType === TYPE_I) || (instType === TYPE_U) || (instType === TYPE_J)
+        
     //NPC
     val pcplus4 = Wire(UInt(32.W))
     pcplus4 := io.IF_pc + 4.U
@@ -56,65 +110,11 @@ class IDU extends Module{
         (instType === TYPE_B, io.IF_pc + immB * 2.U),
         (instType === TYPE_I  &&  src1 === NPC, rs1_data + immI)
     ))
-
-    //GPR
-    val GPR = RegInit(VecInit(Seq.fill(32)(0.U(64.W))))
-    val rs1 = Wire(UInt(5.W))
-    val rs2 = Wire(UInt(5.W))
-    val rd  = Wire(UInt(5.W))
-
-    val rs1_data = Wire(UInt(64.W))
-    val rs2_data = Wire(UInt(64.W))
-
-    rd := io.IF_Inst(11, 7)
-    rs1 := io.IF_Inst(19, 15)
-    rs2 := io.IF_Inst(24, 20)
-    rs1_data := Mux(rs1 === 0.U, 0.U, GPR(rs1))
-    rs2_data := Mux(rs2 === 0.U, 0.U, GPR(rs2))
-
-    when(io.EX_RegWriteEn.asBool())
-    {
-        GPR(io.EX_RegWriteID) := io.EX_RegWriteData
-    }
-
-    //Analyse the operation
-    val src1 = Wire(UInt(3.W))
-    val src2 = Wire(UInt(3.W))
-    val imm  = Wire(UInt(64.W))
-
-    src1 := InstInfo(2)
-    src2 := InstInfo(3)
-    
-
-    imm := MuxCase(0.U, Seq(
-        (instType === TYPE_I, immI),
-        (instType === TYPE_B, immB),
-        (instType === TYPE_U, immU),
-        (instType === TYPE_S, immS)
-    ))
-
-    io.ID_ALU_Data1 := MuxCase(0.U, Seq(
-        (src1 === ZERO, 0.U     ),
-        (src1 === PC  , io.IF_pc),
-        (src1 === RS1 , rs1_data),
-        (src1 === NPC , io.IF_pc+4.U)
-    ))
-
-    io.ID_ALU_Data2 := MuxCase(0.U, Seq(
-        (src2 === ZERO, 0.U     ),
-        (src2 === PC  , io.IF_pc),
-        (src2 === RS2 , rs1_data),
-        (src2 === IMM , imm     )
-    ))
-
-    io.ID_RegWriteID := rd
-    io.ID_RegWriteEn := (instType === TYPE_R) || (instType === TYPE_I) || (instType === TYPE_U) || (instType === TYPE_J)
-
 }
-
-
+            
+            
 object RV64IInstr{
-    // Special insts
+                // Special insts
     def EBREAK  = BitPat("b0000000 00001 00000 000 00000 11100 11")
 
     //U Type
@@ -132,6 +132,7 @@ object RV64IInstr{
     // def SRAIW   = BitPat("b0100000_?????_?????_101_?????_0011011")
     // def SLLW    = BitPat("b0000000_?????_?????_001_?????_0111011")
     // def SRLW    = BitPat("b0000000_?????_?????_101_?????_0111011")
+
     // def SRAW    = BitPat("b0100000_?????_?????_101_?????_0111011")
     // def ADDW    = BitPat("b0000000_?????_?????_000_?????_0111011")
     // def SUBW    = BitPat("b0100000_?????_?????_000_?????_0111011")
@@ -140,29 +141,29 @@ object RV64IInstr{
     // def SD      = BitPat("b???????_?????_?????_011_?????_0100011")
     val table = Array(
 
-    // Special insts
-    EBREAK         -> List(TYPE_N, FuType.slu, ZERO, ZERO, OpType.OP_PLUS),
+        // Special insts
+        EBREAK         -> List(TYPE_N, FuType.slu, ZERO, ZERO, OpType.OP_PLUS),
 
-    //U Type
-    AUIPC          -> List(TYPE_U, FuType.alu, PC  , IMM , OpType.OP_PLUS),
+        //U Type
+        AUIPC          -> List(TYPE_U, FuType.alu, PC  , IMM , OpType.OP_PLUS),
 
-    //I Type
-    ADDI           -> List(TYPE_I, FuType.alu, RS1 , IMM , OpType.OP_PLUS),
-    JALR           -> List(TYPE_I, FuType.alu, NPC , ZERO, OpType.OP_PLUS),
-    // ADDIW          -> List(TYPE_I, FuType.alu, OpType.addw),
-    // SLLIW          -> List(TYPE_I, FuType.alu, OpType.sllw),
-    // SRLIW          -> List(TYPE_I, FuType.alu, OpType.srlw),
-    // SRAIW          -> List(TYPE_I, FuType.alu, OpType.sraw),
-    // SLLW           -> List(TYPE_R, FuType.alu, OpType.sllw),
-    // SRLW           -> List(TYPE_R, FuType.alu, OpType.srlw),
-    // SRAW           -> List(TYPE_R, FuType.alu, OpType.sraw),
-    // ADDW           -> List(TYPE_R, FuType.alu, OpType.addw),
-    // SUBW           -> List(TYPE_R, FuType.alu, OpType.subw)
-    // LWU            -> List(TYPE_I, FuType.lsu, LSUOpType.lwu),
-    // LD             -> List(TYPE_I, FuType.lsu, LSUOpType.ld ),
-    // SD             -> List(InstrS, FuType.lsu, LSUOpType.sd)
+        //I Type
+        ADDI           -> List(TYPE_I, FuType.alu, RS1 , IMM , OpType.OP_PLUS),
+        JALR           -> List(TYPE_I, FuType.alu, NPC , ZERO, OpType.OP_PLUS),
+        // ADDIW          -> List(TYPE_I, FuType.alu, OpType.addw),
+        // SLLIW          -> List(TYPE_I, FuType.alu, OpType.sllw),
+        // SRLIW          -> List(TYPE_I, FuType.alu, OpType.srlw),
+        // SRAIW          -> List(TYPE_I, FuType.alu, OpType.sraw),
+        // SLLW           -> List(TYPE_R, FuType.alu, OpType.sllw),
+        // SRLW           -> List(TYPE_R, FuType.alu, OpType.srlw),
+        // SRAW           -> List(TYPE_R, FuType.alu, OpType.sraw),
+        // ADDW           -> List(TYPE_R, FuType.alu, OpType.addw),
+        // SUBW           -> List(TYPE_R, FuType.alu, OpType.subw)
+        // LWU            -> List(TYPE_I, FuType.lsu, LSUOpType.lwu),
+        // LD             -> List(TYPE_I, FuType.lsu, LSUOpType.ld ),
+        // SD             -> List(InstrS, FuType.lsu, LSUOpType.sd)
 
-    //J Type
-    JAL            -> List(TYPE_J, FuType.none, NPC, ZERO, OpType.OP_PLUS)
+        //J Type
+        JAL            -> List(TYPE_J, FuType.none, NPC, ZERO, OpType.OP_PLUS)
     )
 }
