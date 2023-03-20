@@ -54,7 +54,7 @@ uint64_t pmem_read(uint64_t addr, int len)
 uint32_t halt_ret;
 uint64_t now_pc;
 
-void ebreak(uint64_t halt_ret)
+void ebreak(unsigned halt_ret)
 {
     printf("EBREAK executed, ending simulate...\n");
     printf("%x\n", halt_ret);
