@@ -29,7 +29,7 @@ uint32_t pmem_read(uint64_t addr)
 
 uint64_t now_inst;
 
-extern int is_ebreak(uint32_t inst)
+int is_ebreak(uint32_t inst)
 {
     return (inst == 0x00100073);
 }

@@ -490,7 +490,7 @@ endmodule
 
 // ----- 8< ----- FILE "./build/sim.v" ----- 8< -----
 
-import "DPI-C" function int is_ebreak(uint32_t inst);
+import "DPI-C" function int is_ebreak(unsigned int inst);
 
 module sim(input [31:0] inst);
 
