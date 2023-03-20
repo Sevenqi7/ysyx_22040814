@@ -16,7 +16,8 @@ class top extends Module{
         val ALUResult = Output(UInt(64.W))
     })
 
-    val simulate = Module(new sim(io.inst))
+    val simulate = Module(new sim)
+    simulate.io.inst := io.inst
 
     val inst_fetch_unit = Module(new IFU)
     val inst_decode_unit = Module(new IDU)
