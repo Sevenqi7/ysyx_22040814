@@ -4,6 +4,7 @@ object OpType{
     val OP_PLUS = 1.U
     val OP_SUB = 2.U
     val LOAD = 3.U
+    val AUIPC = 4.U
 }
 
 object FuType{
