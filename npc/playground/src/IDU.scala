@@ -69,7 +69,7 @@ class IDU extends Module{
 
     when(io.EX_RegWriteEn.asBool())
     {
-        GPR(io.EX_RegWriteID) := RegNext(io.EX_RegWriteData)
+        GPR(io.EX_RegWriteID) := io.EX_RegWriteData
     }
 
     //Analyse the operation
