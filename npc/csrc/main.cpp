@@ -51,10 +51,13 @@ uint64_t pmem_read(uint64_t addr, int len)
     return 0;
 }
 
-void ebreak()
+uint32_t halt_ret;
+uint64_t now_pc;
+
+void ebreak(uint64_t halt_ret)
 {
     printf("EBREAK executed, ending simulate...\n");
-    exit(0);
+    printf("%x\n", halt_ret);
 }
 
 
@@ -68,7 +71,6 @@ int main(int argc, char **argv, char **env)
     contextp->traceEverOn(true);
     contextp->commandArgs(argc, argv);
     const std::unique_ptr<Vtop> top{new Vtop{contextp.get(), "TOP"}};
-    printf("pmem[0]:0x%08x\n", *(uint32_t*)pmem);
     top->reset = !0;
     top->clock = 0;
     int cnt = 0;
