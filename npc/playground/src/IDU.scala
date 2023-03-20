@@ -26,8 +26,8 @@ class IDU extends Module{
     val InstInfo = ListLookup(io.IF_Inst, List(0.U, 0.U, 0.U), RV64IInstr.table)
     val opType = Wire(UInt(3.W))
     val instType = Wire(UInt(3.W))
+    io.ID_opType      := InstInfo(2)
     instType    := InstInfo(0)
-    opType      := InstInfo(2)
     
 
     //all kinds of imm
