@@ -1,6 +1,6 @@
 import "DPI-C" function int is_ebreak(void);
 
-module sim(input clk);
+module sim;
 
    initial begin
       if ($test$plusargs("trace") != 0) begin
