@@ -21,11 +21,6 @@ class IDU extends Module{
         val EX_RegWriteEn = Input(UInt(1.W))
         
     })
-    def sext(value: UInt, width: UInt): UInt = {
-        val signBit = value(width - 1.U)
-        val extension = Fill(width - value.getWidth, signBit)
-        Cat(extension, value)
-    }
 
     //Decode
     val InstInfo = ListLookup(io.IF_Inst, List(0.U, 0.U, 0.U), RV64IInstr.table)
@@ -42,13 +37,11 @@ class IDU extends Module{
     val immS = Wire(UInt(32.W))
     val shamt = Wire(UInt(6.W))
 
-    // immI := Cat(Fill(20, io.IF_Inst(31)), io.IF_Inst(31, 20))
-    immI := sext(io.IF_Inst, 12.U)
-
-    immU := Cat(Fill(12, io.IF_Inst(31)), io.IF_Inst(31, 12)) << 12
-    immS := Cat(Fill(25, io.IF_Inst(31)), io.IF_Inst(31, 25)) << 5 | io.IF_Inst(11, 7)
-    immB := Cat(Fill(20, io.IF_Inst(31)), ((io.IF_Inst(31) << 11) | (io.IF_Inst(30, 25) << 4) | io.IF_Inst(11, 8) | (io.IF_Inst(7) << 10)))
-    immJ := Cat(Fill(12, io.IF_Inst(31)), (io.IF_Inst(30, 21) | (io.IF_Inst(20) << 10) | (io.IF_Inst(19, 12) << 11) | (io.IF_Inst(31, 31) << 19)))
+    immI := Cat(Fill(52, io.IF_Inst(31)), io.IF_Inst(31, 20))
+    immU := Cat(Fill(44, io.IF_Inst(31)), io.IF_Inst(31, 12)) << 12
+    immS := Cat(Fill(57, io.IF_Inst(31)), io.IF_Inst(31, 25)) << 5 | io.IF_Inst(11, 7)
+    immB := Cat(Fill(52, io.IF_Inst(31)), ((io.IF_Inst(31) << 11) | (io.IF_Inst(30, 25) << 4) | io.IF_Inst(11, 8) | (io.IF_Inst(7) << 10)))
+    immJ := Cat(Fill(44, io.IF_Inst(31)), (io.IF_Inst(30, 21) | (io.IF_Inst(20) << 10) | (io.IF_Inst(19, 12) << 11) | (io.IF_Inst(31, 31) << 19)))
     shamt := io.IF_Inst(25, 20)
 
     //NPC
