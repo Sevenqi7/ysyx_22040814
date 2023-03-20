@@ -12,8 +12,9 @@ module sim(input [31:0] inst, input [63:0] R10);
    end
 
    always@(*) begin
+      integer  i = R10[31:0];
       if(inst == 32'h00100073) begin
-         ebreak(R10[31:0]);
+         ebreak(i);
          $finish();
       end
    end
