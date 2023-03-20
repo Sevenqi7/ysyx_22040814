@@ -407,7 +407,7 @@ module IDU(	// <stdin>:12:10
   assign io_ID_npc = {32'h0, io_IF_pc[31:0] + 32'h4};	// <stdin>:12:10, IDU.scala:49:25, Mux.scala:101:16
   assign io_ID_ALU_Data1 = io_IF_Inst[19:15] == 5'h0 ? 64'h0 : _GEN_0;	// <stdin>:12:10, IDU.scala:56:30, :65:22, :67:{20,25}
   assign io_ID_ALU_Data2 = {32'h0, {20{io_IF_Inst[31]}}, io_IF_Inst[31:20]};	// <stdin>:12:10, Bitwise.scala:77:12, IDU.scala:40:{36,53}, Mux.scala:101:16
-  assign io_ID_optype = {3'h0, {io_IF_Inst[14:12], io_IF_Inst[6:0]} == 10'h13};	// <stdin>:12:10, IDU.scala:28:23, Lookup.scala:31:38
+  assign io_ID_optype = {3'h0, {io_IF_Inst[14:12], io_IF_Inst[6:0]} == 10'h13};	// <stdin>:12:10, IDU.scala:28:21, Lookup.scala:31:38
   assign io_ID_RegWriteID = io_IF_Inst[11:7];	// <stdin>:12:10, IDU.scala:42:80
 endmodule
 
@@ -469,7 +469,7 @@ module top(	// <stdin>:201:10
   assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:201:10, top.scala:11:33
   assign io_ALUResult = _excute_unit_io_EX_RegWriteData;	// <stdin>:201:10, top.scala:13:29
 
-   initial begin
+     initial begin
       if ($test$plusargs("trace") != 0) begin
          $display("[%0t] Tracing to logs/vlt_dump.vcd...\n", $time);
          $dumpfile("logs/vlt_dump.vcd");
