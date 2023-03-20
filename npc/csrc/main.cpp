@@ -15,15 +15,40 @@
 #include "svdpi.h"
 #include "Vtop__Dpi.h"
 #include "Vtop.h"
+#include <stdio.h>
 
-#define MEMSIZE 2048
+#define MEMSIZE     0x8000000
 
-uint64_t inst_mem[MEMSIZE];
+#define MEMOFFSET   0x8000000
+#define EBREAK      0x00100073
 
-uint32_t pmem_read(uint64_t addr)
+static char pmem[MEMSIZE]__attribute((aligned(4096)));
+void init(int argc, char **argv);
+
+void outofbound(uint64_t paddr)
 {
-    if(addr >= 0x80000000)
-        return (uint32_t)inst_mem[(addr & 0xFF) >> 2];
+    printf("paddr:0x%lx", paddr);
+    if(paddr >= MEMSIZE)
+    {
+        printf("\033[0m\033[1;31m%s addr:0x%lx\033[0m\n", "Addr out of bound, ", paddr);
+        exit(-1);
+    }
+}
+
+uint64_t pmem_read(uint64_t addr, int len)
+{
+    uint64_t paddr = MEMSIZE - addr / 16;
+    outofbound(paddr);
+    int ret = 0;
+    switch(len)
+    {
+        case 0: return 0;
+        case 1: return *(uint8_t  *)(pmem + paddr);
+        case 2: return *(uint16_t *)(pmem + paddr);
+        case 4: return *(uint32_t *)(pmem + paddr);
+        case 8: return *(uint64_t *)(pmem + paddr);
+        default: printf("\033[0m\033[1;31m%s\033[0m", "Unsupported len\n"); exit(-1);
+    }
     return 0;
 }
 
@@ -36,16 +61,7 @@ void ebreak()
 
 int main(int argc, char **argv, char **env)
 {
-
-    for(int i=0;i<10;i++)
-    {
-        inst_mem[i] = 0xfff58593;
-    }
-    inst_mem[10] = 0x00100073;
-
-    if (false && argc && argv && env)
-    {
-    }
+    init(argc, argv);
     Verilated::mkdir("logs");
     const std::unique_ptr<VerilatedContext> contextp{new VerilatedContext};
     contextp->debug(0);
@@ -53,15 +69,17 @@ int main(int argc, char **argv, char **env)
     contextp->traceEverOn(true);
     contextp->commandArgs(argc, argv);
     const std::unique_ptr<Vtop> top{new Vtop{contextp.get(), "TOP"}};
-
+    printf("pmem[0]:0x%08x\n", *(uint32_t*)pmem);
     top->reset = !0;
     top->clock = 0;
     int cnt = 0;
+
     while (!contextp->gotFinish())
     {
         contextp->timeInc(1); // 1 timeprecision period passes...
         top->clock = !top->clock;
-        top->io_inst = pmem_read(top->io_IF_pc);    
+        if(!top->reset)
+            top->io_inst = pmem_read(top->io_IF_pc, 4);    
         if (!top->clock) {
             if (contextp->time() > 1 && contextp->time() < 10) {
                 top->reset = !0;  // Assert reset
@@ -70,7 +88,7 @@ int main(int argc, char **argv, char **env)
             }
         }
         top->eval();
-        printf("time=%ld clk=%x rst=%x inst=%x IF_pc=%lx\n", contextp->time(), top->clock, top->reset, top->io_inst, top->io_IF_pc);
+        printf("time=%ld clk=%x rst=%x inst=0x%x IF_pc=0x%lx\n", contextp->time(), top->clock, top->reset, top->io_inst, top->io_IF_pc);
         if(cnt++ > 50) break;
     }
 
@@ -85,4 +103,37 @@ int main(int argc, char **argv, char **env)
     // Return good completion status
     // Don't use exit() or destructor won't get called
     return 0;
+}
+
+void init(int argc, char **argv)
+{
+    // for(int i=0;i<10;i++)
+    // {
+    //     inst_mem[i] = 0xfff58593;
+    // }
+    // inst_mem[10] = 0x00100073;
+    if(argc <= 1)
+    {
+        printf("\033[0m\033[1;31m%s\033[0m", "Usage: make ARCH=$ISA run\n");
+        exit(0);
+    }
+    char *img_file = argv[1];
+    if(img_file == NULL)
+    {
+        printf("\033[0m\033[1;31m%s\033[0m", "Error: No image is given!\n");
+        exit(0);
+    }
+    FILE *fp = fopen(img_file, "rb");
+    fseek(fp, 0, SEEK_END);
+    long size = ftell(fp);
+    printf("\033[0m\033[1;36mThe image is %s, size=%ld\033[0m\n", img_file, size);
+    
+    fseek(fp, 0, SEEK_SET);
+    int ret = fread(pmem, size, 1, fp);
+    if(ret == -1)
+    {
+        printf("\033[0m\033[1;31m%s\033[0m", "Error: Failed to read image file!\n");
+        exit(-1);
+    }
+    fclose(fp);
 }

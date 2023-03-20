@@ -42,7 +42,8 @@ VERILATOR_COVERAGE = $(VERILATOR_ROOT)/bin/verilator_coverage
 endif
 
 TOPNAME := top
-# INC_PATH ?=
+INC_PATH ?=
+IMG ?= 
 
 BUILD_DIR = ./build
 OBJ_DIR := ./build/obj_dir
@@ -63,7 +64,7 @@ $(BIN): $(VSRC_OBJ) $(CSRC_OBJ)
 	--Mdir $(OBJ_DIR) -o $(abspath $(BIN))
 
 run: $(BIN)
-	$(abspath $(BIN))
+	$(abspath $(BIN)) $(IMG)
 	
 sim: $(BIN)
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!

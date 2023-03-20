@@ -76,12 +76,14 @@ class IDU extends Module{
 
 
     io.ID_ALU_Data1 := MuxCase(0.U, Seq(
-        (instType === TYPE_R || instType === TYPE_I || instType === TYPE_S, rs1_data)
+        (instType === TYPE_R || instType === TYPE_I || instType === TYPE_S, rs1_data),
+        (opType   === OP_AUIPC, io.IF_pc)
     ))
 
     io.ID_ALU_Data2 := MuxCase(0.U, Seq(
         (instType === TYPE_R || instType === TYPE_S, rs2_data),
-        (instType === TYPE_I, immI)
+        (instType === TYPE_I, immI),
+        (instType === TYPE_U, immU)
     ))
 
     io.ID_RegWriteID := rd
@@ -95,7 +97,9 @@ object RV64IInstr{
     def EBREAK  = BitPat("b0000000 00001 00000 000 00000 11100 11")
 
     //U Type
-    // def AUIPC   = BitPat("??????? ????? ????? ??? ????? 00101 11")
+    def AUIPC   = BitPat("b??????? ????? ????? ??? ????? 00101 11")
+
+    //I Type
     def ADDI    = BitPat("b??????? ????? ????? 000 ????? 00100 11")
 
     // def ADDIW   = BitPat("b???????_?????_?????_000_?????_0011011")
@@ -116,7 +120,7 @@ object RV64IInstr{
     EBREAK         -> List(TYPE_N, FuType.slu, OpType.OP_PLUS),
 
     //U Type
-    // AUIPC          -> List(TYPE_U, FuType.alu, OpType.auipc)
+    AUIPC          -> List(TYPE_U, FuType.alu, OpType.OP_AUIPC)
 
     //I Type
     ADDI           -> List(TYPE_I, FuType.alu, OpType.OP_PLUS)
