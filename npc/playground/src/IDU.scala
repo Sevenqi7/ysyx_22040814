@@ -53,14 +53,15 @@ class IDU extends Module{
     pcplus4 := io.IF_pc + 4.U
     io.ID_npc := MuxCase(pcplus4, Seq(
         (instType === TYPE_J, io.IF_pc + immJ * 2.U),
-        (instType === TYPE_B, io.IF_pc + immB * 2.U)
+        (instType === TYPE_B, io.IF_pc + immB * 2.U),
+        (instType === TYPE_I  &&  src1 === NPC, rs1_data + immI)
     ))
 
     //GPR
     val GPR = RegInit(VecInit(Seq.fill(32)(0.U(64.W))))
     val rs1 = Wire(UInt(5.W))
     val rs2 = Wire(UInt(5.W))
-    val rd = Wire(UInt(5.W))
+    val rd  = Wire(UInt(5.W))
 
     val rs1_data = Wire(UInt(64.W))
     val rs2_data = Wire(UInt(64.W))
