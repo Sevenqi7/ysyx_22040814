@@ -27,7 +27,9 @@ uint32_t pmem_read(uint64_t addr)
     return 0;
 }
 
-int is_ebreak(uint64_t inst)
+uint64_t now_inst;
+
+int is_ebreak()
 {
     return (inst == 0x00100073);
 }
@@ -61,7 +63,8 @@ int main(int argc, char **argv, char **env)
         contextp->timeInc(1); // 1 timeprecision period passes...
         top->clock = !top->clock;
         top->io_inst = pmem_read(top->io_IF_pc);    
-        is_ebreak(top->io_inst);
+        now_inst = top->io_inst;
+        is_ebreak();
         if (!top->clock) {
             if (contextp->time() > 1 && contextp->time() < 10) {
                 top->reset = !0;  // Assert reset

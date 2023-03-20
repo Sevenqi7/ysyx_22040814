@@ -1,6 +1,6 @@
 import "DPI-C" function int is_ebreak(uint64_t inst);
 
-module sim;
+module sim(input [31:0] inst);
 
    initial begin
       if ($test$plusargs("trace") != 0) begin
@@ -13,7 +13,7 @@ module sim;
 
    reg flag
    always@(*) begin
-      flag = is_ebreak;
+      flag = is_ebreak(inst);
       if(flag)
       {
          $display("EBREAK detected, ending simulate...\n");
