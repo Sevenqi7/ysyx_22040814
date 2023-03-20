@@ -13,6 +13,8 @@
 
 // Include model header, generated from Verilating "top.v"
 #include "Vtop.h"
+#include "svdpi.h"
+#include "Vour__Dpi.h"
 
 #define MEMSIZE 2048
 
@@ -25,6 +27,11 @@ uint32_t pmem_read(uint64_t addr)
     return 0;
 }
 
+int is_ebreak(uint64_t inst)
+{
+    return (inst == 0x00100073);
+}
+
 
 int main(int argc, char **argv, char **env)
 {
@@ -33,6 +40,7 @@ int main(int argc, char **argv, char **env)
     {
         inst_mem[i] = 0xfff58593;
     }
+    inst_men[10] = 0x00100073;
 
     if (false && argc && argv && env)
     {
@@ -53,6 +61,7 @@ int main(int argc, char **argv, char **env)
         contextp->timeInc(1); // 1 timeprecision period passes...
         top->clock = !top->clock;
         top->io_inst = pmem_read(top->io_IF_pc);    
+        is_ebreak(top->io_inst);
         if (!top->clock) {
             if (contextp->time() > 1 && contextp->time() < 10) {
                 top->reset = !0;  // Assert reset

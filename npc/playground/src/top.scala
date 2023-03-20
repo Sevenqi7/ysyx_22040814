@@ -1,5 +1,10 @@
 import chisel3._
 import chisel3.util._
+import chisel3.experimental._
+
+class sim extends BlackBox with HasBlackBoxPath{
+    addPath("/home/seven7/Documents/学业/一生一芯/ysyx-workbench/npc/playground/verilog/sim.v")
+}
 
 class top extends Module{
     val io = IO(new Bundle{
@@ -7,6 +12,8 @@ class top extends Module{
         val IF_pc = Output(UInt(64.W))
         val ALUResult = Output(UInt(64.W))
     })
+
+    val simulate = Module(new sim)
 
     val inst_fetch_unit = Module(new IFU)
     val inst_decode_unit = Module(new IDU)
