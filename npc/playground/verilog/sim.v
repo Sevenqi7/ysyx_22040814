@@ -16,8 +16,8 @@ module sim;
       flag = is_ebreak;
       if(flag)
       {
-         $display("EBREAK detected, ending simulate...\n")
-         $finish()
+         $display("EBREAK detected, ending simulate...\n");
+         $finish();
       }
    end
 
