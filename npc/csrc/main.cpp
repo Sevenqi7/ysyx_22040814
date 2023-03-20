@@ -27,8 +27,6 @@ uint32_t pmem_read(uint64_t addr)
     return 0;
 }
 
-uint64_t now_inst;
-
 void ebreak()
 {
     printf("EBREAK executed, ending simulate...\n");
@@ -42,8 +40,9 @@ int main(int argc, char **argv, char **env)
     for(int i=0;i<10;i++)
     {
         inst_mem[i] = 0xfff58593;
+        exit(0);
     }
-    inst_men[10] = 0x00100073;
+    inst_mem[10] = 0x00100073;
 
     if (false && argc && argv && env)
     {
@@ -64,8 +63,6 @@ int main(int argc, char **argv, char **env)
         contextp->timeInc(1); // 1 timeprecision period passes...
         top->clock = !top->clock;
         top->io_inst = pmem_read(top->io_IF_pc);    
-        now_inst = top->io_inst;
-        is_ebreak();
         if (!top->clock) {
             if (contextp->time() > 1 && contextp->time() < 10) {
                 top->reset = !0;  // Assert reset
