@@ -3,21 +3,6 @@ import chisel3.util._
 import OpType._
 import InstType._
 
-object OpType{
-    val OP_PLUS = 1.U
-    val OP_SUB = 2.U
-    val LOAD = 3.U
-}
-
-object InstType{
-    val TYPE_I = 0.U(3.W)
-    val TYPE_R = 1.U(3.W)
-    val TYPE_U = 2.U(3.W)
-    val TYPE_S = 3.U(3.W)
-    val TYPE_J = 4.U(3.W)
-    val TYPE_B = 5.U(3.W)
-}
-
 class IDU extends Module{
     val io = IO(new Bundle{
         val IF_Inst = Input(UInt(32.W))
@@ -38,14 +23,13 @@ class IDU extends Module{
     })
 
     //Decode
+    val InstBitpat = BitPat(io.IF_Inst.asUInt)
     val opType = Wire(UInt(3.W))
     val instType = Wire(UInt(3.W))
-
-    val inst_decoder = Module(new InstDecoder)
-    inst_decoder.io.inst := io.IF_Inst
-    opType := inst_decoder.io.opType
-    instType := inst_decoder.io.instType
-    io.ID_optype := opType
+    val InstInfo = RV64IInstr.table(InstBitpat)
+    instType    := InstInfo(0)
+    opType      := InstInfo(2)
+    
 
     //all kinds of imm
     val immI = Wire(UInt(32.W))
@@ -105,4 +89,44 @@ class IDU extends Module{
     io.ID_RegWriteID := rd
     io.ID_RegWriteEn := (instType === TYPE_R) || (instType === TYPE_I) || (instType === TYPE_U) || (instType === TYPE_J)
 
+}
+
+
+object RV64IInstr{
+    //U Type
+    // def AUIPC   = BitPat("??????? ????? ????? ??? ????? 00101 11")
+    def ADDI    = BitPat("??????? ????? ????? 000 ????? 00100 11")
+
+    // def ADDIW   = BitPat("b???????_?????_?????_000_?????_0011011")
+    // def SLLIW   = BitPat("b0000000_?????_?????_001_?????_0011011")
+    // def SRLIW   = BitPat("b0000000_?????_?????_101_?????_0011011")
+    // def SRAIW   = BitPat("b0100000_?????_?????_101_?????_0011011")
+    // def SLLW    = BitPat("b0000000_?????_?????_001_?????_0111011")
+    // def SRLW    = BitPat("b0000000_?????_?????_101_?????_0111011")
+    // def SRAW    = BitPat("b0100000_?????_?????_101_?????_0111011")
+    // def ADDW    = BitPat("b0000000_?????_?????_000_?????_0111011")
+    // def SUBW    = BitPat("b0100000_?????_?????_000_?????_0111011")
+    // def LWU     = BitPat("b???????_?????_?????_110_?????_0000011")
+    // def LD      = BitPat("b???????_?????_?????_011_?????_0000011")
+    // def SD      = BitPat("b???????_?????_?????_011_?????_0100011")
+    val table = Map(
+
+    //U Type
+    // AUIPC          -> List(TYPE_U, FuType.alu, OpType.auipc)
+
+    //I Type
+    ADDI           -> List(TYPE_I, FuType.alu, OpType.OP_PLUS)
+    // ADDIW          -> List(TYPE_I, FuType.alu, OpType.addw),
+    // SLLIW          -> List(TYPE_I, FuType.alu, OpType.sllw),
+    // SRLIW          -> List(TYPE_I, FuType.alu, OpType.srlw),
+    // SRAIW          -> List(TYPE_I, FuType.alu, OpType.sraw),
+    // SLLW           -> List(TYPE_R, FuType.alu, OpType.sllw),
+    // SRLW           -> List(TYPE_R, FuType.alu, OpType.srlw),
+    // SRAW           -> List(TYPE_R, FuType.alu, OpType.sraw),
+    // ADDW           -> List(TYPE_R, FuType.alu, OpType.addw),
+    // SUBW           -> List(TYPE_R, FuType.alu, OpType.subw)
+    // LWU            -> List(TYPE_I, FuType.lsu, LSUOpType.lwu),
+    // LD             -> List(TYPE_I, FuType.lsu, LSUOpType.ld ),
+    // SD             -> List(InstrS, FuType.lsu, LSUOpType.sd)
+    )
 }
