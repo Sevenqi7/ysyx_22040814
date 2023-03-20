@@ -21,7 +21,7 @@ class IDU extends Module{
         val EX_RegWriteEn = Input(UInt(1.W))
         
     })
-    def sext(value: SInt, width: Int): UInt = {
+    def sext(value: UInt, width: UInt): UInt = {
         val signBit = value(width - 1)
         val extension = Fill(width - value.getWidth, signBit)
         Cat(extension, value)
@@ -43,7 +43,7 @@ class IDU extends Module{
     val shamt = Wire(UInt(6.W))
 
     // immI := Cat(Fill(20, io.IF_Inst(31)), io.IF_Inst(31, 20))
-    immI := sext(io.IF_Inst.asSInt, 12)
+    immI := sext(io.IF_Inst, 12.U)
 
     immU := Cat(Fill(12, io.IF_Inst(31)), io.IF_Inst(31, 12)) << 12
     immS := Cat(Fill(25, io.IF_Inst(31)), io.IF_Inst(31, 25)) << 5 | io.IF_Inst(11, 7)
