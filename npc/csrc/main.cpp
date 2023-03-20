@@ -30,7 +30,7 @@ uint32_t pmem_read(uint64_t addr)
 void ebreak()
 {
     printf("EBREAK executed, ending simulate...\n");
-    while(1);
+    exit(0);
 }
 
 
@@ -40,7 +40,6 @@ int main(int argc, char **argv, char **env)
     for(int i=0;i<10;i++)
     {
         inst_mem[i] = 0xfff58593;
-        exit(0);
     }
     inst_mem[10] = 0x00100073;
 
