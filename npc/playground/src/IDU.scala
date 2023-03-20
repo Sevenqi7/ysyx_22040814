@@ -30,11 +30,11 @@ class IDU extends Module{
     
 
     //all kinds of imm
-    val immI = Wire(UInt(32.W))
-    val immU = Wire(UInt(32.W))
-    val immJ = Wire(UInt(32.W))
-    val immB = Wire(UInt(32.W))
-    val immS = Wire(UInt(32.W))
+    val immI = Wire(UInt(64.W))
+    val immU = Wire(UInt(64.W))
+    val immJ = Wire(UInt(64.W))
+    val immB = Wire(UInt(64.W))
+    val immS = Wire(UInt(64.W))
     val shamt = Wire(UInt(6.W))
 
     immI := Cat(Fill(52, io.IF_Inst(31)), io.IF_Inst(31, 20))
