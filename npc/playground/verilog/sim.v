@@ -1,4 +1,4 @@
-import "DPI-C" function int is_ebreak(uint64_t inst);
+import "DPI-C" function int is_ebreak(uint32_t inst);
 
 module sim(input [31:0] inst);
 
