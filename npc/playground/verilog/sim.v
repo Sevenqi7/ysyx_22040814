@@ -1,4 +1,4 @@
-import "DPI-C" function void ebreak(input unsigned long halt_ret);
+import "DPI-C" function void ebreak(output unsigned long halt_ret);
 
 module sim(input [31:0] inst, input [63:0] R10);
 

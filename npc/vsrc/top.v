@@ -505,9 +505,9 @@ endmodule
 
 // ----- 8< ----- FILE "./build/sim.v" ----- 8< -----
 
-import "DPI-C" function void ebreak();
+import "DPI-C" function void ebreak(input unsigned long halt_ret);
 
-module sim(input [31:0] inst);
+module sim(input [31:0] inst, input [63:0] R10);
 
    initial begin
       if ($test$plusargs("trace") != 0) begin
@@ -520,7 +520,7 @@ module sim(input [31:0] inst);
 
    always@(*) begin
       if(inst == 32'h00100073) begin
-         $display("EBREAK detected, ending simulate...\n");
+         ebreak(R10);
          $finish();
       end
    end
