@@ -13,8 +13,8 @@ module sim(input [31:0] inst);
       $display("[%0t] Model running...\n", $time);
    end
 
-   always@(INST == EBREAK_INST) begin
-      if(flag) begin
+   always@(*) begin
+      if(inst == EBREAK_INST) begin
          $display("EBREAK detected, ending simulate...\n");
          $finish();
       end
