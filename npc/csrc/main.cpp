@@ -21,7 +21,7 @@ uint64_t inst_mem[MEMSIZE];
 uint32_t pmem_read(uint64_t addr)
 {
     if(addr >= 0x80000000)
-        return (uint32_t)inst_mem[addr & 0xFF];
+        return (uint32_t)inst_mem[(addr & 0xFF) >> 2];
     return 0;
 }
 
