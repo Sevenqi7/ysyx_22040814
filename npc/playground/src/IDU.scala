@@ -43,7 +43,7 @@ class IDU extends Module{
     val shamt = Wire(UInt(6.W))
 
     // immI := Cat(Fill(20, io.IF_Inst(31)), io.IF_Inst(31, 20))
-    immI := sext(io.IF_Inst, 12)
+    immI := sext(io.IF_Inst, 12.W)
 
     immU := Cat(Fill(12, io.IF_Inst(31)), io.IF_Inst(31, 12)) << 12
     immS := Cat(Fill(25, io.IF_Inst(31)), io.IF_Inst(31, 25)) << 5 | io.IF_Inst(11, 7)
