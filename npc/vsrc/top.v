@@ -520,7 +520,7 @@ module sim(input [31:0] inst, input [63:0] R10);
 
    always@(*) begin
       if(inst == 32'h00100073) begin
-         ebreak(R10);
+         ebreak(R10[31:0]);
          $finish();
       end
    end
@@ -528,4 +528,3 @@ module sim(input [31:0] inst, input [63:0] R10);
 endmodule
 
 // ----- 8< ----- FILE "firrtl_black_box_resource_files.f" ----- 8< -----
-
