@@ -1,7 +1,5 @@
 import "DPI-C" function void ebreak();
 
-`define EBREAK_INST 0x00100073
-
 module sim(input [31:0] inst);
 
    initial begin
@@ -14,7 +12,7 @@ module sim(input [31:0] inst);
    end
 
    always@(*) begin
-      if(inst == EBREAK_INST) begin
+      if(inst == 32'h00100073) begin
          $display("EBREAK detected, ending simulate...\n");
          $finish();
       end

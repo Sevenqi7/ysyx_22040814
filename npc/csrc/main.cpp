@@ -27,7 +27,6 @@ void init(int argc, char **argv);
 
 void outofbound(uint64_t paddr)
 {
-    printf("paddr:0x%lx", paddr);
     if(paddr >= MEMSIZE)
     {
         printf("\033[0m\033[1;31m%s addr:0x%lx\033[0m\n", "Addr out of bound, ", paddr);
@@ -37,7 +36,7 @@ void outofbound(uint64_t paddr)
 
 uint64_t pmem_read(uint64_t addr, int len)
 {
-    uint64_t paddr = MEMSIZE - addr / 16;
+    uint64_t paddr = addr & 0xFFFFFF;
     outofbound(paddr);
     int ret = 0;
     switch(len)
@@ -79,7 +78,12 @@ int main(int argc, char **argv, char **env)
         contextp->timeInc(1); // 1 timeprecision period passes...
         top->clock = !top->clock;
         if(!top->reset)
-            top->io_inst = pmem_read(top->io_IF_pc, 4);    
+            top->io_inst = pmem_read(top->io_IF_pc, 4);
+        if(!top->io_inst)
+        {
+            printf("\n\033[0m\033[1;31m%s 0x%lx\033[0m\n", "All 0 inst found in addr: ", top->io_IF_pc);
+            return -1;
+        }    
         if (!top->clock) {
             if (contextp->time() > 1 && contextp->time() < 10) {
                 top->reset = !0;  // Assert reset

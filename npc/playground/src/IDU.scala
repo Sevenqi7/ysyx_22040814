@@ -102,6 +102,8 @@ object RV64IInstr{
     //I Type
     def ADDI    = BitPat("b??????? ????? ????? 000 ????? 00100 11")
 
+    //J Type
+    def JALR    = BitPat("b??????? ????? ????? 000 ????? 11001 11")
     // def ADDIW   = BitPat("b???????_?????_?????_000_?????_0011011")
     // def SLLIW   = BitPat("b0000000_?????_?????_001_?????_0011011")
     // def SRLIW   = BitPat("b0000000_?????_?????_101_?????_0011011")
@@ -123,7 +125,7 @@ object RV64IInstr{
     AUIPC          -> List(TYPE_U, FuType.alu, OpType.AUIPC),
 
     //I Type
-    ADDI           -> List(TYPE_I, FuType.alu, OpType.OP_PLUS)
+    ADDI           -> List(TYPE_I, FuType.alu, OpType.OP_PLUS),
     // ADDIW          -> List(TYPE_I, FuType.alu, OpType.addw),
     // SLLIW          -> List(TYPE_I, FuType.alu, OpType.sllw),
     // SRLIW          -> List(TYPE_I, FuType.alu, OpType.srlw),
@@ -136,5 +138,8 @@ object RV64IInstr{
     // LWU            -> List(TYPE_I, FuType.lsu, LSUOpType.lwu),
     // LD             -> List(TYPE_I, FuType.lsu, LSUOpType.ld ),
     // SD             -> List(InstrS, FuType.lsu, LSUOpType.sd)
+
+    //J Type
+    JALR          -> List(TYPE_I, FuType.alu, OpType.OP_PLUS)
     )
 }

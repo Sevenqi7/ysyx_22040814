@@ -86,8 +86,11 @@ module IDU(	// <stdin>:16:10
   output        io_ID_RegWriteEn);
 
   wire              _InstInfo_T_1 = io_IF_Inst == 32'h100073;	// Lookup.scala:31:38
-  wire [1:0]        _GEN = {2{_InstInfo_T_1}};	// Lookup.scala:31:38, :34:39
-  wire              _io_ID_RegWriteEn_T_5 = _GEN == 2'h2;	// IDU.scala:49:25, :51:19, Lookup.scala:34:39
+  wire              _InstInfo_T_3 = io_IF_Inst[6:0] == 7'h17;	// Lookup.scala:31:38
+  wire [1:0]        _GEN = _InstInfo_T_1 ? 2'h3 : {1'h0, _InstInfo_T_3};	// IDU.scala:28:21, Lookup.scala:31:38, :34:39
+  wire [2:0]        InstInfo_2 = _InstInfo_T_1 ? 3'h1 : _InstInfo_T_3 ? 3'h4 : {2'h0, {io_IF_Inst[14:12], io_IF_Inst[6:0]}
+                == 10'h13};	// IDU.scala:79:19, Lookup.scala:31:38, :34:39
+  wire              _io_ID_RegWriteEn_T_5 = _GEN == 2'h2;	// IDU.scala:51:19, Lookup.scala:34:39
   reg  [63:0]       GPR_0;	// IDU.scala:56:22
   reg  [63:0]       GPR_1;	// IDU.scala:56:22
   reg  [63:0]       GPR_2;	// IDU.scala:56:22
@@ -130,6 +133,8 @@ module IDU(	// <stdin>:16:10
   wire [63:0]       _GEN_2;	// IDU.scala:68:20
   /* synopsys infer_mux_override */
   assign _GEN_2 = _GEN_0[io_IF_Inst[24:20]] /* cadence map_to_mux */;	// IDU.scala:66:22, :67:20, :68:20
+  wire              _io_ID_RegWriteEn_T_1 = _GEN == 2'h0;	// IDU.scala:79:42, Lookup.scala:34:39
+  wire              _io_ID_RegWriteEn_T_3 = _GEN == 2'h1;	// IDU.scala:86:19, Lookup.scala:34:39
   always @(posedge clock) begin
     if (reset) begin
       GPR_0 <= 64'h0;	// IDU.scala:56:{22,30}
@@ -212,7 +217,7 @@ module IDU(	// <stdin>:16:10
         GPR_21 <= io_EX_RegWriteData;	// IDU.scala:56:22
       if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h16)	// IDU.scala:56:22, :71:5, :72:31
         GPR_22 <= io_EX_RegWriteData;	// IDU.scala:56:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h17)	// IDU.scala:56:22, :71:5, :72:31
+      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h17)	// IDU.scala:56:22, :71:5, :72:31, Lookup.scala:31:38
         GPR_23 <= io_EX_RegWriteData;	// IDU.scala:56:22
       if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h18)	// IDU.scala:56:22, :71:5, :72:31
         GPR_24 <= io_EX_RegWriteData;	// IDU.scala:56:22
@@ -408,15 +413,17 @@ module IDU(	// <stdin>:16:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
   assign io_ID_npc = _io_ID_RegWriteEn_T_5 ? io_IF_pc + {{44{io_IF_Inst[31]}}, io_IF_Inst[19:12],
-                io_IF_Inst[20], io_IF_Inst[30:21], 1'h0} : {32'h0, io_IF_pc[31:0] + 32'h4};	// <stdin>:16:10, IDU.scala:40:36, :43:115, :44:{54,76,101}, :49:25, :51:{19,40}, Mux.scala:101:16
-  assign io_ID_ALU_Data1 = _InstInfo_T_1 | io_IF_Inst[19:15] == 5'h0 ? 64'h0 : _GEN_1;	// <stdin>:16:10, IDU.scala:56:30, :65:22, :67:{20,25}, Lookup.scala:31:38, Mux.scala:101:16
-  assign io_ID_ALU_Data2 = _InstInfo_T_1 ? 64'h0 : {{52{io_IF_Inst[31]}}, io_IF_Inst[31:20]};	// <stdin>:16:10, Bitwise.scala:77:12, Cat.scala:33:92, IDU.scala:40:{36,53}, :56:30, Lookup.scala:31:38, Mux.scala:101:16
-  assign io_ID_optype = {3'h0, _InstInfo_T_1 | {io_IF_Inst[14:12], io_IF_Inst[6:0]} == 10'h13};	// <stdin>:16:10, IDU.scala:28:21, Lookup.scala:31:38, :34:39
+                io_IF_Inst[20], io_IF_Inst[30:21], 1'h0} : {32'h0, io_IF_pc[31:0] + 32'h4};	// <stdin>:16:10, IDU.scala:28:21, :40:36, :44:{54,76,101}, :49:25, :51:{19,40}, Mux.scala:101:16
+  assign io_ID_ALU_Data1 = _io_ID_RegWriteEn_T_1 ? (io_IF_Inst[19:15] == 5'h0 ? 64'h0 : _GEN_1) : {InstInfo_2[2],
+                InstInfo_2[0]} == 2'h2 ? io_IF_pc : 64'h0;	// <stdin>:16:10, IDU.scala:28:21, :56:30, :65:22, :67:{20,25}, :79:42, :80:25, Lookup.scala:34:39, Mux.scala:101:16
+  assign io_ID_ALU_Data2 = _io_ID_RegWriteEn_T_1 ? {{52{io_IF_Inst[31]}}, io_IF_Inst[31:20]} : _io_ID_RegWriteEn_T_3 ?
+                {{32{io_IF_Inst[31]}}, io_IF_Inst[31:12], 12'h0} : 64'h0;	// <stdin>:16:10, Bitwise.scala:77:12, Cat.scala:33:92, IDU.scala:40:{36,53}, :41:{10,53,63}, :56:30, :79:42, :86:19, Mux.scala:101:16
+  assign io_ID_optype = {1'h0, InstInfo_2};	// <stdin>:16:10, IDU.scala:28:21, Lookup.scala:34:39
   assign io_ID_RegWriteID = io_IF_Inst[11:7];	// <stdin>:16:10, IDU.scala:42:80
-  assign io_ID_RegWriteEn = ~_InstInfo_T_1 | _GEN == 2'h1 | _io_ID_RegWriteEn_T_5;	// <stdin>:16:10, IDU.scala:51:19, :79:42, :88:{85,97}, Lookup.scala:31:38, :34:39
+  assign io_ID_RegWriteEn = _io_ID_RegWriteEn_T_1 | _io_ID_RegWriteEn_T_3 | _io_ID_RegWriteEn_T_5;	// <stdin>:16:10, IDU.scala:51:19, :79:42, :86:19, :90:97
 endmodule
 
-module EXU(	// <stdin>:188:10
+module EXU(	// <stdin>:197:10
   input  [63:0] io_ID_ALU_Data1,
                 io_ID_ALU_Data2,
   input  [3:0]  io_ID_optype,
@@ -427,12 +434,12 @@ module EXU(	// <stdin>:188:10
   output        io_EX_RegWriteEn);
 
   assign io_EX_RegWriteData = io_ID_optype == 4'h1 ? io_ID_ALU_Data1 + io_ID_ALU_Data2 : io_ID_optype == 4'h2 ?
-                io_ID_ALU_Data1 - io_ID_ALU_Data2 : 64'h0;	// <stdin>:188:10, EXU.scala:25:{23,52}, :26:{23,52}, Mux.scala:101:16
-  assign io_EX_RegWriteID = io_ID_RegWriteID;	// <stdin>:188:10
-  assign io_EX_RegWriteEn = io_ID_RegWriteEn;	// <stdin>:188:10
+                io_ID_ALU_Data1 - io_ID_ALU_Data2 : 64'h0;	// <stdin>:197:10, EXU.scala:25:{23,52}, :26:{23,52}, Mux.scala:101:16
+  assign io_EX_RegWriteID = io_ID_RegWriteID;	// <stdin>:197:10
+  assign io_EX_RegWriteEn = io_ID_RegWriteEn;	// <stdin>:197:10
 endmodule
 
-module top(	// <stdin>:207:10
+module top(	// <stdin>:216:10
   input         clock,
                 reset,
   input  [31:0] io_inst,
@@ -483,16 +490,14 @@ module top(	// <stdin>:207:10
     .io_EX_RegWriteID   (_excute_unit_io_EX_RegWriteID),
     .io_EX_RegWriteEn   (_excute_unit_io_EX_RegWriteEn)
   );
-  assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:207:10, top.scala:22:33
-  assign io_ALUResult = _excute_unit_io_EX_RegWriteData;	// <stdin>:207:10, top.scala:24:29
+  assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:216:10, top.scala:22:33
+  assign io_ALUResult = _excute_unit_io_EX_RegWriteData;	// <stdin>:216:10, top.scala:24:29
 endmodule
 
 
 // ----- 8< ----- FILE "./build/sim.v" ----- 8< -----
 
 import "DPI-C" function void ebreak();
-
-// `define EBREAK_INST 0x00100073
 
 module sim(input [31:0] inst);
 
@@ -506,8 +511,10 @@ module sim(input [31:0] inst);
    end
 
    always@(*) begin
-      if(inst == 32'h00100073) 
-          ebreak();
+      if(inst == 32'h00100073) begin
+         $display("EBREAK detected, ending simulate...\n");
+         $finish();
+      end
    end
 
 endmodule
