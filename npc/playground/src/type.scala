@@ -18,4 +18,5 @@ object InstType{
     val TYPE_S = 3.U(3.W)
     val TYPE_J = 4.U(3.W)
     val TYPE_B = 5.U(3.W)
+    val TYPE_N = 6.U(3.W)
 }

@@ -42,8 +42,9 @@ module IFU(	// <stdin>:2:10
   always @(posedge clock) begin
     if (reset)
       pcReg <= 64'h80000000;	// IFU.scala:9:24
-    else
+    else  begin
       pcReg <= io_IF_npc;	// IFU.scala:9:24
+    end
   end // always @(posedge)
   `ifndef SYNTHESIS	// <stdin>:2:10
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:2:10

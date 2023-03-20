@@ -21,6 +21,11 @@ class IDU extends Module{
         val EX_RegWriteEn = Input(UInt(1.W))
         
     })
+    def sext(value: UInt, width: Int): UInt = {
+    val signBit = value(width - 1)
+    val extension = Fill(width - value.getWidth, signBit)
+    Cat(extension, value)
+    }
 
     //Decode
     val InstInfo = ListLookup(io.IF_Inst, List(0.U, 0.U, 0.U), RV64IInstr.table)
@@ -37,7 +42,9 @@ class IDU extends Module{
     val immS = Wire(UInt(32.W))
     val shamt = Wire(UInt(6.W))
 
-    immI := Cat(Fill(20, io.IF_Inst(31)), io.IF_Inst(31, 20))
+    // immI := Cat(Fill(20, io.IF_Inst(31)), io.IF_Inst(31, 20))
+    immI := sext(io.IF_Inst, 12)
+
     immU := Cat(Fill(12, io.IF_Inst(31)), io.IF_Inst(31, 12)) << 12
     immS := Cat(Fill(25, io.IF_Inst(31)), io.IF_Inst(31, 25)) << 5 | io.IF_Inst(11, 7)
     immB := Cat(Fill(20, io.IF_Inst(31)), ((io.IF_Inst(31) << 11) | (io.IF_Inst(30, 25) << 4) | io.IF_Inst(11, 8) | (io.IF_Inst(7) << 10)))
@@ -91,6 +98,9 @@ class IDU extends Module{
 
 
 object RV64IInstr{
+    // Special insts
+    def EBREAK  = BitPat("b0000000 00001 00000 000 00000 11100 11")
+
     //U Type
     // def AUIPC   = BitPat("??????? ????? ????? ??? ????? 00101 11")
     def ADDI    = BitPat("b??????? ????? ????? 000 ????? 00100 11")
@@ -108,6 +118,9 @@ object RV64IInstr{
     // def LD      = BitPat("b???????_?????_?????_011_?????_0000011")
     // def SD      = BitPat("b???????_?????_?????_011_?????_0100011")
     val table = Array(
+
+    // Special insts
+    EBREAK         -> List(TYPE_N, FuType.slu, OpType.OP_PLUS),
 
     //U Type
     // AUIPC          -> List(TYPE_U, FuType.alu, OpType.auipc)
