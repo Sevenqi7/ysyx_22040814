@@ -412,10 +412,10 @@ module IDU(	// <stdin>:12:10
       `FIRRTL_AFTER_INITIAL	// <stdin>:12:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  assign io_ID_npc = _io_ID_RegWriteEn_T_5 ? io_IF_pc + {31'h0, {13{io_IF_Inst[31]}}, io_IF_Inst[19:12],
-                io_IF_Inst[20], io_IF_Inst[30:21], 1'h0} : {32'h0, io_IF_pc[31:0] + 32'h4};	// <stdin>:12:10, IDU.scala:40:36, :43:115, :44:{10,54,76,101}, :49:25, :51:{19,40}, Mux.scala:101:16
+  assign io_ID_npc = _io_ID_RegWriteEn_T_5 ? io_IF_pc + {{44{io_IF_Inst[31]}}, io_IF_Inst[19:12],
+                io_IF_Inst[20], io_IF_Inst[30:21], 1'h0} : {32'h0, io_IF_pc[31:0] + 32'h4};	// <stdin>:12:10, IDU.scala:40:36, :43:115, :44:{54,76,101}, :49:25, :51:{19,40}, Mux.scala:101:16
   assign io_ID_ALU_Data1 = _InstInfo_T_1 | io_IF_Inst[19:15] == 5'h0 ? 64'h0 : _GEN_1;	// <stdin>:12:10, IDU.scala:56:30, :65:22, :67:{20,25}, Lookup.scala:31:38, Mux.scala:101:16
-  assign io_ID_ALU_Data2 = {32'h0, _InstInfo_T_1 ? 32'h0 : {{20{io_IF_Inst[31]}}, io_IF_Inst[31:20]}};	// <stdin>:12:10, IDU.scala:40:{10,36,53}, Lookup.scala:31:38, Mux.scala:101:16
+  assign io_ID_ALU_Data2 = _InstInfo_T_1 ? 64'h0 : {{52{io_IF_Inst[31]}}, io_IF_Inst[31:20]};	// <stdin>:12:10, Bitwise.scala:77:12, Cat.scala:33:92, IDU.scala:40:{36,53}, :56:30, Lookup.scala:31:38, Mux.scala:101:16
   assign io_ID_optype = {3'h0, _InstInfo_T_1 | {io_IF_Inst[14:12], io_IF_Inst[6:0]} == 10'h13};	// <stdin>:12:10, IDU.scala:28:21, Lookup.scala:31:38, :34:39
   assign io_ID_RegWriteID = io_IF_Inst[11:7];	// <stdin>:12:10, IDU.scala:42:80
   assign io_ID_RegWriteEn = ~_InstInfo_T_1 | _GEN == 2'h1 | _io_ID_RegWriteEn_T_5;	// <stdin>:12:10, IDU.scala:51:19, :79:42, :88:{85,97}, Lookup.scala:31:38, :34:39
@@ -488,7 +488,7 @@ module top(	// <stdin>:206:10
   assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:206:10, top.scala:11:33
   assign io_ALUResult = _excute_unit_io_EX_RegWriteData;	// <stdin>:206:10, top.scala:13:29
 
-     initial begin
+   initial begin
       if ($test$plusargs("trace") != 0) begin
          $display("[%0t] Tracing to logs/vlt_dump.vcd...\n", $time);
          $dumpfile("logs/vlt_dump.vcd");
