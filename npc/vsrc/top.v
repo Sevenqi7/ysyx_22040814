@@ -528,3 +528,4 @@ module sim(input [31:0] inst, input [63:0] R10);
 endmodule
 
 // ----- 8< ----- FILE "firrtl_black_box_resource_files.f" ----- 8< -----
+
