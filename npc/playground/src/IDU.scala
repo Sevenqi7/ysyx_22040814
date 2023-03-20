@@ -21,10 +21,10 @@ class IDU extends Module{
         val EX_RegWriteEn = Input(UInt(1.W))
         
     })
-    def sext(value: UInt, width: Int): UInt = {
-    val signBit = value(width - 1)
-    val extension = Fill(width - value.getWidth, signBit)
-    Cat(extension, value)
+    def sext(value: UInt(32.W), width: Int): UInt = {
+        val signBit = value(width - 1)
+        val extension = Fill(width - value.getWidth, signBit)
+        Cat(extension, value)
     }
 
     //Decode
