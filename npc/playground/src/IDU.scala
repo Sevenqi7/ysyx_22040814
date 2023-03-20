@@ -23,10 +23,9 @@ class IDU extends Module{
     })
 
     //Decode
-    val InstBitpat = BitPat(io.IF_Inst.asUInt)
+    val InstInfo = ListLookup(io.IF_Inst, List(0.U, 0.U, 0.U), RV64IInstr.table)
     val opType = Wire(UInt(3.W))
     val instType = Wire(UInt(3.W))
-    val InstInfo = RV64IInstr.table(InstBitpat)
     instType    := InstInfo(0)
     opType      := InstInfo(2)
     
