@@ -62,7 +62,7 @@ int main(int argc, char **argv, char **env)
         }
         top->eval();
         printf("time=%ld clk=%x rst=%x inst=%x IF_pc=%lx\n", contextp->time(), top->clock, top->reset, top->io_inst, top->io_IF_pc);
-        if(cnt++ > 20) break;
+        if(cnt++ > 50) break;
     }
 
     top->final();
