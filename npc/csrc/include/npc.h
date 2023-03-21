@@ -2,6 +2,7 @@
 #define __NPC_H
 
 #include <macro.h>
+#include <autoconf.h>
 
 #include <stdio.h>
 #include <stdint.h>
