@@ -5,7 +5,7 @@ import chisel3.experimental._
 class sim extends BlackBox with HasBlackBoxPath{
     val io = IO(new Bundle{
         val inst = Input(UInt(32.W))
-        val R10  = Input(UInt(64.W))
+        val GPR  = Input(Vec(32, UInt(64.W)))
     })
     addPath("/home/seven7/Documents/学业/一生一芯/ysyx-workbench/npc/playground/verilog/sim.v")
 }
@@ -23,7 +23,7 @@ class top extends Module{
 
     val simulate = Module(new sim)
     simulate.io.inst := io.inst
-    simulate.io.R10  := inst_decode_unit.io.ID_GPR10
+    simulate.io.GPR  := inst_decode_unit.io.ID_GPR10
 
     io.IF_pc := inst_fetch_unit.io.IF_pc
     inst_fetch_unit.io.IF_npc := inst_decode_unit.io.ID_npc

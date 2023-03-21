@@ -22,7 +22,7 @@ class IDU extends Module{
         val EX_RegWriteEn = Input(UInt(1.W))
         
         //For NPCTRAP
-        val ID_GPR10 =Output(Vec(32, UInt(64.W)))
+        val ID_GPR =Output(Vec(32, UInt(64.W)))
     })
 
     //Decode
