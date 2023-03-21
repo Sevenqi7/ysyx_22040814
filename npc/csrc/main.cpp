@@ -42,7 +42,7 @@ int main(int argc, char **argv, char **env)
 
     // Return good completion status
     // Don't use exit() or destructor won't get called
-    return 0;
+    return npc_state == NPC_END;
 }
 
 void init(int argc, char **argv)
