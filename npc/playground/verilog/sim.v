@@ -1,6 +1,7 @@
+import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
 import "DPI-C" function void ebreak(input int halt_ret);
 
-module sim(input [31:0] inst, input [63:0] R10);
+module sim(input [31:0] inst, input [63:0] GPR [31:0]);
 
    initial begin
       if ($test$plusargs("trace") != 0) begin
@@ -11,8 +12,10 @@ module sim(input [31:0] inst, input [63:0] R10);
       $display("[%0t] Model running...\n", $time);
    end
 
+   initial set_gpr_ptr(rf);    // rf为通用寄存器的二维数组变量
+
    always@(*) begin
-      integer  i = R10[31:0];
+      integer  i = GPR[10][31:0];
       if(inst == 32'h00100073) begin
          ebreak(i);
          $finish();

@@ -5,16 +5,7 @@
 // SPDX-License-Identifier: CC0-1.0
 //======================================================================
 
-// For std::unique_ptr
-#include <memory>
-
-// Include common routines
-#include <verilated.h>
-
-// Include model header, generated from Verilating "top.v"
-#include "svdpi.h"
-#include "Vtop__Dpi.h"
-#include "Vtop.h"
+#include <verilator.h>
 #include <stdio.h>
 
 #define MEMSIZE     0x8000000
@@ -37,6 +28,7 @@ void outofbound(uint64_t paddr)
 uint64_t pmem_read(uint64_t addr, int len)
 {
     uint64_t paddr = addr & 0xFFFFFF;
+    // printf("addr:%lx\n", addr);
     outofbound(paddr);
     int ret = 0;
     switch(len)
@@ -51,55 +43,67 @@ uint64_t pmem_read(uint64_t addr, int len)
     return 0;
 }
 
-uint32_t halt_ret;
-uint64_t now_pc;
+uint64_t *cpu_gpr = NULL;
+extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
+  cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
+}
 
-void ebreak(unsigned halt_ret)
+void dump_gpr() {
+  int i;
+  for (i = 0; i < 32; i++) {
+    printf("gpr[%d] = 0x%lx\n", i, cpu_gpr[i]);
+  }
+}
+
+void sdb_mainloop();
+VerilatedContext *contextp;
+Vtop *top;
+
+void reset(int time)
 {
-    printf("EBREAK executed, ending simulate...\n");
-    printf("%x\n", halt_ret);
+    top->reset = !0;
+    for(int i=0;i<time;i++)
+    {
+        contextp->timeInc(1);
+        top->clock = !top->clock;
+        top->eval();
+    }
+    top->reset = !1;
+}
+
+
+void ebreak(int halt_ret)
+{
+    printf("\033[0m\033[1;32m%s\033[0m\n", "NPCTRAP SUCCESS");
+    if(halt_ret)
+        printf("    \033[0m\033[1;31m%s 0x%lx\033[0m\n", "HIT BAD TRAP AT PC:", top->io_IF_pc);
+    else
+        printf("    \033[0m\033[1;32m%s 0x%lx\033[0m\n", "HIT GOOD TRAP AT PC:", top->io_IF_pc);
+
 }
 
 
 int main(int argc, char **argv, char **env)
 {
     init(argc, argv);
-    Verilated::mkdir("logs");
-    const std::unique_ptr<VerilatedContext> contextp{new VerilatedContext};
-    contextp->debug(0);
-    contextp->randReset(3);
-    contextp->traceEverOn(true);
-    contextp->commandArgs(argc, argv);
-    const std::unique_ptr<Vtop> top{new Vtop{contextp.get(), "TOP"}};
-    top->reset = !0;
-    top->clock = 0;
-    int cnt = 0;
-
     while (!contextp->gotFinish())
     {
-        contextp->timeInc(1); // 1 timeprecision period passes...
-        top->clock = !top->clock;
-        if(!top->reset)
-            top->io_inst = pmem_read(top->io_IF_pc, 4);
-        if(!top->io_inst)
-        {
-            printf("\n\033[0m\033[1;31m%s 0x%lx\033[0m\n", "All 0 inst found in addr: ", top->io_IF_pc);
-            return -1;
-        }    
-        if (!top->clock) {
-            if (contextp->time() > 1 && contextp->time() < 10) {
-                top->reset = !0;  // Assert reset
-            } else {
-                top->reset = !1;  // Deassert reset
-            }
-        }
-        top->eval();
-        printf("time=%ld clk=%x rst=%x inst=0x%x IF_pc=0x%lx\n", contextp->time(), top->clock, top->reset, top->io_inst, top->io_IF_pc);
-        if(cnt++ > 50) break;
+        sdb_mainloop();
+        // contextp->timeInc(1); // 1 timeprecision period passes...
+        // top->clock = !top->clock;
+        // if(!top->reset)
+        //     top->io_inst = pmem_read(top->io_IF_pc, 4);
+        // if(!top->io_inst)
+        // {
+        //     printf("\n\033[0m\033[1;31m%s 0x%lx\033[0m\n", "All 0 inst found in addr: ", top->io_IF_pc);
+        //     return -1;
+        // }    
+
+        // top->eval();
+        // printf("time=%ld clk=%x rst=%x inst=0x%x IF_pc=0x%lx\n", contextp->time(), top->clock, top->reset, top->io_inst, top->io_IF_pc);
     }
 
     top->final();
-
     // Coverage analysis (calling write only after the test is known to pass)
 #if VM_COVERAGE
     Verilated::mkdir("logs");
@@ -113,11 +117,16 @@ int main(int argc, char **argv, char **env)
 
 void init(int argc, char **argv)
 {
-    // for(int i=0;i<10;i++)
-    // {
-    //     inst_mem[i] = 0xfff58593;
-    // }
-    // inst_mem[10] = 0x00100073;
+    Verilated::mkdir("logs");
+    contextp = new VerilatedContext;
+    contextp->debug(0);
+    contextp->randReset(3);
+    contextp->traceEverOn(true);
+    contextp->commandArgs(argc, argv);
+    top = new Vtop;
+    top->clock = 0;
+    reset(10);
+    //read img
     if(argc <= 1)
     {
         printf("\033[0m\033[1;31m%s\033[0m", "Usage: make ARCH=$ISA run\n");
