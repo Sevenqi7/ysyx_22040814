@@ -23,7 +23,7 @@ class top extends Module{
 
     val simulate = Module(new sim)
     simulate.io.inst := io.inst
-    simulate.io.GPR  := inst_decode_unit.io.ID_GPR10
+    simulate.io.GPR  := inst_decode_unit.io.ID_GPR
 
     io.IF_pc := inst_fetch_unit.io.IF_pc
     inst_fetch_unit.io.IF_npc := inst_decode_unit.io.ID_npc
