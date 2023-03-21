@@ -1,4 +1,6 @@
 #include <verilator.h>
+#include <npc.h>
+
 #include <stdbool.h>
 #include <stdlib.h>
 #include <regex.h>
@@ -79,7 +81,7 @@ static bool make_token(char *e) {
     /* Try all rules one by one. */
     for (i = 0; i < NR_REGEX; i ++) {
       if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
-        // char *substr_start = e + position;
+        char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;
 
         // Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
@@ -165,14 +167,16 @@ long eval(int p, int q)
         else if(tokens[p].type == TK_REGISTER)
         {
             bool success;
-            uint64_t ret = isa_reg_str2val(tokens[p].str, &success);
+            uint64_t ret = reg_str2val(tokens[p].str, &success);
             if(success)
                 return ret;
             else
-                panic("Unknown register!\n");
+                // panic("Unknown register!\n");
+                assert(0);
         }
         else
-            panic("An nonnumeric single token!\n");
+            // panic("An nonnumeric single token!\n");
+            assert(0);
     }
     else if(check_parentheses(p, q))
         return eval(p+1, q-1);
@@ -242,7 +246,7 @@ long eval(int p, int q)
             not_space2++;
         //deref token
         if(tokens[op_type].type == TK_DEREF)
-            return paddr_read(eval(not_space2, q), 8);
+            return pmem_read(eval(not_space2, q), 8);
         // Log("1: %d, 2:%d", not_space, not_space2);
         long val1 = eval(p, not_space);
         long val2 = eval(not_space2, q);

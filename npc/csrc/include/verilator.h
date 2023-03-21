@@ -3,12 +3,10 @@
 
 #include <memory>
 #include <verilated.h>
+#include "verilated_dpi.h"
 #include "svdpi.h"
 #include "Vtop__Dpi.h"
 #include "Vtop.h"
-
-#include "macro.h"
-
 
 extern Vtop *top;
 extern VerilatedContext *contextp;

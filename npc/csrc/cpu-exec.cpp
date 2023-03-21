@@ -1,4 +1,5 @@
 #include <verilator.h>
+#include <npc.h>
 
 uint64_t pmem_read(uint64_t addr, int len);
 
@@ -18,12 +19,24 @@ void exec_once()
 
         top->eval();
         if(top->clock)
-            Log("time=%ld clk=%x rst=%x inst=0x%x IF_pc=0x%lx\n", contextp->time(), top->clock, top->reset, top->io_inst, top->io_IF_pc);
+            Log("time=%ld clk=%x rst=%x inst=0x%x IF_pc=0x%lx", contextp->time(), top->clock, top->reset, top->io_inst, top->io_IF_pc);
     }
+    Log("ALUResult:%lx", top->io_ALUResult);
 }
 
 void execute(uint64_t n)
 {
+    switch(npc_state)
+    {
+        case NPC_END: case NPC_ABORT:
+        printf("Simulation has ended.\n");
+        return ;
+        default: npc_state = NPC_RUNNING;
+    }
+
     for(int i=0;i<n;i++)
+    {
         exec_once();
+        if(npc_state != NPC_RUNNING) break;
+    }
 }
