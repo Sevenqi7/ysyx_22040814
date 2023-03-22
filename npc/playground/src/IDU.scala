@@ -30,7 +30,7 @@ class IDU extends Module{
     val InstInfo = ListLookup(io.IF_Inst, List(0.U, 0.U, 0.U, 0.U, 0.U), RV64IInstr.table)
     val instType = Wire(UInt(3.W))
     val opType   = Wire(UInt(3.W))
-    io.ID_unknown_inst := Mux(InstInfo.sameElements(List(0.U, 0.U, 0.U, 0.U, 0.U)).asBool, 1.U, 0.U)
+    io.ID_unknown_inst := InstInfo(0) === 0.U
 
     opType          := InstInfo(4)
     instType        := InstInfo(0)
