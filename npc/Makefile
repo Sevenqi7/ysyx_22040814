@@ -44,6 +44,7 @@ endif
 TOPNAME := top
 INC_PATH := $(abspath ./csrc/include)
 IMG ?= 
+ELF ?=
 
 BUILD_DIR = ./build
 OBJ_DIR := ./build/obj_dir
@@ -67,7 +68,7 @@ $(BIN): $(VSRC_OBJ) $(CSRC_OBJ)
 
 run: $(BIN)
 	echo $(shell llvm-config --cxxflags)
-	$(abspath $(BIN)) $(IMG)
+	$(abspath $(BIN)) $(IMG) $(ELF)
 	
 sim: $(BIN)
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!

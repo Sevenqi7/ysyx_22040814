@@ -38,6 +38,16 @@ extern uint64_t reg_str2val(const char *s, bool *success);
 enum { NPC_RUNNING, NPC_STOP, NPC_END, NPC_ABORT, NPC_QUIT };
 extern uint32_t npc_state;
 
+//表达式求值
+extern uint64_t expr(char *e, bool *success);
+
+//监视点
+extern int add_watchpoint(char *expr_);
+extern bool del_watchpoint(int NO);
+extern bool check_watchpoints();
+extern void display_watchpoints();
+
+
 //用C++实现的仿真用的存储器
 extern uint64_t *pmem_addr(uint64_t *addr);
 extern uint64_t  pmem_read(uint64_t addr, int len);

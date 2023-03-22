@@ -8,8 +8,11 @@
 #include <string.h>
 #include <stdlib.h>
 
+
+#define NR_CMD ARRLEN(cmd_table)
+
 void init_regex();
-// void init_wp_pool();
+void init_wp_pool();
 
 static char* rl_gets() {
   static char *line_read = NULL;
@@ -30,10 +33,7 @@ static char* rl_gets() {
 
 void execute(uint64_t n);
 
-static int cmd_help(char *args)
-{
-    return 0;
-}
+static int cmd_help(char *args);
 
 static int cmd_c(char *args)
 {
@@ -46,6 +46,41 @@ static int cmd_q(char *args)
     npc_state = NPC_QUIT;
     return -1;
 }
+
+static int cmd_w(char *args)
+{
+    int wp_num;
+    if(!args)
+    {
+        printf("Usage: w <EXPRESSION>\n");
+        return 0;
+    }
+    wp_num = add_watchpoint(args);
+    if(wp_num < 0)
+        printf("Invalid Expression.\n");
+    else
+        printf("Watchpoint %d: %s\n", wp_num, args);
+    return 0;
+}
+
+static int cmd_d(char *args)
+{
+    int wp_num;
+    if(!args)
+    {
+        printf("Usage: d <WATCHPOINT_NUM>\n");
+    }
+    else
+    {
+        wp_num = atoi(args);
+        if(del_watchpoint(wp_num))
+            printf("Watchpoint %d deleted.\n", wp_num);
+        else
+            printf("Watchpoint %d doesn't exist.\n", wp_num);
+    }
+    return 0;
+}
+
 
 static int cmd_x(char *args)
 {
@@ -86,6 +121,15 @@ static int cmd_x(char *args)
     return 0;
 }
 
+#ifdef CONFIG_FTRACE
+void display_ftrace();
+static int cmd_ftrace(char *args)
+{
+    display_ftrace();
+    return 0;
+}
+#endif
+
 static int cmd_si(char *args)
 {
     int steps = args ? atoi((const char *)args) : 1;
@@ -102,13 +146,14 @@ static int cmd_info(char *args)
     }
     if(!strcmp("r", args))
         reg_display();
-    // else if(!strcmp("w", args))
-    // {
-    //     display_watchpoints();
-    //     return 0;        
-    // }
+    else if(!strcmp("w", args))
+    {
+        display_watchpoints();
+        return 0;        
+    }
     return 0;
 }
+
 
 static struct {
   const char *name;
@@ -120,16 +165,39 @@ static struct {
   { "q", "Exit NPC", cmd_q },
   { "si", "Step next N commands, 1 if N is not given", cmd_si},
   { "x", "Print the content of memory with a given address.", cmd_x},
-//   { "w", "Set watchpoint.", cmd_w},
-//   { "d", "Delete watchpoint.", cmd_d},
-//   IFDEF(CONFIG_FTRACE, { "ftrace", "Display function call trace.", cmd_ftrace},)
+  { "w", "Set watchpoint.", cmd_w},
+  { "d", "Delete watchpoint.", cmd_d},
+  #ifdef CONFIG_FTRACE
+  { "ftrace", "Display function call trace.", cmd_ftrace},
+  #endif
   { "info", "Print the content of register(-r) or watchpoing(-w).", cmd_info}
 
   /* TODO: Add more commands */
 
 };
 
-#define NR_CMD ARRLEN(cmd_table)
+static int cmd_help(char *args) {
+  /* extract the first argument */
+  char *arg = strtok(NULL, " ");
+  int i;
+
+  if (arg == NULL) {
+    /* no argument given */
+    for (i = 0; i < NR_CMD; i ++) {
+      printf("%s - %s\n", cmd_table[i].name, cmd_table[i].description);
+    }
+  }
+  else {
+    for (i = 0; i < NR_CMD; i ++) {
+      if (strcmp(arg, cmd_table[i].name) == 0) {
+        printf("%s - %s\n", cmd_table[i].name, cmd_table[i].description);
+        return 0;
+      }
+    }
+    printf("Unknown command '%s'\n", arg);
+  }
+  return 0;
+}
 
 void sdb_mainloop() {
 
@@ -163,5 +231,5 @@ void sdb_mainloop() {
 void init_sdb()
 {
     init_regex();
-    // init_wp_pool();
+    init_wp_pool();
 }

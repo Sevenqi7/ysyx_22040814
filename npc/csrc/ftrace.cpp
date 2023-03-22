@@ -1,22 +1,29 @@
-#include <isa.h>
-#include <cpu/cpu.h>
+#include <verilator.h>
+#include <npc.h>
+
 #include <readline/readline.h>
 #include <readline/history.h>
-#include <memory/paddr.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include <stdlib.h>
+#include <malloc.h>
 #include <elf.h>
+
 
 
 #define MAX_FTRACE_INFO_SIZE 32
 #define MAX_FTRACE_STACK_SIZE 512
 
+void get_symbol_list(char *elf_path);
+void init_ftrace(char *path)
+{
+    get_symbol_list(path);
+}
+
 #ifdef CONFIG_FTRACE
 static int f_info_num = 0;
 static struct function_info
 {
-    vaddr_t f_addr;
+    uint64_t f_addr;
     char f_name[64];
 }f_info[MAX_FTRACE_INFO_SIZE];
 
@@ -24,12 +31,12 @@ static struct function_call_stack
 {
     struct function_info function[MAX_FTRACE_STACK_SIZE];    
     bool is_ret[MAX_FTRACE_STACK_SIZE];
-    vaddr_t call_pc[MAX_FTRACE_STACK_SIZE];
-    vaddr_t ret_addr[MAX_FTRACE_STACK_SIZE];
+    uint64_t call_pc[MAX_FTRACE_STACK_SIZE];
+    uint64_t ret_addr[MAX_FTRACE_STACK_SIZE];
     int f_trace_end;
-}f_trace_buf = {.f_trace_end = 0, .is_ret = {false}};
+}f_trace_buf = {0};
 
-void ftrace_check_jal(vaddr_t jump_addr, vaddr_t ret_addr, int rs1, int rd)
+void ftrace_check_jal(uint64_t jump_addr, uint64_t ret_addr, int rs1, int rd)
 {
     // Log("jump_addr:%lx ret_addr:%lx rd:%d, rs1:%d", jump_addr, ret_addr, rd, rs1);
     if(rd == 0 && rs1 == 1)
@@ -42,7 +49,7 @@ void ftrace_check_jal(vaddr_t jump_addr, vaddr_t ret_addr, int rs1, int rd)
                 f_trace_buf.is_ret[f_trace_buf.f_trace_end] = true;
                 f_trace_buf.call_pc[f_trace_buf.f_trace_end] = ret_addr - 4;
 
-                // Log("%s ret", f_trace_buf.function[f_trace_buf.f_trace_end].f_name);
+                Log("%s ret", f_trace_buf.function[f_trace_buf.f_trace_end].f_name);
                 f_trace_buf.f_trace_end++;
                 return;
             }
@@ -57,8 +64,8 @@ void ftrace_check_jal(vaddr_t jump_addr, vaddr_t ret_addr, int rs1, int rd)
             f_trace_buf.is_ret[f_trace_buf.f_trace_end] = false;
             f_trace_buf.call_pc[f_trace_buf.f_trace_end] = ret_addr - 4;
 
-            // Log("f_trace_end:%d", f_trace_buf.f_traceq_end);
-            // Log("jump to 0x%lx(%s)", f_trace_buf.function[f_trace_buf.f_trace_end].f_addr, f_trace_buf.function[f_trace_buf.f_trace_end].f_name);
+            Log("f_trace_end:%d", f_trace_buf.f_trace_end);
+            Log("jump to 0x%lx(%s)", f_trace_buf.function[f_trace_buf.f_trace_end].f_addr, f_trace_buf.function[f_trace_buf.f_trace_end].f_name);
 
             f_trace_buf.f_trace_end++;
             return ;
@@ -89,7 +96,7 @@ void display_ftrace()
 #endif
 
 
-void sdb_get_symbol_list(char *elf_path)
+void get_symbol_list(char *elf_path)
 {
     #ifdef CONFIG_FTRACE
   int fd = open(elf_path, O_RDONLY, 0);
@@ -112,7 +119,7 @@ void sdb_get_symbol_list(char *elf_path)
       printf("Failed to read section header of string table!\n");
       return ;
   }
-  char *shstrtab = malloc(shdr.sh_size);
+  char *shstrtab = (char *)malloc(shdr.sh_size);
   lseek(fd, shdr.sh_offset, SEEK_SET);
   if(read(fd, shstrtab, shdr.sh_size) != shdr.sh_size)
   {
@@ -130,14 +137,13 @@ void sdb_get_symbol_list(char *elf_path)
           break;
   }
 
-  char *strtab = malloc(shdr.sh_size);
+  char *strtab = (char *)malloc(shdr.sh_size);
   lseek(fd, shdr.sh_offset, SEEK_SET);
   if(read(fd, strtab, shdr.sh_size) != shdr.sh_size)
   {
       printf("Failed to read string table!\n");
       return ;
   }
-  printf("strtab:%s\n", strtab);
   lseek(fd, ehdr.e_shoff, SEEK_SET);
   for(int i=0;i<ehdr.e_shnum;i++)
   {
@@ -164,6 +170,7 @@ void sdb_get_symbol_list(char *elf_path)
                   // assert(0);
                   char *func_name = strtab + sym.st_name;
                   memcpy(f_info[f_info_num].f_name, func_name, strlen(func_name)+1);
+                //   Log("sym %d funcname:%s", j, func_name);
                   f_info[f_info_num].f_addr = sym.st_value;
                   f_info_num++;
               }
@@ -171,6 +178,7 @@ void sdb_get_symbol_list(char *elf_path)
           
       }
   }
+  printf("\033[0m\033[1;36mThe ELF path is %s\033[0m\n", elf_path);
 
   free(strtab);
   free(shstrtab);

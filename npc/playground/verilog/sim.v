@@ -1,4 +1,5 @@
 import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
+import "DPI-C" function void unknown_inst(input int inst);
 import "DPI-C" function void ebreak(input int halt_ret);
 
 wire [63:0] GPR [31:0];

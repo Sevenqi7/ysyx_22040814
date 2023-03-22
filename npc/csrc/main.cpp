@@ -11,6 +11,8 @@
 
 void init(int argc, char **argv);
 void init_sdb();
+void init_disasm(const char *triple);
+void init_ftrace(char *path);
 void sdb_mainloop();
 VerilatedContext *contextp;
 Vtop *top;
@@ -31,6 +33,8 @@ int main(int argc, char **argv, char **env)
 {
     init(argc, argv);
     init_sdb();
+    init_disasm("riscv64");
+    init_ftrace(argv[2]);
     while (!contextp->gotFinish() && npc_state != NPC_QUIT)
         sdb_mainloop();
     top->final();
