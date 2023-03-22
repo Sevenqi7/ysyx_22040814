@@ -662,7 +662,7 @@ endmodule
 // ----- 8< ----- FILE "./build/sim.v" ----- 8< -----
 
 import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
-import "DPI-C" function void unknown_inst(input int inst);
+import "DPI-C" function void unknown_inst();
 import "DPI-C" function void ebreak(input int halt_ret);
 
 
@@ -681,7 +681,7 @@ module sim(input [31:0] inst, input [63:0] GPR [31:0], input unknown_inst_flag);
 
    always@(*) begin
       integer  i = GPR[10][31:0];
-      if(unknown_inst_flag) unknown_inst(inst);
+      if(unknown_inst_flag) unknown_inst();
       if(inst == 32'h00100073) begin
          ebreak(i);
          $finish();

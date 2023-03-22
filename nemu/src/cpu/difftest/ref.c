@@ -19,15 +19,26 @@
 #include <memory/paddr.h>
 
 void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction) {
-  assert(0);
+  if(addr < PMEM_LEFT || addr > PMEM_RIGHT)
+  {
+      printf("Difftest addr out of bound\n");
+      assert(0);   
+  }
+  char *p = buf;
+  if(direction == DIFFTEST_TO_DUT)
+    while(n--)
+      *p++ = paddr_read(addr, 1);
 }
 
 void difftest_regcpy(void *dut, bool direction) {
-  assert(0);
+  if(direction == DIFFTEST_TO_DUT)
+  {
+      memcpy(dut, &cpu.gpr, sizeof(cpu.gpr));
+  }
 }
 
 void difftest_exec(uint64_t n) {
-  assert(0);
+  cpu_exec(n);
 }
 
 void difftest_raise_intr(word_t NO) {

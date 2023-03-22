@@ -2,13 +2,12 @@
 #include <npc.h>
 
 NPCState npc_state{.state=NPC_STOP};
+bool inst_fault = false;
 
-void unknown_inst(int inst)
+void unknown_inst()
 {
     if(top->reset) return;
-    npc_state.state = NPC_ABORT;
-    printf("\033[0m\033[1;31m%s\033[0m\n", "UNKNOWN INST RECEIVED:");
-    printf("\033[0m\033[1;32mPC:0x%016lx inst:0x%08x\033[0m\n", top->io_IF_pc, (uint32_t)inst);
+    inst_fault = true;
 }
 
 void ebreak(int halt_ret)
