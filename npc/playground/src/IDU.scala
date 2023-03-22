@@ -23,13 +23,15 @@ class IDU extends Module{
         
         //For NPCTRAP
         val ID_GPR =Output(Vec(32, UInt(64.W)))
+        val ID_unknown_inst = Output(UInt(1.W))
     })
 
     //Decode
     val InstInfo = ListLookup(io.IF_Inst, List(0.U, 0.U, 0.U, 0.U, 0.U), RV64IInstr.table)
     val instType = Wire(UInt(3.W))
     val opType   = Wire(UInt(3.W))
-    
+    io.ID_unknown_inst := Mux(InstInfo.sameElements(List(0.U, 0.U, 0.U, 0.U, 0.U)).asBool, 1.U, 0.U)
+
     opType          := InstInfo(4)
     instType        := InstInfo(0)
     

@@ -21,7 +21,7 @@ sim simulate (	// top.scala:24:26
    .GPR    (GPR)
 );
 
-module sim(input [31:0] inst, input [63:0] GPR [31:0]);
+module sim(input [31:0] inst, input [63:0] GPR [31:0], input unknown_inst_flag);
 
    initial begin
       if ($test$plusargs("trace") != 0) begin
@@ -36,6 +36,7 @@ module sim(input [31:0] inst, input [63:0] GPR [31:0]);
 
    always@(*) begin
       integer  i = GPR[10][31:0];
+      if(unknown_inst_flag) unknown_inst(inst);
       if(inst == 32'h00100073) begin
          ebreak(i);
          $finish();

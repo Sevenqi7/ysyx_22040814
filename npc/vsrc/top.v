@@ -638,10 +638,12 @@ assign {GPR[31], GPR[30], GPR[29], GPR[28], GPR[27], GPR[26], GPR[25], GPR[24], 
 {_inst_decode_unit_io_ID_GPR_4 }, {_inst_decode_unit_io_ID_GPR_3 }, {_inst_decode_unit_io_ID_GPR_2 }, {_inst_decode_unit_io_ID_GPR_1 }, 
 {_inst_decode_unit_io_ID_GPR_0}};	// IDU.scala:55:22, :66:20
 
-  sim simulate (	// top.scala:24:26
-    .inst   (io_inst),
-    .GPR    (GPR)
-  );
+sim simulate (	// top.scala:24:26
+   .inst   (io_inst),
+   .GPR    (GPR)
+);
+
+
   assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:262:10, top.scala:20:33
   assign io_ALUResult = _excute_unit_io_EX_RegWriteData;	// <stdin>:262:10, top.scala:22:29
 endmodule
@@ -649,9 +651,10 @@ endmodule
 
 // ----- 8< ----- FILE "./build/sim.v" ----- 8< -----
 
-
 import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
+import "DPI-C" function void unknown_inst(input int inst);
 import "DPI-C" function void ebreak(input int halt_ret);
+
 
 module sim(input [31:0] inst, input [63:0] GPR [31:0]);
 
@@ -668,6 +671,7 @@ module sim(input [31:0] inst, input [63:0] GPR [31:0]);
 
    always@(*) begin
       integer  i = GPR[10][31:0];
+      if(inst == 32'h0) unknown_inst(inst);
       if(inst == 32'h00100073) begin
          ebreak(i);
          $finish();
@@ -677,4 +681,3 @@ module sim(input [31:0] inst, input [63:0] GPR [31:0]);
 endmodule
 
 // ----- 8< ----- FILE "firrtl_black_box_resource_files.f" ----- 8< -----
-

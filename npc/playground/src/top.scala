@@ -6,6 +6,7 @@ class sim extends BlackBox with HasBlackBoxPath{
     val io = IO(new Bundle{
         val inst = Input(UInt(32.W))
         val GPR  = Input(Vec(32, UInt(64.W)))
+        val unknown_inst_flag = Input(UInt(1.W))
     })
     addPath("/home/seven7/Documents/学业/一生一芯/ysyx-workbench/npc/playground/verilog/sim.v")
 }
@@ -24,6 +25,7 @@ class top extends Module{
     val simulate = Module(new sim)
     simulate.io.inst := io.inst
     simulate.io.GPR  := inst_decode_unit.io.ID_GPR
+    simulate.io.unknown_inst_flag := inst_decode_unit.io.ID_unknown_inst
 
     io.IF_pc := inst_fetch_unit.io.IF_pc
     inst_fetch_unit.io.IF_npc := inst_decode_unit.io.ID_npc

@@ -6,9 +6,10 @@ uint32_t npc_state = NPC_STOP;
 
 void unknown_inst(int inst)
 {
+    Log("in");
     npc_state = NPC_ABORT;
     printf("\033[0m\033[1;31m%s\033[0m\n", "UNKNOWN INST RECEIVED:\n");
-    printf("\033[0m\033[1;32mPC:%016x inst:%08x\033[0m\n", top->io_IF_pc, (uint32_t)inst);
+    printf("\033[0m\033[1;32mPC:%016lx inst:%08x\033[0m\n", top->io_IF_pc, (uint32_t)inst);
 }
 
 void ebreak(int halt_ret)
