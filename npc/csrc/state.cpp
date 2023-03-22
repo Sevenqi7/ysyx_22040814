@@ -8,7 +8,7 @@ void unknown_inst(int inst)
     if(top->reset) return;
     npc_state.state = NPC_ABORT;
     printf("\033[0m\033[1;31m%s\033[0m\n", "UNKNOWN INST RECEIVED:");
-    printf("\033[0m\033[1;32mPC:%016lx inst:%08x\033[0m\n", npc_state.pc, (uint32_t)inst);
+    printf("\033[0m\033[1;32mPC:0x%016lx inst:0x%08x\033[0m\n", top->io_IF_pc, (uint32_t)inst);
 }
 
 void ebreak(int halt_ret)

@@ -122,11 +122,12 @@ module IDU(	// <stdin>:12:10
   wire              _InstInfo_T_5 = _GEN == 10'h13;	// Lookup.scala:31:38
   wire              _InstInfo_T_7 = _GEN == 10'h67;	// Lookup.scala:31:38
   wire              _InstInfo_T_26 = io_IF_Inst[6:0] == 7'h6F;	// Lookup.scala:31:38
-  wire [1:0]        _GEN_0 = _InstInfo_T_1 ? 2'h3 : _InstInfo_T_3 ? 2'h1 : _InstInfo_T_5 | _InstInfo_T_7 ? 2'h0 :
-                {_InstInfo_T_26, 1'h0};	// IDU.scala:35:21, :38:21, Lookup.scala:31:38, :34:39
+  wire [2:0]        InstInfo_0 = _InstInfo_T_1 ? 3'h7 : _InstInfo_T_3 ? 3'h3 : _InstInfo_T_5 | _InstInfo_T_7 ? 3'h1 :
+                _InstInfo_T_26 ? 3'h5 : 3'h0;	// Lookup.scala:31:38, :34:39
   wire [2:0]        InstInfo_2 = _InstInfo_T_1 ? 3'h0 : _InstInfo_T_3 ? 3'h1 : _InstInfo_T_5 ? 3'h2 : _InstInfo_T_7 |
                 _InstInfo_T_26 ? 3'h5 : 3'h0;	// IDU.scala:109:39, Lookup.scala:31:38, :34:39
   wire [51:0]       _immI_T_2 = {52{io_IF_Inst[31]}};	// Bitwise.scala:77:12, IDU.scala:48:36
+  wire [51:0]       _GEN_0 = {52{io_IF_Inst[31]}};	// IDU.scala:48:36, :50:10
   reg  [63:0]       GPR_0;	// IDU.scala:57:22
   reg  [63:0]       GPR_1;	// IDU.scala:57:22
   reg  [63:0]       GPR_2;	// IDU.scala:57:22
@@ -167,11 +168,12 @@ module IDU(	// <stdin>:12:10
   /* synopsys infer_mux_override */
   assign _GEN_2 = _GEN_1[io_IF_Inst[19:15]] /* cadence map_to_mux */;	// IDU.scala:66:22, :68:20
   wire [63:0]       _rs1_data_T_1 = io_IF_Inst[19:15] == 5'h0 ? 64'h0 : _GEN_2;	// IDU.scala:50:63, :57:30, :66:22, :68:{20,25}
-  wire              _io_ID_npc_T_8 = _GEN_0 == 2'h0;	// IDU.scala:35:21, :88:19, Lookup.scala:34:39
-  wire              _io_ID_RegWriteEn_T_3 = _GEN_0 == 2'h1;	// IDU.scala:90:19, Lookup.scala:34:39
+  wire              _io_ID_npc_T_8 = InstInfo_0 == 3'h1;	// IDU.scala:88:19, Lookup.scala:34:39
+  wire              _io_ID_npc_T_4 = InstInfo_0 == 3'h6;	// IDU.scala:89:19, Lookup.scala:34:39
+  wire              _io_ID_RegWriteEn_T_3 = InstInfo_0 == 3'h3;	// IDU.scala:90:19, Lookup.scala:34:39
   wire              _io_ID_npc_T_9 = InstInfo_2 == 3'h5;	// IDU.scala:98:15, Lookup.scala:34:39
   wire [63:0]       _io_ID_ALU_Data1_T_5 = io_IF_pc + 64'h4;	// IDU.scala:98:33
-  wire              _io_ID_npc_T = _GEN_0 == 2'h2;	// IDU.scala:109:114, Lookup.scala:34:39
+  wire              _io_ID_npc_T = InstInfo_0 == 3'h5;	// IDU.scala:109:114, Lookup.scala:34:39
   always @(posedge clock) begin
     if (reset) begin
       GPR_0 <= 64'h0;	// IDU.scala:57:{22,30}
@@ -450,16 +452,19 @@ module IDU(	// <stdin>:12:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
   assign io_ID_npc = _io_ID_npc_T ? io_IF_pc + {{44{io_IF_Inst[31]}}, io_IF_Inst[19:12], io_IF_Inst[20],
-                io_IF_Inst[30:21], 1'h0} : _io_ID_npc_T_8 & _io_ID_npc_T_9 ? _rs1_data_T_1 + {_immI_T_2,
-                io_IF_Inst[31:20]} : {32'h0, _io_ID_ALU_Data1_T_5[31:0]};	// <stdin>:12:10, Bitwise.scala:77:12, IDU.scala:38:21, :48:{36,53}, :52:{54,76,101}, :68:20, :88:19, :98:{15,33}, :109:114, :113:13, :115:40, :117:{31,58}, Mux.scala:101:16
+                io_IF_Inst[30:21], 1'h0} : _io_ID_npc_T_4 ? io_IF_pc + {_GEN_0, io_IF_Inst[7],
+                io_IF_Inst[30:25], io_IF_Inst[11:8], 1'h0} : _io_ID_npc_T_8 & _io_ID_npc_T_9 ?
+                _rs1_data_T_1 + {_immI_T_2, io_IF_Inst[31:20]} : {32'h0, _io_ID_ALU_Data1_T_5[31:0]};	// <stdin>:12:10, Bitwise.scala:77:12, IDU.scala:38:21, :48:{36,53}, :50:10, :51:{80,107,128}, :52:{54,76,101}, :68:20, :88:19, :89:19, :98:{15,33}, :109:114, :113:13, :115:40, :116:40, :117:{31,58}, Mux.scala:101:16
   assign io_ID_ALU_Data1 = InstInfo_2 == 3'h0 ? 64'h0 : InstInfo_2 == 3'h1 ? io_IF_pc : InstInfo_2 == 3'h2 ?
                 _rs1_data_T_1 : _io_ID_npc_T_9 ? _io_ID_ALU_Data1_T_5 : 64'h0;	// <stdin>:12:10, IDU.scala:57:30, :68:20, :95:15, :96:15, :97:15, :98:{15,33}, :109:39, Lookup.scala:34:39, Mux.scala:101:16
   assign io_ID_ALU_Data2 = ~_InstInfo_T_1 & (_InstInfo_T_3 | _InstInfo_T_5) ? (_io_ID_npc_T_8 ? {_immI_T_2,
-                io_IF_Inst[31:20]} : _io_ID_RegWriteEn_T_3 ? {{32{io_IF_Inst[31]}}, io_IF_Inst[31:12],
-                12'h0} : 64'h0) : 64'h0;	// <stdin>:12:10, Bitwise.scala:77:12, Cat.scala:33:92, IDU.scala:48:{36,53}, :49:{10,53,63}, :57:30, :88:19, :90:19, Lookup.scala:31:38, :34:39, Mux.scala:101:16
+                io_IF_Inst[31:20]} : _io_ID_npc_T_4 ? {{53{io_IF_Inst[31]}}, io_IF_Inst[7],
+                io_IF_Inst[30:25], io_IF_Inst[11:8]} : _io_ID_RegWriteEn_T_3 ? {{32{io_IF_Inst[31]}},
+                io_IF_Inst[31:12], 12'h0} : InstInfo_0 == 3'h4 ? {_GEN_0, io_IF_Inst[31:25],
+                io_IF_Inst[11:7]} : 64'h0) : 64'h0;	// <stdin>:12:10, Bitwise.scala:77:12, Cat.scala:33:92, IDU.scala:48:{36,53}, :49:{10,53,63}, :50:{10,53,80}, :51:{80,107,128}, :57:30, :88:19, :89:19, :90:19, :91:19, Lookup.scala:31:38, :34:39, Mux.scala:101:16
   assign io_ID_optype = {3'h0, _InstInfo_T_1 | _InstInfo_T_3 | _InstInfo_T_5 | _InstInfo_T_7 | _InstInfo_T_26};	// <stdin>:12:10, IDU.scala:38:21, Lookup.scala:31:38, :34:39
   assign io_ID_RegWriteID = io_IF_Inst[11:7];	// <stdin>:12:10, IDU.scala:50:80
-  assign io_ID_RegWriteEn = _io_ID_npc_T_8 | _io_ID_RegWriteEn_T_3 | _io_ID_npc_T;	// <stdin>:12:10, IDU.scala:88:19, :90:19, :109:{101,114}
+  assign io_ID_RegWriteEn = InstInfo_0 == 3'h2 | _io_ID_npc_T_8 | _io_ID_RegWriteEn_T_3 | _io_ID_npc_T;	// <stdin>:12:10, IDU.scala:88:19, :90:19, :109:{39,101,114}, Lookup.scala:34:39
   assign io_ID_GPR_0 = GPR_0;	// <stdin>:12:10, IDU.scala:57:22
   assign io_ID_GPR_1 = GPR_1;	// <stdin>:12:10, IDU.scala:57:22
   assign io_ID_GPR_2 = GPR_2;	// <stdin>:12:10, IDU.scala:57:22
@@ -492,7 +497,7 @@ module IDU(	// <stdin>:12:10
   assign io_ID_GPR_29 = GPR_29;	// <stdin>:12:10, IDU.scala:57:22
   assign io_ID_GPR_30 = GPR_30;	// <stdin>:12:10, IDU.scala:57:22
   assign io_ID_GPR_31 = GPR_31;	// <stdin>:12:10, IDU.scala:57:22
-  assign io_ID_unknown_inst = _GEN_0 == 2'h0;	// <stdin>:12:10, IDU.scala:33:39, :35:21, Lookup.scala:34:39
+  assign io_ID_unknown_inst = InstInfo_0 == 3'h0;	// <stdin>:12:10, IDU.scala:33:39, Lookup.scala:34:39
 endmodule
 
 module EXU(	// <stdin>:240:10
@@ -628,6 +633,7 @@ module top(	// <stdin>:265:10
     .io_EX_RegWriteEn   (_excute_unit_io_EX_RegWriteEn)
   );
 
+
 wire [63:0] GPR [31:0];
 assign {GPR[31], GPR[30], GPR[29], GPR[28], GPR[27], GPR[26], GPR[25], GPR[24], GPR[23], GPR[22], GPR[21], GPR[20]
 , GPR[19], GPR[18], GPR[17], GPR[16], GPR[15], GPR[14], GPR[13], GPR[12], GPR[11], GPR[10], GPR[9], GPR[8], GPR[7]
@@ -645,7 +651,7 @@ assign {GPR[31], GPR[30], GPR[29], GPR[28], GPR[27], GPR[26], GPR[25], GPR[24], 
 sim simulate (	// top.scala:24:26
    .inst   (io_inst),
    .GPR    (GPR),
-   .unknown_inst_flag (_inst_decode_unit_io_ID_unknown_inst)	// top.scala:22:34
+   .unknown_inst_flag (_inst_decode_unit_io_ID_unknown_inst)
 );
 
   assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:265:10, top.scala:21:33
