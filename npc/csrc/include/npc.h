@@ -35,8 +35,14 @@ extern void reg_display();
 extern uint64_t reg_str2val(const char *s, bool *success);
 
 //仿照NEMU的一个状态。NPC里可以直接接收ebreak指令，所以只需要一个状态位就够了。
+typedef struct NPCState{
+    uint64_t pc;
+    uint64_t inst;
+    uint32_t state;
+}NPCState;
+
 enum { NPC_RUNNING, NPC_STOP, NPC_END, NPC_ABORT, NPC_QUIT };
-extern uint32_t npc_state;
+extern NPCState npc_state;
 
 //表达式求值
 extern uint64_t expr(char *e, bool *success);

@@ -35,7 +35,7 @@ int main(int argc, char **argv, char **env)
     init_sdb();
     init_disasm("riscv64");
     init_ftrace(argv[2]);
-    while (!contextp->gotFinish() && npc_state != NPC_QUIT)
+    while (!contextp->gotFinish() && npc_state.state != NPC_QUIT)
         sdb_mainloop();
     top->final();
     // Coverage analysis (calling write only after the test is known to pass)
@@ -46,7 +46,7 @@ int main(int argc, char **argv, char **env)
 
     // Return good completion status
     // Don't use exit() or destructor won't get called
-    return npc_state == NPC_END;
+    return npc_state.state == NPC_END;
 }
 
 void init(int argc, char **argv)

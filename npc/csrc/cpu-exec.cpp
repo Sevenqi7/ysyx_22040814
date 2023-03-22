@@ -25,7 +25,7 @@ static void trace_and_difftest(char *logbuf, uint64_t *inst)
 #endif
 #ifdef CONFIG_WATCHPOINT
     if(check_watchpoints())
-        npc_state = NPC_STOP;
+        npc_state.state = NPC_STOP;
 #endif
 }
 
@@ -48,8 +48,8 @@ void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
 
 void exec_once()
 {
-    uint64_t current_inst = pmem_read(top->io_IF_pc, 4);
-    uint64_t current_pc   = top->io_IF_pc;
+    npc_state.inst = pmem_read(top->io_IF_pc, 4);
+    npc_state.pc   = top->io_IF_pc;
     for(int i=0;i<2;i++)
     {
         contextp->timeInc(1); // 1 timeprecision period passes...
@@ -69,13 +69,13 @@ void exec_once()
     char logbuf[128];
     #ifdef CONFIG_ITRACE
     char *p = logbuf;
-    p += snprintf(p, sizeof(logbuf), "0x%016lx" ":", current_pc);
-    uint8_t *inst = (uint8_t *)&current_inst;
+    p += snprintf(p, sizeof(logbuf), "0x%016lx" ":", npc_state.pc);
+    uint8_t *inst = (uint8_t *)&npc_state.inst;
     for(int i=3;i>=0;i--)
         p += snprintf(p, 4, "%02x", inst[i]);
     Log("logbuf:%s", logbuf);
     *p++ = ' ';
-    disassemble(p, logbuf + sizeof(logbuf) - p, current_pc, inst, 4);        //riscv64所有指令都是32位长
+    disassemble(p, logbuf + sizeof(logbuf) - p, npc_state.pc, inst, 4);        //riscv64所有指令都是32位长
     memcpy(g_itrace_buf[g_itrace_end], logbuf, strlen(logbuf)+1);
     if(g_itrace_num < MAX_ITRACE_STORE) g_itrace_num++;
     else  g_itrace_base = g_itrace_base < MAX_ITRACE_STORE - 1 ? g_itrace_base+1 : 0;
@@ -88,20 +88,20 @@ void exec_once()
 void execute(uint64_t n)
 {
     g_print_step = (n < MAX_INST_TO_PRINT);
-    switch(npc_state)
+    switch(npc_state.state)
     {
         case NPC_END: case NPC_ABORT:
         printf("Simulation has ended.\n");
         return ;
-        default: npc_state = NPC_RUNNING;
+        default: npc_state.state = NPC_RUNNING;
     }
 
     for(int i=0;i<n;i++)
     {
         exec_once();
-        if(npc_state != NPC_RUNNING) break;
+        if(npc_state.state != NPC_RUNNING) break;
     }
 
-    if(npc_state == NPC_ABORT)
+    if(npc_state.state == NPC_ABORT)
         display_itrace();
 }
