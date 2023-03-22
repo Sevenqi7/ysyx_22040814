@@ -82,7 +82,39 @@ module IDU(	// <stdin>:12:10
   output [3:0]  io_ID_optype,
   output [4:0]  io_ID_RegWriteID,
   output        io_ID_RegWriteEn,
-  output [63:0] io_ID_GPR10);
+  output [63:0] io_ID_GPR_0,
+                io_ID_GPR_1,
+                io_ID_GPR_2,
+                io_ID_GPR_3,
+                io_ID_GPR_4,
+                io_ID_GPR_5,
+                io_ID_GPR_6,
+                io_ID_GPR_7,
+                io_ID_GPR_8,
+                io_ID_GPR_9,
+                io_ID_GPR_10,
+                io_ID_GPR_11,
+                io_ID_GPR_12,
+                io_ID_GPR_13,
+                io_ID_GPR_14,
+                io_ID_GPR_15,
+                io_ID_GPR_16,
+                io_ID_GPR_17,
+                io_ID_GPR_18,
+                io_ID_GPR_19,
+                io_ID_GPR_20,
+                io_ID_GPR_21,
+                io_ID_GPR_22,
+                io_ID_GPR_23,
+                io_ID_GPR_24,
+                io_ID_GPR_25,
+                io_ID_GPR_26,
+                io_ID_GPR_27,
+                io_ID_GPR_28,
+                io_ID_GPR_29,
+                io_ID_GPR_30,
+                io_ID_GPR_31,
+  output        io_ID_unknown_inst);
 
   wire              _InstInfo_T_1 = io_IF_Inst == 32'h100073;	// Lookup.scala:31:38
   wire              _InstInfo_T_3 = io_IF_Inst[6:0] == 7'h17;	// Lookup.scala:31:38
@@ -90,156 +122,158 @@ module IDU(	// <stdin>:12:10
   wire              _InstInfo_T_5 = _GEN == 10'h13;	// Lookup.scala:31:38
   wire              _InstInfo_T_7 = _GEN == 10'h67;	// Lookup.scala:31:38
   wire              _InstInfo_T_26 = io_IF_Inst[6:0] == 7'h6F;	// Lookup.scala:31:38
-  wire [1:0]        _GEN_0 = _InstInfo_T_1 ? 2'h3 : _InstInfo_T_3 ? 2'h1 : _InstInfo_T_5 | _InstInfo_T_7 ? 2'h0 :
-                {_InstInfo_T_26, 1'h0};	// IDU.scala:33:21, :36:21, Lookup.scala:31:38, :34:39
+  wire [2:0]        InstInfo_0 = _InstInfo_T_1 ? 3'h7 : _InstInfo_T_3 ? 3'h3 : _InstInfo_T_5 | _InstInfo_T_7 ? 3'h1 :
+                _InstInfo_T_26 ? 3'h5 : 3'h0;	// Lookup.scala:31:38, :34:39
   wire [2:0]        InstInfo_2 = _InstInfo_T_1 ? 3'h0 : _InstInfo_T_3 ? 3'h1 : _InstInfo_T_5 ? 3'h2 : _InstInfo_T_7 |
-                _InstInfo_T_26 ? 3'h5 : 3'h0;	// IDU.scala:107:39, Lookup.scala:31:38, :34:39
-  wire [51:0]       _immI_T_2 = {52{io_IF_Inst[31]}};	// Bitwise.scala:77:12, IDU.scala:46:36
-  reg  [63:0]       GPR_0;	// IDU.scala:55:22
-  reg  [63:0]       GPR_1;	// IDU.scala:55:22
-  reg  [63:0]       GPR_2;	// IDU.scala:55:22
-  reg  [63:0]       GPR_3;	// IDU.scala:55:22
-  reg  [63:0]       GPR_4;	// IDU.scala:55:22
-  reg  [63:0]       GPR_5;	// IDU.scala:55:22
-  reg  [63:0]       GPR_6;	// IDU.scala:55:22
-  reg  [63:0]       GPR_7;	// IDU.scala:55:22
-  reg  [63:0]       GPR_8;	// IDU.scala:55:22
-  reg  [63:0]       GPR_9;	// IDU.scala:55:22
-  reg  [63:0]       GPR_10;	// IDU.scala:55:22
-  reg  [63:0]       GPR_11;	// IDU.scala:55:22
-  reg  [63:0]       GPR_12;	// IDU.scala:55:22
-  reg  [63:0]       GPR_13;	// IDU.scala:55:22
-  reg  [63:0]       GPR_14;	// IDU.scala:55:22
-  reg  [63:0]       GPR_15;	// IDU.scala:55:22
-  reg  [63:0]       GPR_16;	// IDU.scala:55:22
-  reg  [63:0]       GPR_17;	// IDU.scala:55:22
-  reg  [63:0]       GPR_18;	// IDU.scala:55:22
-  reg  [63:0]       GPR_19;	// IDU.scala:55:22
-  reg  [63:0]       GPR_20;	// IDU.scala:55:22
-  reg  [63:0]       GPR_21;	// IDU.scala:55:22
-  reg  [63:0]       GPR_22;	// IDU.scala:55:22
-  reg  [63:0]       GPR_23;	// IDU.scala:55:22
-  reg  [63:0]       GPR_24;	// IDU.scala:55:22
-  reg  [63:0]       GPR_25;	// IDU.scala:55:22
-  reg  [63:0]       GPR_26;	// IDU.scala:55:22
-  reg  [63:0]       GPR_27;	// IDU.scala:55:22
-  reg  [63:0]       GPR_28;	// IDU.scala:55:22
-  reg  [63:0]       GPR_29;	// IDU.scala:55:22
-  reg  [63:0]       GPR_30;	// IDU.scala:55:22
-  reg  [63:0]       GPR_31;	// IDU.scala:55:22
+                _InstInfo_T_26 ? 3'h5 : 3'h0;	// IDU.scala:109:39, Lookup.scala:31:38, :34:39
+  wire [51:0]       _immI_T_2 = {52{io_IF_Inst[31]}};	// Bitwise.scala:77:12, IDU.scala:48:36
+  wire [51:0]       _GEN_0 = {52{io_IF_Inst[31]}};	// IDU.scala:48:36, :50:10
+  reg  [63:0]       GPR_0;	// IDU.scala:57:22
+  reg  [63:0]       GPR_1;	// IDU.scala:57:22
+  reg  [63:0]       GPR_2;	// IDU.scala:57:22
+  reg  [63:0]       GPR_3;	// IDU.scala:57:22
+  reg  [63:0]       GPR_4;	// IDU.scala:57:22
+  reg  [63:0]       GPR_5;	// IDU.scala:57:22
+  reg  [63:0]       GPR_6;	// IDU.scala:57:22
+  reg  [63:0]       GPR_7;	// IDU.scala:57:22
+  reg  [63:0]       GPR_8;	// IDU.scala:57:22
+  reg  [63:0]       GPR_9;	// IDU.scala:57:22
+  reg  [63:0]       GPR_10;	// IDU.scala:57:22
+  reg  [63:0]       GPR_11;	// IDU.scala:57:22
+  reg  [63:0]       GPR_12;	// IDU.scala:57:22
+  reg  [63:0]       GPR_13;	// IDU.scala:57:22
+  reg  [63:0]       GPR_14;	// IDU.scala:57:22
+  reg  [63:0]       GPR_15;	// IDU.scala:57:22
+  reg  [63:0]       GPR_16;	// IDU.scala:57:22
+  reg  [63:0]       GPR_17;	// IDU.scala:57:22
+  reg  [63:0]       GPR_18;	// IDU.scala:57:22
+  reg  [63:0]       GPR_19;	// IDU.scala:57:22
+  reg  [63:0]       GPR_20;	// IDU.scala:57:22
+  reg  [63:0]       GPR_21;	// IDU.scala:57:22
+  reg  [63:0]       GPR_22;	// IDU.scala:57:22
+  reg  [63:0]       GPR_23;	// IDU.scala:57:22
+  reg  [63:0]       GPR_24;	// IDU.scala:57:22
+  reg  [63:0]       GPR_25;	// IDU.scala:57:22
+  reg  [63:0]       GPR_26;	// IDU.scala:57:22
+  reg  [63:0]       GPR_27;	// IDU.scala:57:22
+  reg  [63:0]       GPR_28;	// IDU.scala:57:22
+  reg  [63:0]       GPR_29;	// IDU.scala:57:22
+  reg  [63:0]       GPR_30;	// IDU.scala:57:22
+  reg  [63:0]       GPR_31;	// IDU.scala:57:22
   wire [31:0][63:0] _GEN_1 = {{GPR_31}, {GPR_30}, {GPR_29}, {GPR_28}, {GPR_27}, {GPR_26}, {GPR_25}, {GPR_24}, {GPR_23},
                 {GPR_22}, {GPR_21}, {GPR_20}, {GPR_19}, {GPR_18}, {GPR_17}, {GPR_16}, {GPR_15}, {GPR_14},
                 {GPR_13}, {GPR_12}, {GPR_11}, {GPR_10}, {GPR_9}, {GPR_8}, {GPR_7}, {GPR_6}, {GPR_5},
-                {GPR_4}, {GPR_3}, {GPR_2}, {GPR_1}, {GPR_0}};	// IDU.scala:55:22, :66:20
-  wire [63:0]       _GEN_2;	// IDU.scala:66:20
+                {GPR_4}, {GPR_3}, {GPR_2}, {GPR_1}, {GPR_0}};	// IDU.scala:57:22, :68:20
+  wire [63:0]       _GEN_2;	// IDU.scala:68:20
   /* synopsys infer_mux_override */
-  assign _GEN_2 = _GEN_1[io_IF_Inst[19:15]] /* cadence map_to_mux */;	// IDU.scala:64:22, :66:20
-  wire [63:0]       _rs1_data_T_1 = io_IF_Inst[19:15] == 5'h0 ? 64'h0 : _GEN_2;	// IDU.scala:48:63, :55:30, :64:22, :66:{20,25}
-  wire              _io_ID_npc_T_8 = _GEN_0 == 2'h0;	// IDU.scala:33:21, :86:19, Lookup.scala:34:39
-  wire              _io_ID_RegWriteEn_T_3 = _GEN_0 == 2'h1;	// IDU.scala:88:19, Lookup.scala:34:39
-  wire              _io_ID_npc_T_9 = InstInfo_2 == 3'h5;	// IDU.scala:96:15, Lookup.scala:34:39
-  wire [63:0]       _io_ID_ALU_Data1_T_5 = io_IF_pc + 64'h4;	// IDU.scala:96:33
-  wire              _io_ID_npc_T = _GEN_0 == 2'h2;	// IDU.scala:107:114, Lookup.scala:34:39
+  assign _GEN_2 = _GEN_1[io_IF_Inst[19:15]] /* cadence map_to_mux */;	// IDU.scala:66:22, :68:20
+  wire [63:0]       _rs1_data_T_1 = io_IF_Inst[19:15] == 5'h0 ? 64'h0 : _GEN_2;	// IDU.scala:50:63, :57:30, :66:22, :68:{20,25}
+  wire              _io_ID_npc_T_8 = InstInfo_0 == 3'h1;	// IDU.scala:88:19, Lookup.scala:34:39
+  wire              _io_ID_npc_T_4 = InstInfo_0 == 3'h6;	// IDU.scala:89:19, Lookup.scala:34:39
+  wire              _io_ID_RegWriteEn_T_3 = InstInfo_0 == 3'h3;	// IDU.scala:90:19, Lookup.scala:34:39
+  wire              _io_ID_npc_T_9 = InstInfo_2 == 3'h5;	// IDU.scala:98:15, Lookup.scala:34:39
+  wire [63:0]       _io_ID_ALU_Data1_T_5 = io_IF_pc + 64'h4;	// IDU.scala:98:33
+  wire              _io_ID_npc_T = InstInfo_0 == 3'h5;	// IDU.scala:109:114, Lookup.scala:34:39
   always @(posedge clock) begin
     if (reset) begin
-      GPR_0 <= 64'h0;	// IDU.scala:55:{22,30}
-      GPR_1 <= 64'h0;	// IDU.scala:55:{22,30}
-      GPR_2 <= 64'h0;	// IDU.scala:55:{22,30}
-      GPR_3 <= 64'h0;	// IDU.scala:55:{22,30}
-      GPR_4 <= 64'h0;	// IDU.scala:55:{22,30}
-      GPR_5 <= 64'h0;	// IDU.scala:55:{22,30}
-      GPR_6 <= 64'h0;	// IDU.scala:55:{22,30}
-      GPR_7 <= 64'h0;	// IDU.scala:55:{22,30}
-      GPR_8 <= 64'h0;	// IDU.scala:55:{22,30}
-      GPR_9 <= 64'h0;	// IDU.scala:55:{22,30}
-      GPR_10 <= 64'h0;	// IDU.scala:55:{22,30}
-      GPR_11 <= 64'h0;	// IDU.scala:55:{22,30}
-      GPR_12 <= 64'h0;	// IDU.scala:55:{22,30}
-      GPR_13 <= 64'h0;	// IDU.scala:55:{22,30}
-      GPR_14 <= 64'h0;	// IDU.scala:55:{22,30}
-      GPR_15 <= 64'h0;	// IDU.scala:55:{22,30}
-      GPR_16 <= 64'h0;	// IDU.scala:55:{22,30}
-      GPR_17 <= 64'h0;	// IDU.scala:55:{22,30}
-      GPR_18 <= 64'h0;	// IDU.scala:55:{22,30}
-      GPR_19 <= 64'h0;	// IDU.scala:55:{22,30}
-      GPR_20 <= 64'h0;	// IDU.scala:55:{22,30}
-      GPR_21 <= 64'h0;	// IDU.scala:55:{22,30}
-      GPR_22 <= 64'h0;	// IDU.scala:55:{22,30}
-      GPR_23 <= 64'h0;	// IDU.scala:55:{22,30}
-      GPR_24 <= 64'h0;	// IDU.scala:55:{22,30}
-      GPR_25 <= 64'h0;	// IDU.scala:55:{22,30}
-      GPR_26 <= 64'h0;	// IDU.scala:55:{22,30}
-      GPR_27 <= 64'h0;	// IDU.scala:55:{22,30}
-      GPR_28 <= 64'h0;	// IDU.scala:55:{22,30}
-      GPR_29 <= 64'h0;	// IDU.scala:55:{22,30}
-      GPR_30 <= 64'h0;	// IDU.scala:55:{22,30}
-      GPR_31 <= 64'h0;	// IDU.scala:55:{22,30}
+      GPR_0 <= 64'h0;	// IDU.scala:57:{22,30}
+      GPR_1 <= 64'h0;	// IDU.scala:57:{22,30}
+      GPR_2 <= 64'h0;	// IDU.scala:57:{22,30}
+      GPR_3 <= 64'h0;	// IDU.scala:57:{22,30}
+      GPR_4 <= 64'h0;	// IDU.scala:57:{22,30}
+      GPR_5 <= 64'h0;	// IDU.scala:57:{22,30}
+      GPR_6 <= 64'h0;	// IDU.scala:57:{22,30}
+      GPR_7 <= 64'h0;	// IDU.scala:57:{22,30}
+      GPR_8 <= 64'h0;	// IDU.scala:57:{22,30}
+      GPR_9 <= 64'h0;	// IDU.scala:57:{22,30}
+      GPR_10 <= 64'h0;	// IDU.scala:57:{22,30}
+      GPR_11 <= 64'h0;	// IDU.scala:57:{22,30}
+      GPR_12 <= 64'h0;	// IDU.scala:57:{22,30}
+      GPR_13 <= 64'h0;	// IDU.scala:57:{22,30}
+      GPR_14 <= 64'h0;	// IDU.scala:57:{22,30}
+      GPR_15 <= 64'h0;	// IDU.scala:57:{22,30}
+      GPR_16 <= 64'h0;	// IDU.scala:57:{22,30}
+      GPR_17 <= 64'h0;	// IDU.scala:57:{22,30}
+      GPR_18 <= 64'h0;	// IDU.scala:57:{22,30}
+      GPR_19 <= 64'h0;	// IDU.scala:57:{22,30}
+      GPR_20 <= 64'h0;	// IDU.scala:57:{22,30}
+      GPR_21 <= 64'h0;	// IDU.scala:57:{22,30}
+      GPR_22 <= 64'h0;	// IDU.scala:57:{22,30}
+      GPR_23 <= 64'h0;	// IDU.scala:57:{22,30}
+      GPR_24 <= 64'h0;	// IDU.scala:57:{22,30}
+      GPR_25 <= 64'h0;	// IDU.scala:57:{22,30}
+      GPR_26 <= 64'h0;	// IDU.scala:57:{22,30}
+      GPR_27 <= 64'h0;	// IDU.scala:57:{22,30}
+      GPR_28 <= 64'h0;	// IDU.scala:57:{22,30}
+      GPR_29 <= 64'h0;	// IDU.scala:57:{22,30}
+      GPR_30 <= 64'h0;	// IDU.scala:57:{22,30}
+      GPR_31 <= 64'h0;	// IDU.scala:57:{22,30}
     end
     else begin
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h0)	// IDU.scala:48:63, :55:22, :70:5, :71:31
-        GPR_0 <= io_EX_RegWriteData;	// IDU.scala:55:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h1)	// IDU.scala:55:22, :70:5, :71:31
-        GPR_1 <= io_EX_RegWriteData;	// IDU.scala:55:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h2)	// IDU.scala:55:22, :70:5, :71:31
-        GPR_2 <= io_EX_RegWriteData;	// IDU.scala:55:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h3)	// IDU.scala:55:22, :70:5, :71:31
-        GPR_3 <= io_EX_RegWriteData;	// IDU.scala:55:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h4)	// IDU.scala:55:22, :70:5, :71:31
-        GPR_4 <= io_EX_RegWriteData;	// IDU.scala:55:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h5)	// IDU.scala:55:22, :70:5, :71:31
-        GPR_5 <= io_EX_RegWriteData;	// IDU.scala:55:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h6)	// IDU.scala:55:22, :70:5, :71:31
-        GPR_6 <= io_EX_RegWriteData;	// IDU.scala:55:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h7)	// IDU.scala:55:22, :70:5, :71:31
-        GPR_7 <= io_EX_RegWriteData;	// IDU.scala:55:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h8)	// IDU.scala:55:22, :70:5, :71:31
-        GPR_8 <= io_EX_RegWriteData;	// IDU.scala:55:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h9)	// IDU.scala:55:22, :70:5, :71:31
-        GPR_9 <= io_EX_RegWriteData;	// IDU.scala:55:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'hA)	// IDU.scala:55:22, :70:5, :71:31
-        GPR_10 <= io_EX_RegWriteData;	// IDU.scala:55:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'hB)	// IDU.scala:55:22, :70:5, :71:31
-        GPR_11 <= io_EX_RegWriteData;	// IDU.scala:55:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'hC)	// IDU.scala:55:22, :70:5, :71:31
-        GPR_12 <= io_EX_RegWriteData;	// IDU.scala:55:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'hD)	// IDU.scala:55:22, :70:5, :71:31
-        GPR_13 <= io_EX_RegWriteData;	// IDU.scala:55:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'hE)	// IDU.scala:55:22, :70:5, :71:31
-        GPR_14 <= io_EX_RegWriteData;	// IDU.scala:55:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'hF)	// IDU.scala:55:22, :70:5, :71:31
-        GPR_15 <= io_EX_RegWriteData;	// IDU.scala:55:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h10)	// IDU.scala:55:22, :70:5, :71:31
-        GPR_16 <= io_EX_RegWriteData;	// IDU.scala:55:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h11)	// IDU.scala:55:22, :70:5, :71:31
-        GPR_17 <= io_EX_RegWriteData;	// IDU.scala:55:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h12)	// IDU.scala:55:22, :70:5, :71:31
-        GPR_18 <= io_EX_RegWriteData;	// IDU.scala:55:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h13)	// IDU.scala:55:22, :70:5, :71:31, Lookup.scala:31:38
-        GPR_19 <= io_EX_RegWriteData;	// IDU.scala:55:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h14)	// IDU.scala:55:22, :70:5, :71:31
-        GPR_20 <= io_EX_RegWriteData;	// IDU.scala:55:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h15)	// IDU.scala:55:22, :70:5, :71:31
-        GPR_21 <= io_EX_RegWriteData;	// IDU.scala:55:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h16)	// IDU.scala:55:22, :70:5, :71:31
-        GPR_22 <= io_EX_RegWriteData;	// IDU.scala:55:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h17)	// IDU.scala:55:22, :70:5, :71:31, Lookup.scala:31:38
-        GPR_23 <= io_EX_RegWriteData;	// IDU.scala:55:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h18)	// IDU.scala:55:22, :70:5, :71:31
-        GPR_24 <= io_EX_RegWriteData;	// IDU.scala:55:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h19)	// IDU.scala:55:22, :70:5, :71:31
-        GPR_25 <= io_EX_RegWriteData;	// IDU.scala:55:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h1A)	// IDU.scala:55:22, :70:5, :71:31
-        GPR_26 <= io_EX_RegWriteData;	// IDU.scala:55:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h1B)	// IDU.scala:55:22, :70:5, :71:31
-        GPR_27 <= io_EX_RegWriteData;	// IDU.scala:55:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h1C)	// IDU.scala:55:22, :70:5, :71:31
-        GPR_28 <= io_EX_RegWriteData;	// IDU.scala:55:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h1D)	// IDU.scala:55:22, :70:5, :71:31
-        GPR_29 <= io_EX_RegWriteData;	// IDU.scala:55:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h1E)	// IDU.scala:55:22, :70:5, :71:31
-        GPR_30 <= io_EX_RegWriteData;	// IDU.scala:55:22
-      if (io_EX_RegWriteEn & (&io_EX_RegWriteID))	// IDU.scala:55:22, :70:5, :71:31
-        GPR_31 <= io_EX_RegWriteData;	// IDU.scala:55:22
+      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h0)	// IDU.scala:50:63, :57:22, :72:5, :73:31
+        GPR_0 <= io_EX_RegWriteData;	// IDU.scala:57:22
+      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h1)	// IDU.scala:57:22, :72:5, :73:31
+        GPR_1 <= io_EX_RegWriteData;	// IDU.scala:57:22
+      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h2)	// IDU.scala:57:22, :72:5, :73:31
+        GPR_2 <= io_EX_RegWriteData;	// IDU.scala:57:22
+      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h3)	// IDU.scala:57:22, :72:5, :73:31
+        GPR_3 <= io_EX_RegWriteData;	// IDU.scala:57:22
+      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h4)	// IDU.scala:57:22, :72:5, :73:31
+        GPR_4 <= io_EX_RegWriteData;	// IDU.scala:57:22
+      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h5)	// IDU.scala:57:22, :72:5, :73:31
+        GPR_5 <= io_EX_RegWriteData;	// IDU.scala:57:22
+      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h6)	// IDU.scala:57:22, :72:5, :73:31
+        GPR_6 <= io_EX_RegWriteData;	// IDU.scala:57:22
+      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h7)	// IDU.scala:57:22, :72:5, :73:31
+        GPR_7 <= io_EX_RegWriteData;	// IDU.scala:57:22
+      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h8)	// IDU.scala:57:22, :72:5, :73:31
+        GPR_8 <= io_EX_RegWriteData;	// IDU.scala:57:22
+      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h9)	// IDU.scala:57:22, :72:5, :73:31
+        GPR_9 <= io_EX_RegWriteData;	// IDU.scala:57:22
+      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'hA)	// IDU.scala:57:22, :72:5, :73:31
+        GPR_10 <= io_EX_RegWriteData;	// IDU.scala:57:22
+      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'hB)	// IDU.scala:57:22, :72:5, :73:31
+        GPR_11 <= io_EX_RegWriteData;	// IDU.scala:57:22
+      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'hC)	// IDU.scala:57:22, :72:5, :73:31
+        GPR_12 <= io_EX_RegWriteData;	// IDU.scala:57:22
+      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'hD)	// IDU.scala:57:22, :72:5, :73:31
+        GPR_13 <= io_EX_RegWriteData;	// IDU.scala:57:22
+      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'hE)	// IDU.scala:57:22, :72:5, :73:31
+        GPR_14 <= io_EX_RegWriteData;	// IDU.scala:57:22
+      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'hF)	// IDU.scala:57:22, :72:5, :73:31
+        GPR_15 <= io_EX_RegWriteData;	// IDU.scala:57:22
+      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h10)	// IDU.scala:57:22, :72:5, :73:31
+        GPR_16 <= io_EX_RegWriteData;	// IDU.scala:57:22
+      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h11)	// IDU.scala:57:22, :72:5, :73:31
+        GPR_17 <= io_EX_RegWriteData;	// IDU.scala:57:22
+      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h12)	// IDU.scala:57:22, :72:5, :73:31
+        GPR_18 <= io_EX_RegWriteData;	// IDU.scala:57:22
+      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h13)	// IDU.scala:57:22, :72:5, :73:31, Lookup.scala:31:38
+        GPR_19 <= io_EX_RegWriteData;	// IDU.scala:57:22
+      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h14)	// IDU.scala:57:22, :72:5, :73:31
+        GPR_20 <= io_EX_RegWriteData;	// IDU.scala:57:22
+      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h15)	// IDU.scala:57:22, :72:5, :73:31
+        GPR_21 <= io_EX_RegWriteData;	// IDU.scala:57:22
+      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h16)	// IDU.scala:57:22, :72:5, :73:31
+        GPR_22 <= io_EX_RegWriteData;	// IDU.scala:57:22
+      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h17)	// IDU.scala:57:22, :72:5, :73:31, Lookup.scala:31:38
+        GPR_23 <= io_EX_RegWriteData;	// IDU.scala:57:22
+      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h18)	// IDU.scala:57:22, :72:5, :73:31
+        GPR_24 <= io_EX_RegWriteData;	// IDU.scala:57:22
+      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h19)	// IDU.scala:57:22, :72:5, :73:31
+        GPR_25 <= io_EX_RegWriteData;	// IDU.scala:57:22
+      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h1A)	// IDU.scala:57:22, :72:5, :73:31
+        GPR_26 <= io_EX_RegWriteData;	// IDU.scala:57:22
+      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h1B)	// IDU.scala:57:22, :72:5, :73:31
+        GPR_27 <= io_EX_RegWriteData;	// IDU.scala:57:22
+      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h1C)	// IDU.scala:57:22, :72:5, :73:31
+        GPR_28 <= io_EX_RegWriteData;	// IDU.scala:57:22
+      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h1D)	// IDU.scala:57:22, :72:5, :73:31
+        GPR_29 <= io_EX_RegWriteData;	// IDU.scala:57:22
+      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h1E)	// IDU.scala:57:22, :72:5, :73:31
+        GPR_30 <= io_EX_RegWriteData;	// IDU.scala:57:22
+      if (io_EX_RegWriteEn & (&io_EX_RegWriteID))	// IDU.scala:57:22, :72:5, :73:31
+        GPR_31 <= io_EX_RegWriteData;	// IDU.scala:57:22
     end
   end // always @(posedge)
   `ifndef SYNTHESIS	// <stdin>:12:10
@@ -379,38 +413,38 @@ module IDU(	// <stdin>:12:10
         _RANDOM_61 = `RANDOM;	// <stdin>:12:10
         _RANDOM_62 = `RANDOM;	// <stdin>:12:10
         _RANDOM_63 = `RANDOM;	// <stdin>:12:10
-        GPR_0 = {_RANDOM_0, _RANDOM_1};	// IDU.scala:55:22
-        GPR_1 = {_RANDOM_2, _RANDOM_3};	// IDU.scala:55:22
-        GPR_2 = {_RANDOM_4, _RANDOM_5};	// IDU.scala:55:22
-        GPR_3 = {_RANDOM_6, _RANDOM_7};	// IDU.scala:55:22
-        GPR_4 = {_RANDOM_8, _RANDOM_9};	// IDU.scala:55:22
-        GPR_5 = {_RANDOM_10, _RANDOM_11};	// IDU.scala:55:22
-        GPR_6 = {_RANDOM_12, _RANDOM_13};	// IDU.scala:55:22
-        GPR_7 = {_RANDOM_14, _RANDOM_15};	// IDU.scala:55:22
-        GPR_8 = {_RANDOM_16, _RANDOM_17};	// IDU.scala:55:22
-        GPR_9 = {_RANDOM_18, _RANDOM_19};	// IDU.scala:55:22
-        GPR_10 = {_RANDOM_20, _RANDOM_21};	// IDU.scala:55:22
-        GPR_11 = {_RANDOM_22, _RANDOM_23};	// IDU.scala:55:22
-        GPR_12 = {_RANDOM_24, _RANDOM_25};	// IDU.scala:55:22
-        GPR_13 = {_RANDOM_26, _RANDOM_27};	// IDU.scala:55:22
-        GPR_14 = {_RANDOM_28, _RANDOM_29};	// IDU.scala:55:22
-        GPR_15 = {_RANDOM_30, _RANDOM_31};	// IDU.scala:55:22
-        GPR_16 = {_RANDOM_32, _RANDOM_33};	// IDU.scala:55:22
-        GPR_17 = {_RANDOM_34, _RANDOM_35};	// IDU.scala:55:22
-        GPR_18 = {_RANDOM_36, _RANDOM_37};	// IDU.scala:55:22
-        GPR_19 = {_RANDOM_38, _RANDOM_39};	// IDU.scala:55:22
-        GPR_20 = {_RANDOM_40, _RANDOM_41};	// IDU.scala:55:22
-        GPR_21 = {_RANDOM_42, _RANDOM_43};	// IDU.scala:55:22
-        GPR_22 = {_RANDOM_44, _RANDOM_45};	// IDU.scala:55:22
-        GPR_23 = {_RANDOM_46, _RANDOM_47};	// IDU.scala:55:22
-        GPR_24 = {_RANDOM_48, _RANDOM_49};	// IDU.scala:55:22
-        GPR_25 = {_RANDOM_50, _RANDOM_51};	// IDU.scala:55:22
-        GPR_26 = {_RANDOM_52, _RANDOM_53};	// IDU.scala:55:22
-        GPR_27 = {_RANDOM_54, _RANDOM_55};	// IDU.scala:55:22
-        GPR_28 = {_RANDOM_56, _RANDOM_57};	// IDU.scala:55:22
-        GPR_29 = {_RANDOM_58, _RANDOM_59};	// IDU.scala:55:22
-        GPR_30 = {_RANDOM_60, _RANDOM_61};	// IDU.scala:55:22
-        GPR_31 = {_RANDOM_62, _RANDOM_63};	// IDU.scala:55:22
+        GPR_0 = {_RANDOM_0, _RANDOM_1};	// IDU.scala:57:22
+        GPR_1 = {_RANDOM_2, _RANDOM_3};	// IDU.scala:57:22
+        GPR_2 = {_RANDOM_4, _RANDOM_5};	// IDU.scala:57:22
+        GPR_3 = {_RANDOM_6, _RANDOM_7};	// IDU.scala:57:22
+        GPR_4 = {_RANDOM_8, _RANDOM_9};	// IDU.scala:57:22
+        GPR_5 = {_RANDOM_10, _RANDOM_11};	// IDU.scala:57:22
+        GPR_6 = {_RANDOM_12, _RANDOM_13};	// IDU.scala:57:22
+        GPR_7 = {_RANDOM_14, _RANDOM_15};	// IDU.scala:57:22
+        GPR_8 = {_RANDOM_16, _RANDOM_17};	// IDU.scala:57:22
+        GPR_9 = {_RANDOM_18, _RANDOM_19};	// IDU.scala:57:22
+        GPR_10 = {_RANDOM_20, _RANDOM_21};	// IDU.scala:57:22
+        GPR_11 = {_RANDOM_22, _RANDOM_23};	// IDU.scala:57:22
+        GPR_12 = {_RANDOM_24, _RANDOM_25};	// IDU.scala:57:22
+        GPR_13 = {_RANDOM_26, _RANDOM_27};	// IDU.scala:57:22
+        GPR_14 = {_RANDOM_28, _RANDOM_29};	// IDU.scala:57:22
+        GPR_15 = {_RANDOM_30, _RANDOM_31};	// IDU.scala:57:22
+        GPR_16 = {_RANDOM_32, _RANDOM_33};	// IDU.scala:57:22
+        GPR_17 = {_RANDOM_34, _RANDOM_35};	// IDU.scala:57:22
+        GPR_18 = {_RANDOM_36, _RANDOM_37};	// IDU.scala:57:22
+        GPR_19 = {_RANDOM_38, _RANDOM_39};	// IDU.scala:57:22
+        GPR_20 = {_RANDOM_40, _RANDOM_41};	// IDU.scala:57:22
+        GPR_21 = {_RANDOM_42, _RANDOM_43};	// IDU.scala:57:22
+        GPR_22 = {_RANDOM_44, _RANDOM_45};	// IDU.scala:57:22
+        GPR_23 = {_RANDOM_46, _RANDOM_47};	// IDU.scala:57:22
+        GPR_24 = {_RANDOM_48, _RANDOM_49};	// IDU.scala:57:22
+        GPR_25 = {_RANDOM_50, _RANDOM_51};	// IDU.scala:57:22
+        GPR_26 = {_RANDOM_52, _RANDOM_53};	// IDU.scala:57:22
+        GPR_27 = {_RANDOM_54, _RANDOM_55};	// IDU.scala:57:22
+        GPR_28 = {_RANDOM_56, _RANDOM_57};	// IDU.scala:57:22
+        GPR_29 = {_RANDOM_58, _RANDOM_59};	// IDU.scala:57:22
+        GPR_30 = {_RANDOM_60, _RANDOM_61};	// IDU.scala:57:22
+        GPR_31 = {_RANDOM_62, _RANDOM_63};	// IDU.scala:57:22
       `endif // RANDOMIZE_REG_INIT
     end // initial
     `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:12:10
@@ -418,20 +452,55 @@ module IDU(	// <stdin>:12:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
   assign io_ID_npc = _io_ID_npc_T ? io_IF_pc + {{44{io_IF_Inst[31]}}, io_IF_Inst[19:12], io_IF_Inst[20],
-                io_IF_Inst[30:21], 1'h0} : _io_ID_npc_T_8 & _io_ID_npc_T_9 ? _rs1_data_T_1 + {_immI_T_2,
-                io_IF_Inst[31:20]} : {32'h0, _io_ID_ALU_Data1_T_5[31:0]};	// <stdin>:12:10, Bitwise.scala:77:12, IDU.scala:36:21, :46:{36,53}, :50:{54,76,101}, :66:20, :86:19, :96:{15,33}, :107:114, :111:13, :113:40, :115:{31,58}, Mux.scala:101:16
+                io_IF_Inst[30:21], 1'h0} : _io_ID_npc_T_4 ? io_IF_pc + {_GEN_0, io_IF_Inst[7],
+                io_IF_Inst[30:25], io_IF_Inst[11:8], 1'h0} : _io_ID_npc_T_8 & _io_ID_npc_T_9 ?
+                _rs1_data_T_1 + {_immI_T_2, io_IF_Inst[31:20]} : {32'h0, _io_ID_ALU_Data1_T_5[31:0]};	// <stdin>:12:10, Bitwise.scala:77:12, IDU.scala:38:21, :48:{36,53}, :50:10, :51:{80,107,128}, :52:{54,76,101}, :68:20, :88:19, :89:19, :98:{15,33}, :109:114, :113:13, :115:40, :116:40, :117:{31,58}, Mux.scala:101:16
   assign io_ID_ALU_Data1 = InstInfo_2 == 3'h0 ? 64'h0 : InstInfo_2 == 3'h1 ? io_IF_pc : InstInfo_2 == 3'h2 ?
-                _rs1_data_T_1 : _io_ID_npc_T_9 ? _io_ID_ALU_Data1_T_5 : 64'h0;	// <stdin>:12:10, IDU.scala:55:30, :66:20, :93:15, :94:15, :95:15, :96:{15,33}, :107:39, Lookup.scala:34:39, Mux.scala:101:16
+                _rs1_data_T_1 : _io_ID_npc_T_9 ? _io_ID_ALU_Data1_T_5 : 64'h0;	// <stdin>:12:10, IDU.scala:57:30, :68:20, :95:15, :96:15, :97:15, :98:{15,33}, :109:39, Lookup.scala:34:39, Mux.scala:101:16
   assign io_ID_ALU_Data2 = ~_InstInfo_T_1 & (_InstInfo_T_3 | _InstInfo_T_5) ? (_io_ID_npc_T_8 ? {_immI_T_2,
-                io_IF_Inst[31:20]} : _io_ID_RegWriteEn_T_3 ? {{32{io_IF_Inst[31]}}, io_IF_Inst[31:12],
-                12'h0} : 64'h0) : 64'h0;	// <stdin>:12:10, Bitwise.scala:77:12, Cat.scala:33:92, IDU.scala:46:{36,53}, :47:{10,53,63}, :55:30, :86:19, :88:19, Lookup.scala:31:38, :34:39, Mux.scala:101:16
-  assign io_ID_optype = {3'h0, _InstInfo_T_1 | _InstInfo_T_3 | _InstInfo_T_5 | _InstInfo_T_7 | _InstInfo_T_26};	// <stdin>:12:10, IDU.scala:36:21, Lookup.scala:31:38, :34:39
-  assign io_ID_RegWriteID = io_IF_Inst[11:7];	// <stdin>:12:10, IDU.scala:48:80
-  assign io_ID_RegWriteEn = _io_ID_npc_T_8 | _io_ID_RegWriteEn_T_3 | _io_ID_npc_T;	// <stdin>:12:10, IDU.scala:86:19, :88:19, :107:{101,114}
-  assign io_ID_GPR10 = GPR_10;	// <stdin>:12:10, IDU.scala:55:22
+                io_IF_Inst[31:20]} : _io_ID_npc_T_4 ? {{53{io_IF_Inst[31]}}, io_IF_Inst[7],
+                io_IF_Inst[30:25], io_IF_Inst[11:8]} : _io_ID_RegWriteEn_T_3 ? {{32{io_IF_Inst[31]}},
+                io_IF_Inst[31:12], 12'h0} : InstInfo_0 == 3'h4 ? {_GEN_0, io_IF_Inst[31:25],
+                io_IF_Inst[11:7]} : 64'h0) : 64'h0;	// <stdin>:12:10, Bitwise.scala:77:12, Cat.scala:33:92, IDU.scala:48:{36,53}, :49:{10,53,63}, :50:{10,53,80}, :51:{80,107,128}, :57:30, :88:19, :89:19, :90:19, :91:19, Lookup.scala:31:38, :34:39, Mux.scala:101:16
+  assign io_ID_optype = {3'h0, _InstInfo_T_1 | _InstInfo_T_3 | _InstInfo_T_5 | _InstInfo_T_7 | _InstInfo_T_26};	// <stdin>:12:10, IDU.scala:38:21, Lookup.scala:31:38, :34:39
+  assign io_ID_RegWriteID = io_IF_Inst[11:7];	// <stdin>:12:10, IDU.scala:50:80
+  assign io_ID_RegWriteEn = InstInfo_0 == 3'h2 | _io_ID_npc_T_8 | _io_ID_RegWriteEn_T_3 | _io_ID_npc_T;	// <stdin>:12:10, IDU.scala:88:19, :90:19, :109:{39,101,114}, Lookup.scala:34:39
+  assign io_ID_GPR_0 = GPR_0;	// <stdin>:12:10, IDU.scala:57:22
+  assign io_ID_GPR_1 = GPR_1;	// <stdin>:12:10, IDU.scala:57:22
+  assign io_ID_GPR_2 = GPR_2;	// <stdin>:12:10, IDU.scala:57:22
+  assign io_ID_GPR_3 = GPR_3;	// <stdin>:12:10, IDU.scala:57:22
+  assign io_ID_GPR_4 = GPR_4;	// <stdin>:12:10, IDU.scala:57:22
+  assign io_ID_GPR_5 = GPR_5;	// <stdin>:12:10, IDU.scala:57:22
+  assign io_ID_GPR_6 = GPR_6;	// <stdin>:12:10, IDU.scala:57:22
+  assign io_ID_GPR_7 = GPR_7;	// <stdin>:12:10, IDU.scala:57:22
+  assign io_ID_GPR_8 = GPR_8;	// <stdin>:12:10, IDU.scala:57:22
+  assign io_ID_GPR_9 = GPR_9;	// <stdin>:12:10, IDU.scala:57:22
+  assign io_ID_GPR_10 = GPR_10;	// <stdin>:12:10, IDU.scala:57:22
+  assign io_ID_GPR_11 = GPR_11;	// <stdin>:12:10, IDU.scala:57:22
+  assign io_ID_GPR_12 = GPR_12;	// <stdin>:12:10, IDU.scala:57:22
+  assign io_ID_GPR_13 = GPR_13;	// <stdin>:12:10, IDU.scala:57:22
+  assign io_ID_GPR_14 = GPR_14;	// <stdin>:12:10, IDU.scala:57:22
+  assign io_ID_GPR_15 = GPR_15;	// <stdin>:12:10, IDU.scala:57:22
+  assign io_ID_GPR_16 = GPR_16;	// <stdin>:12:10, IDU.scala:57:22
+  assign io_ID_GPR_17 = GPR_17;	// <stdin>:12:10, IDU.scala:57:22
+  assign io_ID_GPR_18 = GPR_18;	// <stdin>:12:10, IDU.scala:57:22
+  assign io_ID_GPR_19 = GPR_19;	// <stdin>:12:10, IDU.scala:57:22
+  assign io_ID_GPR_20 = GPR_20;	// <stdin>:12:10, IDU.scala:57:22
+  assign io_ID_GPR_21 = GPR_21;	// <stdin>:12:10, IDU.scala:57:22
+  assign io_ID_GPR_22 = GPR_22;	// <stdin>:12:10, IDU.scala:57:22
+  assign io_ID_GPR_23 = GPR_23;	// <stdin>:12:10, IDU.scala:57:22
+  assign io_ID_GPR_24 = GPR_24;	// <stdin>:12:10, IDU.scala:57:22
+  assign io_ID_GPR_25 = GPR_25;	// <stdin>:12:10, IDU.scala:57:22
+  assign io_ID_GPR_26 = GPR_26;	// <stdin>:12:10, IDU.scala:57:22
+  assign io_ID_GPR_27 = GPR_27;	// <stdin>:12:10, IDU.scala:57:22
+  assign io_ID_GPR_28 = GPR_28;	// <stdin>:12:10, IDU.scala:57:22
+  assign io_ID_GPR_29 = GPR_29;	// <stdin>:12:10, IDU.scala:57:22
+  assign io_ID_GPR_30 = GPR_30;	// <stdin>:12:10, IDU.scala:57:22
+  assign io_ID_GPR_31 = GPR_31;	// <stdin>:12:10, IDU.scala:57:22
+  assign io_ID_unknown_inst = InstInfo_0 == 3'h0;	// <stdin>:12:10, IDU.scala:33:39, Lookup.scala:34:39
 endmodule
 
-module EXU(	// <stdin>:238:10
+module EXU(	// <stdin>:240:10
   input  [63:0] io_ID_ALU_Data1,
                 io_ID_ALU_Data2,
   input  [3:0]  io_ID_optype,
@@ -442,77 +511,162 @@ module EXU(	// <stdin>:238:10
   output        io_EX_RegWriteEn);
 
   assign io_EX_RegWriteData = io_ID_optype == 4'h1 ? io_ID_ALU_Data1 + io_ID_ALU_Data2 : io_ID_optype == 4'h2 ?
-                io_ID_ALU_Data1 - io_ID_ALU_Data2 : 64'h0;	// <stdin>:238:10, EXU.scala:25:{23,52}, :26:{23,52}, Mux.scala:101:16
-  assign io_EX_RegWriteID = io_ID_RegWriteID;	// <stdin>:238:10
-  assign io_EX_RegWriteEn = io_ID_RegWriteEn;	// <stdin>:238:10
+                io_ID_ALU_Data1 - io_ID_ALU_Data2 : 64'h0;	// <stdin>:240:10, EXU.scala:25:{23,52}, :26:{23,52}, Mux.scala:101:16
+  assign io_EX_RegWriteID = io_ID_RegWriteID;	// <stdin>:240:10
+  assign io_EX_RegWriteEn = io_ID_RegWriteEn;	// <stdin>:240:10
 endmodule
 
 // external module sim
 
-module top(	// <stdin>:262:10
+module top(	// <stdin>:265:10
   input         clock,
                 reset,
   input  [31:0] io_inst,
   output [63:0] io_IF_pc,
                 io_ALUResult);
 
-  wire [63:0] _excute_unit_io_EX_RegWriteData;	// top.scala:22:29
-  wire [4:0]  _excute_unit_io_EX_RegWriteID;	// top.scala:22:29
-  wire        _excute_unit_io_EX_RegWriteEn;	// top.scala:22:29
-  wire [63:0] _inst_decode_unit_io_ID_npc;	// top.scala:21:34
-  wire [63:0] _inst_decode_unit_io_ID_ALU_Data1;	// top.scala:21:34
-  wire [63:0] _inst_decode_unit_io_ID_ALU_Data2;	// top.scala:21:34
-  wire [3:0]  _inst_decode_unit_io_ID_optype;	// top.scala:21:34
-  wire [4:0]  _inst_decode_unit_io_ID_RegWriteID;	// top.scala:21:34
-  wire        _inst_decode_unit_io_ID_RegWriteEn;	// top.scala:21:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR10;	// top.scala:21:34
-  wire [63:0] _inst_fetch_unit_io_IF_pc;	// top.scala:20:33
-  IFU inst_fetch_unit (	// top.scala:20:33
+  wire [63:0] _excute_unit_io_EX_RegWriteData;	// top.scala:23:29
+  wire [4:0]  _excute_unit_io_EX_RegWriteID;	// top.scala:23:29
+  wire        _excute_unit_io_EX_RegWriteEn;	// top.scala:23:29
+  wire [63:0] _inst_decode_unit_io_ID_npc;	// top.scala:22:34
+  wire [63:0] _inst_decode_unit_io_ID_ALU_Data1;	// top.scala:22:34
+  wire [63:0] _inst_decode_unit_io_ID_ALU_Data2;	// top.scala:22:34
+  wire [3:0]  _inst_decode_unit_io_ID_optype;	// top.scala:22:34
+  wire [4:0]  _inst_decode_unit_io_ID_RegWriteID;	// top.scala:22:34
+  wire        _inst_decode_unit_io_ID_RegWriteEn;	// top.scala:22:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_0;	// top.scala:22:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_1;	// top.scala:22:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_2;	// top.scala:22:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_3;	// top.scala:22:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_4;	// top.scala:22:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_5;	// top.scala:22:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_6;	// top.scala:22:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_7;	// top.scala:22:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_8;	// top.scala:22:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_9;	// top.scala:22:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_10;	// top.scala:22:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_11;	// top.scala:22:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_12;	// top.scala:22:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_13;	// top.scala:22:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_14;	// top.scala:22:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_15;	// top.scala:22:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_16;	// top.scala:22:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_17;	// top.scala:22:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_18;	// top.scala:22:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_19;	// top.scala:22:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_20;	// top.scala:22:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_21;	// top.scala:22:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_22;	// top.scala:22:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_23;	// top.scala:22:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_24;	// top.scala:22:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_25;	// top.scala:22:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_26;	// top.scala:22:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_27;	// top.scala:22:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_28;	// top.scala:22:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_29;	// top.scala:22:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_30;	// top.scala:22:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_31;	// top.scala:22:34
+  wire        _inst_decode_unit_io_ID_unknown_inst;	// top.scala:22:34
+  wire [63:0] _inst_fetch_unit_io_IF_pc;	// top.scala:21:33
+  IFU inst_fetch_unit (	// top.scala:21:33
     .clock     (clock),
     .reset     (reset),
-    .io_IF_npc (_inst_decode_unit_io_ID_npc),	// top.scala:21:34
+    .io_IF_npc (_inst_decode_unit_io_ID_npc),	// top.scala:22:34
     .io_IF_pc  (_inst_fetch_unit_io_IF_pc)
   );
-  IDU inst_decode_unit (	// top.scala:21:34
+  IDU inst_decode_unit (	// top.scala:22:34
     .clock              (clock),
     .reset              (reset),
     .io_IF_Inst         (io_inst),
-    .io_IF_pc           (_inst_fetch_unit_io_IF_pc),	// top.scala:20:33
-    .io_EX_RegWriteData (_excute_unit_io_EX_RegWriteData),	// top.scala:22:29
-    .io_EX_RegWriteID   (_excute_unit_io_EX_RegWriteID),	// top.scala:22:29
-    .io_EX_RegWriteEn   (_excute_unit_io_EX_RegWriteEn),	// top.scala:22:29
+    .io_IF_pc           (_inst_fetch_unit_io_IF_pc),	// top.scala:21:33
+    .io_EX_RegWriteData (_excute_unit_io_EX_RegWriteData),	// top.scala:23:29
+    .io_EX_RegWriteID   (_excute_unit_io_EX_RegWriteID),	// top.scala:23:29
+    .io_EX_RegWriteEn   (_excute_unit_io_EX_RegWriteEn),	// top.scala:23:29
     .io_ID_npc          (_inst_decode_unit_io_ID_npc),
     .io_ID_ALU_Data1    (_inst_decode_unit_io_ID_ALU_Data1),
     .io_ID_ALU_Data2    (_inst_decode_unit_io_ID_ALU_Data2),
     .io_ID_optype       (_inst_decode_unit_io_ID_optype),
     .io_ID_RegWriteID   (_inst_decode_unit_io_ID_RegWriteID),
     .io_ID_RegWriteEn   (_inst_decode_unit_io_ID_RegWriteEn),
-    .io_ID_GPR10        (_inst_decode_unit_io_ID_GPR10)
+    .io_ID_GPR_0        (_inst_decode_unit_io_ID_GPR_0),
+    .io_ID_GPR_1        (_inst_decode_unit_io_ID_GPR_1),
+    .io_ID_GPR_2        (_inst_decode_unit_io_ID_GPR_2),
+    .io_ID_GPR_3        (_inst_decode_unit_io_ID_GPR_3),
+    .io_ID_GPR_4        (_inst_decode_unit_io_ID_GPR_4),
+    .io_ID_GPR_5        (_inst_decode_unit_io_ID_GPR_5),
+    .io_ID_GPR_6        (_inst_decode_unit_io_ID_GPR_6),
+    .io_ID_GPR_7        (_inst_decode_unit_io_ID_GPR_7),
+    .io_ID_GPR_8        (_inst_decode_unit_io_ID_GPR_8),
+    .io_ID_GPR_9        (_inst_decode_unit_io_ID_GPR_9),
+    .io_ID_GPR_10       (_inst_decode_unit_io_ID_GPR_10),
+    .io_ID_GPR_11       (_inst_decode_unit_io_ID_GPR_11),
+    .io_ID_GPR_12       (_inst_decode_unit_io_ID_GPR_12),
+    .io_ID_GPR_13       (_inst_decode_unit_io_ID_GPR_13),
+    .io_ID_GPR_14       (_inst_decode_unit_io_ID_GPR_14),
+    .io_ID_GPR_15       (_inst_decode_unit_io_ID_GPR_15),
+    .io_ID_GPR_16       (_inst_decode_unit_io_ID_GPR_16),
+    .io_ID_GPR_17       (_inst_decode_unit_io_ID_GPR_17),
+    .io_ID_GPR_18       (_inst_decode_unit_io_ID_GPR_18),
+    .io_ID_GPR_19       (_inst_decode_unit_io_ID_GPR_19),
+    .io_ID_GPR_20       (_inst_decode_unit_io_ID_GPR_20),
+    .io_ID_GPR_21       (_inst_decode_unit_io_ID_GPR_21),
+    .io_ID_GPR_22       (_inst_decode_unit_io_ID_GPR_22),
+    .io_ID_GPR_23       (_inst_decode_unit_io_ID_GPR_23),
+    .io_ID_GPR_24       (_inst_decode_unit_io_ID_GPR_24),
+    .io_ID_GPR_25       (_inst_decode_unit_io_ID_GPR_25),
+    .io_ID_GPR_26       (_inst_decode_unit_io_ID_GPR_26),
+    .io_ID_GPR_27       (_inst_decode_unit_io_ID_GPR_27),
+    .io_ID_GPR_28       (_inst_decode_unit_io_ID_GPR_28),
+    .io_ID_GPR_29       (_inst_decode_unit_io_ID_GPR_29),
+    .io_ID_GPR_30       (_inst_decode_unit_io_ID_GPR_30),
+    .io_ID_GPR_31       (_inst_decode_unit_io_ID_GPR_31),
+    .io_ID_unknown_inst (_inst_decode_unit_io_ID_unknown_inst)
   );
-  EXU excute_unit (	// top.scala:22:29
-    .io_ID_ALU_Data1    (_inst_decode_unit_io_ID_ALU_Data1),	// top.scala:21:34
-    .io_ID_ALU_Data2    (_inst_decode_unit_io_ID_ALU_Data2),	// top.scala:21:34
-    .io_ID_optype       (_inst_decode_unit_io_ID_optype),	// top.scala:21:34
-    .io_ID_RegWriteEn   (_inst_decode_unit_io_ID_RegWriteEn),	// top.scala:21:34
-    .io_ID_RegWriteID   (_inst_decode_unit_io_ID_RegWriteID),	// top.scala:21:34
+  EXU excute_unit (	// top.scala:23:29
+    .io_ID_ALU_Data1    (_inst_decode_unit_io_ID_ALU_Data1),	// top.scala:22:34
+    .io_ID_ALU_Data2    (_inst_decode_unit_io_ID_ALU_Data2),	// top.scala:22:34
+    .io_ID_optype       (_inst_decode_unit_io_ID_optype),	// top.scala:22:34
+    .io_ID_RegWriteEn   (_inst_decode_unit_io_ID_RegWriteEn),	// top.scala:22:34
+    .io_ID_RegWriteID   (_inst_decode_unit_io_ID_RegWriteID),	// top.scala:22:34
     .io_EX_RegWriteData (_excute_unit_io_EX_RegWriteData),
     .io_EX_RegWriteID   (_excute_unit_io_EX_RegWriteID),
     .io_EX_RegWriteEn   (_excute_unit_io_EX_RegWriteEn)
   );
-  sim simulate (	// top.scala:24:26
-    .inst (io_inst),
-    .R10  (_inst_decode_unit_io_ID_GPR10)	// top.scala:21:34
-  );
-  assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:262:10, top.scala:20:33
-  assign io_ALUResult = _excute_unit_io_EX_RegWriteData;	// <stdin>:262:10, top.scala:22:29
+
+
+wire [63:0] GPR [31:0];
+assign {GPR[31], GPR[30], GPR[29], GPR[28], GPR[27], GPR[26], GPR[25], GPR[24], GPR[23], GPR[22], GPR[21], GPR[20]
+, GPR[19], GPR[18], GPR[17], GPR[16], GPR[15], GPR[14], GPR[13], GPR[12], GPR[11], GPR[10], GPR[9], GPR[8], GPR[7]
+, GPR[6], GPR[5], GPR[4], GPR[3], GPR[2], GPR[1], GPR[0]} = 
+{{_inst_decode_unit_io_ID_GPR_31}, {_inst_decode_unit_io_ID_GPR_30}, {_inst_decode_unit_io_ID_GPR_29}, 
+{_inst_decode_unit_io_ID_GPR_28}, {_inst_decode_unit_io_ID_GPR_27}, {_inst_decode_unit_io_ID_GPR_26}, {_inst_decode_unit_io_ID_GPR_25}, 
+{_inst_decode_unit_io_ID_GPR_24}, {_inst_decode_unit_io_ID_GPR_23}, {_inst_decode_unit_io_ID_GPR_22}, {_inst_decode_unit_io_ID_GPR_21}, 
+{_inst_decode_unit_io_ID_GPR_20}, {_inst_decode_unit_io_ID_GPR_19}, {_inst_decode_unit_io_ID_GPR_18}, {_inst_decode_unit_io_ID_GPR_17}, 
+{_inst_decode_unit_io_ID_GPR_16}, {_inst_decode_unit_io_ID_GPR_15}, {_inst_decode_unit_io_ID_GPR_14}, {_inst_decode_unit_io_ID_GPR_13}, 
+{_inst_decode_unit_io_ID_GPR_12}, {_inst_decode_unit_io_ID_GPR_11}, {_inst_decode_unit_io_ID_GPR_10}, {_inst_decode_unit_io_ID_GPR_9 }, 
+{_inst_decode_unit_io_ID_GPR_8 }, {_inst_decode_unit_io_ID_GPR_7 }, {_inst_decode_unit_io_ID_GPR_6 }, {_inst_decode_unit_io_ID_GPR_5 },
+{_inst_decode_unit_io_ID_GPR_4 }, {_inst_decode_unit_io_ID_GPR_3 }, {_inst_decode_unit_io_ID_GPR_2 }, {_inst_decode_unit_io_ID_GPR_1 }, 
+{_inst_decode_unit_io_ID_GPR_0}};	// IDU.scala:55:22, :66:20
+
+sim simulate (	// top.scala:24:26
+   .inst   (io_inst),
+   .GPR    (GPR),
+   .unknown_inst_flag (_inst_decode_unit_io_ID_unknown_inst)
+);
+
+  assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:265:10, top.scala:21:33
+  assign io_ALUResult = _excute_unit_io_EX_RegWriteData;	// <stdin>:265:10, top.scala:23:29
 endmodule
 
 
 // ----- 8< ----- FILE "./build/sim.v" ----- 8< -----
 
+import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
+import "DPI-C" function void unknown_inst();
 import "DPI-C" function void ebreak(input int halt_ret);
 
-module sim(input [31:0] inst, input [63:0] R10);
+
+module sim(input [31:0] inst, input [63:0] GPR [31:0], input unknown_inst_flag);
 
    initial begin
       if ($test$plusargs("trace") != 0) begin
@@ -523,8 +677,11 @@ module sim(input [31:0] inst, input [63:0] R10);
       $display("[%0t] Model running...\n", $time);
    end
 
+   initial set_gpr_ptr(GPR);    // rf为通用寄存器的二维数组变量
+
    always@(*) begin
-      integer  i = R10[31:0];
+      integer  i = GPR[10][31:0];
+      if(unknown_inst_flag) unknown_inst();
       if(inst == 32'h00100073) begin
          ebreak(i);
          $finish();

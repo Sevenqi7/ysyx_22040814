@@ -42,30 +42,33 @@ VERILATOR_COVERAGE = $(VERILATOR_ROOT)/bin/verilator_coverage
 endif
 
 TOPNAME := top
-INC_PATH := $(shell find $(abspath ./csrc/include) -name *.h)
+INC_PATH := $(abspath ./csrc/include)
 IMG ?= 
+ELF ?=
 
 BUILD_DIR = ./build
 OBJ_DIR := ./build/obj_dir
 BIN = $(BUILD_DIR)/$(TOPNAME)
 
+
 VSRC_OBJ := $(shell find $(abspath ./vsrc) -name "*.v")
 CSRC_OBJ := $(shell find $(abspath ./csrc) -name "*.c" -or -name "*.cc" -or -name "*.cpp")
 
-INCFLAGS = $(addprefix -I, $(INC_PATH))
-CLFAGS += $(INCFLAGS) -DTOP_NAME="\"V$(TOPNAME)\""
-# LDFLAGS += -lSDL2 -lSDL2_image
+INCFLAGS = $(addprefix -I , $(INC_PATH))
+CFLAGS += $(INCFLAGS) -DTOP_NAME="\"V$(TOPNAME)\""
+CFLAGS += -I/usr/lib/llvm-14/include -std=c++14 -fno-exceptions -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -fPIE
+LDFLAGS += -lreadline $(shell llvm-config --libs)
 VERILATOR_FLAGS += -cc --exe -OS -MMD -x-assign 0 -j 6 --trace --build
 
 $(BIN): $(VSRC_OBJ) $(CSRC_OBJ)
-
 	$(VERILATOR) $(VERILATOR_FLAGS) $^ \
-	$(addprefix -CFLAGS , $(CFLAGS)) \ 
+	$(addprefix -CFLAGS , $(CFLAGS)) $(addprefix -LDFLAGS ,$(LDFLAGS)) \
 	--top-module $(TOPNAME) \
 	--Mdir $(OBJ_DIR) -o $(abspath $(BIN))
 
 run: $(BIN)
-	$(abspath $(BIN)) $(IMG)
+	echo $(shell llvm-config --cxxflags)
+	$(abspath $(BIN)) $(IMG) $(ELF)
 	
 sim: $(BIN)
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!

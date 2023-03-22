@@ -26,7 +26,7 @@ CSRC_OBJ += $(SRC_AUTO_BIND)
 
 # VERILATOR_INPUT = -f $(VSRC_OBJ) $(CSRC_OBJ)
 
-INCFLAGS = $(addprefix -I, $(INC_PATH))
+INCFLAGS = $(addprefix -I , $(INC_PATH))
 VERILATOR_FLAGS += -cc --exe -OS -MMD -x-assign 0 -j 6 --trace --build
 CFLAGS += $(INCFLAGS) -DTOP_NAME="\"V$(TOPNAME)\""
 LDFLAGS += -lSDL2 -lSDL2_image

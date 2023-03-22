@@ -16,13 +16,13 @@ object FuType{
 }
 
 object InstType{
-    val TYPE_I = 0.U(3.W)
-    val TYPE_R = 1.U(3.W)
-    val TYPE_U = 2.U(3.W)
-    val TYPE_S = 3.U(3.W)
-    val TYPE_J = 4.U(3.W)
-    val TYPE_B = 5.U(3.W)
-    val TYPE_N = 6.U(3.W)
+    val TYPE_I = 1.U(3.W)
+    val TYPE_R = 2.U(3.W)
+    val TYPE_U = 3.U(3.W)
+    val TYPE_S = 4.U(3.W)
+    val TYPE_J = 5.U(3.W)
+    val TYPE_B = 6.U(3.W)
+    val TYPE_N = 7.U(3.W)
 }
 
 object FuSource{

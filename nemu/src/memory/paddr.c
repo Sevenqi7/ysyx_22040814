@@ -74,6 +74,7 @@ word_t paddr_read(paddr_t addr, int len) {
       printf("      Read data 0x%lx with %d bytes from 0x%x\n", read_data, len, addr);
   #endif
   out_of_bound(addr);
+  return read_data;
 }
 
 void paddr_write(paddr_t addr, int len, word_t data) {
