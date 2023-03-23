@@ -24,14 +24,14 @@ void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction) {
       printf("Difftest addr out of bound\n");
       assert(0);   
   }
-  Log("buf addr:%lx", (uint64_t)buf);
+  Log("buf first:%lx", *(uint64_t*)buf);
   char *p = buf;
   if(direction == DIFFTEST_TO_DUT)
     while(n--)
-      *p++ = paddr_read(addr, 1);
+      *p++ = paddr_read(addr++, 1);
   else if(direction == DIFFTEST_TO_REF)
     while(n--)
-      paddr_write(addr, 1, *p++);
+      paddr_write(addr++, 1, *p++);
 }
 
 void difftest_regcpy(void *dut, bool direction) {
