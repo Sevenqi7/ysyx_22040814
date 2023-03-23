@@ -48,3 +48,13 @@ object FuSource{
     val NPC  = 6.U
     val S_ADDR = 7.U
 }
+
+object BType
+{
+    val BEQ  = 1.U
+    val BNE  = 2.U
+    val BLT  = 3.U
+    val BLTU = 4.U
+    val BGEU = 5.U
+    val BGE  = 6.U
+}

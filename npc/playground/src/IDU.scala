@@ -119,11 +119,21 @@ class IDU extends Module{
         io.ID_MemWriteEn := (instType === TYPE_S)
         
     //NPC
+    val BJ_flag = Wire(Bool())
+    switch(opType){
+        is (BType.BEQ)  {BJ_flag := rs1_data === rs2_data                }
+        is (BType.BNE)  {BJ_flag := rs1_data =/= rs2_data                }
+        is (BType.BLT)  {BJ_flag := rs1_data.asSInt < rs2_data.asSInt    }
+        is (BType.BGE)  {BJ_flag := rs1_data.asSInt >= rs2_data.asSInt   }
+        is (BType.BLTU) {BJ_flag := rs1_data < rs2_data                  }
+        is (BType.BGEU) {BJ_flag := rs1_data.asSInt >= rs2_data.asSInt   }
+    }
+
     val pcplus4 = Wire(UInt(32.W))
     pcplus4 := io.IF_pc + 4.U
     io.ID_npc := MuxCase(pcplus4, Seq(
         (instType === TYPE_J, io.IF_pc + immJ * 2.U),
-        (instType === TYPE_B, io.IF_pc + immB * 2.U),
+        (instType === TYPE_B  &&  BJ_flag     , io.IF_pc + immB * 2.U),
         (instType === TYPE_I  &&  src1 === NPC, rs1_data + immI)
     ))
 }
@@ -167,11 +177,19 @@ object RV64IInstr{
     // def ADDW    = BitPat("b0000000_?????_?????_000_?????_0111011")
     // def SUBW    = BitPat("b0100000_?????_?????_000_?????_0111011")
     // def LWU     = BitPat("b???????_?????_?????_110_?????_0000011")
-    // def LD      = BitPat("b???????_?????_?????_011_?????_0000011")
+    //S Type
     def SD         = BitPat("b??????? ????? ????? 011 ????? 01000 11")
     def SW         = BitPat("b??????? ????? ????? 010 ????? 01000 11")
     def SH         = BitPat("b??????? ????? ????? 001 ????? 01000 11")
     def SB         = BitPat("b??????? ????? ????? 000 ????? 01000 11")
+
+    //B Type
+    def BEQ        = BitPat("b??????? ????? ????? 000 ????? 11000 11")
+    def BNE        = BitPat("b??????? ????? ????? 001 ????? 11000 11")
+    def BLT        = BitPat("b??????? ????? ????? 100 ????? 11000 11")
+    def BLTU       = BitPat("b??????? ????? ????? 110 ????? 11000 11")
+    def BGEU       = BitPat("b??????? ????? ????? 111 ????? 11000 11")
+    def BGE        = BitPat("b??????? ????? ????? 101 ????? 11000 11")
 
     val table = Array(
 
@@ -213,8 +231,15 @@ object RV64IInstr{
         SUB            -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_SUB ),
         OR             -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_OR  ),
 
-
         //J Type
-        JAL            -> List(TYPE_J, FuType.alu, NPC, ZERO, OpType.OP_PLUS)
+        JAL            -> List(TYPE_J, FuType.alu, NPC, ZERO , OpType.OP_PLUS),
+
+        //B Type
+        BEQ            -> List(TYPE_B, FuType.alu, ZERO , ZERO , BType.BEQ   ),
+        BNE            -> List(TYPE_B, FuType.alu, ZERO , ZERO , BType.BNE   ),
+        BLT            -> List(TYPE_B, FuType.alu, ZERO , ZERO , BType.BLT   ),
+        BLTU           -> List(TYPE_B, FuType.alu, ZERO , ZERO , BType.BLTU  ),
+        BGE            -> List(TYPE_B, FuType.alu, ZERO , ZERO , BType.BGE   ),
+        BGEU           -> List(TYPE_B, FuType.alu, ZERO , ZERO , BType.BGEU  )
         )
     }
