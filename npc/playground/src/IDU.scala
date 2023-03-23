@@ -120,6 +120,7 @@ class IDU extends Module{
         
     //NPC
     val BJ_flag = Wire(Bool())
+    BJ_flag := 0.B
     switch(opType){
         is (BType.BEQ)  {BJ_flag := rs1_data === rs2_data                }
         is (BType.BNE)  {BJ_flag := rs1_data =/= rs2_data                }
