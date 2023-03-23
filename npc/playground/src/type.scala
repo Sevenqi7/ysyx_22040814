@@ -5,7 +5,8 @@ object OpType{
     val OP_SUB = 2.U
     val OP_JAL = 3.U
     val AUIPC = 4.U
-    val NONE = 5.U
+    val LUI = 5.U
+    val NONE = 12.U
 }
 
 object LSUOpType{

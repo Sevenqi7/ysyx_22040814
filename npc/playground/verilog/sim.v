@@ -1,6 +1,6 @@
 import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
 import "DPI-C" function void unknown_inst();
-import "DPI-C" function void ebreak(input int halt_ret);
+import "DPI-C" function void ebreak(input longint halt_ret);
 
 
 wire [63:0] GPR [31:0];
@@ -43,7 +43,7 @@ module sim(input[63:0] IF_pc, input [63:0] GPR [31:0], input unknown_inst_flag, 
    end
 
   always@(*) begin
-      integer i = GPR[10][31:0];
+      reg [63:0] i = GPR[10][63:0];
       if(unknown_inst_flag) unknown_inst();
       if(inst[31:0] == 32'h00100073) begin
         ebreak(i);
