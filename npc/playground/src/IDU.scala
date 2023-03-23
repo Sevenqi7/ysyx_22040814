@@ -109,7 +109,7 @@ class IDU extends Module{
     io.ID_ALU_Data2 := MuxCase(0.U, Seq(
         (src2 === ZERO  , 0.U      ),
         (src2 === PC    , io.IF_pc ),
-        (src2 === RS2   , rs1_data ),
+        (src2 === RS2   , rs2_data ),
         (src2 === IMM   , imm      ),
         (src2 === SHAMT , shamt    )
         ))
