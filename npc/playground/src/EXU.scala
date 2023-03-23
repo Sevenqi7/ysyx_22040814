@@ -53,7 +53,7 @@ class EXU extends Module{
         (io.ID_optype === OP_ADDW, SEXT((io.ID_ALU_Data1 + io.ID_ALU_Data2 ), 32)),
         (io.ID_optype === OP_SUBW, SEXT((io.ID_ALU_Data1 - io.ID_ALU_Data2 ), 32)),
         (io.ID_optype === OP_SLLW, SEXT((io.ID_ALU_Data1 << shamt          ), 32)),
-        (io.ID_optype === OP_SRLW, SEXT((io.ID_ALU_DATA1 << shamt          ), 32)),
+        (io.ID_optype === OP_SRLW, SEXT((io.ID_ALU_Data1 << shamt          ), 32)),
         (io.ID_optype === OP_SRAW, SEXT(((io.ID_ALU_Data1.asSInt >> shamt).asUInt), 32))
     ))
 
