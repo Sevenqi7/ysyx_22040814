@@ -12,7 +12,7 @@ class IDU extends Module{
         
         val ID_ALU_Data1 = Output(UInt(64.W))
         val ID_ALU_Data2 = Output(UInt(64.W))
-        val ID_FuType = Output(UInt(2.W))
+        val ID_FuType = Output(UInt(1.W))
         val ID_optype = Output(UInt(4.W))
 
         val ID_Rs1Data = Output(UInt(64.W))

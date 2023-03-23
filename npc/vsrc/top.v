@@ -533,7 +533,7 @@ module EXU(	// <stdin>:252:10
                 4'h2 ? io_ID_ALU_Data1 - io_ID_ALU_Data2 : 64'h0;	// <stdin>:252:10, EXU.scala:35:{23,35,83}, :36:{23,52}, Mux.scala:101:16
   assign io_EX_MemWriteData = io_ID_Rs2Data;	// <stdin>:252:10
   assign io_EX_MemWriteEn = io_ID_MemWriteEn;	// <stdin>:252:10
-  assign io_EX_LsuType = io_ID_FuType ? io_ID_optype : 4'h0;	// <stdin>:252:10, EXU.scala:31:28
+  assign io_EX_LsuType = io_ID_FuType ? io_ID_optype : 4'hA;	// <stdin>:252:10, EXU.scala:31:28
   assign io_EX_RegWriteID = io_ID_RegWriteID;	// <stdin>:252:10
   assign io_EX_RegWriteEn = io_ID_RegWriteEn;	// <stdin>:252:10
 endmodule
@@ -709,7 +709,7 @@ module top(	// <stdin>:315:10
     .io_MEM_RegWriteEn   (_mem_unit_io_MEM_RegWriteEn),
     .io_MEM_RegWriteID   (_mem_unit_io_MEM_RegWriteID)
   );
-  
+
 wire [63:0] GPR [31:0];
 assign {GPR[31], GPR[30], GPR[29], GPR[28], GPR[27], GPR[26], GPR[25], GPR[24], GPR[23], GPR[22], GPR[21], GPR[20]
 , GPR[19], GPR[18], GPR[17], GPR[16], GPR[15], GPR[14], GPR[13], GPR[12], GPR[11], GPR[10], GPR[9], GPR[8], GPR[7]
@@ -788,4 +788,3 @@ module sim(input [31:0] inst, input [63:0] GPR [31:0], input unknown_inst_flag);
 endmodule
 
 // ----- 8< ----- FILE "firrtl_black_box_resource_files.f" ----- 8< -----
-
