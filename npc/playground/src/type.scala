@@ -14,9 +14,13 @@ object OpType{
 object LSUOpType{
     val ld = 8.U
     val lw = 4.U
+    val lb = 2.U
+    val lb = 1.U
     val lwu = 4.U
     val sd = 8.U
     val sw = 4.U
+    val sh = 2.U
+    val sb = 1.U
 }
 
 object FuType{
