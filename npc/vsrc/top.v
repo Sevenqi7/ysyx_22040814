@@ -81,7 +81,7 @@ module IDU(	// <stdin>:12:10
                 io_ID_ALU_Data2,
   output [1:0]  io_ID_FuType,
   output [3:0]  io_ID_optype,
-  output [63:0] io_ID_Rs1Data,
+  output [63:0] io_ID_Rs2Data,
   output [4:0]  io_ID_RegWriteID,
   output        io_ID_RegWriteEn,
                 io_ID_MemWriteEn,
@@ -130,7 +130,7 @@ module IDU(	// <stdin>:12:10
   wire [2:0]        InstInfo_0 = _InstInfo_T_1 ? 3'h7 : _InstInfo_T_3 ? 3'h3 : _InstInfo_T_5 | _InstInfo_T_7 ? 3'h1 :
                 _InstInfo_T_18 ? 3'h4 : _InstInfo_T_22;	// Lookup.scala:31:38, :34:39
   wire [2:0]        InstInfo_2 = _InstInfo_T_1 ? 3'h0 : _InstInfo_T_3 ? 3'h1 : _InstInfo_T_5 ? 3'h2 : _InstInfo_T_7 ? 3'h5 :
-                _InstInfo_T_18 ? 3'h3 : _InstInfo_T_22;	// IDU.scala:117:39, Lookup.scala:31:38, :34:39
+                _InstInfo_T_18 ? 3'h2 : _InstInfo_T_22;	// IDU.scala:117:39, Lookup.scala:31:38, :34:39
   wire [51:0]       _immI_T_2 = {52{io_IF_Inst[31]}};	// Bitwise.scala:77:12, IDU.scala:53:36
   wire [51:0]       _GEN_0 = {52{io_IF_Inst[31]}};	// IDU.scala:53:36, :55:10
   reg  [63:0]       GPR_0;	// IDU.scala:62:22
@@ -173,6 +173,9 @@ module IDU(	// <stdin>:12:10
   /* synopsys infer_mux_override */
   assign _GEN_2 = _GEN_1[io_IF_Inst[19:15]] /* cadence map_to_mux */;	// IDU.scala:71:22, :73:20
   wire [63:0]       _rs1_data_T_1 = io_IF_Inst[19:15] == 5'h0 ? 64'h0 : _GEN_2;	// IDU.scala:55:63, :62:30, :71:22, :73:{20,25}
+  wire [63:0]       _GEN_3;	// IDU.scala:74:20
+  /* synopsys infer_mux_override */
+  assign _GEN_3 = _GEN_1[io_IF_Inst[24:20]] /* cadence map_to_mux */;	// IDU.scala:72:22, :73:20, :74:20
   wire              _io_ID_npc_T_8 = InstInfo_0 == 3'h1;	// IDU.scala:96:19, Lookup.scala:34:39
   wire              _io_ID_npc_T_4 = InstInfo_0 == 3'h6;	// IDU.scala:97:19, Lookup.scala:34:39
   wire              _io_ID_RegWriteEn_T_3 = InstInfo_0 == 3'h3;	// IDU.scala:98:19, Lookup.scala:34:39
@@ -471,7 +474,7 @@ module IDU(	// <stdin>:12:10
   assign io_ID_FuType = {1'h0, ~_InstInfo_T_1 & ~_InstInfo_T_3 & ~_InstInfo_T_5 & ~_InstInfo_T_7 & _InstInfo_T_18};	// <stdin>:12:10, IDU.scala:43:21, Lookup.scala:31:38, :34:39
   assign io_ID_optype = {1'h0, _InstInfo_T_1 | _InstInfo_T_3 | _InstInfo_T_5 | _InstInfo_T_7 ? 3'h1 :
                 _InstInfo_T_18 ? 3'h0 : {2'h0, _InstInfo_T_32}};	// <stdin>:12:10, IDU.scala:41:21, :56:67, Lookup.scala:31:38, :34:39
-  assign io_ID_Rs1Data = _rs1_data_T_1;	// <stdin>:12:10, IDU.scala:73:20
+  assign io_ID_Rs2Data = io_IF_Inst[24:20] == 5'h0 ? 64'h0 : _GEN_3;	// <stdin>:12:10, IDU.scala:55:63, :62:30, :72:22, :74:{20,25}
   assign io_ID_RegWriteID = io_IF_Inst[11:7];	// <stdin>:12:10, IDU.scala:55:80
   assign io_ID_RegWriteEn = InstInfo_0 == 3'h2 | _io_ID_npc_T_8 | _io_ID_RegWriteEn_T_3 | _io_ID_npc_T;	// <stdin>:12:10, IDU.scala:96:19, :98:19, :117:{39,101,114}, Lookup.scala:34:39
   assign io_ID_MemWriteEn = _io_ID_MemWriteEn_T;	// <stdin>:12:10, IDU.scala:99:19
@@ -513,7 +516,7 @@ endmodule
 module EXU(	// <stdin>:252:10
   input  [63:0] io_ID_ALU_Data1,
                 io_ID_ALU_Data2,
-                io_ID_Rs1Data,
+                io_ID_Rs2Data,
   input  [3:0]  io_ID_optype,
   input         io_ID_FuType,
                 io_ID_RegWriteEn,
@@ -528,7 +531,7 @@ module EXU(	// <stdin>:252:10
 
   assign io_EX_ALUResult = io_ID_optype == 4'h1 | io_ID_FuType ? io_ID_ALU_Data1 + io_ID_ALU_Data2 : io_ID_optype ==
                 4'h2 ? io_ID_ALU_Data1 - io_ID_ALU_Data2 : 64'h0;	// <stdin>:252:10, EXU.scala:35:{23,35,83}, :36:{23,52}, Mux.scala:101:16
-  assign io_EX_MemWriteData = io_ID_Rs1Data;	// <stdin>:252:10
+  assign io_EX_MemWriteData = io_ID_Rs2Data;	// <stdin>:252:10
   assign io_EX_MemWriteEn = io_ID_MemWriteEn;	// <stdin>:252:10
   assign io_EX_LsuType = io_ID_FuType ? io_ID_optype : 4'h0;	// <stdin>:252:10, EXU.scala:31:28
   assign io_EX_RegWriteID = io_ID_RegWriteID;	// <stdin>:252:10
@@ -584,7 +587,7 @@ module top(	// <stdin>:315:10
   wire [63:0] _inst_decode_unit_io_ID_ALU_Data2;	// top.scala:22:34
   wire [1:0]  _inst_decode_unit_io_ID_FuType;	// top.scala:22:34
   wire [3:0]  _inst_decode_unit_io_ID_optype;	// top.scala:22:34
-  wire [63:0] _inst_decode_unit_io_ID_Rs1Data;	// top.scala:22:34
+  wire [63:0] _inst_decode_unit_io_ID_Rs2Data;	// top.scala:22:34
   wire [4:0]  _inst_decode_unit_io_ID_RegWriteID;	// top.scala:22:34
   wire        _inst_decode_unit_io_ID_RegWriteEn;	// top.scala:22:34
   wire        _inst_decode_unit_io_ID_MemWriteEn;	// top.scala:22:34
@@ -641,7 +644,7 @@ module top(	// <stdin>:315:10
     .io_ID_ALU_Data2    (_inst_decode_unit_io_ID_ALU_Data2),
     .io_ID_FuType       (_inst_decode_unit_io_ID_FuType),
     .io_ID_optype       (_inst_decode_unit_io_ID_optype),
-    .io_ID_Rs1Data      (_inst_decode_unit_io_ID_Rs1Data),
+    .io_ID_Rs2Data      (_inst_decode_unit_io_ID_Rs2Data),
     .io_ID_RegWriteID   (_inst_decode_unit_io_ID_RegWriteID),
     .io_ID_RegWriteEn   (_inst_decode_unit_io_ID_RegWriteEn),
     .io_ID_MemWriteEn   (_inst_decode_unit_io_ID_MemWriteEn),
@@ -682,7 +685,7 @@ module top(	// <stdin>:315:10
   EXU excute_unit (	// top.scala:23:29
     .io_ID_ALU_Data1    (_inst_decode_unit_io_ID_ALU_Data1),	// top.scala:22:34
     .io_ID_ALU_Data2    (_inst_decode_unit_io_ID_ALU_Data2),	// top.scala:22:34
-    .io_ID_Rs1Data      (_inst_decode_unit_io_ID_Rs1Data),	// top.scala:22:34
+    .io_ID_Rs2Data      (_inst_decode_unit_io_ID_Rs2Data),	// top.scala:22:34
     .io_ID_optype       (_inst_decode_unit_io_ID_optype),	// top.scala:22:34
     .io_ID_FuType       (_inst_decode_unit_io_ID_FuType[0]),	// top.scala:22:34, :48:34
     .io_ID_RegWriteEn   (_inst_decode_unit_io_ID_RegWriteEn),	// top.scala:22:34
@@ -726,6 +729,7 @@ sim simulate (	// top.scala:24:26
    .GPR    (GPR),
    .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
 );
+
   assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:315:10, top.scala:21:33
   assign io_ALUResult = _mem_unit_io_MEM_RegWriteData;	// <stdin>:315:10, top.scala:24:26
 endmodule
@@ -739,7 +743,7 @@ import "DPI-C" function void dci_pmem_read(input longint raddr, output longint r
 module LSU(input [63:0] addr, input [2:0] LsuType, input WriteEn, input [63:0]WriteData, output reg [63:0] ReadData);
 
     wire [7:0] mask;
-    assign mask = ~(8'HFF << LsuType);
+    assign mask = ~(8'hFF << LsuType);
         always@(*) begin
             if(WriteEn) begin
                 dci_pmem_write(addr, WriteData, mask);
@@ -756,7 +760,6 @@ endmodule
 import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
 import "DPI-C" function void unknown_inst();
 import "DPI-C" function void ebreak(input int halt_ret);
-
 
 
 module sim(input [31:0] inst, input [63:0] GPR [31:0], input unknown_inst_flag);

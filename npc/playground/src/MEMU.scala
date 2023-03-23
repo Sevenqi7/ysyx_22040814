@@ -6,7 +6,7 @@ import InstType._
 class LSU extends BlackBox with HasBlackBoxPath{
     val io = IO(new Bundle{
         val addr = Input(UInt(64.W))
-        val LsuType = Input(UInt(3.W))
+        val LsuType = Input(UInt(4.W))
         val WriteEn = Input(UInt(1.W))
         val WriteData = Input(UInt(64.W))
         val ReadData = Output(UInt(64.W))
@@ -19,7 +19,7 @@ class MEMU extends Module{
         val EX_ALUResult = Input(UInt(64.W))
         val EX_MemWriteData = Input(UInt(64.W))
         val EX_MemWriteEn = Input(UInt(1.W))
-        val EX_LsuType      = Input(UInt(3.W))
+        val EX_LsuType      = Input(UInt(4.W))
         val EX_RegWriteEn   = Input(UInt(1.W))
         val EX_RegWriteID   = Input(UInt(5.W))
         
