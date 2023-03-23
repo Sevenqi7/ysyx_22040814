@@ -222,9 +222,9 @@ object RV64IInstr{
         // SUBW           -> List(TYPE_R, FuType.alu, OpType.subw)
         // LWU            -> List(TYPE_I, FuType.lsu, LSUOpType.lwu),
         LD             -> List(TYPE_I, FuType.lsu, RS1 , IMM , LSUOpType.ld  ),
-        LD             -> List(TYPE_I, FuType.lsu, RS1 , IMM , LSUOpType.lw  ),
-        LD             -> List(TYPE_I, FuType.lsu, RS1 , IMM , LSUOpType.lh  ),
-        LD             -> List(TYPE_I, FuType.lsu, RS1 , IMM , LSUOpType.lb  ),
+        LW             -> List(TYPE_I, FuType.lsu, RS1 , IMM , LSUOpType.lw  ),
+        LH             -> List(TYPE_I, FuType.lsu, RS1 , IMM , LSUOpType.lh  ),
+        LB             -> List(TYPE_I, FuType.lsu, RS1 , IMM , LSUOpType.lb  ),
 
         //S Type
         SD             -> List(TYPE_S, FuType.lsu, RS1 , IMM , LSUOpType.sd  ),
