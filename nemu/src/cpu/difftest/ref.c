@@ -24,6 +24,7 @@ void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction) {
       printf("Difftest addr out of bound\n");
       assert(0);   
   }
+  Log("buf addr:%lx", (uint64_t)buf);
   char *p = buf;
   if(direction == DIFFTEST_TO_DUT)
     while(n--)
