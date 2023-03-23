@@ -29,13 +29,13 @@ static void trace_and_difftest(char *logbuf)
     int rd = BITS(npc_state.inst, 11, 7), rs1 = BITS(npc_state.inst, 19, 15);
     ftrace_check_jal(top->io_IF_pc, npc_state.pc + 4, rs1, rd);
 #endif
-#ifdef CONFIG_DIFFTEST
-    void difftest_step(vaddr_t pc);
-    difftest_step(top->io_IF_pc);
-#endif
 #ifdef CONFIG_WATCHPOINT
     if(check_watchpoints())
         npc_state.state = NPC_STOP;
+#endif
+#ifdef CONFIG_DIFFTEST
+    void difftest_step(vaddr_t pc);
+    difftest_step(top->io_IF_pc);
 #endif
 }
 
