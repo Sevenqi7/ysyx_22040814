@@ -1,7 +1,11 @@
 #include <verilator.h>
 #include <npc.h>
+#include <memory.h>
 
-static char pmem[MEMSIZE]__attribute((aligned(4096)));
+static uint8_t pmem[MEMSIZE]__attribute((aligned(4096)));
+
+extern uint8_t* guest_to_host(paddr_t paddr){return pmem + paddr - MEMSIZE;}
+
 
 uint64_t *pmem_addr(uint64_t *addr)
 {
@@ -19,7 +23,7 @@ void outofbound(uint64_t paddr)
 
 uint64_t pmem_read(uint64_t addr, int len)
 {
-    uint64_t paddr = addr & 0xFFFFFF;
+    uint64_t paddr = addr & MEMMASK;
     outofbound(paddr);
     int ret = 0;
     switch(len)

@@ -1,5 +1,6 @@
 #include <verilator.h>
 #include <npc.h>
+#include <memory.h>
 #include <string.h>
 
 #define MAX_INST_TO_PRINT 10
@@ -17,14 +18,20 @@ static uint32_t g_itrace_num = 0;
 #endif
 
 extern bool inst_fault;
+void difftest_regcpy(void *dut, bool direction);
 
 static void trace_and_difftest(char *logbuf)
 {
+    uint64_t cpyreg[32];
     if(g_print_step){puts(logbuf);}
 #ifdef CONFIG_FTRACE
     void ftrace_check_jal(uint64_t jump_addr, uint64_t ret_addr, int rs1, int rd);
     int rd = BITS(npc_state.inst, 11, 7), rs1 = BITS(npc_state.inst, 19, 15);
     ftrace_check_jal(top->io_IF_pc, npc_state.pc + 4, rs1, rd);
+#endif
+#ifdef CONFIG_DIFFTEST
+    void difftest_step(vaddr_t pc);
+    difftest_step(npc_state.pc);
 #endif
 #ifdef CONFIG_WATCHPOINT
     if(check_watchpoints())

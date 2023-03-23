@@ -23,10 +23,8 @@
 
 #define ANSI_FMT(str, fmt) fmt str ANSI_NONE
 
-#define MEMSIZE     0x8000000
-#define MEMOFFSET   0x8000000
 #define EBREAK      0x00100073
-
+#define RESET_VECTOR 0x80000000
 
 #define BITMASK(bits) ((1ull << (bits)) - 1)
 #define BITS(x, hi, lo) (((x) >> (lo)) & BITMASK((hi) - (lo) + 1)) // similar to x[hi:lo] in verilog

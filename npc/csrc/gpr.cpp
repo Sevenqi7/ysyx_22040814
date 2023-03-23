@@ -1,5 +1,6 @@
 #include <verilator.h>
 #include <npc.h>
+#include <memory.h>
 
 const char *regs[] = {
   "$0", "ra", "sp", "gp", "tp", "t0", "t1", "t2",
@@ -12,6 +13,30 @@ uint64_t *cpu_gpr = NULL;
 extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
   cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
+
+#ifdef CONFIG_DIFFTEST
+typedef struct REF_GPR{
+  uint64_t gpr[32];
+  uint64_t pc;
+}REF_GPR;
+
+bool difftest_checkregs(REF_GPR *ref, vaddr_t pc) {
+  if(ref->pc != pc)
+  {
+    Log("Difftest found PC value is 0x%lx, should be %lx", pc, ref->pc);
+    return false;
+  }
+  for(int i=0;i<32;i++)
+  {
+    if(ref->gpr[i] != cpu_gpr[i])
+    {
+      Log("Difftest found %s value is 0x%lx, should be 0x%lx", regs[i], cpu_gpr[i], ref->gpr[i]);
+      return false;
+    }
+  }
+  return true;
+}
+#endif
 
 void reg_display() {
   int i;

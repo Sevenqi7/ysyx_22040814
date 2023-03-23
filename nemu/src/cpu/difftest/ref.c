@@ -28,13 +28,16 @@ void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction) {
   if(direction == DIFFTEST_TO_DUT)
     while(n--)
       *p++ = paddr_read(addr, 1);
+  else if(direction == DIFFTEST_TO_REF)
+    while(n--)
+      paddr_write(addr, *p++, 1);
 }
 
 void difftest_regcpy(void *dut, bool direction) {
   if(direction == DIFFTEST_TO_DUT)
-  {
       memcpy(dut, &cpu.gpr, sizeof(cpu.gpr));
-  }
+  else if(direction == DIFFTEST_TO_DUT)
+      memcpy(&cpu.gpr, dut, sizeof(cpu.gpr));
 }
 
 void difftest_exec(uint64_t n) {
