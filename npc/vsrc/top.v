@@ -129,9 +129,9 @@ module IDU(	// <stdin>:12:10
   wire              _InstInfo_T_13 = _GEN == 10'h113;	// Lookup.scala:31:38
   wire              _InstInfo_T_15 = _GEN == 10'h193;	// Lookup.scala:31:38
   wire              _InstInfo_T_17 = _GEN == 10'h183;	// Lookup.scala:31:38
-  wire              _InstInfo_T_19 = _GEN == 10'h183;	// Lookup.scala:31:38
-  wire              _InstInfo_T_21 = _GEN == 10'h183;	// Lookup.scala:31:38
-  wire              _InstInfo_T_23 = _GEN == 10'h183;	// Lookup.scala:31:38
+  wire              _InstInfo_T_19 = _GEN == 10'h103;	// Lookup.scala:31:38
+  wire              _InstInfo_T_21 = _GEN == 10'h83;	// Lookup.scala:31:38
+  wire              _InstInfo_T_23 = _GEN == 10'h3;	// Lookup.scala:31:38
   wire              _InstInfo_T_25 = _GEN == 10'h1A3;	// Lookup.scala:31:38
   wire              _InstInfo_T_27 = _GEN == 10'h123;	// Lookup.scala:31:38
   wire              _InstInfo_T_29 = _GEN == 10'hA3;	// Lookup.scala:31:38
@@ -788,7 +788,6 @@ sim simulate (	// top.scala:24:26
    .GPR               (GPR),
    .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
 );
-
   assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:544:10, top.scala:23:33
   assign io_ALUResult = _mem_unit_io_MEM_RegWriteData;	// <stdin>:544:10, top.scala:26:26
 endmodule
@@ -819,6 +818,7 @@ endmodule
 import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
 import "DPI-C" function void unknown_inst();
 import "DPI-C" function void ebreak(input longint halt_ret);
+
 
 
 

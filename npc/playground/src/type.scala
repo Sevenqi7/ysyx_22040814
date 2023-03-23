@@ -8,8 +8,16 @@ object OpType{
     val OP_OR = 5.U
     val OP_XOR = 6.U
     val OP_SLL = 7.U
-    val OP_SLT = 8.U
-    val OP_SLTU = 9.U
+    val OP_SRL = 8.U
+    val OP_SRA  = 9.U
+    val OP_SLT = 10.U
+    val OP_SLTU = 11.U
+
+    val OP_ADDW = 15.U
+    val OP_SUBW = 16.U
+    val OP_SLLW = 17.U
+    val OP_SRAW = 18.U
+    val OP_SRLW = 19.U
     val NONE = 12.U
 }
 
