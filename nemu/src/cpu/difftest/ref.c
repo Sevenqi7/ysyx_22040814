@@ -31,7 +31,7 @@ void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction) {
       *p++ = paddr_read(addr, 1);
   else if(direction == DIFFTEST_TO_REF)
     while(n--)
-      paddr_write(addr, *p++, 1);
+      paddr_write(addr, 1, *p++);
 }
 
 void difftest_regcpy(void *dut, bool direction) {

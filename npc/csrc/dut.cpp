@@ -46,9 +46,11 @@ void init_difftest(char *ref_so_file, long img_size, int port) {
       "This will help you a lot for debugging, but also significantly reduce the performance. "
       "If it is not necessary, you can turn it off in menuconfig.", ref_so_file);
 
+  REF_GPR to_ref = {.pc = RESET_VECTOR};
+  memcpy(to_ref.gpr, cpu_gpr, sizeof(cpu_gpr));
   ref_difftest_init(port);
   ref_difftest_memcpy(RESET_VECTOR, guest_to_host(RESET_VECTOR), img_size, DIFFTEST_TO_REF);
-  ref_difftest_regcpy(&cpu_gpr, DIFFTEST_TO_REF);
+  ref_difftest_regcpy(&to_ref, DIFFTEST_TO_REF);
 }
 
 static void checkregs(REF_GPR *ref, vaddr_t pc)

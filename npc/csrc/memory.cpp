@@ -4,7 +4,7 @@
 
 static uint8_t pmem[MEMSIZE]__attribute((aligned(4096)));
 
-extern uint8_t* guest_to_host(paddr_t paddr){return pmem + paddr - MEMSIZE;}
+extern uint8_t* guest_to_host(paddr_t paddr){return pmem + (paddr & MEMMASK);}
 
 
 uint64_t *pmem_addr(uint64_t *addr)
