@@ -1,6 +1,6 @@
 BUILD_DIR = ./build
-VSRC = ./vsrc
-CSRC = ./csrc
+VSRC = $(abspath ./vsrc)
+CSRC = $(abspath ./csrc)
 
 export PATH := $(PATH):$(abspath ./utils)
 
