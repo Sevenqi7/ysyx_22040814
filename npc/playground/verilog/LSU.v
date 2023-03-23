@@ -6,7 +6,6 @@ module LSU(input [63:0] addr, input [3:0] LsuType, input WriteEn, input [63:0]Wr
     wire [7:0] mask;
     assign mask = ~(8'hFF << LsuType);
         always@(*) begin
-            $display("LsuType:%d", LsuType);
             if(WriteEn) begin
                 dci_pmem_write(addr, WriteData, mask);
                 ReadData = 64'h0;

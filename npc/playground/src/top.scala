@@ -4,9 +4,12 @@ import chisel3.experimental._
 
 class sim extends BlackBox with HasBlackBoxPath{
     val io = IO(new Bundle{
-        val inst = Input(UInt(32.W))
+        val clock = Input(Clock())
+        val reset = Input(UInt(1.W))
+        val IF_pc = Input(UInt(64.W))
         val GPR  = Input(Vec(32, UInt(64.W)))
         val unknown_inst_flag = Input(UInt(1.W))
+        val inst = Output(UInt(32.W))
     })
     addPath("/home/seven7/Documents/学业/一生一芯/ysyx-workbench/npc/playground/verilog/sim.v")
 }
@@ -24,14 +27,14 @@ class top extends Module{
     val mem_unit = Module(new MEMU)
 
     val simulate = Module(new sim)
-    simulate.io.inst := io.inst
+    simulate.io.IF_pc := inst_fetch_unit.io.IF_pc
     simulate.io.GPR  := inst_decode_unit.io.ID_GPR
     simulate.io.unknown_inst_flag := inst_decode_unit.io.ID_unknown_inst
+    inst_decode_unit.io.IF_Inst := simulate.io.inst
 
     io.IF_pc := inst_fetch_unit.io.IF_pc
     inst_fetch_unit.io.IF_npc := inst_decode_unit.io.ID_npc
     inst_decode_unit.io.IF_pc  := inst_fetch_unit.io.IF_pc
-    inst_decode_unit.io.IF_Inst := io.inst
 
     // val ID_ALU_Data1 := inst_decode_unit.io.ID_ALU_Data1
     // val ID_ALU_Data2 := inst_decode_unit.io.ID_ALU_Data2

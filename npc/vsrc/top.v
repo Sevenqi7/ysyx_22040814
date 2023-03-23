@@ -219,69 +219,70 @@ module IDU(	// <stdin>:12:10
       GPR_31 <= 64'h0;	// IDU.scala:62:{22,30}
     end
     else begin
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h0)	// IDU.scala:55:63, :62:22, :80:5, :81:31
+      automatic logic _T_2 = io_EX_RegWriteEn & (|io_EX_RegWriteID);	// IDU.scala:79:{36,56}
+      if (_T_2 & io_EX_RegWriteID == 5'h0)	// IDU.scala:55:63, :62:22, :79:36, :80:5, :81:31
         GPR_0 <= io_EX_RegWriteData;	// IDU.scala:62:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h1)	// IDU.scala:62:22, :80:5, :81:31
+      if (_T_2 & io_EX_RegWriteID == 5'h1)	// IDU.scala:62:22, :79:36, :80:5, :81:31
         GPR_1 <= io_EX_RegWriteData;	// IDU.scala:62:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h2)	// IDU.scala:62:22, :80:5, :81:31
+      if (_T_2 & io_EX_RegWriteID == 5'h2)	// IDU.scala:62:22, :79:36, :80:5, :81:31
         GPR_2 <= io_EX_RegWriteData;	// IDU.scala:62:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h3)	// IDU.scala:62:22, :80:5, :81:31
+      if (_T_2 & io_EX_RegWriteID == 5'h3)	// IDU.scala:62:22, :79:36, :80:5, :81:31
         GPR_3 <= io_EX_RegWriteData;	// IDU.scala:62:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h4)	// IDU.scala:62:22, :80:5, :81:31
+      if (_T_2 & io_EX_RegWriteID == 5'h4)	// IDU.scala:62:22, :79:36, :80:5, :81:31
         GPR_4 <= io_EX_RegWriteData;	// IDU.scala:62:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h5)	// IDU.scala:62:22, :80:5, :81:31
+      if (_T_2 & io_EX_RegWriteID == 5'h5)	// IDU.scala:62:22, :79:36, :80:5, :81:31
         GPR_5 <= io_EX_RegWriteData;	// IDU.scala:62:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h6)	// IDU.scala:62:22, :80:5, :81:31
+      if (_T_2 & io_EX_RegWriteID == 5'h6)	// IDU.scala:62:22, :79:36, :80:5, :81:31
         GPR_6 <= io_EX_RegWriteData;	// IDU.scala:62:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h7)	// IDU.scala:62:22, :80:5, :81:31
+      if (_T_2 & io_EX_RegWriteID == 5'h7)	// IDU.scala:62:22, :79:36, :80:5, :81:31
         GPR_7 <= io_EX_RegWriteData;	// IDU.scala:62:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h8)	// IDU.scala:62:22, :80:5, :81:31
+      if (_T_2 & io_EX_RegWriteID == 5'h8)	// IDU.scala:62:22, :79:36, :80:5, :81:31
         GPR_8 <= io_EX_RegWriteData;	// IDU.scala:62:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h9)	// IDU.scala:62:22, :80:5, :81:31
+      if (_T_2 & io_EX_RegWriteID == 5'h9)	// IDU.scala:62:22, :79:36, :80:5, :81:31
         GPR_9 <= io_EX_RegWriteData;	// IDU.scala:62:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'hA)	// IDU.scala:62:22, :80:5, :81:31
+      if (_T_2 & io_EX_RegWriteID == 5'hA)	// IDU.scala:62:22, :79:36, :80:5, :81:31
         GPR_10 <= io_EX_RegWriteData;	// IDU.scala:62:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'hB)	// IDU.scala:62:22, :80:5, :81:31
+      if (_T_2 & io_EX_RegWriteID == 5'hB)	// IDU.scala:62:22, :79:36, :80:5, :81:31
         GPR_11 <= io_EX_RegWriteData;	// IDU.scala:62:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'hC)	// IDU.scala:62:22, :80:5, :81:31
+      if (_T_2 & io_EX_RegWriteID == 5'hC)	// IDU.scala:62:22, :79:36, :80:5, :81:31
         GPR_12 <= io_EX_RegWriteData;	// IDU.scala:62:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'hD)	// IDU.scala:62:22, :80:5, :81:31
+      if (_T_2 & io_EX_RegWriteID == 5'hD)	// IDU.scala:62:22, :79:36, :80:5, :81:31
         GPR_13 <= io_EX_RegWriteData;	// IDU.scala:62:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'hE)	// IDU.scala:62:22, :80:5, :81:31
+      if (_T_2 & io_EX_RegWriteID == 5'hE)	// IDU.scala:62:22, :79:36, :80:5, :81:31
         GPR_14 <= io_EX_RegWriteData;	// IDU.scala:62:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'hF)	// IDU.scala:62:22, :80:5, :81:31
+      if (_T_2 & io_EX_RegWriteID == 5'hF)	// IDU.scala:62:22, :79:36, :80:5, :81:31
         GPR_15 <= io_EX_RegWriteData;	// IDU.scala:62:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h10)	// IDU.scala:62:22, :80:5, :81:31
+      if (_T_2 & io_EX_RegWriteID == 5'h10)	// IDU.scala:62:22, :79:36, :80:5, :81:31
         GPR_16 <= io_EX_RegWriteData;	// IDU.scala:62:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h11)	// IDU.scala:62:22, :80:5, :81:31
+      if (_T_2 & io_EX_RegWriteID == 5'h11)	// IDU.scala:62:22, :79:36, :80:5, :81:31
         GPR_17 <= io_EX_RegWriteData;	// IDU.scala:62:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h12)	// IDU.scala:62:22, :80:5, :81:31
+      if (_T_2 & io_EX_RegWriteID == 5'h12)	// IDU.scala:62:22, :79:36, :80:5, :81:31
         GPR_18 <= io_EX_RegWriteData;	// IDU.scala:62:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h13)	// IDU.scala:62:22, :80:5, :81:31, Lookup.scala:31:38
+      if (_T_2 & io_EX_RegWriteID == 5'h13)	// IDU.scala:62:22, :79:36, :80:5, :81:31, Lookup.scala:31:38
         GPR_19 <= io_EX_RegWriteData;	// IDU.scala:62:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h14)	// IDU.scala:62:22, :80:5, :81:31
+      if (_T_2 & io_EX_RegWriteID == 5'h14)	// IDU.scala:62:22, :79:36, :80:5, :81:31
         GPR_20 <= io_EX_RegWriteData;	// IDU.scala:62:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h15)	// IDU.scala:62:22, :80:5, :81:31
+      if (_T_2 & io_EX_RegWriteID == 5'h15)	// IDU.scala:62:22, :79:36, :80:5, :81:31
         GPR_21 <= io_EX_RegWriteData;	// IDU.scala:62:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h16)	// IDU.scala:62:22, :80:5, :81:31
+      if (_T_2 & io_EX_RegWriteID == 5'h16)	// IDU.scala:62:22, :79:36, :80:5, :81:31
         GPR_22 <= io_EX_RegWriteData;	// IDU.scala:62:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h17)	// IDU.scala:62:22, :80:5, :81:31, Lookup.scala:31:38
+      if (_T_2 & io_EX_RegWriteID == 5'h17)	// IDU.scala:62:22, :79:36, :80:5, :81:31, Lookup.scala:31:38
         GPR_23 <= io_EX_RegWriteData;	// IDU.scala:62:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h18)	// IDU.scala:62:22, :80:5, :81:31
+      if (_T_2 & io_EX_RegWriteID == 5'h18)	// IDU.scala:62:22, :79:36, :80:5, :81:31
         GPR_24 <= io_EX_RegWriteData;	// IDU.scala:62:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h19)	// IDU.scala:62:22, :80:5, :81:31
+      if (_T_2 & io_EX_RegWriteID == 5'h19)	// IDU.scala:62:22, :79:36, :80:5, :81:31
         GPR_25 <= io_EX_RegWriteData;	// IDU.scala:62:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h1A)	// IDU.scala:62:22, :80:5, :81:31
+      if (_T_2 & io_EX_RegWriteID == 5'h1A)	// IDU.scala:62:22, :79:36, :80:5, :81:31
         GPR_26 <= io_EX_RegWriteData;	// IDU.scala:62:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h1B)	// IDU.scala:62:22, :80:5, :81:31
+      if (_T_2 & io_EX_RegWriteID == 5'h1B)	// IDU.scala:62:22, :79:36, :80:5, :81:31
         GPR_27 <= io_EX_RegWriteData;	// IDU.scala:62:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h1C)	// IDU.scala:62:22, :80:5, :81:31
+      if (_T_2 & io_EX_RegWriteID == 5'h1C)	// IDU.scala:62:22, :79:36, :80:5, :81:31
         GPR_28 <= io_EX_RegWriteData;	// IDU.scala:62:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h1D)	// IDU.scala:62:22, :80:5, :81:31
+      if (_T_2 & io_EX_RegWriteID == 5'h1D)	// IDU.scala:62:22, :79:36, :80:5, :81:31
         GPR_29 <= io_EX_RegWriteData;	// IDU.scala:62:22
-      if (io_EX_RegWriteEn & io_EX_RegWriteID == 5'h1E)	// IDU.scala:62:22, :80:5, :81:31
+      if (_T_2 & io_EX_RegWriteID == 5'h1E)	// IDU.scala:62:22, :79:36, :80:5, :81:31
         GPR_30 <= io_EX_RegWriteData;	// IDU.scala:62:22
-      if (io_EX_RegWriteEn & (&io_EX_RegWriteID))	// IDU.scala:62:22, :80:5, :81:31
+      if (_T_2 & (&io_EX_RegWriteID))	// IDU.scala:62:22, :79:36, :80:5, :81:31
         GPR_31 <= io_EX_RegWriteData;	// IDU.scala:62:22
     end
   end // always @(posedge)
@@ -513,7 +514,7 @@ module IDU(	// <stdin>:12:10
   assign io_ID_unknown_inst = InstInfo_0 == 3'h0;	// <stdin>:12:10, IDU.scala:42:39, Lookup.scala:34:39
 endmodule
 
-module EXU(	// <stdin>:252:10
+module EXU(	// <stdin>:254:10
   input  [63:0] io_ID_ALU_Data1,
                 io_ID_ALU_Data2,
                 io_ID_Rs2Data,
@@ -530,17 +531,17 @@ module EXU(	// <stdin>:252:10
   output        io_EX_RegWriteEn);
 
   assign io_EX_ALUResult = io_ID_optype == 4'h1 | io_ID_FuType ? io_ID_ALU_Data1 + io_ID_ALU_Data2 : io_ID_optype ==
-                4'h2 ? io_ID_ALU_Data1 - io_ID_ALU_Data2 : 64'h0;	// <stdin>:252:10, EXU.scala:35:{23,35,83}, :36:{23,52}, Mux.scala:101:16
-  assign io_EX_MemWriteData = io_ID_Rs2Data;	// <stdin>:252:10
-  assign io_EX_MemWriteEn = io_ID_MemWriteEn;	// <stdin>:252:10
-  assign io_EX_LsuType = io_ID_FuType ? io_ID_optype : 4'h0;	// <stdin>:252:10, EXU.scala:31:28
-  assign io_EX_RegWriteID = io_ID_RegWriteID;	// <stdin>:252:10
-  assign io_EX_RegWriteEn = io_ID_RegWriteEn;	// <stdin>:252:10
+                4'h2 ? io_ID_ALU_Data1 - io_ID_ALU_Data2 : 64'h0;	// <stdin>:254:10, EXU.scala:35:{23,35,83}, :36:{23,52}, Mux.scala:101:16
+  assign io_EX_MemWriteData = io_ID_Rs2Data;	// <stdin>:254:10
+  assign io_EX_MemWriteEn = io_ID_MemWriteEn;	// <stdin>:254:10
+  assign io_EX_LsuType = io_ID_FuType ? io_ID_optype : 4'h0;	// <stdin>:254:10, EXU.scala:31:28
+  assign io_EX_RegWriteID = io_ID_RegWriteID;	// <stdin>:254:10
+  assign io_EX_RegWriteEn = io_ID_RegWriteEn;	// <stdin>:254:10
 endmodule
 
 // external module LSU
 
-module MEMU(	// <stdin>:286:10
+module MEMU(	// <stdin>:288:10
   input  [63:0] io_EX_ALUResult,
                 io_EX_MemWriteData,
   input         io_EX_MemWriteEn,
@@ -559,14 +560,14 @@ module MEMU(	// <stdin>:286:10
     .WriteData (io_EX_MemWriteData),
     .ReadData  (_mem_ReadData)
   );
-  assign io_MEM_RegWriteData = (|io_EX_LsuType) & ~io_EX_MemWriteEn ? _mem_ReadData : io_EX_ALUResult;	// <stdin>:286:10, MEMU.scala:34:21, :39:{31,47,56,77}
-  assign io_MEM_RegWriteEn = io_EX_RegWriteEn;	// <stdin>:286:10
-  assign io_MEM_RegWriteID = io_EX_RegWriteID;	// <stdin>:286:10
+  assign io_MEM_RegWriteData = (|io_EX_LsuType) & ~io_EX_MemWriteEn ? _mem_ReadData : io_EX_ALUResult;	// <stdin>:288:10, MEMU.scala:34:21, :39:{31,47,56,77}
+  assign io_MEM_RegWriteEn = io_EX_RegWriteEn;	// <stdin>:288:10
+  assign io_MEM_RegWriteID = io_EX_RegWriteID;	// <stdin>:288:10
 endmodule
 
 // external module sim
 
-module top(	// <stdin>:315:10
+module top(	// <stdin>:317:10
   input         clock,
                 reset,
   input  [31:0] io_inst,
@@ -709,6 +710,7 @@ module top(	// <stdin>:315:10
     .io_MEM_RegWriteEn   (_mem_unit_io_MEM_RegWriteEn),
     .io_MEM_RegWriteID   (_mem_unit_io_MEM_RegWriteID)
   );
+
 wire [63:0] GPR [31:0];
 assign {GPR[31], GPR[30], GPR[29], GPR[28], GPR[27], GPR[26], GPR[25], GPR[24], GPR[23], GPR[22], GPR[21], GPR[20]
 , GPR[19], GPR[18], GPR[17], GPR[16], GPR[15], GPR[14], GPR[13], GPR[12], GPR[11], GPR[10], GPR[9], GPR[8], GPR[7]
@@ -729,8 +731,9 @@ sim simulate (	// top.scala:24:26
    .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
 );
 
-  assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:315:10, top.scala:21:33
-  assign io_ALUResult = _mem_unit_io_MEM_RegWriteData;	// <stdin>:315:10, top.scala:24:26
+
+  assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:317:10, top.scala:21:33
+  assign io_ALUResult = _mem_unit_io_MEM_RegWriteData;	// <stdin>:317:10, top.scala:24:26
 endmodule
 
 
@@ -742,10 +745,8 @@ import "DPI-C" function void dci_pmem_read(input longint raddr, output longint r
 module LSU(input [63:0] addr, input [3:0] LsuType, input WriteEn, input [63:0]WriteData, output reg [63:0] ReadData);
 
     wire [7:0] mask;
-    assign mask = 8'hFF >> (8 - LsuType);
-        always@(addr) begin
-            $display("LsuType:%d", LsuType);
-            $display("mask:%d", mask);
+    assign mask = ~(8'hFF << LsuType);
+        always@(*) begin
             if(WriteEn) begin
                 dci_pmem_write(addr, WriteData, mask);
                 ReadData = 64'h0;
@@ -789,5 +790,4 @@ module sim(input [31:0] inst, input [63:0] GPR [31:0], input unknown_inst_flag);
 endmodule
 
 // ----- 8< ----- FILE "firrtl_black_box_resource_files.f" ----- 8< -----
-
 
