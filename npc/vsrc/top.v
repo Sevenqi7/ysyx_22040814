@@ -610,16 +610,19 @@ module EXU(	// <stdin>:539:10
   output        io_EX_RegWriteEn);
 
   wire [63:0]  _ALU_Result_T_4 = io_ID_ALU_Data1 + io_ID_ALU_Data2;	// EXU.scala:43:83
-  wire [126:0] _ALU_Result_T_15 = {63'h0, io_ID_ALU_Data1} << io_ID_ALU_Data2[5:0];	// EXU.scala:39:29, :48:52
+  wire [63:0]  _ALU_Result_T_7 = io_ID_ALU_Data1 - io_ID_ALU_Data2;	// EXU.scala:44:53
+  wire [126:0] _ALU_Result_T_37 = {63'h0, io_ID_ALU_Data1} << io_ID_ALU_Data2[5:0];	// EXU.scala:39:29, :48:52
   wire [63:0]  _GEN = {58'h0, io_ID_ALU_Data2[5:0]};	// EXU.scala:39:29, :49:52
   assign io_EX_ALUResult = io_ID_optype == 5'h1 | io_ID_FuType ? _ALU_Result_T_4 : io_ID_optype == 5'h2 ?
-                io_ID_ALU_Data1 - io_ID_ALU_Data2 : io_ID_optype == 5'h4 ? io_ID_ALU_Data1 &
-                io_ID_ALU_Data2 : io_ID_optype == 5'h5 ? io_ID_ALU_Data1 | io_ID_ALU_Data2 : io_ID_optype
-                == 5'h6 ? io_ID_ALU_Data1 ^ io_ID_ALU_Data2 : io_ID_optype == 5'h7 ? _ALU_Result_T_15[63:0]
-                : io_ID_optype == 5'h8 ? io_ID_ALU_Data1 >> _GEN : io_ID_optype == 5'h9 ?
-                $signed($signed(io_ID_ALU_Data1) >>> _GEN) : io_ID_optype == 5'hB ? {63'h0, io_ID_ALU_Data1
-                < io_ID_ALU_Data2} : io_ID_optype == 5'hA ? {63'h0, $signed(io_ID_ALU_Data1) <
-                $signed(io_ID_ALU_Data2)} : io_ID_optype == 5'hF ? _ALU_Result_T_4 : 64'h0;	// <stdin>:539:10, EXU.scala:43:{23,35,83}, :44:{23,53}, :45:{23,53}, :46:{23,53}, :47:{23,53}, :48:{23,52}, :49:{23,52}, :50:{23,60}, :51:{23,53}, :52:{23,60}, :53:23, Mux.scala:101:16
+                _ALU_Result_T_7 : io_ID_optype == 5'h4 ? io_ID_ALU_Data1 & io_ID_ALU_Data2 : io_ID_optype
+                == 5'h5 ? io_ID_ALU_Data1 | io_ID_ALU_Data2 : io_ID_optype == 5'h6 ? io_ID_ALU_Data1 ^
+                io_ID_ALU_Data2 : io_ID_optype == 5'h7 ? _ALU_Result_T_37[63:0] : io_ID_optype == 5'h8 ?
+                io_ID_ALU_Data1 >> _GEN : io_ID_optype == 5'h9 ? $signed($signed(io_ID_ALU_Data1) >>> _GEN)
+                : io_ID_optype == 5'hB ? {63'h0, io_ID_ALU_Data1 < io_ID_ALU_Data2} : io_ID_optype == 5'hA
+                ? {63'h0, $signed(io_ID_ALU_Data1) < $signed(io_ID_ALU_Data2)} : io_ID_optype == 5'hF ?
+                _ALU_Result_T_4 : io_ID_optype == 5'h10 ? _ALU_Result_T_7 : io_ID_optype == 5'h11 |
+                io_ID_optype == 5'h13 ? _ALU_Result_T_37[63:0] : io_ID_optype == 5'h12 ?
+                $signed($signed(io_ID_ALU_Data1) >>> _GEN) : 64'h0;	// <stdin>:539:10, EXU.scala:28:13, :43:{23,35,83}, :44:{23,53}, :45:{23,53}, :46:{23,53}, :47:{23,53}, :48:{23,52}, :49:{23,52}, :50:{23,60}, :51:{23,53}, :52:{23,60}, :53:23, :54:23, :55:23, :56:23, :57:{23,66}, Mux.scala:101:16
   assign io_EX_MemWriteData = io_ID_Rs2Data;	// <stdin>:539:10
   assign io_EX_MemWriteEn = io_ID_MemWriteEn;	// <stdin>:539:10
   assign io_EX_LsuType = io_ID_FuType ? io_ID_optype[3:0] : 4'h0;	// <stdin>:539:10, EXU.scala:37:{28,62}
@@ -629,7 +632,7 @@ endmodule
 
 // external module LSU
 
-module MEMU(	// <stdin>:615:10
+module MEMU(	// <stdin>:654:10
   input  [63:0] io_EX_ALUResult,
                 io_EX_MemWriteData,
   input         io_EX_MemWriteEn,
@@ -648,14 +651,14 @@ module MEMU(	// <stdin>:615:10
     .WriteData (io_EX_MemWriteData),
     .ReadData  (_mem_ReadData)
   );
-  assign io_MEM_RegWriteData = (|io_EX_LsuType) & ~io_EX_MemWriteEn ? _mem_ReadData : io_EX_ALUResult;	// <stdin>:615:10, MEMU.scala:34:21, :39:{31,47,56,77}
-  assign io_MEM_RegWriteEn = io_EX_RegWriteEn;	// <stdin>:615:10
-  assign io_MEM_RegWriteID = io_EX_RegWriteID;	// <stdin>:615:10
+  assign io_MEM_RegWriteData = (|io_EX_LsuType) & ~io_EX_MemWriteEn ? _mem_ReadData : io_EX_ALUResult;	// <stdin>:654:10, MEMU.scala:34:21, :39:{31,47,56,77}
+  assign io_MEM_RegWriteEn = io_EX_RegWriteEn;	// <stdin>:654:10
+  assign io_MEM_RegWriteID = io_EX_RegWriteID;	// <stdin>:654:10
 endmodule
 
 // external module sim
 
-module top(	// <stdin>:647:10
+module top(	// <stdin>:686:10
   input         clock,
                 reset,
   output [63:0] io_IF_pc,
@@ -798,47 +801,28 @@ module top(	// <stdin>:647:10
     .io_MEM_RegWriteEn   (_mem_unit_io_MEM_RegWriteEn),
     .io_MEM_RegWriteID   (_mem_unit_io_MEM_RegWriteID)
   );
-  sim simulate (	// top.scala:28:26
-    .clock             (1'h0),	// <stdin>:670:20
-    .reset             (1'h0),	// <stdin>:670:20
-    .IF_pc             (_inst_fetch_unit_io_IF_pc),	// top.scala:23:33
-    .GPR_0             (_inst_decode_unit_io_ID_GPR_0),	// top.scala:24:34
-    .GPR_1             (_inst_decode_unit_io_ID_GPR_1),	// top.scala:24:34
-    .GPR_2             (_inst_decode_unit_io_ID_GPR_2),	// top.scala:24:34
-    .GPR_3             (_inst_decode_unit_io_ID_GPR_3),	// top.scala:24:34
-    .GPR_4             (_inst_decode_unit_io_ID_GPR_4),	// top.scala:24:34
-    .GPR_5             (_inst_decode_unit_io_ID_GPR_5),	// top.scala:24:34
-    .GPR_6             (_inst_decode_unit_io_ID_GPR_6),	// top.scala:24:34
-    .GPR_7             (_inst_decode_unit_io_ID_GPR_7),	// top.scala:24:34
-    .GPR_8             (_inst_decode_unit_io_ID_GPR_8),	// top.scala:24:34
-    .GPR_9             (_inst_decode_unit_io_ID_GPR_9),	// top.scala:24:34
-    .GPR_10            (_inst_decode_unit_io_ID_GPR_10),	// top.scala:24:34
-    .GPR_11            (_inst_decode_unit_io_ID_GPR_11),	// top.scala:24:34
-    .GPR_12            (_inst_decode_unit_io_ID_GPR_12),	// top.scala:24:34
-    .GPR_13            (_inst_decode_unit_io_ID_GPR_13),	// top.scala:24:34
-    .GPR_14            (_inst_decode_unit_io_ID_GPR_14),	// top.scala:24:34
-    .GPR_15            (_inst_decode_unit_io_ID_GPR_15),	// top.scala:24:34
-    .GPR_16            (_inst_decode_unit_io_ID_GPR_16),	// top.scala:24:34
-    .GPR_17            (_inst_decode_unit_io_ID_GPR_17),	// top.scala:24:34
-    .GPR_18            (_inst_decode_unit_io_ID_GPR_18),	// top.scala:24:34
-    .GPR_19            (_inst_decode_unit_io_ID_GPR_19),	// top.scala:24:34
-    .GPR_20            (_inst_decode_unit_io_ID_GPR_20),	// top.scala:24:34
-    .GPR_21            (_inst_decode_unit_io_ID_GPR_21),	// top.scala:24:34
-    .GPR_22            (_inst_decode_unit_io_ID_GPR_22),	// top.scala:24:34
-    .GPR_23            (_inst_decode_unit_io_ID_GPR_23),	// top.scala:24:34
-    .GPR_24            (_inst_decode_unit_io_ID_GPR_24),	// top.scala:24:34
-    .GPR_25            (_inst_decode_unit_io_ID_GPR_25),	// top.scala:24:34
-    .GPR_26            (_inst_decode_unit_io_ID_GPR_26),	// top.scala:24:34
-    .GPR_27            (_inst_decode_unit_io_ID_GPR_27),	// top.scala:24:34
-    .GPR_28            (_inst_decode_unit_io_ID_GPR_28),	// top.scala:24:34
-    .GPR_29            (_inst_decode_unit_io_ID_GPR_29),	// top.scala:24:34
-    .GPR_30            (_inst_decode_unit_io_ID_GPR_30),	// top.scala:24:34
-    .GPR_31            (_inst_decode_unit_io_ID_GPR_31),	// top.scala:24:34
-    .unknown_inst_flag (_inst_decode_unit_io_ID_unknown_inst),	// top.scala:24:34
-    .inst              (_simulate_inst)
-  );
-  assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:647:10, top.scala:23:33
-  assign io_ALUResult = _mem_unit_io_MEM_RegWriteData;	// <stdin>:647:10, top.scala:26:26
+wire [63:0] GPR [31:0];
+assign {GPR[31], GPR[30], GPR[29], GPR[28], GPR[27], GPR[26], GPR[25], GPR[24], GPR[23], GPR[22], GPR[21], GPR[20]
+, GPR[19], GPR[18], GPR[17], GPR[16], GPR[15], GPR[14], GPR[13], GPR[12], GPR[11], GPR[10], GPR[9], GPR[8], GPR[7]
+, GPR[6], GPR[5], GPR[4], GPR[3], GPR[2], GPR[1], GPR[0]} = 
+{{_inst_decode_unit_io_ID_GPR_31}, {_inst_decode_unit_io_ID_GPR_30}, {_inst_decode_unit_io_ID_GPR_29}, 
+{_inst_decode_unit_io_ID_GPR_28}, {_inst_decode_unit_io_ID_GPR_27}, {_inst_decode_unit_io_ID_GPR_26}, {_inst_decode_unit_io_ID_GPR_25}, 
+{_inst_decode_unit_io_ID_GPR_24}, {_inst_decode_unit_io_ID_GPR_23}, {_inst_decode_unit_io_ID_GPR_22}, {_inst_decode_unit_io_ID_GPR_21}, 
+{_inst_decode_unit_io_ID_GPR_20}, {_inst_decode_unit_io_ID_GPR_19}, {_inst_decode_unit_io_ID_GPR_18}, {_inst_decode_unit_io_ID_GPR_17}, 
+{_inst_decode_unit_io_ID_GPR_16}, {_inst_decode_unit_io_ID_GPR_15}, {_inst_decode_unit_io_ID_GPR_14}, {_inst_decode_unit_io_ID_GPR_13}, 
+{_inst_decode_unit_io_ID_GPR_12}, {_inst_decode_unit_io_ID_GPR_11}, {_inst_decode_unit_io_ID_GPR_10}, {_inst_decode_unit_io_ID_GPR_9 }, 
+{_inst_decode_unit_io_ID_GPR_8 }, {_inst_decode_unit_io_ID_GPR_7 }, {_inst_decode_unit_io_ID_GPR_6 }, {_inst_decode_unit_io_ID_GPR_5 },
+{_inst_decode_unit_io_ID_GPR_4 }, {_inst_decode_unit_io_ID_GPR_3 }, {_inst_decode_unit_io_ID_GPR_2 }, {_inst_decode_unit_io_ID_GPR_1 }, 
+{_inst_decode_unit_io_ID_GPR_0}};	// IDU.scala:55:22, :66:20
+
+sim simulate (	// top.scala:24:26
+   .IF_pc             (_inst_fetch_unit_io_IF_pc),	// top.scala:24:33
+   .inst              (_simulate_inst),
+   .GPR               (GPR),
+   .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
+);
+  assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:686:10, top.scala:23:33
+  assign io_ALUResult = _mem_unit_io_MEM_RegWriteData;	// <stdin>:686:10, top.scala:26:26
 endmodule
 
 
@@ -869,26 +853,7 @@ import "DPI-C" function void unknown_inst();
 import "DPI-C" function void ebreak(input longint halt_ret);
 
 
-wire [63:0] GPR [31:0];
-assign {GPR[31], GPR[30], GPR[29], GPR[28], GPR[27], GPR[26], GPR[25], GPR[24], GPR[23], GPR[22], GPR[21], GPR[20]
-, GPR[19], GPR[18], GPR[17], GPR[16], GPR[15], GPR[14], GPR[13], GPR[12], GPR[11], GPR[10], GPR[9], GPR[8], GPR[7]
-, GPR[6], GPR[5], GPR[4], GPR[3], GPR[2], GPR[1], GPR[0]} = 
-{{_inst_decode_unit_io_ID_GPR_31}, {_inst_decode_unit_io_ID_GPR_30}, {_inst_decode_unit_io_ID_GPR_29}, 
-{_inst_decode_unit_io_ID_GPR_28}, {_inst_decode_unit_io_ID_GPR_27}, {_inst_decode_unit_io_ID_GPR_26}, {_inst_decode_unit_io_ID_GPR_25}, 
-{_inst_decode_unit_io_ID_GPR_24}, {_inst_decode_unit_io_ID_GPR_23}, {_inst_decode_unit_io_ID_GPR_22}, {_inst_decode_unit_io_ID_GPR_21}, 
-{_inst_decode_unit_io_ID_GPR_20}, {_inst_decode_unit_io_ID_GPR_19}, {_inst_decode_unit_io_ID_GPR_18}, {_inst_decode_unit_io_ID_GPR_17}, 
-{_inst_decode_unit_io_ID_GPR_16}, {_inst_decode_unit_io_ID_GPR_15}, {_inst_decode_unit_io_ID_GPR_14}, {_inst_decode_unit_io_ID_GPR_13}, 
-{_inst_decode_unit_io_ID_GPR_12}, {_inst_decode_unit_io_ID_GPR_11}, {_inst_decode_unit_io_ID_GPR_10}, {_inst_decode_unit_io_ID_GPR_9 }, 
-{_inst_decode_unit_io_ID_GPR_8 }, {_inst_decode_unit_io_ID_GPR_7 }, {_inst_decode_unit_io_ID_GPR_6 }, {_inst_decode_unit_io_ID_GPR_5 },
-{_inst_decode_unit_io_ID_GPR_4 }, {_inst_decode_unit_io_ID_GPR_3 }, {_inst_decode_unit_io_ID_GPR_2 }, {_inst_decode_unit_io_ID_GPR_1 }, 
-{_inst_decode_unit_io_ID_GPR_0}};	// IDU.scala:55:22, :66:20
 
-sim simulate (	// top.scala:24:26
-   .IF_pc             (_inst_fetch_unit_io_IF_pc),	// top.scala:24:33
-   .inst              (_simulate_inst),
-   .GPR               (GPR),
-   .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
-);
 
 module sim(input[63:0] IF_pc, input [63:0] GPR [31:0], input unknown_inst_flag, output [63:0] inst);
 
@@ -920,6 +885,3 @@ module sim(input[63:0] IF_pc, input [63:0] GPR [31:0], input unknown_inst_flag, 
 endmodule
 
 // ----- 8< ----- FILE "firrtl_black_box_resource_files.f" ----- 8< -----
-
-build/build/LSU.v
-build/build/sim.v
