@@ -29,6 +29,7 @@ class EXU extends Module{
     io.EX_MemWriteData := io.ID_Rs2Data
     io.EX_MemWriteEn := io.ID_MemWriteEn
     io.EX_LsuType    := Mux(io.ID_FuType.asBool, io.ID_optype, 0.U)
+    val shamt := io.ID_ALU_Data2(5, 0)
 
     val ALU_Result = Wire(UInt(64.W))
     ALU_Result := MuxCase(0.U, Seq(
@@ -37,7 +38,7 @@ class EXU extends Module{
         (io.ID_optype === OP_AND , io.ID_ALU_Data1  &  io.ID_ALU_Data2),
         (io.ID_optype === OP_OR  , io.ID_ALU_Data1  |  io.ID_ALU_Data2),
         (io.ID_optype === OP_XOR , io.ID_ALU_Data1  ^  io.ID_ALU_Data2),
-        (io.ID_optype === OP_SLL , io.ID_ALU_Data1 <<  io.ID_ALU_Data2)
+        (io.ID_optype === OP_SLL , io.ID_ALU_Data1 <<  shamt          )
     ))
 
     io.EX_ALUResult := ALU_Result
