@@ -76,7 +76,7 @@ class IDU extends Module{
     io.ID_Rs1Data := rs1_data
     io.ID_Rs2Data := rs2_data
     
-    when(io.EX_RegWriteEn.asBool())
+    when(io.EX_RegWriteEn.asBool() && io.EX_RegWriteID =/= 0.U)
     {
         GPR(io.EX_RegWriteID) := io.EX_RegWriteData
     }

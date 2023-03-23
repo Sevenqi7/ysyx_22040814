@@ -55,8 +55,8 @@ void pmem_write(uint64_t addr, int len, uint64_t data)
 extern "C" void dci_pmem_read(long long raddr, long long *rdata,char rmask) {
   // 总是读取地址为`raddr & ~0x7ull`的8字节返回给`rdata`
   int len = 0;
-  while(rmask >>= 1) len++;
-  Log("read len:%d", len);
+  uint8_t mask = rmask;
+  for(;mask;mask=mask>>1,len++);
   *rdata = pmem_read(raddr, len);
 }
 extern "C" void dci_pmem_write(long long waddr, long long wdata, char wmask) {
@@ -64,7 +64,7 @@ extern "C" void dci_pmem_write(long long waddr, long long wdata, char wmask) {
   // `wmask`中每比特表示`wdata`中1个字节的掩码,
   // 如`wmask = 0x3`代表只写入最低2个字节, 内存中的其它字节保持不变
   int len = 0;
-  while(wmask >>= 1) len++;
-  Log("write len:%d data:%lx addr:%lx", len, wdata, waddr);
+  uint8_t mask = wmask;
+  for(;mask;mask=mask>>1,len++);
   pmem_write(waddr, len, wdata);
 }

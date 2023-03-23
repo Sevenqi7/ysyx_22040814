@@ -7,16 +7,12 @@ module LSU(input [63:0] addr, input [3:0] LsuType, input WriteEn, input [63:0]Wr
     assign mask = ~(8'hFF << LsuType);
         always@(*) begin
             $display("LsuType:%d", LsuType);
-            if(!rst) begin
-                if(WriteEn) begin
-                    dci_pmem_write(addr, WriteData, mask);
-                    ReadData = 64'h0;
-                end
-                else begin
-                    dci_pmem_read(addr, ReadData, mask);
-                end
+            if(WriteEn) begin
+                dci_pmem_write(addr, WriteData, mask);
+                ReadData = 64'h0;
             end
-            else
-                ReadData <= 64'h0;
+            else begin
+                dci_pmem_read(addr, ReadData, mask);
+            end
         end
 endmodule
