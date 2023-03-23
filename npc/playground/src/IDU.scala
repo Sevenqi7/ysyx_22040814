@@ -1,6 +1,5 @@
 import chisel3._
 import chisel3.util._
-import OpType._
 import InstType._
 import FuSource._
 
@@ -110,7 +109,8 @@ class IDU extends Module{
         (src2 === ZERO  , 0.U      ),
         (src2 === PC    , io.IF_pc ),
         (src2 === RS2   , rs1_data ),
-        (src2 === IMM   , imm      )
+        (src2 === IMM   , imm      ),
+        (src2 === SHAMT , shamt    )
         ))
                 
         io.ID_RegWriteID := rd
@@ -139,6 +139,7 @@ object RV64IInstr{
     //I Type
     def ADDI    = BitPat("b??????? ????? ????? 000 ????? 00100 11")
     def JALR    = BitPat("b??????? ????? ????? 000 ????? 11001 11")
+    def ORI     = BitPat("b??????? ????? ????? 110 ????? 00100 11")
 
     //J Type
     def JAL     = BitPat("b??????? ????? ????? ??? ????? 11011 11")
@@ -146,6 +147,14 @@ object RV64IInstr{
     // def SLLIW   = BitPat("b0000000_?????_?????_001_?????_0011011")
     // def SRLIW   = BitPat("b0000000_?????_?????_101_?????_0011011")
     // def SRAIW   = BitPat("b0100000_?????_?????_101_?????_0011011")
+
+    //R Type
+    def ADD       = BitPat("b0000000 ????? ????? 000 ????? 01100 11")
+    def SLL       = BitPat("b0000000 ????? ????? 001 ????? 01100 11")
+    def SUB       = BitPat("b0100000 ????? ????? 000 ????? 01100 11")
+    def XOR       = BitPat("b0000000 ????? ????? 100 ????? 01100 11")
+
+    def OR       = BitPat("b0000000 ????? ????? 110 ????? 01100 11")
     // def SLLW    = BitPat("b0000000_?????_?????_001_?????_0111011")
     // def SRLW    = BitPat("b0000000_?????_?????_101_?????_0111011")
 
@@ -167,6 +176,7 @@ object RV64IInstr{
         //I Type
         ADDI           -> List(TYPE_I, FuType.alu, RS1 , IMM , OpType.OP_PLUS),
         JALR           -> List(TYPE_I, FuType.alu, NPC , ZERO, OpType.OP_PLUS),
+        ORI            -> List(TYPE_I, FuType.alu, RS1 , IMM , OpType.OP_OR  ),
         // ADDIW          -> List(TYPE_I, FuType.alu, OpType.addw),
         // SLLIW          -> List(TYPE_I, FuType.alu, OpType.sllw),
         // SRLIW          -> List(TYPE_I, FuType.alu, OpType.srlw),
@@ -180,6 +190,13 @@ object RV64IInstr{
         // LD             -> List(TYPE_I, FuType.lsu, LSUOpType.ld ),
         SD             -> List(TYPE_S, FuType.lsu, RS1 , IMM , LSUOpType.sd  ),
         
+        //R Type
+        ADD            -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_PLUS),
+        SLL            -> List(TYPE_R, FuType.alu, RS1 , SHAMT,OpType.OP_SLL ),
+        SUB            -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_SUB ),
+        OR             -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_OR  ),
+
+
         //J Type
         JAL            -> List(TYPE_J, FuType.alu, NPC, ZERO, OpType.OP_PLUS)
         )

@@ -4,8 +4,10 @@ object OpType{
     val OP_PLUS = 1.U
     val OP_SUB = 2.U
     val OP_JAL = 3.U
-    val AUIPC = 4.U
-    val LUI = 5.U
+    val OP_AND = 4.U
+    val OP_OR = 5.U
+    val OP_XOR = 6.U
+    val OP_SLL = 7.U
     val NONE = 12.U
 }
 
@@ -38,6 +40,7 @@ object FuSource{
     val RS1  = 2.U
     val RS2  = 3.U
     val IMM  = 4.U
-    val NPC  = 5.U
-    val S_ADDR = 6.U
+    val SHAMT = 5.U
+    val NPC  = 6.U
+    val S_ADDR = 7.U
 }

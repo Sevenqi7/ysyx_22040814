@@ -33,7 +33,11 @@ class EXU extends Module{
     val ALU_Result = Wire(UInt(64.W))
     ALU_Result := MuxCase(0.U, Seq(
         (io.ID_optype === OP_PLUS || io.ID_FuType === FuType.lsu, io.ID_ALU_Data1 + io.ID_ALU_Data2),
-        (io.ID_optype === OP_SUB , io.ID_ALU_Data1 - io.ID_ALU_Data2)
+        (io.ID_optype === OP_SUB , io.ID_ALU_Data1  -  io.ID_ALU_Data2),
+        (io.ID_optype === OP_AND , io.ID_ALU_Data1  &  io.ID_ALU_Data2),
+        (io.ID_optype === OP_OR  , io.ID_ALU_Data1  |  io.ID_ALU_Data2),
+        (io.ID_optype === OP_XOR , io.ID_ALU_Data1  ^  io.ID_ALU_Data2),
+        (io.ID_optype === OP_SLL , io.ID_ALU_Data1 <<  io.ID_ALU_Data2)
     ))
 
     io.EX_ALUResult := ALU_Result
