@@ -19,7 +19,8 @@ assign {GPR[31], GPR[30], GPR[29], GPR[28], GPR[27], GPR[26], GPR[25], GPR[24], 
 
 sim simulate (	// top.scala:24:26
    .inst   (io_inst),
-   .GPR    (GPR)
+   .GPR    (GPR),
+   .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
 );
 
 module sim(input [31:0] inst, input [63:0] GPR [31:0], input unknown_inst_flag);

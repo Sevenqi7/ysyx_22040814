@@ -723,29 +723,30 @@ assign {GPR[31], GPR[30], GPR[29], GPR[28], GPR[27], GPR[26], GPR[25], GPR[24], 
 
 sim simulate (	// top.scala:24:26
    .inst   (io_inst),
-   .GPR    (GPR)
+   .GPR    (GPR),
+   .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
 );
-
   assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:315:10, top.scala:21:33
   assign io_ALUResult = _mem_unit_io_MEM_RegWriteData;	// <stdin>:315:10, top.scala:24:26
 endmodule
 
 
-// ----- 8< ----- FILE "./build/lsu.v" ----- 8< -----
+// ----- 8< ----- FILE "./build/LSU.v" ----- 8< -----
 
 import "DPI-C" function void dci_pmem_write(input longint waddr, input longint wdata, input byte wmask);
 import "DPI-C" function void dci_pmem_read(input longint raddr, output longint rdata, input byte rmask);
 
-module lsu(input [63:0] addr, input [2:0] LsuType, input WriteEn, input [63:0]WriteData, output [63:0] ReadData);
+module LSU(input [63:0] addr, input [2:0] LsuType, input WriteEn, input [63:0]WriteData, output reg [63:0] ReadData);
 
     wire [7:0] mask;
     assign mask = ~(8'HFF << LsuType);
         always@(*) begin
             if(WriteEn) begin
-                dci_pmem_write(addr, LsuType, WriteData, mask);
+                dci_pmem_write(addr, WriteData, mask);
+                ReadData = 64'h0;
             end
             else begin
-                dci_pmem_read(addr, LSUType, ReadData, mask);
+                dci_pmem_read(addr, ReadData, mask);
             end
         end
 endmodule
@@ -755,6 +756,8 @@ endmodule
 import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
 import "DPI-C" function void unknown_inst();
 import "DPI-C" function void ebreak(input int halt_ret);
+
+
 
 module sim(input [31:0] inst, input [63:0] GPR [31:0], input unknown_inst_flag);
 
@@ -781,4 +784,3 @@ module sim(input [31:0] inst, input [63:0] GPR [31:0], input unknown_inst_flag);
 endmodule
 
 // ----- 8< ----- FILE "firrtl_black_box_resource_files.f" ----- 8< -----
-

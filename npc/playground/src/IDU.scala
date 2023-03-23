@@ -176,7 +176,7 @@ object RV64IInstr{
         // SUBW           -> List(TYPE_R, FuType.alu, OpType.subw)
         // LWU            -> List(TYPE_I, FuType.lsu, LSUOpType.lwu),
         // LD             -> List(TYPE_I, FuType.lsu, LSUOpType.ld ),
-        SD             -> List(TYPE_S, FuType.lsu, RS2 , IMM , LSUOpType.sd  ),
+        SD             -> List(TYPE_S, FuType.lsu, RS1 , IMM , LSUOpType.sd  ),
         
         //J Type
         JAL            -> List(TYPE_J, FuType.alu, NPC, ZERO, OpType.OP_PLUS)

@@ -26,7 +26,7 @@ class EXU extends Module{
     //now it is only a single cycle cpu, so directy connect EX_Reg* to ID_Reg*
     io.EX_RegWriteEn := io.ID_RegWriteEn
     io.EX_RegWriteID := io.ID_RegWriteID
-    io.EX_MemWriteData := io.ID_Rs1Data
+    io.EX_MemWriteData := io.ID_Rs2Data
     io.EX_MemWriteEn := io.ID_MemWriteEn
     io.EX_LsuType    := Mux(io.ID_FuType === FuType.lsu, io.ID_optype, 0.U)
 
