@@ -709,9 +709,6 @@ module top(	// <stdin>:315:10
     .io_MEM_RegWriteEn   (_mem_unit_io_MEM_RegWriteEn),
     .io_MEM_RegWriteID   (_mem_unit_io_MEM_RegWriteID)
   );
-
-
-
 wire [63:0] GPR [31:0];
 assign {GPR[31], GPR[30], GPR[29], GPR[28], GPR[27], GPR[26], GPR[25], GPR[24], GPR[23], GPR[22], GPR[21], GPR[20]
 , GPR[19], GPR[18], GPR[17], GPR[16], GPR[15], GPR[14], GPR[13], GPR[12], GPR[11], GPR[10], GPR[9], GPR[8], GPR[7]
@@ -732,6 +729,10 @@ sim simulate (	// top.scala:24:26
    .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
 );
 
+  always@(*) begin
+    $display("ID_futype:%d\n", _inst_decode_unit_io_ID_FuType);
+    $display("ID_optype:%d\n", _inst_decode_unit_io_ID_optype);
+  end
   assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:315:10, top.scala:21:33
   assign io_ALUResult = _mem_unit_io_MEM_RegWriteData;	// <stdin>:315:10, top.scala:24:26
 endmodule
@@ -748,14 +749,14 @@ module LSU(input [63:0] addr, input [3:0] LsuType, input WriteEn, input [63:0]Wr
     assign mask = ~(8'hFF << LsuType);
         always@(*) begin
             $display("LsuType:%d", LsuType);
-            if(WriteEn) begin
-                dci_pmem_write(addr, WriteData, mask);
-                ReadData = 64'h0;
+                if(WriteEn) begin
+                    dci_pmem_write(addr, WriteData, mask);
+                    ReadData = 64'h0;
+                end
+                else begin
+                    dci_pmem_read(addr, ReadData, mask);
+                end
             end
-            else begin
-                dci_pmem_read(addr, ReadData, mask);
-            end
-        end
 endmodule
 
 // ----- 8< ----- FILE "./build/sim.v" ----- 8< -----
@@ -791,4 +792,3 @@ module sim(input [31:0] inst, input [63:0] GPR [31:0], input unknown_inst_flag);
 endmodule
 
 // ----- 8< ----- FILE "firrtl_black_box_resource_files.f" ----- 8< -----
-
