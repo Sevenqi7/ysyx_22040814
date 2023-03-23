@@ -31,7 +31,7 @@ static void trace_and_difftest(char *logbuf)
 #endif
 #ifdef CONFIG_DIFFTEST
     void difftest_step(vaddr_t pc);
-    difftest_step(npc_state.pc);
+    difftest_step(top->io_IF_pc);
 #endif
 #ifdef CONFIG_WATCHPOINT
     if(check_watchpoints())
@@ -58,15 +58,15 @@ void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
 
 void exec_once()            //disassemble实质上是反汇编的上一个已执行完的指令（正要执行的指令还在等待上升沿）
 {
-    npc_state.inst = pmem_read(top->io_IF_pc, 4);       //record the pc value and inst that excuted last time
-    npc_state.pc   = top->io_IF_pc;                     
     if(inst_fault)                           //if an unimplemented inst found, directly record inst trace without excuting next inst
     {
         npc_state.state = NPC_ABORT;
         printf("\033[0m\033[1;31m%s\033[0m\n", "UNKNOWN INST RECEIVED:");
         printf("\033[0m\033[1;31mPC:0x%016lx inst:0x%08x\033[0m\n", npc_state.pc, (uint32_t)npc_state.inst);
-        goto trace;
+        return ;
     }
+    npc_state.inst = pmem_read(top->io_IF_pc, 4);       //record the pc value and inst that excuted last time
+    npc_state.pc   = top->io_IF_pc;                     
     for(int i=0;i<2;i++)
     {
         contextp->timeInc(1); // 1 timeprecision period passes...
@@ -105,7 +105,6 @@ trace:
 void execute(uint64_t n)
 {
     g_print_step = (n < MAX_INST_TO_PRINT);
-    Log("step:%d", g_print_step);
     switch(npc_state.state)
     {
         case NPC_END: case NPC_ABORT:

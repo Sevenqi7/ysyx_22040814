@@ -13,6 +13,7 @@ extern paddr_t host_to_guest(uint8_t *haddr);
 //用C++实现的仿真用的存储器
 extern uint64_t *pmem_addr(uint64_t *addr);
 extern uint64_t  pmem_read(uint64_t addr, int len);
+extern void      pmem_write(uint64_t addr, int len, uint64_t data);
 
 #define MEMSIZE     0x8000000
 #define MEMMASK     0x7FFFFFF

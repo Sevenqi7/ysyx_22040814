@@ -510,7 +510,7 @@ module EXU(	// <stdin>:240:10
   output [4:0]  io_EX_RegWriteID,
   output        io_EX_RegWriteEn);
 
-  assign io_EX_RegWriteData = io_ID_optype == 4'h1 ? io_ID_ALU_Data1 - io_ID_ALU_Data2 : io_ID_optype == 4'h2 ?
+  assign io_EX_RegWriteData = io_ID_optype == 4'h1 ? io_ID_ALU_Data1 + io_ID_ALU_Data2 : io_ID_optype == 4'h2 ?
                 io_ID_ALU_Data1 - io_ID_ALU_Data2 : 64'h0;	// <stdin>:240:10, EXU.scala:25:{23,52}, :26:{23,52}, Mux.scala:101:16
   assign io_EX_RegWriteID = io_ID_RegWriteID;	// <stdin>:240:10
   assign io_EX_RegWriteEn = io_ID_RegWriteEn;	// <stdin>:240:10

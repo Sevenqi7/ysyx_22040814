@@ -12,10 +12,14 @@ class IDU extends Module{
         
         val ID_ALU_Data1 = Output(UInt(64.W))
         val ID_ALU_Data2 = Output(UInt(64.W))
+        val ID_FuType = Output(UInt(2.W))
         val ID_optype = Output(UInt(4.W))
-        
+
+        val ID_Rs1Data = Output(UInt(64.W))
+        val ID_Rs2Data = Output(UInt(64.W))
         val ID_RegWriteID = Output(UInt(5.W))
         val ID_RegWriteEn = Output(UInt(1.W))
+        val ID_MemWriteEn = Output(UInt(1.W))
         
         val EX_RegWriteData = Input(UInt(64.W))
         val EX_RegWriteID = Input(UInt(5.W))
@@ -30,12 +34,13 @@ class IDU extends Module{
     val InstInfo = ListLookup(io.IF_Inst, List(0.U, 0.U, 0.U, 0.U, 0.U), RV64IInstr.table)
     val instType = Wire(UInt(3.W))
     val opType   = Wire(UInt(3.W))
-    io.ID_unknown_inst := InstInfo(0) === 0.U
-
+    
     opType          := InstInfo(4)
     instType        := InstInfo(0)
     
     io.ID_optype    := opType
+    io.ID_unknown_inst := InstInfo(0) === 0.U
+    io.ID_FuType    := InstInfo(1)
 
     //all kinds of imm
     val immI = Wire(UInt(64.W))
@@ -67,6 +72,9 @@ class IDU extends Module{
     rs2 := io.IF_Inst(24, 20)
     rs1_data := Mux(rs1 === 0.U, 0.U, GPR(rs1))
     rs2_data := Mux(rs2 === 0.U, 0.U, GPR(rs2))
+
+    io.ID_Rs1Data := rs1_data
+    io.ID_Rs2Data := rs2_data
     
     when(io.EX_RegWriteEn.asBool())
     {
@@ -99,14 +107,15 @@ class IDU extends Module{
     ))
             
     io.ID_ALU_Data2 := MuxCase(0.U, Seq(
-        (src2 === ZERO, 0.U     ),
-        (src2 === PC  , io.IF_pc),
-        (src2 === RS2 , rs1_data),
-        (src2 === IMM , imm     )
+        (src2 === ZERO  , 0.U      ),
+        (src2 === PC    , io.IF_pc ),
+        (src2 === RS2   , rs1_data ),
+        (src2 === IMM   , imm      )
         ))
                 
         io.ID_RegWriteID := rd
         io.ID_RegWriteEn := (instType === TYPE_R) || (instType === TYPE_I) || (instType === TYPE_U) || (instType === TYPE_J)
+        io.ID_MemWriteEn := (instType === TYPE_S)
         
     //NPC
     val pcplus4 = Wire(UInt(32.W))
@@ -144,11 +153,11 @@ object RV64IInstr{
     // def SUBW    = BitPat("b0100000_?????_?????_000_?????_0111011")
     // def LWU     = BitPat("b???????_?????_?????_110_?????_0000011")
     // def LD      = BitPat("b???????_?????_?????_011_?????_0000011")
-    // def SD      = BitPat("b???????_?????_?????_011_?????_0100011")
+    def SD      = BitPat("b???????_?????_?????_011_?????_0100011")
     val table = Array(
 
         // Special insts
-        EBREAK         -> List(TYPE_N, FuType.slu, ZERO, ZERO, OpType.OP_PLUS),
+        EBREAK         -> List(TYPE_N, FuType.alu, ZERO, ZERO, OpType.OP_PLUS),
 
         //U Type
         AUIPC          -> List(TYPE_U, FuType.alu, PC  , IMM , OpType.OP_PLUS),
@@ -167,9 +176,9 @@ object RV64IInstr{
         // SUBW           -> List(TYPE_R, FuType.alu, OpType.subw)
         // LWU            -> List(TYPE_I, FuType.lsu, LSUOpType.lwu),
         // LD             -> List(TYPE_I, FuType.lsu, LSUOpType.ld ),
-        // SD             -> List(InstrS, FuType.lsu, LSUOpType.sd)
-
+        SD             -> List(TYPE_S, FuType.lsu, RS2 , IMM , LSUOpType.sd  ),
+        
         //J Type
-        JAL            -> List(TYPE_J, FuType.none, NPC, ZERO, OpType.OP_PLUS)
-    )
-}
+        JAL            -> List(TYPE_J, FuType.alu, NPC, ZERO, OpType.OP_PLUS)
+        )
+    }

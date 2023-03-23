@@ -37,3 +37,17 @@ uint64_t pmem_read(uint64_t addr, int len)
     }
     return 0;
 }
+
+void pmem_write(uint64_t addr, int len, uint64_t data)
+{
+    uint64_t paddr = addr & MEMMASK;
+    outofbound(paddr);
+    int ret = 0;
+    switch (len) {
+    case 1: *(uint8_t  *)(pmem + paddr) = data; return;
+    case 2: *(uint16_t *)(pmem + paddr) = data; return;
+    case 4: *(uint32_t *)(pmem + paddr) = data; return;
+    case 8: *(uint64_t *)(pmem + paddr) = data; return;
+    default: printf("\033[0m\033[1;31m%s\033[0m", "Unsupported len\n"); exit(-1);
+  }
+}
