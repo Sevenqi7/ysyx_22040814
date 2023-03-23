@@ -39,7 +39,9 @@ class EXU extends Module{
         (io.ID_optype === OP_AND , io.ID_ALU_Data1  &  io.ID_ALU_Data2),
         (io.ID_optype === OP_OR  , io.ID_ALU_Data1  |  io.ID_ALU_Data2),
         (io.ID_optype === OP_XOR , io.ID_ALU_Data1  ^  io.ID_ALU_Data2),
-        (io.ID_optype === OP_SLL , io.ID_ALU_Data1 <<  shamt          )
+        (io.ID_optype === OP_SLL , io.ID_ALU_Data1 <<  shamt          ),
+        (io.ID_optype === OP_SLTU, io.ID_ALU_Data1  <  io.ID_ALU_Data2),
+        (io.ID_optype === OP_SLT , io.ID_ALU_Data1.asSInt  <  io.ID_ALU_Data2.asSInt)
     ))
 
     io.EX_ALUResult := ALU_Result

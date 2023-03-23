@@ -8,8 +8,11 @@ object OpType{
     val OP_OR = 5.U
     val OP_XOR = 6.U
     val OP_SLL = 7.U
+    val OP_SLT = 8.U
+    val OP_SLTU = 9.U
     val NONE = 12.U
 }
+
 
 object LSUOpType{
     val ld = 8.U
