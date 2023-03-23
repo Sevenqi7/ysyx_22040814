@@ -71,14 +71,6 @@ void exec_once()            //disassemble实质上是反汇编的上一个已执
     {
         contextp->timeInc(1); // 1 timeprecision period passes...
         top->clock = !top->clock;
-        if(!top->reset)
-            top->io_inst = pmem_read(top->io_IF_pc, 4);
-        if(!top->io_inst)
-        {
-            printf("\n\033[0m\033[1;31m%s 0x%lx\033[0m\n", "All 0 inst found in addr: ", top->io_IF_pc);
-            exit(-1) ;
-        }    
-
         // if(top->clock)
         //     Log("time=%ld clk=%x rst=%x inst=0x%x IF_pc=0x%lx", contextp->time(), top->clock, top->reset, top->io_inst, top->io_IF_pc);
         top->eval();
