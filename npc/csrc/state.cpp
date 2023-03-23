@@ -12,6 +12,7 @@ void unknown_inst()
 
 void ebreak(int halt_ret)
 {
+    if(npc_state.state == NPC_END) return;
     npc_state.state = NPC_END;
     printf("\033[0m\033[1;32m%s\033[0m\n", "NPCTRAP SUCCESS");
     if(halt_ret)

@@ -1,6 +1,7 @@
 #include <verilator.h>
 #include <expr.h>
 #include <npc.h>
+#include <memory.h>
 
 #include <readline/readline.h>
 #include <readline/history.h>

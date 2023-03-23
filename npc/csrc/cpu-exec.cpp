@@ -1,5 +1,6 @@
 #include <verilator.h>
 #include <npc.h>
+#include <memory.h>
 #include <string.h>
 
 #define MAX_INST_TO_PRINT 10
@@ -17,14 +18,20 @@ static uint32_t g_itrace_num = 0;
 #endif
 
 extern bool inst_fault;
+void difftest_regcpy(void *dut, bool direction);
 
 static void trace_and_difftest(char *logbuf)
 {
+    uint64_t cpyreg[32];
     if(g_print_step){puts(logbuf);}
 #ifdef CONFIG_FTRACE
     void ftrace_check_jal(uint64_t jump_addr, uint64_t ret_addr, int rs1, int rd);
     int rd = BITS(npc_state.inst, 11, 7), rs1 = BITS(npc_state.inst, 19, 15);
     ftrace_check_jal(top->io_IF_pc, npc_state.pc + 4, rs1, rd);
+#endif
+#ifdef CONFIG_DIFFTEST
+    void difftest_step(vaddr_t pc);
+    difftest_step(top->io_IF_pc);
 #endif
 #ifdef CONFIG_WATCHPOINT
     if(check_watchpoints())
@@ -51,15 +58,15 @@ void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
 
 void exec_once()            //disassemble实质上是反汇编的上一个已执行完的指令（正要执行的指令还在等待上升沿）
 {
-    npc_state.inst = pmem_read(top->io_IF_pc, 4);       //record the pc value and inst that excuted last time
-    npc_state.pc   = top->io_IF_pc;                     
     if(inst_fault)                           //if an unimplemented inst found, directly record inst trace without excuting next inst
     {
         npc_state.state = NPC_ABORT;
         printf("\033[0m\033[1;31m%s\033[0m\n", "UNKNOWN INST RECEIVED:");
         printf("\033[0m\033[1;31mPC:0x%016lx inst:0x%08x\033[0m\n", npc_state.pc, (uint32_t)npc_state.inst);
-        goto trace;
+        return ;
     }
+    npc_state.inst = pmem_read(top->io_IF_pc, 4);       //record the pc value and inst that excuted last time
+    npc_state.pc   = top->io_IF_pc;                     
     for(int i=0;i<2;i++)
     {
         contextp->timeInc(1); // 1 timeprecision period passes...
@@ -98,7 +105,6 @@ trace:
 void execute(uint64_t n)
 {
     g_print_step = (n < MAX_INST_TO_PRINT);
-    Log("step:%d", g_print_step);
     switch(npc_state.state)
     {
         case NPC_END: case NPC_ABORT:
@@ -114,5 +120,8 @@ void execute(uint64_t n)
     }
 
     if(npc_state.state == NPC_ABORT)
+    {
+        printf("\n\033[0m\033[1;31mNPC ABORT \033[0mat pc = %016lx\n", npc_state.pc);
         display_itrace();
+    }
 }

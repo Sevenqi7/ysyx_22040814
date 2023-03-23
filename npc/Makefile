@@ -1,6 +1,6 @@
 BUILD_DIR = ./build
-VSRC = ./vsrc
-CSRC = ./csrc
+VSRC = $(abspath ./vsrc)
+CSRC = $(abspath ./csrc)
 
 export PATH := $(PATH):$(abspath ./utils)
 
@@ -50,6 +50,8 @@ BUILD_DIR = ./build
 OBJ_DIR := ./build/obj_dir
 BIN = $(BUILD_DIR)/$(TOPNAME)
 
+#difftest
+DIFF_REF_SO = $(NEMU_HOME)/build/riscv64-nemu-interpreter-so
 
 VSRC_OBJ := $(shell find $(abspath ./vsrc) -name "*.v")
 CSRC_OBJ := $(shell find $(abspath ./csrc) -name "*.c" -or -name "*.cc" -or -name "*.cpp")
@@ -58,7 +60,9 @@ INCFLAGS = $(addprefix -I , $(INC_PATH))
 CFLAGS += $(INCFLAGS) -DTOP_NAME="\"V$(TOPNAME)\""
 CFLAGS += -I/usr/lib/llvm-14/include -std=c++14 -fno-exceptions -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -fPIE
 LDFLAGS += -lreadline $(shell llvm-config --libs)
+# LDFLAGS += -$(DIFF_REF_SO)
 VERILATOR_FLAGS += -cc --exe -OS -MMD -x-assign 0 -j 6 --trace --build
+
 
 $(BIN): $(VSRC_OBJ) $(CSRC_OBJ)
 	$(VERILATOR) $(VERILATOR_FLAGS) $^ \
@@ -67,8 +71,7 @@ $(BIN): $(VSRC_OBJ) $(CSRC_OBJ)
 	--Mdir $(OBJ_DIR) -o $(abspath $(BIN))
 
 run: $(BIN)
-	echo $(shell llvm-config --cxxflags)
-	$(abspath $(BIN)) $(IMG) $(ELF)
+	$(abspath $(BIN)) $(IMG) $(ELF) $(DIFF_REF_SO)
 	
 sim: $(BIN)
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!

@@ -2,6 +2,7 @@ import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
 import "DPI-C" function void unknown_inst();
 import "DPI-C" function void ebreak(input int halt_ret);
 
+
 wire [63:0] GPR [31:0];
 assign {GPR[31], GPR[30], GPR[29], GPR[28], GPR[27], GPR[26], GPR[25], GPR[24], GPR[23], GPR[22], GPR[21], GPR[20]
 , GPR[19], GPR[18], GPR[17], GPR[16], GPR[15], GPR[14], GPR[13], GPR[12], GPR[11], GPR[10], GPR[9], GPR[8], GPR[7]
@@ -18,7 +19,8 @@ assign {GPR[31], GPR[30], GPR[29], GPR[28], GPR[27], GPR[26], GPR[25], GPR[24], 
 
 sim simulate (	// top.scala:24:26
    .inst   (io_inst),
-   .GPR    (GPR)
+   .GPR    (GPR),
+   .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
 );
 
 module sim(input [31:0] inst, input [63:0] GPR [31:0], input unknown_inst_flag);

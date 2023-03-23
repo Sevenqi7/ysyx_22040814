@@ -24,10 +24,13 @@
     exit(-1);    \
   } while (0)
 
+enum { DIFFTEST_TO_DUT, DIFFTEST_TO_REF };
+
 
 #define panic(format, ...) \
     _panic(ANSI_FMT("[%s:%d %s] PANIC! " format, ANSI_FG_RED) "\n", \
         __FILE__, __LINE__, __func__, ## __VA_ARGS__)
+
 
 
 extern uint64_t *cpu_gpr;
@@ -53,9 +56,5 @@ extern bool del_watchpoint(int NO);
 extern bool check_watchpoints();
 extern void display_watchpoints();
 
-
-//用C++实现的仿真用的存储器
-extern uint64_t *pmem_addr(uint64_t *addr);
-extern uint64_t  pmem_read(uint64_t addr, int len);
 
 #endif

@@ -1,5 +1,6 @@
 #include <verilator.h>
 #include <npc.h>
+#include <memory.h>
 
 #include <stdbool.h>
 #include <stdlib.h>

@@ -4,15 +4,21 @@ object OpType{
     val OP_PLUS = 1.U
     val OP_SUB = 2.U
     val OP_JAL = 3.U
-    val LOAD = 10.U
-    val AUIPC = 11.U
-    val NONE = 12.U
+    val AUIPC = 4.U
+    val NONE = 5.U
+}
+
+object LSUOpType{
+    val ld = 8.U
+    val lw = 4.U
+    val lwu = 4.U
+    val sd = 8.U
+    val sw = 4.U
 }
 
 object FuType{
-    val alu = 1.U(2.W)
-    val slu = 2.U(2.W)
-    val none = 3.U(2.W)
+    val alu = 0.U
+    val lsu = 1.U
 }
 
 object InstType{
@@ -32,4 +38,5 @@ object FuSource{
     val RS2  = 3.U
     val IMM  = 4.U
     val NPC  = 5.U
+    val S_ADDR = 6.U
 }
