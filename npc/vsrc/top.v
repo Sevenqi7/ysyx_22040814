@@ -470,7 +470,7 @@ module IDU(	// <stdin>:12:10
                 io_IF_Inst[31:25], io_IF_Inst[11:7]} : 64'h0) : 64'h0;	// <stdin>:12:10, Bitwise.scala:77:12, Cat.scala:33:92, IDU.scala:53:{36,53}, :54:{10,53,63}, :55:{10,53,80}, :56:{80,107,128}, :62:30, :96:19, :97:19, :98:19, :99:19, Lookup.scala:31:38, :34:39, Mux.scala:101:16
   assign io_ID_FuType = {1'h0, ~_InstInfo_T_1 & ~_InstInfo_T_3 & ~_InstInfo_T_5 & ~_InstInfo_T_7 & _InstInfo_T_18};	// <stdin>:12:10, IDU.scala:43:21, Lookup.scala:31:38, :34:39
   assign io_ID_optype = {1'h0, _InstInfo_T_1 | _InstInfo_T_3 | _InstInfo_T_5 | _InstInfo_T_7 ? 3'h1 :
-                _InstInfo_T_18 ? 3'h4 : {2'h0, _InstInfo_T_32}};	// <stdin>:12:10, IDU.scala:41:21, Lookup.scala:31:38, :34:39
+                _InstInfo_T_18 ? 3'h0 : {2'h0, _InstInfo_T_32}};	// <stdin>:12:10, IDU.scala:41:21, :56:67, Lookup.scala:31:38, :34:39
   assign io_ID_Rs1Data = _rs1_data_T_1;	// <stdin>:12:10, IDU.scala:73:20
   assign io_ID_RegWriteID = io_IF_Inst[11:7];	// <stdin>:12:10, IDU.scala:55:80
   assign io_ID_RegWriteEn = InstInfo_0 == 3'h2 | _io_ID_npc_T_8 | _io_ID_RegWriteEn_T_3 | _io_ID_npc_T;	// <stdin>:12:10, IDU.scala:96:19, :98:19, :117:{39,101,114}, Lookup.scala:34:39
@@ -725,6 +725,7 @@ sim simulate (	// top.scala:24:26
    .inst   (io_inst),
    .GPR    (GPR)
 );
+
   assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:315:10, top.scala:21:33
   assign io_ALUResult = _mem_unit_io_MEM_RegWriteData;	// <stdin>:315:10, top.scala:24:26
 endmodule
@@ -732,16 +733,19 @@ endmodule
 
 // ----- 8< ----- FILE "./build/lsu.v" ----- 8< -----
 
-import "DPI-C" function void pmem_write(input longint addr, input int len, input longint data);
-import "DPI-C" function uint64_t pmem_read(input longint addr, input int len);
+import "DPI-C" function void dci_pmem_write(input longint waddr, input longint wdata, input byte wmask);
+import "DPI-C" function void dci_pmem_read(input longint raddr, output longint rdata, input byte rmask);
 
-module sim_mem(input [63:0] addr, input [2:0] LsuType, input WriteEn, input [63:0]WriteData, output [63:0] ReadData);
+module lsu(input [63:0] addr, input [2:0] LsuType, input WriteEn, input [63:0]WriteData, output [63:0] ReadData);
+
+    wire [7:0] mask;
+    assign mask = ~(8'HFF << LsuType);
         always@(*) begin
             if(WriteEn) begin
-                pmem_write(addr, LSUType, WriteData);
+                dci_pmem_write(addr, LsuType, WriteData, mask);
             end
             else begin
-                ReadData = pmem_read(addr, LsuType);
+                dci_pmem_read(addr, LSUType, ReadData, mask);
             end
         end
 endmodule
@@ -751,8 +755,6 @@ endmodule
 import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
 import "DPI-C" function void unknown_inst();
 import "DPI-C" function void ebreak(input int halt_ret);
-
-
 
 module sim(input [31:0] inst, input [63:0] GPR [31:0], input unknown_inst_flag);
 
@@ -779,3 +781,4 @@ module sim(input [31:0] inst, input [63:0] GPR [31:0], input unknown_inst_flag);
 endmodule
 
 // ----- 8< ----- FILE "firrtl_black_box_resource_files.f" ----- 8< -----
+
