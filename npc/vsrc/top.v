@@ -544,7 +544,7 @@ module MEMU(	// <stdin>:286:10
   input  [63:0] io_EX_ALUResult,
                 io_EX_MemWriteData,
   input         io_EX_MemWriteEn,
-  input  [2:0]  io_EX_LsuType,
+  input  [3:0]  io_EX_LsuType,
   input         io_EX_RegWriteEn,
   input  [4:0]  io_EX_RegWriteID,
   output [63:0] io_MEM_RegWriteData,
@@ -702,14 +702,14 @@ module top(	// <stdin>:315:10
     .io_EX_ALUResult     (_excute_unit_io_EX_ALUResult),	// top.scala:23:29
     .io_EX_MemWriteData  (_excute_unit_io_EX_MemWriteData),	// top.scala:23:29
     .io_EX_MemWriteEn    (_excute_unit_io_EX_MemWriteEn),	// top.scala:23:29
-    .io_EX_LsuType       (_excute_unit_io_EX_LsuType[2:0]),	// top.scala:23:29, :55:34
+    .io_EX_LsuType       (_excute_unit_io_EX_LsuType),	// top.scala:23:29
     .io_EX_RegWriteEn    (_excute_unit_io_EX_RegWriteEn),	// top.scala:23:29
     .io_EX_RegWriteID    (_excute_unit_io_EX_RegWriteID),	// top.scala:23:29
     .io_MEM_RegWriteData (_mem_unit_io_MEM_RegWriteData),
     .io_MEM_RegWriteEn   (_mem_unit_io_MEM_RegWriteEn),
     .io_MEM_RegWriteID   (_mem_unit_io_MEM_RegWriteID)
   );
-
+  
 wire [63:0] GPR [31:0];
 assign {GPR[31], GPR[30], GPR[29], GPR[28], GPR[27], GPR[26], GPR[25], GPR[24], GPR[23], GPR[22], GPR[21], GPR[20]
 , GPR[19], GPR[18], GPR[17], GPR[16], GPR[15], GPR[14], GPR[13], GPR[12], GPR[11], GPR[10], GPR[9], GPR[8], GPR[7]
@@ -729,7 +729,6 @@ sim simulate (	// top.scala:24:26
    .GPR    (GPR),
    .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
 );
-
   assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:315:10, top.scala:21:33
   assign io_ALUResult = _mem_unit_io_MEM_RegWriteData;	// <stdin>:315:10, top.scala:24:26
 endmodule
@@ -740,11 +739,12 @@ endmodule
 import "DPI-C" function void dci_pmem_write(input longint waddr, input longint wdata, input byte wmask);
 import "DPI-C" function void dci_pmem_read(input longint raddr, output longint rdata, input byte rmask);
 
-module LSU(input [63:0] addr, input [2:0] LsuType, input WriteEn, input [63:0]WriteData, output reg [63:0] ReadData);
+module LSU(input [63:0] addr, input [3:0] LsuType, input WriteEn, input [63:0]WriteData, output reg [63:0] ReadData);
 
     wire [7:0] mask;
     assign mask = ~(8'hFF << LsuType);
         always@(*) begin
+            $display("LsuType:%d", LsuType);
             if(WriteEn) begin
                 dci_pmem_write(addr, WriteData, mask);
                 ReadData = 64'h0;
@@ -760,6 +760,7 @@ endmodule
 import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
 import "DPI-C" function void unknown_inst();
 import "DPI-C" function void ebreak(input int halt_ret);
+
 
 
 module sim(input [31:0] inst, input [63:0] GPR [31:0], input unknown_inst_flag);
@@ -787,3 +788,4 @@ module sim(input [31:0] inst, input [63:0] GPR [31:0], input unknown_inst_flag);
 endmodule
 
 // ----- 8< ----- FILE "firrtl_black_box_resource_files.f" ----- 8< -----
+
