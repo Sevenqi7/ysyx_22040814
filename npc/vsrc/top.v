@@ -79,7 +79,7 @@ module IDU(	// <stdin>:12:10
   output [63:0] io_ID_npc,
                 io_ID_ALU_Data1,
                 io_ID_ALU_Data2,
-  output [1:0]  io_ID_FuType,
+  output        io_ID_FuType,
   output [3:0]  io_ID_optype,
   output [63:0] io_ID_Rs2Data,
   output [4:0]  io_ID_RegWriteID,
@@ -471,7 +471,7 @@ module IDU(	// <stdin>:12:10
                 io_IF_Inst[7], io_IF_Inst[30:25], io_IF_Inst[11:8]} : _io_ID_RegWriteEn_T_3 ?
                 {{32{io_IF_Inst[31]}}, io_IF_Inst[31:12], 12'h0} : _io_ID_MemWriteEn_T ? {_GEN_0,
                 io_IF_Inst[31:25], io_IF_Inst[11:7]} : 64'h0) : 64'h0;	// <stdin>:12:10, Bitwise.scala:77:12, Cat.scala:33:92, IDU.scala:53:{36,53}, :54:{10,53,63}, :55:{10,53,80}, :56:{80,107,128}, :62:30, :96:19, :97:19, :98:19, :99:19, Lookup.scala:31:38, :34:39, Mux.scala:101:16
-  assign io_ID_FuType = {1'h0, ~_InstInfo_T_1 & ~_InstInfo_T_3 & ~_InstInfo_T_5 & ~_InstInfo_T_7 & _InstInfo_T_18};	// <stdin>:12:10, IDU.scala:43:21, Lookup.scala:31:38, :34:39
+  assign io_ID_FuType = ~_InstInfo_T_1 & ~_InstInfo_T_3 & ~_InstInfo_T_5 & ~_InstInfo_T_7 & _InstInfo_T_18;	// <stdin>:12:10, Lookup.scala:31:38, :34:39
   assign io_ID_optype = {1'h0, _InstInfo_T_1 | _InstInfo_T_3 | _InstInfo_T_5 | _InstInfo_T_7 ? 3'h1 :
                 _InstInfo_T_18 ? 3'h0 : {2'h0, _InstInfo_T_32}};	// <stdin>:12:10, IDU.scala:41:21, :56:67, Lookup.scala:31:38, :34:39
   assign io_ID_Rs2Data = io_IF_Inst[24:20] == 5'h0 ? 64'h0 : _GEN_3;	// <stdin>:12:10, IDU.scala:55:63, :62:30, :72:22, :74:{20,25}
@@ -533,7 +533,7 @@ module EXU(	// <stdin>:252:10
                 4'h2 ? io_ID_ALU_Data1 - io_ID_ALU_Data2 : 64'h0;	// <stdin>:252:10, EXU.scala:35:{23,35,83}, :36:{23,52}, Mux.scala:101:16
   assign io_EX_MemWriteData = io_ID_Rs2Data;	// <stdin>:252:10
   assign io_EX_MemWriteEn = io_ID_MemWriteEn;	// <stdin>:252:10
-  assign io_EX_LsuType = io_ID_FuType ? io_ID_optype : 4'hA;	// <stdin>:252:10, EXU.scala:31:28
+  assign io_EX_LsuType = io_ID_FuType ? io_ID_optype : 4'h0;	// <stdin>:252:10, EXU.scala:31:28
   assign io_EX_RegWriteID = io_ID_RegWriteID;	// <stdin>:252:10
   assign io_EX_RegWriteEn = io_ID_RegWriteEn;	// <stdin>:252:10
 endmodule
@@ -585,7 +585,7 @@ module top(	// <stdin>:315:10
   wire [63:0] _inst_decode_unit_io_ID_npc;	// top.scala:22:34
   wire [63:0] _inst_decode_unit_io_ID_ALU_Data1;	// top.scala:22:34
   wire [63:0] _inst_decode_unit_io_ID_ALU_Data2;	// top.scala:22:34
-  wire [1:0]  _inst_decode_unit_io_ID_FuType;	// top.scala:22:34
+  wire        _inst_decode_unit_io_ID_FuType;	// top.scala:22:34
   wire [3:0]  _inst_decode_unit_io_ID_optype;	// top.scala:22:34
   wire [63:0] _inst_decode_unit_io_ID_Rs2Data;	// top.scala:22:34
   wire [4:0]  _inst_decode_unit_io_ID_RegWriteID;	// top.scala:22:34
@@ -687,7 +687,7 @@ module top(	// <stdin>:315:10
     .io_ID_ALU_Data2    (_inst_decode_unit_io_ID_ALU_Data2),	// top.scala:22:34
     .io_ID_Rs2Data      (_inst_decode_unit_io_ID_Rs2Data),	// top.scala:22:34
     .io_ID_optype       (_inst_decode_unit_io_ID_optype),	// top.scala:22:34
-    .io_ID_FuType       (_inst_decode_unit_io_ID_FuType[0]),	// top.scala:22:34, :48:34
+    .io_ID_FuType       (_inst_decode_unit_io_ID_FuType),	// top.scala:22:34
     .io_ID_RegWriteEn   (_inst_decode_unit_io_ID_RegWriteEn),	// top.scala:22:34
     .io_ID_RegWriteID   (_inst_decode_unit_io_ID_RegWriteID),	// top.scala:22:34
     .io_ID_MemWriteEn   (_inst_decode_unit_io_ID_MemWriteEn),	// top.scala:22:34
@@ -709,7 +709,6 @@ module top(	// <stdin>:315:10
     .io_MEM_RegWriteEn   (_mem_unit_io_MEM_RegWriteEn),
     .io_MEM_RegWriteID   (_mem_unit_io_MEM_RegWriteID)
   );
-
 wire [63:0] GPR [31:0];
 assign {GPR[31], GPR[30], GPR[29], GPR[28], GPR[27], GPR[26], GPR[25], GPR[24], GPR[23], GPR[22], GPR[21], GPR[20]
 , GPR[19], GPR[18], GPR[17], GPR[16], GPR[15], GPR[14], GPR[13], GPR[12], GPR[11], GPR[10], GPR[9], GPR[8], GPR[7]
@@ -729,6 +728,7 @@ sim simulate (	// top.scala:24:26
    .GPR    (GPR),
    .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
 );
+ 
   assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:315:10, top.scala:21:33
   assign io_ALUResult = _mem_unit_io_MEM_RegWriteData;	// <stdin>:315:10, top.scala:24:26
 endmodule
@@ -788,3 +788,4 @@ module sim(input [31:0] inst, input [63:0] GPR [31:0], input unknown_inst_flag);
 endmodule
 
 // ----- 8< ----- FILE "firrtl_black_box_resource_files.f" ----- 8< -----
+
