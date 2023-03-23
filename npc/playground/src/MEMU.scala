@@ -11,7 +11,7 @@ class LSU extends BlackBox with HasBlackBoxPath{
         val WriteData = Input(UInt(64.W))
         val ReadData = Output(UInt(64.W))
     })
-    addPath("/home/seven7/Documents/学业/一生一芯/ysyx-workbench/npc/playground/verilog/lsu.v")
+    addPath("/home/seven7/Documents/学业/一生一芯/ysyx-workbench/npc/playground/verilog/LSU.v")
 }
 
 class MEMU extends Module{
