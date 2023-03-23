@@ -9,11 +9,11 @@ object OpType{
 }
 
 object LSUOpType{
-    val ld = 4.U
-    val lw = 2.U
-    val lwu = 2.U
-    val sd = 4.U
-    val sw = 2.U
+    val ld = 8.U
+    val lw = 4.U
+    val lwu = 4.U
+    val sd = 8.U
+    val sw = 4.U
 }
 
 object FuType{

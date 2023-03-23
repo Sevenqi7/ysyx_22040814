@@ -1,13 +1,16 @@
-import "DPI-C" function void pmem_write(input longint addr, input int len, input longint data);
-import "DPI-C" function uint64_t pmem_read(input longint addr, input int len);
+import "DPI-C" function void dci_pmem_write(input longint waddr, input longint wdata, input byte wmask);
+import "DPI-C" function void dci_pmem_read(input longint raddr, output longint rdata, input byte rmask);
 
-module sim_mem(input [63:0] addr, input [2:0] LsuType, input WriteEn, input [63:0]WriteData, output [63:0] ReadData);
+module lsu(input [63:0] addr, input [2:0] LsuType, input WriteEn, input [63:0]WriteData, output [63:0] ReadData);
+
+    wire [7:0] mask;
+    assign mask = ~(0xFF << LsuType);
         always@(*) begin
             if(WriteEn) begin
-                pmem_write(addr, LSUType, WriteData);
+                dci_pmem_write(addr, LsuType, WriteData, mask);
             end
             else begin
-                ReadData = pmem_read(addr, LSUType);
+                dci_pmem_read(addr, LSUType, ReadData, mask);
             end
         end
 endmodule
