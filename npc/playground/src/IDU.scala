@@ -183,7 +183,9 @@ object RV64IInstr{
     def SLT       = BitPat("b0000000 ????? ????? 010 ????? 01100 11")
     def SLTU      = BitPat("b0000000 ????? ????? 011 ????? 01100 11")
 
+    def XOR       = BitPat("b0000000 ????? ????? 100 ????? 01100 11")
     def OR        = BitPat("b0000000 ????? ????? 110 ????? 01100 11")
+    def AND       = BitPat("b0000000 ????? ????? 111 ????? 01100 11")
     def SLLW      = BitPat("b0000000 ????? ????? 001 ????? 01110 11")
     def SRLW      = BitPat("b0000000 ????? ????? 101 ????? 01110 11")
     def SRAW      = BitPat("b0100000 ????? ????? 101 ????? 01110 11")
@@ -249,7 +251,9 @@ object RV64IInstr{
         ADD            -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_PLUS),
         SLL            -> List(TYPE_R, FuType.alu, RS1 , SHAMT,OpType.OP_SLL ),
         SUB            -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_SUB ),
+        XOR            -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_XOR ),
         OR             -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_OR  ),
+        AND            -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_AND ),
         SLT            -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_SLT ),
         SLTU           -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_SLTU),
         ADDW           -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_ADDW),
