@@ -22,7 +22,6 @@ module LSU(input [63:0] addr, input [4:0] LsuType, input WriteEn, input [63:0]Wr
 
         always@(*) begin
             if(WriteEn) begin
-              $display("Lsutype:%d\n", LsuType[4:1]);
                 dci_pmem_write(addr, WriteData, mask);
                 data_r = 64'h0;
             end

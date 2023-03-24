@@ -50,6 +50,11 @@ class EXU extends Module{
         (io.ID_optype === OP_SRA , (io.ID_ALU_Data1.asSInt >> shamt).asUInt),
         (io.ID_optype === OP_SLTU, io.ID_ALU_Data1  <  io.ID_ALU_Data2),
         (io.ID_optype === OP_SLT , io.ID_ALU_Data1.asSInt  <  io.ID_ALU_Data2.asSInt),
+        (io.ID_optype === OP_MUL , io.ID_ALU_Data1 * io.ID_ALU_Data2  ),
+        (io.ID_optype === OP_DIV , (io.ID_ALU_Data1.asSInt / io.ID_ALU_Data2.asSInt).asUInt),
+        (io.ID_optype === OP_DIVU, io.ID_ALU_Data1 / io.ID_ALU_Data2),
+        (io.ID_optype === OP_REM , (io.ID_ALU_Data1.asSInt % io.ID_ALU_Data2.asSInt).asUInt)
+        (io.ID_optype === OP_REMU , io.ID_ALU_Data1 % io.ID_ALU_Data2),
         (io.ID_optype === OP_ADDW, SEXT((io.ID_ALU_Data1 + io.ID_ALU_Data2 ), 32)),
         (io.ID_optype === OP_SUBW, SEXT((io.ID_ALU_Data1 - io.ID_ALU_Data2 ), 32)),
         (io.ID_optype === OP_SLLW, SEXT((io.ID_ALU_Data1 << shamt          ), 32)),
@@ -57,7 +62,12 @@ class EXU extends Module{
         (io.ID_optype === OP_SRAW, SEXT(((io.ID_ALU_Data1.asSInt >> shamt).asUInt), 32)),
         (io.ID_optype === OP_XORW, SEXT((io.ID_ALU_Data1 ^ io.ID_ALU_Data2 ), 32)),
         (io.ID_optype === OP_ORW , SEXT((io.ID_ALU_Data1 | io.ID_ALU_Data2 ), 32)),
-        (io.ID_optype === OP_ANDW, SEXT((io.ID_ALU_Data1 & io.ID_ALU_Data2 ), 32))
+        (io.ID_optype === OP_ANDW, SEXT((io.ID_ALU_Data1 & io.ID_ALU_Data2 ), 32)),
+        (io.ID_optype === OP_MULW, SEXT((io.ID_ALU_Data1 * io.ID_ALU_Data2 ), 32)),
+        (io.ID_optype === OP_DIVW, SEXT(((io.ID_ALU_Data1.asSInt / io.ID_ALU_Data2.asSInt).asUInt), 32)),
+        (io.ID_optype === OP_DIVUW, SEXT((io.ID_ALU_Data1 / io.ID_ALU_Data2), 32)),
+        (io.ID_optype === OP_REMW, SEXT(((io.ID_ALU_Data1.asSInt % io.ID_ALU_Data2.asSInt).asUInt), 32))
+        (io.ID_optype === OP_REMUW, SEXT((io.ID_ALU_Data1 % io.ID_ALU_Data2), 32)),
     ))
 
     io.EX_ALUResult := ALU_Result

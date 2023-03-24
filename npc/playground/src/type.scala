@@ -12,16 +12,25 @@ object OpType{
     val OP_SRA  = 9.U
     val OP_SLT = 10.U
     val OP_SLTU = 11.U
-
-    val OP_ADDW = 15.U
-    val OP_SUBW = 16.U
-    val OP_SLLW = 17.U
-    val OP_SRAW = 18.U
-    val OP_SRLW = 19.U
-    val OP_XORW = 20.U
-    val OP_ORW  = 21.U
-    val OP_ANDW = 22.U
-    val NONE = 12.U
+    val OP_MUL  = 12.U
+    val OP_DIV  = 13.U
+    val OP_DIVU = 14.U
+    val OP_REM  = 15.U
+    val OP_REMU = 16.U
+    val OP_ADDW = 16.U
+    val OP_SUBW = 17.U
+    val OP_SLLW = 18.U
+    val OP_SRAW = 19.U
+    val OP_SRLW = 20.U
+    val OP_XORW = 21.U
+    val OP_ORW  = 22.U
+    val OP_ANDW = 23.U
+    val OP_MULW = 24.U
+    val OP_DIVW = 25.U
+    val OP_DIVUW = 26.U
+    val OP_REMW = 27.U
+    val OP_REMUW = 28.W
+    val NONE = 31.U
 }
 
 
