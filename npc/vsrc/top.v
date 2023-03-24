@@ -645,36 +645,38 @@ module EXU(	// <stdin>:658:10
 
   wire [63:0]       _ALU_Result_T_4 = io_ID_ALU_Data1 + io_ID_ALU_Data2;	// EXU.scala:43:83
   wire [63:0]       _ALU_Result_T_7 = io_ID_ALU_Data1 - io_ID_ALU_Data2;	// EXU.scala:44:53
-  wire [63:0]       _ALU_Result_T_63 = io_ID_ALU_Data1 & io_ID_ALU_Data2;	// EXU.scala:45:53
-  wire [63:0]       _ALU_Result_T_61 = io_ID_ALU_Data1 | io_ID_ALU_Data2;	// EXU.scala:46:53
-  wire [63:0]       _ALU_Result_T_59 = io_ID_ALU_Data1 ^ io_ID_ALU_Data2;	// EXU.scala:47:53
-  wire [126:0]      _ALU_Result_T_51 = {63'h0, io_ID_ALU_Data1} << io_ID_ALU_Data2[5:0];	// EXU.scala:39:29, :48:52
+  wire [63:0]       _ALU_Result_T_66 = io_ID_ALU_Data1 & io_ID_ALU_Data2;	// EXU.scala:45:53
+  wire [63:0]       _ALU_Result_T_64 = io_ID_ALU_Data1 | io_ID_ALU_Data2;	// EXU.scala:46:53
+  wire [63:0]       _ALU_Result_T_62 = io_ID_ALU_Data1 ^ io_ID_ALU_Data2;	// EXU.scala:47:53
+  wire [126:0]      _ALU_Result_T_15 = {63'h0, io_ID_ALU_Data1} << io_ID_ALU_Data2[5:0];	// EXU.scala:39:29, :48:52
   wire [63:0]       _GEN = {58'h0, io_ID_ALU_Data2[5:0]};	// EXU.scala:39:29, :49:52
-  wire [63:0]       _ALU_Result_T_53 = io_ID_ALU_Data1 >> _GEN;	// EXU.scala:49:52
   wire [63:0]       _GEN_0 = io_ID_ALU_Data1 * io_ID_ALU_Data2;	// EXU.scala:53:52
   wire [64:0]       _GEN_1 = {io_ID_ALU_Data1[63], io_ID_ALU_Data1};	// EXU.scala:54:60
   wire [64:0]       _GEN_2 = {io_ID_ALU_Data2[63], io_ID_ALU_Data2};	// EXU.scala:54:60
   wire [64:0]       _ALU_Result_T_33 = $signed(_GEN_1) / $signed(_GEN_2);	// EXU.scala:54:60
-  wire [63:0]       _ALU_Result_T_72 = io_ID_ALU_Data1 / io_ID_ALU_Data2;	// EXU.scala:55:52
-  wire [63:0]       _ALU_Result_T_79 = io_ID_ALU_Data1 % io_ID_ALU_Data2;	// EXU.scala:57:53
-  wire [63:0]       _ALU_Result_T_56 = $signed($signed(io_ID_ALU_Data1) >>> _GEN);	// EXU.scala:49:52, :62:66
-  wire [64:0]       _ALU_Result_T_69 = $signed(_GEN_1) / $signed(_GEN_2);	// EXU.scala:54:60, :67:66
-  wire [63:0]       _ALU_Result_T_76 = $signed(io_ID_ALU_Data1) % $signed(io_ID_ALU_Data2);	// EXU.scala:69:66
-  wire [31:0][63:0] _GEN_3 = {{64'h0}, {64'h0}, {{{32{_ALU_Result_T_79[31]}}, _ALU_Result_T_79[31:0]}},
-                {{{32{_ALU_Result_T_76[31]}}, _ALU_Result_T_76[31:0]}}, {{{32{_ALU_Result_T_72[31]}},
-                _ALU_Result_T_72[31:0]}}, {{{32{_ALU_Result_T_69[31]}}, _ALU_Result_T_69[31:0]}},
-                {{{32{_GEN_0[31]}}, _GEN_0[31:0]}}, {{{32{_ALU_Result_T_63[31]}}, _ALU_Result_T_63[31:0]}},
-                {{{32{_ALU_Result_T_61[31]}}, _ALU_Result_T_61[31:0]}}, {{{32{_ALU_Result_T_59[31]}},
-                _ALU_Result_T_59[31:0]}}, {{{32{_ALU_Result_T_53[31]}}, _ALU_Result_T_53[31:0]}},
-                {{{32{_ALU_Result_T_56[31]}}, _ALU_Result_T_56[31:0]}}, {{{32{_ALU_Result_T_51[31]}},
-                _ALU_Result_T_51[31:0]}}, {{{32{_ALU_Result_T_7[31]}}, _ALU_Result_T_7[31:0]}},
-                {{{32{_ALU_Result_T_4[31]}}, _ALU_Result_T_4[31:0]}}, {_ALU_Result_T_79},
-                {$signed(io_ID_ALU_Data1) % $signed(io_ID_ALU_Data2)}, {_ALU_Result_T_72},
+  wire [63:0]       _ALU_Result_T_75 = io_ID_ALU_Data1 / io_ID_ALU_Data2;	// EXU.scala:55:52
+  wire [63:0]       _ALU_Result_T_82 = io_ID_ALU_Data1 % io_ID_ALU_Data2;	// EXU.scala:57:53
+  wire [94:0]       _ALU_Result_T_52 = {63'h0, io_ID_ALU_Data1[31:0]} << io_ID_ALU_Data2[5:0];	// EXU.scala:39:29, :48:52, :60:{57,65}
+  wire [31:0]       _GEN_3 = {26'h0, io_ID_ALU_Data2[5:0]};	// EXU.scala:39:29, :61:65
+  wire [31:0]       _ALU_Result_ret_T_18 = io_ID_ALU_Data1[31:0] >> _GEN_3;	// EXU.scala:60:57, :61:65
+  wire [31:0]       _ALU_Result_T_59 = $signed($signed(io_ID_ALU_Data1[31:0]) >>> _GEN_3);	// EXU.scala:60:57, :61:65, :62:73
+  wire [64:0]       _ALU_Result_T_72 = $signed(_GEN_1) / $signed(_GEN_2);	// EXU.scala:54:60, :67:66
+  wire [63:0]       _ALU_Result_T_79 = $signed(io_ID_ALU_Data1) % $signed(io_ID_ALU_Data2);	// EXU.scala:69:66
+  wire [31:0][63:0] _GEN_4 = {{64'h0}, {64'h0}, {{{32{_ALU_Result_T_82[31]}}, _ALU_Result_T_82[31:0]}},
+                {{{32{_ALU_Result_T_79[31]}}, _ALU_Result_T_79[31:0]}}, {{{32{_ALU_Result_T_75[31]}},
+                _ALU_Result_T_75[31:0]}}, {{{32{_ALU_Result_T_72[31]}}, _ALU_Result_T_72[31:0]}},
+                {{{32{_GEN_0[31]}}, _GEN_0[31:0]}}, {{{32{_ALU_Result_T_66[31]}}, _ALU_Result_T_66[31:0]}},
+                {{{32{_ALU_Result_T_64[31]}}, _ALU_Result_T_64[31:0]}}, {{{32{_ALU_Result_T_62[31]}},
+                _ALU_Result_T_62[31:0]}}, {{{32{_ALU_Result_ret_T_18[31]}}, _ALU_Result_ret_T_18}},
+                {{{32{_ALU_Result_T_59[31]}}, _ALU_Result_T_59}}, {{{32{_ALU_Result_T_52[31]}},
+                _ALU_Result_T_52[31:0]}}, {{{32{_ALU_Result_T_7[31]}}, _ALU_Result_T_7[31:0]}},
+                {{{32{_ALU_Result_T_4[31]}}, _ALU_Result_T_4[31:0]}}, {_ALU_Result_T_82},
+                {$signed(io_ID_ALU_Data1) % $signed(io_ID_ALU_Data2)}, {_ALU_Result_T_75},
                 {_ALU_Result_T_33[63:0]}, {_GEN_0}, {{63'h0, io_ID_ALU_Data1 < io_ID_ALU_Data2}}, {{63'h0,
                 $signed(io_ID_ALU_Data1) < $signed(io_ID_ALU_Data2)}}, {$signed($signed(io_ID_ALU_Data1)
-                >>> _GEN)}, {_ALU_Result_T_53}, {_ALU_Result_T_51[63:0]}, {_ALU_Result_T_59},
-                {_ALU_Result_T_61}, {_ALU_Result_T_63}, {64'h0}, {_ALU_Result_T_7}, {64'h0}, {64'h0}};	// Bitwise.scala:77:12, Cat.scala:33:92, EXU.scala:28:{34,45}, :43:83, :44:{23,53}, :45:{23,53}, :46:{23,53}, :47:{23,53}, :48:{23,52}, :49:{23,52}, :50:{23,60}, :51:{23,53}, :52:{23,60}, :53:{23,52}, :54:{23,60}, :55:{23,52}, :56:{23,60}, :57:{23,53}, :58:23, :59:23, :60:23, :61:23, :62:{23,66}, :63:23, :64:23, :65:23, :66:23, :67:{23,66}, :68:23, :69:{23,66}, :70:23, Mux.scala:101:16
-  assign io_EX_ALUResult = io_ID_optype == 5'h1 | io_ID_FuType ? _ALU_Result_T_4 : _GEN_3[io_ID_optype];	// <stdin>:658:10, EXU.scala:43:{23,35,83}, :44:23, :45:23, :46:23, :47:23, :48:23, :49:23, :50:23, :51:23, :52:23, :53:23, :54:23, :55:23, :56:23, :57:23, :58:23, :59:23, :60:23, :61:23, :62:23, :63:23, :64:23, :65:23, :66:23, :67:23, :68:23, :69:23, :70:23, Mux.scala:101:16
+                >>> _GEN)}, {io_ID_ALU_Data1 >> _GEN}, {_ALU_Result_T_15[63:0]}, {_ALU_Result_T_62},
+                {_ALU_Result_T_64}, {_ALU_Result_T_66}, {64'h0}, {_ALU_Result_T_7}, {64'h0}, {64'h0}};	// Bitwise.scala:77:12, Cat.scala:33:92, EXU.scala:28:{34,45}, :43:83, :44:{23,53}, :45:{23,53}, :46:{23,53}, :47:{23,53}, :48:{23,52}, :49:{23,52}, :50:{23,60}, :51:{23,53}, :52:{23,60}, :53:{23,52}, :54:{23,60}, :55:{23,52}, :56:{23,60}, :57:{23,53}, :58:23, :59:23, :60:{23,65}, :61:{23,65}, :62:{23,73}, :63:23, :64:23, :65:23, :66:23, :67:{23,66}, :68:23, :69:{23,66}, :70:23, Mux.scala:101:16
+  assign io_EX_ALUResult = io_ID_optype == 5'h1 | io_ID_FuType ? _ALU_Result_T_4 : _GEN_4[io_ID_optype];	// <stdin>:658:10, EXU.scala:43:{23,35,83}, :44:23, :45:23, :46:23, :47:23, :48:23, :49:23, :50:23, :51:23, :52:23, :53:23, :54:23, :55:23, :56:23, :57:23, :58:23, :59:23, :60:23, :61:23, :62:23, :63:23, :64:23, :65:23, :66:23, :67:23, :68:23, :69:23, :70:23, Mux.scala:101:16
   assign io_EX_MemWriteData = io_ID_Rs2Data;	// <stdin>:658:10
   assign io_EX_MemWriteEn = io_ID_MemWriteEn;	// <stdin>:658:10
   assign io_EX_LsuType = io_ID_FuType ? io_ID_optype : 5'h0;	// <stdin>:658:10, EXU.scala:37:28
@@ -684,7 +686,7 @@ endmodule
 
 // external module LSU
 
-module MEMU(	// <stdin>:884:10
+module MEMU(	// <stdin>:887:10
   input  [63:0] io_EX_ALUResult,
                 io_EX_MemWriteData,
   input         io_EX_MemWriteEn,
@@ -703,14 +705,14 @@ module MEMU(	// <stdin>:884:10
     .WriteData (io_EX_MemWriteData),
     .ReadData  (_mem_ReadData)
   );
-  assign io_MEM_RegWriteData = (|io_EX_LsuType) & ~io_EX_MemWriteEn ? _mem_ReadData : io_EX_ALUResult;	// <stdin>:884:10, MEMU.scala:34:21, :39:{31,47,56,77}
-  assign io_MEM_RegWriteEn = io_EX_RegWriteEn;	// <stdin>:884:10
-  assign io_MEM_RegWriteID = io_EX_RegWriteID;	// <stdin>:884:10
+  assign io_MEM_RegWriteData = (|io_EX_LsuType) & ~io_EX_MemWriteEn ? _mem_ReadData : io_EX_ALUResult;	// <stdin>:887:10, MEMU.scala:34:21, :39:{31,47,56,77}
+  assign io_MEM_RegWriteEn = io_EX_RegWriteEn;	// <stdin>:887:10
+  assign io_MEM_RegWriteID = io_EX_RegWriteID;	// <stdin>:887:10
 endmodule
 
 // external module sim
 
-module top(	// <stdin>:916:10
+module top(	// <stdin>:919:10
   input         clock,
                 reset,
   output [63:0] io_IF_pc,
@@ -874,8 +876,9 @@ sim simulate (	// top.scala:24:26
    .GPR               (GPR),
    .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
 );
-  assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:916:10, top.scala:23:33
-  assign io_ALUResult = _mem_unit_io_MEM_RegWriteData;	// <stdin>:916:10, top.scala:26:26
+
+  assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:919:10, top.scala:23:33
+  assign io_ALUResult = _mem_unit_io_MEM_RegWriteData;	// <stdin>:919:10, top.scala:26:26
 endmodule
 
 
@@ -919,7 +922,6 @@ endmodule
 import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
 import "DPI-C" function void unknown_inst();
 import "DPI-C" function void ebreak(input longint halt_ret);
-
 
 
 module sim(input[63:0] IF_pc, input [63:0] GPR [31:0], input unknown_inst_flag, output [63:0] inst);
