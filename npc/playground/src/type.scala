@@ -29,7 +29,7 @@ object OpType{
     val OP_DIVW = 25.U
     val OP_DIVUW = 26.U
     val OP_REMW = 27.U
-    val OP_REMUW = 28.W
+    val OP_REMUW = 28.U
     val NONE = 31.U
 }
 
