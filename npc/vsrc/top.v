@@ -219,19 +219,20 @@ module IDU(	// <stdin>:12:10
   wire [4:0]        InstInfo_4 = _InstInfo_T_1 | _InstInfo_T_3 | _InstInfo_T_5 | _InstInfo_T_7 ? 5'h1 : _InstInfo_T_9 ? 5'h7
                 : _InstInfo_T_11 ? 5'h8 : _InstInfo_T_13 ? 5'h9 : _InstInfo_T_15 ? 5'h1 : _InstInfo_T_17 ?
                 5'h6 : _InstInfo_T_19 ? 5'h5 : _InstInfo_T_21 ? 5'h4 : _InstInfo_T_23 ? 5'hA :
-                _InstInfo_T_25 ? 5'hB : _InstInfo_T_27 ? 5'h10 : _InstInfo_T_29 ? 5'h12 : _InstInfo_T_31 ?
-                5'h14 : _InstInfo_T_33 ? 5'h13 : _InstInfo_T_35 ? 5'h3 : _InstInfo_T_37 ? 5'h5 :
+                _InstInfo_T_25 ? 5'hB : _InstInfo_T_27 ? 5'h11 : _InstInfo_T_29 ? 5'h13 : _InstInfo_T_31 ?
+                5'h15 : _InstInfo_T_33 ? 5'h14 : _InstInfo_T_35 ? 5'h3 : _InstInfo_T_37 ? 5'h5 :
                 _InstInfo_T_39 ? 5'h9 : _InstInfo_T_41 ? 5'h11 : _InstInfo_T_43 ? 5'h2 : _InstInfo_T_45 ?
                 5'h4 : _InstInfo_T_47 ? 5'h8 : _InstInfo_T_49 ? 5'h10 : _InstInfo_T_51 ? 5'h8 :
                 _InstInfo_T_53 ? 5'h4 : _InstInfo_T_203 ? 5'h2 : _InstInfo_T_57 ? 5'h1 : _InstInfo_T_59 ?
                 5'h7 : _InstInfo_T_61 ? 5'h2 : _InstInfo_T_63 ? 5'h6 : _InstInfo_T_65 ? 5'h5 :
                 _InstInfo_T_67 ? 5'h4 : _InstInfo_T_69 ? 5'hA : _InstInfo_T_71 ? 5'hB : _InstInfo_T_73 ?
                 5'hC : _InstInfo_T_75 ? 5'hD : _InstInfo_T_77 ? 5'hE : _InstInfo_T_79 ? 5'hF :
-                _InstInfo_T_81 | _InstInfo_T_83 ? 5'h10 : _InstInfo_T_85 ? 5'h11 : _InstInfo_T_87 ? 5'h12 :
-                _InstInfo_T_89 ? 5'h14 : _InstInfo_T_91 ? 5'h13 : _InstInfo_T_93 ? 5'h18 : _InstInfo_T_95 ?
-                5'h19 : _InstInfo_T_97 ? 5'h1A : _InstInfo_T_99 ? 5'h1B : _InstInfo_T_101 ? 5'h1C : {2'h0,
-                _InstInfo_T_103 | _InstInfo_T_105 ? 3'h1 : _InstInfo_T_107 ? 3'h2 : _InstInfo_T_109 ? 3'h3
-                : _InstInfo_T_111 ? 3'h4 : _InstInfo_T_113 ? 3'h6 : _InstInfo_T_115 ? 3'h5 : 3'h0};	// IDU.scala:81:31, Lookup.scala:31:38, :34:39
+                _InstInfo_T_81 ? 5'h10 : _InstInfo_T_83 ? 5'h11 : _InstInfo_T_85 ? 5'h12 : _InstInfo_T_87 ?
+                5'h13 : _InstInfo_T_89 ? 5'h15 : _InstInfo_T_91 ? 5'h14 : _InstInfo_T_93 ? 5'h19 :
+                _InstInfo_T_95 ? 5'h1A : _InstInfo_T_97 ? 5'h1B : _InstInfo_T_99 ? 5'h1C : _InstInfo_T_101
+                ? 5'h1D : {2'h0, _InstInfo_T_103 | _InstInfo_T_105 ? 3'h1 : _InstInfo_T_107 ? 3'h2 :
+                _InstInfo_T_109 ? 3'h3 : _InstInfo_T_111 ? 3'h4 : _InstInfo_T_113 ? 3'h6 : _InstInfo_T_115
+                ? 3'h5 : 3'h0};	// IDU.scala:81:31, Lookup.scala:31:38, :34:39
   wire [51:0]       _immI_T_2 = {52{io_IF_Inst[31]}};	// Bitwise.scala:77:12, IDU.scala:53:36
   wire [51:0]       _GEN_4 = {52{io_IF_Inst[31]}};	// IDU.scala:53:36, :55:10
   reg  [63:0]       GPR_0;	// IDU.scala:62:22
@@ -364,13 +365,13 @@ module IDU(	// <stdin>:12:10
         GPR_19 <= io_EX_RegWriteData;	// IDU.scala:62:22
       if (_T_2 & io_EX_RegWriteID == 5'h14)	// IDU.scala:62:22, :79:36, :80:5, :81:31, Lookup.scala:34:39
         GPR_20 <= io_EX_RegWriteData;	// IDU.scala:62:22
-      if (_T_2 & io_EX_RegWriteID == 5'h15)	// IDU.scala:62:22, :79:36, :80:5, :81:31
+      if (_T_2 & io_EX_RegWriteID == 5'h15)	// IDU.scala:62:22, :79:36, :80:5, :81:31, Lookup.scala:34:39
         GPR_21 <= io_EX_RegWriteData;	// IDU.scala:62:22
       if (_T_2 & io_EX_RegWriteID == 5'h16)	// IDU.scala:62:22, :79:36, :80:5, :81:31
         GPR_22 <= io_EX_RegWriteData;	// IDU.scala:62:22
       if (_T_2 & io_EX_RegWriteID == 5'h17)	// IDU.scala:62:22, :79:36, :80:5, :81:31, Lookup.scala:31:38
         GPR_23 <= io_EX_RegWriteData;	// IDU.scala:62:22
-      if (_T_2 & io_EX_RegWriteID == 5'h18)	// IDU.scala:62:22, :79:36, :80:5, :81:31, Lookup.scala:34:39
+      if (_T_2 & io_EX_RegWriteID == 5'h18)	// IDU.scala:62:22, :79:36, :80:5, :81:31
         GPR_24 <= io_EX_RegWriteData;	// IDU.scala:62:22
       if (_T_2 & io_EX_RegWriteID == 5'h19)	// IDU.scala:62:22, :79:36, :80:5, :81:31, Lookup.scala:34:39
         GPR_25 <= io_EX_RegWriteData;	// IDU.scala:62:22
@@ -380,7 +381,7 @@ module IDU(	// <stdin>:12:10
         GPR_27 <= io_EX_RegWriteData;	// IDU.scala:62:22
       if (_T_2 & io_EX_RegWriteID == 5'h1C)	// IDU.scala:62:22, :79:36, :80:5, :81:31, Lookup.scala:34:39
         GPR_28 <= io_EX_RegWriteData;	// IDU.scala:62:22
-      if (_T_2 & io_EX_RegWriteID == 5'h1D)	// IDU.scala:62:22, :79:36, :80:5, :81:31
+      if (_T_2 & io_EX_RegWriteID == 5'h1D)	// IDU.scala:62:22, :79:36, :80:5, :81:31, Lookup.scala:34:39
         GPR_29 <= io_EX_RegWriteData;	// IDU.scala:62:22
       if (_T_2 & io_EX_RegWriteID == 5'h1E)	// IDU.scala:62:22, :79:36, :80:5, :81:31
         GPR_30 <= io_EX_RegWriteData;	// IDU.scala:62:22
@@ -642,6 +643,7 @@ module EXU(	// <stdin>:658:10
                 io_EX_RegWriteID,
   output        io_EX_RegWriteEn);
 
+  wire [63:0]       _ALU_Result_T_4 = io_ID_ALU_Data1 + io_ID_ALU_Data2;	// EXU.scala:43:83
   wire [63:0]       _ALU_Result_T_7 = io_ID_ALU_Data1 - io_ID_ALU_Data2;	// EXU.scala:44:53
   wire [63:0]       _ALU_Result_T_63 = io_ID_ALU_Data1 & io_ID_ALU_Data2;	// EXU.scala:45:53
   wire [63:0]       _ALU_Result_T_61 = io_ID_ALU_Data1 | io_ID_ALU_Data2;	// EXU.scala:46:53
@@ -657,7 +659,7 @@ module EXU(	// <stdin>:658:10
   wire [63:0]       _ALU_Result_T_56 = $signed($signed(io_ID_ALU_Data1) >>> _GEN);	// EXU.scala:49:52, :62:66
   wire [64:0]       _ALU_Result_T_69 = $signed(_GEN_1) / $signed(_GEN_2);	// EXU.scala:54:60, :67:66
   wire [63:0]       _ALU_Result_T_76 = $signed(io_ID_ALU_Data1) % $signed(io_ID_ALU_Data2);	// EXU.scala:69:66
-  wire [31:0][63:0] _GEN_3 = {{64'h0}, {64'h0}, {64'h0}, {{{32{_ALU_Result_T_79[31]}}, _ALU_Result_T_79[31:0]}},
+  wire [31:0][63:0] _GEN_3 = {{64'h0}, {64'h0}, {{{32{_ALU_Result_T_79[31]}}, _ALU_Result_T_79[31:0]}},
                 {{{32{_ALU_Result_T_76[31]}}, _ALU_Result_T_76[31:0]}}, {{{32{_ALU_Result_T_72[31]}},
                 _ALU_Result_T_72[31:0]}}, {{{32{_ALU_Result_T_69[31]}}, _ALU_Result_T_69[31:0]}},
                 {{{32{_GEN_0[31]}}, _GEN_0[31:0]}}, {{{32{_ALU_Result_T_63[31]}}, _ALU_Result_T_63[31:0]}},
@@ -665,14 +667,13 @@ module EXU(	// <stdin>:658:10
                 _ALU_Result_T_59[31:0]}}, {{{32{_ALU_Result_T_53[31]}}, _ALU_Result_T_53[31:0]}},
                 {{{32{_ALU_Result_T_56[31]}}, _ALU_Result_T_56[31:0]}}, {{{32{_ALU_Result_T_53[31]}},
                 _ALU_Result_T_53[31:0]}}, {{{32{_ALU_Result_T_7[31]}}, _ALU_Result_T_7[31:0]}},
-                {_ALU_Result_T_79}, {$signed(io_ID_ALU_Data1) % $signed(io_ID_ALU_Data2)},
-                {_ALU_Result_T_72}, {_ALU_Result_T_33[63:0]}, {_GEN_0}, {{63'h0, io_ID_ALU_Data1 <
-                io_ID_ALU_Data2}}, {{63'h0, $signed(io_ID_ALU_Data1) < $signed(io_ID_ALU_Data2)}},
-                {$signed($signed(io_ID_ALU_Data1) >>> _GEN)}, {io_ID_ALU_Data1 >> _GEN},
-                {_ALU_Result_T_53[63:0]}, {_ALU_Result_T_59}, {_ALU_Result_T_61}, {_ALU_Result_T_63},
-                {64'h0}, {_ALU_Result_T_7}, {64'h0}, {64'h0}};	// Bitwise.scala:77:12, Cat.scala:33:92, EXU.scala:28:{34,45}, :44:{23,53}, :45:{23,53}, :46:{23,53}, :47:{23,53}, :48:{23,52}, :49:{23,52}, :50:{23,60}, :51:{23,53}, :52:{23,60}, :53:{23,52}, :54:{23,60}, :55:{23,52}, :56:{23,60}, :57:{23,53}, :59:23, :60:23, :61:23, :62:{23,66}, :63:23, :64:23, :65:23, :66:23, :67:{23,66}, :68:23, :69:{23,66}, :70:23, Mux.scala:101:16
-  assign io_EX_ALUResult = io_ID_optype == 5'h1 | io_ID_FuType ? io_ID_ALU_Data1 + io_ID_ALU_Data2 :
-                _GEN_3[io_ID_optype];	// <stdin>:658:10, EXU.scala:43:{23,35,83}, :44:23, :45:23, :46:23, :47:23, :48:23, :49:23, :50:23, :51:23, :52:23, :53:23, :54:23, :55:23, :56:23, :57:23, :59:23, :60:23, :61:23, :62:23, :63:23, :64:23, :65:23, :66:23, :67:23, :68:23, :69:23, :70:23, Mux.scala:101:16
+                {{{32{_ALU_Result_T_4[31]}}, _ALU_Result_T_4[31:0]}}, {_ALU_Result_T_79},
+                {$signed(io_ID_ALU_Data1) % $signed(io_ID_ALU_Data2)}, {_ALU_Result_T_72},
+                {_ALU_Result_T_33[63:0]}, {_GEN_0}, {{63'h0, io_ID_ALU_Data1 < io_ID_ALU_Data2}}, {{63'h0,
+                $signed(io_ID_ALU_Data1) < $signed(io_ID_ALU_Data2)}}, {$signed($signed(io_ID_ALU_Data1)
+                >>> _GEN)}, {io_ID_ALU_Data1 >> _GEN}, {_ALU_Result_T_53[63:0]}, {_ALU_Result_T_59},
+                {_ALU_Result_T_61}, {_ALU_Result_T_63}, {64'h0}, {_ALU_Result_T_7}, {64'h0}, {64'h0}};	// Bitwise.scala:77:12, Cat.scala:33:92, EXU.scala:28:{34,45}, :43:83, :44:{23,53}, :45:{23,53}, :46:{23,53}, :47:{23,53}, :48:{23,52}, :49:{23,52}, :50:{23,60}, :51:{23,53}, :52:{23,60}, :53:{23,52}, :54:{23,60}, :55:{23,52}, :56:{23,60}, :57:{23,53}, :58:23, :59:23, :60:23, :61:23, :62:{23,66}, :63:23, :64:23, :65:23, :66:23, :67:{23,66}, :68:23, :69:{23,66}, :70:23, Mux.scala:101:16
+  assign io_EX_ALUResult = io_ID_optype == 5'h1 | io_ID_FuType ? _ALU_Result_T_4 : _GEN_3[io_ID_optype];	// <stdin>:658:10, EXU.scala:43:{23,35,83}, :44:23, :45:23, :46:23, :47:23, :48:23, :49:23, :50:23, :51:23, :52:23, :53:23, :54:23, :55:23, :56:23, :57:23, :58:23, :59:23, :60:23, :61:23, :62:23, :63:23, :64:23, :65:23, :66:23, :67:23, :68:23, :69:23, :70:23, Mux.scala:101:16
   assign io_EX_MemWriteData = io_ID_Rs2Data;	// <stdin>:658:10
   assign io_EX_MemWriteEn = io_ID_MemWriteEn;	// <stdin>:658:10
   assign io_EX_LsuType = io_ID_FuType ? io_ID_optype : 5'h0;	// <stdin>:658:10, EXU.scala:37:28
