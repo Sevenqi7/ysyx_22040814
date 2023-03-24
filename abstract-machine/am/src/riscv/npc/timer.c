@@ -1,10 +1,18 @@
 #include <am.h>
+#include <riscv/riscv.h>
+#include <sys/time.h>
+#include <stdio.h>
+
+static long int boot_time;
 
 void __am_timer_init() {
+  while(1);
+  boot_time = inl(0xa00000048);
+  printf("boot_time:%d\n");
 }
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
-  uptime->us = 0;
+  // uptime->us = inl(0xa0000048) - boot_time;
 }
 
 void __am_timer_rtc(AM_TIMER_RTC_T *rtc) {
@@ -15,3 +23,4 @@ void __am_timer_rtc(AM_TIMER_RTC_T *rtc) {
   rtc->month  = 0;
   rtc->year   = 1900;
 }
+

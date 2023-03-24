@@ -1,6 +1,7 @@
 #include <verilator.h>
 #include <npc.h>
 #include <memory.h>
+#include <sys/time.h>
 
 static uint8_t pmem[MEMSIZE]__attribute((aligned(4096)));
 
@@ -24,7 +25,16 @@ void outofbound(uint64_t paddr)
 uint64_t pmem_read(uint64_t addr, int len)
 {
     uint64_t paddr = addr & MEMMASK;
+    Log("paddr:%lx", paddr);
+    if(addr == 0xa0000048)
+    {
+        struct timeval tp;
+        gettimeofday(&tp, NULL);
+        Log("1:%d", tp.tv_sec);
+        return 0;
+    }
     outofbound(paddr);
+    assert(paddr < MEMSIZE);
     int ret = 0;
     switch(len)
     {
@@ -41,6 +51,7 @@ uint64_t pmem_read(uint64_t addr, int len)
 void pmem_write(uint64_t addr, int len, uint64_t data)
 {
     uint64_t paddr = addr & MEMMASK;
+    if(addr == 0xa00003f8) {putchar((char)data); return;}
     outofbound(paddr);
     int ret = 0;
     switch (len) {
