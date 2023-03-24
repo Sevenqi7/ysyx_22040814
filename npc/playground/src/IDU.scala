@@ -265,6 +265,11 @@ object RV64IInstr{
         SLT            -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_SLT ),
         SLTU           -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_SLTU),
         MUL            -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_MUL ),
+        DIV            -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_DIV ),
+        DIVU           -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_DIVU),
+        REM            -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_REM ),
+        REMU           -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_REMU),
+
         ADDW           -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_ADDW),
         SUBW           -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_SUBW),
         SLLW           -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_SLLW),
