@@ -18,6 +18,9 @@ object OpType{
     val OP_SLLW = 17.U
     val OP_SRAW = 18.U
     val OP_SRLW = 19.U
+    val OP_XORW = 20.U
+    val OP_ORW  = 21.U
+    val OP_ANDW = 22.U
     val NONE = 12.U
 }
 
