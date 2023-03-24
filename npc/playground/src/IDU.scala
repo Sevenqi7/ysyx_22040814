@@ -281,7 +281,6 @@ object RV64IInstr{
         REMW           -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_REMW),
         REMUW          -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_REMUW),
 
-        
         //J Type
         JAL            -> List(TYPE_J, FuType.alu, NPC, ZERO , OpType.OP_PLUS),
         
