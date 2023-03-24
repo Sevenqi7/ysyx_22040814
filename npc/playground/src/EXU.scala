@@ -53,7 +53,7 @@ class EXU extends Module{
         (io.ID_optype === OP_MUL , io.ID_ALU_Data1 * io.ID_ALU_Data2  ),
         (io.ID_optype === OP_DIV , (io.ID_ALU_Data1.asSInt / io.ID_ALU_Data2.asSInt).asUInt),
         (io.ID_optype === OP_DIVU, io.ID_ALU_Data1 / io.ID_ALU_Data2),
-        (io.ID_optype === OP_REM , (io.ID_ALU_Data1.asSInt % io.ID_ALU_Data2.asSInt).asUInt)
+        (io.ID_optype === OP_REM , (io.ID_ALU_Data1.asSInt % io.ID_ALU_Data2.asSInt).asUInt),
         (io.ID_optype === OP_REMU , io.ID_ALU_Data1 % io.ID_ALU_Data2),
         (io.ID_optype === OP_ADDW, SEXT((io.ID_ALU_Data1 + io.ID_ALU_Data2 ), 32)),
         (io.ID_optype === OP_SUBW, SEXT((io.ID_ALU_Data1 - io.ID_ALU_Data2 ), 32)),
