@@ -621,10 +621,10 @@ module EXU(	// <stdin>:539:10
                 ? {63'h0, $signed(io_ID_ALU_Data1) < $signed(io_ID_ALU_Data2)} : io_ID_optype == 5'hF ?
                 _ALU_Result_T_4 : io_ID_optype == 5'h10 ? _ALU_Result_T_7 : io_ID_optype == 5'h11 |
                 io_ID_optype == 5'h13 ? _ALU_Result_T_37[63:0] : io_ID_optype == 5'h12 ?
-                $signed($signed(io_ID_ALU_Data1) >>> _GEN) : 64'h0;	// <stdin>:539:10, EXU.scala:28:13, :43:{23,35,83}, :44:{23,53}, :45:{23,53}, :46:{23,53}, :47:{23,53}, :48:{23,52}, :49:{23,52}, :50:{23,60}, :51:{23,53}, :52:{23,60}, :53:23, :54:23, :55:23, :56:23, :57:{23,66}, Mux.scala:101:16
+                $signed($signed(io_ID_ALU_Data1) >>> _GEN) : 64'h0;	// <stdin>:539:10, EXU.scala:28:13, :37:28, :43:{23,35,83}, :44:{23,53}, :45:{23,53}, :46:{23,53}, :47:{23,53}, :48:{23,52}, :49:{23,52}, :50:{23,60}, :51:{23,53}, :52:{23,60}, :53:23, :54:23, :55:23, :56:23, :57:{23,66}, Mux.scala:101:16
   assign io_EX_MemWriteData = io_ID_Rs2Data;	// <stdin>:539:10
   assign io_EX_MemWriteEn = io_ID_MemWriteEn;	// <stdin>:539:10
-  assign io_EX_LsuType = io_ID_FuType ? io_ID_optype : 5'h0;	// <stdin>:539:10, EXU.scala:37:28
+  assign io_EX_LsuType = io_ID_FuType ? io_ID_optype : 5'hA;	// <stdin>:539:10, EXU.scala:37:28
   assign io_EX_RegWriteID = io_ID_RegWriteID;	// <stdin>:539:10
   assign io_EX_RegWriteEn = io_ID_RegWriteEn;	// <stdin>:539:10
 endmodule
@@ -852,6 +852,7 @@ module LSU(input [63:0] addr, input [4:0] LsuType, input WriteEn, input [63:0]Wr
 
         always@(*) begin
             if(WriteEn) begin
+              $display("Lsutype:%d\n", LsuType[4:1]);
                 dci_pmem_write(addr, WriteData, mask);
                 data_r = 64'h0;
             end
@@ -866,7 +867,6 @@ endmodule
 import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
 import "DPI-C" function void unknown_inst();
 import "DPI-C" function void ebreak(input longint halt_ret);
-
 
 
 module sim(input[63:0] IF_pc, input [63:0] GPR [31:0], input unknown_inst_flag, output [63:0] inst);
