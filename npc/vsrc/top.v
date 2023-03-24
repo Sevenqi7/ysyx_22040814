@@ -188,19 +188,18 @@ module IDU(	// <stdin>:12:10
                 ? 3'h3 : _InstInfo_T_49 ? 3'h5 : {1'h0, _InstInfo_T_51 | _InstInfo_T_53 | _InstInfo_T_55 |
                 _InstInfo_T_57 | _InstInfo_T_59 | _InstInfo_T_61 | _InstInfo_T_63 | _InstInfo_T_65 ? 2'h3 :
                 {2{_InstInfo_T_67}}};	// Lookup.scala:31:38, :34:39
-  wire [4:0]        _InstInfo_T_256 = _InstInfo_T_53 ? 5'h5 : _InstInfo_T_55 ? 5'hA : _InstInfo_T_57 ? 5'hB : _InstInfo_T_59 ?
-                5'hF : _InstInfo_T_61 ? 5'h10 : _InstInfo_T_63 ? 5'h11 : _InstInfo_T_65 ? 5'h13 :
-                _InstInfo_T_67 ? 5'h12 : {2'h0, _InstInfo_T_69 | _InstInfo_T_71 ? 3'h1 : _InstInfo_T_73 ?
-                3'h2 : _InstInfo_T_75 ? 3'h3 : _InstInfo_T_77 ? 3'h4 : _InstInfo_T_79 ? 3'h6 :
-                _InstInfo_T_81 ? 3'h5 : 3'h0};	// IDU.scala:81:31, Lookup.scala:31:38, :34:39
+  wire [4:0]        _InstInfo_T_257 = _InstInfo_T_51 ? 5'h2 : _InstInfo_T_53 ? 5'h5 : _InstInfo_T_55 ? 5'hA : _InstInfo_T_57 ?
+                5'hB : _InstInfo_T_59 ? 5'hF : _InstInfo_T_61 ? 5'h10 : _InstInfo_T_63 ? 5'h11 :
+                _InstInfo_T_65 ? 5'h13 : _InstInfo_T_67 ? 5'h12 : {2'h0, _InstInfo_T_69 | _InstInfo_T_71 ?
+                3'h1 : _InstInfo_T_73 ? 3'h2 : _InstInfo_T_75 ? 3'h3 : _InstInfo_T_77 ? 3'h4 :
+                _InstInfo_T_79 ? 3'h6 : _InstInfo_T_81 ? 3'h5 : 3'h0};	// IDU.scala:81:31, Lookup.scala:31:38, :34:39
   wire [3:0]        _GEN_2 = _InstInfo_T_1 | _InstInfo_T_3 | _InstInfo_T_5 | _InstInfo_T_7 ? 4'h1 : _InstInfo_T_9 ? 4'h7
                 : _InstInfo_T_11 ? 4'h8 : _InstInfo_T_13 ? 4'h9 : _InstInfo_T_15 ? 4'h1 : _InstInfo_T_17 ?
                 4'h5 : _InstInfo_T_19 ? 4'hA : _InstInfo_T_21 ? 4'hB : _InstInfo_T_23 ? 4'hF :
                 _InstInfo_T_25 ? 4'h1 : _InstInfo_T_27 ? 4'h3 : _InstInfo_T_29 ? 4'h2 : _InstInfo_T_31 ?
-                4'h8 : _InstInfo_T_33 ? 4'h4 : _InstInfo_T_35 ? 4'h2 : _InstInfo_T_37 ? 4'h1 :
-                _InstInfo_T_39 ? 4'h8 : _InstInfo_T_41 ? 4'h4 : _InstInfo_T_43 ? 4'h2 : _InstInfo_T_140 |
-                _InstInfo_T_47 ? 4'h1 : _InstInfo_T_49 ? 4'h7 : _InstInfo_T_51 ? 4'h2 :
-                _InstInfo_T_256[3:0];	// IDU.scala:81:31, :124:19, Lookup.scala:31:38, :34:39
+                4'h1 : _InstInfo_T_33 ? 4'h9 : _InstInfo_T_35 ? 4'h5 : _InstInfo_T_37 ? 4'h3 :
+                _InstInfo_T_39 ? 4'h0 : _InstInfo_T_41 ? 4'h8 : _InstInfo_T_43 ? 4'h4 : _InstInfo_T_140 ?
+                4'h2 : _InstInfo_T_47 ? 4'h1 : _InstInfo_T_49 ? 4'h7 : _InstInfo_T_257[3:0];	// IDU.scala:81:31, :124:19, Lookup.scala:31:38, :34:39
   wire [51:0]       _immI_T_2 = {52{io_IF_Inst[31]}};	// Bitwise.scala:77:12, IDU.scala:53:36
   wire [51:0]       _GEN_3 = {52{io_IF_Inst[31]}};	// IDU.scala:53:36, :55:10
   reg  [63:0]       GPR_0;	// IDU.scala:62:22
@@ -605,8 +604,8 @@ module EXU(	// <stdin>:539:10
   output [63:0] io_EX_ALUResult,
                 io_EX_MemWriteData,
   output        io_EX_MemWriteEn,
-  output [3:0]  io_EX_LsuType,
-  output [4:0]  io_EX_RegWriteID,
+  output [4:0]  io_EX_LsuType,
+                io_EX_RegWriteID,
   output        io_EX_RegWriteEn);
 
   wire [63:0]  _ALU_Result_T_4 = io_ID_ALU_Data1 + io_ID_ALU_Data2;	// EXU.scala:43:83
@@ -625,18 +624,18 @@ module EXU(	// <stdin>:539:10
                 $signed($signed(io_ID_ALU_Data1) >>> _GEN) : 64'h0;	// <stdin>:539:10, EXU.scala:28:13, :43:{23,35,83}, :44:{23,53}, :45:{23,53}, :46:{23,53}, :47:{23,53}, :48:{23,52}, :49:{23,52}, :50:{23,60}, :51:{23,53}, :52:{23,60}, :53:23, :54:23, :55:23, :56:23, :57:{23,66}, Mux.scala:101:16
   assign io_EX_MemWriteData = io_ID_Rs2Data;	// <stdin>:539:10
   assign io_EX_MemWriteEn = io_ID_MemWriteEn;	// <stdin>:539:10
-  assign io_EX_LsuType = io_ID_FuType ? io_ID_optype[3:0] : 4'h0;	// <stdin>:539:10, EXU.scala:37:{28,62}
+  assign io_EX_LsuType = io_ID_FuType ? io_ID_optype : 5'h0;	// <stdin>:539:10, EXU.scala:37:28
   assign io_EX_RegWriteID = io_ID_RegWriteID;	// <stdin>:539:10
   assign io_EX_RegWriteEn = io_ID_RegWriteEn;	// <stdin>:539:10
 endmodule
 
 // external module LSU
 
-module MEMU(	// <stdin>:654:10
+module MEMU(	// <stdin>:653:10
   input  [63:0] io_EX_ALUResult,
                 io_EX_MemWriteData,
   input         io_EX_MemWriteEn,
-  input  [3:0]  io_EX_LsuType,
+  input  [4:0]  io_EX_LsuType,
   input         io_EX_RegWriteEn,
   input  [4:0]  io_EX_RegWriteID,
   output [63:0] io_MEM_RegWriteData,
@@ -651,14 +650,14 @@ module MEMU(	// <stdin>:654:10
     .WriteData (io_EX_MemWriteData),
     .ReadData  (_mem_ReadData)
   );
-  assign io_MEM_RegWriteData = (|io_EX_LsuType) & ~io_EX_MemWriteEn ? _mem_ReadData : io_EX_ALUResult;	// <stdin>:654:10, MEMU.scala:34:21, :39:{31,47,56,77}
-  assign io_MEM_RegWriteEn = io_EX_RegWriteEn;	// <stdin>:654:10
-  assign io_MEM_RegWriteID = io_EX_RegWriteID;	// <stdin>:654:10
+  assign io_MEM_RegWriteData = (|io_EX_LsuType) & ~io_EX_MemWriteEn ? _mem_ReadData : io_EX_ALUResult;	// <stdin>:653:10, MEMU.scala:34:21, :39:{31,47,56,77}
+  assign io_MEM_RegWriteEn = io_EX_RegWriteEn;	// <stdin>:653:10
+  assign io_MEM_RegWriteID = io_EX_RegWriteID;	// <stdin>:653:10
 endmodule
 
 // external module sim
 
-module top(	// <stdin>:686:10
+module top(	// <stdin>:685:10
   input         clock,
                 reset,
   output [63:0] io_IF_pc,
@@ -671,7 +670,7 @@ module top(	// <stdin>:686:10
   wire [63:0] _excute_unit_io_EX_ALUResult;	// top.scala:25:29
   wire [63:0] _excute_unit_io_EX_MemWriteData;	// top.scala:25:29
   wire        _excute_unit_io_EX_MemWriteEn;	// top.scala:25:29
-  wire [3:0]  _excute_unit_io_EX_LsuType;	// top.scala:25:29
+  wire [4:0]  _excute_unit_io_EX_LsuType;	// top.scala:25:29
   wire [4:0]  _excute_unit_io_EX_RegWriteID;	// top.scala:25:29
   wire        _excute_unit_io_EX_RegWriteEn;	// top.scala:25:29
   wire [63:0] _inst_decode_unit_io_ID_npc;	// top.scala:24:34
@@ -821,8 +820,8 @@ sim simulate (	// top.scala:24:26
    .GPR               (GPR),
    .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
 );
-  assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:686:10, top.scala:23:33
-  assign io_ALUResult = _mem_unit_io_MEM_RegWriteData;	// <stdin>:686:10, top.scala:26:26
+  assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:685:10, top.scala:23:33
+  assign io_ALUResult = _mem_unit_io_MEM_RegWriteData;	// <stdin>:685:10, top.scala:26:26
 endmodule
 
 
@@ -831,17 +830,33 @@ endmodule
 import "DPI-C" function void dci_pmem_write(input longint waddr, input longint wdata, input byte wmask);
 import "DPI-C" function void dci_pmem_read(input longint raddr, output longint rdata, input byte rmask);
 
-module LSU(input [63:0] addr, input [3:0] LsuType, input WriteEn, input [63:0]WriteData, output reg [63:0] ReadData);
+module LSU(input [63:0] addr, input [4:0] LsuType, input WriteEn, input [63:0]WriteData, output [63:0] ReadData);
 
     wire [7:0] mask;
-    assign mask = ~(8'hFF << LsuType);
+    wire [63:0] lw_result;
+    wire [63:0] lh_result;
+    wire [63:0] lb_result;
+    reg [63:0] data_r;
+
+    wire lw_flag = LsuType[0] && ((mask ^ 8'h0F) == 8'b0);
+    wire lh_flag = LsuType[0] && ((mask ^ 8'h03) == 8'b0);
+    wire lb_flag = LsuType[0] && ((mask ^ 8'h01) == 8'b0);
+    assign mask = ~(8'hFF << LsuType[4:1]);
+    assign lw_result = {{32{data_r[31]}}, data_r[31:0]};
+    assign lh_result = {{48{data_r[15]}}, data_r[15:0]};
+    assign lb_result = {{56{data_r[7]}}, data_r[7:0]};
+    assign ReadData = lw_flag     ? lw_result :
+                      lh_flag     ? lh_result :
+                      lb_flag     ? lb_result : data_r;
+
         always@(*) begin
             if(WriteEn) begin
+              $display("Lsutype:%d\n", LsuType[4:1]);
                 dci_pmem_write(addr, WriteData, mask);
-                ReadData = 64'h0;
+                data_r = 64'h0;
             end
             else begin
-                dci_pmem_read(addr, ReadData, mask);
+                dci_pmem_read(addr, data_r, mask);
             end
         end
 endmodule
@@ -885,3 +900,4 @@ module sim(input[63:0] IF_pc, input [63:0] GPR [31:0], input unknown_inst_flag, 
 endmodule
 
 // ----- 8< ----- FILE "firrtl_black_box_resource_files.f" ----- 8< -----
+
