@@ -36,10 +36,10 @@ void reset(int time)
 int main(int argc, char **argv, char **env)
 {
     img_size = init_img(argc, argv);
-    init_sdb();
     init_disasm("riscv64");
     init_ftrace(argv[2]);
     init_difftest(argv[3],img_size, 1234);
+    init_sdb();
     while (!contextp->gotFinish() && npc_state.state != NPC_QUIT)
         sdb_mainloop();
     top->final();

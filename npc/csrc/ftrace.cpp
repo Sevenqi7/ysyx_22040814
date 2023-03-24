@@ -10,7 +10,7 @@
 
 
 
-#define MAX_FTRACE_INFO_SIZE 32
+#define MAX_FTRACE_INFO_SIZE 128
 #define MAX_FTRACE_STACK_SIZE 512
 
 void get_symbol_list(char *elf_path);
