@@ -23,15 +23,17 @@ object OpType{
 
 
 object LSUOpType{
-    val ld = 8.U
-    val lw = 4.U
-    val lh = 2.U
-    val lb = 1.U
-    val lwu = 4.U
-    val sd = 8.U
-    val sw = 4.U
-    val sh = 2.U
-    val sb = 1.U
+    val ld = "b10001".U
+    val lw = "b01001".U
+    val lh = "b00101".U
+    val lb = "b00011".U
+    val lwu = "b01000".U
+    val lhu = "b00100".U
+    val lbu = "b00010".U
+    val sd = "b10000".U
+    val sw = "b01000".U
+    val sh = "b00100".U
+    val sb = "b00010".U
 }
 
 object FuType{
