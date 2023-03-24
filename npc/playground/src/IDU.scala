@@ -113,7 +113,7 @@ class IDU extends Module{
         (src2 === IMM   , imm      ),
         (src2 === SHAMT , shamt    )
         ))
-                
+            
         io.ID_RegWriteID := rd
         io.ID_RegWriteEn := (instType === TYPE_R) || (instType === TYPE_I) || (instType === TYPE_U) || (instType === TYPE_J)
         io.ID_MemWriteEn := (instType === TYPE_S)
