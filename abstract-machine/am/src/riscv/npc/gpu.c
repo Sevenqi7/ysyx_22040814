@@ -11,20 +11,12 @@
 static int width, height;
 
 void __am_gpu_init() {
-  printf("sadasd\n");
   uint32_t screen_size = inl(VGACTL_ADDR);
   width = screen_size >> 16;
   height = screen_size & 0xffff;
-  printf("screen width:%d screen  height:%d\n", width, height);
 }
 
-void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
-  // *cfg = (AM_GPU_CONFIG_T) {
-  //   .present = true, .has_accel = false,
-  //   .width = 0, .height = 0,
-  //   .vmemsz = 0
-  // };
-      
+void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {      
       uint32_t screen_size = inl(VGACTL_ADDR);
       cfg->width = screen_size >> 16;
       cfg->height = screen_size & 0xffff;
@@ -33,7 +25,7 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   // while(1);
   
-  uint32_t *draw_addr = (uint32_t *)(uintptr_t)(FB_ADDR )+ ctl->y * 400 + ctl->x;
+  uint32_t *draw_addr = (uint32_t *)(uintptr_t)(FB_ADDR)+ ctl->y * 400 + ctl->x;
   uint32_t *pixel = (uint32_t *)ctl->pixels;
   for(int i=ctl->y;i<ctl->y+ctl->h;i++)
   {
