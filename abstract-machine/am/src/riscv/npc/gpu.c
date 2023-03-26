@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#define FB_ADDR (0xa0000000 + 0x10000000)
+#define FB_ADDR (0xa0000000 + 0x1000000)
 #define VGACTL_ADDR (0xa0000000 + 0x100)
 #define SYNC_ADDR (VGACTL_ADDR + 4)
 

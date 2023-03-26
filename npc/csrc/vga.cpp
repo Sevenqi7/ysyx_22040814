@@ -7,6 +7,8 @@
 
 #define SCREEN_W    400
 #define SCREEN_H    300
+#define VGA_SCREEN_W (SCREEN_W * 2)
+#define VGA_SCREEN_H (SCREEN_H * 2)
 
 uint32_t *vgactl_port_base = NULL;
 void *vmem = NULL;
@@ -34,8 +36,8 @@ static void init_screen()
     char title[128] = "riscv64-NPC";
     SDL_Init(SDL_INIT_VIDEO);
     SDL_CreateWindowAndRenderer(
-        SCREEN_W * 2,
-        SCREEN_H * 2,
+        VGA_SCREEN_W,
+        VGA_SCREEN_H,
         0, &window, &renderer
     );
     SDL_SetWindowTitle(window, title);
@@ -44,7 +46,7 @@ static void init_screen()
 }
 
 static inline void update_screen() {
-    Log("reach");
+    // Log("reach");
     SDL_UpdateTexture(texture, NULL, vmem, SCREEN_W * sizeof(uint32_t));
     SDL_RenderClear(renderer);
     SDL_RenderCopy(renderer, texture, NULL, NULL);
@@ -64,9 +66,9 @@ void init_vga()
 {
     vgactl_port_base = (uint32_t *)malloc(8);
     vgactl_port_base[0] = (screen_width() << 16) | screen_height();
-    vmem = malloc(1960000);
+    vmem = malloc(VGA_SCREEN_W * VGA_SCREEN_H *sizeof(uint32_t));
     assert(vgactl_port_base);
     assert(vmem);
     init_screen();
-    memset(vmem, 0, 480000);
+    memset(vmem, 0, VGA_SCREEN_W * VGA_SCREEN_H *sizeof(uint32_t));
 }
