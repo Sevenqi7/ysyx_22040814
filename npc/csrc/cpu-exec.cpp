@@ -18,6 +18,7 @@ static uint32_t g_itrace_num = 0;
 #endif
 
 extern bool inst_fault;
+void device_update();
 void difftest_regcpy(void *dut, bool direction);
 
 static void trace_and_difftest(char *logbuf)
@@ -107,6 +108,7 @@ void execute(uint64_t n)
     for(int i=0;i<n;i++)
     {
         exec_once();
+        device_update();
         if(npc_state.state != NPC_RUNNING) break;
     }
 

@@ -38,6 +38,7 @@ static struct function_call_stack
 
 void ftrace_check_jal(uint64_t jump_addr, uint64_t ret_addr, int rs1, int rd)
 {
+    assert(f_trace_buf.f_trace_end <= MAX_FTRACE_STACK_SIZE);
     // Log("jump_addr:%lx ret_addr:%lx rd:%d, rs1:%d", jump_addr, ret_addr, rd, rs1);
     if(rd == 0 && rs1 == 1)
     {
