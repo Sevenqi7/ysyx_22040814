@@ -14,7 +14,7 @@
 ***************************************************************************************/
 
 #include <common.h>
-#include </home/seven7/Documents/学业/一生一芯/ysyx-workbench/nemu/src/monitor/sdb/sdb.h>
+#include "/home/seven7/Documents/学业/一生一芯/ysyx-workbench/nemu/src/monitor/sdb/sdb.h"
 
 #include <stdio.h>
 void init_monitor(int, char *[]);

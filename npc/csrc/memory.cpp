@@ -1,12 +1,17 @@
 #include <verilator.h>
 #include <npc.h>
 #include <memory.h>
+#include <device.h>
+
+#include <time.h>
 #include <sys/time.h>
 
 static uint8_t pmem[MEMSIZE]__attribute((aligned(4096)));
 
 extern uint8_t* guest_to_host(paddr_t paddr){return pmem + (paddr & MEMMASK);}
 
+void device_write(uint64_t addr, uint64_t data);
+uint64_t device_read(uint64_t addr);
 
 uint64_t *pmem_addr(uint64_t *addr)
 {
@@ -25,14 +30,8 @@ void outofbound(uint64_t paddr)
 uint64_t pmem_read(uint64_t addr, int len)
 {
     uint64_t paddr = addr & MEMMASK;
-    Log("paddr:%lx", paddr);
-    if(addr == 0xa0000048)
-    {
-        struct timeval tp;
-        gettimeofday(&tp, NULL);
-        Log("1:%d", tp.tv_sec);
-        return 0;
-    }
+    // Log("paddr:%lx", paddr);
+    if(addr > MMIO_BASE && addr < MMIO_END) return device_read(addr);
     outofbound(paddr);
     assert(paddr < MEMSIZE);
     int ret = 0;
@@ -51,7 +50,7 @@ uint64_t pmem_read(uint64_t addr, int len)
 void pmem_write(uint64_t addr, int len, uint64_t data)
 {
     uint64_t paddr = addr & MEMMASK;
-    if(addr == 0xa00003f8) {putchar((char)data); return;}
+    if(addr > MMIO_BASE && addr < MMIO_END) {device_write(addr, data); return;}
     outofbound(paddr);
     int ret = 0;
     switch (len) {

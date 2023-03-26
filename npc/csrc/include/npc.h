@@ -6,6 +6,7 @@
 
 #include <stdio.h>
 #include <stdint.h>
+#include <assert.h>
 
 //从nemu里抄来的Log
 #define _Log(...) \

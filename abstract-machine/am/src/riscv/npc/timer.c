@@ -3,16 +3,17 @@
 #include <sys/time.h>
 #include <stdio.h>
 
-static long int boot_time;
+static unsigned long long boot_time;
 
 void __am_timer_init() {
-  while(1);
-  boot_time = inl(0xa00000048);
-  printf("boot_time:%d\n");
+  boot_time = inl(0xa0000048);
+  printf("boot_time:%d\n", boot_time);
 }
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
-  // uptime->us = inl(0xa0000048) - boot_time;
+  unsigned long gettime = inl(0xa0000048);
+  // printf("get_time:%d\n", gettime-boot_time);
+  uptime->us = gettime - boot_time;
 }
 
 void __am_timer_rtc(AM_TIMER_RTC_T *rtc) {
