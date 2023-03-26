@@ -5,8 +5,8 @@
 #include <device.h>
 #include <SDL2/SDL.h>
 
-#define SCREEN_W    800
-#define SCREEN_H    600
+#define SCREEN_W    400
+#define SCREEN_H    300
 
 uint32_t *vgactl_port_base = NULL;
 void *vmem = NULL;
@@ -34,8 +34,8 @@ static void init_screen()
     char title[128] = "riscv64-NPC";
     SDL_Init(SDL_INIT_VIDEO);
     SDL_CreateWindowAndRenderer(
-        SCREEN_W ,
-        SCREEN_H ,
+        SCREEN_W * 2,
+        SCREEN_H * 2,
         0, &window, &renderer
     );
     SDL_SetWindowTitle(window, title);
