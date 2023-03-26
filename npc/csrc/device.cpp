@@ -18,7 +18,7 @@ uint64_t device_read(uint64_t addr)
         return vgactl_port_base[1];
     else if(addr == VGACTL_ADDR)
         return vgactl_port_base[0];
-    else if(addr >= FB_ADDR && addr < FB_ADDR + 120000) return ((uint32_t *)vmem)[addr - FB_ADDR];
+    else if(addr >= FB_ADDR && addr < FB_ADDR + 480000) return ((uint32_t *)vmem)[addr - FB_ADDR];
     else{
         // Log("addr:0x%lx", addr);
         // assert(0);
@@ -32,7 +32,7 @@ void device_write(uint64_t addr, uint64_t data)
     if(addr == SERIAL_PORT) putchar((char)data);
     else if(addr == SYNC_ADDR){vgactl_port_base[1] = data;}
     else if(addr == VGACTL_ADDR) vgactl_port_base[0] = data;
-    else if(addr >= FB_ADDR && addr < FB_ADDR + 120000) {((uint32_t *)vmem)[(addr - FB_ADDR)] = data;}
+    else if(addr >= FB_ADDR && addr < FB_ADDR + 480000) {((uint32_t *)vmem)[(addr - FB_ADDR)] = data;}
     else{
         // Log("addr:0x%lx", addr);
         // assert(0);
