@@ -1,19 +1,22 @@
 #include<verilator.h>
 #include<npc.h>
 #include<device.h>
-#include<time.h>
+#include<sys/time.h>
 
 extern uint32_t *vgactl_port_base;
 extern void *vmem;
 
+static uint64_t boot_time = 0;
+
 void vga_update_screen();
-void screen_size();
+uint64_t get_time_internal();
+uint64_t get_time();
 
 uint64_t device_read(uint64_t addr)
 {
     assert(addr>MMIO_BASE && addr<MMIO_END);
     if(addr == RTC_ADDR)
-        return clock();
+        return get_time();
     else if(addr == SYNC_ADDR)
         return vgactl_port_base[1];
     else if(addr == VGACTL_ADDR)
@@ -43,3 +46,23 @@ void device_update()
 {
     vga_update_screen();
 }
+
+
+
+uint64_t get_time_internal()
+{
+    struct timespec now;
+    clock_gettime(CLOCK_MONOTONIC_COARSE, &now);
+    uint64_t us = now.tv_sec * 1000000 + now.tv_nsec / 1000;
+    return us;    
+}
+
+uint64_t get_time()
+{
+    if(boot_time == 0) boot_time = get_time_internal();
+    uint64_t now = get_time_internal();
+    return now - boot_time;
+}
+
+
+
