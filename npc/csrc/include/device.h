@@ -8,6 +8,9 @@
 #define SERIAL_PORT  (MMIO_BASE + 0x000003f8)
 #define RTC_ADDR     (MMIO_BASE + 0x00000048)
 #define VGACTL_ADDR  (MMIO_BASE + 0x00000100)
+#define SYNC_ADDR    (VGACTL_ADDR + 4)
+#define FB_ADDR      (0xa0000000 + 0x10000000)
+
 
 // #define io_read(reg) \
 //   ({ reg##_T __io_param; \

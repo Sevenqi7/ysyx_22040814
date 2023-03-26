@@ -16,6 +16,7 @@ long init_img(int argc, char **argv);
 void init_sdb();
 void init_disasm(const char *triple);
 void init_ftrace(char *path);
+void init_vga();
 #ifdef CONFIG_DIFFTEST
 void init_difftest(char *ref_so_file, long img_size, int port);
 #endif
@@ -44,6 +45,7 @@ int main(int argc, char **argv, char **env)
     init_difftest(argv[3],img_size, 1234);
     #endif
     init_sdb();
+    init_vga();
     while (!contextp->gotFinish() && npc_state.state != NPC_QUIT)
         sdb_mainloop();
     top->final();

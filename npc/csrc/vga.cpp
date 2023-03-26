@@ -8,8 +8,8 @@
 #define SCREEN_W    800
 #define SCREEN_H    600
 
-static uint32_t *vgactl_port_base = NULL;
-static void *vmem = NULL;
+uint32_t *vgactl_port_base = NULL;
+void *vmem = NULL;
 
 static SDL_Renderer *renderer = NULL;
 static SDL_Texture *texture = NULL; 
@@ -21,7 +21,7 @@ static uint32_t screen_width()
 
 static uint32_t screen_height()
 {
-    return SCREEN_W;
+    return SCREEN_H;
 }
 
 static uint32_t screen_size() {
@@ -64,5 +64,6 @@ void init_vga()
     vgactl_port_base[0] = (screen_width() << 16) | screen_height();
 
     vmem = (uint32_t *)malloc(screen_size());
-
+    init_screen();
+    memset(vmem, 0, screen_size());
 }

@@ -24,9 +24,6 @@ static uint32_t screen_width() {
 }
 
 static uint32_t screen_height() {
-  printf("value:%d\n",MUXDEF(CONFIG_TARGET_AM, io_read(AM_GPU_CONFIG).height, SCREEN_H));
-  while(1);
-
   return MUXDEF(CONFIG_TARGET_AM, io_read(AM_GPU_CONFIG).height, SCREEN_H);
 }
 
