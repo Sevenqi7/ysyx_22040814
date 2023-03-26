@@ -6,14 +6,14 @@
 static unsigned long long boot_time;
 
 void __am_timer_init() {
-  boot_time = inl(0xa0000048) * 10;
+  boot_time = inl(0xa0000048);
   printf("boot_time:%d\n", boot_time);
 }
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
   unsigned long gettime = inl(0xa0000048);
   // printf("get_time:%d\n", gettime-boot_time);
-  uptime->us = gettime * 10 - boot_time;
+  uptime->us = gettime - boot_time;
 }
 
 void __am_timer_rtc(AM_TIMER_RTC_T *rtc) {
