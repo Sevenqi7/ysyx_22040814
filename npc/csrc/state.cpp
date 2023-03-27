@@ -10,7 +10,7 @@ void unknown_inst()
     inst_fault = true;
 }
 
-void ebreak(int halt_ret)
+void ebreak(long long int halt_ret)
 {
     if(npc_state.state == NPC_END) return;
     npc_state.state = NPC_END;

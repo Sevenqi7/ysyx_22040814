@@ -1,11 +1,17 @@
 #include <verilator.h>
 #include <npc.h>
 #include <memory.h>
+#include <device.h>
+
+#include <time.h>
+#include <sys/time.h>
 
 static uint8_t pmem[MEMSIZE]__attribute((aligned(4096)));
 
 extern uint8_t* guest_to_host(paddr_t paddr){return pmem + (paddr & MEMMASK);}
 
+void device_write(uint64_t addr, uint64_t data);
+uint64_t device_read(uint64_t addr);
 
 uint64_t *pmem_addr(uint64_t *addr)
 {
@@ -24,7 +30,10 @@ void outofbound(uint64_t paddr)
 uint64_t pmem_read(uint64_t addr, int len)
 {
     uint64_t paddr = addr & MEMMASK;
+    // Log("paddr:%lx", paddr);
+    if(addr > MMIO_BASE && addr < MMIO_END) return device_read(addr);
     outofbound(paddr);
+    assert(paddr < MEMSIZE);
     int ret = 0;
     switch(len)
     {
@@ -33,7 +42,7 @@ uint64_t pmem_read(uint64_t addr, int len)
         case 2: return *(uint16_t *)(pmem + paddr);
         case 4: return *(uint32_t *)(pmem + paddr);
         case 8: return *(uint64_t *)(pmem + paddr);
-        default: printf("\033[0m\033[1;31m%s\033[0m", "Unsupported len\n"); npc_state.state = NPC_ABORT;
+        default: printf("\033[0m\033[1;31mInvalid read len:%d at PC:%016lx\033[0m\n", len, top->io_IF_pc); npc_state.state = NPC_ABORT;
     }
     return 0;
 }
@@ -41,6 +50,7 @@ uint64_t pmem_read(uint64_t addr, int len)
 void pmem_write(uint64_t addr, int len, uint64_t data)
 {
     uint64_t paddr = addr & MEMMASK;
+    if(addr > MMIO_BASE && addr < MMIO_END) {device_write(addr, data); return;}
     outofbound(paddr);
     int ret = 0;
     switch (len) {
@@ -48,7 +58,7 @@ void pmem_write(uint64_t addr, int len, uint64_t data)
     case 2: *(uint16_t *)(pmem + paddr) = data; return;
     case 4: *(uint32_t *)(pmem + paddr) = data; return;
     case 8: *(uint64_t *)(pmem + paddr) = data; return;
-    default: printf("\033[0m\033[1;31m%s\033[0m", "Unsupported len\n"); npc_state.state = NPC_ABORT;
+    default: printf("\033[0m\033[1;31mInvalid wirte len:%d at PC:%016lx\033[0m\n", len, top->io_IF_pc); npc_state.state = NPC_ABORT;
   }
 }
 

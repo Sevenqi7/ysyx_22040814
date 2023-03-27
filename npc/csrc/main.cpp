@@ -16,7 +16,10 @@ long init_img(int argc, char **argv);
 void init_sdb();
 void init_disasm(const char *triple);
 void init_ftrace(char *path);
+void init_vga();
+#ifdef CONFIG_DIFFTEST
 void init_difftest(char *ref_so_file, long img_size, int port);
+#endif
 void sdb_mainloop();
 VerilatedContext *contextp;
 Vtop *top;
@@ -36,10 +39,13 @@ void reset(int time)
 int main(int argc, char **argv, char **env)
 {
     img_size = init_img(argc, argv);
-    init_sdb();
     init_disasm("riscv64");
     init_ftrace(argv[2]);
+    #ifdef CONFIG_DIFFTEST
     init_difftest(argv[3],img_size, 1234);
+    #endif
+    init_sdb();
+    init_vga();
     while (!contextp->gotFinish() && npc_state.state != NPC_QUIT)
         sdb_mainloop();
     top->final();

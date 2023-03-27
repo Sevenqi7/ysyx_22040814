@@ -1,8 +1,8 @@
 import chisel3._
 import chisel3.util._
-import OpType._
 import InstType._
 import FuSource._
+import java.awt.font.OpenType
 
 class IDU extends Module{
     val io = IO(new Bundle{
@@ -13,7 +13,7 @@ class IDU extends Module{
         val ID_ALU_Data1 = Output(UInt(64.W))
         val ID_ALU_Data2 = Output(UInt(64.W))
         val ID_FuType = Output(UInt(1.W))
-        val ID_optype = Output(UInt(4.W))
+        val ID_optype = Output(UInt(5.W))
 
         val ID_Rs1Data = Output(UInt(64.W))
         val ID_Rs2Data = Output(UInt(64.W))
@@ -33,7 +33,7 @@ class IDU extends Module{
     //Decode
     val InstInfo = ListLookup(io.IF_Inst, List(0.U, 0.U, 0.U, 0.U, 0.U), RV64IInstr.table)
     val instType = Wire(UInt(3.W))
-    val opType   = Wire(UInt(4.W))
+    val opType   = Wire(UInt(5.W))
     
     opType          := InstInfo(4)
     instType        := InstInfo(0)
@@ -109,20 +109,32 @@ class IDU extends Module{
     io.ID_ALU_Data2 := MuxCase(0.U, Seq(
         (src2 === ZERO  , 0.U      ),
         (src2 === PC    , io.IF_pc ),
-        (src2 === RS2   , rs1_data ),
-        (src2 === IMM   , imm      )
+        (src2 === RS2   , rs2_data ),
+        (src2 === IMM   , imm      ),
+        (src2 === SHAMT , shamt    )
         ))
-                
+            
         io.ID_RegWriteID := rd
         io.ID_RegWriteEn := (instType === TYPE_R) || (instType === TYPE_I) || (instType === TYPE_U) || (instType === TYPE_J)
         io.ID_MemWriteEn := (instType === TYPE_S)
         
     //NPC
+    val BJ_flag = Wire(Bool())
+    BJ_flag := 0.B
+    switch(opType){
+        is (BType.BEQ)  {BJ_flag := rs1_data === rs2_data                }
+        is (BType.BNE)  {BJ_flag := rs1_data =/= rs2_data                }
+        is (BType.BLT)  {BJ_flag := rs1_data.asSInt < rs2_data.asSInt    }
+        is (BType.BGE)  {BJ_flag := rs1_data.asSInt >= rs2_data.asSInt   }
+        is (BType.BLTU) {BJ_flag := rs1_data < rs2_data                  }
+        is (BType.BGEU) {BJ_flag := rs1_data.asSInt >= rs2_data.asSInt   }
+    }
+
     val pcplus4 = Wire(UInt(32.W))
     pcplus4 := io.IF_pc + 4.U
     io.ID_npc := MuxCase(pcplus4, Seq(
         (instType === TYPE_J, io.IF_pc + immJ * 2.U),
-        (instType === TYPE_B, io.IF_pc + immB * 2.U),
+        (instType === TYPE_B  &&  BJ_flag     , io.IF_pc + immB * 2.U),
         (instType === TYPE_I  &&  src1 === NPC, rs1_data + immI)
     ))
 }
@@ -134,26 +146,76 @@ object RV64IInstr{
 
     //U Type
     def AUIPC   = BitPat("b??????? ????? ????? ??? ????? 00101 11")
+    def LUI     = BitPat("b??????? ????? ????? ??? ????? 01101 11")
 
     //I Type
     def ADDI    = BitPat("b??????? ????? ????? 000 ????? 00100 11")
+    def SLLI    = BitPat("b000000? ????? ????? 001 ????? 00100 11")
+    def SRLI    = BitPat("b000000? ????? ????? 101 ????? 00100 11")
+    def SRAI    = BitPat("b010000? ????? ????? 101 ????? 00100 11")
     def JALR    = BitPat("b??????? ????? ????? 000 ????? 11001 11")
+    def XORI    = BitPat("b??????? ????? ????? 100 ????? 00100 11")
+    def ORI     = BitPat("b??????? ????? ????? 110 ????? 00100 11")
+    def ANDI    = BitPat("b??????? ????? ????? 111 ????? 00100 11")
+    def SLTI    = BitPat("b??????? ????? ????? 010 ????? 00100 11")
+    def SLTIU   = BitPat("b??????? ????? ????? 011 ????? 00100 11")
+    def LB      = BitPat("b??????? ????? ????? 000 ????? 00000 11")
+    def LH      = BitPat("b??????? ????? ????? 001 ????? 00000 11")
+    def LW      = BitPat("b??????? ????? ????? 010 ????? 00000 11")
+    def LD      = BitPat("b??????? ????? ????? 011 ????? 00000 11")
+    def LWU     = BitPat("b??????? ????? ????? 110 ????? 00000 11")
+    def LHU     = BitPat("b??????? ????? ????? 101 ????? 00000 11")
+    def LBU     = BitPat("b??????? ????? ????? 100 ????? 00000 11")
 
-    //J Type
+    def ADDIW   = BitPat("b??????? ????? ????? 000 ????? 00110 11")
+    def SLLIW   = BitPat("b0000000 ????? ????? 001 ????? 00110 11")
+    def SRLIW   = BitPat("b0000000 ????? ????? 101 ????? 00110 11")
+    def SRAIW   = BitPat("b0100000 ????? ????? 101 ????? 00110 11")
     def JAL     = BitPat("b??????? ????? ????? ??? ????? 11011 11")
-    // def ADDIW   = BitPat("b???????_?????_?????_000_?????_0011011")
-    // def SLLIW   = BitPat("b0000000_?????_?????_001_?????_0011011")
-    // def SRLIW   = BitPat("b0000000_?????_?????_101_?????_0011011")
-    // def SRAIW   = BitPat("b0100000_?????_?????_101_?????_0011011")
-    // def SLLW    = BitPat("b0000000_?????_?????_001_?????_0111011")
-    // def SRLW    = BitPat("b0000000_?????_?????_101_?????_0111011")
+    
+    //J Type
 
+    //R Type
+    def ADD       = BitPat("b0000000 ????? ????? 000 ????? 01100 11")
+    def SLL       = BitPat("b0000000 ????? ????? 001 ????? 01100 11")
+    def XOR       = BitPat("b0000000 ????? ????? 100 ????? 01100 11")
+    def OR        = BitPat("b0000000 ????? ????? 110 ????? 01100 11")
+    def AND       = BitPat("b0000000 ????? ????? 111 ????? 01100 11")
+    def SUB       = BitPat("b0100000 ????? ????? 000 ????? 01100 11")
+    def SLT       = BitPat("b0000000 ????? ????? 010 ????? 01100 11")
+    def SLTU      = BitPat("b0000000 ????? ????? 011 ????? 01100 11")
+    def MUL       = BitPat("b0000001 ????? ????? 000 ????? 01100 11")
+    def DIV       = BitPat("b0000001 ????? ????? 100 ????? 01100 11")
+    def DIVU      = BitPat("b0000001 ????? ????? 101 ????? 01100 11")
+    def REM       = BitPat("b0000001 ????? ????? 110 ????? 01100 11")
+    def REMU      = BitPat("b0000001 ????? ????? 111 ????? 01100 11")
+    def ADDW      = BitPat("b0000000 ????? ????? 000 ????? 01110 11")
+    def SUBW      = BitPat("b0100000 ????? ????? 000 ????? 01110 11")
+
+    def SLLW      = BitPat("b0000000 ????? ????? 001 ????? 01110 11")
+    def SRLW      = BitPat("b0000000 ????? ????? 101 ????? 01110 11")
+    def SRAW      = BitPat("b0100000 ????? ????? 101 ????? 01110 11")
+    def MULW      = BitPat("b0000001 ????? ????? 000 ????? 01110 11")
+    def DIVW      = BitPat("b0000001 ????? ????? 100 ????? 01110 11")
+    def DIVUW     = BitPat("b0000001 ????? ????? 101 ????? 01110 11")
+    def REMW      = BitPat("b0000001 ????? ????? 110 ????? 01110 11")
+    def REMUW     = BitPat("b0000001 ????? ????? 111 ????? 01110 11")
+    
     // def SRAW    = BitPat("b0100000_?????_?????_101_?????_0111011")
-    // def ADDW    = BitPat("b0000000_?????_?????_000_?????_0111011")
-    // def SUBW    = BitPat("b0100000_?????_?????_000_?????_0111011")
-    // def LWU     = BitPat("b???????_?????_?????_110_?????_0000011")
-    // def LD      = BitPat("b???????_?????_?????_011_?????_0000011")
-    def SD      = BitPat("b??????? ????? ????? 011 ????? 0100011")
+    //S Type
+    def SD         = BitPat("b??????? ????? ????? 011 ????? 01000 11")
+    def SW         = BitPat("b??????? ????? ????? 010 ????? 01000 11")
+    def SH         = BitPat("b??????? ????? ????? 001 ????? 01000 11")
+    def SB         = BitPat("b??????? ????? ????? 000 ????? 01000 11")
+
+    //B Type
+    def BEQ        = BitPat("b??????? ????? ????? 000 ????? 11000 11")
+    def BNE        = BitPat("b??????? ????? ????? 001 ????? 11000 11")
+    def BLT        = BitPat("b??????? ????? ????? 100 ????? 11000 11")
+    def BLTU       = BitPat("b??????? ????? ????? 110 ????? 11000 11")
+    def BGEU       = BitPat("b??????? ????? ????? 111 ????? 11000 11")
+    def BGE        = BitPat("b??????? ????? ????? 101 ????? 11000 11")
+
     val table = Array(
 
         // Special insts
@@ -161,24 +223,73 @@ object RV64IInstr{
 
         //U Type
         AUIPC          -> List(TYPE_U, FuType.alu, PC  , IMM , OpType.OP_PLUS),
+        LUI            -> List(TYPE_U, FuType.alu, ZERO, IMM , OpType.OP_PLUS),
 
         //I Type
         ADDI           -> List(TYPE_I, FuType.alu, RS1 , IMM , OpType.OP_PLUS),
+        SLLI           -> List(TYPE_I, FuType.alu, RS1 , IMM , OpType.OP_SLL ),
+        SRLI           -> List(TYPE_I, FuType.alu, RS1 , IMM , OpType.OP_SRL ),
+        SRAI           -> List(TYPE_I, FuType.alu, RS1 , IMM , OpType.OP_SRA ),
+
         JALR           -> List(TYPE_I, FuType.alu, NPC , ZERO, OpType.OP_PLUS),
-        // ADDIW          -> List(TYPE_I, FuType.alu, OpType.addw),
-        // SLLIW          -> List(TYPE_I, FuType.alu, OpType.sllw),
-        // SRLIW          -> List(TYPE_I, FuType.alu, OpType.srlw),
-        // SRAIW          -> List(TYPE_I, FuType.alu, OpType.sraw),
-        // SLLW           -> List(TYPE_R, FuType.alu, OpType.sllw),
-        // SRLW           -> List(TYPE_R, FuType.alu, OpType.srlw),
-        // SRAW           -> List(TYPE_R, FuType.alu, OpType.sraw),
-        // ADDW           -> List(TYPE_R, FuType.alu, OpType.addw),
-        // SUBW           -> List(TYPE_R, FuType.alu, OpType.subw)
-        // LWU            -> List(TYPE_I, FuType.lsu, LSUOpType.lwu),
-        // LD             -> List(TYPE_I, FuType.lsu, LSUOpType.ld ),
+        XORI           -> List(TYPE_I, FuType.alu, RS1 , IMM , OpType.OP_XOR ),
+        ORI            -> List(TYPE_I, FuType.alu, RS1 , IMM , OpType.OP_OR  ),
+        ANDI           -> List(TYPE_I, FuType.alu, RS1 , IMM , OpType.OP_AND ),
+        SLTI           -> List(TYPE_I, FuType.alu, RS1 , IMM , OpType.OP_SLT ),
+        SLTIU          -> List(TYPE_I, FuType.alu, RS1 , IMM , OpType.OP_SLTU),
+        ADDIW          -> List(TYPE_I, FuType.alu, RS1 , IMM , OpType.OP_ADDW),
+        SLLIW          -> List(TYPE_I, FuType.alu, RS1 , SHAMT,OpType.OP_SLLW),
+        SRLIW          -> List(TYPE_I, FuType.alu, RS1 , SHAMT,OpType.OP_SRLW),
+        SRAIW          -> List(TYPE_I, FuType.alu, RS1 , SHAMT,OpType.OP_SRAW),
+        LB             -> List(TYPE_I, FuType.lsu, RS1 , IMM , LSUOpType.lb  ),
+        LH             -> List(TYPE_I, FuType.lsu, RS1 , IMM , LSUOpType.lh  ),
+        LW             -> List(TYPE_I, FuType.lsu, RS1 , IMM , LSUOpType.lw  ),
+        LD             -> List(TYPE_I, FuType.lsu, RS1 , IMM , LSUOpType.ld  ),
+        LBU            -> List(TYPE_I, FuType.lsu, RS1 , IMM , LSUOpType.lbu ),
+        LHU            -> List(TYPE_I, FuType.lsu, RS1 , IMM , LSUOpType.lhu ),
+        LWU            -> List(TYPE_I, FuType.lsu, RS1 , IMM , LSUOpType.lwu ),
+
+        //S Type
         SD             -> List(TYPE_S, FuType.lsu, RS1 , IMM , LSUOpType.sd  ),
+        SW             -> List(TYPE_S, FuType.lsu, RS1 , IMM , LSUOpType.sw  ),
+        SH             -> List(TYPE_S, FuType.lsu, RS1 , IMM , LSUOpType.sh  ),
+        SB             -> List(TYPE_S, FuType.lsu, RS1 , IMM , LSUOpType.sb  ),
         
+        //R Type
+        ADD            -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_PLUS),
+        SLL            -> List(TYPE_R, FuType.alu, RS1 , SHAMT,OpType.OP_SLL ),
+        SUB            -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_SUB ),
+        XOR            -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_XOR ),
+        OR             -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_OR  ),
+        AND            -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_AND ),
+        SLT            -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_SLT ),
+        SLTU           -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_SLTU),
+        MUL            -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_MUL ),
+        DIV            -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_DIV ),
+        DIVU           -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_DIVU),
+        REM            -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_REM ),
+        REMU           -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_REMU),
+
+        ADDW           -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_ADDW),
+        SUBW           -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_SUBW),
+        SLLW           -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_SLLW),
+        SRLW           -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_SRLW),
+        SRAW           -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_SRAW),
+        MULW           -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_MULW),
+        DIVW           -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_DIVW),
+        DIVUW          -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_DIVUW),
+        REMW           -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_REMW),
+        REMUW          -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_REMUW),
+
         //J Type
-        JAL            -> List(TYPE_J, FuType.alu, NPC, ZERO, OpType.OP_PLUS)
+        JAL            -> List(TYPE_J, FuType.alu, NPC, ZERO , OpType.OP_PLUS),
+        
+        //B Type
+        BEQ            -> List(TYPE_B, FuType.alu, ZERO , ZERO , BType.BEQ   ),
+        BNE            -> List(TYPE_B, FuType.alu, ZERO , ZERO , BType.BNE   ),
+        BLT            -> List(TYPE_B, FuType.alu, ZERO , ZERO , BType.BLT   ),
+        BLTU           -> List(TYPE_B, FuType.alu, ZERO , ZERO , BType.BLTU  ),
+        BGE            -> List(TYPE_B, FuType.alu, ZERO , ZERO , BType.BGE   ),
+        BGEU           -> List(TYPE_B, FuType.alu, ZERO , ZERO , BType.BGEU  )
         )
     }

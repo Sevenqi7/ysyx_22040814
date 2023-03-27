@@ -18,6 +18,7 @@ static uint32_t g_itrace_num = 0;
 #endif
 
 extern bool inst_fault;
+void device_update();
 void difftest_regcpy(void *dut, bool direction);
 
 static void trace_and_difftest(char *logbuf)
@@ -29,13 +30,13 @@ static void trace_and_difftest(char *logbuf)
     int rd = BITS(npc_state.inst, 11, 7), rs1 = BITS(npc_state.inst, 19, 15);
     ftrace_check_jal(top->io_IF_pc, npc_state.pc + 4, rs1, rd);
 #endif
-#ifdef CONFIG_DIFFTEST
-    void difftest_step(vaddr_t pc);
-    difftest_step(top->io_IF_pc);
-#endif
 #ifdef CONFIG_WATCHPOINT
     if(check_watchpoints())
         npc_state.state = NPC_STOP;
+#endif
+#ifdef CONFIG_DIFFTEST
+    void difftest_step(vaddr_t pc);
+    difftest_step(top->io_IF_pc);
 #endif
 }
 
@@ -58,27 +59,18 @@ void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
 
 void exec_once()            //disassemble实质上是反汇编的上一个已执行完的指令（正要执行的指令还在等待上升沿）
 {
+    npc_state.inst = pmem_read(top->io_IF_pc, 4);       //record the pc value and inst that excuted last time
+    npc_state.pc   = top->io_IF_pc;                     
     if(inst_fault)                           //if an unimplemented inst found, directly record inst trace without excuting next inst
     {
         npc_state.state = NPC_ABORT;
         printf("\033[0m\033[1;31m%s\033[0m\n", "UNKNOWN INST RECEIVED:");
         printf("\033[0m\033[1;31mPC:0x%016lx inst:0x%08x\033[0m\n", npc_state.pc, (uint32_t)npc_state.inst);
-        return ;
     }
-    npc_state.inst = pmem_read(top->io_IF_pc, 4);       //record the pc value and inst that excuted last time
-    npc_state.pc   = top->io_IF_pc;                     
     for(int i=0;i<2;i++)
     {
         contextp->timeInc(1); // 1 timeprecision period passes...
         top->clock = !top->clock;
-        if(!top->reset)
-            top->io_inst = pmem_read(top->io_IF_pc, 4);
-        if(!top->io_inst)
-        {
-            printf("\n\033[0m\033[1;31m%s 0x%lx\033[0m\n", "All 0 inst found in addr: ", top->io_IF_pc);
-            exit(-1) ;
-        }    
-
         // if(top->clock)
         //     Log("time=%ld clk=%x rst=%x inst=0x%x IF_pc=0x%lx", contextp->time(), top->clock, top->reset, top->io_inst, top->io_IF_pc);
         top->eval();
@@ -116,6 +108,7 @@ void execute(uint64_t n)
     for(int i=0;i<n;i++)
     {
         exec_once();
+        device_update();
         if(npc_state.state != NPC_RUNNING) break;
     }
 

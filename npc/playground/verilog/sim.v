@@ -1,6 +1,6 @@
 import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
 import "DPI-C" function void unknown_inst();
-import "DPI-C" function void ebreak(input int halt_ret);
+import "DPI-C" function void ebreak(input longint halt_ret);
 
 
 wire [63:0] GPR [31:0];
@@ -18,12 +18,13 @@ assign {GPR[31], GPR[30], GPR[29], GPR[28], GPR[27], GPR[26], GPR[25], GPR[24], 
 {_inst_decode_unit_io_ID_GPR_0}};	// IDU.scala:55:22, :66:20
 
 sim simulate (	// top.scala:24:26
-   .inst   (io_inst),
-   .GPR    (GPR),
+   .IF_pc             (_inst_fetch_unit_io_IF_pc),	// top.scala:24:33
+   .inst              (_simulate_inst),
+   .GPR               (GPR),
    .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
 );
 
-module sim(input [31:0] inst, input [63:0] GPR [31:0], input unknown_inst_flag);
+module sim(input[63:0] IF_pc, input [63:0] GPR [31:0], input unknown_inst_flag, output [63:0] inst);
 
    initial begin
       if ($test$plusargs("trace") != 0) begin
@@ -36,13 +37,18 @@ module sim(input [31:0] inst, input [63:0] GPR [31:0], input unknown_inst_flag);
 
    initial set_gpr_ptr(GPR);    // rf为通用寄存器的二维数组变量
 
+
    always@(*) begin
-      integer  i = GPR[10][31:0];
-      if(unknown_inst_flag) unknown_inst();
-      if(inst == 32'h00100073) begin
-         ebreak(i);
-         $finish();
-      end
+         dci_pmem_read(IF_pc, inst, 8'HFF);
    end
+
+  always@(*) begin
+      reg [63:0] i = GPR[10][63:0];
+      if(unknown_inst_flag) unknown_inst();
+      if(inst[31:0] == 32'h00100073) begin
+        ebreak(i);
+        $finish();
+      end
+  end
 
 endmodule
