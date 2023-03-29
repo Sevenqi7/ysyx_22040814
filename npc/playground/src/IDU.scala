@@ -259,7 +259,7 @@ object RV64IInstr{
         
         //R Type
         ADD            -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_PLUS),
-        SLL            -> List(TYPE_R, FuType.alu, RS1 , SHAMT,OpType.OP_SLL ),
+        SLL            -> List(TYPE_R, FuType.alu, RS1 , RS2 ,OpType.OP_SLL ),
         SUB            -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_SUB ),
         XOR            -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_XOR ),
         OR             -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_OR  ),
