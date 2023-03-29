@@ -229,9 +229,9 @@ object RV64IInstr{
 
         //I Type
         ADDI           -> List(TYPE_I, FuType.alu, RS1 , IMM , OpType.OP_PLUS),
-        SLLI           -> List(TYPE_I, FuType.alu, RS1 , IMM , OpType.OP_SLL ),
-        SRLI           -> List(TYPE_I, FuType.alu, RS1 , IMM , OpType.OP_SRL ),
-        SRAI           -> List(TYPE_I, FuType.alu, RS1 , IMM , OpType.OP_SRA ),
+        SLLI           -> List(TYPE_I, FuType.alu, RS1 , SHAMT,OpType.OP_SLL ),
+        SRLI           -> List(TYPE_I, FuType.alu, RS1 , SHAMT,OpType.OP_SRL ),
+        SRAI           -> List(TYPE_I, FuType.alu, RS1 , SHAMT,OpType.OP_SRA ),
 
         JALR           -> List(TYPE_I, FuType.alu, NPC , ZERO, OpType.OP_PLUS),
         XORI           -> List(TYPE_I, FuType.alu, RS1 , IMM , OpType.OP_XOR ),
