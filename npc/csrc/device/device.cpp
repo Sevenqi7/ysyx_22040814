@@ -47,9 +47,9 @@ void device_write(uint64_t addr, uint64_t data, int len)
             case 8: ((uint64_t *)vmem)[(addr-FB_ADDR) / sizeof(uint64_t)] = data; break;
             default: Log("unsupport write len!"); assert(0);
         }
+        assert(len == 4);
         // ((uint32_t *)vmem)[(int)((addr - FB_ADDR) / 4 + offset)] = data;
-        ((uint32_t *)vmem)[(addr-FB_ADDR) / 4] = data;
-        }
+    }
     else{
         Log("addr:0x%lx", addr); 
         assert(0);
