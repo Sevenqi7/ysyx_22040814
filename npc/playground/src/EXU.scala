@@ -5,22 +5,24 @@ import InstType._
 
 class EXU extends Module{
     val io = IO(new Bundle{
-        val ID_ALU_Data1 = Input(UInt(64.W))
-        val ID_ALU_Data2 = Input(UInt(64.W))
-        val ID_Rs1Data   = Input(UInt(64.W))
-        val ID_Rs2Data   = Input(UInt(64.W))
-        val ID_optype = Input(UInt(5.W))
-        val ID_FuType = Input(UInt(1.W))
-        val ID_RegWriteEn = Input(UInt(1.W))
-        val ID_RegWriteID = Input(UInt(5.W))
-        val ID_MemWriteEn = Input(UInt(1.W))
+        val ID_ALU_Data1  =     Input(UInt(64.W))
+        val ID_ALU_Data2  =     Input(UInt(64.W))
+        val ID_Rs2Data    =     Input(UInt(64.W))
+        val ID_Rs1Data    =     Input(UInt(64.W))
+        val ID_optype     =     Input(UInt(5.W))
+        val ID_FuType     =     Input(UInt(1.W))
+        val ID_RegWriteEn =     Input(UInt(1.W))
+        val ID_RegWriteID =     Input(UInt(5.W))
+        val ID_MemWriteEn =     Input(UInt(1.W))
+        val ID_MemReadEn  =     Input(UInt(1.W))
         
-        val EX_ALUResult  = Output(UInt(64.W))
-        val EX_MemWriteData = Output(UInt(64.W))
-        val EX_MemWriteEn = Output(UInt(1.W))
-        val EX_LsuType    = Output(UInt(5.W))
-        val EX_RegWriteID = Output(UInt(5.W))
-        val EX_RegWriteEn = Output(UInt(1.W))
+        val EX_ALUResult  =     Output(UInt(64.W))
+        val EX_MemWriteData =   Output(UInt(64.W))
+        val EX_MemWriteEn =     Output(UInt(1.W))
+        val EX_MemReadEn  =     Output(UInt(1.W))
+        val EX_LsuType    =     Output(UInt(5.W))
+        val EX_RegWriteID =     Output(UInt(5.W))
+        val EX_RegWriteEn =     Output(UInt(1.W))
     })
 
     def SEXT(x : UInt, len : Int) :UInt = {
@@ -34,6 +36,7 @@ class EXU extends Module{
     io.EX_RegWriteID := io.ID_RegWriteID
     io.EX_MemWriteData := io.ID_Rs2Data
     io.EX_MemWriteEn := io.ID_MemWriteEn
+    io.EX_MemReadEn  := io.ID_MemReadEn
     io.EX_LsuType    := Mux(io.ID_FuType === FuType.lsu, io.ID_optype, 0.U)
     val shamt = Wire(UInt(6.W))
     shamt := io.ID_ALU_Data2(5, 0)

@@ -296,7 +296,7 @@ word_t expr(char *e, bool *success) {
           tokens[j].type == '*' || tokens[j].type == '/' ||
           (tokens[j].type >= TK_EQ && tokens[j].type <= TK_UNEQ))) 
       {
-            Log("position %d is DEREF", i);
+            // Log("position %d is DEREF", i);
             tokens[i].type = TK_DEREF;
       }
   }

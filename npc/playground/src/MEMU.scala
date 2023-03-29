@@ -8,6 +8,7 @@ class LSU extends BlackBox with HasBlackBoxPath{
         val addr = Input(UInt(64.W))
         val LsuType = Input(UInt(5.W))
         val WriteEn = Input(UInt(1.W))
+        val ReadEn  = Input(UInt(1.W))
         val WriteData = Input(UInt(64.W))
         val ReadData = Output(UInt(64.W))
     })
@@ -19,6 +20,7 @@ class MEMU extends Module{
         val EX_ALUResult = Input(UInt(64.W))
         val EX_MemWriteData = Input(UInt(64.W))
         val EX_MemWriteEn = Input(UInt(1.W))
+        val EX_MemReadEn = Input(UInt(1.W))
         val EX_LsuType      = Input(UInt(5.W))
         val EX_RegWriteEn   = Input(UInt(1.W))
         val EX_RegWriteID   = Input(UInt(5.W))
@@ -36,6 +38,7 @@ class MEMU extends Module{
     mem.io.LsuType := io.EX_LsuType
     mem.io.WriteEn := io.EX_MemWriteEn
     mem.io.WriteData := io.EX_MemWriteData
+    mem.io.ReadEn  := io.EX_MemReadEn
     io.MEM_RegWriteData := Mux((io.EX_LsuType =/= 0.U) && (io.EX_MemWriteEn === 0.U), mem.io.ReadData, io.EX_ALUResult)
 
 }  
