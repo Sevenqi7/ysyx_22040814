@@ -8,7 +8,7 @@
 #define SERIAL_PORT  (MMIO_BASE + 0x000003f8)
 #define RTC_ADDR     (MMIO_BASE + 0x00000048)
 #define VGACTL_ADDR  (MMIO_BASE + 0x00000100)
-#define SYNC_ADDR    (VGACTL_ADDR + 4)
+#define SYNC_ADDR    (VGACTL_ADDR + 0x4)
 #define FB_ADDR      (0xa0000000 + 0x01000000)
 
 

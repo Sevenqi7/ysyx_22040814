@@ -20,6 +20,7 @@ class IDU extends Module{
         val ID_RegWriteID = Output(UInt(5.W))
         val ID_RegWriteEn = Output(UInt(1.W))
         val ID_MemWriteEn = Output(UInt(1.W))
+        val ID_MemReadEn  = Output(UInt(1.W))
         
         val EX_RegWriteData = Input(UInt(64.W))
         val EX_RegWriteID = Input(UInt(5.W))
@@ -117,6 +118,7 @@ class IDU extends Module{
         io.ID_RegWriteID := rd
         io.ID_RegWriteEn := (instType === TYPE_R) || (instType === TYPE_I) || (instType === TYPE_U) || (instType === TYPE_J)
         io.ID_MemWriteEn := (instType === TYPE_S)
+        io.ID_MemReadEn  := (instType =/= TYPE_S  || io.ID_FuType === FuType.lsu)
         
     //NPC
     val BJ_flag = Wire(Bool())

@@ -1,7 +1,7 @@
 import "DPI-C" function void dci_pmem_write(input longint waddr, input longint wdata, input byte wmask);
 import "DPI-C" function void dci_pmem_read(input longint raddr, output longint rdata, input byte rmask);
 
-module LSU(input [63:0] addr, input [4:0] LsuType, input WriteEn, input [63:0]WriteData, output [63:0] ReadData);
+module LSU(input [63:0] addr, input [4:0] LsuType, input WriteEn, input ReadEn, input [63:0]WriteData, output [63:0] ReadData);
 
     wire [7:0] mask;
     wire [63:0] lw_result;
@@ -25,8 +25,10 @@ module LSU(input [63:0] addr, input [4:0] LsuType, input WriteEn, input [63:0]Wr
                 dci_pmem_write(addr, WriteData, mask);
                 data_r = 64'h0;
             end
-            else begin
+            else if(ReadEn)begin
                 dci_pmem_read(addr, data_r, mask);
             end
+            else
+                data_r <= 64'b0;
         end
 endmodule

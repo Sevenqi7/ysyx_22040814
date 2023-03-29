@@ -23,7 +23,9 @@ uint64_t device_read(uint64_t addr)
         return vgactl_port_base[0];
     else if(addr >= FB_ADDR && addr < FB_ADDR + 480000) return ((uint32_t *)vmem)[(addr - FB_ADDR)/4];
     else{
-        // Log("addr:0x%lx", addr);
+        Log("addr:0x%lx", addr);
+        Log("pc:%016lx", npc_state.pc);
+        
         // assert(0);
         return 0;
     }
@@ -40,8 +42,8 @@ void device_write(uint64_t addr, uint64_t data)
         ((uint32_t *)vmem)[(addr-FB_ADDR) / 4] = data;
         }
     else{
-        // Log("addr:0x%lx", addr); 
-        // assert(0);
+        Log("addr:0x%lx", addr); 
+        assert(0);
     }
 }
 

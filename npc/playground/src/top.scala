@@ -47,6 +47,7 @@ class top extends Module{
     excute_unit.io.ID_ALU_Data2  := inst_decode_unit.io.ID_ALU_Data2
     excute_unit.io.ID_optype     := inst_decode_unit.io.ID_optype
     excute_unit.io.ID_MemWriteEn := inst_decode_unit.io.ID_MemWriteEn
+    excute_unit.io.ID_MemReadEn  := inst_decode_unit.io.ID_MemReadEn
     excute_unit.io.ID_FuType     := inst_decode_unit.io.ID_FuType
     excute_unit.io.ID_Rs1Data    := inst_decode_unit.io.ID_Rs1Data
     excute_unit.io.ID_Rs2Data    := inst_decode_unit.io.ID_Rs2Data
@@ -54,6 +55,7 @@ class top extends Module{
     mem_unit.io.EX_ALUResult     := excute_unit.io.EX_ALUResult
     mem_unit.io.EX_MemWriteData  := excute_unit.io.EX_MemWriteData
     mem_unit.io.EX_MemWriteEn    := excute_unit.io.EX_MemWriteEn
+    mem_unit.io.EX_MemReadEn     := excute_unit.io.EX_MemReadEn
     mem_unit.io.EX_LsuType       := excute_unit.io.EX_LsuType
     mem_unit.io.EX_RegWriteEn    := excute_unit.io.EX_RegWriteEn
     mem_unit.io.EX_RegWriteID    := excute_unit.io.EX_RegWriteID

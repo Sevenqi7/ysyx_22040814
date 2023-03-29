@@ -21,13 +21,13 @@ void putch(char ch) {
   outb(0xa00003f8, ch);
 }
 
-
 void halt(int code) {
   asm volatile(
     "ebreak"
   );
   while (1);
 }
+
 
 void _trm_init() {
   int ret = main(mainargs);
