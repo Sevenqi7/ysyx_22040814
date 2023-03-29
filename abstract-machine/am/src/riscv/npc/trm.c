@@ -18,8 +18,9 @@ static const char mainargs[] = MAINARGS;
 extern void pmem_write(uint64_t addr, int len, uint64_t data);
 
 void putch(char ch) {
-  outb(0xa00003f8, ch);
+  // outb(0xa00003f8, ch);
 }
+
 
 void halt(int code) {
   asm volatile(
