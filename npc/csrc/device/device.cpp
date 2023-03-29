@@ -31,13 +31,22 @@ uint64_t device_read(uint64_t addr)
     }
 }
 
-void device_write(uint64_t addr, uint64_t data)
+void device_write(uint64_t addr, uint64_t data, int len)
 {
     assert(addr>MMIO_BASE && addr<MMIO_END);
     if(addr == SERIAL_PORT) putchar((char)data);
     else if(addr == SYNC_ADDR){vgactl_port_base[1] = data;}
     else if(addr == VGACTL_ADDR) vgactl_port_base[0] = data;
-    else if(addr >= FB_ADDR && addr < FB_ADDR + 480000) {
+    else if(addr >= FB_ADDR && addr < FB_ADDR + 480000) 
+    {
+        switch(len)
+        {
+            case 1: ((uint8_t *)vmem)[addr-FB_ADDR] = data; break;
+            case 2: ((uint16_t *)vmem)[(addr-FB_ADDR) / sizeof(uint16_t)] = data; break;
+            case 4: ((uint32_t *)vmem)[(addr-FB_ADDR) / sizeof(uint32_t)] = data; break;
+            case 8: ((uint64_t *)vmem)[(addr-FB_ADDR) / sizeof(uint64_t)] = data; break;
+            default: Log("unsupport write len!"); assert(0);
+        }
         // ((uint32_t *)vmem)[(int)((addr - FB_ADDR) / 4 + offset)] = data;
         ((uint32_t *)vmem)[(addr-FB_ADDR) / 4] = data;
         }
