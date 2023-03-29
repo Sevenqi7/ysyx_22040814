@@ -16,8 +16,6 @@ Area heap = RANGE(&_heap_start, PMEM_END);
 #endif
 static const char mainargs[] = MAINARGS;
 
-extern void pmem_write(uint64_t addr, int len, uint64_t data);
-
 void putch(char ch) {
   outb(0xa00003f8, ch);
 }

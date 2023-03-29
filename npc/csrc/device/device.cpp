@@ -35,8 +35,8 @@ void device_write(uint64_t addr, uint64_t data, int len)
 {
     assert(addr>MMIO_BASE && addr<MMIO_END);
     if(addr == SERIAL_PORT) putchar((char)data);
-    else if(addr == SYNC_ADDR){vgactl_port_base[1] = data;}
-    else if(addr == VGACTL_ADDR) vgactl_port_base[0] = data;
+    else if(addr == SYNC_ADDR){assert(len == 4);vgactl_port_base[1] = data;}
+    else if(addr == VGACTL_ADDR) {assert(len == 4);vgactl_port_base[0] = data;}
     else if(addr >= FB_ADDR && addr < FB_ADDR + 480000) 
     {
         switch(len)
