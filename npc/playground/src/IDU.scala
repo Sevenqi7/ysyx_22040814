@@ -129,7 +129,7 @@ class IDU extends Module{
         is (BType.BLT)  {BJ_flag := rs1_data.asSInt < rs2_data.asSInt    }
         is (BType.BGE)  {BJ_flag := rs1_data.asSInt >= rs2_data.asSInt   }
         is (BType.BLTU) {BJ_flag := rs1_data < rs2_data                  }
-        is (BType.BGEU) {BJ_flag := rs1_data.asSInt >= rs2_data.asSInt   }
+        is (BType.BGEU) {BJ_flag := rs1_data >= rs2_data                 }
     }
 
     val pcplus4 = Wire(UInt(32.W))
