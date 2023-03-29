@@ -36,6 +36,7 @@ class EXU extends Module{
     io.EX_RegWriteID := io.ID_RegWriteID
     io.EX_MemWriteData := io.ID_Rs2Data
     io.EX_MemWriteEn := io.ID_MemWriteEn
+    io.EX_MemReadEn  := io.EX_MemReadEn
     io.EX_LsuType    := Mux(io.ID_FuType === FuType.lsu, io.ID_optype, 0.U)
     val shamt = Wire(UInt(6.W))
     shamt := io.ID_ALU_Data2(5, 0)
