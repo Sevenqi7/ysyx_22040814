@@ -62,8 +62,20 @@ static void checkregs(REF_GPR *ref, vaddr_t pc)
   }
 }
 
+bool is_skip_ref = false;
+
 void difftest_step(vaddr_t pc)
 {
+  if(is_skip_ref)
+  {
+    REF_GPR ref;
+    ref.pc = npc_state.pc;
+    memcpy(ref.gpr, cpu_gpr, sizeof(cpu_gpr));
+    ref_difftest_regcpy(&ref, DIFFTEST_TO_REF);
+    Log("skip, pc:0x%lx, 0x%lx", pc, npc_state.pc);
+    is_skip_ref = false;
+    return ;
+  }
   REF_GPR ref_gpr;
   ref_difftest_exec(1);
   ref_difftest_regcpy(&ref_gpr, DIFFTEST_TO_DUT);

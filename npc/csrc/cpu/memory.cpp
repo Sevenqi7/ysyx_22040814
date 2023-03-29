@@ -27,6 +27,7 @@ void outofbound(uint64_t paddr)
     }
 }
 
+uint64_t get_time();
 uint64_t pmem_read(uint64_t addr, int len)
 {
     uint64_t paddr = addr & MEMMASK;
@@ -47,9 +48,11 @@ uint64_t pmem_read(uint64_t addr, int len)
     return 0;
 }
 
+
 void pmem_write(uint64_t addr, int len, uint64_t data)
 {
     uint64_t paddr = addr & MEMMASK;
+    if(addr == 0x87fffffe){putchar((char)data);return;}
     if(addr > MMIO_BASE && addr < MMIO_END) {device_write(addr, data, len); return;}
     outofbound(paddr);
     int ret = 0;
