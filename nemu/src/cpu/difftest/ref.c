@@ -37,7 +37,7 @@ void difftest_regcpy(void *dut, bool direction) {
   if(direction == DIFFTEST_TO_DUT)
       memcpy(dut, &cpu, sizeof(cpu));
   else if(direction == DIFFTEST_TO_REF)
-     { memcpy(&cpu, dut, sizeof(cpu)); Log("ref:0x%lx", cpu.pc);};
+      memcpy(&cpu, dut, sizeof(cpu)); 
 }
 
 void difftest_exec(uint64_t n) {

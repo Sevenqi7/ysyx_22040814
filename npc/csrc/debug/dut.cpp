@@ -63,23 +63,42 @@ static void checkregs(REF_GPR *ref, vaddr_t pc)
 }
 
 bool is_skip_ref = false;
+extern bool device_io_flag;
 
 void difftest_step(vaddr_t pc)
 {
+  REF_GPR ref;
+  // if (skip_dut_nr_inst > 0) {
+  //   ref_difftest_regcpy(&ref, DIFFTEST_TO_DUT);
+  //   if (ref_r.pc == npc) {
+  //     skip_dut_nr_inst = 0;
+  //     checkregs(&ref, npc);
+  //     return;
+  //   }
+  //   skip_dut_nr_inst --;
+  //   if (skip_dut_nr_inst == 0)
+  //     Log("can not catch up with ref.pc = " FMT_WORD " at pc = " FMT_WORD, ref_r.pc, pc);
+  //   assert(0);
+  // }
+  if(device_io_flag)
+  {
+    device_io_flag = false;
+    is_skip_ref = true;
+    return ;
+  }
   if(is_skip_ref)
   {
-    REF_GPR ref;
-    ref.pc = npc_state.pc;
-    memcpy(ref.gpr, cpu_gpr, sizeof(cpu_gpr));
+    // ref.pc = npc_state.pc;
+    ref.pc = pc;
+    memcpy(ref.gpr, cpu_gpr, sizeof(ref.gpr));
     ref_difftest_regcpy(&ref, DIFFTEST_TO_REF);
-    Log("skip, pc:0x%lx, 0x%lx", pc, npc_state.pc);
+    // Log("skip, pc:0x%lx, 0x%lx", pc, npc_state.pc);
     is_skip_ref = false;
     return ;
   }
-  REF_GPR ref_gpr;
   ref_difftest_exec(1);
-  ref_difftest_regcpy(&ref_gpr, DIFFTEST_TO_DUT);
-  checkregs(&ref_gpr, pc);
+  ref_difftest_regcpy(&ref, DIFFTEST_TO_DUT);
+  checkregs(&ref, pc);
 }
 
 #endif
