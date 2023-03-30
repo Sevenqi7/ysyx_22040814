@@ -576,10 +576,10 @@ module IDU(	// <stdin>:12:10
                 _rs2_data_T_1 : InstInfo_4 == 5'h2 ? _rs1_data_T_1 != _rs2_data_T_1 : InstInfo_4 == 5'h3 ?
                 $signed(_rs1_data_T_1) < $signed(_rs2_data_T_1) : InstInfo_4 == 5'h6 ?
                 $signed(_rs1_data_T_1) >= $signed(_rs2_data_T_1) : InstInfo_4 == 5'h4 ? _rs1_data_T_1 <
-                _rs2_data_T_1 : InstInfo_4 == 5'h5 & $signed(_rs1_data_T_1) >= $signed(_rs2_data_T_1)) ?
-                io_IF_pc + {_GEN_4, io_IF_Inst[7], io_IF_Inst[30:25], io_IF_Inst[11:8], 1'h0} :
-                _io_ID_npc_T_9 & _io_ID_npc_T_10 ? _rs1_data_T_1 + {_immI_T_2, io_IF_Inst[31:20]} : {32'h0,
-                _io_ID_ALU_Data1_T_5[31:0]};	// <stdin>:12:10, Bitwise.scala:77:12, IDU.scala:54:{36,53}, :56:10, :57:{80,107,128}, :58:{54,76,101}, :74:20, :75:20, :82:31, :97:19, :98:19, :107:{15,33}, :119:114, :125:13, :126:19, :127:{34,46}, :128:{34,46}, :129:{34,53}, :130:{34,53}, :131:{34,46}, :132:{34,53}, :136:13, :138:40, :139:{31,58}, :140:{31,58}, Lookup.scala:34:39, Mux.scala:101:16
+                _rs2_data_T_1 : InstInfo_4 == 5'h5 & _rs1_data_T_1 >= _rs2_data_T_1) ? io_IF_pc + {_GEN_4,
+                io_IF_Inst[7], io_IF_Inst[30:25], io_IF_Inst[11:8], 1'h0} : _io_ID_npc_T_9 &
+                _io_ID_npc_T_10 ? _rs1_data_T_1 + {_immI_T_2, io_IF_Inst[31:20]} : {32'h0,
+                _io_ID_ALU_Data1_T_5[31:0]};	// <stdin>:12:10, Bitwise.scala:77:12, IDU.scala:54:{36,53}, :56:10, :57:{80,107,128}, :58:{54,76,101}, :74:20, :75:20, :82:31, :97:19, :98:19, :107:{15,33}, :119:114, :125:13, :126:19, :127:{34,46}, :128:{34,46}, :129:{34,53}, :130:{34,53}, :131:{34,46}, :132:{34,46}, :136:13, :138:40, :139:{31,58}, :140:{31,58}, Lookup.scala:34:39, Mux.scala:101:16
   assign io_ID_ALU_Data1 = InstInfo_2 == 3'h0 ? 64'h0 : InstInfo_2 == 3'h1 ? io_IF_pc : InstInfo_2 == 3'h2 ?
                 _rs1_data_T_1 : _io_ID_npc_T_10 ? _io_ID_ALU_Data1_T_5 : 64'h0;	// <stdin>:12:10, IDU.scala:63:30, :74:20, :104:15, :105:15, :106:15, :107:{15,33}, Lookup.scala:34:39, Mux.scala:101:16
   assign io_ID_ALU_Data2 = InstInfo_3 == 3'h0 ? 64'h0 : InstInfo_3 == 3'h1 ? io_IF_pc : InstInfo_3 == 3'h3 ?
@@ -630,7 +630,7 @@ module IDU(	// <stdin>:12:10
   assign io_ID_unknown_inst = InstInfo_0 == 3'h0;	// <stdin>:12:10, IDU.scala:43:39, Lookup.scala:34:39
 endmodule
 
-module EXU(	// <stdin>:662:10
+module EXU(	// <stdin>:660:10
   input  [63:0] io_ID_ALU_Data1,
                 io_ID_ALU_Data2,
                 io_ID_Rs2Data,
@@ -681,18 +681,18 @@ module EXU(	// <stdin>:662:10
                 $signed(io_ID_ALU_Data1) < $signed(io_ID_ALU_Data2)}}, {$signed($signed(io_ID_ALU_Data1)
                 >>> _GEN)}, {io_ID_ALU_Data1 >> _GEN}, {_ALU_Result_T_15[63:0]}, {_ALU_Result_T_65},
                 {_ALU_Result_T_67}, {_ALU_Result_T_69}, {64'h0}, {_ALU_Result_T_7}, {64'h0}, {64'h0}};	// Bitwise.scala:77:12, Cat.scala:33:92, EXU.scala:30:{34,45}, :46:83, :47:{23,53}, :48:{23,53}, :49:{23,53}, :50:{23,53}, :51:{23,52}, :52:{23,52}, :53:{23,60}, :54:{23,53}, :55:{23,60}, :56:{23,52}, :57:{23,60}, :58:{23,52}, :59:{23,60}, :60:{23,53}, :61:23, :62:23, :63:{23,65}, :64:{23,65}, :65:{23,73}, :66:23, :67:23, :68:23, :69:23, :70:{23,66}, :71:23, :72:{23,66}, :73:23, Mux.scala:101:16
-  assign io_EX_ALUResult = io_ID_optype == 5'h1 | io_ID_FuType ? _ALU_Result_T_4 : _GEN_4[io_ID_optype];	// <stdin>:662:10, EXU.scala:46:{23,35,83}, :47:23, :48:23, :49:23, :50:23, :51:23, :52:23, :53:23, :54:23, :55:23, :56:23, :57:23, :58:23, :59:23, :60:23, :61:23, :62:23, :63:23, :64:23, :65:23, :66:23, :67:23, :68:23, :69:23, :70:23, :71:23, :72:23, :73:23, Mux.scala:101:16
-  assign io_EX_MemWriteData = io_ID_Rs2Data;	// <stdin>:662:10
-  assign io_EX_MemWriteEn = io_ID_MemWriteEn;	// <stdin>:662:10
-  assign io_EX_MemReadEn = io_ID_MemReadEn;	// <stdin>:662:10
-  assign io_EX_LsuType = io_ID_FuType ? io_ID_optype : 5'h0;	// <stdin>:662:10, EXU.scala:40:28
-  assign io_EX_RegWriteID = io_ID_RegWriteID;	// <stdin>:662:10
-  assign io_EX_RegWriteEn = io_ID_RegWriteEn;	// <stdin>:662:10
+  assign io_EX_ALUResult = io_ID_optype == 5'h1 | io_ID_FuType ? _ALU_Result_T_4 : _GEN_4[io_ID_optype];	// <stdin>:660:10, EXU.scala:46:{23,35,83}, :47:23, :48:23, :49:23, :50:23, :51:23, :52:23, :53:23, :54:23, :55:23, :56:23, :57:23, :58:23, :59:23, :60:23, :61:23, :62:23, :63:23, :64:23, :65:23, :66:23, :67:23, :68:23, :69:23, :70:23, :71:23, :72:23, :73:23, Mux.scala:101:16
+  assign io_EX_MemWriteData = io_ID_Rs2Data;	// <stdin>:660:10
+  assign io_EX_MemWriteEn = io_ID_MemWriteEn;	// <stdin>:660:10
+  assign io_EX_MemReadEn = io_ID_MemReadEn;	// <stdin>:660:10
+  assign io_EX_LsuType = io_ID_FuType ? io_ID_optype : 5'h0;	// <stdin>:660:10, EXU.scala:40:28
+  assign io_EX_RegWriteID = io_ID_RegWriteID;	// <stdin>:660:10
+  assign io_EX_RegWriteEn = io_ID_RegWriteEn;	// <stdin>:660:10
 endmodule
 
 // external module LSU
 
-module MEMU(	// <stdin>:896:10
+module MEMU(	// <stdin>:894:10
   input  [63:0] io_EX_ALUResult,
                 io_EX_MemWriteData,
   input         io_EX_MemWriteEn,
@@ -713,14 +713,14 @@ module MEMU(	// <stdin>:896:10
     .WriteData (io_EX_MemWriteData),
     .ReadData  (_mem_ReadData)
   );
-  assign io_MEM_RegWriteData = (|io_EX_LsuType) & ~io_EX_MemWriteEn ? _mem_ReadData : io_EX_ALUResult;	// <stdin>:896:10, MEMU.scala:36:21, :42:{31,47,56,77}
-  assign io_MEM_RegWriteEn = io_EX_RegWriteEn;	// <stdin>:896:10
-  assign io_MEM_RegWriteID = io_EX_RegWriteID;	// <stdin>:896:10
+  assign io_MEM_RegWriteData = (|io_EX_LsuType) & ~io_EX_MemWriteEn ? _mem_ReadData : io_EX_ALUResult;	// <stdin>:894:10, MEMU.scala:36:21, :42:{31,47,56,77}
+  assign io_MEM_RegWriteEn = io_EX_RegWriteEn;	// <stdin>:894:10
+  assign io_MEM_RegWriteID = io_EX_RegWriteID;	// <stdin>:894:10
 endmodule
 
 // external module sim
 
-module top(	// <stdin>:930:10
+module top(	// <stdin>:928:10
   input         clock,
                 reset,
   output [63:0] io_IF_pc,
@@ -889,8 +889,8 @@ sim simulate (	// top.scala:24:26
    .GPR               (GPR),
    .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
 );
-  assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:930:10, top.scala:23:33
-  assign io_ALUResult = _mem_unit_io_MEM_RegWriteData;	// <stdin>:930:10, top.scala:26:26
+  assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:928:10, top.scala:23:33
+  assign io_ALUResult = _mem_unit_io_MEM_RegWriteData;	// <stdin>:928:10, top.scala:26:26
 endmodule
 
 
