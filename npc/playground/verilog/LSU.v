@@ -29,6 +29,6 @@ module LSU(input [63:0] addr, input [4:0] LsuType, input WriteEn, input ReadEn, 
                 dci_pmem_read(addr, data_r, mask);
             end
             else
-                data_r <= 64'b0;
+                data_r = 64'b0;
         end
 endmodule

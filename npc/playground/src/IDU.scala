@@ -118,7 +118,7 @@ class IDU extends Module{
         io.ID_RegWriteID := rd
         io.ID_RegWriteEn := (instType === TYPE_R) || (instType === TYPE_I) || (instType === TYPE_U) || (instType === TYPE_J)
         io.ID_MemWriteEn := (instType === TYPE_S)
-        io.ID_MemReadEn  := (instType =/= TYPE_S  || io.ID_FuType === FuType.lsu)
+        io.ID_MemReadEn  := (instType =/= TYPE_S  && io.ID_FuType === FuType.lsu)
         
     //NPC
     val BJ_flag = Wire(Bool())
@@ -129,7 +129,7 @@ class IDU extends Module{
         is (BType.BLT)  {BJ_flag := rs1_data.asSInt < rs2_data.asSInt    }
         is (BType.BGE)  {BJ_flag := rs1_data.asSInt >= rs2_data.asSInt   }
         is (BType.BLTU) {BJ_flag := rs1_data < rs2_data                  }
-        is (BType.BGEU) {BJ_flag := rs1_data.asSInt >= rs2_data.asSInt   }
+        is (BType.BGEU) {BJ_flag := rs1_data >= rs2_data                 }
     }
 
     val pcplus4 = Wire(UInt(32.W))
@@ -259,7 +259,7 @@ object RV64IInstr{
         
         //R Type
         ADD            -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_PLUS),
-        SLL            -> List(TYPE_R, FuType.alu, RS1 , SHAMT,OpType.OP_SLL ),
+        SLL            -> List(TYPE_R, FuType.alu, RS1 , RS2 ,OpType.OP_SLL ),
         SUB            -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_SUB ),
         XOR            -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_XOR ),
         OR             -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_OR  ),

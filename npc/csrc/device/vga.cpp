@@ -7,6 +7,9 @@
 
 #define SCREEN_W    400
 #define SCREEN_H    300
+// #define VGA_SCREEN_W SCREEN_W 
+// #define VGA_SCREEN_H SCREEN_H
+
 #define VGA_SCREEN_W (SCREEN_W * 2)
 #define VGA_SCREEN_H (SCREEN_H * 2)
 

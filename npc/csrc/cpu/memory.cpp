@@ -10,7 +10,7 @@ static uint8_t pmem[MEMSIZE]__attribute((aligned(4096)));
 
 extern uint8_t* guest_to_host(paddr_t paddr){return pmem + (paddr & MEMMASK);}
 
-void device_write(uint64_t addr, uint64_t data);
+void device_write(uint64_t addr, uint64_t data, int len);
 uint64_t device_read(uint64_t addr);
 
 uint64_t *pmem_addr(uint64_t *addr)
@@ -27,6 +27,7 @@ void outofbound(uint64_t paddr)
     }
 }
 
+uint64_t get_time();
 uint64_t pmem_read(uint64_t addr, int len)
 {
     uint64_t paddr = addr & MEMMASK;
@@ -47,10 +48,12 @@ uint64_t pmem_read(uint64_t addr, int len)
     return 0;
 }
 
+
 void pmem_write(uint64_t addr, int len, uint64_t data)
 {
     uint64_t paddr = addr & MEMMASK;
-    if(addr > MMIO_BASE && addr < MMIO_END) {device_write(addr, data); return;}
+    if(addr == 0x87fffffe){putchar((char)data);return;}
+    if(addr > MMIO_BASE && addr < MMIO_END) {device_write(addr, data, len); return;}
     outofbound(paddr);
     int ret = 0;
     switch (len) {
