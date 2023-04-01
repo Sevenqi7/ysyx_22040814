@@ -20,6 +20,7 @@
 
 typedef struct {
   word_t mepc;
+  word_t mtvec;
   word_t mstatus;
   word_t mcause;
 }riscv64_CPU_CSRS;
