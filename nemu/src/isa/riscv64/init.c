@@ -32,7 +32,7 @@ static void restart() {
 
   /* The zero register is always 0. */
   cpu.gpr[0] = 0;
-  cpu.csr.mstatus = 0xa0001800;
+  cpu.csr.mstatus = 0xa00001800;
 }
 
 void init_isa() {
