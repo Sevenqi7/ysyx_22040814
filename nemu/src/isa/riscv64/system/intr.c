@@ -17,7 +17,6 @@
 
 word_t isa_read_csr(word_t NO)
 {
-  Log("NO:0x%lx", NO);
   switch(NO)
   {
     case 0x300: return cpu.csr.mstatus; break;
@@ -30,7 +29,6 @@ word_t isa_read_csr(word_t NO)
 
 void isa_write_csr(word_t NO, word_t data)
 {  
-  Log("NO:0x%lx, data:0x%lx", NO, data);
   switch(NO)
   {
     case 0x300: cpu.csr.mstatus = data; break;
@@ -47,7 +45,6 @@ word_t isa_raise_intr(word_t NO, vaddr_t epc) {
    */
   cpu.csr.mepc = epc;
   cpu.csr.mcause = NO;
-  Log("mcause:0x%lx", cpu.csr.mcause);
   return cpu.csr.mtvec;
 }
 
