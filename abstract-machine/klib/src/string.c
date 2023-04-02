@@ -12,6 +12,11 @@ size_t strlen(const char *s) {
 	return n;
 }
 
+size_t strnlen(const char *s, size_t n){
+	int len = strlen(s);
+	return len > n ? n : len;
+}
+
 char *strcpy(char *dst, const char *src) {
 	char *ret;
 
