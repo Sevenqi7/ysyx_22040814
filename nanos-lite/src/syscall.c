@@ -15,18 +15,18 @@ void do_syscall(Context *c) {
   a[1] = c->gpr[10];
   a[2] = c->gpr[11];
   a[3] = c->gpr[12];
-  int fd, len;
-  char *buf;
+  // int fd, len;
+  // char *buf;
   Log("STRACE: SYS_%s called, args:%d %d %d", syscall_name[a[0]], c->GPR2, c->GPR3, c->GPR4);
   switch (a[0]) {
     case SYS_exit : halt(c->gpr[10]);
     case SYS_yield: yield(); c->gpr[10] = 0; break;
-    case SYS_write:
-                    fd = a[1], buf = (char *)a[2], len=a[3];
-                    if(fd == 1 || fd == 2)
-                      for(int i=0;i<len;i++) 
-                        putch(buf[i]);
-                    break;
+    // case SYS_write:
+    //                 fd = a[1], buf = (char *)a[2], len=a[3];
+    //                 if(fd == 1 || fd == 2)
+    //                   for(int i=0;i<len;i++) 
+    //                     putch(buf[i]);
+    //                 break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   
   Log("STRACE: retval: %d", c->gpr[10]);
