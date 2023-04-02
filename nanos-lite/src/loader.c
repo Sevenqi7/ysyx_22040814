@@ -22,6 +22,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   {
     ramdisk_read(&ph, eh.e_phoff + i * sizeof(Elf_Phdr), sizeof(Elf_Phdr));
     ramdisk_read((uintptr_t *)ph.p_vaddr ,ph.p_offset, ph.p_memsz);
+    Log("Segment %d: vaddr:0x%lx size:%d", i, ph.p_vaddr, ph.p_memsz);
     memset((uintptr_t *)(ph.p_vaddr + ph.p_filesz), 0, ph.p_memsz - ph.p_filesz);
   }
   return eh.e_entry;
