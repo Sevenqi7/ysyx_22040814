@@ -23,7 +23,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     ramdisk_read((uintptr_t *)ph.p_vaddr ,ph.p_offset, ph.p_memsz);
     memset((uintptr_t *)(ph.p_vaddr + ph.p_filesz), 0, ph.p_memsz - ph.p_filesz);
   }
-  return 0;
+  return eh.e_entry;
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
