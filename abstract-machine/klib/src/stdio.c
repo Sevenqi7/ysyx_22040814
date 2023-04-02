@@ -60,6 +60,7 @@ int printf(const char *fmt, ...) {
                     }
                     break;
                 default:
+                    putch('\n');
                     putch(fmt[i]);
                     panic("Unimplemented argument!");
           }
