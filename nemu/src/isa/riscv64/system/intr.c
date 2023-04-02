@@ -14,6 +14,7 @@
 ***************************************************************************************/
 
 #include <isa.h>
+#include <common.h>
 
 word_t isa_read_csr(word_t NO)
 {
@@ -45,6 +46,7 @@ word_t isa_raise_intr(word_t NO, vaddr_t epc) {
    */
   cpu.csr.mepc = epc;
   cpu.csr.mcause = NO;
+  IFDEF(CONFIG_ETRACE, Log("Exception occurs: code:%lu pc:0x%lx", NO, epc));
   return cpu.csr.mtvec;
 }
 
