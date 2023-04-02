@@ -24,6 +24,7 @@ static struct printfbuf printfb = {
 	.buf_p = printfb.buf
 };
 
+//实现见printfmt.c
 void vprintfmt(void (*putch)(int, void*), void *putdat, const char *fmt, va_list ap);
 
 static void
