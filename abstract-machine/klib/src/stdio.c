@@ -71,11 +71,20 @@ int printf(const char *fmt, ...) {
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
-    return 0;
+    struct sprintbuf b = {.buf=out, .ebuf=(char *)((unsigned long long)-1) , .cnt=0};
+    if(out == NULL) return -1;
+    vprintfmt((void *)sprintputch, &b, fmt, ap);
+    *b.buf = '\0';
+    return b.cnt;
 }
 
 int sprintf(char *out, const char *fmt, ...) {
-    return 0;
+    va_list ap;
+    int rc;
+    va_start(ap, fmt);
+    rc = vsprintf(out, fmt, ap);
+    va_end(ap);
+    return rc;
 }
 
 int vsnprintf(char *out, size_t n, const char *fmt, va_list ap) {
