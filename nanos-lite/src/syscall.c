@@ -9,6 +9,8 @@ char *syscall_name[] =
   "times", "gettimeofday"
 };
 
+#define STRACE 1
+
 void do_syscall(Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
@@ -17,7 +19,9 @@ void do_syscall(Context *c) {
   a[3] = c->gpr[12];
   int fd, len;
   char *buf;
+  #ifdef STRACE
   Log("STRACE: SYS_%s called, args:%d %d %d", syscall_name[a[0]], c->GPR2, c->GPR3, c->GPR4);
+  #endif
   switch (a[0]) {
     case SYS_exit : halt(c->gpr[10]);
     case SYS_yield: yield(); c->gpr[10] = 0; break;
@@ -29,6 +33,8 @@ void do_syscall(Context *c) {
                     break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   
+  #ifdef STRACE
   Log("STRACE: retval: %d", c->gpr[10]);
+  #endif
   }
 }
