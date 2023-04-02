@@ -15,10 +15,17 @@ void do_syscall(Context *c) {
   a[1] = c->GPR2;
   a[2] = c->GPR3;
   a[3] = c->GPR4;
+  int fd, len;
+  char *buf;
   switch (a[0]) {
     case SYS_exit : halt(c->gpr[10]);
     case SYS_yield: yield(); c->gpr[10] = 0; break;
-    // case SYS_write: 
+    case SYS_write:
+                    fd = a[1], buf = (char *)a[2], len=a[3];
+                    if(fd == 1 || fd == 2)
+                      for(int i=0;i<len;i++) 
+                        putch(buf[i]);
+                    break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
   Log("STRACE: SYS_%s called, retval:%d, args:%d %d %d", syscall_name[a[0]], c->GPR2, c->GPR3, c->GPR4);
