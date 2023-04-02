@@ -92,7 +92,7 @@ static bool make_token(char *e) {
   regmatch_t pmatch;
 
   nr_token = 0;
-  Log("string:%s", e);
+//   Log("string:%s", e);
   while (e[position] != '\0') {
     /* Try all rules one by one. */
     for (i = 0; i < NR_REGEX; i ++) {
@@ -243,7 +243,7 @@ long eval(int p, int q)
             if(op[i] != -1)
             {
                 op_type = op[i];
-                Log("op_type = i");
+                // Log("op_type = i");
                 break;
             }
         }
