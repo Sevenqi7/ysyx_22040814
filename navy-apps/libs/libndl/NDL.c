@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <fcntl.h>
 #include <unistd.h>
 #include <assert.h>
 #include <sys/time.h>
@@ -17,8 +18,8 @@ uint32_t NDL_GetTicks() {
 }
 
 int NDL_PollEvent(char *buf, int len) {
-  FILE *fp = fopen("/dev/events", "r+");
-  if(fread(buf, 1, len, fp))
+  int fd = open("/dev/events", 0, 0);
+  if(read(fd, buf, len) != -1)
       return 1;
   return 0;
 }
