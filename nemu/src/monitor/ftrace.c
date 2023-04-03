@@ -9,8 +9,8 @@
 #include <elf.h>
 
 
-#define MAX_FTRACE_INFO_SIZE 32
-#define MAX_FTRACE_STACK_SIZE 512
+#define MAX_FTRACE_INFO_SIZE 256
+#define MAX_FTRACE_STACK_SIZE 256
 
 #ifdef CONFIG_FTRACE
 static int f_info_num = 0;
@@ -26,24 +26,24 @@ static struct function_call_stack
     bool is_ret[MAX_FTRACE_STACK_SIZE];
     vaddr_t call_pc[MAX_FTRACE_STACK_SIZE];
     vaddr_t ret_addr[MAX_FTRACE_STACK_SIZE];
-    int f_trace_end;
-}f_trace_buf = {.f_trace_end = 0, .is_ret = {false}};
+    int end;
+}f_trace_buf = {.end = 0, .is_ret = {false}};
 
 void ftrace_check_jal(vaddr_t jump_addr, vaddr_t ret_addr, int rs1, int rd)
 {
     // Log("jump_addr:%lx ret_addr:%lx rd:%d, rs1:%d", jump_addr, ret_addr, rd, rs1);
     if(rd == 0 && rs1 == 1)
     {
-        for(int i=f_trace_buf.f_trace_end-1;i >= 0;i--)
+        for(int i=f_trace_buf.end-1;i >= 0;i--)
         {
             if(f_trace_buf.ret_addr[i] == jump_addr)
             {
-                f_trace_buf.function[f_trace_buf.f_trace_end] = f_trace_buf.function[i];
-                f_trace_buf.is_ret[f_trace_buf.f_trace_end] = true;
-                f_trace_buf.call_pc[f_trace_buf.f_trace_end] = ret_addr - 4;
+                f_trace_buf.function[f_trace_buf.end] = f_trace_buf.function[i];
+                f_trace_buf.is_ret[f_trace_buf.end] = true;
+                f_trace_buf.call_pc[f_trace_buf.end] = ret_addr - 4;
 
-                // Log("%s ret", f_trace_buf.function[f_trace_buf.f_trace_end].f_name);
-                f_trace_buf.f_trace_end++;
+                // Log("%s ret", f_trace_buf.function[f_trace_buf.end].f_name);
+                f_trace_buf.end = (f_trace_buf.end + 1) % MAX_FTRACE_STACK_SIZE;
                 return;
             }
         }
@@ -52,15 +52,15 @@ void ftrace_check_jal(vaddr_t jump_addr, vaddr_t ret_addr, int rs1, int rd)
     {
         if(f_info[i].f_addr == jump_addr)
         {
-            f_trace_buf.function[f_trace_buf.f_trace_end] = f_info[i];
-            f_trace_buf.ret_addr[f_trace_buf.f_trace_end] = ret_addr;
-            f_trace_buf.is_ret[f_trace_buf.f_trace_end] = false;
-            f_trace_buf.call_pc[f_trace_buf.f_trace_end] = ret_addr - 4;
+            f_trace_buf.function[f_trace_buf.end] = f_info[i];
+            f_trace_buf.ret_addr[f_trace_buf.end] = ret_addr;
+            f_trace_buf.is_ret[f_trace_buf.end] = false;
+            f_trace_buf.call_pc[f_trace_buf.end] = ret_addr - 4;
 
-            // Log("f_trace_end:%d", f_trace_buf.f_traceq_end);
-            // Log("jump to 0x%lx(%s)", f_trace_buf.function[f_trace_buf.f_trace_end].f_addr, f_trace_buf.function[f_trace_buf.f_trace_end].f_name);
+            // Log("end:%d", f_trace_buf.f_traceq_end);
+            // Log("jump to 0x%lx(%s)", f_trace_buf.function[f_trace_buf.end].f_addr, f_trace_buf.function[f_trace_buf.end].f_name);
 
-            f_trace_buf.f_trace_end++;
+            f_trace_buf.end = (f_trace_buf.end + 1) % MAX_FTRACE_STACK_SIZE;
             return ;
         }
     }
@@ -68,9 +68,11 @@ void ftrace_check_jal(vaddr_t jump_addr, vaddr_t ret_addr, int rs1, int rd)
 
 void display_ftrace()
 {
-    int i = 0, j = 0;
-    for(;i<f_trace_buf.f_trace_end;i++)
+    int i = (f_trace_buf.end + 1) % MAX_FTRACE_STACK_SIZE, j = 0;
+    printf("Current ftrace stack size is :%d", MAX_FTRACE_STACK_SIZE);
+    for(;i != f_trace_buf.end;i=(i+1)%MAX_FTRACE_STACK_SIZE)
     {
+        if(f_trace_buf.call_pc[i] == 0) continue;
         printf("0x%lx:", f_trace_buf.call_pc[i]);
         if(f_trace_buf.is_ret[i] == false)
         {
@@ -95,7 +97,7 @@ void sdb_get_symbol_list(char *elf_path)
   int fd = open(elf_path, O_RDONLY, 0);
   if(fd == -1)
   {
-    printf("Failed to open elf file!\n");
+    printf("Failed to open elf file %s: !\n", elf_path);
     return ;
   }
   Elf64_Ehdr ehdr;
@@ -137,7 +139,6 @@ void sdb_get_symbol_list(char *elf_path)
       printf("Failed to read string table!\n");
       return ;
   }
-  printf("strtab:%s\n", strtab);
   lseek(fd, ehdr.e_shoff, SEEK_SET);
   for(int i=0;i<ehdr.e_shnum;i++)
   {
@@ -164,8 +165,10 @@ void sdb_get_symbol_list(char *elf_path)
                   // assert(0);
                   char *func_name = strtab + sym.st_name;
                   memcpy(f_info[f_info_num].f_name, func_name, strlen(func_name)+1);
+                //   printf("symbol %d: %s\n", j, func_name);
                   f_info[f_info_num].f_addr = sym.st_value;
                   f_info_num++;
+                  assert(f_info_num < MAX_FTRACE_INFO_SIZE);
               }
           }
           

@@ -7,8 +7,9 @@ static Context* (*user_handler)(Event, Context*) = NULL;
 Context* __am_irq_handle(Context *c) {
   if (user_handler) {
     Event ev = {0};
+    uint64_t syscall_num = c->gpr[17];
     switch (c->mcause) {
-      case 0xb: ev.event = EVENT_YIELD; break;
+      case 0xb: ev.event = (syscall_num == 0ULL-1) ? EVENT_YIELD : EVENT_SYSCALL; break;
       default: ev.event = EVENT_ERROR; break;
     }
 
