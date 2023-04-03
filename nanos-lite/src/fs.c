@@ -79,7 +79,7 @@ int fs_open(const char *pathname, int flags, int mode)
   int file_num = sizeof(file_table) / sizeof(Finfo);
   for(int i=0;i<file_num;i++)
     if(!strcmp(pathname, file_table[i].name))
-      {file_table[i].open_offset = 0 ;return i;}
+      {file_table[i].open_offset = 0 ;Log("open file:%s", file_table[i].name);return i;}
   return -1; 
 }
 

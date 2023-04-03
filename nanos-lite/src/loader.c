@@ -32,7 +32,6 @@ size_t ramdisk_write(const void *buf, size_t offset, size_t len);
 static uintptr_t loader(PCB *pcb, const char *filename) {
   int fd = fs_open(filename, 0, 0);
   assert(fd != -1);
-
   Elf_Ehdr eh;
   Elf_Phdr ph;
   fs_read(fd, &eh, sizeof(Elf_Ehdr));
