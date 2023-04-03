@@ -38,7 +38,6 @@ void do_syscall(Context *c) {
                     else c->gpr[10] = (uintptr_t)(-1);
                     break;
     default: panic("Unhandled syscall ID = %d", a[0]);
-  
   #ifdef STRACE
   Log("STRACE: retval: %d", c->gpr[10]);
   if(a[0] == SYS_brk) while(1);
