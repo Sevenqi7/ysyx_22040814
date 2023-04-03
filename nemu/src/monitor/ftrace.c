@@ -174,6 +174,10 @@ void sdb_get_symbol_list(char *elf_path)
       }
   }
 
+  for(int i=0;i<f_info_num;i++)
+  {
+    printf("function name:%s\n", f_info[f_info_num].f_name);
+  }
   free(strtab);
   free(shstrtab);
   #endif
