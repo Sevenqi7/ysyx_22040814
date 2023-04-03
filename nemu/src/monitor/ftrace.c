@@ -12,6 +12,7 @@
 #define MAX_FTRACE_INFO_SIZE 256
 #define MAX_FTRACE_STACK_SIZE 256
 
+#define CONFIG_FTRACE 1
 #ifdef CONFIG_FTRACE
 static int f_info_num = 0;
 static struct function_info
@@ -19,6 +20,20 @@ static struct function_info
     vaddr_t f_addr;
     char f_name[64];
 }f_info[MAX_FTRACE_INFO_SIZE];
+
+//这些函数被调用的频率太高，不屏蔽掉ftrace直接没法看了
+static char *ignore_func[] = {
+    "putch", "printfputch"
+};
+
+static bool check_ignore(struct function_info *f)
+{
+    int ignore_num = sizeof(ignore_func) / sizeof(char *);
+    for(int i=0;i<ignore_num;i++)
+        if(!strcmp(ignore_func[i], f->f_name))
+            return true;
+    return false;
+}
 
 static struct function_call_stack
 {
@@ -36,10 +51,9 @@ void ftrace_check_jal(vaddr_t jump_addr, vaddr_t ret_addr, int rs1, int rd)
     {
         for(int i=f_trace_buf.end-1;i >= 0;i--)
         {
-            if(!strcmp(f_trace_buf.function[i].f_name, "putch"))
-                continue;
             if(f_trace_buf.ret_addr[i] == jump_addr)
             {
+                if(check_ignore(&f_trace_buf.function[i])) return;
                 f_trace_buf.function[f_trace_buf.end] = f_trace_buf.function[i];
                 f_trace_buf.is_ret[f_trace_buf.end] = true;
                 f_trace_buf.call_pc[f_trace_buf.end] = ret_addr - 4;
@@ -52,10 +66,9 @@ void ftrace_check_jal(vaddr_t jump_addr, vaddr_t ret_addr, int rs1, int rd)
     }
     for(int i=0;i<f_info_num;i++)
     {
-        if(!strcmp(f_info[i].f_name, "putch"))
-            continue;
         if(f_info[i].f_addr == jump_addr)
         {
+            if(check_ignore(&f_info[i])) return;
             f_trace_buf.function[f_trace_buf.end] = f_info[i];
             f_trace_buf.ret_addr[f_trace_buf.end] = ret_addr;
             f_trace_buf.is_ret[f_trace_buf.end] = false;
