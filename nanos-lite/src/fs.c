@@ -54,7 +54,9 @@ size_t fs_read(int fd, const void *buf, size_t len)
   int offset = disk_offset + open_offset; 
   int read_len = len > (file_len-open_offset) ? (file_len-open_offset) : len;
   memcpy((void *)buf, &ramdisk_start + offset, read_len);
+  file_table[fd].open_offset += read_len;
   Log("readlen:%d", read_len);
+  Log("offset after read:%d", file_table[fd].open_offset);
   return read_len;
 }
 
@@ -71,6 +73,7 @@ size_t fs_write(int fd, const void *buf, size_t len)
   memcpy(&ramdisk_start + offset, buf, write_len);
   file_table[fd].open_offset += write_len;
   Log("writelen:%d", write_len);
+  Log("offset after write:%d", file_table[fd].open_offset);
   return write_len;
 }
 
