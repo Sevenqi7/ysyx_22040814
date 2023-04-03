@@ -93,15 +93,15 @@ void display_ftrace()
         printf("0x%lx:", f_trace_buf.call_pc[i]);
         if(f_trace_buf.is_ret[i] == false)
         {
-            j++;
             for(int k=0;k<2*j;k++) printf(" ");
             printf("call[%s@0x%lx]\n", f_trace_buf.function[i].f_name, f_trace_buf.function[i].f_addr);
+            j++;
         }
         else
         {
-            j--;
             for(int k=0;k<2*j;k++) printf(" ");
             printf("ret  [%s]\n", f_trace_buf.function[i].f_name);
+            j--;
         }
     }
 }
