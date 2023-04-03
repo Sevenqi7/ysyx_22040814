@@ -67,7 +67,7 @@ int _write(int fd, void *buf, size_t count) {
 
 extern char _heap_start;
 
-void *_sbrk(intptr_t increment) 
+void *_sbrk(intptr_t increment) {
   // return (void *)-1;
   while(1);
   static uintptr_t program_break = (uintptr_t) &_heap_start;
