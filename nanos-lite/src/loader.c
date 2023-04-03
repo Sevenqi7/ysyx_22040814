@@ -36,7 +36,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   Elf_Phdr ph;
   fs_read(fd, &eh, sizeof(Elf_Ehdr));
   assert(*((uint32_t *)eh.e_ident) == 0x464c457f);
-  Log("Elf magic:%u", *((uint32_t *)eh.e_ident));
+  Log("Elf magic:%x", *((uint32_t *)eh.e_ident));
   fs_lseek(fd, eh.e_phoff, SEEK_SET);
   for(int i=0;i<eh.e_phnum;i++)
   {
