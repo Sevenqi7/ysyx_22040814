@@ -47,31 +47,46 @@ void init_fs() {
 
 size_t fs_read(int fd, const void *buf, size_t len)
 {
-  int file_len = file_table[fd].size, offset = file_table[fd].disk_offset;
-  memcpy((void *)buf, &ramdisk_start + offset, len > file_len ? file_len : len);
-  return len > file_len ? file_len : len;
+  int file_num = sizeof(file_table) / sizeof(Finfo), file_len = file_table[fd].size;
+  assert(fd >= 0 && fd < file_num);
+  int disk_offset = file_table[fd].disk_offset, open_offset = file_table[fd].open_offset;
+  if(open_offset >= file_len) return -1;
+  int offset = disk_offset + open_offset; 
+  int read_len = len > (file_len-open_offset) ? (file_len-open_offset) : len;
+  memcpy((void *)buf, &ramdisk_start + offset, read_len);
+  Log("readlen:%d", read_len);
+  return read_len;
 }
+
+//TODO：需要把read和write更新open_offset做完
 
 size_t fs_write(int fd, const void *buf, size_t len)
 {
-  int file_len = file_table[fd].size, offset = file_table[fd].disk_offset;
-  memcpy(&ramdisk_start + offset, buf, len > file_len ? file_len : len);
-  return len > file_len ? file_len : len;
+  int file_num = sizeof(file_table) / sizeof(Finfo), file_len = file_table[fd].size;
+  assert(fd >= 0 && fd < file_num);
+  int disk_offset = file_table[fd].disk_offset, open_offset = file_table[fd].open_offset;
+  if(open_offset >= file_len) return -1;
+  int offset = disk_offset + open_offset; 
+  int write_len = len > (file_len-open_offset) ? (file_len-open_offset) : len;
+  memcpy(&ramdisk_start + offset, buf, write_len);
+  file_table[fd].open_offset += write_len;
+  Log("writelen:%d", write_len);
+  return write_len;
 }
 
 int fs_open(const char *pathname, int flags, int mode)
 {
-  int filenum = sizeof(file_table) / sizeof(Finfo);
-  for(int i=0;i<filenum;i++)
+  int file_num = sizeof(file_table) / sizeof(Finfo);
+  for(int i=0;i<file_num;i++)
     if(!strcmp(pathname, file_table[i].name))
-      return i;
+      {file_table[i].open_offset = 0 ;return i;}
   return -1; 
 }
 
 size_t fs_lseek(int fd, size_t offset, int whence)
 {
-  int filenum = sizeof(file_table) / sizeof(Finfo);
-  if(fd < filenum)
+  int file_num = sizeof(file_table) / sizeof(Finfo);
+  if(fd < file_num)
   {
     switch(whence)
     {
