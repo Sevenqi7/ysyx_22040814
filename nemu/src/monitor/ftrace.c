@@ -97,7 +97,7 @@ void sdb_get_symbol_list(char *elf_path)
   int fd = open(elf_path, O_RDONLY, 0);
   if(fd == -1)
   {
-    printf("Failed to open elf file!\n");
+    printf("Failed to open elf file %s: !\n", elf_path);
     return ;
   }
   Elf64_Ehdr ehdr;
