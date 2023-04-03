@@ -21,7 +21,7 @@ struct timezone {
 };
 
 
-#define STRACE 1
+// #define STRACE 1
 
 extern char _heap_start;
 
