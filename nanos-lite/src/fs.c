@@ -51,8 +51,10 @@ void init_fs() {
 
 size_t fs_read(int fd, const void *buf, size_t len)
 {
+  Log("read");
   if(file_table[fd].read)
       return file_table[fd].read((void *)buf, 0, len);
+  Log("readend");
   int file_num = sizeof(file_table) / sizeof(Finfo), file_len = file_table[fd].size;
   assert(fd >= 0 && fd < file_num);
   int disk_offset = file_table[fd].disk_offset, open_offset = file_table[fd].open_offset;
