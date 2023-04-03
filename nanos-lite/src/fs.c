@@ -111,7 +111,7 @@ int fs_close(int fd)
   return 0;
 }
 
-void print_file_name(int fd)
+char *print_file_name(int fd)
 {
-  Log("Filname: %s", file_table[fd].name);
+  return file_table[fd].name;
 }
