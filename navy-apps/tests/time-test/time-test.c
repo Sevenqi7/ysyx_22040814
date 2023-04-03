@@ -1,20 +1,19 @@
 #include <stdio.h>
 #include <assert.h>
 #include <sys/time.h>
+#include <NDL.h>
 
 int main()
 {
     struct timeval tv;
-    uint64_t last_ms, ms;
-    gettimeofday(&tv, NULL);
+    uint32_t last_ms, ms;
     int i=0;
     while(1)
     {
-        last_ms = tv.tv_sec * 1000 + tv.tv_usec / 1000;
+        last_ms = NDL_GetTicks();
         while(1)
         {
-            gettimeofday(&tv, NULL);
-            ms = tv.tv_sec * 1000 + tv.tv_usec / 1000;
+            ms = NDL_GetTicks();            
             // printf("ms:%lu\n", ms);
             if(ms - last_ms >= 500) break;
         }
