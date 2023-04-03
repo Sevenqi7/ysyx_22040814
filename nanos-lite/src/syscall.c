@@ -10,6 +10,17 @@ char *syscall_name[] =
   "times", "gettimeofday"
 };
 
+struct timeval {
+    uint64_t      tv_sec;     /* seconds */
+    uint64_t      tv_usec;    /* microseconds */
+};
+
+struct timezone {
+    int tz_minuteswest;     /* minutes west of Greenwich */
+    int tz_dsttime;         /* type of DST correction */
+};
+
+
 #define STRACE 1
 
 extern char _heap_start;
@@ -36,6 +47,12 @@ void do_syscall(Context *c) {
     case SYS_lseek: c->gpr[10] = fs_lseek(fd, offset, whence); break;
     case SYS_write: c->gpr[10] = fs_write(fd, buf, len); break;
     case SYS_brk  : c->gpr[10] = 0; break;
+    case SYS_gettimeofday: 
+                    struct timeval *tv = (struct timeval *)a[1];
+                    uint64_t time; 
+                    ioe_read(AM_TIMER_UPTIME, &time);
+                    tv->tv_sec = time / 1000000, tv->tv_usec = time % 1000000;
+                    c->gpr[10] = 0; break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
   #ifdef STRACE
