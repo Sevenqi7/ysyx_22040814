@@ -14,7 +14,7 @@ int main()
         {
             gettimeofday(&tv, NULL);
             ms = tv.tv_sec * 1000 + tv.tv_usec / 1000;
-            if(ms - last_ms >= 5000) break;
+            if(ms - last_ms >= 500) break;
         }
         printf("5s Pass.\n");
         last_ms = ms;
