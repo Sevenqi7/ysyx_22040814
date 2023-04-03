@@ -65,9 +65,15 @@ int _write(int fd, void *buf, size_t count) {
   return _syscall_(SYS_write, fd, (intptr_t)buf, count);
 }
 
+extern char _heap_start;
+
 void *_sbrk(intptr_t increment) {
   // return (void *)-1;
-  return (void *) _syscall_(SYS_brk, increment, 0, 0);
+  static uintptr_t program_break = (uintptr_t) &_heap_start;
+  uintptr_t p_program_break = program_break;
+  int ret = _syscall_(SYS_brk, program_break + increment, 0, 0);
+  if(!ret) return (void *)p_program_break;
+  else return (void *)(-1);
 }
 
 int _read(int fd, void *buf, size_t count) {

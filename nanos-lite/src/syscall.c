@@ -10,8 +10,6 @@ char *syscall_name[] =
 };
 
 #define STRACE 1
-extern char _heap_start;
-uintptr_t program_break = (uintptr_t)&_heap_start;
 
 void do_syscall(Context *c) {
   uintptr_t a[4];
@@ -33,7 +31,7 @@ void do_syscall(Context *c) {
                       for(int i=0;i<len;i++) 
                         putch(buf[i]);
                     break;
-    case SYS_brk  : while(1);c->gpr[10] = program_break + a[1]; break;
+    case SYS_brk  : break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   
   #ifdef STRACE
