@@ -38,6 +38,8 @@ void ftrace_check_jal(vaddr_t jump_addr, vaddr_t ret_addr, int rs1, int rd)
         {
             if(f_trace_buf.ret_addr[i] == jump_addr)
             {
+                if(!strncmp(f_trace_buf.function[f_trace_buf.end].f_name, "putch", 5))
+                    continue;
                 f_trace_buf.function[f_trace_buf.end] = f_trace_buf.function[i];
                 f_trace_buf.is_ret[f_trace_buf.end] = true;
                 f_trace_buf.call_pc[f_trace_buf.end] = ret_addr - 4;
