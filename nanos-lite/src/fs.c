@@ -62,10 +62,10 @@ size_t fs_read(int fd, const void *buf, size_t len)
   return read_len;
 }
 
-//TODO：需要把read和write更新open_offset做完
-
 size_t fs_write(int fd, const void *buf, size_t len)
 {
+  if(file_table[fd].write)
+      return file_table[fd].write(buf, 0, len);
   int file_num = sizeof(file_table) / sizeof(Finfo), file_len = file_table[fd].size;
   assert(fd >= 0 && fd < file_num);
   int disk_offset = file_table[fd].disk_offset, open_offset = file_table[fd].open_offset;

@@ -34,16 +34,7 @@ void do_syscall(Context *c) {
     case SYS_read : c->gpr[10] = fs_read(fd, buf, len); break;
     case SYS_close: c->gpr[10] = fs_close(fd); break;
     case SYS_lseek: c->gpr[10] = fs_lseek(fd, offset, whence); break;
-    case SYS_write:
-                    if(fd == 1 || fd == 2)
-                    {
-                        for(int i=0;i<len;i++) 
-                        putch(buf[i]);
-                        c->gpr[10] = len;
-                    }
-                    else
-                         c->gpr[10] = fs_write(fd, buf, len);
-                    break;
+    case SYS_write: c->gpr[10] = fs_write(fd, buf, len); break;
     case SYS_brk  : c->gpr[10] = 0; break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
