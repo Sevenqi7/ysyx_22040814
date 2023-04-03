@@ -109,7 +109,7 @@ int fs_close(int fd)
   return 0;
 }
 
-char *get_file_name(int fd)
+void print_file_name(int fd)
 {
-  return file_table[fd].name;
+  Log("Filname: %s", file_table[fd].name);
 }

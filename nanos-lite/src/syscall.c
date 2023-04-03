@@ -23,9 +23,9 @@ void do_syscall(Context *c) {
   int fd = a[1], len = a[3], whence = a[3], offset = a[2];
   char *filename = (char *) a[1], *buf = (char *)a[2];
   #ifdef STRACE
-  char *get_file_name(int fd);
+  void print_file_name(int fd);
   Log("STRACE: SYS_%s called, args:%u 0x%x 0x%x", syscall_name[a[0]], a[1], a[2], a[3]);
-  if(a[0] >= SYS_open && a[0] <= SYS_write) Log("Filename: %s", get_file_name(fd));
+  if(a[0] >= SYS_open && a[0] <= SYS_write) print_file_name(fd);
   #endif
   switch (a[0]) {
     case SYS_exit : halt(c->gpr[10]);
