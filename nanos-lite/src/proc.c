@@ -28,6 +28,7 @@ void init_proc() {
 
   // load program here
   naive_uload(NULL, "/bin/event-test");
+  Log("1");
 }
 
 Context* schedule(Context *prev) {
