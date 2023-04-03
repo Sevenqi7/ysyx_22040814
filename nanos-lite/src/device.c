@@ -6,8 +6,6 @@
 # define MULTIPROGRAM_YIELD()
 #endif
 
-#define KEYDOWN_MASK 0x8000
-
 #define NAME(key) \
   [AM_KEY_##key] = #key,
 
@@ -22,12 +20,10 @@ size_t serial_write(const void *buf, size_t offset, size_t len) {
 }
 
 size_t events_read(void *buf, size_t offset, size_t len) {
-  uint32_t scancode;
-  ioe_read(AM_INPUT_KEYBRD, &scancode);
-  uint32_t keydown = scancode & KEYDOWN_MASK;
-  uint32_t keycode = scancode & (~KEYDOWN_MASK);
-  if(keycode == AM_KEY_NONE) return 0;
-  return snprintf(buf, len, "%s %s\n", keydown ? "kd" : "ku", keyname[keycode]);
+  AM_INPUT_KEYBRD_T kbd;
+  ioe_read(AM_INPUT_KEYBRD, &kbd);
+  if(kbd.keycode == AM_KEY_NONE) return 0;
+  return snprintf(buf, len, "%s %s\n", kbd.keydown ? "kd" : "ku", keyname[kbd.keycode]);
 }
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
