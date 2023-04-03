@@ -165,7 +165,7 @@ void sdb_get_symbol_list(char *elf_path)
                   // assert(0);
                   char *func_name = strtab + sym.st_name;
                   memcpy(f_info[f_info_num].f_name, func_name, strlen(func_name)+1);
-                  Log("symbol %d: %s", j, func_name);
+                //   Log("symbol %d: %s", j, func_name);
                   f_info[f_info_num].f_addr = sym.st_value;
                   f_info_num++;
               }
