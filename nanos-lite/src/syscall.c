@@ -41,6 +41,7 @@ void do_syscall(Context *c) {
   
   #ifdef STRACE
   Log("STRACE: retval: %d", c->gpr[10]);
+  if(a[0] == SYS_brk) while(1);
   #endif
   }
 }
