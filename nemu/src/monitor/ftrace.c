@@ -36,13 +36,10 @@ void ftrace_check_jal(vaddr_t jump_addr, vaddr_t ret_addr, int rs1, int rd)
     {
         for(int i=f_trace_buf.end-1;i >= 0;i--)
         {
+            if(!strncmp(f_trace_buf.function[f_trace_buf.end].f_name, "putch", 5))
+                continue;
             if(f_trace_buf.ret_addr[i] == jump_addr)
             {
-                // if(!strncmp(f_trace_buf.function[f_trace_buf.end].f_name, "putch", 5))
-                // {
-                //     Log("1");    
-                //    return ;
-                // } 
                 f_trace_buf.function[f_trace_buf.end] = f_trace_buf.function[i];
                 f_trace_buf.is_ret[f_trace_buf.end] = true;
                 f_trace_buf.call_pc[f_trace_buf.end] = ret_addr - 4;
@@ -55,6 +52,8 @@ void ftrace_check_jal(vaddr_t jump_addr, vaddr_t ret_addr, int rs1, int rd)
     }
     for(int i=0;i<f_info_num;i++)
     {
+        if(!strncmp(f_trace_buf.function[f_trace_buf.end].f_name, "putch", 5))
+            continue;
         if(f_info[i].f_addr == jump_addr)
         {
             f_trace_buf.function[f_trace_buf.end] = f_info[i];
@@ -74,7 +73,7 @@ void ftrace_check_jal(vaddr_t jump_addr, vaddr_t ret_addr, int rs1, int rd)
 void display_ftrace()
 {
     int i = (f_trace_buf.end + 1) % MAX_FTRACE_STACK_SIZE, j = 0;
-    printf("Current ftrace stack size is :%d", MAX_FTRACE_STACK_SIZE);
+    printf("Current ftrace stack size is :%d\n", MAX_FTRACE_STACK_SIZE);
     for(;i != f_trace_buf.end;i=(i+1)%MAX_FTRACE_STACK_SIZE)
     {
         if(f_trace_buf.call_pc[i] == 0) continue;
