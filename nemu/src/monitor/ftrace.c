@@ -23,7 +23,7 @@ static struct function_info
 
 //这些函数被调用的频率太高，不屏蔽掉ftrace直接没法看了
 static char *ignore_func[] = {
-    "putch", "printfputch"
+    "putch", "printfputch", "printnum", "vprintfmt"
 };
 
 static bool check_ignore(struct function_info *f)
