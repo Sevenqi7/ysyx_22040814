@@ -75,7 +75,7 @@ void *_sbrk(intptr_t increment) {
   int ret = _syscall_(SYS_brk, program_break + increment, 0, 0);
   if(!ret) return (void *)p_program_break;
   else return (void *)(-1);
-
+}
 
 int _read(int fd, void *buf, size_t count) {
   _exit(SYS_read);
