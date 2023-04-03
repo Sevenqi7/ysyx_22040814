@@ -69,6 +69,7 @@ extern char _heap_start;
 
 void *_sbrk(intptr_t increment) {
   // return (void *)-1;
+  while(1);
   static uintptr_t program_break = (uintptr_t) &_heap_start;
   uintptr_t p_program_break = program_break;
   int ret = _syscall_(SYS_brk, program_break + increment, 0, 0);
