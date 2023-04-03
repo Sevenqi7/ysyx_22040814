@@ -10,7 +10,7 @@
 
 
 #define MAX_FTRACE_INFO_SIZE 128
-#define MAX_FTRACE_STACK_SIZE 16
+#define MAX_FTRACE_STACK_SIZE 64
 
 #ifdef CONFIG_FTRACE
 static int f_info_num = 0;
