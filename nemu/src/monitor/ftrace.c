@@ -99,9 +99,9 @@ void display_ftrace()
         }
         else
         {
+            j--;
             for(int k=0;k<2*j;k++) printf(" ");
             printf("ret  [%s]\n", f_trace_buf.function[i].f_name);
-            j--;
         }
     }
 }
