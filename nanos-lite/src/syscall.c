@@ -22,7 +22,7 @@ void do_syscall(Context *c) {
   int fd, len;
   char *buf;
   #ifdef STRACE
-  Log("STRACE: SYS_%s called, args:%d %d %d", syscall_name[a[0]], a[1], a[2], a[3]);
+  Log("STRACE: SYS_%s called, args:%u %u %u", syscall_name[a[0]], a[1], a[2], a[3]);
   #endif
   switch (a[0]) {
     case SYS_exit : halt(c->gpr[10]);
