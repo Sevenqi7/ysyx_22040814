@@ -95,7 +95,7 @@ size_t fs_lseek(int fd, size_t offset, int whence)
     {
       case SEEK_SET: file_table[fd].open_offset = offset;   break;
       case SEEK_CUR: file_table[fd].open_offset += offset;  break;
-      case SEEK_END: file_table[fd].open_offset = file_table[fd].size-1; break;
+      case SEEK_END: file_table[fd].open_offset = file_table[fd].size; break;
       default: assert(0);
     }
     // Log("open_offset is set to : %d", file_table[fd].open_offset);
