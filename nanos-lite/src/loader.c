@@ -36,11 +36,13 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   Elf_Phdr ph;
   fs_read(fd, &eh, sizeof(Elf_Ehdr));
   assert(*((uint32_t *)eh.e_ident) == 0x464c457f);
-  fs_lseek(fd, eh.e_phoff, SEEK_SET);
   for(int i=0;i<eh.e_phnum;i++)
   {
+    fs_lseek(fd, eh.e_phoff + i * sizeof(Elf_Phdr), SEEK_SET);
     fs_read(fd, &ph, sizeof(Elf_Phdr));
     Log("Segment %d: vaddr:0x%lx size:%d", i, ph.p_vaddr, ph.p_memsz);
+    fs_lseek(fd, ph.p_offset, SEEK_SET);
+    fs_read(fd, (void *)ph.p_vaddr, ph.p_memsz);
     memset((uintptr_t *)(ph.p_vaddr + ph.p_filesz), 0, ph.p_memsz - ph.p_filesz);
   }
   fs_close(fd);
