@@ -139,7 +139,6 @@ void sdb_get_symbol_list(char *elf_path)
       printf("Failed to read string table!\n");
       return ;
   }
-  printf("strtab:%s\n", strtab);
   lseek(fd, ehdr.e_shoff, SEEK_SET);
   for(int i=0;i<ehdr.e_shnum;i++)
   {
@@ -166,6 +165,7 @@ void sdb_get_symbol_list(char *elf_path)
                   // assert(0);
                   char *func_name = strtab + sym.st_name;
                   memcpy(f_info[f_info_num].f_name, func_name, strlen(func_name)+1);
+                  Log("symbol %d: %s", j, func_name);
                   f_info[f_info_num].f_addr = sym.st_value;
                   f_info_num++;
               }
@@ -174,10 +174,6 @@ void sdb_get_symbol_list(char *elf_path)
       }
   }
 
-  for(int i=0;i<f_info_num;i++)
-  {
-    printf("function name:%s\n", f_info[f_info_num].f_name);
-  }
   free(strtab);
   free(shstrtab);
   #endif
