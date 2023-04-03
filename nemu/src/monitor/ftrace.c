@@ -88,7 +88,7 @@ void display_ftrace(int num)
     int i = (f_trace_buf.end + 1) % MAX_FTRACE_STACK_SIZE, j = 0;
     printf("Current ftrace stack size is :%d\n", MAX_FTRACE_STACK_SIZE);
     Log("num:%d", num);
-    for(;(i != f_trace_buf.end) && num;i=(i+1)%MAX_FTRACE_STACK_SIZE, num--)
+    for(;(i != f_trace_buf.end) && !num;i=(i+1)%MAX_FTRACE_STACK_SIZE, num--)
     {
         if(f_trace_buf.call_pc[i] == 0) continue;
         printf("0x%lx:", f_trace_buf.call_pc[i]);
