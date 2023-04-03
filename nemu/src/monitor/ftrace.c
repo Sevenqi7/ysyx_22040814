@@ -69,9 +69,11 @@ void ftrace_check_jal(vaddr_t jump_addr, vaddr_t ret_addr, int rs1, int rd)
 void display_ftrace()
 {
     int i = (f_trace_buf.end + 1) % MAX_FTRACE_STACK_SIZE, j = 0;
+    printf("The last %d function call trace:", abs(i-f_trace_buf.end));
     for(;i != f_trace_buf.end;i=(i+1)%MAX_FTRACE_STACK_SIZE)
     {
         printf("0x%lx:", f_trace_buf.call_pc[i]);
+        if(f_trace_buf.call_pc[i] == 0) continue;
         if(f_trace_buf.is_ret[i] == false)
         {
             j++;
