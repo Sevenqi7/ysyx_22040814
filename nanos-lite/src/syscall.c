@@ -36,6 +36,7 @@ void do_syscall(Context *c) {
     case SYS_brk  : 
                     if(a[1] < (uintptr_t)heap.end) {heap.start = (uintptr_t *)&_heap_start;c->gpr[10] = 0;}
                     else c->gpr[10] = (uintptr_t)(-1);
+                    
                     break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
