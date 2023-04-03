@@ -36,7 +36,7 @@ void ftrace_check_jal(vaddr_t jump_addr, vaddr_t ret_addr, int rs1, int rd)
     {
         for(int i=f_trace_buf.end-1;i >= 0;i--)
         {
-            if(!strcmp(f_trace_buf.function[f_trace_buf.end].f_name, "putch"))
+            if(!strcmp(f_trace_buf.function[i].f_name, "putch"))
                 continue;
             if(f_trace_buf.ret_addr[i] == jump_addr)
             {
@@ -52,7 +52,7 @@ void ftrace_check_jal(vaddr_t jump_addr, vaddr_t ret_addr, int rs1, int rd)
     }
     for(int i=0;i<f_info_num;i++)
     {
-        if(!strcmp(f_trace_buf.function[f_trace_buf.end].f_name, "putch"))
+        if(!strcmp(f_trace_buf.function[i].f_name, "putch"))
             continue;
         if(f_info[i].f_addr == jump_addr)
         {
