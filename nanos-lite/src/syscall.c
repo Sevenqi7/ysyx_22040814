@@ -32,6 +32,7 @@ void do_syscall(Context *c) {
                     if(fd == 1 || fd == 2)
                       for(int i=0;i<len;i++) 
                         putch(buf[i]);
+                    c->gpr[10] = len;
                     break;
     case SYS_brk  : c->gpr[10] = 0; break;
     default: panic("Unhandled syscall ID = %d", a[0]);
