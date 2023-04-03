@@ -41,7 +41,8 @@ static Finfo file_table[] __attribute__((used)) = {
   [FD_STDIN]  = {"stdin", 0, 0, invalid_read, invalid_write},
   [FD_STDOUT] = {"stdout", 0, 0, invalid_read, serial_write},
   [FD_STDERR] = {"stderr", 0, 0, invalid_read, serial_write},
-  // [FD_EVENT]  = {"/dev/events", 0, 0, events_read, invalid_write},
+  [FD_FB]     = {"fb", 0, 0, invalid_read, invalid_write},
+  [FD_EVENT]  = {"/dev/events", 0, 0, events_read, invalid_write},
 #include "files.h"
 };
 
@@ -51,8 +52,8 @@ void init_fs() {
 
 size_t fs_read(int fd, const void *buf, size_t len)
 {
-  // if(file_table[fd].read)
-  //     return file_table[fd].read((void *)buf, 0, len);
+  if(file_table[fd].read)
+      return file_table[fd].read((void *)buf, 0, len);
   int file_num = sizeof(file_table) / sizeof(Finfo), file_len = file_table[fd].size;
   assert(fd >= 0 && fd < file_num);
   int disk_offset = file_table[fd].disk_offset, open_offset = file_table[fd].open_offset;
