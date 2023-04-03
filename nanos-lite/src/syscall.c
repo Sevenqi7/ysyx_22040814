@@ -36,12 +36,11 @@ void do_syscall(Context *c) {
     case SYS_brk  : 
                     if(a[1] < (uintptr_t)heap.end) {heap.start = (uintptr_t *)&_heap_start;c->gpr[10] = 0;}
                     else c->gpr[10] = (uintptr_t)(-1);
-                    while(1);
                     break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
   #ifdef STRACE
   Log("STRACE: retval: %d", c->gpr[10]);
-  if(a[0] == SYS_brk) while(1);
+  if(a[0] == SYS_brk) assert(c->gpr[10] == 0);
   #endif
 }
