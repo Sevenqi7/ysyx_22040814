@@ -111,5 +111,5 @@ int fs_close(int fd)
 
 void print_file_name(int fd)
 {
-  Log("Filname: %s", file_table[fd].name);
+  printf("Filname: %s", file_table[fd].name);
 }
