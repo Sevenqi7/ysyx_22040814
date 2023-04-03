@@ -1,4 +1,5 @@
 #include <common.h>
+#include <fs.h>
 #include "syscall.h"
 
 char *syscall_name[] =
@@ -19,20 +20,28 @@ void do_syscall(Context *c) {
   a[1] = c->gpr[10];
   a[2] = c->gpr[11];
   a[3] = c->gpr[12];
-  int fd, len;
-  char *buf;
+  int fd = a[1], len = a[3], whence = a[3], offset = a[2];
+  char *filename = (char *) a[1], *buf = (char *)a[2];
   #ifdef STRACE
   Log("STRACE: SYS_%s called, args:%u %u %u", syscall_name[a[0]], a[1], a[2], a[3]);
   #endif
   switch (a[0]) {
     case SYS_exit : halt(c->gpr[10]);
     case SYS_yield: yield(); c->gpr[10] = 0; break;
+    case SYS_open : c->gpr[10] = fs_open(filename, a[2], a[3]); break;
+    case SYS_read : c->gpr[10] = fs_read(fd, buf, len); break;
+    case SYS_close: c->gpr[10] = fs_close(fd); break;
+    case SYS_lseek: c->gpr[10] = fs_lseek(fd, offset, whence); break;
     case SYS_write:
-                    fd = a[1], buf = (char *)a[2], len=a[3];
                     if(fd == 1 || fd == 2)
-                      for(int i=0;i<len;i++) 
+                    {
+                        for(int i=0;i<len;i++) 
                         putch(buf[i]);
-                    c->gpr[10] = len; break;
+                        c->gpr[10] = len;
+                    }
+                    else
+                         c->gpr[10] = fs_write(fd, buf, len);
+                    break;
     case SYS_brk  : c->gpr[10] = 0; break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
