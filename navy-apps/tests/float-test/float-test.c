@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <assert.h>
 #include <sys/time.h>
-#include <fixdptc.h>
+#include <fixedptc.h>
 
 int main()
 {
