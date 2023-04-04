@@ -79,7 +79,7 @@ void NDL_OpenCanvas(int *w, int *h) {
     }
     close(fbctl);
   }
-  printf("width:%d   height:%d\n", *w, *h);
+  printf("width:%d   height:%d\n", screen_w, screen_h);
 }
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
