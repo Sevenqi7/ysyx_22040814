@@ -31,8 +31,6 @@ void NDL_OpenCanvas(int *w, int *h) {
     screen_w = *w; screen_h = *h;
     char buf[64];
     int len = sprintf(buf, "%d %d", screen_w, screen_h);
-    printf("width:%d height:%d\n", screen_w, screen_h);
-    while(1);
     // let NWM resize the window and create the frame buffer
     write(fbctl, buf, len);
     while (1) {
@@ -44,6 +42,41 @@ void NDL_OpenCanvas(int *w, int *h) {
     }
     close(fbctl);
   }
+  else
+  {
+    char buf[64];
+    FILE *fp = fopen("/proc/dispinfo", "r+");
+    if(!fp) {
+    printf("Failed to read dispinfo\n");
+      return ;
+    }
+    fread(buf, 1, 64, fp);
+    char *p = buf;
+    if(!strncmp(p, "WIDTH", 5))
+    {
+        p += 5;
+        while(*p++ == ' ');
+        if(*p++ != ':'){
+          printf("Invalid dispinfo format.\n");
+          return ;
+        }
+        while(*p++ == ' ');
+        *w = atoi(p);
+        while(*p++ != '\n');
+        if(!strncmp(p, "HEIGHT", 6))
+        {
+          p += 6;
+          while(*p++ == ' ');
+          if(*p++ != ':'){
+            printf("Invalid dispinfo format.\n");
+            return ;
+          }
+          while(*p++ == ' ');
+          *h = atoi(p);
+        }
+    }
+  }
+  printf("width:%d height:%d", *w, *h);
 }
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
