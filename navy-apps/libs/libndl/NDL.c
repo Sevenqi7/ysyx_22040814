@@ -88,8 +88,7 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   int fd = open("/dev/fb", 0, 0);
   if(fd == -1) {printf("Failed to open /dev/fb!\n"); assert(0);}
   uint64_t draw_offset = ((screen_h - h) / 2 * screen_w + (screen_w - w) / 2) * sizeof(uint32_t);
-  printf("initial offset:%d\n", draw_offset);
-  while(1);
+  // printf("initial offset:%d\n", draw_offset);
   for(int i=y;i<y+h;i++)
   {
     lseek(fd, draw_offset, SEEK_SET);
