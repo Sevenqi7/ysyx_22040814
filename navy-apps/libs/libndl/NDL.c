@@ -24,7 +24,7 @@ int NDL_PollEvent(char *buf, int len) {
   return 0;
 }
 
-void NDL_GetCanvasSize(int *w, int *h)
+void NDL_GetScreenSize(int *w, int *h)
 {
     char buf[64];
     int fd = open("/proc/dispinfo", 0, 0);
@@ -62,7 +62,11 @@ void NDL_GetCanvasSize(int *w, int *h)
 
 void NDL_OpenCanvas(int *w, int *h) {
   if(!(*w) && !(*h))
-    NDL_GetCanvasSize(w, h);
+  {
+    NDL_GetScreenSize(w, h);
+    screen_w = w;
+    screen_h = h;
+  }
   if(getenv("NWM_APP")) {
     int fbctl = 4;
     fbdev = 5;
@@ -80,15 +84,20 @@ void NDL_OpenCanvas(int *w, int *h) {
     }
     close(fbctl);
   }
-  screen_w = *w; screen_h = *h;
   printf("width:%d   height:%d\n", screen_w, screen_h);
 }
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   int fd = open("/dev/fb", 0, 0);
   if(fd == -1) {printf("Failed to open /dev/fb!\n"); return;}
-  lseek(fd, x * w + y * h, SEEK_SET);
-  write(fd, pixels, w * h * sizeof(uint32_t));
+  uint64_t draw_offset = ((screen_h - h) / 2 * screen_w + (screen_w - w) / 2) * sizeof(uint32_t);
+  for(int i=y;i<y+h;i++)
+  {
+    lseek(fd, draw_offset, SEEK_SET);
+    write(fd, pixels, w * sizeof(uint32_t));
+    draw_offset += screen_w * sizeof(uint32_t);
+  }
+
   close(fd);
 }
 
