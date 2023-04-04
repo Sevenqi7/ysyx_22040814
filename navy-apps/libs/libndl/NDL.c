@@ -55,13 +55,7 @@ void NDL_OpenCanvas(int *w, int *h) {
     if(!strncmp(p, "WIDTH", 5))
     {
         p += 5;
-        printf("read buf:\n%s\n", p);
-        while(*p == ' ')
-        {
-          printf("p:%c\n", *p);
-          p++;
-        }
-        printf("read buf:%c\n", *p);
+        while(*p == ' ') p++;
         if(*p++ != ':'){
           printf("Invalid dispinfo format: missing \":\"\n");
           return ;
