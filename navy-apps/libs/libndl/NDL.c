@@ -52,6 +52,7 @@ void NDL_OpenCanvas(int *w, int *h) {
     }
     fread(buf, 1, 64, fp);
     printf("read buf:%s\n", buf);
+    while(1);
     char *p = buf;
     if(!strncmp(p, "WIDTH", 5))
     {
