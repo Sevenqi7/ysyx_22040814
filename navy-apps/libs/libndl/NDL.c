@@ -61,12 +61,9 @@ void NDL_GetScreenSize(int *w, int *h)
 }
 
 void NDL_OpenCanvas(int *w, int *h) {
+  NDL_GetScreenSize(&screen_w, &screen_h);
   if(!(*w) && !(*h))
-  {
-    NDL_GetScreenSize(w, h);
-    screen_w = *w;
-    screen_h = *h;
-  }
+    *w = screen_w, *h = screen_h;
   if(getenv("NWM_APP")) {
     int fbctl = 4;
     fbdev = 5;
