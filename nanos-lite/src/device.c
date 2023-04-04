@@ -26,6 +26,8 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   return snprintf(buf, len, "%s %s\n", kbd.keydown ? "kd" : "ku", keyname[kbd.keycode]);
 }
 
+static int width = -1, height = -1;
+
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
   AM_GPU_CONFIG_T cfg;
   ioe_read(AM_GPU_CONFIG, &cfg);
@@ -33,6 +35,19 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 }
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
+  if(width == -1 || height == -1)
+  {
+    AM_GPU_CONFIG_T cfg;
+    ioe_read(AM_GPU_CONFIG, &cfg);
+    width = cfg.width;
+    height = cfg.height;
+  }
+  int y = offset / width, x = offset / height;
+  AM_GPU_FBDRAW_T ctl;
+  ctl.x = x, ctl.y = y;
+  ctl.pixels = (uint32_t *)buf;
+  ctl.sync = 1;
+  ioe_write(AM_GPU_FBDRAW, &ctl);
   return 0;
 }
 
