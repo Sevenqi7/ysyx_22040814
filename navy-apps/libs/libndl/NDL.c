@@ -65,6 +65,7 @@ void NDL_OpenCanvas(int *w, int *h) {
   if(getenv("NWM_APP")) {
     int fbctl = 4;
     fbdev = 5;
+    printf("aen\n");
     screen_w = *w; screen_h = *h;
     char buf[64];
     int len = sprintf(buf, "%d %d", screen_w, screen_h);
