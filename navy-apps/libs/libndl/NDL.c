@@ -57,6 +57,7 @@ void NDL_GetCanvasSize(int *w, int *h)
           *h = atoi(p);
         }
     }
+    close(fd);
 }
 
 void NDL_OpenCanvas(int *w, int *h) {
@@ -84,6 +85,11 @@ void NDL_OpenCanvas(int *w, int *h) {
 }
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
+  int fd = open("/dev/fb", 0, 0);
+  if(fd == -1) {printf("Failed to open /dev/fb!\n"); return;}
+  lseek(fd, x * w + y * h, SEEK_SET);
+  write(fd, pixels, w * h);
+  close(fd);
 }
 
 void NDL_OpenAudio(int freq, int channels, int samples) {
