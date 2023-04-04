@@ -60,18 +60,18 @@ void NDL_OpenCanvas(int *w, int *h) {
           printf("Invalid dispinfo format: missing \":\"\n");
           return ;
         }
-        while(*p++ == ' ');
+        while(*p == ' ') p++;
         *w = atoi(p);
         while(*p++ != '\n');
         if(!strncmp(p, "HEIGHT", 6))
         {
           p += 6;
-          while(*p++ == ' ');
+          while(*p == ' ') p++;
           if(*p++ != ':'){
             printf("Invalid dispinfo format. missing \":\"\n");
             return ;
           }
-          while(*p++ == ' ');
+          while(*p == ' ') p++;
           *h = atoi(p);
         }
     }
