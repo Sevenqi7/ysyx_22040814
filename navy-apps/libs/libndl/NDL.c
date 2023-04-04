@@ -58,6 +58,7 @@ void NDL_OpenCanvas(int *w, int *h) {
         p += 5;
         while(*p++ == ' ');
         if(*p++ != ':'){
+          printf("%c\n", *p);
           printf("Invalid dispinfo format: missing \":\"\n");
           return ;
         }
