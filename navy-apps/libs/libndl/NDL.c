@@ -53,7 +53,7 @@ void NDL_OpenCanvas(int *w, int *h) {
     read(fd, buf, 64);
     printf("read buf:%s\n", buf);
     char *p = buf;
-    if(!strncmp(p, "WIDTH", 5))
+    if(!strcmp(p, "WIDTH"))
     {
         p += 5;
         while(*p++ == ' ');
@@ -65,7 +65,7 @@ void NDL_OpenCanvas(int *w, int *h) {
         while(*p++ == ' ');
         *w = atoi(p);
         while(*p++ != '\n');
-        if(!strncmp(p, "HEIGHT", 6))
+        if(!strcmp(p, "HEIGHT"))
         {
           p += 6;
           while(*p++ == ' ');
