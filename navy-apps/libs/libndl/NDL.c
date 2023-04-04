@@ -56,11 +56,11 @@ void NDL_OpenCanvas(int *w, int *h) {
     {
         p += 5;
         while(*p++ == ' ');
-        printf("read buf:%s\n", p);
         if(*p++ != ':'){
           printf("Invalid dispinfo format: missing \":\"\n");
           return ;
         }
+        printf("read buf:%s\n", p);
         while(*p++ == ' ');
         *w = atoi(p);
         while(*p++ != '\n');
