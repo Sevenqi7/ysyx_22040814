@@ -88,7 +88,7 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   int fd = open("/dev/fb", 0, 0);
   if(fd == -1) {printf("Failed to open /dev/fb!\n"); return;}
   lseek(fd, x * w + y * h, SEEK_SET);
-  write(fd, pixels, w * h);
+  write(fd, pixels, w * h * sizeof(uint32_t));
   close(fd);
 }
 
