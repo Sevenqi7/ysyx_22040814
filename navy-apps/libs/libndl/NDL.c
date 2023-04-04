@@ -45,14 +45,13 @@ void NDL_OpenCanvas(int *w, int *h) {
   else
   {
     char buf[64];
-    FILE *fp = fopen("/proc/dispinfo", "r+");
-    if(!fp) {
+    int fd = open("/proc/dispinfo", 0, 0);
+    if(fd == -1) {
     printf("Failed to read dispinfo\n");
       return ;
     }
-    fread(buf, 1, 64, fp);
+    read(fd, buf, 64);
     printf("read buf:%s\n", buf);
-    while(1);
     char *p = buf;
     if(!strncmp(p, "WIDTH", 5))
     {
