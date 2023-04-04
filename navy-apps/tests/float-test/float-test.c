@@ -7,6 +7,7 @@ int main()
 {
     char str_buf[255];
     fixedpt a = fixedpt_rconst(1.2);
-    pritnf("%s\n", fixedpt_str(fixedpt_floot(a), str_buf, -1));
+    fixedpt_str(fixedpt_floor(a), str_buf, -1);
+    printf("%s\n", str_buf);
     return 0;
 }
