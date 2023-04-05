@@ -15,10 +15,10 @@ uint32_t SDL_GetTicks() {
 }
 
 void SDL_Delay(uint32_t ms) {
-  int now = SDL_GetTicks();
+  int now = SDL_GetTicks(), then;
   do
   {
-      int then = SDL_GetTicks();
+      then = SDL_GetTicks();
   } while (then - now >= ms);
   
 }
