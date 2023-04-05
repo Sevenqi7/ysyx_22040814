@@ -36,7 +36,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   if(!x && !y && !w && !h){
       int screen_w, screen_h;
       NDL_GetScreenSize(&screen_w, &screen_h);
-      assert(s->w != w && s->h != h);
+      assert(s->w != screen_w && s->h != screen_h);
       NDL_DrawRect((uint32_t *)s->pixels, x, y, screen_w, screen_h);
   }
   
