@@ -219,7 +219,6 @@ SDL_STBIMG_DEF SDL_Surface* STBIMG_LoadFromMemory(const unsigned char* buffer, i
 		SDL_SetError("STBIMG_LoadFromMemory(): Couldn't load image: %s!\n", stbi_failure_reason());
 		return NULL;
 	}
-	while(1);
 	img.format = bppToUse;
 
 	ret = STBIMG__CreateSurfaceImpl(img, origin_has_alpha, 1);
