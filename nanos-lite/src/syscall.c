@@ -37,6 +37,7 @@ void do_syscall(Context *c) {
   char *print_file_name(int fd);
   Log("STRACE: SYS_%s called, args:%u 0x%x 0x%x", syscall_name[a[0]], a[1], a[2], a[3]);
   if(a[0] >= SYS_read && a[0] <= SYS_write) Log("Filename: %s", print_file_name(fd));
+  else if(a[0] == SYS_open) Log("Filename:%s", filename);
   #endif
   switch (a[0]) {
     case SYS_exit : halt(c->gpr[10]);
