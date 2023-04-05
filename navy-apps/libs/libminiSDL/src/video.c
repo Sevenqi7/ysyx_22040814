@@ -33,14 +33,11 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
-  if(!x && !y && !w && !h){
-      int screen_w, screen_h;
-      NDL_GetScreenSize(&screen_w, &screen_h);
-      assert(s->w != screen_w && s->h != screen_h);
-      NDL_DrawRect((uint32_t *)s->pixels, x, y, screen_w, screen_h);
+  if(!x && !y && !w && !h)
+      NDL_DrawRect((uint32_t *)s->pixels, x, y, s->w, s->h);
+  else{
+      NDL_DrawRect((uint32_t *)s->pixels + y * s->w + x, x, y, w, h);
   }
-  
-      NDL_DrawRect((uint32_t *)s->pixels, x, y, w, h);
 }
 
 // APIs below are already implemented.
