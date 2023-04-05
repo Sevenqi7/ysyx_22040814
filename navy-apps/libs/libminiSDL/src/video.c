@@ -23,7 +23,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
       memset(dst->pixels, color, dst->w * dst->h * sizeof(uint32_t));
   else
   {
-    uint32_t *p = dst->pixels + (dstrect->y * dst->w) + dstrect->x;
+    uint32_t *p = (uint32_t *)dst->pixels + (dstrect->y * dst->w) + dstrect->x;
     for(int i=dstrect->y;i<dstrect->y+dstrect->h;i++)
     {
       memset(p, color, dstrect->w * sizeof(uint32_t));
