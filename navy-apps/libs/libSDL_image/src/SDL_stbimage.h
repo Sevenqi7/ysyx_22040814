@@ -227,7 +227,7 @@ SDL_STBIMG_DEF SDL_Surface* STBIMG_LoadFromMemory(const unsigned char* buffer, i
 		SDL_free(img.data);
 		return NULL;
 	}
-	
+	printf("NULL");
 	return ret;
 }
 
