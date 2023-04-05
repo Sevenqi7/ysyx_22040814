@@ -26,7 +26,6 @@ SDL_Surface *IMG_Load(const char *filename)
   assert(s);
   close(fd);
   free(img_buf);
-  assert(0);
   return s;
 }
 
