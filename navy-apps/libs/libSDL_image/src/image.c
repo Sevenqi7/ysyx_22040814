@@ -4,6 +4,7 @@
 
 #define SDL_STBIMAGE_IMPLEMENTATION
 #include "SDL_stbimage.h"
+#include <unistd.h>
 #include <fcntl.h>
 
 SDL_Surface* IMG_Load_RW(SDL_RWops *src, int freesrc) {
