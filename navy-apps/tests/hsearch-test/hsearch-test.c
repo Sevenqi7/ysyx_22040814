@@ -19,8 +19,8 @@ int main()
     ENTRY item;
     item.key = "test";
     item.data = t;
-    printf("start test\n");
     ENTRY *ret = hsearch(item, ENTER);
+    printf("start test\n");
     if(ret)
     {
         ENTRY test;
