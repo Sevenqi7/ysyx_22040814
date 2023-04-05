@@ -9,7 +9,7 @@
 #include <elf.h>
 
 
-#define MAX_FTRACE_INFO_SIZE 2560
+#define MAX_FTRACE_INFO_SIZE 256
 #define MAX_FTRACE_STACK_SIZE 256
 
 #define CONFIG_FTRACE 1
