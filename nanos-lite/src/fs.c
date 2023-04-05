@@ -72,7 +72,6 @@ size_t fs_read(int fd, const void *buf, size_t len)
   file_table[fd].open_offset += read_len;
   // Log("readlen:%d", read_len);
   // Log("offset after read:%d", file_table[fd].open_offset);
-  printf("readlen:%d\n", read_len);
   return read_len;
 }
 
