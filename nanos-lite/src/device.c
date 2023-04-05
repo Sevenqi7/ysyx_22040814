@@ -23,7 +23,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   AM_INPUT_KEYBRD_T kbd;
   ioe_read(AM_INPUT_KEYBRD, &kbd);
   if(kbd.keycode == AM_KEY_NONE) return 0;
-  return snprintf(buf, len, "%s %s\n", kbd.keydown ? "kd" : "ku", keyname[kbd.keycode]);
+  return snprintf(buf, len, "%s %s", kbd.keydown ? "kd" : "ku", keyname[kbd.keycode]);
 }
 
 static int width = -1, height = -1;
