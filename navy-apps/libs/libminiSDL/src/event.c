@@ -37,6 +37,7 @@ int SDL_WaitEvent(SDL_Event *event) {
           event->key.type = event->type;
           int i;
           for(i=0;i<sizeof(keyname)/sizeof(char *);i++){
+              printf("event_buf[3]:%s keyname:%s\n", &event_buf[3], keyname[i]);
               if(!strcmp(&event_buf[3], keyname[i]))
               {
                 event->key.keysym.sym = i;
