@@ -219,7 +219,7 @@ SDL_STBIMG_DEF SDL_Surface* STBIMG_LoadFromMemory(const unsigned char* buffer, i
 		return NULL;
 	}
 	img.format = bppToUse;
-
+	printf("NULL\n");
 	ret = STBIMG__CreateSurfaceImpl(img, origin_has_alpha, 1);
 
 	if(ret == NULL)
