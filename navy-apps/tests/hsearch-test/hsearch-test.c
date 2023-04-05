@@ -19,6 +19,7 @@ int main()
     item.key = strdup("test");
     item.data = t;
     ENTRY *ret = hsearch(item, ENTER);
+    printf("start test\n");
     if(ret)
     {
         ENTRY test;
