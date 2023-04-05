@@ -16,10 +16,10 @@ int main()
     testdata *t = malloc(sizeof(testdata));
     t->a = 1, t->b = 2, t->c = 3, t->d = 4;
     ENTRY item;
+    printf("start test\n");
     item.key = strdup("test");
     item.data = t;
     ENTRY *ret = hsearch(item, ENTER);
-    printf("start test\n");
     if(ret)
     {
         ENTRY test;
