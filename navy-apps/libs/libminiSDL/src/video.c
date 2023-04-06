@@ -54,7 +54,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     for(int i=0;i<s->h;i++){
       for(int j=0;j<s->w;j++)
         pixels[j] = palette[s->pixels[(y+i)*s->w + x]].val;
-      NDL_DrawRect(pixels, x, y+i, s->w, 1);
+      NDL_DrawRect(pixels, 0, i, s->w, 1);
       printf("%dth line pixel\n", i);
     }
   }
