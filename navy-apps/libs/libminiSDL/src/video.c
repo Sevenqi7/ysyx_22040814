@@ -69,7 +69,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   uint32_t *pixels;
   if(!x && !y && !w && !h)
   {
-    pixels = (uint32_t *)malloc(sizeof(s->w * s->h));
+    pixels = (uint32_t *)malloc(s->w * s->h * sizeof(uint32_t));
     printf("s->w:%d s->h:%d\n", s->w, s->h);
     for(int i=0;i<s->h;i++){
       for(int j=0;j<s->w;j++)
@@ -80,7 +80,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     NDL_DrawRect(pixels, 0, 0, s->w, s->h);
   }
   else{
-    pixels = (uint32_t *)malloc(sizeof(w * h));
+    pixels = (uint32_t *)malloc(w * h * sizeof(uint32_t));
     printf("w:%d h:%d\n",w, h);
     for(int i=0;i<x;i++){
       for(int j=0;j<y;j++)
