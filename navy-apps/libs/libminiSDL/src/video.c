@@ -40,6 +40,10 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   }
 }
 
+static inline uint32_t translate_color(SDL_Color *color){
+  return (color->a << 24) | (color->r << 16) | (color->g << 8) | color->b;
+}
+
 //NOTE:写的有点臃肿， 懒得管了
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   if(!s->format->palette){  
@@ -53,27 +57,30 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   }
     printf("newfunc test\n");
   SDL_Color *palette = s->format->palette->colors;
+  uint32_t *pixels;
   if(!x && !y && !w && !h)
   {
-    uint32_t pixels[s->w];
+    pixels = (uint32_t *)malloc(sizeof(s->w * s->h));
     printf("s->w:%d s->h:%d\n", s->w, s->h);
     for(int i=0;i<s->h;i++){
       for(int j=0;j<s->w;j++)
-        pixels[j] = palette[s->pixels[i * s->w + j]].val >> 8;
-      NDL_DrawRect(pixels, 0, i, s->w, 1);
-      printf("%dth line pixel\n", i);
+        // pixels[i*s->w + j] = palette[s->pixels[i * s->w + j]].val >> 8;
+        pixels[i*s->w + j] = translate_color(&palette[s->pixels[i * s->w + j]]);
+
     }
+    NDL_DrawRect(pixels, 0, 0, s->w, s->h);
   }
   else{
-    uint32_t pixels[w];
+    pixels = (uint32_t *)malloc(sizeof(w * h));
     printf("w:%d h:%d\n",w, h);
-    for(int i=0;i<h;i++){
-      for(int j=0;j<w;j++)
-        pixels[j] = palette[s->pixels[(y+i)*s->w + x + j]].val >> 8;
-      NDL_DrawRect(pixels, x, y+i, w, 1);
-      printf("%dth line pixel\n", i);
+    for(int i=0;i<x;i++){
+      for(int j=0;j<y;j++)
+        // pixels[i*x + j] = palette[s->pixels[(y+i)*s->w + x + j]].val >> 8;
+        pixels[i*x + j] = translate_color(&palette[s->pixels[(y+i)*s->w + x + j]]);
     }
+    NDL_DrawRect(pixels, x, y, w, h);
   }
+  if(pixels) free(pixels);
   printf("functtestend\n");
 }
 
