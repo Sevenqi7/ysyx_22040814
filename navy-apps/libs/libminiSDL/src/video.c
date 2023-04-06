@@ -50,6 +50,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   if(!x && !y && !w && !h)
   {
     uint32_t pixels[s->w * s->h];
+    printf("s->w:%d s->h:%d\n", s->w, s->h);
     for(int i=0;i<s->h;i++){
       for(int j=0;j<s->w;j++)
         pixels[i * s->w + j] = palette[s->pixels[(y+i)*s->w + x]];
@@ -58,7 +59,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     NDL_DrawRect(pixels, 0, 0, s->w, s->h);
   }
   else{uint32_t pixels[w * h];
-
+    printf("w:%d h:%d\n",w, h);
     for(int i=0;i<h;i++){
       for(int j=0;j<w;j++)
         pixels[i * w + j] = palette[s->pixels[(y+i)*s->w + x]];
