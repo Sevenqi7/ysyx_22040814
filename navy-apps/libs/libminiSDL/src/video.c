@@ -45,6 +45,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
       }
       return ;
   }
+    printf("newfunc test\n");
   uint32_t *pixels, *palette = (uint32_t *)s->format->palette->colors;
   if(!x && !y && !w && !h)
   {
@@ -62,6 +63,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     NDL_DrawRect(pixels, x, y, w, h);
   }
   free(pixels);
+  printf("functtestend\n");
 }
 
 // APIs below are already implemented.
