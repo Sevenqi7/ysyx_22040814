@@ -38,7 +38,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
       if(!x && !y && !w && !h)
           NDL_DrawRect((uint32_t *)s->pixels, 0, 0, s->w, s->h);
       else{
-          // NDL_DrawRect((uint32_t *)s->pixels + y * s->w + x, x, y, w, h);
+          NDL_DrawRect((uint32_t *)s->pixels + y * s->w + x, x, y, w, h);
       }
   }
   // else
