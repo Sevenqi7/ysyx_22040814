@@ -65,7 +65,7 @@ size_t fs_read(int fd, const void *buf, size_t len)
   int file_num = sizeof(file_table) / sizeof(Finfo), file_len = file_table[fd].size;
   assert(fd >= 0 && fd < file_num);
   int disk_offset = file_table[fd].disk_offset, open_offset = file_table[fd].open_offset;
-  if(open_offset >= file_len) return -1;
+  if(open_offset >= file_len) return 0;
   int offset = disk_offset + open_offset; 
   int read_len = len > (file_len-open_offset) ? (file_len-open_offset) : len;
   memcpy((void *)buf, &ramdisk_start + offset, read_len);
