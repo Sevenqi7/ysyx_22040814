@@ -8,6 +8,7 @@
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect) {
   assert(dst && src);
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
+  printf("Blit\n");
   uint32_t dst_x = dstrect ? dstrect->x : 0, dst_y = dstrect ? dstrect->y : 0;
   uint32_t src_x = srcrect ? srcrect->x : 0, src_y = srcrect ? srcrect->y : 0;
   uint32_t src_w = srcrect ? srcrect->w :src->w, src_h = srcrect ? srcrect->h : src->h;
@@ -23,10 +24,12 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   // {
 
   // }
+  printf("Blitend\n");
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   assert(dst);
+  printf("Fill\n");
   if(!dstrect)
       for(int i=0;i<dst->w * dst->h;i++) dst->pixels[i] = color;
   else
@@ -38,6 +41,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
       p += dst->w;
     }
   }
+  printf("Fillend\n");
 }
 
 static inline uint32_t translate_color(SDL_Color *color){
