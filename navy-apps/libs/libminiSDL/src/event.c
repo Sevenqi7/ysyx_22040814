@@ -1,5 +1,7 @@
 #include <NDL.h>
 #include <SDL.h>
+#include <assert.h>
+#include <string.h>
 
 #define keyname(k) #k,
 
@@ -13,10 +15,63 @@ int SDL_PushEvent(SDL_Event *ev) {
 }
 
 int SDL_PollEvent(SDL_Event *ev) {
-  return 0;
+  char event_buf[32];
+  if(!NDL_PollEvent(event_buf, 32))
+      return 0;
+  if(!strncmp("kd", event_buf, 2))
+      ev->type = SDL_KEYDOWN;
+  else if(!strncmp("ku", event_buf, 2))
+      ev->type = SDL_KEYUP;   
+  switch(ev->type)
+  {
+    case SDL_KEYDOWN: 
+    case SDL_KEYUP  :
+          ev->key.type = ev->type;
+          int i;
+          for(i=0;i<sizeof(keyname)/sizeof(char *);i++){
+              if(!strncmp(&event_buf[3], keyname[i], strlen(&event_buf[3])))
+              {
+                ev->key.keysym.sym = i;
+                break;
+              }
+          }
+          assert(i != sizeof(keyname) / sizeof(char *));
+          break;
+    default: printf("unsupported event type!\n"); assert(0);
+  }
+  return 1;
 }
 
 int SDL_WaitEvent(SDL_Event *event) {
+  char event_buf[32];
+  while(1)
+  {
+    if(NDL_PollEvent(event_buf, 32))
+    {
+      if(!strncmp("kd", event_buf, 2))
+          event->type = SDL_KEYDOWN;
+      else if(!strncmp("ku", event_buf, 2))
+          event->type = SDL_KEYUP;
+      break;
+    }
+  }
+  switch(event->type)
+  {
+    case SDL_KEYDOWN: 
+    case SDL_KEYUP  :
+          event->key.type = event->type;
+          int i;
+          for(i=0;i<sizeof(keyname)/sizeof(char *);i++){
+              if(!strncmp(&event_buf[3], keyname[i], strlen(&event_buf[3])))
+              {
+                event->key.keysym.sym = i;
+                break;
+              }
+          }
+          assert(i != sizeof(keyname) / sizeof(char *));
+          break;
+    default: printf("unsupported event type!\n"); assert(0);
+  }
   return 1;
 }
 

@@ -7,12 +7,38 @@
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect) {
   assert(dst && src);
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
+  uint32_t dst_x = dstrect ? dstrect->x : 0, dst_y = dstrect ? dstrect->y : 0;
+  uint32_t src_x = srcrect ? srcrect->x : 0, src_y = srcrect ? srcrect->y : 0;
+  uint32_t src_w = srcrect ? srcrect->w :src->w, src_h = srcrect ? srcrect->h : src->h;
+  for(int i=0;i<src_h && i+dst_y<dst->h;i++)
+  {
+    uint32_t *psrc = (uint32_t *)src->pixels + (src_y + i) * src->w + src_x;
+    uint32_t *pdst = (uint32_t *)dst->pixels + (dst_y + i) * dst->w + dst_x;
+    for(int j=dst_x;j<dst->w && j<(dst_x + src_w);j++) *pdst++ = *psrc++;
+  }
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
+  assert(dst);
+  if(!dstrect)
+      memset(dst->pixels, color, dst->w * dst->h * sizeof(uint32_t));
+  else
+  {
+    uint32_t *p = (uint32_t *)dst->pixels + (dstrect->y * dst->w) + dstrect->x;
+    for(int i=dstrect->y;i<dstrect->y+dstrect->h;i++)
+    {
+      memset(p, color, dstrect->w * sizeof(uint32_t));
+      p += dst->w;
+    }
+  }
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
+  if(!x && !y && !w && !h)
+      NDL_DrawRect((uint32_t *)s->pixels, x, y, s->w, s->h);
+  else{
+      NDL_DrawRect((uint32_t *)s->pixels + y * s->w + x, x, y, w, h);
+  }
 }
 
 // APIs below are already implemented.

@@ -28,7 +28,6 @@ static int is_batch_mode = false;
 
 void init_regex();
 void init_wp_pool();
-void display_ftrace();
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {
@@ -158,7 +157,11 @@ static int cmd_x(char *args)
 #ifdef CONFIG_FTRACE
 static int cmd_ftrace(char *args)
 {
-    display_ftrace();
+    void display_ftrace(int num);
+    if(!args)
+        display_ftrace(-1);
+    else
+        display_ftrace(atoi(args));
     return 0;
 }
 #endif

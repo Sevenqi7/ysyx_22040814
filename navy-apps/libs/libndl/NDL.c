@@ -2,22 +2,69 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <fcntl.h>
 #include <unistd.h>
+#include <assert.h>
+#include <sys/time.h>
 
 static int evtdev = -1;
 static int fbdev = -1;
 static int screen_w = 0, screen_h = 0;
 
 uint32_t NDL_GetTicks() {
-  return 0;
+  struct timeval tv;
+  assert(!gettimeofday(&tv, NULL));
+  return tv.tv_sec * 1000 + tv.tv_usec / 1000;
 }
 
 int NDL_PollEvent(char *buf, int len) {
+  int fd = open("/dev/events", 0, 0);
+  if(read(fd, buf, len))
+      return 1;
   return 0;
 }
 
+void NDL_GetScreenSize(int *w, int *h)
+{
+    char buf[64];
+    int fd = open("/proc/dispinfo", 0, 0);
+    if(fd == -1) {
+    printf("Failed to read dispinfo\n");
+      return ;
+    }
+    read(fd, buf, 64);
+    char *p = buf;
+    if(!strncmp(p, "WIDTH", 5))
+    {
+        p += 5;
+        while(*p == ' ') p++;
+        if(*p++ != ':'){
+          printf("Invalid dispinfo format: missing \":\"\n");
+          return ;
+        }
+        while(*p == ' ') p++;
+        *w = atoi(p);
+        while(*p++ != '\n');
+        if(!strncmp(p, "HEIGHT", 6))
+        {
+          p += 6;
+          while(*p == ' ') p++;
+          if(*p++ != ':'){
+            printf("Invalid dispinfo format. missing \":\"\n");
+            return ;
+          }
+          while(*p == ' ') p++;
+          *h = atoi(p);
+        }
+    }
+    close(fd);
+}
+
 void NDL_OpenCanvas(int *w, int *h) {
-  if (getenv("NWM_APP")) {
+  NDL_GetScreenSize(&screen_w, &screen_h);
+  if(!(*w) && !(*h))
+    *w = screen_w, *h = screen_h;
+  if(getenv("NWM_APP")) {
     int fbctl = 4;
     fbdev = 5;
     screen_w = *w; screen_h = *h;
@@ -34,9 +81,22 @@ void NDL_OpenCanvas(int *w, int *h) {
     }
     close(fbctl);
   }
+  printf("width:%d   height:%d\n", screen_w, screen_h);
 }
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
+  int fd = open("/dev/fb", 0, 0);
+  if(fd == -1) {printf("Failed to open /dev/fb!\n"); assert(0);}
+  uint64_t draw_offset = (((screen_h - h) / 2 + y) * screen_w + ((screen_w - w) / 2 + x)) * sizeof(uint32_t);
+  for(int i=y;i<y+h;i++)
+  {
+    lseek(fd, draw_offset, SEEK_SET);
+    write(fd, pixels, w * sizeof(uint32_t));
+    draw_offset += screen_w * sizeof(uint32_t);
+    pixels += w;
+  }
+
+  close(fd);
 }
 
 void NDL_OpenAudio(int freq, int channels, int samples) {
