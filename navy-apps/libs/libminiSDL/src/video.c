@@ -12,18 +12,23 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   uint32_t dst_x = dstrect ? dstrect->x : 0, dst_y = dstrect ? dstrect->y : 0;
   uint32_t src_x = srcrect ? srcrect->x : 0, src_y = srcrect ? srcrect->y : 0;
   uint32_t src_w = srcrect ? srcrect->w :src->w, src_h = srcrect ? srcrect->h : src->h;
-  // if(!src->format->palette){
+  if(!src->format->palette){
       for(int i=0;i<src_h && i+dst_y<dst->h;i++)
       {
         uint32_t *psrc = (uint32_t *)src->pixels + (src_y + i) * src->w + src_x;
         uint32_t *pdst = (uint32_t *)dst->pixels + (dst_y + i) * dst->w + dst_x;
         for(int j=dst_x;j<dst->w && j<(dst_x + src_w);j++) *pdst++ = *psrc++;
       }
-  // }
-  // else
-  // {
-
-  // }
+  }
+  else
+  { 
+      for(int i=0;i<src_h && i+dst_y<dst->h;i++)
+      {
+          uint8_t *psrc = src->pixels + (src_y + i) * src->w + src_x;
+          uint8_t *pdst = dst->pixels + (dst_y + i) * dst->w + dst_x;
+          for(int j=dst_x;j<dst->w && j<(dst_x + src_w);j++) *pdst++ = *psrc++;
+      }
+  }
   printf("Blitend\n");
 }
 
@@ -60,31 +65,31 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
       return ;
   }
     printf("newfunc test\n");
-  // SDL_Color *palette = s->format->palette->colors;
-  // uint32_t *pixels;
-  // if(!x && !y && !w && !h)
-  // {
-  //   pixels = (uint32_t *)malloc(sizeof(s->w * s->h));
-  //   printf("s->w:%d s->h:%d\n", s->w, s->h);
-  //   for(int i=0;i<s->h;i++){
-  //     for(int j=0;j<s->w;j++)
-  //       // pixels[i*s->w + j] = palette[s->pixels[i * s->w + j]].val >> 8;
-  //       pixels[i*s->w + j] = translate_color(&palette[s->pixels[i * s->w + j]]);
+  SDL_Color *palette = s->format->palette->colors;
+  uint32_t *pixels;
+  if(!x && !y && !w && !h)
+  {
+    pixels = (uint32_t *)malloc(sizeof(s->w * s->h));
+    printf("s->w:%d s->h:%d\n", s->w, s->h);
+    for(int i=0;i<s->h;i++){
+      for(int j=0;j<s->w;j++)
+        // pixels[i*s->w + j] = palette[s->pixels[i * s->w + j]].val >> 8;
+        pixels[i*s->w + j] = translate_color(&palette[s->pixels[i * s->w + j]]);
 
-  //   }
-  //   NDL_DrawRect(pixels, 0, 0, s->w, s->h);
-  // }
-  // else{
-  //   pixels = (uint32_t *)malloc(sizeof(w * h));
-  //   printf("w:%d h:%d\n",w, h);
-  //   for(int i=0;i<x;i++){
-  //     for(int j=0;j<y;j++)
-  //       // pixels[i*x + j] = palette[s->pixels[(y+i)*s->w + x + j]].val >> 8;
-  //       pixels[i*x + j] = translate_color(&palette[s->pixels[(y+i)*s->w + x + j]]);
-  //   }
-  //   NDL_DrawRect(pixels, x, y, w, h);
-  // }
-  // if(pixels) free(pixels);
+    }
+    NDL_DrawRect(pixels, 0, 0, s->w, s->h);
+  }
+  else{
+    pixels = (uint32_t *)malloc(sizeof(w * h));
+    printf("w:%d h:%d\n",w, h);
+    for(int i=0;i<x;i++){
+      for(int j=0;j<y;j++)
+        // pixels[i*x + j] = palette[s->pixels[(y+i)*s->w + x + j]].val >> 8;
+        pixels[i*x + j] = translate_color(&palette[s->pixels[(y+i)*s->w + x + j]]);
+    }
+    NDL_DrawRect(pixels, x, y, w, h);
+  }
+  if(pixels) free(pixels);
   printf("functtestend\n");
 }
 
