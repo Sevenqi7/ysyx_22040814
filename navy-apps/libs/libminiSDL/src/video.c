@@ -60,31 +60,31 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
       return ;
   }
     printf("newfunc test\n");
-  SDL_Color *palette = s->format->palette->colors;
-  uint32_t *pixels;
-  if(!x && !y && !w && !h)
-  {
-    pixels = (uint32_t *)malloc(sizeof(s->w * s->h));
-    printf("s->w:%d s->h:%d\n", s->w, s->h);
-    for(int i=0;i<s->h;i++){
-      for(int j=0;j<s->w;j++)
-        // pixels[i*s->w + j] = palette[s->pixels[i * s->w + j]].val >> 8;
-        pixels[i*s->w + j] = translate_color(&palette[s->pixels[i * s->w + j]]);
+  // SDL_Color *palette = s->format->palette->colors;
+  // uint32_t *pixels;
+  // if(!x && !y && !w && !h)
+  // {
+  //   pixels = (uint32_t *)malloc(sizeof(s->w * s->h));
+  //   printf("s->w:%d s->h:%d\n", s->w, s->h);
+  //   for(int i=0;i<s->h;i++){
+  //     for(int j=0;j<s->w;j++)
+  //       // pixels[i*s->w + j] = palette[s->pixels[i * s->w + j]].val >> 8;
+  //       pixels[i*s->w + j] = translate_color(&palette[s->pixels[i * s->w + j]]);
 
-    }
-    NDL_DrawRect(pixels, 0, 0, s->w, s->h);
-  }
-  else{
-    pixels = (uint32_t *)malloc(sizeof(w * h));
-    printf("w:%d h:%d\n",w, h);
-    for(int i=0;i<x;i++){
-      for(int j=0;j<y;j++)
-        // pixels[i*x + j] = palette[s->pixels[(y+i)*s->w + x + j]].val >> 8;
-        pixels[i*x + j] = translate_color(&palette[s->pixels[(y+i)*s->w + x + j]]);
-    }
-    NDL_DrawRect(pixels, x, y, w, h);
-  }
-  if(pixels) free(pixels);
+  //   }
+  //   NDL_DrawRect(pixels, 0, 0, s->w, s->h);
+  // }
+  // else{
+  //   pixels = (uint32_t *)malloc(sizeof(w * h));
+  //   printf("w:%d h:%d\n",w, h);
+  //   for(int i=0;i<x;i++){
+  //     for(int j=0;j<y;j++)
+  //       // pixels[i*x + j] = palette[s->pixels[(y+i)*s->w + x + j]].val >> 8;
+  //       pixels[i*x + j] = translate_color(&palette[s->pixels[(y+i)*s->w + x + j]]);
+  //   }
+  //   NDL_DrawRect(pixels, x, y, w, h);
+  // }
+  // if(pixels) free(pixels);
   printf("functtestend\n");
 }
 
