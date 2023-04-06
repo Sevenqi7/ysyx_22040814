@@ -51,7 +51,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   {
     pixels = (uint32_t *)malloc(s->w * s->h * sizeof(uint32_t));
     for(int i=0;i<s->h;i++)
-      for(int j=0;i<s->w;j++)
+      for(int j=0;j<s->w;j++)
         pixels[i * s->w + j] = palette[((uint32_t *)s->pixels)[(y+i)*s->w + x]];
     NDL_DrawRect(pixels, 0, 0, s->w, s->h);
   }
@@ -62,7 +62,8 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
         pixels[i * w + j] = palette[((uint32_t *)s->pixels)[(y+i)*s->w + x]];
     NDL_DrawRect(pixels, x, y, w, h);
   }
-  free(pixels);
+  if(pixels)
+      free(pixels);
   printf("functtestend\n");
 }
 
