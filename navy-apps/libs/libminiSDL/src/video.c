@@ -1,6 +1,7 @@
 #include <NDL.h>
 #include <sdl-video.h>
 #include <assert.h>
+#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
@@ -33,6 +34,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   }
 }
 
+//NOTE:写的有点臃肿， 懒得管了
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   if(!s->format->palette){  
       if(!x && !y && !w && !h)
@@ -40,8 +42,26 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
       else{
           printf("untest situation in SDL_UpdateRect\n");
           NDL_DrawRect((uint32_t *)s->pixels + y * s->w + x, x, y, w, h);
-       }
+      }
+      return ;
   }
+  uint32_t *pixels, *palette = (uint32_t *)s->format->palette->colors;
+  if(!x && !y && !w && !h)
+  {
+    pixels = (uint32_t *)malloc(s->w * s->h * sizeof(uint32_t));
+    for(int i=0;i<s->h;i++)
+      for(int j=0;i<s->w;j++)
+        pixels[i * s->w + j] = palette[((uint32_t *)s->pixels)[(y+i)*s->w + x]];
+    NDL_DrawRect(pixels, 0, 0, s->w, s->h);
+  }
+  else{
+    pixels = (uint32_t *)malloc(w * h * sizeof(uint32_t));
+    for(int i=0;i<h;i++)
+      for(int j=0;j<w;j++)
+        pixels[i * w + j] = palette[((uint32_t *)s->pixels)[(y+i)*s->w + x]];
+    NDL_DrawRect(pixels, x, y, w, h);
+  }
+  free(pixels);
 }
 
 // APIs below are already implemented.
