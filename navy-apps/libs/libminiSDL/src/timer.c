@@ -19,5 +19,5 @@ void SDL_Delay(uint32_t ms) {
   do
   {
       then = SDL_GetTicks();
-  } while (then - now >= ms);
+  } while (then - now <= ms);
 }
