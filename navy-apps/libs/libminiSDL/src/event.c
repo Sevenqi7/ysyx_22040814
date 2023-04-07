@@ -20,10 +20,12 @@ int SDL_PushEvent(SDL_Event *ev) {
 }
 
 int SDL_PollEvent(SDL_Event *ev) {
-  printf("Poll\n");
+  // printf("Poll\n");
   char event_buf[32];
   if(!NDL_PollEvent(event_buf, 32))
-      {printf("Poll end\n");return 0;}
+      {
+        // printf("Poll end\n");
+        return 0;}
   if(!strncmp("kd", event_buf, 2))
       ev->type = SDL_KEYDOWN;
   else if(!strncmp("ku", event_buf, 2))
@@ -46,7 +48,7 @@ int SDL_PollEvent(SDL_Event *ev) {
           break;
     default: printf("unsupported event type!\n"); assert(0);
   }
-  printf("Poll end\n");
+  // printf("Poll end\n");
   return 1;
 }
 
