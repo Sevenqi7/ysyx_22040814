@@ -84,7 +84,7 @@ void NDL_OpenCanvas(int *w, int *h) {
   }
   canva_w = *w, canva_h = *h;
   printf("screen_width:%d   screen_height:%d\n", screen_w, screen_h);
-  printf("canva height:%d   canva height: %d\n");
+  printf("canva height:%d   canva height: %d\n", canva_h, canva_w);
 }
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
