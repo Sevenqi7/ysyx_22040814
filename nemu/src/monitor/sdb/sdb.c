@@ -159,12 +159,14 @@ extern void isa_difftest_attach(bool flag);
 static int cmd_attach(char *args)
 {
   isa_difftest_attach(true);
+  printf("Difftest On.\n");
   return 0;
 }
 
 static int cmd_detach(char *args)
 {
   isa_difftest_attach(false);
+  printf("Difftest Off.\n");
   return 0;
 }
 #endif
