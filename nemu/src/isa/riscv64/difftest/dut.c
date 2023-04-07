@@ -40,9 +40,9 @@ void isa_difftest_attach(bool flag) {
       difftest_flag = true;
       extern void (*ref_difftest_memcpy)(paddr_t addr, void *buf, size_t n, bool direction) ;
       extern void (*ref_difftest_regcpy)(void *dut, bool direction);
-      printf("eee\n");
       ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
-      ref_difftest_memcpy(0x100000, guest_to_host(0x100000), CONFIG_MSIZE, DIFFTEST_TO_REF);
+      ref_difftest_memcpy(RESET_VECTOR + 0x100000, guest_to_host(RESET_VECTOR + 0x100000), CONFIG_MSIZE - 0x100000, DIFFTEST_TO_REF);
+      printf("eee\n");
   }
   else
       difftest_flag = false;
