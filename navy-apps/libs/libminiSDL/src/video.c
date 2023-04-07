@@ -8,7 +8,6 @@
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect) {
   assert(dst && src);
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
-  printf("Filt\n");
   uint32_t dst_x = dstrect ? dstrect->x : 0, dst_y = dstrect ? dstrect->y : 0;
   uint32_t src_x = srcrect ? srcrect->x : 0, src_y = srcrect ? srcrect->y : 0;
   uint32_t src_w = srcrect ? srcrect->w :src->w, src_h = srcrect ? srcrect->h : src->h;
@@ -29,21 +28,30 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
           for(int j=dst_x;j<dst->w && j<(dst_x + src_w);j++) *pdst++ = *psrc++;
       }
   }
-  printf("FIltend\n");
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   assert(dst);
-  if(!dstrect)
-      for(int i=0;i<dst->w * dst->h;i++) dst->pixels[i] = color;
+  if(!dst->format->palette)
+  {
+      if(!dstrect)
+          for(int i=0;i<dst->w * dst->h;i++) dst->pixels[i] = color;
+      else
+      {
+        uint32_t *p = (uint32_t *)dst->pixels + (dstrect->y * dst->w) + dstrect->x;
+        for(int i=dstrect->y;i<dstrect->y+dstrect->h;i++)
+        {
+          for(int j=0;j<dstrect->w;j++) p[i] = color;
+          p += dst->w;
+        }
+      }
+  }
   else
   {
-    uint32_t *p = (uint32_t *)dst->pixels + (dstrect->y * dst->w) + dstrect->x;
-    for(int i=dstrect->y;i<dstrect->y+dstrect->h;i++)
-    {
-      for(int j=0;j<dstrect->w;j++) p[i] = color;
-      p += dst->w;
-    }
+      SDL_Color *palette = dst->format->palette->colors;
+      if(!dstrect)
+          for(int i=0;i<dst->w * dst->h;i++) palette[dst->pixels[i]] = color;
+      
   }
 }
 
