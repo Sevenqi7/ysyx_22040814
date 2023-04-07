@@ -42,9 +42,9 @@ void isa_difftest_attach(bool flag) {
       extern void (*ref_difftest_memcpy)(paddr_t addr, void *buf, size_t n, bool direction) ;
       extern void (*ref_difftest_regcpy)(void *dut, bool direction);
       printf("eee\n");
-      ref_difftest_memcpy(0x100000, guest_to_host(0x100000), PMEM_SIZE - 0x100000, DIFFTEST_TO_REF);
-      assert(0);
       ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
+      assert(0);
+      ref_difftest_memcpy(0x100000, guest_to_host(0x100000), PMEM_SIZE - 0x100000, DIFFTEST_TO_REF);
   }
   else
       difftest_flag = false;
