@@ -4,13 +4,17 @@
 #include <string.h>
 
 #define keyname(k) #k,
+#define NR_KEY (SDLK_PAGEDOWN + 1)
 
 static const char *keyname[] = {
   "NONE",
   _KEYS(keyname)
 };
 
+static uint8_t keystate [NR_KEY];
+
 int SDL_PushEvent(SDL_Event *ev) {
+  assert(0);
   return 0;
 }
 
@@ -76,9 +80,14 @@ int SDL_WaitEvent(SDL_Event *event) {
 }
 
 int SDL_PeepEvents(SDL_Event *ev, int numevents, int action, uint32_t mask) {
+  assert(0);
   return 0;
 }
 
 uint8_t* SDL_GetKeyState(int *numkeys) {
-  return NULL;
+  memset(keystate, 0, NR_KEY);
+  SDL_Event ev;
+  if(SDL_PollEvent(&ev)) 
+    keystate[ev.key.keysym.sym] = 1;
+  return keystate;
 }
