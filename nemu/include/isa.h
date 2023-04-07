@@ -53,6 +53,6 @@ word_t isa_query_intr();
 
 // difftest
 bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc);
-void isa_difftest_attach();
+void isa_difftest_attach(bool flag);
 
 #endif

@@ -154,6 +154,21 @@ static int cmd_x(char *args)
     return 0;
 }
 
+#ifdef CONFIG_DIFFTEST
+extern void isa_difftest_attach(bool flag);
+static int cmd_attach(char *args)
+{
+  isa_difftest_attach(true);
+  return 0;
+}
+
+static int cmd_detach(char *args)
+{
+  isa_difftest_attach(false);
+  return 0;
+}
+#endif
+
 #ifdef CONFIG_FTRACE
 static int cmd_ftrace(char *args)
 {
@@ -197,6 +212,8 @@ static struct {
   { "w", "Set watchpoint.", cmd_w},
   { "d", "Delete watchpoint.", cmd_d},
   IFDEF(CONFIG_FTRACE, { "ftrace", "Display function call trace.", cmd_ftrace},)
+  IFDEF(CONFIG_DIFFTEST, {"attach", "Attach the difftest.", cmd_attach},)
+  IFDEF(CONFIG_DIFFTEST, {"detach", "Detach the difftest.", cmd_detach},)
   { "info", "Print the content of register(-r) or watchpoing(-w).", cmd_info}
 
   /* TODO: Add more commands */
