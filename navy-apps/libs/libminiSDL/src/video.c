@@ -61,7 +61,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   }
   SDL_Color *palette = s->format->palette->colors;
   uint32_t *pixels;
-  printf("Update\n");
+  // printf("Update\n");
   if(!x && !y && !w && !h)
   {
     pixels = (uint32_t *)malloc(s->w * s->h * sizeof(uint32_t));
@@ -81,7 +81,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     NDL_DrawRect(pixels, x, y, w, h);
   }
   if(pixels) free(pixels);
-  printf("UpdateEnd\n");
+  // printf("UpdateEnd\n");
 }
 
 // APIs below are already implemented.
