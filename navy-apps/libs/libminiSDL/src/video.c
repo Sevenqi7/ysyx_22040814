@@ -91,7 +91,6 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     NDL_DrawRect(pixels, 0, 0, s->w, s->h);
   }
   else{
-    printf("untest code:2\n");
     pixels = (uint32_t *)malloc(w * h * sizeof(uint32_t));
     for(int i=0;i<w;i++){
       for(int j=0;j<h;j++)
