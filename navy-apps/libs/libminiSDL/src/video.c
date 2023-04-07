@@ -96,7 +96,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     pixels = (uint32_t *)malloc(w * h * sizeof(uint32_t));
     for(int i=0;i<x;i++){
       for(int j=0;j<y;j++)
-        pixels[i*w + j] = translate_color(&palette[s->pixels[(y+i)*s->w + x + j]]);
+        pixels[i*x + j] = translate_color(&palette[s->pixels[(y+i)*s->w + x + j]]);
     }
     NDL_DrawRect(pixels, x, y, w, h);
   }
