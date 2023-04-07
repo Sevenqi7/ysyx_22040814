@@ -18,7 +18,6 @@
 #include "../local-include/reg.h"
 #include <memory/paddr.h>
 
-#define PMEM_SIZE (PMEM_RIGHT - PMEM_LEFT + 1)
 extern const char *regs[];
 
 bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
@@ -43,8 +42,7 @@ void isa_difftest_attach(bool flag) {
       extern void (*ref_difftest_regcpy)(void *dut, bool direction);
       printf("eee\n");
       ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
-      assert(0);
-      ref_difftest_memcpy(0x100000, guest_to_host(0x100000), PMEM_SIZE - 0x100000, DIFFTEST_TO_REF);
+      ref_difftest_memcpy(0x100000, guest_to_host(0x100000), CONFIG_MSIZE, DIFFTEST_TO_REF);
   }
   else
       difftest_flag = false;
