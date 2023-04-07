@@ -70,7 +70,7 @@ int SDL_WaitEvent(SDL_Event *event) {
               if(!strncmp(&event_buf[3], keyname[i], strlen(&event_buf[3])))
               {
                 event->key.keysym.sym = i;
-                keystate[i] = ev->type;
+                keystate[i] = event->type;
                 break;
               }
           }
