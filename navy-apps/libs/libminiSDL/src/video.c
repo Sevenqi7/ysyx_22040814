@@ -21,6 +21,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   }
   else
   { 
+      printf("untest code 2\n");
       for(int i=0;i<src_h && i+dst_y<dst->h;i++)
       {
           uint8_t *psrc = src->pixels + (src_y + i) * src->w + src_x;
