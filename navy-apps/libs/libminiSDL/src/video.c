@@ -48,9 +48,10 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   }
   else
   {
+      printf("untest code 3\n");
       SDL_Color *palette = dst->format->palette->colors;
       if(!dstrect)
-          for(int i=0;i<dst->w * dst->h;i++) palette[dst->pixels[i]].val = color << 8;
+          for(int i=0;i<dst->w * dst->h;i++) palette[dst->pixels[i]].val = ;
       else
       {
         uint8_t *p = (uint8_t *)dst->pixels + (dstrect->y * dst->w) + dstrect->x;
@@ -91,7 +92,6 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     NDL_DrawRect(pixels, 0, 0, s->w, s->h);
   }
   else{
-    printf("untest code 2\n");
     pixels = (uint32_t *)malloc(w * h * sizeof(uint32_t));
     for(int i=0;i<h;i++){
       for(int j=0;j<w;j++)
