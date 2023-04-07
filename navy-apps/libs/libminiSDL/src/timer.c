@@ -1,4 +1,5 @@
 #include <NDL.h>
+#include <assert.h>
 #include <sdl-timer.h>
 #include <stdio.h>
 
