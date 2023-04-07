@@ -51,7 +51,7 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
       printf("untest code 3\n");
       SDL_Color *palette = dst->format->palette->colors;
       if(!dstrect)
-          for(int i=0;i<dst->w * dst->h;i++) palette[dst->pixels[i]].val = ;
+          for(int i=0;i<dst->w * dst->h;i++) palette[dst->pixels[i]].val = color << 8;
       else
       {
         uint8_t *p = (uint8_t *)dst->pixels + (dstrect->y * dst->w) + dstrect->x;
