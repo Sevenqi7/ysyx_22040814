@@ -1,6 +1,7 @@
 #include <NDL.h>
 #include <SDL.h>
 #include <assert.h>
+#include <stdio.h>
 #include <string.h>
 
 #define keyname(k) #k,
@@ -19,6 +20,7 @@ int SDL_PushEvent(SDL_Event *ev) {
 }
 
 int SDL_PollEvent(SDL_Event *ev) {
+  printf("Poll\n");
   char event_buf[32];
   if(!NDL_PollEvent(event_buf, 32))
       return 0;
@@ -44,10 +46,12 @@ int SDL_PollEvent(SDL_Event *ev) {
           break;
     default: printf("unsupported event type!\n"); assert(0);
   }
+  printf("Poll end\n");
   return 1;
 }
 
 int SDL_WaitEvent(SDL_Event *event) {
+  printf("wait\n");
   char event_buf[32];
   while(1)
   {
@@ -78,6 +82,7 @@ int SDL_WaitEvent(SDL_Event *event) {
           break;
     default: printf("unsupported event type!\n"); assert(0);
   }
+  printf("wait end\n");
   return 1;
 }
 
