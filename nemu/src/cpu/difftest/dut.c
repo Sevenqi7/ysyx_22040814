@@ -81,7 +81,7 @@ void init_difftest(char *ref_so_file, long img_size, int port) {
   ref_difftest_raise_intr = dlsym(handle, "difftest_raise_intr");
   assert(ref_difftest_raise_intr);
 
-  ref_difftest_set_regs = dlsym(handle, "difftest_set_regs");
+  ref_difftest_set_regs = dlsym(handle, "diff_set_regs");
   assert(ref_difftest_set_regs);
 
   void (*ref_difftest_init)(int) = dlsym(handle, "difftest_init");
