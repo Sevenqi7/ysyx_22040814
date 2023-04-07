@@ -23,7 +23,7 @@ int SDL_PollEvent(SDL_Event *ev) {
   printf("Poll\n");
   char event_buf[32];
   if(!NDL_PollEvent(event_buf, 32))
-      return 0;
+      {pritnf("Poll end\n";return 0;}
   if(!strncmp("kd", event_buf, 2))
       ev->type = SDL_KEYDOWN;
   else if(!strncmp("ku", event_buf, 2))
