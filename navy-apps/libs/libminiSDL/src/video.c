@@ -87,6 +87,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     for(int i=0;i<s->h;i++){
       for(int j=0;j<s->w;j++)
         pixels[i*s->w + j] = translate_color(&palette[s->pixels[i * s->w + j]]);
+        pixels[i*s->w + j] = (palette[s->pixels[i * s->w + j]].val);
 
     }
     NDL_DrawRect(pixels, 0, 0, s->w, s->h);
@@ -94,8 +95,8 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   else{
     printf("untest code 2\n");
     pixels = (uint32_t *)malloc(w * h * sizeof(uint32_t));
-    for(int i=0;i<w;i++){
-      for(int j=0;j<h;j++)
+    for(int i=0;i<h;i++){
+      for(int j=0;j<w;j++)
         pixels[i*w + j] = translate_color(&palette[s->pixels[(y+i)*s->w + x + j]]);
     }
     NDL_DrawRect(pixels, x, y, w, h);
