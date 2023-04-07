@@ -36,6 +36,7 @@ int SDL_PollEvent(SDL_Event *ev) {
               if(!strncmp(&event_buf[3], keyname[i], strlen(&event_buf[3])))
               {
                 ev->key.keysym.sym = i;
+                keystate[i] = ev->type;
                 break;
               }
           }
@@ -69,6 +70,7 @@ int SDL_WaitEvent(SDL_Event *event) {
               if(!strncmp(&event_buf[3], keyname[i], strlen(&event_buf[3])))
               {
                 event->key.keysym.sym = i;
+                keystate[i] = ev->type;
                 break;
               }
           }
@@ -85,9 +87,5 @@ int SDL_PeepEvents(SDL_Event *ev, int numevents, int action, uint32_t mask) {
 }
 
 uint8_t* SDL_GetKeyState(int *numkeys) {
-  memset(keystate, 0, NR_KEY);
-  SDL_Event ev;
-  if(SDL_PollEvent(&ev)) 
-    keystate[ev.key.keysym.sym] = 1;
   return keystate;
 }
