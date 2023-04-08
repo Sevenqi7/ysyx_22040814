@@ -27,7 +27,7 @@ switch_boot_pcb();
   Log("Initializing processes...");
 
   // load program here
-  naive_uload(NULL, "/bin/pal");
+  naive_uload(NULL, "/bin/dummy");
 }
 
 Context* schedule(Context *prev) {
