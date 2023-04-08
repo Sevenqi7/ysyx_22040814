@@ -203,7 +203,7 @@ static int cmd_save(char *args)
   for(word_t i=0;i<sizeof(cpu)/sizeof(word_t);i++)
     fprintf(fp, "%lu ", *p++);
   fprintf(fp, "\n");
-  for(word_t i=RESET_VECTOR;in_pmem(i);i++)
+  for(word_t i=RESET_VECTOR;in_pmem(i);i+=8)
   {
     word_t val = paddr_read(i, 8);
     if(val)
