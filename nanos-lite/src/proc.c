@@ -27,7 +27,7 @@ switch_boot_pcb();
   Log("Initializing processes...");
 
   // load program here
-  naive_uload(NULL, "/bin/menu");
+  naive_uload(NULL, "/bin/nterm");
 }
 
 Context* schedule(Context *prev) {
