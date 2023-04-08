@@ -210,6 +210,9 @@ static int cmd_save(char *args)
         fprintf(fp, "%lu %lu\n", i, val);
   }
   printf("Save snapshot to %s\n", path);
+  #ifdef CONFIG_DIFFTEST
+  isa_difftest_attach(true);
+  #endif
   return 0;
 }
 
