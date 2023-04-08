@@ -53,7 +53,6 @@ void isa_diff_mregcpy()
     inst[2] = 0x34261073;        //a2->mcause
     ref_difftest_regcpy(&reg, DIFFTEST_TO_REF);
     ref_difftest_memcpy(0x87000000, inst, sizeof(inst), DIFFTEST_TO_REF);
-    printf("eee\n");
     ref_difftest_exec(3);
 }
 
@@ -64,7 +63,6 @@ void isa_difftest_attach(bool flag) {
       isa_diff_mregcpy();
       ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
       ref_difftest_memcpy(RESET_VECTOR + 0x100000, guest_to_host(RESET_VECTOR + 0x100000), CONFIG_MSIZE - 0x100000, DIFFTEST_TO_REF);
-      printf("eee\n");
   }
   else
       difftest_flag = false;
