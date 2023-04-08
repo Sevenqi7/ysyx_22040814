@@ -52,7 +52,7 @@ void isa_diff_mregcpy()
     inst[1] = 0x30059073;       //a1->mstatus
     inst[2] = 0x34261073;        //a2->mcause
     ref_difftest_regcpy(&reg, DIFFTEST_TO_REF);
-    ref_difftest_memcpy(0x79000000, inst, sizeof(inst), DIFFTEST_TO_REF);
+    ref_difftest_memcpy(0x80000000, inst, sizeof(inst), DIFFTEST_TO_REF);
     printf("eee\n");
     ref_difftest_exec(3);
 }
