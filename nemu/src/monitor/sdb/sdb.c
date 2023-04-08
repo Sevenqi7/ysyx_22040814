@@ -183,31 +183,60 @@ static int cmd_ftrace(char *args)
 }
 #endif
 
+char *snapshot_path = "/home/seven7/Documents/学业/一生一芯/ysyx-workbench/";
+
 static int cmd_save(char *args)
 {
   char *path = args;
-  if(args)
-  printf("receive args: %s", path);
-  FILE *fp = fopen(args, "w+");
+  if(!args)
+  {
+    printf("Save to default path:%s ...\n", snapshot_path);
+    path = snapshot_path;
+  }
+  FILE *fp = fopen(path, "w+");
   if(!fp)
   {
     printf("Cannot open or create that file!\n");
     return 0;
   }
   word_t *p = (word_t *)&cpu;
-  for(int i=0;i<sizeof(cpu)/sizeof(word_t);i++)
+  for(word_t i=0;i<sizeof(cpu)/sizeof(word_t);i++)
     fprintf(fp, "%lu ", *p++);
   fprintf(fp, "\n");
-  for(int i=RESET_VECTOR;in_pmem(i);i++)
-    fprintf(fp, "%lu  ", paddr_read(i, 8));
+  for(word_t i=RESET_VECTOR;in_pmem(i);i++)
+  {
+    word_t val = paddr_read(i, 8);
+    if(val)
+        fprintf(fp, "%lu %lu\n", i, val);
+  }
   printf("Save snapshot to %s\n", path);
   return 0;
 }
 
 static int cmd_load(char *args)
 {
-  printf("unimplement load\n");
-  return 0;
+  char *path = args;
+  if(!args)
+  {
+    printf("Load from default path:%s ...\n", snapshot_path);
+    path = snapshot_path;
+  }
+  FILE *fp = fopen(path, "r+");
+  if(!fp)
+  {
+    printf("Cannot read from that file.\n");
+    return 0;
+  }
+  word_t *p = (word_t *)&cpu;
+  for(word_t i=0;i<sizeof(cpu)/sizeof(word_t);i++)
+    if(fscanf(fp, "%lu", p++) == -1) break;
+  while(!feof(fp))
+  {
+    word_t addr, val;
+    if(fscanf(fp, "%lu %lu", &addr, &val) < 2) continue;
+    paddr_write(addr, 8, val);
+  }
+  return 0;  
 }
 
 static int cmd_info(char *args)
