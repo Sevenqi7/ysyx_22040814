@@ -41,7 +41,7 @@ void do_syscall(Context *c) {
   else if(a[0] == SYS_open) Log("Filename:%s", filename);
   #endif
   switch (a[0]) {
-    case SYS_exit : halt(c->gpr[10]);
+    case SYS_exit : naive_uload(NULL, "/bin/menu");
     case SYS_yield: yield(); c->gpr[10] = 0; break;
     case SYS_open : c->gpr[10] = fs_open(filename, a[2], a[3]); break;
     case SYS_read : c->gpr[10] = fs_read(fd, buf, len); break;
