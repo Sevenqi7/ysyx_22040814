@@ -183,6 +183,31 @@ static int cmd_ftrace(char *args)
 }
 #endif
 
+static int cmd_save(char *args)
+{
+  char *path = args;
+  FILE *fp = fopen(args, "w+");
+  if(!fp)
+  {
+    printf("Cannot open or create that file!\n");
+    return 0;
+  }
+  word_t *p = (word_t *)&cpu;
+  for(int i=0;i<sizeof(cpu)/sizeof(word_t);i++)
+    fprintf(fp, "%lu ", *p++);
+  fprintf(fp, "\n");
+  for(int i=RESET_VECTOR;in_pmem(i);i++)
+    fprintf(fp, "%lu  ", paddr_read(i, 8));
+  printf("Save snapshot to %s\n", path);
+  return 0;
+}
+
+static int cmd_load(char *args)
+{
+  printf("unimplement load\n");
+  return 0;
+}
+
 static int cmd_info(char *args)
 {
     if(!args)
@@ -216,6 +241,8 @@ static struct {
   IFDEF(CONFIG_FTRACE, { "ftrace", "Display function call trace.", cmd_ftrace},)
   IFDEF(CONFIG_DIFFTEST, {"attach", "Attach the difftest.", cmd_attach},)
   IFDEF(CONFIG_DIFFTEST, {"detach", "Detach the difftest.", cmd_detach},)
+  {"save", "Save current status of nemu as a file.\n", cmd_save},
+  {"load", "Load nemu status from a given file.\n", cmd_load},
   { "info", "Print the content of register(-r) or watchpoing(-w).", cmd_info}
 
   /* TODO: Add more commands */
