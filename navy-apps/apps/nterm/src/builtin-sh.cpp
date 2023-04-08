@@ -23,6 +23,7 @@ static void sh_prompt() {
 }
 
 static void sh_handle_cmd(const char *cmd) {
+  for(int i=0;cmd[i];i++) if(cmd[i] == '\n') ((char *)cmd)[i] = '\0';
   execvp(cmd, NULL);  
 }
 
