@@ -22,7 +22,7 @@ struct timezone {
 };
 
 
-#define STRACE 1
+// #define STRACE 1
 extern void naive_uload(PCB *pcb, const char *filename);
 extern char _heap_start;
 
