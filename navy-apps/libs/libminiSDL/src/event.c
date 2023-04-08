@@ -37,7 +37,7 @@ int SDL_PollEvent(SDL_Event *ev) {
           ev->key.type = ev->type;
           int i;
           for(i=0;i<sizeof(keyname)/sizeof(char *);i++){
-              if(!strncmp(&event_buf[3], keyname[i], strlen(&event_buf[3])))
+              if(!strcmp(&event_buf[3], keyname[i]))
               {
                 ev->key.keysym.sym = i;
                 keystate[i] = ev->type;
@@ -73,7 +73,7 @@ int SDL_WaitEvent(SDL_Event *event) {
           event->key.type = event->type;
           int i;
           for(i=0;i<sizeof(keyname)/sizeof(char *);i++){
-              if(!strncmp(&event_buf[3], keyname[i], strlen(&event_buf[3])))
+              if(!strcmp(&event_buf[3], keyname[i]))
               {
                 event->key.keysym.sym = i;
                 keystate[i] = event->type;
