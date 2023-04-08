@@ -23,6 +23,9 @@ static void sh_prompt() {
 }
 
 static void sh_handle_cmd(const char *cmd) {
+  //cmd里居然还带着回车的
+  for(int i=0;cmd[i];i++) if(cmd[i] == '\n') ((char *)cmd)[i] = '\0';
+  execvp(cmd, NULL);  
 }
 
 void builtin_sh_run() {

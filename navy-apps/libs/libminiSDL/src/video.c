@@ -1,6 +1,7 @@
 #include <NDL.h>
 #include <sdl-video.h>
 #include <assert.h>
+#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
@@ -10,35 +11,93 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   uint32_t dst_x = dstrect ? dstrect->x : 0, dst_y = dstrect ? dstrect->y : 0;
   uint32_t src_x = srcrect ? srcrect->x : 0, src_y = srcrect ? srcrect->y : 0;
   uint32_t src_w = srcrect ? srcrect->w :src->w, src_h = srcrect ? srcrect->h : src->h;
-  for(int i=0;i<src_h && i+dst_y<dst->h;i++)
-  {
-    uint32_t *psrc = (uint32_t *)src->pixels + (src_y + i) * src->w + src_x;
-    uint32_t *pdst = (uint32_t *)dst->pixels + (dst_y + i) * dst->w + dst_x;
-    for(int j=dst_x;j<dst->w && j<(dst_x + src_w);j++) *pdst++ = *psrc++;
+  if(!src->format->palette){
+      for(int i=0;i<src_h && i+dst_y<dst->h;i++)
+      {
+        uint32_t *psrc = (uint32_t *)src->pixels + (src_y + i) * src->w + src_x;
+        uint32_t *pdst = (uint32_t *)dst->pixels + (dst_y + i) * dst->w + dst_x;
+        for(int j=dst_x;j<dst->w && j<(dst_x + src_w);j++) *pdst++ = *psrc++;
+      }
+  }
+  else
+  { 
+      for(int i=0;i<src_h && i+dst_y<dst->h;i++)
+      {
+          uint8_t *psrc = src->pixels + (src_y + i) * src->w + src_x;
+          uint8_t *pdst = dst->pixels + (dst_y + i) * dst->w + dst_x;
+          for(int j=dst_x;j<dst->w && j<(dst_x + src_w);j++) *pdst++ = *psrc++;
+      }
   }
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   assert(dst);
-  if(!dstrect)
-      memset(dst->pixels, color, dst->w * dst->h * sizeof(uint32_t));
+  if(!dst->format->palette)
+  {
+      if(!dstrect)
+          for(int i=0;i<dst->w * dst->h;i++) ((uint32_t *)dst->pixels)[i] = color;
+      else
+      {
+        uint32_t *p = (uint32_t *)dst->pixels + (dstrect->y * dst->w) + dstrect->x;
+        for(int i=dstrect->y;i<dstrect->y+dstrect->h;i++)
+        {
+          for(int j=0;j<dstrect->w;j++) p[j] = color;
+          p += dst->w;
+        }
+      }
+  }
   else
   {
-    uint32_t *p = (uint32_t *)dst->pixels + (dstrect->y * dst->w) + dstrect->x;
-    for(int i=dstrect->y;i<dstrect->y+dstrect->h;i++)
-    {
-      memset(p, color, dstrect->w * sizeof(uint32_t));
-      p += dst->w;
-    }
+      SDL_Color *palette = dst->format->palette->colors;
+      if(!dstrect)
+          for(int i=0;i<dst->w * dst->h;i++) palette[dst->pixels[i]].val = color << 8;
+      else
+      {
+        uint8_t *p = (uint8_t *)dst->pixels + (dstrect->y * dst->w) + dstrect->x;
+        for(int i=dstrect->y;i<dstrect->y+dstrect->h;i++)
+        {
+          for(int j=0;j<dstrect->w;j++) palette[p[j]].val = color << 8;
+          p +=  dst->w;
+        }
+      }
   }
 }
 
+static inline uint32_t translate_color(SDL_Color *color){
+  return (color->a << 24) | (color->r << 16) | (color->g << 8) | color->b;
+}
+
+//NOTE:写的有点臃肿， 懒得管了
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
-  if(!x && !y && !w && !h)
-      NDL_DrawRect((uint32_t *)s->pixels, x, y, s->w, s->h);
-  else{
-      NDL_DrawRect((uint32_t *)s->pixels + y * s->w + x, x, y, w, h);
+  if(!s->format->palette){  
+      if(!x && !y && !w && !h)
+          NDL_DrawRect((uint32_t *)s->pixels, 0, 0, s->w, s->h);
+      else{
+          printf("untest code 1\n");
+          NDL_DrawRect((uint32_t *)s->pixels + y * s->w + x, x, y, w, h);
+      }
+      return ;
   }
+  SDL_Color *palette = s->format->palette->colors;
+  uint32_t *pixels;
+  if(!x && !y && !w && !h)
+  {
+    pixels = (uint32_t *)malloc(s->w * s->h * sizeof(uint32_t));
+    for(int i=0;i<s->h;i++){
+      for(int j=0;j<s->w;j++)
+        pixels[i*s->w + j] = translate_color(&palette[s->pixels[i * s->w + j]]);
+    }
+    NDL_DrawRect(pixels, 0, 0, s->w, s->h);
+  }
+  else{
+    pixels = (uint32_t *)malloc(w * h * sizeof(uint32_t));
+    for(int i=0;i<h;i++){
+      for(int j=0;j<w;j++)
+        pixels[i*w + j] = translate_color(&palette[s->pixels[(y+i)*s->w + x + j]]);
+    }
+    NDL_DrawRect(pixels, x, y, w, h);
+  }
+  if(pixels) free(pixels);
 }
 
 // APIs below are already implemented.

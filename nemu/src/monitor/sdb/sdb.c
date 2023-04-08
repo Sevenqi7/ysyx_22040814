@@ -154,6 +154,23 @@ static int cmd_x(char *args)
     return 0;
 }
 
+#ifdef CONFIG_DIFFTEST
+extern void isa_difftest_attach(bool flag);
+static int cmd_attach(char *args)
+{
+  isa_difftest_attach(true);
+  printf("Difftest On.\n");
+  return 0;
+}
+
+static int cmd_detach(char *args)
+{
+  isa_difftest_attach(false);
+  printf("Difftest Off.\n");
+  return 0;
+}
+#endif
+
 #ifdef CONFIG_FTRACE
 static int cmd_ftrace(char *args)
 {
@@ -165,6 +182,65 @@ static int cmd_ftrace(char *args)
     return 0;
 }
 #endif
+
+char *snapshot_path = "/home/seven7/Documents/学业/一生一芯/ysyx-workbench/snapshot";
+
+static int cmd_save(char *args)
+{
+  char *path = args;
+  if(!args)
+  {
+    printf("Save to default path:%s ...\n", snapshot_path);
+    path = snapshot_path;
+  }
+  FILE *fp = fopen(path, "w+");
+  if(!fp)
+  {
+    printf("Cannot open or create that file!\n");
+    return 0;
+  }
+  word_t *p = (word_t *)&cpu;
+  for(word_t i=0;i<sizeof(cpu)/sizeof(word_t);i++)
+    fprintf(fp, "%lu ", *p++);
+  fprintf(fp, "\n");
+  for(word_t i=RESET_VECTOR;in_pmem(i);i+=8)
+  {
+    word_t val = paddr_read(i, 8);
+    if(val)
+        fprintf(fp, "%lu %lu\n", i, val);
+  }
+  printf("Save snapshot to %s\n", path);
+  return 0;
+}
+
+static int cmd_load(char *args)
+{
+  char *path = args;
+  if(!args)
+  {
+    printf("Load from default path:%s ...\n", snapshot_path);
+    path = snapshot_path;
+  }
+  FILE *fp = fopen(path, "r+");
+  if(!fp)
+  {
+    printf("Cannot read from that file.\n");
+    return 0;
+  }
+  word_t *p = (word_t *)&cpu;
+  for(word_t i=0;i<sizeof(cpu)/sizeof(word_t);i++)
+    if(fscanf(fp, "%lu", p++) == -1) break;
+  while(!feof(fp))
+  {
+    word_t addr, val;
+    if(fscanf(fp, "%lu %lu", &addr, &val) < 2) continue;
+    paddr_write(addr, 8, val);
+  }
+  #ifdef CONFIG_DIFFTEST
+  isa_difftest_attach(true);
+  #endif
+  return 0;  
+}
 
 static int cmd_info(char *args)
 {
@@ -197,6 +273,10 @@ static struct {
   { "w", "Set watchpoint.", cmd_w},
   { "d", "Delete watchpoint.", cmd_d},
   IFDEF(CONFIG_FTRACE, { "ftrace", "Display function call trace.", cmd_ftrace},)
+  IFDEF(CONFIG_DIFFTEST, {"attach", "Attach the difftest.", cmd_attach},)
+  IFDEF(CONFIG_DIFFTEST, {"detach", "Detach the difftest.", cmd_detach},)
+  {"save", "Save current status of nemu as a file.\n", cmd_save},
+  {"load", "Load nemu status from a given file.\n", cmd_load},
   { "info", "Print the content of register(-r) or watchpoing(-w).", cmd_info}
 
   /* TODO: Add more commands */

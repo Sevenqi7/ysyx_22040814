@@ -1,12 +1,15 @@
 #include <NDL.h>
+#include <assert.h>
 #include <sdl-timer.h>
 #include <stdio.h>
 
 SDL_TimerID SDL_AddTimer(uint32_t interval, SDL_NewTimerCallback callback, void *param) {
+  assert(0);
   return NULL;
 }
 
 int SDL_RemoveTimer(SDL_TimerID id) {
+  assert(0);
   return 1;
 }
 
@@ -19,5 +22,5 @@ void SDL_Delay(uint32_t ms) {
   do
   {
       then = SDL_GetTicks();
-  } while (then - now >= ms);
+  } while (then - now <= ms);
 }

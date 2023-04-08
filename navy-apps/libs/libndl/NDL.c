@@ -10,6 +10,7 @@
 static int evtdev = -1;
 static int fbdev = -1;
 static int screen_w = 0, screen_h = 0;
+static int canva_w, canva_h;
 
 uint32_t NDL_GetTicks() {
   struct timeval tv;
@@ -81,13 +82,15 @@ void NDL_OpenCanvas(int *w, int *h) {
     }
     close(fbctl);
   }
-  printf("width:%d   height:%d\n", screen_w, screen_h);
+  canva_w = *w, canva_h = *h;
+  printf("screen_width:%d   screen_height:%d\n", screen_w, screen_h);
+  printf("canva height:%d   canva height: %d\n", canva_h, canva_w);
 }
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   int fd = open("/dev/fb", 0, 0);
   if(fd == -1) {printf("Failed to open /dev/fb!\n"); assert(0);}
-  uint64_t draw_offset = (((screen_h - h) / 2 + y) * screen_w + ((screen_w - w) / 2 + x)) * sizeof(uint32_t);
+  uint64_t draw_offset = (((screen_h - canva_h) / 2 + y) * screen_w + ((screen_w - canva_w) / 2 + x)) * sizeof(uint32_t);
   for(int i=y;i<y+h;i++)
   {
     lseek(fd, draw_offset, SEEK_SET);
