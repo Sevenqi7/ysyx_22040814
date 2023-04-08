@@ -210,9 +210,6 @@ static int cmd_save(char *args)
         fprintf(fp, "%lu %lu\n", i, val);
   }
   printf("Save snapshot to %s\n", path);
-  #ifdef CONFIG_DIFFTEST
-  isa_difftest_attach(true);
-  #endif
   return 0;
 }
 
@@ -239,6 +236,9 @@ static int cmd_load(char *args)
     if(fscanf(fp, "%lu %lu", &addr, &val) < 2) continue;
     paddr_write(addr, 8, val);
   }
+  #ifdef CONFIG_DIFFTEST
+  isa_difftest_attach(true);
+  #endif
   return 0;  
 }
 
