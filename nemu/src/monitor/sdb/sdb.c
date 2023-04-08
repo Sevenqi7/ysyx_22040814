@@ -183,7 +183,7 @@ static int cmd_ftrace(char *args)
 }
 #endif
 
-char *snapshot_path = "/home/seven7/Documents/学业/一生一芯/ysyx-workbench/";
+char *snapshot_path = "/home/seven7/Documents/学业/一生一芯/ysyx-workbench/snapshot";
 
 static int cmd_save(char *args)
 {
