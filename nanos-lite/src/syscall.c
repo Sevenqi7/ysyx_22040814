@@ -1,5 +1,6 @@
 #include <common.h>
 #include <fs.h>
+#include <proc.h>
 #include "syscall.h"
 
 char *syscall_name[] =
@@ -22,7 +23,7 @@ struct timezone {
 
 
 // #define STRACE 1
-
+extern void naive_uload(PCB *pcb, const char *filename);
 extern char _heap_start;
 
 void do_syscall(Context *c) {
@@ -48,6 +49,7 @@ void do_syscall(Context *c) {
     case SYS_lseek: c->gpr[10] = fs_lseek(fd, offset, whence); break;
     case SYS_write: c->gpr[10] = fs_write(fd, buf, len); break;
     case SYS_brk  : c->gpr[10] = 0; break;
+    case SYS_execve: naive_uload(NULL, filename); assert("should not reach here" && 0);
     case SYS_gettimeofday: 
                     struct timeval *tv = (struct timeval *)a[1];
                     uint64_t time; 
