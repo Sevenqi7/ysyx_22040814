@@ -186,6 +186,8 @@ static int cmd_ftrace(char *args)
 static int cmd_save(char *args)
 {
   char *path = args;
+  if(args)
+  printf("receive args: %s", path);
   FILE *fp = fopen(args, "w+");
   if(!fp)
   {
