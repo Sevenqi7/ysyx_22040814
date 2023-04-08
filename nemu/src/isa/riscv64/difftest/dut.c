@@ -46,13 +46,13 @@ void isa_diff_mregcpy()
     reg.gpr[10] = cpu.csr.mepc;
     reg.gpr[11] = cpu.csr.mstatus;
     reg.gpr[12] = cpu.csr.mcause;
-    reg.pc = 0x79000000;        //let ref jump here to excute
+    reg.pc = PMEM_RIGHT;        //let ref jump here to excute
     uint32_t inst [3];
     inst[0] = 0x34151073;       //a0->mepc
     inst[1] = 0x30059073;       //a1->mstatus
     inst[2] = 0x34261073;        //a2->mcause
     ref_difftest_regcpy(&reg, DIFFTEST_TO_REF);
-    ref_difftest_memcpy(0x80000000, inst, sizeof(inst), DIFFTEST_TO_REF);
+    ref_difftest_memcpy(PMEM_RIGHT, inst, sizeof(inst), DIFFTEST_TO_REF);
     printf("eee\n");
     ref_difftest_exec(3);
 }
