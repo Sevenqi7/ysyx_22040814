@@ -12,7 +12,7 @@ object utils {
     
 
     def regConnect(lhs: Data, rhs: Data, resetVal: Option[Data] = None): Unit = {
-        val rhsReg = Reg(chiselTypeOf(rhs))
+        val rhsReg = Reg(resetVal.U(chiselTypeOf(rhs)))
         // val rhsReg = resetVal match {
         //     case Some(rv) => RegInit(rv, chiselTypeOf(rhs))
         //     case None => Reg(Wire(chiselTypeOf(rhs)))
