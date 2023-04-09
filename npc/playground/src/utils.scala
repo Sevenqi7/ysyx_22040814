@@ -9,7 +9,9 @@ object utils {
         ret
     }
 
-   def RegConnect(lhs: Data, rhs: Data): Unit = {
+    
+
+   def regConnect(lhs: Data, rhs: Data): Unit = {
     val rhsReg = Reg(chiselTypeOf(rhs))
     rhsReg := rhs
     lhs := rhsReg

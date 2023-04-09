@@ -2,6 +2,7 @@ import chisel3._
 import chisel3.util._
 import InstType._
 import FuSource._
+import utils._
 import java.awt.font.OpenType
 
 class IDU extends Module{
@@ -39,9 +40,13 @@ class IDU extends Module{
     opType          := InstInfo(4)
     instType        := InstInfo(0)
     
-    io.ID_optype    := opType
-    io.ID_unknown_inst := InstInfo(0) === 0.U
-    io.ID_FuType    := InstInfo(1)
+    // io.ID_optype    := opType
+    // io.ID_unknown_inst := InstInfo(0) === 0.U
+    // io.ID_FuType    := InstInfo(1)
+
+    regConnect(io.ID_optype,                         opType)
+    regConnect(io.ID_unknown_inst,      InstInfo(0) === 0.U)
+    regConnect(io.ID_FuType,                    InstInfo(1))
 
     //all kinds of imm
     val immI = Wire(UInt(64.W))
@@ -51,11 +56,17 @@ class IDU extends Module{
     val immS = Wire(UInt(64.W))
     val shamt = Wire(UInt(6.W))
 
-    immI := Cat(Fill(52, io.IF_Inst(31)), io.IF_Inst(31, 20))
-    immU := Cat(Fill(44, io.IF_Inst(31)), io.IF_Inst(31, 12)) << 12
-    immS := Cat(Fill(57, io.IF_Inst(31)), io.IF_Inst(31, 25)) << 5 | io.IF_Inst(11, 7)
-    immB := Cat(Fill(52, io.IF_Inst(31)), ((io.IF_Inst(31) << 11) | (io.IF_Inst(30, 25) << 4) | io.IF_Inst(11, 8) | (io.IF_Inst(7) << 10)))
-    immJ := Cat(Fill(44, io.IF_Inst(31)), (io.IF_Inst(30, 21) | (io.IF_Inst(20) << 10) | (io.IF_Inst(19, 12) << 11) | (io.IF_Inst(31, 31) << 19)))
+
+    // immI := Cat(Fill(52, io.IF_Inst(31)), io.IF_Inst(31, 20))
+    // immU := Cat(Fill(44, io.IF_Inst(31)), io.IF_Inst(31, 12)) << 12
+    // immS := Cat(Fill(57, io.IF_Inst(31)), io.IF_Inst(31, 25)) << 5 | io.IF_Inst(11, 7)
+    // immB := Cat(Fill(52, io.IF_Inst(31)), ((io.IF_Inst(31) << 11) | (io.IF_Inst(30, 25) << 4) | io.IF_Inst(11, 8) | (io.IF_Inst(7) << 10)))
+    // immJ := Cat(Fill(44, io.IF_Inst(31)), (io.IF_Inst(30, 21) | (io.IF_Inst(20) << 10) | (io.IF_Inst(19, 12) << 11) | (io.IF_Inst(31, 31) << 19)))
+    immI := SEXT(io.IF_Inst, 32)
+    immU := SEXT(io.IF_Inst, 20) << 12
+    immS := (SEXT(io.IF_Inst(31, 25), 7) << 5) | io.IF_Inst(11, 7)
+    immJ := SEXT(io.IF_Inst(30, 21) | (io.IF_Inst(20) << 10) | (io.IF_Inst(19, 12) << 11) | (io.IF_Inst(31) << 19), 20)
+    immB := SEXT((io.IF_Inst(31) << 11) | (io.IF_Inst(30, 25) << 4) | io.IF_Inst(11, 8) | (io.IF_Inst(7 ,7) << 10), 12)
     shamt := io.IF_Inst(25, 20)
 
     
@@ -85,14 +96,20 @@ class IDU extends Module{
     io.ID_GPR := GPR
     
     //Analyse the operation
-    val src1 = Wire(UInt(3.W))
+    val src1 = Wire(UInt(3.W)) 
     val src2 = Wire(UInt(3.W))
     val imm  = Wire(UInt(64.W))
     
-    src1 := InstInfo(2)
+    src1 := InstInfo(2) 
     src2 := InstInfo(3)
     
-    
+    val ALU_Data1 = Wire(UInt(32.W))
+    val ALU_Data2 = Wire(UInt(32.W))
+    val RegWriteEn = Wire(UInt(1.W))
+    val MemWriteEn = Wire(UInt(1.W)) 
+    val MemReadEn = Wire(UInt(1.W))
+
+
     imm := MuxCase(0.U, Seq(
         (instType === TYPE_I, immI),
         (instType === TYPE_B, immB),
@@ -100,25 +117,32 @@ class IDU extends Module{
         (instType === TYPE_S, immS)
         ))
         
-    io.ID_ALU_Data1 := MuxCase(0.U, Seq(
+    ALU_Data1 := MuxCase(0.U, Seq(
         (src1 === ZERO, 0.U     ),
         (src1 === PC  , io.IF_pc),
         (src1 === RS1 , rs1_data),
         (src1 === NPC , io.IF_pc+4.U)
     ))
             
-    io.ID_ALU_Data2 := MuxCase(0.U, Seq(
+    ALU_Data2 := MuxCase(0.U, Seq(
         (src2 === ZERO  , 0.U      ),
         (src2 === PC    , io.IF_pc ),
         (src2 === RS2   , rs2_data ),
         (src2 === IMM   , imm      ),
         (src2 === SHAMT , shamt    )
         ))
-            
-        io.ID_RegWriteID := rd
-        io.ID_RegWriteEn := (instType === TYPE_R) || (instType === TYPE_I) || (instType === TYPE_U) || (instType === TYPE_J)
-        io.ID_MemWriteEn := (instType === TYPE_S)
-        io.ID_MemReadEn  := (instType =/= TYPE_S  && io.ID_FuType === FuType.lsu)
+    
+    RegWriteEn := (instType === TYPE_R) || (instType === TYPE_I) || (instType === TYPE_U) || (instType === TYPE_J)
+    MemWriteEn := (instType === TYPE_S)
+    MemReadEn  := (instType =/= TYPE_S  && io.ID_FuType === FuType.lsu)
+    
+    regConnect(io.ID_ALU_Data1  ,    ALU_Data1)
+    regConnect(io.ID_ALU_Data2  ,    ALU_Data2)
+    regConnect(io.ID_RegWriteID ,           rd)
+    regConnect(io.ID_RegWriteEn ,   RegWriteEn)
+    regConnect(io.ID_MemReadEn  ,    MemReadEn)
+    regConnect(io.ID_MemWriteEn ,   MemWriteEn)
+
         
     //NPC
     val BJ_flag = Wire(Bool())
