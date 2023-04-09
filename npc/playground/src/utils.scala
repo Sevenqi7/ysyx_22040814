@@ -11,8 +11,8 @@ object utils {
 
     
 
-    def regConnect(lhs: Data, rhs: Data, resetVal: UInt): Unit = {
-        val rhsReg = Reg(chiselTypeOf(rhs), 0.U)
+    def regConnect(lhs: Data, rhs: Data): Unit = {
+        val rhsReg = RegInit(chiselTypeOf(rhs), 0.U)
         // val rhsReg = resetVal match {
         //     case Some(rv) => RegInit(rv, chiselTypeOf(rhs))
         //     case None => Reg(Wire(chiselTypeOf(rhs)))
