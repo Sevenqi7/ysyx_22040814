@@ -10,7 +10,7 @@ object utils {
     }
 
     
-    def regConnect(lhs: Data, rhs: Data, resetVal: Option[UInt]=0.U): Unit = {
+    def regConnect(lhs: Data, rhs: Data, resetVal: UInt =0.U): Unit = {
         val rhsReg = RegInit(chiselTypeOf(rhs), resetVal)
         rhsReg := rhs
         lhs := rhsReg
