@@ -1,5 +1,6 @@
 import chisel3._
 import chisel3.util._
+import utils._
 import OpType._
 import InstType._
 
@@ -25,11 +26,6 @@ class EXU extends Module{
         val EX_RegWriteEn =     Output(UInt(1.W))
     })
 
-    def SEXT(x : UInt, len : Int) :UInt = {
-        val ret = Wire(UInt(64.W))
-        ret := Cat(Fill(64-len, x(len-1)), x(len-1, 0))
-        ret
-    }
 
     //now it is only a single cycle cpu, so directy connect EX_Reg* to ID_Reg*
     io.EX_RegWriteEn := io.ID_RegWriteEn
