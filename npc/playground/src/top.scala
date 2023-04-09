@@ -33,7 +33,7 @@ class top extends Module{
     inst_decode_unit.io.IF_Inst := simulate.io.inst(31, 0)
 
     io.IF_pc := inst_fetch_unit.io.IF_pc
-    inst_fetch_unit.io.IF_npc := inst_decode_unit.io.ID_npc
+    inst_fetch_unit.io.ID_npc := inst_decode_unit.io.ID_npc
     inst_decode_unit.io.IF_pc  := inst_fetch_unit.io.IF_pc
     inst_decode_unit.io.WB_RegWriteData := wb_unit.io.WB_RegWriteData
     inst_decode_unit.io.WB_RegWriteEn   := wb_unit.io.WB_RegWriteEn
