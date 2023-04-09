@@ -12,7 +12,7 @@ object utils {
     
 
    def regConnect(lhs: Data, rhs: Data): Unit = {
-    val rhsReg = RegInit(0.U(chiselTypeOf(rhs)))
+    val rhsReg = RegInit(0.U, chiselTypeOf(rhs))
     rhsReg := rhs
     lhs := rhsReg
    } 
