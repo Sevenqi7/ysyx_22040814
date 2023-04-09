@@ -17,6 +17,7 @@ class EXU extends Module{
         val ID_MemWriteEn =     Input(UInt(1.W))
         val ID_MemReadEn  =     Input(UInt(1.W))
         
+        //Reg
         val EX_ALUResult  =     Output(UInt(64.W))
         val EX_MemWriteData =   Output(UInt(64.W))
         val EX_MemWriteEn =     Output(UInt(1.W))
@@ -26,18 +27,20 @@ class EXU extends Module{
         val EX_RegWriteEn =     Output(UInt(1.W))
     })
 
-
-    //now it is only a single cycle cpu, so directy connect EX_Reg* to ID_Reg*
-    io.EX_RegWriteEn := io.ID_RegWriteEn
-    io.EX_RegWriteID := io.ID_RegWriteID
-    io.EX_MemWriteData := io.ID_Rs2Data
-    io.EX_MemWriteEn := io.ID_MemWriteEn
-    io.EX_MemReadEn  := io.ID_MemReadEn
-    io.EX_LsuType    := Mux(io.ID_FuType === FuType.lsu, io.ID_optype, 0.U)
+    val LsuType = Mux(io.ID_FuType === FuType.lsu, io.ID_optype, 0.U)
+    val ALU_Result = Wire(UInt(64.W))
     val shamt = Wire(UInt(6.W))
+
+    regConnect(io.EX_RegWriteEn,        io.ID_RegWriteEn)
+    regConnect(io.EX_RegWriteID,        io.ID_RegWriteID)
+    regConnect(io.EX_MemWriteData,         io.ID_Rs2Data)
+    regConnect(io.EX_MemWriteEn,        io.ID_MemWriteEn)
+    regConnect(io.EX_MemReadEn,          io.ID_MemReadEn)
+    regConnect(io.EX_LsuType,                    LsuType)
+    regConnect(io.EX_ALUResult,               ALU_Result)
+
     shamt := io.ID_ALU_Data2(5, 0)
 
-    val ALU_Result = Wire(UInt(64.W))
     ALU_Result := MuxCase(0.U, Seq(
         (io.ID_optype === OP_PLUS || io.ID_FuType === FuType.lsu, io.ID_ALU_Data1 + io.ID_ALU_Data2),
         (io.ID_optype === OP_SUB , io.ID_ALU_Data1  -  io.ID_ALU_Data2),

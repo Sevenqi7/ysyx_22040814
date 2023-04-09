@@ -1,5 +1,6 @@
 import chisel3._
 import chisel3.util._
+import utils._
 import OpType._
 import InstType._
 
@@ -30,16 +31,19 @@ class MEMU extends Module{
         val MEM_RegWriteID  = Output(UInt(5.W))
     })
 
-    io.MEM_RegWriteEn := io.EX_RegWriteEn
-    io.MEM_RegWriteID := io.EX_RegWriteID
+    val RegWriteData = Wire(UInt(64.W))
+
+    regConnect(io.MEM_RegWriteEn,   io.EX_RegWriteEn)
+    regConnect(io.MEM_RegWriteID,   io.EX_RegWriteID)
+    regConnect(io.MEM_RegWriteData,    RegWriteData)
     
+    //LSU for DPI-C with verilator
     val mem = Module(new LSU)
     mem.io.addr := io.EX_ALUResult
     mem.io.LsuType := io.EX_LsuType
     mem.io.WriteEn := io.EX_MemWriteEn
     mem.io.WriteData := io.EX_MemWriteData
     mem.io.ReadEn  := io.EX_MemReadEn
-    io.MEM_RegWriteData := Mux((io.EX_LsuType =/= 0.U) && (io.EX_MemWriteEn === 0.U), mem.io.ReadData, io.EX_ALUResult)
-
+    RegWriteData := Mux((io.EX_LsuType =/= 0.U) && (io.EX_MemWriteEn === 0.U), mem.io.ReadData, io.EX_ALUResult)
 }  
 

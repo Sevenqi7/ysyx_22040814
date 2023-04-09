@@ -11,6 +11,7 @@ class IDU extends Module{
         val IF_pc = Input(UInt(64.W))
         val ID_npc = Output(UInt(64.W))
         
+        //Reg
         val ID_ALU_Data1 = Output(UInt(64.W))
         val ID_ALU_Data2 = Output(UInt(64.W))
         val ID_FuType = Output(UInt(1.W))
@@ -23,9 +24,10 @@ class IDU extends Module{
         val ID_MemWriteEn = Output(UInt(1.W))
         val ID_MemReadEn  = Output(UInt(1.W))
         
-        val EX_RegWriteData = Input(UInt(64.W))
-        val EX_RegWriteID = Input(UInt(5.W))
-        val EX_RegWriteEn = Input(UInt(1.W))
+        //Reg RW from EX
+        val WB_RegWriteData = Input(UInt(64.W))
+        val WB_RegWriteID = Input(UInt(5.W))
+        val WB_RegWriteEn = Input(UInt(1.W))
         
         //For NPCTRAP
         val ID_GPR =Output(Vec(32, UInt(64.W)))
@@ -85,14 +87,14 @@ class IDU extends Module{
     rs1_data := Mux(rs1 === 0.U, 0.U, GPR(rs1))
     rs2_data := Mux(rs2 === 0.U, 0.U, GPR(rs2))
 
+    
+    when(io.WB_RegWriteEn.asBool() && io.WB_RegWriteID =/= 0.U)
+    {
+        GPR(io.WB_RegWriteID) := io.WB_RegWriteData
+    }
+    
     io.ID_Rs1Data := rs1_data
     io.ID_Rs2Data := rs2_data
-    
-    when(io.EX_RegWriteEn.asBool() && io.EX_RegWriteID =/= 0.U)
-    {
-        GPR(io.EX_RegWriteID) := io.EX_RegWriteData
-    }
-
     io.ID_GPR := GPR
     
     //Analyse the operation

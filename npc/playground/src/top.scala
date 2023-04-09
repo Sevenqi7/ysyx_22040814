@@ -24,6 +24,7 @@ class top extends Module{
     val inst_decode_unit = Module(new IDU)
     val excute_unit = Module(new EXU)
     val mem_unit = Module(new MEMU)
+    val wb_unit = Module(new WBU)
 
     val simulate = Module(new sim)
     simulate.io.IF_pc := inst_fetch_unit.io.IF_pc
@@ -34,12 +35,9 @@ class top extends Module{
     io.IF_pc := inst_fetch_unit.io.IF_pc
     inst_fetch_unit.io.IF_npc := inst_decode_unit.io.ID_npc
     inst_decode_unit.io.IF_pc  := inst_fetch_unit.io.IF_pc
-
-    // val ID_ALU_Data1 := inst_decode_unit.io.ID_ALU_Data1
-    // val ID_ALU_Data2 := inst_decode_unit.io.ID_ALU_Data2
-    // val ID_optype := inst_decode_unit.io.ID_optype
-    // val ID_RegWritEn := inst_decode_unit.io.ID_RegWriteEn
-    // val ID_RegWriteID := inst_decode_unit.io.ID_RegWriteID
+    inst_decode_unit.io.WB_RegWriteData := wb_unit.io.WB_RegWriteData
+    inst_decode_unit.io.WB_RegWriteEn   := wb_unit.io.WB_RegWriteEn
+    inst_decode_unit.io.WB_RegWriteID   := wb_unit.io.WB_RegWriteID
 
     excute_unit.io.ID_RegWriteEn := inst_decode_unit.io.ID_RegWriteEn
     excute_unit.io.ID_RegWriteID := inst_decode_unit.io.ID_RegWriteID
@@ -61,8 +59,8 @@ class top extends Module{
     mem_unit.io.EX_RegWriteID    := excute_unit.io.EX_RegWriteID
     io.ALUResult := mem_unit.io.MEM_RegWriteData
 
-    inst_decode_unit.io.EX_RegWriteData := mem_unit.io.MEM_RegWriteData
-    inst_decode_unit.io.EX_RegWriteEn   := mem_unit.io.MEM_RegWriteEn
-    inst_decode_unit.io.EX_RegWriteID   := mem_unit.io.MEM_RegWriteID
 
+    wb_unit.io.WB_RegWriteData   := mem_unit.io.MEM_RegWriteData
+    wb_unit.io.WB_RegWriteEn     := mem_unit.io.MEM_RegWriteEn
+    wb_unit.io.WB_RegWriteID     := mem_unit.io.MEM_RegWriteID
 }
