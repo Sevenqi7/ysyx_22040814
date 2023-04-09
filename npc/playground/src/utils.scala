@@ -11,9 +11,13 @@ object utils {
 
     
 
-   def regConnect(lhs: Data, rhs: Data): Unit = {
-    val rhsReg = RegInit(0.U, chiselTypeOf(rhs))
-    rhsReg := rhs
-    lhs := rhsReg
-   } 
+    def regConnect(lhs: Data, rhs: Data, resetVal: Option[Data] = None): Unit = {
+        val rhsReg = resetVal match {
+            case Some(rv) => RegInit(rv, chiselTypeOf(rhs))
+            case None => RegInit(chiselTypeOf(rhs))
+        }
+        rhsReg := rhs
+        lhs := rhsReg
+    }
+
 }
