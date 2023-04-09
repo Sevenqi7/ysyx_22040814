@@ -60,7 +60,7 @@ class top extends Module{
     io.ALUResult := mem_unit.io.MEM_RegWriteData
 
 
-    wb_unit.io.WB_RegWriteData   := mem_unit.io.MEM_RegWriteData
-    wb_unit.io.WB_RegWriteEn     := mem_unit.io.MEM_RegWriteEn
-    wb_unit.io.WB_RegWriteID     := mem_unit.io.MEM_RegWriteID
+    wb_unit.io.MEM_RegWriteData   := mem_unit.io.MEM_RegWriteData
+    wb_unit.io.MEM_RegWriteEn     := mem_unit.io.MEM_RegWriteEn
+    wb_unit.io.MEM_RegWriteID     := mem_unit.io.MEM_RegWriteID
 }
