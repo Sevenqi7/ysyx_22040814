@@ -52,7 +52,7 @@ uint64_t reg_str2val(const char *s, bool *success) {
     if(!strcmp(s+1, regs[i])) 
         break;
   if(!strcmp(s, regs[0])) {*success = true; return 0;}
-  if(!strcmp(s, "$pc")) {*success = true; return top->io_IF_pc;}
+  if(!strcmp(s, "$pc")) {*success = true; return top->io_WB_pc;}
   if(i < 32)
   {
       *success = true;

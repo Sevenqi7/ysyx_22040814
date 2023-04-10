@@ -17,6 +17,7 @@ class sim extends BlackBox with HasBlackBoxPath{
 
 class top extends Module{
     val io = IO(new Bundle{
+        val IF_pc = Output(UInt(64.W))
         val WB_pc = Output(UInt(64.W))
         val WB_Inst = Output(UInt(32.W))
         val MEM_pc = Output(UInt(64.W))
