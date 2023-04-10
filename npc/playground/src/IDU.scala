@@ -160,7 +160,7 @@ class IDU extends Module{
         
     RegWriteEn := (instType === TYPE_R) || (instType === TYPE_I) || (instType === TYPE_U) || (instType === TYPE_J)
     MemWriteEn := (instType === TYPE_S)
-    MemReadEn  := (instType =/= TYPE_S  && io.ID_FuType === FuType.lsu)
+    MemReadEn  := (instType === TYPE_I  && io.ID_FuType === FuType.lsu)
         
     regConnectWithResetAndStall(io.ID_pc        , io.IF_pc  , reset, 0.U, io.ID_stall)
     regConnectWithResetAndStall(io.ID_Inst      , io.IF_Inst, reset, 0.U, io.ID_stall)
