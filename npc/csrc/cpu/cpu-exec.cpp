@@ -71,12 +71,14 @@ void exec_once()            //disassemble实质上是反汇编的上一个已执
     }
     for(int i=0;i<2;i++)
     {
+        if(top->io_stall)
         Log("stall");
         contextp->timeInc(1); // 1 timeprecision period passes...
         top->clock = !top->clock;
         top->eval();
         while(top->io_stall)
         {
+            Log("stall2");
             contextp->timeInc(1);
             top->clock = !top->clock;
             top->eval();

@@ -306,7 +306,7 @@ module IDU(	// <stdin>:14:10
   reg               rhsReg_9;	// utils.scala:32:33
   reg  [1:0]        stall_cnt;	// IDU.scala:176:28
   wire              _io_ID_stall_T_5 = rhsReg_3 == io_IF_Inst[11:7];	// IDU.scala:84:60, :178:51, utils.scala:32:33
-  wire              _io_ID_stall_T_9 = rhsReg_9 & rhsReg_5 & _RegWriteEn_T_6 & _io_ID_stall_T_5 | (|stall_cnt);	// IDU.scala:161:91, :176:28, :178:51, :191:{42,70,83}, utils.scala:32:33
+  wire              _io_ID_stall_T_9 = rhsReg_9 & rhsReg_5 & _RegWriteEn_T_6 & _io_ID_stall_T_5 | (|stall_cnt);	// IDU.scala:161:91, :176:28, :178:51, :191:{42,70,84}, utils.scala:32:33
   always @(posedge clock) begin
     if (reset) begin
       GPR_0 <= 64'h0;	// IDU.scala:91:{22,30}
@@ -1029,7 +1029,7 @@ module MEMU(	// <stdin>:1063:10
       rhsReg <= 64'h0;	// <stdin>:1063:10, utils.scala:15:29
       rhsReg_1 <= 32'h0;	// utils.scala:15:29
       rhsReg_2 <= 1'h0;	// utils.scala:15:29
-      rhsReg_3 <= 5'h0;	// MEMU.scala:60:40, utils.scala:15:29
+      rhsReg_3 <= 5'h0;	// utils.scala:15:29
       rhsReg_4 <= 64'h0;	// <stdin>:1063:10, utils.scala:15:29
     end
     else begin
@@ -1037,9 +1037,9 @@ module MEMU(	// <stdin>:1063:10
       rhsReg_1 <= io_EX_Inst;	// utils.scala:15:29
       rhsReg_2 <= io_EX_RegWriteEn;	// utils.scala:15:29
       rhsReg_3 <= io_EX_RegWriteID;	// utils.scala:15:29
-      if ((|io_EX_LsuType) & ~io_EX_MemWriteEn)	// MEMU.scala:60:{40,49,70}
+      if (io_EX_MemReadEn)
         rhsReg_4 <= _mem_ReadData;	// MEMU.scala:54:21, utils.scala:15:29
-      else	// MEMU.scala:60:{40,49,70}
+      else
         rhsReg_4 <= io_EX_ALUResult;	// utils.scala:15:29
     end
   end // always @(posedge)
@@ -1090,7 +1090,7 @@ module MEMU(	// <stdin>:1063:10
   assign io_MEM_Inst = rhsReg_1;	// <stdin>:1063:10, utils.scala:15:29
 endmodule
 
-module WBU(	// <stdin>:1108:10
+module WBU(	// <stdin>:1106:10
   input  [63:0] io_MEM_RegWriteData,
   input         io_MEM_RegWriteEn,
   input  [4:0]  io_MEM_RegWriteID,
@@ -1102,16 +1102,16 @@ module WBU(	// <stdin>:1108:10
   output [63:0] io_WB_pc,
   output [31:0] io_WB_Inst);
 
-  assign io_WB_RegWriteData = io_MEM_RegWriteData;	// <stdin>:1108:10
-  assign io_WB_RegWriteEn = io_MEM_RegWriteEn;	// <stdin>:1108:10
-  assign io_WB_RegWriteID = io_MEM_RegWriteID;	// <stdin>:1108:10
-  assign io_WB_pc = io_MEM_pc;	// <stdin>:1108:10
-  assign io_WB_Inst = io_MEM_Inst;	// <stdin>:1108:10
+  assign io_WB_RegWriteData = io_MEM_RegWriteData;	// <stdin>:1106:10
+  assign io_WB_RegWriteEn = io_MEM_RegWriteEn;	// <stdin>:1106:10
+  assign io_WB_RegWriteID = io_MEM_RegWriteID;	// <stdin>:1106:10
+  assign io_WB_pc = io_MEM_pc;	// <stdin>:1106:10
+  assign io_WB_Inst = io_MEM_Inst;	// <stdin>:1106:10
 endmodule
 
 // external module sim
 
-module top(	// <stdin>:1129:10
+module top(	// <stdin>:1127:10
   input         clock,
                 reset,
   output [63:0] io_IF_pc,
@@ -1327,13 +1327,13 @@ sim simulate (	// top.scala:24:26
    .GPR               (GPR),
    .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
 );
-  assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:1129:10, top.scala:31:33
-  assign io_WB_Inst = _wb_unit_io_WB_Inst;	// <stdin>:1129:10, top.scala:35:25
-  assign io_MEM_pc = _mem_unit_io_MEM_pc;	// <stdin>:1129:10, top.scala:34:26
-  assign io_stall = _inst_decode_unit_io_ID_stall;	// <stdin>:1129:10, top.scala:32:34
-  assign io_ALU_Data1 = _inst_decode_unit_io_ID_ALU_Data1;	// <stdin>:1129:10, top.scala:32:34
-  assign io_ALU_Data2 = _inst_decode_unit_io_ID_ALU_Data2;	// <stdin>:1129:10, top.scala:32:34
-  assign io_ALUResult = _excute_unit_io_EX_ALUResult;	// <stdin>:1129:10, top.scala:33:29
+  assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:1127:10, top.scala:31:33
+  assign io_WB_Inst = _wb_unit_io_WB_Inst;	// <stdin>:1127:10, top.scala:35:25
+  assign io_MEM_pc = _mem_unit_io_MEM_pc;	// <stdin>:1127:10, top.scala:34:26
+  assign io_stall = _inst_decode_unit_io_ID_stall;	// <stdin>:1127:10, top.scala:32:34
+  assign io_ALU_Data1 = _inst_decode_unit_io_ID_ALU_Data1;	// <stdin>:1127:10, top.scala:32:34
+  assign io_ALU_Data2 = _inst_decode_unit_io_ID_ALU_Data2;	// <stdin>:1127:10, top.scala:32:34
+  assign io_ALUResult = _excute_unit_io_EX_ALUResult;	// <stdin>:1127:10, top.scala:33:29
 endmodule
 
 
@@ -1368,7 +1368,6 @@ module LSU(input [63:0] addr, input [4:0] LsuType, input WriteEn, input ReadEn, 
             end
             else if(ReadEn)begin
                 dci_pmem_read(addr, data_r, mask);
-                $display("mask %d\n", mask);
             end
             else
                 data_r = 64'b0;
