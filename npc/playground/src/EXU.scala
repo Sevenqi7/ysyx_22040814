@@ -36,7 +36,7 @@ class EXU extends Module{
     val ALU_Result = Wire(UInt(64.W))
     val shamt = Wire(UInt(6.W))
 
-    io.EX_ALUResult := Output(UInt(64.W))
+    io.EX_ALUResult_Pass := ALU_Result
     shamt := ALU_Data2(5, 0)
 
     regConnect(io.EX_RegWriteEn,        io.ID_RegWriteEn)
