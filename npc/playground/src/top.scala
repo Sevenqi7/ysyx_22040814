@@ -27,14 +27,18 @@ class top extends Module{
     val mem_unit = Module(new MEMU)
     val wb_unit = Module(new WBU)
 
+    io.IF_pc := inst_fetch_unit.io.IF_pc
+    io.stall := inst_decode_unit.io.ID_stall
+    
     val simulate = Module(new sim)
+    
     simulate.io.IF_pc                       := inst_fetch_unit.io.IF_pc
     simulate.io.GPR                         := inst_decode_unit.io.ID_GPR
     simulate.io.unknown_inst_flag           := inst_decode_unit.io.ID_unknown_inst
+    
     inst_fetch_unit.io.ID_npc               := inst_decode_unit.io.ID_npc
     inst_fetch_unit.io.ID_stall            := inst_decode_unit.io.ID_stall
     
-    io.IF_pc := inst_fetch_unit.io.IF_pc
     inst_decode_unit.io.IF_Inst             := simulate.io.inst(31, 0)
     inst_decode_unit.io.IF_pc               := inst_fetch_unit.io.IF_pc
     inst_decode_unit.io.WB_RegWriteData     := wb_unit.io.WB_RegWriteData
