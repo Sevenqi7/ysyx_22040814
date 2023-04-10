@@ -23,8 +23,8 @@ class top extends Module{
         val MEM_pc = Output(UInt(64.W))
         val stall   = Output(Bool())
 
-        val ALU_Data1 = Ouput(UInt(64.W))
-        val ALU_Data2 = Ouput(UInt(64.W))
+        val ALU_Data1 = Output(UInt(64.W))
+        val ALU_Data2 = Output(UInt(64.W))
         val ALUResult = Output(UInt(64.W))
     })
 
