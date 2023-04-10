@@ -53,7 +53,6 @@ class IDU extends Module{
     val pplrst = Wire(Bool())
     pplrst := reset.asBool
 
-
     //Decode
     val InstInfo = ListLookup(io.IF_Inst, List(0.U, 0.U, 0.U, 0.U, 0.U), RV64IInstr.table)
     val instType = Wire(UInt(3.W))
@@ -143,24 +142,24 @@ class IDU extends Module{
         (instType === TYPE_S, immS)
         ))
         
-        ALU_Data1 := MuxCase(0.U, Seq(
-            (src1 === ZERO, 0.U     ),
-            (src1 === PC  , io.IF_pc),
-            (src1 === RS1 , rs1_data),
-            (src1 === NPC , io.IF_pc+4.U)
-            ))
+    ALU_Data1 := MuxCase(0.U, Seq(
+        (src1 === ZERO, 0.U     ),
+        (src1 === PC  , io.IF_pc),
+        (src1 === RS1 , rs1_data),
+        (src1 === NPC , io.IF_pc+4.U)
+    ))
             
-            ALU_Data2 := MuxCase(0.U, Seq(
-                (src2 === ZERO  , 0.U      ),
-                (src2 === PC    , io.IF_pc ),
-                (src2 === RS2   , rs2_data ),
-                (src2 === IMM   , imm      ),
-                (src2 === SHAMT , shamt    )
-                ))
+    ALU_Data2 := MuxCase(0.U, Seq(
+        (src2 === ZERO  , 0.U      ),
+        (src2 === PC    , io.IF_pc ),
+        (src2 === RS2   , rs2_data ),
+        (src2 === IMM   , imm      ),
+        (src2 === SHAMT , shamt    )
+    ))
                 
-                RegWriteEn := (instType === TYPE_R) || (instType === TYPE_I) || (instType === TYPE_U) || (instType === TYPE_J)
-                MemWriteEn := (instType === TYPE_S)
-                MemReadEn  := (instType =/= TYPE_S  && io.ID_FuType === FuType.lsu)
+    RegWriteEn := (instType === TYPE_R) || (instType === TYPE_I) || (instType === TYPE_U) || (instType === TYPE_J)
+    MemWriteEn := (instType === TYPE_S)
+    MemReadEn  := (instType =/= TYPE_S  && io.ID_FuType === FuType.lsu)
                 
     regConnectWithResetAndStall(io.ID_ALU_Data1 ,  ALU_Data1, pplrst, 0.U, io.ID_stall)
     // regConnect(io.ID_ALU_Data1  ,    ALU_Data1)
