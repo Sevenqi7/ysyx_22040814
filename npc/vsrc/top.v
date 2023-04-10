@@ -994,14 +994,14 @@ endmodule
 
 // external module sim
 
-module top(	// <stdin>:1100:10
+module top(	// <stdin>:1099:10
   input         clock,
                 reset,
   output [63:0] io_IF_pc,
-                io_ALUResult);
+                io_ALUResult,
+  output        io_stall);
 
-  wire [63:0] _simulate_inst;	// top.scala:30:26
-  wire        _simulate_stall;	// top.scala:30:26
+  wire [63:0] _simulate_inst;	// top.scala:33:26
   wire [63:0] _wb_unit_io_WB_RegWriteData;	// top.scala:28:25
   wire        _wb_unit_io_WB_RegWriteEn;	// top.scala:28:25
   wire [4:0]  _wb_unit_io_WB_RegWriteID;	// top.scala:28:25
@@ -1069,7 +1069,7 @@ module top(	// <stdin>:1100:10
   IDU inst_decode_unit (	// top.scala:25:34
     .clock               (clock),
     .reset               (reset),
-    .io_IF_Inst          (_simulate_inst[31:0]),	// top.scala:30:26, :38:64
+    .io_IF_Inst          (_simulate_inst[31:0]),	// top.scala:33:26, :42:64
     .io_IF_pc            (_inst_fetch_unit_io_IF_pc),	// top.scala:24:33
     .io_WB_RegWriteData  (_wb_unit_io_WB_RegWriteData),	// top.scala:28:25
     .io_WB_RegWriteID    (_wb_unit_io_WB_RegWriteID),	// top.scala:28:25
@@ -1163,48 +1163,30 @@ module top(	// <stdin>:1100:10
     .io_WB_RegWriteEn    (_wb_unit_io_WB_RegWriteEn),
     .io_WB_RegWriteID    (_wb_unit_io_WB_RegWriteID)
   );
-  sim simulate (	// top.scala:30:26
-    .clock             (1'h0),	// <stdin>:1127:20
-    .reset             (1'h0),	// <stdin>:1127:20
-    .IF_pc             (_inst_fetch_unit_io_IF_pc),	// top.scala:24:33
-    .GPR_0             (_inst_decode_unit_io_ID_GPR_0),	// top.scala:25:34
-    .GPR_1             (_inst_decode_unit_io_ID_GPR_1),	// top.scala:25:34
-    .GPR_2             (_inst_decode_unit_io_ID_GPR_2),	// top.scala:25:34
-    .GPR_3             (_inst_decode_unit_io_ID_GPR_3),	// top.scala:25:34
-    .GPR_4             (_inst_decode_unit_io_ID_GPR_4),	// top.scala:25:34
-    .GPR_5             (_inst_decode_unit_io_ID_GPR_5),	// top.scala:25:34
-    .GPR_6             (_inst_decode_unit_io_ID_GPR_6),	// top.scala:25:34
-    .GPR_7             (_inst_decode_unit_io_ID_GPR_7),	// top.scala:25:34
-    .GPR_8             (_inst_decode_unit_io_ID_GPR_8),	// top.scala:25:34
-    .GPR_9             (_inst_decode_unit_io_ID_GPR_9),	// top.scala:25:34
-    .GPR_10            (_inst_decode_unit_io_ID_GPR_10),	// top.scala:25:34
-    .GPR_11            (_inst_decode_unit_io_ID_GPR_11),	// top.scala:25:34
-    .GPR_12            (_inst_decode_unit_io_ID_GPR_12),	// top.scala:25:34
-    .GPR_13            (_inst_decode_unit_io_ID_GPR_13),	// top.scala:25:34
-    .GPR_14            (_inst_decode_unit_io_ID_GPR_14),	// top.scala:25:34
-    .GPR_15            (_inst_decode_unit_io_ID_GPR_15),	// top.scala:25:34
-    .GPR_16            (_inst_decode_unit_io_ID_GPR_16),	// top.scala:25:34
-    .GPR_17            (_inst_decode_unit_io_ID_GPR_17),	// top.scala:25:34
-    .GPR_18            (_inst_decode_unit_io_ID_GPR_18),	// top.scala:25:34
-    .GPR_19            (_inst_decode_unit_io_ID_GPR_19),	// top.scala:25:34
-    .GPR_20            (_inst_decode_unit_io_ID_GPR_20),	// top.scala:25:34
-    .GPR_21            (_inst_decode_unit_io_ID_GPR_21),	// top.scala:25:34
-    .GPR_22            (_inst_decode_unit_io_ID_GPR_22),	// top.scala:25:34
-    .GPR_23            (_inst_decode_unit_io_ID_GPR_23),	// top.scala:25:34
-    .GPR_24            (_inst_decode_unit_io_ID_GPR_24),	// top.scala:25:34
-    .GPR_25            (_inst_decode_unit_io_ID_GPR_25),	// top.scala:25:34
-    .GPR_26            (_inst_decode_unit_io_ID_GPR_26),	// top.scala:25:34
-    .GPR_27            (_inst_decode_unit_io_ID_GPR_27),	// top.scala:25:34
-    .GPR_28            (_inst_decode_unit_io_ID_GPR_28),	// top.scala:25:34
-    .GPR_29            (_inst_decode_unit_io_ID_GPR_29),	// top.scala:25:34
-    .GPR_30            (_inst_decode_unit_io_ID_GPR_30),	// top.scala:25:34
-    .GPR_31            (_inst_decode_unit_io_ID_GPR_31),	// top.scala:25:34
-    .unknown_inst_flag (_inst_decode_unit_io_ID_unknown_inst),	// top.scala:25:34
-    .inst              (_simulate_inst),
-    .stall             (_simulate_stall)
-  );
-  assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:1100:10, top.scala:24:33
-  assign io_ALUResult = _mem_unit_io_MEM_RegWriteData;	// <stdin>:1100:10, top.scala:27:26
+wire [63:0] GPR [31:0];
+assign {GPR[31], GPR[30], GPR[29], GPR[28], GPR[27], GPR[26], GPR[25], GPR[24], GPR[23], GPR[22], GPR[21], GPR[20]
+, GPR[19], GPR[18], GPR[17], GPR[16], GPR[15], GPR[14], GPR[13], GPR[12], GPR[11], GPR[10], GPR[9], GPR[8], GPR[7]
+, GPR[6], GPR[5], GPR[4], GPR[3], GPR[2], GPR[1], GPR[0]} = 
+{{_inst_decode_unit_io_ID_GPR_31}, {_inst_decode_unit_io_ID_GPR_30}, {_inst_decode_unit_io_ID_GPR_29}, 
+{_inst_decode_unit_io_ID_GPR_28}, {_inst_decode_unit_io_ID_GPR_27}, {_inst_decode_unit_io_ID_GPR_26}, {_inst_decode_unit_io_ID_GPR_25}, 
+{_inst_decode_unit_io_ID_GPR_24}, {_inst_decode_unit_io_ID_GPR_23}, {_inst_decode_unit_io_ID_GPR_22}, {_inst_decode_unit_io_ID_GPR_21}, 
+{_inst_decode_unit_io_ID_GPR_20}, {_inst_decode_unit_io_ID_GPR_19}, {_inst_decode_unit_io_ID_GPR_18}, {_inst_decode_unit_io_ID_GPR_17}, 
+{_inst_decode_unit_io_ID_GPR_16}, {_inst_decode_unit_io_ID_GPR_15}, {_inst_decode_unit_io_ID_GPR_14}, {_inst_decode_unit_io_ID_GPR_13}, 
+{_inst_decode_unit_io_ID_GPR_12}, {_inst_decode_unit_io_ID_GPR_11}, {_inst_decode_unit_io_ID_GPR_10}, {_inst_decode_unit_io_ID_GPR_9 }, 
+{_inst_decode_unit_io_ID_GPR_8 }, {_inst_decode_unit_io_ID_GPR_7 }, {_inst_decode_unit_io_ID_GPR_6 }, {_inst_decode_unit_io_ID_GPR_5 },
+{_inst_decode_unit_io_ID_GPR_4 }, {_inst_decode_unit_io_ID_GPR_3 }, {_inst_decode_unit_io_ID_GPR_2 }, {_inst_decode_unit_io_ID_GPR_1 }, 
+{_inst_decode_unit_io_ID_GPR_0}};	// IDU.scala:55:22, :66:20
+
+sim simulate (	// top.scala:24:26
+   .IF_pc             (_inst_fetch_unit_io_IF_pc),	// top.scala:24:33
+   .inst              (_simulate_inst),
+   .GPR               (GPR),
+   .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
+);
+
+  assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:1099:10, top.scala:24:33
+  assign io_ALUResult = _mem_unit_io_MEM_RegWriteData;	// <stdin>:1099:10, top.scala:27:26
+  assign io_stall = _inst_decode_unit_io_ID_stall;	// <stdin>:1099:10, top.scala:25:34
 endmodule
 
 
@@ -1252,26 +1234,6 @@ import "DPI-C" function void unknown_inst();
 import "DPI-C" function void ebreak(input longint halt_ret);
 
 
-wire [63:0] GPR [31:0];
-assign {GPR[31], GPR[30], GPR[29], GPR[28], GPR[27], GPR[26], GPR[25], GPR[24], GPR[23], GPR[22], GPR[21], GPR[20]
-, GPR[19], GPR[18], GPR[17], GPR[16], GPR[15], GPR[14], GPR[13], GPR[12], GPR[11], GPR[10], GPR[9], GPR[8], GPR[7]
-, GPR[6], GPR[5], GPR[4], GPR[3], GPR[2], GPR[1], GPR[0]} = 
-{{_inst_decode_unit_io_ID_GPR_31}, {_inst_decode_unit_io_ID_GPR_30}, {_inst_decode_unit_io_ID_GPR_29}, 
-{_inst_decode_unit_io_ID_GPR_28}, {_inst_decode_unit_io_ID_GPR_27}, {_inst_decode_unit_io_ID_GPR_26}, {_inst_decode_unit_io_ID_GPR_25}, 
-{_inst_decode_unit_io_ID_GPR_24}, {_inst_decode_unit_io_ID_GPR_23}, {_inst_decode_unit_io_ID_GPR_22}, {_inst_decode_unit_io_ID_GPR_21}, 
-{_inst_decode_unit_io_ID_GPR_20}, {_inst_decode_unit_io_ID_GPR_19}, {_inst_decode_unit_io_ID_GPR_18}, {_inst_decode_unit_io_ID_GPR_17}, 
-{_inst_decode_unit_io_ID_GPR_16}, {_inst_decode_unit_io_ID_GPR_15}, {_inst_decode_unit_io_ID_GPR_14}, {_inst_decode_unit_io_ID_GPR_13}, 
-{_inst_decode_unit_io_ID_GPR_12}, {_inst_decode_unit_io_ID_GPR_11}, {_inst_decode_unit_io_ID_GPR_10}, {_inst_decode_unit_io_ID_GPR_9 }, 
-{_inst_decode_unit_io_ID_GPR_8 }, {_inst_decode_unit_io_ID_GPR_7 }, {_inst_decode_unit_io_ID_GPR_6 }, {_inst_decode_unit_io_ID_GPR_5 },
-{_inst_decode_unit_io_ID_GPR_4 }, {_inst_decode_unit_io_ID_GPR_3 }, {_inst_decode_unit_io_ID_GPR_2 }, {_inst_decode_unit_io_ID_GPR_1 }, 
-{_inst_decode_unit_io_ID_GPR_0}};	// IDU.scala:55:22, :66:20
-
-sim simulate (	// top.scala:24:26
-   .IF_pc             (_inst_fetch_unit_io_IF_pc),	// top.scala:24:33
-   .inst              (_simulate_inst),
-   .GPR               (GPR),
-   .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
-);
 
 module sim(input[63:0] IF_pc, input [63:0] GPR [31:0], input unknown_inst_flag, output [63:0] inst);
 
@@ -1303,6 +1265,3 @@ module sim(input[63:0] IF_pc, input [63:0] GPR [31:0], input unknown_inst_flag, 
 endmodule
 
 // ----- 8< ----- FILE "firrtl_black_box_resource_files.f" ----- 8< -----
-
-build/build/LSU.v
-build/build/sim.v
