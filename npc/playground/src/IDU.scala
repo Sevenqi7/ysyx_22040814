@@ -79,11 +79,11 @@ class IDU extends Module{
     // immS := Cat(Fill(57, io.IF_Inst(31)), io.IF_Inst(31, 25)) << 5 | io.IF_Inst(11, 7)
     // immB := Cat(Fill(52, io.IF_Inst(31)), ((io.IF_Inst(31) << 11) | (io.IF_Inst(30, 25) << 4) | io.IF_Inst(11, 8) | (io.IF_Inst(7) << 10)))
     // immJ := Cat(Fill(44, io.IF_Inst(31)), (io.IF_Inst(30, 21) | (io.IF_Inst(20) << 10) | (io.IF_Inst(19, 12) << 11) | (io.IF_Inst(31, 31) << 19)))
-    immI := SEXT(io.IF_Inst(31, 20), 12)
-    immU := SEXT(io.IF_Inst(31, 12), 20) << 12
-    immS := (SEXT(io.IF_Inst(31, 25), 7) << 5) | io.IF_Inst(11, 7)
-    immJ := SEXT(io.IF_Inst(30, 21) | (io.IF_Inst(20) << 10) | (io.IF_Inst(19, 12) << 11) | (io.IF_Inst(31) << 19), 20)
-    immB := SEXT((io.IF_Inst(31) << 11) | (io.IF_Inst(30, 25) << 4) | io.IF_Inst(11, 8) | (io.IF_Inst(7 ,7) << 10), 12)
+    // immI := SEXT(io.IF_Inst(31, 20), 12)
+    // immU := SEXT(io.IF_Inst(31, 12), 20) << 12
+    // immS := (SEXT(io.IF_Inst(31, 25), 7) << 5) | io.IF_Inst(11, 7)
+    // immJ := SEXT(io.IF_Inst(30, 21) | (io.IF_Inst(20) << 10) | (io.IF_Inst(19, 12) << 11) | (io.IF_Inst(31) << 19), 20)
+    // immB := SEXT((io.IF_Inst(31) << 11) | (io.IF_Inst(30, 25) << 4) | io.IF_Inst(11, 8) | (io.IF_Inst(7 ,7) << 10), 12)
     shamt := io.IF_Inst(25, 20)
     
     
@@ -101,15 +101,15 @@ class IDU extends Module{
     rs2 := io.IF_Inst(24, 20)
     
     rs1_data := MuxCase(Mux(rs1 === 0.U, 0.U, GPR(rs1)), Seq(
-        (io.ID_RegWriteID  === rs1 && io.ID_RegWriteEn.asBool , io.EX_ALUResult    ),
-        (io.MEM_RegWriteID === rs1 && io.MEM_RegWriteEn.asBool, io.MEM_RegWriteData),
-        (io.WB_RegWriteID  === rs1 && io.WB_RegWriteEn.asBool , io.WB_RegWriteData )
+        ((io.ID_RegWriteID  === rs1) && io.ID_RegWriteEn.asBool , io.EX_ALUResult    ),
+        ((io.MEM_RegWriteID === rs1) && io.MEM_RegWriteEn.asBool, io.MEM_RegWriteData),
+        ((io.WB_RegWriteID  === rs1) && io.WB_RegWriteEn.asBool , io.WB_RegWriteData )
     ))
         
     rs2_data := MuxCase(Mux(rs2 === 0.U, 0.U, GPR(rs2)), Seq(
-        (io.ID_RegWriteID  === rs2 && io.ID_RegWriteEn.asBool , io.EX_ALUResult    ),
-        (io.MEM_RegWriteID === rs2 && io.MEM_RegWriteEn.asBool, io.MEM_RegWriteData),
-        (io.WB_RegWriteID  === rs2 && io.WB_RegWriteEn.asBool , io.WB_RegWriteData )
+        ((io.ID_RegWriteID  === rs2) && io.ID_RegWriteEn.asBool , io.EX_ALUResult    ),
+        ((io.MEM_RegWriteID === rs2) && io.MEM_RegWriteEn.asBool, io.MEM_RegWriteData),
+        ((io.WB_RegWriteID  === rs2) && io.WB_RegWriteEn.asBool , io.WB_RegWriteData )
     ))
             
     when(io.WB_RegWriteEn.asBool() && io.WB_RegWriteID =/= 0.U)
@@ -174,8 +174,8 @@ class IDU extends Module{
     regConnectWithResetAndStall(io.ID_FuType    , InstInfo(1), reset, 0.U, io.ID_stall)
 
     val stall_cnt = RegInit(0.U(2.W))
-    when(io.ID_FuType === FuType.lsu && io.ID_RegWriteEn.asBool 
-         && RegWriteEn.asBool && io.ID_RegWriteID === rd)
+    when((io.ID_FuType === FuType.lsu) && io.ID_RegWriteEn.asBool 
+         && RegWriteEn.asBool && (io.ID_RegWriteID === rd))
     {
         stall_cnt := 1.U
     }
@@ -188,7 +188,7 @@ class IDU extends Module{
     //TODO: stall_cnt
     io.ID_unknown_inst := InstInfo(0) === 0.U
     io.ID_stall        := Mux((io.ID_FuType === FuType.lsu && io.ID_RegWriteEn.asBool 
-                    && RegWriteEn.asBool && io.ID_RegWriteID === rd) || (stall_cnt > 0.U), 1.B, 0.B)
+                    && RegWriteEn.asBool && (io.ID_RegWriteID === rd)) || (stall_cnt > 0.U), 1.B, 0.B)
 
     //NPC
     val BJ_flag = Wire(Bool())

@@ -78,7 +78,7 @@ class EXU extends Module{
     ALU_Data2 := io.ID_ALU_Data2
     
     ALU_Result := MuxCase(0.U, Seq(
-        (io.ID_optype === OP_PLUS || io.ID_FuType === FuType.lsu, ALU_Data1 + ALU_Data2),
+        ((io.ID_optype === OP_PLUS) || (io.ID_FuType === FuType.lsu), ALU_Data1 + ALU_Data2),
         (io.ID_optype === OP_SUB , ALU_Data1  -  ALU_Data2),
         (io.ID_optype === OP_AND , ALU_Data1  &  ALU_Data2),
         (io.ID_optype === OP_OR  , ALU_Data1  |  ALU_Data2),

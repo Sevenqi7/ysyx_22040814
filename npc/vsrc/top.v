@@ -1010,7 +1010,7 @@ endmodule
 
 // external module LSU
 
-module MEMU(	// <stdin>:1063:10
+module MEMU(	// <stdin>:1064:10
   input         clock,
                 reset,
   input  [63:0] io_EX_ALUResult,
@@ -1028,7 +1028,7 @@ module MEMU(	// <stdin>:1063:10
   output [63:0] io_MEM_pc,
   output [31:0] io_MEM_Inst);
 
-  wire [63:0] _mem_ReadData;	// MEMU.scala:54:21
+  wire [63:0] _mem_ReadData;	// MEMU.scala:55:21
   reg  [63:0] rhsReg;	// utils.scala:15:29
   reg  [31:0] rhsReg_1;	// utils.scala:15:29
   reg         rhsReg_2;	// utils.scala:15:29
@@ -1048,32 +1048,32 @@ module MEMU(	// <stdin>:1063:10
       rhsReg_2 <= io_EX_RegWriteEn;	// utils.scala:15:29
       rhsReg_3 <= io_EX_RegWriteID;	// utils.scala:15:29
       if (io_EX_MemReadEn)
-        rhsReg_4 <= _mem_ReadData;	// MEMU.scala:54:21, utils.scala:15:29
+        rhsReg_4 <= _mem_ReadData;	// MEMU.scala:55:21, utils.scala:15:29
       else
         rhsReg_4 <= io_EX_ALUResult;	// utils.scala:15:29
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:1063:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:1063:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:1063:10
+  `ifndef SYNTHESIS	// <stdin>:1064:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:1064:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:1064:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:1063:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:1063:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:1063:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:1063:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:1063:10
-      automatic logic [31:0] _RANDOM_4;	// <stdin>:1063:10
-      automatic logic [31:0] _RANDOM_5;	// <stdin>:1063:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:1063:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:1063:10
+    initial begin	// <stdin>:1064:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:1064:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:1064:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:1064:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:1064:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:1064:10
+      automatic logic [31:0] _RANDOM_5;	// <stdin>:1064:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:1064:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:1064:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:1063:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:1063:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:1063:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:1063:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:1063:10
-        _RANDOM_4 = `RANDOM;	// <stdin>:1063:10
-        _RANDOM_5 = `RANDOM;	// <stdin>:1063:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:1064:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:1064:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:1064:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:1064:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:1064:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:1064:10
+        _RANDOM_5 = `RANDOM;	// <stdin>:1064:10
         rhsReg = {_RANDOM_0, _RANDOM_1};	// utils.scala:15:29
         rhsReg_1 = _RANDOM_2;	// utils.scala:15:29
         rhsReg_2 = _RANDOM_3[0];	// utils.scala:15:29
@@ -1081,11 +1081,12 @@ module MEMU(	// <stdin>:1063:10
         rhsReg_4 = {_RANDOM_3[31:6], _RANDOM_4, _RANDOM_5[5:0]};	// utils.scala:15:29
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:1063:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:1063:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:1064:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:1064:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  LSU mem (	// MEMU.scala:54:21
+  LSU mem (	// MEMU.scala:55:21
+    .pc        (rhsReg),	// utils.scala:15:29
     .addr      (io_EX_ALUResult),
     .LsuType   (io_EX_LsuType),
     .WriteEn   (io_EX_MemWriteEn),
@@ -1093,14 +1094,14 @@ module MEMU(	// <stdin>:1063:10
     .WriteData (io_EX_MemWriteData),
     .ReadData  (_mem_ReadData)
   );
-  assign io_MEM_RegWriteData = rhsReg_4;	// <stdin>:1063:10, utils.scala:15:29
-  assign io_MEM_RegWriteEn = rhsReg_2;	// <stdin>:1063:10, utils.scala:15:29
-  assign io_MEM_RegWriteID = rhsReg_3;	// <stdin>:1063:10, utils.scala:15:29
-  assign io_MEM_pc = rhsReg;	// <stdin>:1063:10, utils.scala:15:29
-  assign io_MEM_Inst = rhsReg_1;	// <stdin>:1063:10, utils.scala:15:29
+  assign io_MEM_RegWriteData = rhsReg_4;	// <stdin>:1064:10, utils.scala:15:29
+  assign io_MEM_RegWriteEn = rhsReg_2;	// <stdin>:1064:10, utils.scala:15:29
+  assign io_MEM_RegWriteID = rhsReg_3;	// <stdin>:1064:10, utils.scala:15:29
+  assign io_MEM_pc = rhsReg;	// <stdin>:1064:10, utils.scala:15:29
+  assign io_MEM_Inst = rhsReg_1;	// <stdin>:1064:10, utils.scala:15:29
 endmodule
 
-module WBU(	// <stdin>:1106:10
+module WBU(	// <stdin>:1109:10
   input  [63:0] io_MEM_RegWriteData,
   input         io_MEM_RegWriteEn,
   input  [4:0]  io_MEM_RegWriteID,
@@ -1112,16 +1113,16 @@ module WBU(	// <stdin>:1106:10
   output [63:0] io_WB_pc,
   output [31:0] io_WB_Inst);
 
-  assign io_WB_RegWriteData = io_MEM_RegWriteData;	// <stdin>:1106:10
-  assign io_WB_RegWriteEn = io_MEM_RegWriteEn;	// <stdin>:1106:10
-  assign io_WB_RegWriteID = io_MEM_RegWriteID;	// <stdin>:1106:10
-  assign io_WB_pc = io_MEM_pc;	// <stdin>:1106:10
-  assign io_WB_Inst = io_MEM_Inst;	// <stdin>:1106:10
+  assign io_WB_RegWriteData = io_MEM_RegWriteData;	// <stdin>:1109:10
+  assign io_WB_RegWriteEn = io_MEM_RegWriteEn;	// <stdin>:1109:10
+  assign io_WB_RegWriteID = io_MEM_RegWriteID;	// <stdin>:1109:10
+  assign io_WB_pc = io_MEM_pc;	// <stdin>:1109:10
+  assign io_WB_Inst = io_MEM_Inst;	// <stdin>:1109:10
 endmodule
 
 // external module sim
 
-module top(	// <stdin>:1127:10
+module top(	// <stdin>:1130:10
   input         clock,
                 reset,
   output [63:0] io_IF_pc,
@@ -1322,6 +1323,7 @@ module top(	// <stdin>:1127:10
     .io_WB_pc            (io_WB_pc),
     .io_WB_Inst          (_wb_unit_io_WB_Inst)
   );
+
 wire [63:0] GPR [31:0];
 assign {GPR[31], GPR[30], GPR[29], GPR[28], GPR[27], GPR[26], GPR[25], GPR[24], GPR[23], GPR[22], GPR[21], GPR[20]
 , GPR[19], GPR[18], GPR[17], GPR[16], GPR[15], GPR[14], GPR[13], GPR[12], GPR[11], GPR[10], GPR[9], GPR[8], GPR[7]
@@ -1343,14 +1345,13 @@ sim simulate (	// top.scala:24:26
    .GPR               (GPR),
    .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
 );
-
-  assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:1127:10, top.scala:31:33
-  assign io_WB_Inst = _wb_unit_io_WB_Inst;	// <stdin>:1127:10, top.scala:35:25
-  assign io_MEM_pc = _mem_unit_io_MEM_pc;	// <stdin>:1127:10, top.scala:34:26
-  assign io_stall = _inst_decode_unit_io_ID_stall;	// <stdin>:1127:10, top.scala:32:34
-  assign io_ALU_Data1 = _inst_decode_unit_io_ID_ALU_Data1;	// <stdin>:1127:10, top.scala:32:34
-  assign io_ALU_Data2 = _inst_decode_unit_io_ID_ALU_Data2;	// <stdin>:1127:10, top.scala:32:34
-  assign io_ALUResult = _excute_unit_io_EX_ALUResult;	// <stdin>:1127:10, top.scala:33:29
+  assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:1130:10, top.scala:31:33
+  assign io_WB_Inst = _wb_unit_io_WB_Inst;	// <stdin>:1130:10, top.scala:35:25
+  assign io_MEM_pc = _mem_unit_io_MEM_pc;	// <stdin>:1130:10, top.scala:34:26
+  assign io_stall = _inst_decode_unit_io_ID_stall;	// <stdin>:1130:10, top.scala:32:34
+  assign io_ALU_Data1 = _inst_decode_unit_io_ID_ALU_Data1;	// <stdin>:1130:10, top.scala:32:34
+  assign io_ALU_Data2 = _inst_decode_unit_io_ID_ALU_Data2;	// <stdin>:1130:10, top.scala:32:34
+  assign io_ALUResult = _excute_unit_io_EX_ALUResult;	// <stdin>:1130:10, top.scala:33:29
 endmodule
 
 
@@ -1359,7 +1360,7 @@ endmodule
 import "DPI-C" function void dci_pmem_write(input longint waddr, input longint wdata, input byte wmask);
 import "DPI-C" function void dci_pmem_read(input longint raddr, output longint rdata, input byte rmask);
 
-module LSU(input [63:0] addr, input [4:0] LsuType, input WriteEn, input ReadEn, input [63:0]WriteData, output [63:0] ReadData);
+module LSU(input [63:0] pc, input [63:0] addr, input [4:0] LsuType, input WriteEn, input ReadEn, input [63:0]WriteData, output [63:0] ReadData);
 
     wire [7:0] mask;
     wire [63:0] lw_result;
@@ -1384,6 +1385,7 @@ module LSU(input [63:0] addr, input [4:0] LsuType, input WriteEn, input ReadEn, 
                 data_r = 64'h0;
             end
             else if(ReadEn)begin
+                $display("pc:%x", pc);
                 dci_pmem_read(addr, data_r, mask);
             end
             else
@@ -1429,4 +1431,3 @@ module sim(input[63:0] IF_pc, input [63:0] GPR [31:0], input unknown_inst_flag, 
 endmodule
 
 // ----- 8< ----- FILE "firrtl_black_box_resource_files.f" ----- 8< -----
-
