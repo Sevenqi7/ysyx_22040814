@@ -71,6 +71,7 @@ void exec_once()            //disassemble实质上是反汇编的上一个已执
     }
     for(int i=0;i<2;i++)
     {
+        Log("stall");
         contextp->timeInc(1); // 1 timeprecision period passes...
         top->clock = !top->clock;
         top->eval();
@@ -80,7 +81,9 @@ void exec_once()            //disassemble实质上是反汇编的上一个已执
             top->clock = !top->clock;
             top->eval();
         }
-        Log("ALUResult:0x%lx", top->io_ALUResult);
+        if(i)
+    {        Log("ALUData1:0x%lx ALUData2:0x%lx", top->io_ALU_Data1, top->io_ALU_Data2);
+            Log("ALUResult:0x%lx", top->io_ALUResult);}
     }
 trace:
     char logbuf[128];

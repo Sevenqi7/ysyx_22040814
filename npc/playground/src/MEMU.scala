@@ -57,5 +57,7 @@ class MEMU extends Module{
     mem.io.WriteEn := io.EX_MemWriteEn
     mem.io.WriteData := io.EX_MemWriteData
     mem.io.ReadEn  := io.EX_MemReadEn
-    RegWriteData := Mux((io.EX_LsuType =/= 0.U) && (io.EX_MemWriteEn === 0.U), mem.io.ReadData, io.EX_ALUResult)
+    RegWriteData := MuxCase(EX_ALUResult, Seq(
+        (io.EX_MemReadEn, mem.io.ReadData)
+    ))
 }  

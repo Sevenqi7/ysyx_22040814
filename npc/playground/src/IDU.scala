@@ -188,7 +188,7 @@ class IDU extends Module{
     //TODO: stall_cnt
     io.ID_unknown_inst := InstInfo(0) === 0.U
     io.ID_stall        := Mux((io.ID_FuType === FuType.lsu && io.ID_RegWriteEn.asBool 
-                    && RegWriteEn.asBool && io.ID_RegWriteID === rd) || stall_cnt > 0.U, 1.B, 0.B)
+                    && RegWriteEn.asBool && io.ID_RegWriteID === rd) || (stall_cnt > 0.U), 1.B, 0.B)
 
     //NPC
     val BJ_flag = Wire(Bool())
