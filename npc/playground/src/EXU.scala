@@ -65,7 +65,7 @@ class EXU extends Module{
     regConnectWithReset(io.EX_Inst          , io.ID_Inst        , pplrst)
     regConnectWithReset(io.EX_RegWriteEn    , io.ID_RegWriteEn  , pplrst)
     regConnectWithReset(io.EX_RegWriteID    , io.ID_RegWriteID  , pplrst)
-    regConnectWithReset(io.EX_MemWriteData  , io.EX_MemWriteData, pplrst)
+    regConnectWithReset(io.EX_MemWriteData  , io.ID_Rs2Data     , pplrst)
     regConnectWithReset(io.EX_MemWriteEn    , io.ID_MemWriteEn  , pplrst)
     regConnectWithReset(io.EX_MemReadEn     , io.ID_MemReadEn   , pplrst)
     regConnectWithReset(io.EX_LsuType       , LsuType           , pplrst)

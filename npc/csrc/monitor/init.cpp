@@ -29,6 +29,16 @@ void reset(int time)
 
 void init_npc(int argc, char **argv)
 {
+    Verilated::mkdir("logs");
+    contextp = new VerilatedContext;
+    contextp->debug(0);
+    contextp->randReset(3);
+    // contextp->traceEverOn(true);
+    contextp->commandArgs(argc, argv);
+    top = new Vtop;
+    top->clock = 0;
+    Verilated::traceEverOn(true);
+    
     img_size = init_img(argc, argv);
     init_disasm("riscv64");
     init_ftrace(argv[2]);
@@ -48,14 +58,7 @@ void init_npc(int argc, char **argv)
 
 long init_img(int argc, char **argv)
 {
-    Verilated::mkdir("logs");
-    contextp = new VerilatedContext;
-    contextp->debug(0);
-    contextp->randReset(3);
-    contextp->traceEverOn(true);
-    contextp->commandArgs(argc, argv);
-    top = new Vtop;
-    top->clock = 0;
+
     #ifdef CONFIG_DIFFTEST
     if(argc <= 2)
     #else

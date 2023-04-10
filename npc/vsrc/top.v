@@ -1040,7 +1040,7 @@ module MEMU(	// <stdin>:1063:10
       if (io_EX_MemReadEn)
         rhsReg_4 <= _mem_ReadData;	// MEMU.scala:54:21, utils.scala:15:29
       else
-        rhsReg_4 <= 64'h0;	// <stdin>:1063:10, utils.scala:15:29
+        rhsReg_4 <= io_EX_ALUResult;	// utils.scala:15:29
     end
   end // always @(posedge)
   `ifndef SYNTHESIS	// <stdin>:1063:10
@@ -1405,8 +1405,8 @@ module sim(input[63:0] IF_pc, input [63:0] GPR [31:0], input unknown_inst_flag, 
       reg [63:0] i = GPR[10][63:0];
       if(unknown_inst_flag) unknown_inst();
       if(WB_Inst[31:0] == 32'h00100073) begin
-        ebreak(i);
         $finish();
+        ebreak(i);
       end
   end
 
