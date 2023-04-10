@@ -51,7 +51,7 @@ class IDU extends Module{
     })
 
     //pipeline register reset
-    val pplrst = Wire(Bool)
+    val pplrst = Wire(Bool())
     pplrst := reset.asBool | io.flush
 
 
