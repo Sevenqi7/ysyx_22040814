@@ -70,6 +70,15 @@ long init_img(int argc, char **argv)
     contextp->commandArgs(argc, argv);
     top = new Vtop;
     top->clock = 0;
+    #ifdef CONFIG_DIFFTEST
+    if(argc <= 2)
+    #else
+    if(argc <= 1)
+    #endif
+    {
+        printf("\033[0m\033[1;31m%s\033[0m", "Usage: make ARCH=$ISA run\n");
+        exit(0);
+    }
     while(top->io_IF_pc != RESET_VECTOR)
         reset(5);
     for(int i=0;i<PIPELINE_STAGES * 2;i++)
@@ -79,11 +88,6 @@ long init_img(int argc, char **argv)
         top->eval();
     }
     //read img
-    if(argc <= 1)
-    {
-        printf("\033[0m\033[1;31m%s\033[0m", "Usage: make ARCH=$ISA run\n");
-        exit(0);
-    }
     char *img_file = argv[1];
     if(img_file == NULL)
     {
