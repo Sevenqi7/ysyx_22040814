@@ -100,7 +100,7 @@ class IDU extends Module{
     rs2 := io.IF_Inst(24, 20)
     
     rs1_data := MuxCase(Mux(rs1 === 0.U, 0.U, GPR(rs1)), Seq(
-        (io.ID_RegWriteID  === rs1 && io.ID_RegWriteID.asBool , io.EX_ALUResult    ),
+        (io.ID_RegWriteID  === rs1 && io.ID_RegWriteEn.asBool , io.EX_ALUResult    ),
         (io.MEM_RegWriteID === rs1 && io.MEM_RegWriteEn.asBool, io.MEM_RegWriteData),
         (io.WB_RegWriteID  === rs1 && io.WB_RegWriteID.asBool , io.WB_RegWriteData )
     ))
