@@ -35,10 +35,9 @@ class EXU extends Module{
     val ALU_Data2 = Wire(UInt(64.W))
     val ALU_Result = Wire(UInt(64.W))
     val shamt = Wire(UInt(6.W))
-
-    io.EX_ALUResult_Pass := ALU_Result
+    
     shamt := ALU_Data2(5, 0)
-
+    
     regConnect(io.EX_RegWriteEn,        io.ID_RegWriteEn)
     regConnect(io.EX_RegWriteID,        io.ID_RegWriteID)
     regConnect(io.EX_MemWriteData,         io.ID_Rs2Data)
@@ -46,10 +45,11 @@ class EXU extends Module{
     regConnect(io.EX_MemReadEn,          io.ID_MemReadEn)
     regConnect(io.EX_LsuType,                    LsuType)
     regConnect(io.EX_ALUResult,               ALU_Result)
-
+    io.EX_ALUResult_Pass := ALU_Result
+    
     ALU_Data1 := io.ID_ALU_Data1
     ALU_Data2 := io.ID_ALU_Data2
-
+    
     ALU_Result := MuxCase(0.U, Seq(
         (io.ID_optype === OP_PLUS || io.ID_FuType === FuType.lsu, ALU_Data1 + ALU_Data2),
         (io.ID_optype === OP_SUB , ALU_Data1  -  ALU_Data2),
@@ -80,6 +80,5 @@ class EXU extends Module{
         (io.ID_optype === OP_REMW, SEXT(((ALU_Data1.asSInt % ALU_Data2.asSInt).asUInt), 32)),
         (io.ID_optype === OP_REMUW, SEXT((ALU_Data1 % ALU_Data2), 32))
     ))
-
-    io.EX_ALUResult := ALU_Result
+    
 }
