@@ -16,7 +16,7 @@ void ebreak(long long int halt_ret)
     npc_state.state = NPC_END;
     printf("\033[0m\033[1;32m%s\033[0m\n", "NPCTRAP SUCCESS");
     if(halt_ret)
-        printf("    \033[0m\033[1;31m%s 0x%lx\033[0m\n", "HIT BAD TRAP AT PC:", top->io_IF_pc);
+        printf("    \033[0m\033[1;31m%s 0x%lx\033[0m\n", "HIT BAD TRAP AT PC:", top->io_WB_pc);
     else
-        printf("    \033[0m\033[1;32m%s 0x%lx\033[0m\n", "HIT GOOD TRAP AT PC:", top->io_IF_pc);
+        printf("    \033[0m\033[1;32m%s 0x%lx\033[0m\n", "HIT GOOD TRAP AT PC:", top->io_WB_pc);
 }

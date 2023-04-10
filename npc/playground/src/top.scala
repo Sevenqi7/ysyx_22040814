@@ -18,6 +18,7 @@ class top extends Module{
     val io = IO(new Bundle{
         val WB_pc = Output(UInt(64.W))
         val WB_Inst = Output(UInt(32.W))
+        val MEM_pc = Output(UInt(64.W))
         val ALUResult = Output(UInt(64.W))
         val stall   = Output(Bool())
     })
@@ -29,6 +30,7 @@ class top extends Module{
     val wb_unit = Module(new WBU)
 
     io.WB_pc := wb_unit.io.WB_pc
+    io.MEM_pc := mem_unit.io.MEM_pc
     io.WB_Inst := wb_unit.io.WB_Inst
     io.stall := inst_decode_unit.io.ID_stall
     

@@ -28,7 +28,7 @@ static void trace_and_difftest(char *logbuf)
 #ifdef CONFIG_FTRACE
     void ftrace_check_jal(uint64_t jump_addr, uint64_t ret_addr, int rs1, int rd);
     int rd = BITS(npc_state.inst, 11, 7), rs1 = BITS(npc_state.inst, 19, 15);
-    ftrace_check_jal(top->io_IF_pc, npc_state.pc + 4, rs1, rd);
+    ftrace_check_jal(top->io_WB_pc, npc_state.pc + 4, rs1, rd);
 #endif
 #ifdef CONFIG_WATCHPOINT
     if(check_watchpoints())
@@ -36,7 +36,7 @@ static void trace_and_difftest(char *logbuf)
 #endif
 #ifdef CONFIG_DIFFTEST
     void difftest_step(vaddr_t pc);
-    difftest_step(top->io_IF_pc);
+    difftest_step(top->io_WB_pc);
 #endif
 }
 
@@ -59,9 +59,9 @@ void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
 
 void exec_once()            //disassemble实质上是反汇编的上一个已执行完的指令（正要执行的指令还在等待上升沿）
 {
-    // npc_state.inst = pmem_read(top->io_IF_pc, 4);       //record the pc value and inst that excuted last time
+    // npc_state.inst = pmem_read(top->io_WB_pc, 4);       //record the pc value and inst that excuted last time
     npc_state.inst = top->io_WB_Inst;
-    npc_state.pc   = top->io_IF_pc;                     
+    npc_state.pc   = top->io_WB_pc;                     
     if(inst_fault)                           //if an unimplemented inst found, directly record inst trace without excuting next inst
     {
         npc_state.state = NPC_ABORT;
@@ -73,7 +73,7 @@ void exec_once()            //disassemble实质上是反汇编的上一个已执
         contextp->timeInc(1); // 1 timeprecision period passes...
         top->clock = !top->clock;
         // if(top->clock)
-        //     Log("time=%ld clk=%x rst=%x inst=0x%x IF_pc=0x%lx", contextp->time(), top->clock, top->reset, top->io_inst, top->io_IF_pc);
+        //     Log("time=%ld clk=%x rst=%x inst=0x%x IF_pc=0x%lx", contextp->time(), top->clock, top->reset, top->io_inst, top->io_WB_pc);
         top->eval();
     }
 trace:
