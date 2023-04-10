@@ -30,11 +30,11 @@ class top extends Module{
     simulate.io.IF_pc                       := inst_fetch_unit.io.IF_pc
     simulate.io.GPR                         := inst_decode_unit.io.ID_GPR
     simulate.io.unknown_inst_flag           := inst_decode_unit.io.ID_unknown_inst
-    inst_decode_unit.io.IF_Inst             := simulate.io.inst(31, 0)
-    inst_decode_unit.io.ID_stall            := inst_decode_unit.io.ID_stall
-
-    io.IF_pc := inst_fetch_unit.io.IF_pc
     inst_fetch_unit.io.ID_npc               := inst_decode_unit.io.ID_npc
+    inst_fetch_unit.io.ID_stall            := inst_decode_unit.io.ID_stall
+    
+    io.IF_pc := inst_fetch_unit.io.IF_pc
+    inst_decode_unit.io.IF_Inst             := simulate.io.inst(31, 0)
     inst_decode_unit.io.IF_pc               := inst_fetch_unit.io.IF_pc
     inst_decode_unit.io.WB_RegWriteData     := wb_unit.io.WB_RegWriteData
     inst_decode_unit.io.WB_RegWriteEn       := wb_unit.io.WB_RegWriteEn
