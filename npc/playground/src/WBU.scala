@@ -20,6 +20,7 @@ class WBU extends Module{
 
     //the actual reg writing operation is in IDU
     //so here directly connect WB_* with MEM_*
+    io.WB_pc           := io.MEM_pc
     io.WB_Inst         := io.MEM_Inst
     io.WB_RegWriteData := io.MEM_RegWriteData
     io.WB_RegWriteEn   := io.MEM_RegWriteEn
