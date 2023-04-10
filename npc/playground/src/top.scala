@@ -45,7 +45,7 @@ class top extends Module{
     simulate.io.unknown_inst_flag           := inst_decode_unit.io.ID_unknown_inst
     
     inst_fetch_unit.io.ID_npc               := inst_decode_unit.io.ID_npc
-    inst_fetch_unit.io.ID_stall            := inst_decode_unit.io.ID_stall
+    inst_fetch_unit.io.ID_stall             := inst_decode_unit.io.ID_stall
     
     inst_decode_unit.io.IF_pc               := inst_fetch_unit.io.IF_pc
     inst_decode_unit.io.IF_Inst             := simulate.io.inst(31, 0)
