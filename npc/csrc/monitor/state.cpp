@@ -6,7 +6,7 @@ bool inst_fault = false;
 
 void unknown_inst()
 {
-    if(top->reset) return;
+    if(top->reset || top->io_stall) return;
     inst_fault = true;
 }
 

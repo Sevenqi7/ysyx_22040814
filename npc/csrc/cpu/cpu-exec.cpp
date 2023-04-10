@@ -59,7 +59,8 @@ void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
 
 void exec_once()            //disassemble实质上是反汇编的上一个已执行完的指令（正要执行的指令还在等待上升沿）
 {
-    npc_state.inst = pmem_read(top->io_IF_pc, 4);       //record the pc value and inst that excuted last time
+    // npc_state.inst = pmem_read(top->io_IF_pc, 4);       //record the pc value and inst that excuted last time
+    npc_state.inst = top->io_WB_Inst
     npc_state.pc   = top->io_IF_pc;                     
     if(inst_fault)                           //if an unimplemented inst found, directly record inst trace without excuting next inst
     {
