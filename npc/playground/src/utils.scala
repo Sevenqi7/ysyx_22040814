@@ -25,4 +25,14 @@ object utils {
         }
     }
 
+    def regConnectWithResetAndStall(lhs :Data, rhs: Data, reset: Reset, resetVal: UInt=0.U, stall: Bool): Unit = {
+        withReset(reset){
+            val rhsReg = RegInit(chiselTypeOf(rhs), resetVal)
+            when(!stall)
+            {
+                rhsReg := rhs
+            }
+            lhs := rhsReg
+        }
+    }
 }

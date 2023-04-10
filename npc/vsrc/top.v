@@ -328,7 +328,6 @@ module IDU(	// <stdin>:12:10
       GPR_29 <= 64'h0;	// IDU.scala:90:{22,30}
       GPR_30 <= 64'h0;	// IDU.scala:90:{22,30}
       GPR_31 <= 64'h0;	// IDU.scala:90:{22,30}
-      rhsReg_3 <= 32'h0;	// Bitwise.scala:77:12, utils.scala:22:33
       rhsReg_4 <= 32'h0;	// Bitwise.scala:77:12, utils.scala:15:29
       rhsReg_5 <= 5'h0;	// IDU.scala:83:42, utils.scala:15:29
       rhsReg_6 <= 1'h0;	// Lookup.scala:34:39, utils.scala:15:29
@@ -519,8 +518,6 @@ module IDU(	// <stdin>:12:10
         GPR_30 <= io_WB_RegWriteData;	// IDU.scala:90:22
       if (_T_3 & (&io_WB_RegWriteID))	// IDU.scala:90:22, :114:36, :115:5, :116:31
         GPR_31 <= io_WB_RegWriteData;	// IDU.scala:90:22
-      rhsReg_3 <= InstInfo_2 == 3'h0 ? 32'h0 : InstInfo_2 == 3'h1 ? io_IF_pc[31:0] : InstInfo_2 == 3'h2 ?
-                                                _rs1_data_T_13[31:0] : _io_ID_npc_T_10 ? _GEN_9 : 32'h0;	// Bitwise.scala:77:12, IDU.scala:146:15, :147:15, :148:15, :149:{15,33}, Lookup.scala:34:39, Mux.scala:101:16, utils.scala:22:33
       rhsReg_4 <= InstInfo_3 == 3'h0 ? 32'h0 : InstInfo_3 == 3'h1 ? io_IF_pc[31:0] : InstInfo_3 == 3'h3 ?
                                                 _rs2_data_T_13[31:0] : InstInfo_3 == 3'h4 ? (_io_ID_npc_T_9 ? io_IF_Inst : _io_ID_npc_T_4 ?
                                                 {{21{io_IF_Inst[31]}}, io_IF_Inst[7], io_IF_Inst[30:25], io_IF_Inst[11:8]} :
@@ -532,6 +529,11 @@ module IDU(	// <stdin>:12:10
       rhsReg_7 <= InstInfo_0 != 3'h4 & rhsReg_2;	// IDU.scala:162:{29,41}, Lookup.scala:34:39, utils.scala:15:29
       rhsReg_8 <= _MemWriteEn_T;	// IDU.scala:142:19, utils.scala:15:29
     end
+    if (reset & rhsReg_6)	// IDU.scala:164:67, utils.scala:15:29
+      rhsReg_3 <= 32'h0;	// Bitwise.scala:77:12, utils.scala:22:33
+    else	// IDU.scala:164:67, utils.scala:15:29
+      rhsReg_3 <= InstInfo_2 == 3'h0 ? 32'h0 : InstInfo_2 == 3'h1 ? io_IF_pc[31:0] : InstInfo_2 == 3'h2 ?
+                                                _rs1_data_T_13[31:0] : _io_ID_npc_T_10 ? _GEN_9 : 32'h0;	// Bitwise.scala:77:12, IDU.scala:146:15, :147:15, :148:15, :149:{15,33}, Lookup.scala:34:39, Mux.scala:101:16, utils.scala:22:33
   end // always @(posedge)
   `ifndef SYNTHESIS	// <stdin>:12:10
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:12:10
@@ -776,7 +778,7 @@ module IDU(	// <stdin>:12:10
   assign io_ID_unknown_inst = rhsReg_1;	// <stdin>:12:10, utils.scala:15:29
 endmodule
 
-module EXU(	// <stdin>:734:10
+module EXU(	// <stdin>:737:10
   input         clock,
                 reset,
   input  [63:0] io_ID_ALU_Data1,
@@ -861,25 +863,25 @@ module EXU(	// <stdin>:734:10
       rhsReg_6 <= _GEN_5;	// Mux.scala:101:16, utils.scala:15:29
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:734:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:734:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:734:10
+  `ifndef SYNTHESIS	// <stdin>:737:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:737:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:737:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:734:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:734:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:734:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:734:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:734:10
-      automatic logic [31:0] _RANDOM_4;	// <stdin>:734:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:734:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:734:10
+    initial begin	// <stdin>:737:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:737:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:737:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:737:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:737:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:737:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:737:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:737:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:734:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:734:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:734:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:734:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:734:10
-        _RANDOM_4 = `RANDOM;	// <stdin>:734:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:737:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:737:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:737:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:737:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:737:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:737:10
         rhsReg = _RANDOM_0[0];	// utils.scala:15:29
         rhsReg_1 = _RANDOM_0[5:1];	// utils.scala:15:29
         rhsReg_2 = {_RANDOM_0[31:6], _RANDOM_1, _RANDOM_2[5:0]};	// utils.scala:15:29
@@ -889,23 +891,23 @@ module EXU(	// <stdin>:734:10
         rhsReg_6 = {_RANDOM_2[31:13], _RANDOM_3, _RANDOM_4[12:0]};	// utils.scala:15:29
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:734:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:734:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:737:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:737:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  assign io_EX_ALUResult = rhsReg_6;	// <stdin>:734:10, utils.scala:15:29
-  assign io_EX_MemWriteData = rhsReg_2;	// <stdin>:734:10, utils.scala:15:29
-  assign io_EX_MemWriteEn = rhsReg_3;	// <stdin>:734:10, utils.scala:15:29
-  assign io_EX_MemReadEn = rhsReg_4;	// <stdin>:734:10, utils.scala:15:29
-  assign io_EX_LsuType = rhsReg_5;	// <stdin>:734:10, utils.scala:15:29
-  assign io_EX_RegWriteID = rhsReg_1;	// <stdin>:734:10, utils.scala:15:29
-  assign io_EX_RegWriteEn = rhsReg;	// <stdin>:734:10, utils.scala:15:29
-  assign io_EX_ALUResult_Pass = _GEN_5;	// <stdin>:734:10, Mux.scala:101:16
+  assign io_EX_ALUResult = rhsReg_6;	// <stdin>:737:10, utils.scala:15:29
+  assign io_EX_MemWriteData = rhsReg_2;	// <stdin>:737:10, utils.scala:15:29
+  assign io_EX_MemWriteEn = rhsReg_3;	// <stdin>:737:10, utils.scala:15:29
+  assign io_EX_MemReadEn = rhsReg_4;	// <stdin>:737:10, utils.scala:15:29
+  assign io_EX_LsuType = rhsReg_5;	// <stdin>:737:10, utils.scala:15:29
+  assign io_EX_RegWriteID = rhsReg_1;	// <stdin>:737:10, utils.scala:15:29
+  assign io_EX_RegWriteEn = rhsReg;	// <stdin>:737:10, utils.scala:15:29
+  assign io_EX_ALUResult_Pass = _GEN_5;	// <stdin>:737:10, Mux.scala:101:16
 endmodule
 
 // external module LSU
 
-module MEMU(	// <stdin>:994:10
+module MEMU(	// <stdin>:997:10
   input         clock,
                 reset,
   input  [63:0] io_EX_ALUResult,
@@ -938,28 +940,28 @@ module MEMU(	// <stdin>:994:10
         rhsReg_2 <= io_EX_ALUResult;	// utils.scala:15:29
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:994:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:994:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:994:10
+  `ifndef SYNTHESIS	// <stdin>:997:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:997:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:997:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:994:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:994:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:994:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:994:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:994:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:994:10
+    initial begin	// <stdin>:997:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:997:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:997:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:997:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:997:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:997:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:994:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:994:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:994:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:994:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:997:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:997:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:997:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:997:10
         rhsReg = _RANDOM_0[0];	// utils.scala:15:29
         rhsReg_1 = _RANDOM_0[5:1];	// utils.scala:15:29
         rhsReg_2 = {_RANDOM_0[31:6], _RANDOM_1, _RANDOM_2[5:0]};	// utils.scala:15:29
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:994:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:994:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:997:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:997:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
   LSU mem (	// MEMU.scala:45:21
@@ -970,12 +972,12 @@ module MEMU(	// <stdin>:994:10
     .WriteData (io_EX_MemWriteData),
     .ReadData  (_mem_ReadData)
   );
-  assign io_MEM_RegWriteData = rhsReg_2;	// <stdin>:994:10, utils.scala:15:29
-  assign io_MEM_RegWriteEn = rhsReg;	// <stdin>:994:10, utils.scala:15:29
-  assign io_MEM_RegWriteID = rhsReg_1;	// <stdin>:994:10, utils.scala:15:29
+  assign io_MEM_RegWriteData = rhsReg_2;	// <stdin>:997:10, utils.scala:15:29
+  assign io_MEM_RegWriteEn = rhsReg;	// <stdin>:997:10, utils.scala:15:29
+  assign io_MEM_RegWriteID = rhsReg_1;	// <stdin>:997:10, utils.scala:15:29
 endmodule
 
-module WBU(	// <stdin>:1031:10
+module WBU(	// <stdin>:1034:10
   input  [63:0] io_MEM_RegWriteData,
   input         io_MEM_RegWriteEn,
   input  [4:0]  io_MEM_RegWriteID,
@@ -983,14 +985,14 @@ module WBU(	// <stdin>:1031:10
   output        io_WB_RegWriteEn,
   output [4:0]  io_WB_RegWriteID);
 
-  assign io_WB_RegWriteData = io_MEM_RegWriteData;	// <stdin>:1031:10
-  assign io_WB_RegWriteEn = io_MEM_RegWriteEn;	// <stdin>:1031:10
-  assign io_WB_RegWriteID = io_MEM_RegWriteID;	// <stdin>:1031:10
+  assign io_WB_RegWriteData = io_MEM_RegWriteData;	// <stdin>:1034:10
+  assign io_WB_RegWriteEn = io_MEM_RegWriteEn;	// <stdin>:1034:10
+  assign io_WB_RegWriteID = io_MEM_RegWriteID;	// <stdin>:1034:10
 endmodule
 
 // external module sim
 
-module top(	// <stdin>:1049:10
+module top(	// <stdin>:1052:10
   input         clock,
                 reset,
   output [63:0] io_IF_pc,
@@ -1161,8 +1163,8 @@ module top(	// <stdin>:1049:10
     .io_WB_RegWriteID    (_wb_unit_io_WB_RegWriteID)
   );
   sim simulate (	// top.scala:29:26
-    .clock             (1'h0),	// <stdin>:1075:20
-    .reset             (1'h0),	// <stdin>:1075:20
+    .clock             (1'h0),	// <stdin>:1078:20
+    .reset             (1'h0),	// <stdin>:1078:20
     .IF_pc             (_inst_fetch_unit_io_IF_pc),	// top.scala:23:33
     .GPR_0             (_inst_decode_unit_io_ID_GPR_0),	// top.scala:24:34
     .GPR_1             (_inst_decode_unit_io_ID_GPR_1),	// top.scala:24:34
@@ -1199,8 +1201,8 @@ module top(	// <stdin>:1049:10
     .unknown_inst_flag (_inst_decode_unit_io_ID_unknown_inst),	// top.scala:24:34
     .inst              (_simulate_inst)
   );
-  assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:1049:10, top.scala:23:33
-  assign io_ALUResult = _mem_unit_io_MEM_RegWriteData;	// <stdin>:1049:10, top.scala:26:26
+  assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:1052:10, top.scala:23:33
+  assign io_ALUResult = _mem_unit_io_MEM_RegWriteData;	// <stdin>:1052:10, top.scala:26:26
 endmodule
 
 

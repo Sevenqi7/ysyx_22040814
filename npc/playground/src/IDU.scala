@@ -41,12 +41,19 @@ class IDU extends Module{
         val EX_ALUResult  = Input(UInt(64.W))
 
         //4. LoadtoUse situation
+        val ID_stall   = Output(Bool)
+        val flush   = Input(Bool)
         val MEM_MemReadData = Input(UInt(64.W))
 
         //For NPCTRAP
         val ID_GPR =Output(Vec(32, UInt(64.W)))
         val ID_unknown_inst = Output(UInt(1.W))
     })
+
+    //pipeline register reset
+    val pplrst = Wire(Bool)
+    pplrst := reset | io.flush
+
 
     //Decode
     val InstInfo = ListLookup(io.IF_Inst, List(0.U, 0.U, 0.U, 0.U, 0.U), RV64IInstr.table)
@@ -55,15 +62,10 @@ class IDU extends Module{
     
     opType          := InstInfo(4)
     instType        := InstInfo(0)
+
+    io.ID_unknown_inst := InstInfo(0) === 0.U
+
     
-    // io.ID_optype    := opType
-    // io.ID_unknown_inst := InstInfo(0) === 0.U
-    // io.ID_FuType    := InstInfo(1)
-
-    regConnect(io.ID_optype,                         opType)
-    regConnect(io.ID_unknown_inst,      InstInfo(0) === 0.U)
-    regConnect(io.ID_FuType,                    InstInfo(1))
-
     //all kinds of imm
     val immI  = Wire(UInt(64.W))
     val immU  = Wire(UInt(64.W))
@@ -72,7 +74,7 @@ class IDU extends Module{
     val immS  = Wire(UInt(64.W))
     val shamt = Wire(UInt(6.W))
 
-
+    
     // immI := Cat(Fill(52, io.IF_Inst(31)), io.IF_Inst(31, 20))
     // immU := Cat(Fill(44, io.IF_Inst(31)), io.IF_Inst(31, 12)) << 12
     // immS := Cat(Fill(57, io.IF_Inst(31)), io.IF_Inst(31, 25)) << 5 | io.IF_Inst(11, 7)
@@ -84,7 +86,7 @@ class IDU extends Module{
     immJ := SEXT(io.IF_Inst(30, 21) | (io.IF_Inst(20) << 10) | (io.IF_Inst(19, 12) << 11) | (io.IF_Inst(31) << 19), 20)
     immB := SEXT((io.IF_Inst(31) << 11) | (io.IF_Inst(30, 25) << 4) | io.IF_Inst(11, 8) | (io.IF_Inst(7 ,7) << 10), 12)
     shamt := io.IF_Inst(25, 20)
-
+    
     
     //GPR
     val GPR = RegInit(VecInit(Seq.fill(32)(0.U(64.W))))
@@ -103,13 +105,13 @@ class IDU extends Module{
         (io.ID_RegWriteID  === rs1 && io.ID_RegWriteEn.asBool , io.EX_ALUResult    ),
         (io.MEM_RegWriteID === rs1 && io.MEM_RegWriteEn.asBool, io.MEM_RegWriteData),
         (io.WB_RegWriteID  === rs1 && io.WB_RegWriteEn.asBool , io.WB_RegWriteData )
-    ))
-
-    rs2_data := MuxCase(Mux(rs2 === 0.U, 0.U, GPR(rs2)), Seq(
-        (io.ID_RegWriteID  === rs2 && io.ID_RegWriteEn.asBool , io.EX_ALUResult    ),
-        (io.MEM_RegWriteID === rs2 && io.MEM_RegWriteEn.asBool, io.MEM_RegWriteData),
-        (io.WB_RegWriteID  === rs2 && io.WB_RegWriteEn.asBool , io.WB_RegWriteData )
-    ))
+        ))
+        
+        rs2_data := MuxCase(Mux(rs2 === 0.U, 0.U, GPR(rs2)), Seq(
+            (io.ID_RegWriteID  === rs2 && io.ID_RegWriteEn.asBool , io.EX_ALUResult    ),
+            (io.MEM_RegWriteID === rs2 && io.MEM_RegWriteEn.asBool, io.MEM_RegWriteData),
+            (io.WB_RegWriteID  === rs2 && io.WB_RegWriteEn.asBool , io.WB_RegWriteData )
+            ))
     
     when(io.WB_RegWriteEn.asBool() && io.WB_RegWriteID =/= 0.U)
     {
@@ -133,7 +135,7 @@ class IDU extends Module{
     val RegWriteEn = Wire(UInt(1.W))
     val MemWriteEn = Wire(UInt(1.W)) 
     val MemReadEn = Wire(UInt(1.W))
-
+    
 
     imm := MuxCase(0.U, Seq(
         (instType === TYPE_I, immI),
@@ -142,40 +144,47 @@ class IDU extends Module{
         (instType === TYPE_S, immS)
         ))
         
-    ALU_Data1 := MuxCase(0.U, Seq(
+        ALU_Data1 := MuxCase(0.U, Seq(
         (src1 === ZERO, 0.U     ),
         (src1 === PC  , io.IF_pc),
         (src1 === RS1 , rs1_data),
         (src1 === NPC , io.IF_pc+4.U)
-    ))
-            
-    ALU_Data2 := MuxCase(0.U, Seq(
-        (src2 === ZERO  , 0.U      ),
-        (src2 === PC    , io.IF_pc ),
+        ))
+        
+        ALU_Data2 := MuxCase(0.U, Seq(
+            (src2 === ZERO  , 0.U      ),
+            (src2 === PC    , io.IF_pc ),
         (src2 === RS2   , rs2_data ),
         (src2 === IMM   , imm      ),
         (src2 === SHAMT , shamt    )
         ))
-    
-    RegWriteEn := (instType === TYPE_R) || (instType === TYPE_I) || (instType === TYPE_U) || (instType === TYPE_J)
-    MemWriteEn := (instType === TYPE_S)
-    MemReadEn  := (instType =/= TYPE_S  && io.ID_FuType === FuType.lsu)
-    
-    regConnectWithReset(io.ID_ALU_Data1, ALU_Data1, (reset.asBool & io.ID_RegWriteEn.asBool), 0.U)
-    // regConnect(io.ID_ALU_Data1  ,    ALU_Data1)
-    regConnect(io.ID_ALU_Data2  ,    ALU_Data2)
-    regConnect(io.ID_RegWriteID ,           rd)
-    regConnect(io.ID_RegWriteEn ,   RegWriteEn)
-    regConnect(io.ID_MemReadEn  ,    MemReadEn)
-    regConnect(io.ID_MemWriteEn ,   MemWriteEn)
+        
+        RegWriteEn := (instType === TYPE_R) || (instType === TYPE_I) || (instType === TYPE_U) || (instType === TYPE_J)
+        MemWriteEn := (instType === TYPE_S)
+        MemReadEn  := (instType =/= TYPE_S  && io.ID_FuType === FuType.lsu)
+        
+        regConnectWithResetAndStall(io.ID_ALU_Data1 ,  ALU_Data1, pplrst, 0.U, io.ID_stall)
+        // regConnect(io.ID_ALU_Data1  ,    ALU_Data1)
+        regConnectWithResetAndStall(io.ID_ALU_Data2 ,  ALU_Data2, pplrst, 0.U, io.ID_stall)
+        // regConnect(io.ID_ALU_Data2  ,    ALU_Data2)
+        regConnectWithResetAndStall(io.ID_RegWriteID, rd       , pplrst, 0.U, io.ID_stall)
+        // regConnect(io.ID_RegWriteID ,           rd)
+        regConnectWithResetAndStall(io.ID_RegWriteEn, RegWriteEn,pplrst, 0.U, io.ID_stall)
+        // regConnect(io.ID_RegWriteEn ,   RegWriteEn)
+        regConnectWithResetAndStall(io.ID_MemReadEn ,  MemReadEn ,pplrst, 0.U, io.ID_stall)
+        // regConnect(io.ID_MemReadEn  ,    MemReadEn)
+        regConnectWithResetAndStall(io.ID_MemWriteEn, MemWriteEn,pplrst, 0.U, io.ID_stall)
+        // regConnect(io.ID_MemWriteEn ,   MemWriteEn)
+        regConnectWithResetAndStall(io.ID_optype    , opType, pplrst, 0.U   , io.ID_stall)
+        regConnectWithResetAndStall(io.ID_FuType    , InstInfo(1), pplrst, 0.U, io.ID_stall)
 
         
-    //NPC
-    val BJ_flag = Wire(Bool())
-    BJ_flag := 0.B
-    switch(opType){
-        is (BType.BEQ)  {BJ_flag := rs1_data === rs2_data                }
-        is (BType.BNE)  {BJ_flag := rs1_data =/= rs2_data                }
+        //NPC
+        val BJ_flag = Wire(Bool())
+        BJ_flag := 0.B
+        switch(opType){
+            is (BType.BEQ)  {BJ_flag := rs1_data === rs2_data                }
+            is (BType.BNE)  {BJ_flag := rs1_data =/= rs2_data                }
         is (BType.BLT)  {BJ_flag := rs1_data.asSInt < rs2_data.asSInt    }
         is (BType.BGE)  {BJ_flag := rs1_data.asSInt >= rs2_data.asSInt   }
         is (BType.BLTU) {BJ_flag := rs1_data < rs2_data                  }
