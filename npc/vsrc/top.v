@@ -489,7 +489,7 @@ module IDU(	// <stdin>:14:10
         else	// IDU.scala:154:15, :155:15, :156:15, :157:15, Lookup.scala:34:39
           rhsReg_4 <= {58'h0, InstInfo_3 == 3'h5 ? io_IF_Inst[25:20] : 6'h0};	// IDU.scala:87:24, :158:15, Lookup.scala:34:39, Mux.scala:101:16, utils.scala:32:33
         rhsReg_5 <= _RegWriteEn_T_6;	// IDU.scala:161:91, utils.scala:32:33
-        rhsReg_6 <= InstInfo_0 != 3'h4 & rhsReg_9;	// IDU.scala:163:{29,41}, Lookup.scala:34:39, utils.scala:32:33
+        rhsReg_6 <= _io_ID_npc_T_9 & rhsReg_9;	// IDU.scala:140:19, :163:41, utils.scala:32:33
         rhsReg_7 <= _MemWriteEn_T;	// IDU.scala:143:19, utils.scala:32:33
         if (_GEN_5)	// Lookup.scala:34:39
           rhsReg_8 <= 5'h1;	// IDU.scala:117:31, utils.scala:32:33
@@ -1429,3 +1429,4 @@ module sim(input[63:0] IF_pc, input [63:0] GPR [31:0], input unknown_inst_flag, 
 endmodule
 
 // ----- 8< ----- FILE "firrtl_black_box_resource_files.f" ----- 8< -----
+

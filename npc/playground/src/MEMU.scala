@@ -6,6 +6,7 @@ import InstType._
 
 class LSU extends BlackBox with HasBlackBoxPath{
     val io = IO(new Bundle{
+        val pc   = Input(UInt(64.W))
         val addr = Input(UInt(64.W))
         val LsuType = Input(UInt(5.W))
         val WriteEn = Input(UInt(1.W))
@@ -52,6 +53,7 @@ class MEMU extends Module{
 
     //LSU for DPI-C with verilator
     val mem = Module(new LSU)
+    mem.io.pc   := io.MEM_pc
     mem.io.addr := io.EX_ALUResult
     mem.io.LsuType := io.EX_LsuType
     mem.io.WriteEn := io.EX_MemWriteEn
