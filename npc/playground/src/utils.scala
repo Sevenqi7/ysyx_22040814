@@ -10,13 +10,14 @@ object utils {
         ret
     }
 
-    
+    //connect lhs to rhs through registers with implict reset in Module
     def regConnect(lhs: Data, rhs: Data, resetVal: UInt =0.U): Unit = {
         val rhsReg = RegInit(chiselTypeOf(rhs), resetVal)
         rhsReg := rhs
         lhs := rhsReg
     }
 
+    //connect lhs to rhs through registers with a given reset in Module    
     def regConnectWithReset(lhs: Data, rhs: Data, reset: Reset, resetVal: UInt =0.U): Unit = {
         withReset(reset){
             val rhsReg = RegInit(chiselTypeOf(rhs), resetVal)
@@ -25,6 +26,7 @@ object utils {
         }
     }
 
+    //connect lhs to rhs through registers with a given reset and stall in Module
     def regConnectWithResetAndStall(lhs :Data, rhs: Data, reset: Reset, resetVal: UInt=0.U, stall: Bool): Unit = {
         withReset(reset){
             val rhsReg = RegInit(chiselTypeOf(rhs), resetVal)

@@ -28,7 +28,17 @@ class EXU extends Module{
 
         //to IDU.Bypass
         val EX_ALUResult_Pass = Output(UInt(64.W))
+
+        //Flush
+        //it is used when there is a load-to-use adventure
+        //it is actually the ID_stall in IDU
+        val flush      =      Input(Bool())
     })
+    
+    //  pipeline register reset
+    val pplrst = Wire(Bool())
+    pplrst := reset.asBool | io.flush
+
 
     val LsuType = Mux(io.ID_FuType === FuType.lsu, io.ID_optype, 0.U)
     val ALU_Data1 = Wire(UInt(64.W))
@@ -38,13 +48,22 @@ class EXU extends Module{
     
     shamt := ALU_Data2(5, 0)
     
-    regConnect(io.EX_RegWriteEn,        io.ID_RegWriteEn)
-    regConnect(io.EX_RegWriteID,        io.ID_RegWriteID)
-    regConnect(io.EX_MemWriteData,         io.ID_Rs2Data)
-    regConnect(io.EX_MemWriteEn,        io.ID_MemWriteEn)
-    regConnect(io.EX_MemReadEn,          io.ID_MemReadEn)
-    regConnect(io.EX_LsuType,                    LsuType)
-    regConnect(io.EX_ALUResult,               ALU_Result)
+    // regConnect(io.EX_RegWriteEn,        io.ID_RegWriteEn)
+    // regConnect(io.EX_RegWriteID,        io.ID_RegWriteID)
+    // regConnect(io.EX_MemWriteData,         io.ID_Rs2Data)
+    // regConnect(io.EX_MemWriteEn,        io.ID_MemWriteEn)
+    // regConnect(io.EX_MemReadEn,          io.ID_MemReadEn)
+    // regConnect(io.EX_LsuType,                    LsuType)
+    // regConnect(io.EX_ALUResult,               ALU_Result)
+    regConnectWithReset(io.EX_RegWriteEn    , io.ID_RegWriteEn  , pplrst)
+    regConnectWithReset(io.EX_RegWriteID    , io.ID_RegWriteID  , pplrst)
+    regConnectWithReset(io.EX_MemWriteData  , io.EX_MemWriteData, pplrst)
+    regConnectWithReset(io.EX_MemWriteEn    , io.ID_MemWriteEn  , pplrst)
+    regConnectWithReset(io.EX_MemReadEn     , io.ID_MemReadEn   , pplrst)
+    regConnectWithReset(io.EX_LsuType       , LsuType           , pplrst)
+    regConnectWithReset(io.EX_ALUResult     , ALU_Result        , pplrst)
+
+
     io.EX_ALUResult_Pass := ALU_Result
     
     ALU_Data1 := io.ID_ALU_Data1
