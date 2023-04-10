@@ -35,8 +35,10 @@ class EXU extends Module{
         val flush      =      Input(Bool())
 
         //for NPC to trace
-        val ID_Inst    =      Input(UInt(64.W))
-        val EX_Inst    =      Output(UInt(64.W))
+        val ID_pc      =      Input(UInt(64.W))
+        val ID_Inst    =      Input(UInt(32.W))
+        val EX_Inst    =      Output(UInt(32.W))
+        val EX_pc      =      Output(UInt(64.W))
     })
     
     //  pipeline register reset
@@ -59,6 +61,7 @@ class EXU extends Module{
     // regConnect(io.EX_MemReadEn,          io.ID_MemReadEn)
     // regConnect(io.EX_LsuType,                    LsuType)
     // regConnect(io.EX_ALUResult,               ALU_Result)
+    regConnectWithReset(io.EX_pc            , io.ID_pc          , pplrst)
     regConnectWithReset(io.EX_Inst          , io.ID_Inst        , pplrst)
     regConnectWithReset(io.EX_RegWriteEn    , io.ID_RegWriteEn  , pplrst)
     regConnectWithReset(io.EX_RegWriteID    , io.ID_RegWriteID  , pplrst)

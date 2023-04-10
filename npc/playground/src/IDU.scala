@@ -49,6 +49,7 @@ class IDU extends Module{
         val ID_unknown_inst = Output(UInt(1.W))
 
         //For npc trace
+        val ID_pc`  = Input(UInt(64.W))
         val ID_Inst = Output(UInt(32.W))
     })
 
@@ -164,10 +165,11 @@ class IDU extends Module{
         MemWriteEn := (instType === TYPE_S)
         MemReadEn  := (instType =/= TYPE_S  && io.ID_FuType === FuType.lsu)
         
+    regConnectWithResetAndStall(io.ID_pc        , io.IF_pc  , pplrst, 0.U, io.ID_stall)
     regConnectWithResetAndStall(io.ID_Inst      , io.IF_Inst, pplrst, 0.U, io.ID_stall)
     regConnectWithResetAndStall(io.ID_ALU_Data1 ,  ALU_Data1, pplrst, 0.U, io.ID_stall)
     // regConnect(io.ID_ALU_Data1  ,    ALU_Data1)
-    regConnectWithResetAndStall(io.ID_RegWriteID, rd       , pplrst, 0.U, io.ID_stall)
+    regConnectWithResetAndStall(io.ID_RegWriteID, rd       , pplrst, 0.U , io.ID_stall)
     regConnectWithResetAndStall(io.ID_ALU_Data2 ,  ALU_Data2, pplrst, 0.U, io.ID_stall)
     // regConnect(io.ID_ALU_Data2  ,    ALU_Data2)
     // regConnect(io.ID_RegWriteID ,           rd)

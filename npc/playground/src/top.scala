@@ -16,7 +16,7 @@ class sim extends BlackBox with HasBlackBoxPath{
 
 class top extends Module{
     val io = IO(new Bundle{
-        val IF_pc = Output(UInt(64.W))
+        val WB_pc = Output(UInt(64.W))
         val WB_Inst = Output(UInt(32.W))
         val ALUResult = Output(UInt(64.W))
         val stall   = Output(Bool())
@@ -28,7 +28,7 @@ class top extends Module{
     val mem_unit = Module(new MEMU)
     val wb_unit = Module(new WBU)
 
-    io.IF_pc := inst_fetch_unit.io.IF_pc
+    io.WB_pc := wb_unit.io.WB_pc
     io.WB_Inst := wb_unit.io.WB_Inst
     io.stall := inst_decode_unit.io.ID_stall
     
@@ -41,8 +41,8 @@ class top extends Module{
     inst_fetch_unit.io.ID_npc               := inst_decode_unit.io.ID_npc
     inst_fetch_unit.io.ID_stall            := inst_decode_unit.io.ID_stall
     
-    inst_decode_unit.io.IF_Inst             := simulate.io.inst(31, 0)
     inst_decode_unit.io.IF_pc               := inst_fetch_unit.io.IF_pc
+    inst_decode_unit.io.IF_Inst             := simulate.io.inst(31, 0)
     inst_decode_unit.io.WB_RegWriteData     := wb_unit.io.WB_RegWriteData
     inst_decode_unit.io.WB_RegWriteEn       := wb_unit.io.WB_RegWriteEn
     inst_decode_unit.io.WB_RegWriteID       := wb_unit.io.WB_RegWriteID
@@ -52,6 +52,7 @@ class top extends Module{
     inst_decode_unit.io.EX_ALUResult        := excute_unit.io.EX_ALUResult_Pass
     inst_decode_unit.io.MEM_MemReadData     := mem_unit.io.MEM_MemReadData_Pass
 
+    excute_unit.io.ID_pc                    := inst_decode_unit.io.ID_pc
     excute_unit.io.ID_Inst                  := inst_decode_unit.io.ID_Inst
     excute_unit.io.ID_RegWriteEn            := inst_decode_unit.io.ID_RegWriteEn
     excute_unit.io.ID_RegWriteID            := inst_decode_unit.io.ID_RegWriteID
@@ -65,6 +66,7 @@ class top extends Module{
     excute_unit.io.ID_Rs2Data               := inst_decode_unit.io.ID_Rs2Data
     excute_unit.io.flush                    := inst_decode_unit.io.ID_stall
 
+    mem_unit.io.EX_pc                       := excute_unit.io.EX_pc
     mem_unit.io.EX_Inst                     := excute_unit.io.EX_Inst  
     mem_unit.io.EX_ALUResult                := excute_unit.io.EX_ALUResult
     mem_unit.io.EX_MemWriteData             := excute_unit.io.EX_MemWriteData
@@ -75,6 +77,7 @@ class top extends Module{
     mem_unit.io.EX_RegWriteID               := excute_unit.io.EX_RegWriteID
     io.ALUResult                            := mem_unit.io.MEM_RegWriteData
 
+    wb_unit.io.MEM_pc                       := mem_unit.io.MEM_pc
     wb_unit.io.MEM_Inst                     := mem_unit.io.MEM_Inst
     wb_unit.io.MEM_RegWriteData             := mem_unit.io.MEM_RegWriteData
     wb_unit.io.MEM_RegWriteEn               := mem_unit.io.MEM_RegWriteEn

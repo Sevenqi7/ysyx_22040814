@@ -12,8 +12,10 @@ class WBU extends Module{
         val WB_RegWriteID    = Output(UInt(5.W))
 
         //for NPC to trace
-        val MEM_Inst         = Input(UInt(32.W))
+        val WB_pc            = Output(UInt(64.W))
         val WB_Inst          = Output(UInt(32.W))
+        val MEM_pc           = Input(UInt(64.W))
+        val MEM_Inst         = Input(UInt(32.W))
     })
 
     //the actual reg writing operation is in IDU

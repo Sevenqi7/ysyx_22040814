@@ -34,16 +34,20 @@ class MEMU extends Module{
         val MEM_MemReadData_Pass = Output(UInt(64.W))
 
         //for NPC to trace
-        val EX_Inst         = Input(UInt(64.W))
-        val MEM_Inst        = Output(UInt(64.W))
+        val EX_pc           = Input(UInt(64.W))
+        val EX_Inst         = Input(UInt(32.W))
+        val MEM_pc          = Output(UInt(64.W))
+        val MEM_Inst        = Output(UInt(32.W))
     })
 
     val RegWriteData = Wire(UInt(64.W))
     
+    regConnect(io.MEM_pc                ,                 io.EX_pc)
     regConnect(io.MEM_Inst              ,               io.EX_Inst)
     regConnect(io.MEM_RegWriteEn        ,         io.EX_RegWriteEn)
     regConnect(io.MEM_RegWriteID        ,         io.EX_RegWriteID)
     regConnect(io.MEM_RegWriteData      ,             RegWriteData)
+    
     io.MEM_MemReadData_Pass := RegWriteData
 
     //LSU for DPI-C with verilator
