@@ -53,9 +53,6 @@ class IDU extends Module{
         val ID_Inst = Output(UInt(32.W))
     })
 
-    //pipeline register reset
-    val pplrst = Wire(Bool())
-    pplrst := reset.asBool
 
     //Decode
     val InstInfo = ListLookup(io.IF_Inst, List(0.U, 0.U, 0.U, 0.U, 0.U), RV64IInstr.table)
@@ -77,16 +74,16 @@ class IDU extends Module{
     val shamt = Wire(UInt(6.W))
     
     
-    // immI := Cat(Fill(52, io.IF_Inst(31)), io.IF_Inst(31, 20))
-    // immU := Cat(Fill(44, io.IF_Inst(31)), io.IF_Inst(31, 12)) << 12
-    // immS := Cat(Fill(57, io.IF_Inst(31)), io.IF_Inst(31, 25)) << 5 | io.IF_Inst(11, 7)
-    // immB := Cat(Fill(52, io.IF_Inst(31)), ((io.IF_Inst(31) << 11) | (io.IF_Inst(30, 25) << 4) | io.IF_Inst(11, 8) | (io.IF_Inst(7) << 10)))
-    // immJ := Cat(Fill(44, io.IF_Inst(31)), (io.IF_Inst(30, 21) | (io.IF_Inst(20) << 10) | (io.IF_Inst(19, 12) << 11) | (io.IF_Inst(31, 31) << 19)))
-    immI := SEXT(io.IF_Inst, 32)
-    immU := SEXT(io.IF_Inst, 20) << 12
-    immS := (SEXT(io.IF_Inst(31, 25), 7) << 5) | io.IF_Inst(11, 7)
-    immJ := SEXT(io.IF_Inst(30, 21) | (io.IF_Inst(20) << 10) | (io.IF_Inst(19, 12) << 11) | (io.IF_Inst(31) << 19), 20)
-    immB := SEXT((io.IF_Inst(31) << 11) | (io.IF_Inst(30, 25) << 4) | io.IF_Inst(11, 8) | (io.IF_Inst(7 ,7) << 10), 12)
+    immI := Cat(Fill(52, io.IF_Inst(31)), io.IF_Inst(31, 20))
+    immU := Cat(Fill(44, io.IF_Inst(31)), io.IF_Inst(31, 12)) << 12
+    immS := Cat(Fill(57, io.IF_Inst(31)), io.IF_Inst(31, 25)) << 5 | io.IF_Inst(11, 7)
+    immB := Cat(Fill(52, io.IF_Inst(31)), ((io.IF_Inst(31) << 11) | (io.IF_Inst(30, 25) << 4) | io.IF_Inst(11, 8) | (io.IF_Inst(7) << 10)))
+    immJ := Cat(Fill(44, io.IF_Inst(31)), (io.IF_Inst(30, 21) | (io.IF_Inst(20) << 10) | (io.IF_Inst(19, 12) << 11) | (io.IF_Inst(31, 31) << 19)))
+    // immI := SEXT(io.IF_Inst, 32)
+    // immU := SEXT(io.IF_Inst, 20) << 12
+    // immS := (SEXT(io.IF_Inst(31, 25), 7) << 5) | io.IF_Inst(11, 7)
+    // immJ := SEXT(io.IF_Inst(30, 21) | (io.IF_Inst(20) << 10) | (io.IF_Inst(19, 12) << 11) | (io.IF_Inst(31) << 19), 20)
+    // immB := SEXT((io.IF_Inst(31) << 11) | (io.IF_Inst(30, 25) << 4) | io.IF_Inst(11, 8) | (io.IF_Inst(7 ,7) << 10), 12)
     shamt := io.IF_Inst(25, 20)
     
     
@@ -165,22 +162,22 @@ class IDU extends Module{
         MemWriteEn := (instType === TYPE_S)
         MemReadEn  := (instType =/= TYPE_S  && io.ID_FuType === FuType.lsu)
         
-    regConnectWithResetAndStall(io.ID_pc        , io.IF_pc  , pplrst, 0.U, io.ID_stall)
-    regConnectWithResetAndStall(io.ID_Inst      , io.IF_Inst, pplrst, 0.U, io.ID_stall)
-    regConnectWithResetAndStall(io.ID_ALU_Data1 ,  ALU_Data1, pplrst, 0.U, io.ID_stall)
+    regConnectWithResetAndStall(io.ID_pc        , io.IF_pc  , reset, 0.U, io.ID_stall)
+    regConnectWithResetAndStall(io.ID_Inst      , io.IF_Inst, reset, 0.U, io.ID_stall)
+    regConnectWithResetAndStall(io.ID_ALU_Data1 ,  ALU_Data1, reset, 0.U, io.ID_stall)
     // regConnect(io.ID_ALU_Data1  ,    ALU_Data1)
-    regConnectWithResetAndStall(io.ID_RegWriteID, rd       , pplrst, 0.U , io.ID_stall)
-    regConnectWithResetAndStall(io.ID_ALU_Data2 ,  ALU_Data2, pplrst, 0.U, io.ID_stall)
+    regConnectWithResetAndStall(io.ID_RegWriteID, rd       , reset, 0.U , io.ID_stall)
+    regConnectWithResetAndStall(io.ID_ALU_Data2 ,  ALU_Data2, reset, 0.U, io.ID_stall)
     // regConnect(io.ID_ALU_Data2  ,    ALU_Data2)
     // regConnect(io.ID_RegWriteID ,           rd)
-    regConnectWithResetAndStall(io.ID_RegWriteEn, RegWriteEn,pplrst, 0.U, io.ID_stall)
+    regConnectWithResetAndStall(io.ID_RegWriteEn, RegWriteEn, reset, 0.U, io.ID_stall)
     // regConnect(io.ID_RegWriteEn ,   RegWriteEn)
-    regConnectWithResetAndStall(io.ID_MemReadEn ,  MemReadEn ,pplrst, 0.U, io.ID_stall)
+    regConnectWithResetAndStall(io.ID_MemReadEn ,  MemReadEn , reset, 0.U, io.ID_stall)
     // regConnect(io.ID_MemReadEn  ,    MemReadEn)
-    regConnectWithResetAndStall(io.ID_MemWriteEn, MemWriteEn,pplrst, 0.U, io.ID_stall)
+    regConnectWithResetAndStall(io.ID_MemWriteEn, MemWriteEn, reset, 0.U, io.ID_stall)
     // regConnect(io.ID_MemWriteEn ,   MemWriteEn)
-    regConnectWithResetAndStall(io.ID_optype    , opType, pplrst, 0.U   , io.ID_stall)
-    regConnectWithResetAndStall(io.ID_FuType    , InstInfo(1), pplrst, 0.U, io.ID_stall)
+    regConnectWithResetAndStall(io.ID_optype    , opType, reset, 0.U   , io.ID_stall)
+    regConnectWithResetAndStall(io.ID_FuType    , InstInfo(1), reset, 0.U, io.ID_stall)
 
     val stall_cnt = RegInit(0.U(2.W))
     when(io.ID_FuType === FuType.lsu && io.ID_RegWriteEn.asBool 
