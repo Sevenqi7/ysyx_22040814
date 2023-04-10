@@ -52,7 +52,7 @@ class IDU extends Module{
 
     //pipeline register reset
     val pplrst = Wire(Bool)
-    pplrst := reset | io.flush
+    pplrst := reset.asBool | io.flush
 
 
     //Decode
