@@ -81,7 +81,7 @@ class top extends Module{
     mem_unit.io.EX_LsuType                  := excute_unit.io.EX_LsuType
     mem_unit.io.EX_RegWriteEn               := excute_unit.io.EX_RegWriteEn
     mem_unit.io.EX_RegWriteID               := excute_unit.io.EX_RegWriteID
-    io.ALUResult                            := mem_unit.io.MEM_RegWriteData
+    io.ALUResult                            := excute_unit.io.EX_ALUResult
 
     wb_unit.io.MEM_pc                       := mem_unit.io.MEM_pc
     wb_unit.io.MEM_Inst                     := mem_unit.io.MEM_Inst

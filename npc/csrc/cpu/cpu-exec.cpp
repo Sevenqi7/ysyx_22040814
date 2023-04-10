@@ -73,9 +73,13 @@ void exec_once()            //disassemble实质上是反汇编的上一个已执
     {
         contextp->timeInc(1); // 1 timeprecision period passes...
         top->clock = !top->clock;
-        // if(top->clock)
-        //     Log("time=%ld clk=%x rst=%x inst=0x%x IF_pc=0x%lx", contextp->time(), top->clock, top->reset, top->io_inst, top->io_WB_pc);
         top->eval();
+        while(top->io_stall)
+        {
+            contextp->timeInc(1);
+            top->clock = !top->clock;
+            top->eval();
+        }
     }
 trace:
     char logbuf[128];

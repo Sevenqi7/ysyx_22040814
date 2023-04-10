@@ -81,7 +81,7 @@ sim: $(BIN)
 	$(shell mkdir logs)
 	@echo "-- VERILATE ----------------"
 	@echo "Verilating..."
-	$(MAKE) run
+	$(MAKE) run 
 	@echo "Finish building and verilating."
 	@echo "-- RUN ---------------------"
 	./build/top +trace
