@@ -1040,7 +1040,7 @@ module MEMU(	// <stdin>:1063:10
       if (io_EX_MemReadEn)
         rhsReg_4 <= _mem_ReadData;	// MEMU.scala:54:21, utils.scala:15:29
       else
-        rhsReg_4 <= io_EX_ALUResult;	// utils.scala:15:29
+        rhsReg_4 <= 64'h0;	// <stdin>:1063:10, utils.scala:15:29
     end
   end // always @(posedge)
   `ifndef SYNTHESIS	// <stdin>:1063:10
@@ -1327,6 +1327,7 @@ sim simulate (	// top.scala:24:26
    .GPR               (GPR),
    .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
 );
+
   assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:1127:10, top.scala:31:33
   assign io_WB_Inst = _wb_unit_io_WB_Inst;	// <stdin>:1127:10, top.scala:35:25
   assign io_MEM_pc = _mem_unit_io_MEM_pc;	// <stdin>:1127:10, top.scala:34:26
@@ -1379,7 +1380,6 @@ endmodule
 import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
 import "DPI-C" function void unknown_inst();
 import "DPI-C" function void ebreak(input longint halt_ret);
-
 
 
 
