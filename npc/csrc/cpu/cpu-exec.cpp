@@ -80,6 +80,7 @@ void exec_once()            //disassemble实质上是反汇编的上一个已执
             top->clock = !top->clock;
             top->eval();
         }
+        Log("ALUResult:0x%lx", top->io_ALUResult);
     }
 trace:
     char logbuf[128];

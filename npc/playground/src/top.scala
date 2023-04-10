@@ -21,8 +21,11 @@ class top extends Module{
         val WB_pc = Output(UInt(64.W))
         val WB_Inst = Output(UInt(32.W))
         val MEM_pc = Output(UInt(64.W))
-        val ALUResult = Output(UInt(64.W))
         val stall   = Output(Bool())
+
+        val ALU_Data1 = Ouput(UInt(64.W))
+        val ALU_Data2 = Ouput(UInt(64.W))
+        val ALUResult = Output(UInt(64.W))
     })
 
     val inst_fetch_unit = Module(new IFU)
@@ -35,6 +38,9 @@ class top extends Module{
     io.WB_pc := wb_unit.io.WB_pc
     io.MEM_pc := mem_unit.io.MEM_pc
     io.WB_Inst := wb_unit.io.WB_Inst
+
+    io.ALU_Data1 := inst_decode_unit.io.ID_ALU_Data1
+    io.ALU_Data2 := inst_decode_unit.io.ID_ALU_Data2
     io.stall := inst_decode_unit.io.ID_stall
     
     val simulate = Module(new sim)
