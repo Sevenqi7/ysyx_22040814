@@ -71,7 +71,6 @@ class top extends Module{
     mem_unit.io.EX_RegWriteID               := excute_unit.io.EX_RegWriteID
     io.ALUResult                            := mem_unit.io.MEM_RegWriteData
 
-
     wb_unit.io.MEM_RegWriteData             := mem_unit.io.MEM_RegWriteData
     wb_unit.io.MEM_RegWriteEn               := mem_unit.io.MEM_RegWriteEn
     wb_unit.io.MEM_RegWriteID               := mem_unit.io.MEM_RegWriteID

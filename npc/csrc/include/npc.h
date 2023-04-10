@@ -38,6 +38,8 @@ extern uint64_t *cpu_gpr;
 extern void reg_display();
 extern uint64_t reg_str2val(const char *s, bool *success);
 
+#define PIPELINE_STAGES 5
+
 //仿照NEMU的一个状态。NPC里可以直接接收ebreak指令，所以只需要一个状态位就够了。
 typedef struct NPCState{
     uint64_t pc;

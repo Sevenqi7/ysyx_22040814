@@ -60,7 +60,6 @@ int main(int argc, char **argv, char **env)
     return npc_state.state == NPC_END;
 }
 
-
 long init_img(int argc, char **argv)
 {
     Verilated::mkdir("logs");
@@ -73,6 +72,12 @@ long init_img(int argc, char **argv)
     top->clock = 0;
     while(top->io_IF_pc != RESET_VECTOR)
         reset(5);
+    for(int i=0;i<PIPELINE_STAGES * 2;i++)
+    {
+        contextp->timeInc(1);
+        top->clock = !top->clock;
+        top->eval();
+    }
     //read img
     if(argc <= 1)
     {

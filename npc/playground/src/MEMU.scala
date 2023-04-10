@@ -32,13 +32,14 @@ class MEMU extends Module{
 
         //for IDU.Bypass
         val MEM_MemReadData_Pass = Output(UInt(64.W))
+
     })
 
     val RegWriteData = Wire(UInt(64.W))
     
-    regConnect(io.MEM_RegWriteEn,   io.EX_RegWriteEn)
-    regConnect(io.MEM_RegWriteID,   io.EX_RegWriteID)
-    regConnect(io.MEM_RegWriteData,    RegWriteData)
+    regConnect(io.MEM_RegWriteEn        ,         io.EX_RegWriteEn)
+    regConnect(io.MEM_RegWriteID        ,         io.EX_RegWriteID)
+    regConnect(io.MEM_RegWriteData      ,             RegWriteData)
     io.MEM_MemReadData_Pass := RegWriteData
 
     //LSU for DPI-C with verilator

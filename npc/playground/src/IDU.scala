@@ -47,6 +47,9 @@ class IDU extends Module{
         //For NPCTRAP
         val ID_GPR =Output(Vec(32, UInt(64.W)))
         val ID_unknown_inst = Output(UInt(1.W))
+
+        //For npc trace
+        val ID_Inst = Output(UInt(32.W))
     })
 
     //pipeline register reset
@@ -155,12 +158,13 @@ class IDU extends Module{
         (src2 === RS2   , rs2_data ),
         (src2 === IMM   , imm      ),
         (src2 === SHAMT , shamt    )
-    ))
-                
-    RegWriteEn := (instType === TYPE_R) || (instType === TYPE_I) || (instType === TYPE_U) || (instType === TYPE_J)
-    MemWriteEn := (instType === TYPE_S)
-    MemReadEn  := (instType =/= TYPE_S  && io.ID_FuType === FuType.lsu)
-                
+        ))
+        
+        RegWriteEn := (instType === TYPE_R) || (instType === TYPE_I) || (instType === TYPE_U) || (instType === TYPE_J)
+        MemWriteEn := (instType === TYPE_S)
+        MemReadEn  := (instType =/= TYPE_S  && io.ID_FuType === FuType.lsu)
+        
+    regConnectWithResetAndStall(io.ID_Inst      , io.IF_Inst, pplrst, 0.U, io.ID_stall)
     regConnectWithResetAndStall(io.ID_ALU_Data1 ,  ALU_Data1, pplrst, 0.U, io.ID_stall)
     // regConnect(io.ID_ALU_Data1  ,    ALU_Data1)
     regConnectWithResetAndStall(io.ID_RegWriteID, rd       , pplrst, 0.U, io.ID_stall)
@@ -175,7 +179,7 @@ class IDU extends Module{
     // regConnect(io.ID_MemWriteEn ,   MemWriteEn)
     regConnectWithResetAndStall(io.ID_optype    , opType, pplrst, 0.U   , io.ID_stall)
     regConnectWithResetAndStall(io.ID_FuType    , InstInfo(1), pplrst, 0.U, io.ID_stall)
-    
+
     val stall_cnt = RegInit(0.U(2.W))
     when(io.ID_FuType === FuType.lsu && io.ID_RegWriteEn.asBool 
          && RegWriteEn.asBool && io.ID_RegWriteID === rd)
