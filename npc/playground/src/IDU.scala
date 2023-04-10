@@ -161,7 +161,7 @@ class IDU extends Module{
     MemWriteEn := (instType === TYPE_S)
     MemReadEn  := (instType =/= TYPE_S  && io.ID_FuType === FuType.lsu)
     
-    regConnectWithReset(io.ID_ALU_Data1  ,    ALU_Data1, io.ID_RegWriteEn)
+    regConnectWithReset(io.ID_ALU_Data1  ,    ALU_Data1, io.ID_RegWriteEn.asReset)
     regConnect(io.ID_ALU_Data2  ,    ALU_Data2)
     regConnect(io.ID_RegWriteID ,           rd)
     regConnect(io.ID_RegWriteEn ,   RegWriteEn)
