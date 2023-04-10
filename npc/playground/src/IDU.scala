@@ -41,8 +41,8 @@ class IDU extends Module{
         val EX_ALUResult  = Input(UInt(64.W))
 
         //4. LoadtoUse situation
-        val ID_stall   = Output(Bool)
-        val flush   = Input(Bool)
+        val ID_stall   = Output(Bool())
+        val flush   = Input(Bool())
         val MEM_MemReadData = Input(UInt(64.W))
 
         //For NPCTRAP
