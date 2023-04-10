@@ -104,17 +104,17 @@ class IDU extends Module{
         (io.ID_RegWriteID  === rs1 && io.ID_RegWriteEn.asBool , io.EX_ALUResult    ),
         (io.MEM_RegWriteID === rs1 && io.MEM_RegWriteEn.asBool, io.MEM_RegWriteData),
         (io.WB_RegWriteID  === rs1 && io.WB_RegWriteEn.asBool , io.WB_RegWriteData )
-        ))
+    ))
         
-        rs2_data := MuxCase(Mux(rs2 === 0.U, 0.U, GPR(rs2)), Seq(
-            (io.ID_RegWriteID  === rs2 && io.ID_RegWriteEn.asBool , io.EX_ALUResult    ),
-            (io.MEM_RegWriteID === rs2 && io.MEM_RegWriteEn.asBool, io.MEM_RegWriteData),
-            (io.WB_RegWriteID  === rs2 && io.WB_RegWriteEn.asBool , io.WB_RegWriteData )
-            ))
+    rs2_data := MuxCase(Mux(rs2 === 0.U, 0.U, GPR(rs2)), Seq(
+        (io.ID_RegWriteID  === rs2 && io.ID_RegWriteEn.asBool , io.EX_ALUResult    ),
+        (io.MEM_RegWriteID === rs2 && io.MEM_RegWriteEn.asBool, io.MEM_RegWriteData),
+        (io.WB_RegWriteID  === rs2 && io.WB_RegWriteEn.asBool , io.WB_RegWriteData )
+    ))
             
-            when(io.WB_RegWriteEn.asBool() && io.WB_RegWriteID =/= 0.U)
-            {
-                GPR(io.WB_RegWriteID) := io.WB_RegWriteData
+    when(io.WB_RegWriteEn.asBool() && io.WB_RegWriteID =/= 0.U)
+    {
+        GPR(io.WB_RegWriteID) := io.WB_RegWriteData
     }
     
     io.ID_Rs1Data := rs1_data
@@ -129,8 +129,8 @@ class IDU extends Module{
     src1 := InstInfo(2) 
     src2 := InstInfo(3)
     
-    val ALU_Data1 = Wire(UInt(32.W))
-    val ALU_Data2 = Wire(UInt(32.W))
+    val ALU_Data1 = Wire(UInt(64.W))
+    val ALU_Data2 = Wire(UInt(64.W))
     val RegWriteEn = Wire(UInt(1.W))
     val MemWriteEn = Wire(UInt(1.W)) 
     val MemReadEn = Wire(UInt(1.W))
@@ -141,7 +141,7 @@ class IDU extends Module{
         (instType === TYPE_B, immB),
         (instType === TYPE_U, immU),
         (instType === TYPE_S, immS)
-        ))
+    ))
         
     ALU_Data1 := MuxCase(0.U, Seq(
         (src1 === ZERO, 0.U     ),
@@ -156,11 +156,11 @@ class IDU extends Module{
         (src2 === RS2   , rs2_data ),
         (src2 === IMM   , imm      ),
         (src2 === SHAMT , shamt    )
-        ))
+    ))
         
-        RegWriteEn := (instType === TYPE_R) || (instType === TYPE_I) || (instType === TYPE_U) || (instType === TYPE_J)
-        MemWriteEn := (instType === TYPE_S)
-        MemReadEn  := (instType =/= TYPE_S  && io.ID_FuType === FuType.lsu)
+    RegWriteEn := (instType === TYPE_R) || (instType === TYPE_I) || (instType === TYPE_U) || (instType === TYPE_J)
+    MemWriteEn := (instType === TYPE_S)
+    MemReadEn  := (instType =/= TYPE_S  && io.ID_FuType === FuType.lsu)
         
     regConnectWithResetAndStall(io.ID_pc        , io.IF_pc  , reset, 0.U, io.ID_stall)
     regConnectWithResetAndStall(io.ID_Inst      , io.IF_Inst, reset, 0.U, io.ID_stall)
