@@ -1,5 +1,6 @@
 import chisel3._
 import chisel3.util._
+import chisel3.util.experimental
 
 object utils {
     
@@ -14,6 +15,14 @@ object utils {
         val rhsReg = RegInit(chiselTypeOf(rhs), resetVal)
         rhsReg := rhs
         lhs := rhsReg
+    }
+
+    def regConnectWithReset(lhs: Data, rhs: Data, reset: Reset, resetVal: UInt =0.U): Unit = {
+        withReset(reset){
+            val rhsReg = RegInit(chiselTypeOf(rhs), resetVal)
+            rhsReg := rhs
+            lhs := rhsReg
+        }
     }
 
 }
