@@ -27,7 +27,7 @@ uint64_t device_read(uint64_t addr)
     else if(addr >= FB_ADDR && addr < FB_ADDR + 480000) return ((uint32_t *)vmem)[(addr - FB_ADDR)/4];
     else{
         Log("addr:0x%lx", addr);
-        Log("pc:%016lx", top->io_WB_pc);
+        Log("pc:%016lx", top->io_MEM_pc);
         assert(0);
     }
 }
