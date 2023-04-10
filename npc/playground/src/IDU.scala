@@ -49,7 +49,7 @@ class IDU extends Module{
         val ID_unknown_inst = Output(UInt(1.W))
 
         //For npc trace
-        val ID_pc`  = Input(UInt(64.W))
+        val ID_pc   = Input(UInt(64.W))
         val ID_Inst = Output(UInt(32.W))
     })
 
