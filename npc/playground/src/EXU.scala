@@ -33,6 +33,10 @@ class EXU extends Module{
         //it is used when there is a load-to-use adventure
         //it is actually the ID_stall in IDU
         val flush      =      Input(Bool())
+
+        //for NPC to trace
+        val ID_Inst    =      Input(UInt(64.W))
+        val EX_Inst    =      Output(UInt(64.W))
     })
     
     //  pipeline register reset
@@ -55,6 +59,7 @@ class EXU extends Module{
     // regConnect(io.EX_MemReadEn,          io.ID_MemReadEn)
     // regConnect(io.EX_LsuType,                    LsuType)
     // regConnect(io.EX_ALUResult,               ALU_Result)
+    regConnectWithReset(io.EX_Inst          , io.ID_Inst        , pplrst)
     regConnectWithReset(io.EX_RegWriteEn    , io.ID_RegWriteEn  , pplrst)
     regConnectWithReset(io.EX_RegWriteID    , io.ID_RegWriteID  , pplrst)
     regConnectWithReset(io.EX_MemWriteData  , io.EX_MemWriteData, pplrst)

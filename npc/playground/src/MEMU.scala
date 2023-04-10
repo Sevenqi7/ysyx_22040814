@@ -33,10 +33,14 @@ class MEMU extends Module{
         //for IDU.Bypass
         val MEM_MemReadData_Pass = Output(UInt(64.W))
 
+        //for NPC to trace
+        val EX_Inst         = Input(UInt(64.W))
+        val MEM_Inst        = Output(UInt(64.W))
     })
 
     val RegWriteData = Wire(UInt(64.W))
     
+    regConnect(io.MEM_Inst              ,               io.EX_Inst)
     regConnect(io.MEM_RegWriteEn        ,         io.EX_RegWriteEn)
     regConnect(io.MEM_RegWriteID        ,         io.EX_RegWriteID)
     regConnect(io.MEM_RegWriteData      ,             RegWriteData)
@@ -51,4 +55,3 @@ class MEMU extends Module{
     mem.io.ReadEn  := io.EX_MemReadEn
     RegWriteData := Mux((io.EX_LsuType =/= 0.U) && (io.EX_MemWriteEn === 0.U), mem.io.ReadData, io.EX_ALUResult)
 }  
-
