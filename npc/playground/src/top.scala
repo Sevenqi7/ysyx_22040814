@@ -31,6 +31,7 @@ class top extends Module{
     val mem_unit = Module(new MEMU)
     val wb_unit = Module(new WBU)
 
+    io.IF_pc := inst_fetch_unit.io.IF_pc
     io.WB_pc := wb_unit.io.WB_pc
     io.MEM_pc := mem_unit.io.MEM_pc
     io.WB_Inst := wb_unit.io.WB_Inst
