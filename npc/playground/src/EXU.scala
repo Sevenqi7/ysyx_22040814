@@ -25,11 +25,19 @@ class EXU extends Module{
         val EX_LsuType    =     Output(UInt(5.W))
         val EX_RegWriteID =     Output(UInt(5.W))
         val EX_RegWriteEn =     Output(UInt(1.W))
+
+        //to IDU.Bypass
+        val EX_ALUResult_Pass = Output(UInt(64.W))
     })
 
     val LsuType = Mux(io.ID_FuType === FuType.lsu, io.ID_optype, 0.U)
+    val ALU_Data1 = Wire(UInt(64.W))
+    val ALU_Data2 = Wire(UInt(64.W))
     val ALU_Result = Wire(UInt(64.W))
     val shamt = Wire(UInt(6.W))
+
+    io.EX_ALUResult := Output(UInt(64.W))
+    shamt := ALU_Data2(5, 0)
 
     regConnect(io.EX_RegWriteEn,        io.ID_RegWriteEn)
     regConnect(io.EX_RegWriteID,        io.ID_RegWriteID)
@@ -39,37 +47,38 @@ class EXU extends Module{
     regConnect(io.EX_LsuType,                    LsuType)
     regConnect(io.EX_ALUResult,               ALU_Result)
 
-    shamt := io.ID_ALU_Data2(5, 0)
+    ALU_Data1 := io.ID_ALU_Data1
+    ALU_Data2 := io.ID_ALU_Data2
 
     ALU_Result := MuxCase(0.U, Seq(
-        (io.ID_optype === OP_PLUS || io.ID_FuType === FuType.lsu, io.ID_ALU_Data1 + io.ID_ALU_Data2),
-        (io.ID_optype === OP_SUB , io.ID_ALU_Data1  -  io.ID_ALU_Data2),
-        (io.ID_optype === OP_AND , io.ID_ALU_Data1  &  io.ID_ALU_Data2),
-        (io.ID_optype === OP_OR  , io.ID_ALU_Data1  |  io.ID_ALU_Data2),
-        (io.ID_optype === OP_XOR , io.ID_ALU_Data1  ^  io.ID_ALU_Data2),
-        (io.ID_optype === OP_SLL , io.ID_ALU_Data1 <<  shamt          ),
-        (io.ID_optype === OP_SRL , io.ID_ALU_Data1 >>  shamt          ),
-        (io.ID_optype === OP_SRA , (io.ID_ALU_Data1.asSInt >> shamt).asUInt),
-        (io.ID_optype === OP_SLTU, io.ID_ALU_Data1  <  io.ID_ALU_Data2),
-        (io.ID_optype === OP_SLT , io.ID_ALU_Data1.asSInt  <  io.ID_ALU_Data2.asSInt),
-        (io.ID_optype === OP_MUL , io.ID_ALU_Data1 * io.ID_ALU_Data2  ),
-        (io.ID_optype === OP_DIV , (io.ID_ALU_Data1.asSInt / io.ID_ALU_Data2.asSInt).asUInt),
-        (io.ID_optype === OP_DIVU, io.ID_ALU_Data1 / io.ID_ALU_Data2),
-        (io.ID_optype === OP_REM , (io.ID_ALU_Data1.asSInt % io.ID_ALU_Data2.asSInt).asUInt),
-        (io.ID_optype === OP_REMU , io.ID_ALU_Data1 % io.ID_ALU_Data2),
-        (io.ID_optype === OP_ADDW, SEXT((io.ID_ALU_Data1 + io.ID_ALU_Data2 ), 32    )),
-        (io.ID_optype === OP_SUBW, SEXT((io.ID_ALU_Data1 - io.ID_ALU_Data2 ), 32    )),
-        (io.ID_optype === OP_SLLW, SEXT((io.ID_ALU_Data1(31, 0) << shamt(4, 0)), 32 )),
-        (io.ID_optype === OP_SRLW, SEXT((io.ID_ALU_Data1(31, 0) >> shamt(4, 0)), 32 )),
-        (io.ID_optype === OP_SRAW, SEXT(((io.ID_ALU_Data1(31, 0).asSInt >> shamt(4, 0)).asUInt), 32)),
-        (io.ID_optype === OP_XORW, SEXT((io.ID_ALU_Data1 ^ io.ID_ALU_Data2 ), 32)),
-        (io.ID_optype === OP_ORW , SEXT((io.ID_ALU_Data1 | io.ID_ALU_Data2 ), 32)),
-        (io.ID_optype === OP_ANDW, SEXT((io.ID_ALU_Data1 & io.ID_ALU_Data2 ), 32)),
-        (io.ID_optype === OP_MULW, SEXT((io.ID_ALU_Data1 * io.ID_ALU_Data2 ), 32)),
-        (io.ID_optype === OP_DIVW, SEXT(((io.ID_ALU_Data1.asSInt / io.ID_ALU_Data2.asSInt).asUInt), 32)),
-        (io.ID_optype === OP_DIVUW, SEXT((io.ID_ALU_Data1 / io.ID_ALU_Data2), 32)),
-        (io.ID_optype === OP_REMW, SEXT(((io.ID_ALU_Data1.asSInt % io.ID_ALU_Data2.asSInt).asUInt), 32)),
-        (io.ID_optype === OP_REMUW, SEXT((io.ID_ALU_Data1 % io.ID_ALU_Data2), 32))
+        (io.ID_optype === OP_PLUS || io.ID_FuType === FuType.lsu, ALU_Data1 + ALU_Data2),
+        (io.ID_optype === OP_SUB , ALU_Data1  -  ALU_Data2),
+        (io.ID_optype === OP_AND , ALU_Data1  &  ALU_Data2),
+        (io.ID_optype === OP_OR  , ALU_Data1  |  ALU_Data2),
+        (io.ID_optype === OP_XOR , ALU_Data1  ^  ALU_Data2),
+        (io.ID_optype === OP_SLL , ALU_Data1 <<  shamt          ),
+        (io.ID_optype === OP_SRL , ALU_Data1 >>  shamt          ),
+        (io.ID_optype === OP_SRA , (ALU_Data1.asSInt >> shamt).asUInt),
+        (io.ID_optype === OP_SLTU, ALU_Data1  <  ALU_Data2),
+        (io.ID_optype === OP_SLT , ALU_Data1.asSInt  <  ALU_Data2.asSInt),
+        (io.ID_optype === OP_MUL , ALU_Data1 * ALU_Data2  ),
+        (io.ID_optype === OP_DIV , (ALU_Data1.asSInt / ALU_Data2.asSInt).asUInt),
+        (io.ID_optype === OP_DIVU, ALU_Data1 / ALU_Data2),
+        (io.ID_optype === OP_REM , (ALU_Data1.asSInt % ALU_Data2.asSInt).asUInt),
+        (io.ID_optype === OP_REMU , ALU_Data1 % ALU_Data2),
+        (io.ID_optype === OP_ADDW, SEXT((ALU_Data1 + ALU_Data2 ), 32    )),
+        (io.ID_optype === OP_SUBW, SEXT((ALU_Data1 - ALU_Data2 ), 32    )),
+        (io.ID_optype === OP_SLLW, SEXT((ALU_Data1(31, 0) << shamt(4, 0)), 32 )),
+        (io.ID_optype === OP_SRLW, SEXT((ALU_Data1(31, 0) >> shamt(4, 0)), 32 )),
+        (io.ID_optype === OP_SRAW, SEXT(((ALU_Data1(31, 0).asSInt >> shamt(4, 0)).asUInt), 32)),
+        (io.ID_optype === OP_XORW, SEXT((ALU_Data1 ^ ALU_Data2 ), 32)),
+        (io.ID_optype === OP_ORW , SEXT((ALU_Data1 | ALU_Data2 ), 32)),
+        (io.ID_optype === OP_ANDW, SEXT((ALU_Data1 & ALU_Data2 ), 32)),
+        (io.ID_optype === OP_MULW, SEXT((ALU_Data1 * ALU_Data2 ), 32)),
+        (io.ID_optype === OP_DIVW, SEXT(((ALU_Data1.asSInt / ALU_Data2.asSInt).asUInt), 32)),
+        (io.ID_optype === OP_DIVUW, SEXT((ALU_Data1 / ALU_Data2), 32)),
+        (io.ID_optype === OP_REMW, SEXT(((ALU_Data1.asSInt % ALU_Data2.asSInt).asUInt), 32)),
+        (io.ID_optype === OP_REMUW, SEXT((ALU_Data1 % ALU_Data2), 32))
     ))
 
     io.EX_ALUResult := ALU_Result

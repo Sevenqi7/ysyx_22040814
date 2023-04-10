@@ -29,14 +29,18 @@ class MEMU extends Module{
         val MEM_RegWriteData = Output(UInt(64.W))
         val MEM_RegWriteEn  = Output(UInt(1.W))
         val MEM_RegWriteID  = Output(UInt(5.W))
+
+        //for IDU.Bypass
+        val MEM_MemReadData_Pass = Output(UInt(64.W))
     })
 
     val RegWriteData = Wire(UInt(64.W))
-
+    
     regConnect(io.MEM_RegWriteEn,   io.EX_RegWriteEn)
     regConnect(io.MEM_RegWriteID,   io.EX_RegWriteID)
     regConnect(io.MEM_RegWriteData,    RegWriteData)
-    
+    io.MEM_MemReadData_Pass := RegWriteData
+
     //LSU for DPI-C with verilator
     val mem = Module(new LSU)
     mem.io.addr := io.EX_ALUResult

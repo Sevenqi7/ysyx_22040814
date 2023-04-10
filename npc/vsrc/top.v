@@ -35,7 +35,7 @@
 module IFU(	// <stdin>:2:10
   input         clock,
                 reset,
-  input  [63:0] io_IF_npc,
+  input  [63:0] io_ID_npc,
   output [63:0] io_IF_pc);
 
   reg [63:0] pcReg;	// IFU.scala:10:24
@@ -43,7 +43,7 @@ module IFU(	// <stdin>:2:10
     if (reset)
       pcReg <= 64'h80000000;	// IFU.scala:10:24
     else
-      pcReg <= io_IF_npc;	// IFU.scala:10:24
+      pcReg <= io_ID_npc;	// IFU.scala:10:24
   end // always @(posedge)
   `ifndef SYNTHESIS	// <stdin>:2:10
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:2:10
@@ -1036,7 +1036,7 @@ module top(	// <stdin>:1020:10
   IFU inst_fetch_unit (	// top.scala:23:33
     .clock     (clock),
     .reset     (reset),
-    .io_IF_npc (_inst_decode_unit_io_ID_npc),	// top.scala:24:34
+    .io_ID_npc (_inst_decode_unit_io_ID_npc),	// top.scala:24:34
     .io_IF_pc  (_inst_fetch_unit_io_IF_pc)
   );
   IDU inst_decode_unit (	// top.scala:24:34

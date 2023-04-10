@@ -12,23 +12,37 @@ class IDU extends Module{
         val ID_npc = Output(UInt(64.W))
         
         //Reg
-        val ID_ALU_Data1 = Output(UInt(64.W))
-        val ID_ALU_Data2 = Output(UInt(64.W))
-        val ID_FuType = Output(UInt(1.W))
-        val ID_optype = Output(UInt(5.W))
+        val ID_ALU_Data1  = Output(UInt(64.W))
+        val ID_ALU_Data2  = Output(UInt(64.W))
+        val ID_FuType     = Output(UInt(1.W))
+        val ID_optype     = Output(UInt(5.W))
 
-        val ID_Rs1Data = Output(UInt(64.W))
-        val ID_Rs2Data = Output(UInt(64.W))
+        val ID_Rs1Data    = Output(UInt(64.W))
+        val ID_Rs2Data    = Output(UInt(64.W))
         val ID_RegWriteID = Output(UInt(5.W))
         val ID_RegWriteEn = Output(UInt(1.W))
         val ID_MemWriteEn = Output(UInt(1.W))
         val ID_MemReadEn  = Output(UInt(1.W))
         
-        //Reg RW from EX
+        //Bypass
+        //1. Reg R/W from WB
         val WB_RegWriteData = Input(UInt(64.W))
         val WB_RegWriteID = Input(UInt(5.W))
         val WB_RegWriteEn = Input(UInt(1.W))
-        
+
+        //2. Data from MEM (from ex_unit in top)
+        val MEM_RegWriteData = Input(UInt(64.W))
+        val MEM_RegWriteEn   = Input(UInt(1.W))
+        val MEM_RegWriteID   = Input(UInt(5.W))
+
+        //3. ALUResult from EX
+        //this signal is connected to  "ALU_Result" in EXU, not "EX_ALUResult" because the
+        //later one is not immediate
+        val EX_ALUResult  = Input(UInt(64.W))
+
+        //4. LoadtoUse situation
+        val MEM_MemReadData = Input(UInt(64.W))
+
         //For NPCTRAP
         val ID_GPR =Output(Vec(32, UInt(64.W)))
         val ID_unknown_inst = Output(UInt(1.W))
@@ -51,11 +65,11 @@ class IDU extends Module{
     regConnect(io.ID_FuType,                    InstInfo(1))
 
     //all kinds of imm
-    val immI = Wire(UInt(64.W))
-    val immU = Wire(UInt(64.W))
-    val immJ = Wire(UInt(64.W))
-    val immB = Wire(UInt(64.W))
-    val immS = Wire(UInt(64.W))
+    val immI  = Wire(UInt(64.W))
+    val immU  = Wire(UInt(64.W))
+    val immJ  = Wire(UInt(64.W))
+    val immB  = Wire(UInt(64.W))
+    val immS  = Wire(UInt(64.W))
     val shamt = Wire(UInt(6.W))
 
 
@@ -84,9 +98,18 @@ class IDU extends Module{
     rd := io.IF_Inst(11, 7)
     rs1 := io.IF_Inst(19, 15)
     rs2 := io.IF_Inst(24, 20)
-    rs1_data := Mux(rs1 === 0.U, 0.U, GPR(rs1))
-    rs2_data := Mux(rs2 === 0.U, 0.U, GPR(rs2))
+    
+    rs1_data := MuxCase(Mux(rs1 === 0.U, 0.U, GPR(rs1)), Seq(
+        (io.ID_RegWriteID  === rs1 && io.ID_RegWriteID.asBool , io.EX_ALUResult    ),
+        (io.MEM_RegWriteID === rs1 && io.MEM_RegWriteEn.asBool, io.MEM_RegWriteData),
+        (io.WB_RegWriteID  === rs1 && io.WB_RegWriteID.asBool , io.WB_RegWriteData )
+    ))
 
+    rs2_data := MuxCase(Mux(rs2 === 0.U, 0.U, GPR(rs2)), Seq(
+        (io.ID_RegWriteID  === rs2 && io.ID_RegWriteID.asBool , io.EX_ALUResult    ),
+        (io.MEM_RegWriteID === rs2 && io.MEM_RegWriteEn.asBool, io.MEM_RegWriteData),
+        (io.WB_RegWriteID  === rs2 && io.WB_RegWriteID.asBool , io.WB_RegWriteData )
+    ))
     
     when(io.WB_RegWriteEn.asBool() && io.WB_RegWriteID =/= 0.U)
     {
@@ -169,7 +192,7 @@ class IDU extends Module{
             
             
 object RV64IInstr{
-                // Special insts
+    // Special insts
     def EBREAK  = BitPat("b0000000 00001 00000 000 00000 11100 11")
 
     //U Type
@@ -201,8 +224,6 @@ object RV64IInstr{
     def SRAIW   = BitPat("b0100000 ????? ????? 101 ????? 00110 11")
     def JAL     = BitPat("b??????? ????? ????? ??? ????? 11011 11")
     
-    //J Type
-
     //R Type
     def ADD       = BitPat("b0000000 ????? ????? 000 ????? 01100 11")
     def SLL       = BitPat("b0000000 ????? ????? 001 ????? 01100 11")
@@ -285,7 +306,7 @@ object RV64IInstr{
         
         //R Type
         ADD            -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_PLUS),
-        SLL            -> List(TYPE_R, FuType.alu, RS1 , RS2 ,OpType.OP_SLL ),
+        SLL            -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_SLL ),
         SUB            -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_SUB ),
         XOR            -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_XOR ),
         OR             -> List(TYPE_R, FuType.alu, RS1 , RS2 , OpType.OP_OR  ),
