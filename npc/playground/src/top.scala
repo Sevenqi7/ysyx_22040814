@@ -10,6 +10,7 @@ class sim extends BlackBox with HasBlackBoxPath{
         val GPR  = Input(Vec(32, UInt(64.W)))
         val unknown_inst_flag = Input(UInt(1.W))
         val inst = Output(UInt(64.W))
+        val stall = Output(Bool())
     })
     addPath("/home/seven7/Documents/学业/一生一芯/ysyx-workbench/npc/playground/verilog/sim.v")
 }
