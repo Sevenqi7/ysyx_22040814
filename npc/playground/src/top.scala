@@ -26,6 +26,8 @@ class top extends Module{
 
         val ALU_Data1 = Output(UInt(64.W))
         val ALU_Data2 = Output(UInt(64.W))
+        val ID_Rs1Data = Output(UInt(64.W))
+        val ID_Rs2Data = Output(UInt(64.W))
         val ALUResult = Output(UInt(64.W))
     })
 
@@ -43,6 +45,8 @@ class top extends Module{
 
     io.ALU_Data1 := inst_decode_unit.io.ID_ALU_Data1
     io.ALU_Data2 := inst_decode_unit.io.ID_ALU_Data2
+    io.ID_Rs1Data := inst_decode_unit.io.ID_Rs1Data
+    io.ID_Rs2Data := inst_decode_unit.io.ID_Rs2Data
     io.stall := inst_decode_unit.io.ID_stall
     
     val simulate = Module(new sim)

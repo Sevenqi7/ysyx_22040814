@@ -309,7 +309,7 @@ module IDU(	// <stdin>:14:10
   reg  [63:0]       rhsReg_11;	// utils.scala:32:33
   reg  [1:0]        stall_cnt;	// IDU.scala:175:28
   wire              _io_ID_stall_T_5 = rhsReg_3 == io_IF_Inst[11:7];	// IDU.scala:78:80, :177:52, utils.scala:32:33
-  wire              _io_ID_stall_T_9 = rhsReg_9 & rhsReg_5 & _RegWriteEn_T_6 & _io_ID_stall_T_5 | (|stall_cnt);	// IDU.scala:158:91, :175:28, :177:52, :190:{42,72,86}, utils.scala:32:33
+  wire              _io_ID_stall_T_9 = rhsReg_9 & rhsReg_5 & _RegWriteEn_T_6 & _io_ID_stall_T_5 | (|stall_cnt);	// IDU.scala:158:91, :175:28, :177:52, :188:{42,72,86}, utils.scala:32:33
   always @(posedge clock) begin
     if (reset) begin
       GPR_0 <= 64'h0;	// IDU.scala:90:{22,30}
@@ -423,7 +423,13 @@ module IDU(	// <stdin>:14:10
         GPR_30 <= io_WB_RegWriteData;	// IDU.scala:90:22
       if (_T_2 & (&io_WB_RegWriteID))	// IDU.scala:90:22, :114:36, :115:5, :116:31
         GPR_31 <= io_WB_RegWriteData;	// IDU.scala:90:22
-      if (~_io_ID_stall_T_9) begin	// IDU.scala:190:72
+      if (~_io_ID_stall_T_9) begin	// IDU.scala:188:72
+        automatic logic       InstInfo_1 = ~_InstInfo_T_1 & ~_InstInfo_T_3 & ~_InstInfo_T_5 & ~_InstInfo_T_7 & ~_InstInfo_T_9 &
+                                                                ~_InstInfo_T_11 & ~_InstInfo_T_13 & ~_InstInfo_T_15 & ~_InstInfo_T_17 & ~_InstInfo_T_19 &
+                                                                ~_InstInfo_T_21 & ~_InstInfo_T_23 & ~_InstInfo_T_25 & ~_InstInfo_T_27 & ~_InstInfo_T_29 &
+                                                                ~_InstInfo_T_31 & ~_InstInfo_T_33 & (_InstInfo_T_35 | _InstInfo_T_37 | _InstInfo_T_39 |
+                                                                _InstInfo_T_41 | _InstInfo_T_43 | _InstInfo_T_45 | _InstInfo_T_47 | _InstInfo_T_49 |
+                                                                _InstInfo_T_51 | _InstInfo_T_53 | _InstInfo_T_203);	// Lookup.scala:31:38, :34:39
         automatic logic [2:0] InstInfo_3;	// Lookup.scala:34:39
         automatic logic       _MemWriteEn_T;	// IDU.scala:140:19
         InstInfo_3 = _InstInfo_T_1 ? 3'h0 : _InstInfo_T_3 | _InstInfo_T_5 | _InstInfo_T_7 ? 3'h4 : _InstInfo_T_9
@@ -492,7 +498,7 @@ module IDU(	// <stdin>:14:10
         else	// IDU.scala:151:15, :152:15, :153:15, :154:15, Lookup.scala:34:39
           rhsReg_4 <= {58'h0, InstInfo_3 == 3'h5 ? io_IF_Inst[25:20] : 6'h0};	// IDU.scala:86:24, :155:15, Lookup.scala:34:39, Mux.scala:101:16, utils.scala:32:33
         rhsReg_5 <= _RegWriteEn_T_6;	// IDU.scala:158:91, utils.scala:32:33
-        rhsReg_6 <= _io_ID_npc_T_9 & rhsReg_9;	// IDU.scala:137:19, :160:41, utils.scala:32:33
+        rhsReg_6 <= _io_ID_npc_T_9 & InstInfo_1;	// IDU.scala:137:19, :160:41, Lookup.scala:34:39, utils.scala:32:33
         rhsReg_7 <= _MemWriteEn_T;	// IDU.scala:140:19, utils.scala:32:33
         if (_GEN_5)	// Lookup.scala:34:39
           rhsReg_8 <= 5'h1;	// IDU.scala:116:31, utils.scala:32:33
@@ -592,12 +598,7 @@ module IDU(	// <stdin>:14:10
           rhsReg_8 <= 5'h1D;	// Lookup.scala:34:39, utils.scala:32:33
         else	// Lookup.scala:31:38, :34:39
           rhsReg_8 <= _GEN_4;	// Lookup.scala:34:39, utils.scala:32:33
-        rhsReg_9 <= ~_InstInfo_T_1 & ~_InstInfo_T_3 & ~_InstInfo_T_5 & ~_InstInfo_T_7 & ~_InstInfo_T_9 &
-                                                                ~_InstInfo_T_11 & ~_InstInfo_T_13 & ~_InstInfo_T_15 & ~_InstInfo_T_17 & ~_InstInfo_T_19 &
-                                                                ~_InstInfo_T_21 & ~_InstInfo_T_23 & ~_InstInfo_T_25 & ~_InstInfo_T_27 & ~_InstInfo_T_29 &
-                                                                ~_InstInfo_T_31 & ~_InstInfo_T_33 & (_InstInfo_T_35 | _InstInfo_T_37 | _InstInfo_T_39 |
-                                                                _InstInfo_T_41 | _InstInfo_T_43 | _InstInfo_T_45 | _InstInfo_T_47 | _InstInfo_T_49 |
-                                                                _InstInfo_T_51 | _InstInfo_T_53 | _InstInfo_T_203);	// Lookup.scala:31:38, :34:39, utils.scala:32:33
+        rhsReg_9 <= InstInfo_1;	// Lookup.scala:34:39, utils.scala:32:33
         if (_rs2_data_T_4)	// IDU.scala:109:38
           rhsReg_11 <= io_EX_ALUResult;	// utils.scala:32:33
         else if (_rs2_data_T_7)	// IDU.scala:109:38, :110:38
@@ -834,7 +835,7 @@ module IDU(	// <stdin>:14:10
                 _rs2_data_T_13 : InstInfo_4 == 5'h5 & _rs1_data_T_13 >= _rs2_data_T_13) ? io_IF_pc +
                 {_GEN_6, io_IF_Inst[7], io_IF_Inst[30:25], io_IF_Inst[11:8], 1'h0} : _io_ID_npc_T_9 &
                 _io_ID_npc_T_10 ? _rs1_data_T_13 + {_immI_T_2, io_IF_Inst[31:20]} : {32'h0,
-                _ALU_Data1_T_5[31:0]};	// <stdin>:14:10, Bitwise.scala:77:12, IDU.scala:76:{36,53}, :78:10, :79:{80,107,128}, :80:{54,76,101}, :116:31, :137:19, :138:19, :147:{15,33}, :158:104, :194:13, :195:19, :196:{34,46}, :197:{34,46}, :198:{34,53}, :199:{34,53}, :200:{34,46}, :201:{34,46}, :205:13, :207:40, :208:{31,58}, :209:{31,58}, Lookup.scala:34:39, Mux.scala:101:16
+                _ALU_Data1_T_5[31:0]};	// <stdin>:14:10, Bitwise.scala:77:12, IDU.scala:76:{36,53}, :78:10, :79:{80,107,128}, :80:{54,76,101}, :116:31, :137:19, :138:19, :147:{15,33}, :158:104, :192:13, :193:19, :194:{34,46}, :195:{34,46}, :196:{34,53}, :197:{34,53}, :198:{34,46}, :199:{34,46}, :203:13, :205:40, :206:{31,58}, :207:{31,58}, Lookup.scala:34:39, Mux.scala:101:16
   assign io_ID_ALU_Data1 = rhsReg_2;	// <stdin>:14:10, utils.scala:32:33
   assign io_ID_ALU_Data2 = rhsReg_4;	// <stdin>:14:10, utils.scala:32:33
   assign io_ID_FuType = rhsReg_9;	// <stdin>:14:10, utils.scala:32:33
@@ -844,7 +845,7 @@ module IDU(	// <stdin>:14:10
   assign io_ID_RegWriteEn = rhsReg_5;	// <stdin>:14:10, utils.scala:32:33
   assign io_ID_MemWriteEn = rhsReg_7;	// <stdin>:14:10, utils.scala:32:33
   assign io_ID_MemReadEn = rhsReg_6;	// <stdin>:14:10, utils.scala:32:33
-  assign io_ID_stall = _io_ID_stall_T_9;	// <stdin>:14:10, IDU.scala:190:72
+  assign io_ID_stall = _io_ID_stall_T_9;	// <stdin>:14:10, IDU.scala:188:72
   assign io_ID_GPR_0 = GPR_0;	// <stdin>:14:10, IDU.scala:90:22
   assign io_ID_GPR_1 = GPR_1;	// <stdin>:14:10, IDU.scala:90:22
   assign io_ID_GPR_2 = GPR_2;	// <stdin>:14:10, IDU.scala:90:22
@@ -877,7 +878,7 @@ module IDU(	// <stdin>:14:10
   assign io_ID_GPR_29 = GPR_29;	// <stdin>:14:10, IDU.scala:90:22
   assign io_ID_GPR_30 = GPR_30;	// <stdin>:14:10, IDU.scala:90:22
   assign io_ID_GPR_31 = GPR_31;	// <stdin>:14:10, IDU.scala:90:22
-  assign io_ID_unknown_inst = InstInfo_0 == 3'h0;	// <stdin>:14:10, IDU.scala:188:39, Lookup.scala:34:39
+  assign io_ID_unknown_inst = InstInfo_0 == 3'h0;	// <stdin>:14:10, IDU.scala:186:39, Lookup.scala:34:39
   assign io_ID_pc = rhsReg;	// <stdin>:14:10, utils.scala:32:33
   assign io_ID_Inst = rhsReg_1;	// <stdin>:14:10, utils.scala:32:33
 endmodule
@@ -1372,7 +1373,6 @@ sim simulate (	// top.scala:24:26
    .GPR               (GPR),
    .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
 );
-
   assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:1125:10, top.scala:32:33
   assign io_WB_Inst = _wb_unit_io_WB_Inst;	// <stdin>:1125:10, top.scala:36:25
   assign io_MEM_pc = _excute_unit_io_EX_pc;	// <stdin>:1125:10, top.scala:34:29
@@ -1428,6 +1428,7 @@ import "DPI-C" function void unknown_inst();
 import "DPI-C" function void ebreak(input longint halt_ret);
 
 
+
 module sim(input[63:0] IF_pc, input [63:0] GPR [31:0], input unknown_inst_flag, output [63:0] inst, input[31:0] WB_Inst);
 
    initial begin
@@ -1440,7 +1441,6 @@ module sim(input[63:0] IF_pc, input [63:0] GPR [31:0], input unknown_inst_flag, 
    end
 
    initial set_gpr_ptr(GPR);    // rf为通用寄存器的二维数组变量
-
 
    always@(*) begin
          dci_pmem_read(IF_pc, inst, 8'HFF);

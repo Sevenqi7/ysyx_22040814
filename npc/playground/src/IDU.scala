@@ -359,4 +359,4 @@ object RV64IInstr{
         BGE            -> List(TYPE_B, FuType.alu, ZERO , ZERO , BType.BGE   ),
         BGEU           -> List(TYPE_B, FuType.alu, ZERO , ZERO , BType.BGEU  )
         )
-    }
+}
