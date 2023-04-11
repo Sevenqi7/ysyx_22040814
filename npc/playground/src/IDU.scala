@@ -163,18 +163,18 @@ class IDU extends Module{
 
     val flush = reset.asBool | io.ID_stall       
 
-    regConnectWithReset(io.ID_pc        , io.IF_pc  , flush, 0.U    )
-    regConnectWithReset(io.ID_Inst      , io.IF_Inst, flush, 0.U    )
-    regConnectWithReset(io.ID_ALU_Data1 , ALU_Data1 , flush, 0.U    )
-    regConnectWithReset(io.ID_RegWriteID, rd        , flush, 0.U    )
-    regConnectWithReset(io.ID_ALU_Data2 , ALU_Data2 , flush, 0.U    )
-    regConnectWithReset(io.ID_RegWriteEn, RegWriteEn, flush, 0.U    )
-    regConnectWithReset(io.ID_MemReadEn , MemReadEn , flush, 0.U    )
-    regConnectWithReset(io.ID_MemWriteEn, MemWriteEn, flush, 0.U    )
-    regConnectWithReset(io.ID_optype    , opType    , flush, 0.U    )
-    regConnectWithReset(io.ID_FuType    , futype    , flush, 0.U    )
-    regConnectWithReset(io.ID_Rs1Data   , rs1_data  , flush, 0.U    )
-    regConnectWithReset(io.ID_Rs2Data   , rs2_data  , flush, 0.U    )
+    regConnectWithReset(io.ID_pc        , io.IF_pc  , reset, 0.U    )
+    regConnectWithReset(io.ID_Inst      , io.IF_Inst, reset, 0.U    )
+    regConnectWithReset(io.ID_ALU_Data1 , ALU_Data1 , reset, 0.U    )
+    regConnectWithReset(io.ID_RegWriteID, rd        , reset, 0.U    )
+    regConnectWithReset(io.ID_ALU_Data2 , ALU_Data2 , reset, 0.U    )
+    regConnectWithReset(io.ID_RegWriteEn, RegWriteEn, reset, 0.U    )
+    regConnectWithReset(io.ID_MemReadEn , MemReadEn , reset, 0.U    )
+    regConnectWithReset(io.ID_MemWriteEn, MemWriteEn, reset, 0.U    )
+    regConnectWithReset(io.ID_optype    , opType    , reset, 0.U    )
+    regConnectWithReset(io.ID_FuType    , futype    , reset, 0.U    )
+    regConnectWithReset(io.ID_Rs1Data   , rs1_data  , reset, 0.U    )
+    regConnectWithReset(io.ID_Rs2Data   , rs2_data  , reset, 0.U    )
 
     val stall_cnt = RegInit(0.U(2.W))
 
