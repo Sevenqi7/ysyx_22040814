@@ -85,6 +85,7 @@ void exec_once()            //disassemble实质上是反汇编的上一个已执
         }
         if(i)
     {        Log("ALUData1:0x%lx ALUData2:0x%lx", top->io_ALU_Data1, top->io_ALU_Data2);
+            Log("ID_Rs1Data:0x%lx ID_Rs2Data:0x%lx", top->io_ID_Rs1Data, top->io_ID_Rs2Data);
             Log("ALUResult:0x%lx", top->io_ALUResult);
             Log("MemRegWriteData_Pass:0x%lx", top->io_MEM_RegWriteData);}
     }

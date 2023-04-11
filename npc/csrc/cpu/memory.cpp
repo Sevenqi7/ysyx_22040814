@@ -52,7 +52,6 @@ uint64_t pmem_read(uint64_t addr, int len)
 void pmem_write(uint64_t addr, int len, uint64_t data)
 {
     uint64_t paddr = addr & MEMMASK;
-    if(top->reset) return;
     if(addr == 0x87fffffe){putchar((char)data);return;}
     if(addr > MMIO_BASE && addr < MMIO_END) {device_write(addr, data, len); return;}
     outofbound(paddr);
@@ -70,6 +69,7 @@ extern "C" void dci_pmem_read(long long raddr, long long *rdata, char rmask) {
   // 总是读取地址为`raddr & ~0x7ull`的8字节返回给`rdata`
   int len = 0;
   uint8_t mask = rmask;
+  if(top->reset) return;
   for(;mask;mask=mask>>1,len++);
   *rdata = pmem_read(raddr, len);
   Log("raddr:%lx value:%lx len:%d", raddr, *rdata, len);
@@ -80,6 +80,7 @@ extern "C" void dci_pmem_write(long long waddr, long long wdata, char wmask) {
   // 如`wmask = 0x3`代表只写入最低2个字节, 内存中的其它字节保持不变
   int len = 0;
   uint8_t mask = wmask;
+  if(top->reset) return;
   for(;mask;mask=mask>>1,len++);
   pmem_write(waddr, len, wdata);
   Log("waddr:%lx value:%lx len:%d", waddr, wdata, len);

@@ -99,13 +99,15 @@ class IDU extends Module{
     rs1 := io.IF_Inst(19, 15)
     rs2 := io.IF_Inst(24, 20)
     
-    rs1_data := MuxCase(Mux(rs1 === 0.U, 0.U, GPR(rs1)), Seq(
+    rs1_data := MuxCase(GPR(rs1), Seq(
+        ((rs1 === 0.U)                                          ,                 0.U),
         ((io.ID_RegWriteID  === rs1) && io.ID_RegWriteEn.asBool , io.EX_ALUResult    ),
         ((io.MEM_RegWriteID === rs1) && io.MEM_RegWriteEn.asBool, io.MEM_RegWriteData),
         ((io.WB_RegWriteID  === rs1) && io.WB_RegWriteEn.asBool , io.WB_RegWriteData )
     ))
         
-    rs2_data := MuxCase(Mux(rs2 === 0.U, 0.U, GPR(rs2)), Seq(
+    rs2_data := MuxCase(GPR(rs2), Seq(
+        ((rs2 === 0.U)                                          ,                 0.U),
         ((io.ID_RegWriteID  === rs2) && io.ID_RegWriteEn.asBool , io.EX_ALUResult    ),
         ((io.MEM_RegWriteID === rs2) && io.MEM_RegWriteEn.asBool, io.MEM_RegWriteData),
         ((io.WB_RegWriteID  === rs2) && io.WB_RegWriteEn.asBool , io.WB_RegWriteData )
