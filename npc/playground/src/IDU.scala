@@ -175,8 +175,8 @@ class IDU extends Module{
     regConnectWithResetAndStall(io.ID_Rs2Data   , rs2_data ,  reset, 0.U, io.ID_stall)
 
     val stall_cnt = RegInit(0.U(2.W))
-    when((io.ID_FuType === FuType.lsu) && io.ID_RegWriteEn.asBool 
-         && RegWriteEn.asBool && (io.ID_RegWriteID === rd))
+    when(((io.ID_FuType === FuType.lsu) && io.ID_RegWriteEn.asBool 
+            && (RegWriteEn.asBool || instType === TYPE_B) && (io.ID_RegWriteID === rs1 || io.ID_RegWriteID === rs2)) )
     {
         stall_cnt := 1.U
     }
@@ -187,7 +187,8 @@ class IDU extends Module{
     
     io.ID_unknown_inst := InstInfo(0) === 0.U
     io.ID_stall        := Mux(((io.ID_FuType === FuType.lsu) && io.ID_RegWriteEn.asBool 
-                    && RegWriteEn.asBool && (io.ID_RegWriteID === rd)) || (stall_cnt > 0.U), 1.B, 0.B)
+                                && (RegWriteEn.asBool || instType === TYPE_B) && (io.ID_RegWriteID === rs1 || io.ID_RegWriteID === rs2)) 
+                                || (stall_cnt > 0.U), 1.B, 0.B)
 
     //NPC
     val BJ_flag = Wire(Bool())
