@@ -6,11 +6,10 @@
 #define MAX_INST_TO_PRINT 10
 #define MAX_ITRACE_STORE 10
 
-static bool  g_print_step;
 
-uint64_t pmem_read(uint64_t addr, int len);
 
 char g_itrace_buf[MAX_ITRACE_STORE][128];
+static bool  g_print_step;
 static uint32_t g_itrace_base = 0;
 static uint32_t g_itrace_end = 0;
 #ifdef CONFIG_ITRACE
@@ -18,6 +17,7 @@ static uint32_t g_itrace_num = 0;
 #endif
 
 extern bool inst_fault;
+
 void device_update();
 void difftest_regcpy(void *dut, bool direction);
 
@@ -55,53 +55,31 @@ void display_itrace()
     printf("\nItrace Info End\n");
 }
 
-void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
+uint8_t stall_flag ;
 
-void skip_stall()
-{
-    while(top->io_stall)
-    {
-        Log("stall2");
-        Log("io_IF_pc in stall:0x%lx", top->io_IF_pc);
-        contextp->timeInc(1);
-        top->clock = !top->clock;
-        top->eval();
-    }
-    for(int i=0;i<2;i++)
-    {
-        contextp->timeInc(1); // 1 timeprecision period passes...
-        top->clock = !top->clock;
-        top->eval();
-    }
-}
+void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
 
 void exec_once()            //disassemble实质上是反汇编的上一个已执行完的指令（正要执行的指令还在等待上升沿）
 {
     // npc_state.inst = pmem_read(top->io_WB_pc, 4);       //record the pc value and inst that excuted last time
     npc_state.inst = top->io_WB_Inst;
-    npc_state.pc   = top->io_WB_pc;                     
-    if(inst_fault)                           //if an unimplemented inst found, directly record inst trace without excuting next inst
+    npc_state.pc   = top->io_WB_pc;                   
+    if(stall_flag && inst_fault)
     {
+        inst_fault = 0;
+        clock_step();
+    }
+    if(inst_fault)                           //if an unimplemented inst found, directly record inst trace without excuting next inst
+    {                                                       
         npc_state.state = NPC_ABORT;
         uint32_t abort_inst = pmem_read(top->io_IF_pc, 4);
         printf("\033[0m\033[1;31m%s\033[0m\n", "UNKNOWN INST RECEIVED in IDU:");
         printf("\033[0m\033[1;31mPC:0x%016lx inst:0x%08x\033[0m\n", top->io_IF_pc, abort_inst);
     }
-    for(int i=0;i<2;i++)
-    {
-        if(top->io_stall)
-        Log("stall");
-        contextp->timeInc(1); // 1 timeprecision period passes...
-        top->clock = !top->clock;
-        top->eval();
-        if(i)
-    {        Log("ALUData1:0x%lx ALUData2:0x%lx", top->io_ALU_Data1, top->io_ALU_Data2);
-            Log("ID_Rs1Data:0x%lx ID_Rs2Data:0x%lx", top->io_ID_Rs1Data, top->io_ID_Rs2Data);
-            Log("ALUResult:0x%lx", top->io_ALUResult);
-            Log("MemRegWriteData_Pass:0x%lx", top->io_MEM_RegWriteData);}
-    }
+    clock_step();
+
     if(top->io_stall)
-        skip_stall();
+        top->io_stall++;
 trace:
     char logbuf[128];
     #ifdef CONFIG_ITRACE

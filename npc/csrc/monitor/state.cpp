@@ -3,10 +3,11 @@
 
 NPCState npc_state{.state=NPC_STOP};
 bool inst_fault = false;
+extern uint8_t stall_flag;
 
 void unknown_inst()
 {
-    if(top->reset || top->io_stall) return;
+    if(top->reset) return;
     inst_fault = true;
 }
 

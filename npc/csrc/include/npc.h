@@ -3,6 +3,7 @@
 
 #include <macro.h>
 #include <autoconf.h>
+#include <utils.h>
 
 #include <stdio.h>
 #include <stdint.h>

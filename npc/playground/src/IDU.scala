@@ -179,20 +179,22 @@ class IDU extends Module{
     val stall_cnt = RegInit(0.U(2.W))
 
     //stall
-    when(((io.ID_FuType === FuType.lsu) && io.ID_RegWriteEn.asBool 
-            && (RegWriteEn.asBool || instType === TYPE_B) && (io.ID_RegWriteID === rs1 || io.ID_RegWriteID === rs2)) )
-    {
-        stall_cnt := 1.U
-    }
-    .elsewhen(stall_cnt > 0.U)
-    {
-        stall_cnt := 0.U
-    }
+    // when(((io.ID_FuType === FuType.lsu) && io.ID_RegWriteEn.asBool 
+    //         && (RegWriteEn.asBool || instType === TYPE_B) && (io.ID_RegWriteID === rs1 || io.ID_RegWriteID === rs2)) )
+    // {
+    //     stall_cnt := 1.U
+    // }
+    // .elsewhen(stall_cnt > 0.U)
+    // {
+    //     stall_cnt := 0.U
+    // }
     
     io.ID_unknown_inst := InstInfo(0) === 0.U
-    io.ID_stall        := Mux(((io.ID_FuType === FuType.lsu) && io.ID_RegWriteEn.asBool 
-                                && (RegWriteEn.asBool || instType === TYPE_B) && (io.ID_RegWriteID === rs1 || io.ID_RegWriteID === rs2)) 
-                                || (stall_cnt > 0.U), 1.B, 0.B)
+    io.ID_stall := ((io.ID_FuType === FuType.lsu) && io.ID_RegWriteEn.asBool 
+                    && (RegWriteEn.asBool || instType === TYPE_B) && (io.ID_RegWriteID === rs1 || io.ID_RegWriteID === rs2)) 
+    // io.ID_stall        := Mux(((io.ID_FuType === FuType.lsu) && io.ID_RegWriteEn.asBool 
+    //                             && (RegWriteEn.asBool || instType === TYPE_B) && (io.ID_RegWriteID === rs1 || io.ID_RegWriteID === rs2)) 
+    //                             || (stall_cnt > 0.U), 1.B, 0.B)
 
     //NPC
     val BJ_flag = Wire(Bool())
