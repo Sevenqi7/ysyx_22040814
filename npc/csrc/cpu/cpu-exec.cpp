@@ -57,6 +57,24 @@ void display_itrace()
 
 void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
 
+void skip_stall()
+{
+    while(top->io_stall)
+    {
+        Log("stall2");
+        Log("io_IF_pc in stall:0x%lx", top->io_IF_pc);
+        contextp->timeInc(1);
+        top->clock = !top->clock;
+        top->eval();
+    }
+    for(int i=0;i<2;i++)
+    {
+        contextp->timeInc(1); // 1 timeprecision period passes...
+        top->clock = !top->clock;
+        top->eval();
+    }
+}
+
 void exec_once()            //disassemble实质上是反汇编的上一个已执行完的指令（正要执行的指令还在等待上升沿）
 {
     // npc_state.inst = pmem_read(top->io_WB_pc, 4);       //record the pc value and inst that excuted last time
@@ -76,19 +94,14 @@ void exec_once()            //disassemble实质上是反汇编的上一个已执
         contextp->timeInc(1); // 1 timeprecision period passes...
         top->clock = !top->clock;
         top->eval();
-        while(top->io_stall)
-        {
-            Log("stall2");
-            contextp->timeInc(1);
-            top->clock = !top->clock;
-            top->eval();
-        }
         if(i)
     {        Log("ALUData1:0x%lx ALUData2:0x%lx", top->io_ALU_Data1, top->io_ALU_Data2);
             Log("ID_Rs1Data:0x%lx ID_Rs2Data:0x%lx", top->io_ID_Rs1Data, top->io_ID_Rs2Data);
             Log("ALUResult:0x%lx", top->io_ALUResult);
             Log("MemRegWriteData_Pass:0x%lx", top->io_MEM_RegWriteData);}
     }
+    if(top->io_stall)
+        skip_stall();
 trace:
     char logbuf[128];
     #ifdef CONFIG_ITRACE

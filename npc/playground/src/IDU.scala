@@ -177,6 +177,8 @@ class IDU extends Module{
     regConnectWithReset(io.ID_Rs2Data   , rs2_data  , flush, 0.U    )
 
     val stall_cnt = RegInit(0.U(2.W))
+
+    //stall
     when(((io.ID_FuType === FuType.lsu) && io.ID_RegWriteEn.asBool 
             && (RegWriteEn.asBool || instType === TYPE_B) && (io.ID_RegWriteID === rs1 || io.ID_RegWriteID === rs2)) )
     {
