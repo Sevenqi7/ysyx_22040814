@@ -12,6 +12,7 @@ void clock_step()
         if(i)
         {       
                 Log("IF_pc:0x%lx", top->io_IF_pc); 
+                Log("EX_pc:0x%lx", top->io_MEM_pc);
                 Log("ALUData1:0x%lx ALUData2:0x%lx", top->io_ALU_Data1, top->io_ALU_Data2);
                 Log("ID_Rs1Data:0x%lx ID_Rs2Data:0x%lx", top->io_ID_Rs1Data, top->io_ID_Rs2Data);
                 Log("ALUResult:0x%lx", top->io_ALUResult);

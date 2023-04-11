@@ -77,9 +77,11 @@ void exec_once()            //disassemble实质上是反汇编的上一个已执
         printf("\033[0m\033[1;31mPC:0x%016lx inst:0x%08x\033[0m\n", top->io_IF_pc, abort_inst);
     }
     clock_step();
-
+    
     if(top->io_stall)
-        top->io_stall++;
+    {    top->io_stall++;
+        Log("stall deteceted");
+    }
 trace:
     char logbuf[128];
     #ifdef CONFIG_ITRACE

@@ -34,6 +34,10 @@ object utils {
             {
                 rhsReg := rhs
             }
+            .elsewhen
+            {
+                rhsReg := rhsReg
+            }
             lhs := rhsReg
         }
     }
