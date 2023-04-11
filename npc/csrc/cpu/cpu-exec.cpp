@@ -20,6 +20,7 @@ extern bool inst_fault;
 
 void device_update();
 void difftest_regcpy(void *dut, bool direction);
+uint8_t stall_flag ;
 
 static void trace_and_difftest(char *logbuf)
 {
@@ -34,6 +35,7 @@ static void trace_and_difftest(char *logbuf)
     if(check_watchpoints())
         npc_state.state = NPC_STOP;
 #endif
+
 #ifdef CONFIG_DIFFTEST
     void difftest_step(vaddr_t pc);
     difftest_step(top->io_WB_pc);
@@ -55,7 +57,6 @@ void display_itrace()
     printf("\nItrace Info End\n");
 }
 
-uint8_t stall_flag ;
 
 void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
 
@@ -64,11 +65,7 @@ void exec_once()            //disassemble实质上是反汇编的上一个已执
     // npc_state.inst = pmem_read(top->io_WB_pc, 4);       //record the pc value and inst that excuted last time
     npc_state.inst = top->io_WB_Inst;
     npc_state.pc   = top->io_WB_pc;                   
-    // if(stall_flag && inst_fault)
-    // {
-    //     inst_fault = 0;
-    //     clock_step();
-    // }
+    
     if(inst_fault)                           //if an unimplemented inst found, directly record inst trace without excuting next inst
     {                                                       
         npc_state.state = NPC_ABORT;
@@ -78,9 +75,14 @@ void exec_once()            //disassemble实质上是反汇编的上一个已执
     }
     clock_step();
     
-    if(top->io_stall)
-    {    top->io_stall++;
-        Log("stall deteceted");
+    if(top->io_stall)    
+        {stall_flag++;Log("stall detected");}
+
+    if(stall_flag && !top->ioq_WB_pc)
+    {
+        stall_flag--;
+        clock_step();
+        Log("stall handled");
     }
 trace:
     char logbuf[128];
@@ -98,6 +100,7 @@ trace:
     else  g_itrace_base = g_itrace_base < MAX_ITRACE_STORE - 1 ? g_itrace_base+1 : 0;
     g_itrace_end = g_itrace_end < MAX_ITRACE_STORE - 1 ? g_itrace_end+1 : 0;
     #endif
+
     trace_and_difftest(logbuf);
 }
 
