@@ -64,11 +64,11 @@ void exec_once()            //disassemble实质上是反汇编的上一个已执
     // npc_state.inst = pmem_read(top->io_WB_pc, 4);       //record the pc value and inst that excuted last time
     npc_state.inst = top->io_WB_Inst;
     npc_state.pc   = top->io_WB_pc;                   
-    if(stall_flag && inst_fault)
-    {
-        inst_fault = 0;
-        clock_step();
-    }
+    // if(stall_flag && inst_fault)
+    // {
+    //     inst_fault = 0;
+    //     clock_step();
+    // }
     if(inst_fault)                           //if an unimplemented inst found, directly record inst trace without excuting next inst
     {                                                       
         npc_state.state = NPC_ABORT;

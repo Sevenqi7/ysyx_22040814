@@ -44,6 +44,7 @@ module IFU(	// <stdin>:2:10
     if (reset)
       rhsReg <= 64'h80000000;	// utils.scala:32:33
     else if (io_ID_stall) begin
+      rhsReg <= rhsReg;
     end
     else
       rhsReg <= io_ID_npc;	// utils.scala:32:33
