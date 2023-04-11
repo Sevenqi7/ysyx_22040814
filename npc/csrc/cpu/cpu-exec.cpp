@@ -78,7 +78,7 @@ void exec_once()            //disassemble实质上是反汇编的上一个已执
     if(top->io_stall)    
         {stall_flag++;Log("stall detected");}
 
-    if(stall_flag && !top->ioq_WB_pc)
+    if(stall_flag && !top->io_WB_pc)
     {
         stall_flag--;
         clock_step();

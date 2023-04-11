@@ -361,11 +361,11 @@ object RV64IInstr{
         JAL            -> List(TYPE_J, FuType.alu, NPC, ZERO , OpType.OP_PLUS),
         
         //B Type
-        BEQ            -> List(TYPE_B, FuType.alu, ZERO , ZERO , BType.BEQ   ),
-        BNE            -> List(TYPE_B, FuType.alu, ZERO , ZERO , BType.BNE   ),
-        BLT            -> List(TYPE_B, FuType.alu, ZERO , ZERO , BType.BLT   ),
-        BLTU           -> List(TYPE_B, FuType.alu, ZERO , ZERO , BType.BLTU  ),
-        BGE            -> List(TYPE_B, FuType.alu, ZERO , ZERO , BType.BGE   ),
-        BGEU           -> List(TYPE_B, FuType.alu, ZERO , ZERO , BType.BGEU  )
+        BEQ            -> List(TYPE_B, FuType.alu, RS1 , RS2 , BType.BEQ   ),
+        BNE            -> List(TYPE_B, FuType.alu, RS1 , RS2 , BType.BNE   ),
+        BLT            -> List(TYPE_B, FuType.alu, RS1 , RS2 , BType.BLT   ),
+        BLTU           -> List(TYPE_B, FuType.alu, RS1 , RS2 , BType.BLTU  ),
+        BGE            -> List(TYPE_B, FuType.alu, RS1 , RS2 , BType.BGE   ),
+        BGEU           -> List(TYPE_B, FuType.alu, RS1 , RS2 , BType.BGEU  )
         )
 }
