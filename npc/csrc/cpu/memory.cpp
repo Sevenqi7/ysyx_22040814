@@ -82,4 +82,5 @@ extern "C" void dci_pmem_write(long long waddr, long long wdata, char wmask) {
   uint8_t mask = wmask;
   for(;mask;mask=mask>>1,len++);
   pmem_write(waddr, len, wdata);
+  Log("waddr:%lx value:%lx len:%d", waddr, wdata, len);
 }

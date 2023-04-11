@@ -116,8 +116,6 @@ class IDU extends Module{
         GPR(io.WB_RegWriteID) := io.WB_RegWriteData
     }
     
-    io.ID_Rs1Data := rs1_data
-    io.ID_Rs2Data := rs2_data
     io.ID_GPR := GPR
     
     //Analyse the operation
@@ -171,6 +169,8 @@ class IDU extends Module{
     regConnectWithResetAndStall(io.ID_MemWriteEn, MemWriteEn, reset, 0.U, io.ID_stall)
     regConnectWithResetAndStall(io.ID_optype    , opType, reset, 0.U   , io.ID_stall)
     regConnectWithResetAndStall(io.ID_FuType    , InstInfo(1), reset, 0.U, io.ID_stall)
+    regConnectWithResetAndStall(io.ID_Rs1Data   , rs1_data ,  reset, 0.U, io.ID_stall)
+    regConnectWithResetAndStall(io.ID_Rs2Data   , rs2_data ,  reset, 0.U, io.ID_stall)
 
     val stall_cnt = RegInit(0.U(2.W))
     when((io.ID_FuType === FuType.lsu) && io.ID_RegWriteEn.asBool 
@@ -249,7 +249,7 @@ object RV64IInstr{
     def SLL       = BitPat("b0000000 ????? ????? 001 ????? 01100 11")
     def XOR       = BitPat("b0000000 ????? ????? 100 ????? 01100 11")
     def OR        = BitPat("b0000000 ????? ????? 110 ????? 01100 11")
-    def AND       = BitPat("b0000000 ????? ????? 111 ????? 01100 11")
+    def AND       = BitPat("b0000000 ????? ????? 111 ????U, Zhenman worked in the Xilinx SDx (now rebranded as AMD/Xilinx Vitis) group at San Jose as a Staff Software Engineer from Sept 2017 to Mar 2019. At Xilinx, he worked on the topic of accelerator-rich architectures and systems, which is the major focus of his postdoc research at UCLA. From Jul 2014 to Sept 2017, Zhenman was a postdoc in Depar 01100 11")
     def SUB       = BitPat("b0100000 ????? ????? 000 ????? 01100 11")
     def SLT       = BitPat("b0000000 ????? ????? 010 ????? 01100 11")
     def SLTU      = BitPat("b0000000 ????? ????? 011 ????? 01100 11")
