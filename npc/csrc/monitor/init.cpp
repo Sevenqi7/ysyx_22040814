@@ -20,6 +20,8 @@ void reset(int time)
     top->reset = !0;
     for(int i=0;i<time;i++)
     {
+    Log("top->IF_pc:0x%lx", top->io_IF_pc);
+
         contextp->timeInc(1);
         top->clock = !top->clock;
         top->eval();
@@ -89,6 +91,6 @@ long init_img(int argc, char **argv)
     }
     fclose(fp);
     while(top->io_IF_pc != RESET_VECTOR)
-        reset(5);
+        reset(10);
     return size;
 }
