@@ -42,7 +42,6 @@ class IDU extends Module{
 
         //4. LoadtoUse situation
         val ID_stall   = Output(Bool())
-        val MEM_MemReadData = Input(UInt(64.W))
 
         //For NPCTRAP
         val ID_GPR =Output(Vec(32, UInt(64.W)))

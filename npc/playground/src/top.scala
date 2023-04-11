@@ -58,11 +58,10 @@ class top extends Module{
     inst_decode_unit.io.WB_RegWriteData     := wb_unit.io.WB_RegWriteData
     inst_decode_unit.io.WB_RegWriteEn       := wb_unit.io.WB_RegWriteEn
     inst_decode_unit.io.WB_RegWriteID       := wb_unit.io.WB_RegWriteID
-    inst_decode_unit.io.MEM_RegWriteData    := excute_unit.io.EX_ALUResult
+    inst_decode_unit.io.MEM_RegWriteData    := excute_unit.io.MEM_RegWriteData_Pass
     inst_decode_unit.io.MEM_RegWriteEn      := excute_unit.io.EX_RegWriteEn
     inst_decode_unit.io.MEM_RegWriteID      := excute_unit.io.EX_RegWriteID
     inst_decode_unit.io.EX_ALUResult        := excute_unit.io.EX_ALUResult_Pass
-    inst_decode_unit.io.MEM_MemReadData     := mem_unit.io.MEM_MemReadData_Pass
 
     excute_unit.io.ID_pc                    := inst_decode_unit.io.ID_pc
     excute_unit.io.ID_Inst                  := inst_decode_unit.io.ID_Inst
