@@ -157,7 +157,7 @@ class IDU extends Module{
         
     RegWriteEn := (instType === TYPE_R) || (instType === TYPE_I) || (instType === TYPE_U) || (instType === TYPE_J)
     MemWriteEn := (instType === TYPE_S)
-    MemReadEn  := (instType === TYPE_I  && io.ID_FuType === FuType.lsu)
+    MemReadEn  := (instType === TYPE_I  && futype === FuType.lsu)
         
     regConnectWithResetAndStall(io.ID_pc        , io.IF_pc  , reset, 0.U, io.ID_stall)
     regConnectWithResetAndStall(io.ID_Inst      , io.IF_Inst, reset, 0.U, io.ID_stall)
@@ -183,10 +183,8 @@ class IDU extends Module{
         stall_cnt := 0.U
     }
     
-
-    //TODO: stall_cnt
     io.ID_unknown_inst := InstInfo(0) === 0.U
-    io.ID_stall        := Mux((io.ID_FuType === FuType.lsu && io.ID_RegWriteEn.asBool 
+    io.ID_stall        := Mux(((io.ID_FuType === FuType.lsu) && io.ID_RegWriteEn.asBool 
                     && RegWriteEn.asBool && (io.ID_RegWriteID === rd)) || (stall_cnt > 0.U), 1.B, 0.B)
 
     //NPC
