@@ -31,6 +31,6 @@ int main(int argc, char **argv, char **env)
     // Return good completion status
     // Don't use exit() or destructor won't get called
     top->final();
-    return npc_state.state != NPC_END;
+    return npc_state.state == NPC_ABORT;
 }
 
