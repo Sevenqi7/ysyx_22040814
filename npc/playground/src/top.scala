@@ -82,7 +82,6 @@ class top extends Module{
     excute_unit.io.ID_MemWriteEn            := inst_decode_unit.io.ID_MemWriteEn
     excute_unit.io.ID_MemReadEn             := inst_decode_unit.io.ID_MemReadEn
     excute_unit.io.ID_FuType                := inst_decode_unit.io.ID_FuType
-    excute_unit.io.ID_Rs1Data               := inst_decode_unit.io.ID_Rs1Data
     excute_unit.io.ID_Rs2Data               := inst_decode_unit.io.ID_Rs2Data
     excute_unit.io.ID_Rs2ID                 := inst_decode_unit.io.ID_Rs2ID
     excute_unit.io.flush                    := inst_decode_unit.io.ID_stall
