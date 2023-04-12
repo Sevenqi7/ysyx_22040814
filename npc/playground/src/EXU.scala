@@ -26,7 +26,8 @@ class EXU extends Module{
         val EX_RegWriteID =     Output(UInt(5.W))
         val EX_RegWriteEn =     Output(UInt(1.W))
 
-        //From MEMU to resolve store after load adventure
+        //From MEMU and WBU to resolve store after load adventure
+        val WB_RegWriteData  = Input(UInt(64.W))
         val MEM_RegWrtieData = Input(UInt(64.W))
 
         //to IDU.Bypass
@@ -57,6 +58,10 @@ class EXU extends Module{
     val shamt = Wire(UInt(6.W))
     
     shamt := ALU_Data2(5, 0)
+    MemWriteData := MuxCase(io.ID_Rs2Data, Seq(
+        (io.EX_MemReadEn.asBool && io.ID_Rs2ID === io.EX_RegWriteID && io.ID_MemWriteEn.asBool, io.MEM_RegWriteData)
+        (io.WB_RegWriteEn.asBool && io.WB_RegWriteID === io.ID_Rs2ID && io.ID_MemWriteEn.asBool, io.WB_RegWriteData)
+    ))
     MemWriteData := Mux(io.EX_MemReadEn.asBool && io.ID_Rs2ID === io.EX_RegWriteID && 
                      io.ID_MemWriteEn.asBool, io.MEM_RegWrtieData, io.ID_Rs2Data)
     
