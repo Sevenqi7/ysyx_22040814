@@ -18,5 +18,5 @@ void clock_step()
     Log("ID_Rs1Data:0x%lx ID_Rs2Data:0x%lx", top->io_ID_Rs1Data, top->io_ID_Rs2Data);
     Log("ALUResult:0x%lx", top->io_ALUResult);
     Log("MemRegWriteData_Pass:0x%lx", top->io_MEM_RegWriteData);
-        
+    Log("WB_RegWriteData:0x%lx", top->io_WB_RegWriteData);
 }
