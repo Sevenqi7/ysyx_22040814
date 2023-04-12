@@ -61,7 +61,7 @@ class EXU extends Module{
     
     shamt := ALU_Data2(5, 0)
     MemWriteData := MuxCase(io.ID_Rs2Data, Seq(
-        (io.EX_MemReadEn.asBool && io.ID_Rs2ID === io.EX_RegWriteID && io.ID_MemWriteEn.asBool, io.MEM_RegWriteData)
+        (io.EX_MemReadEn.asBool && io.ID_Rs2ID === io.EX_RegWriteID && io.ID_MemWriteEn.asBool, io.MEM_RegWriteData),
         (io.WB_RegWriteEn.asBool && io.WB_RegWriteID === io.ID_Rs2ID && io.ID_MemWriteEn.asBool, io.WB_RegWriteData)
     ))
     // MemWriteData := Mux(io.EX_MemReadEn.asBool && io.ID_Rs2ID === io.EX_RegWriteID && 
