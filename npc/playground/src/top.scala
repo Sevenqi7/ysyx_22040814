@@ -86,6 +86,9 @@ class top extends Module{
     excute_unit.io.ID_Rs2ID                 := inst_decode_unit.io.ID_Rs2ID
     excute_unit.io.flush                    := inst_decode_unit.io.ID_stall
     excute_unit.io.MEM_RegWrtieData         := mem_unit.io.MEM_RegWriteData_Pass
+    excute_unit.io.WB_RegWriteEn            := wb_unit.io.WB_RegWriteEn
+    excute_unit.io.WB_RegWriteID            := wb_unit.io.WB_RegWriteID
+    excute_unit.io.WB_RegWriteData          := wb_unit.io.WB_RegWriteData
 
     mem_unit.io.EX_pc                       := excute_unit.io.EX_pc
     mem_unit.io.EX_Inst                     := excute_unit.io.EX_Inst  
