@@ -72,7 +72,9 @@ extern "C" void dci_pmem_read(long long raddr, long long *rdata, char rmask) {
   if(top->reset) return;
   for(;mask;mask=mask>>1,len++);
   *rdata = pmem_read(raddr, len);
+  #ifdef CONFIG_DEBUGMSG
   Log("raddr:%lx value:%lx len:%d", raddr, *rdata, len);
+  #endif
 }
 extern "C" void dci_pmem_write(long long waddr, long long wdata, char wmask) {
   // 总是往地址为`waddr & ~0x7ull`的8字节按写掩码`wmask`写入`wdata`
@@ -83,5 +85,7 @@ extern "C" void dci_pmem_write(long long waddr, long long wdata, char wmask) {
   if(top->reset) return;
   for(;mask;mask=mask>>1,len++);
   pmem_write(waddr, len, wdata);
+  #ifdef CONFIG_DEBUGMSG
   Log("waddr:%lx value:%lx len:%d", waddr, wdata, len);
+  #endif
 }

@@ -10,6 +10,7 @@ void clock_step()
         top->clock = !top->clock;
         top->eval();    
     }
+#ifdef CONFIG_DEBUGMSG
     Log("IF_pc:0x%lx", top->io_IF_pc); 
     Log("ID_pc:0x%lx", top->io_ID_pc);
     Log("EX_pc:0x%lx", top->io_MEM_pc);
@@ -19,4 +20,5 @@ void clock_step()
     Log("ALUResult:0x%lx", top->io_ALUResult);
     Log("MemRegWriteData_Pass:0x%lx", top->io_MEM_RegWriteData);
     Log("WB_RegWriteData:0x%lx", top->io_WB_RegWriteData);
+#endif
 }
