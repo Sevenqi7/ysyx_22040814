@@ -1001,11 +1001,11 @@ module EXU(	// <stdin>:771:10
       rhsReg_1 <= io_ID_Inst;	// utils.scala:15:29
       rhsReg_2 <= io_ID_RegWriteEn;	// utils.scala:15:29
       rhsReg_3 <= io_ID_RegWriteID;	// utils.scala:15:29
-      if ((rhsReg_6 | rhsReg_2) & io_ID_Rs2ID == rhsReg_3 & io_ID_MemWriteEn)	// EXU.scala:66:{34,76,97}, utils.scala:15:29
+      if ((rhsReg_6 | rhsReg_2) & io_ID_Rs2ID == rhsReg_3 & io_ID_MemWriteEn)	// EXU.scala:66:{34,77,99}, utils.scala:15:29
         rhsReg_4 <= io_MEM_RegWriteData;	// utils.scala:15:29
-      else if (io_WB_RegWriteEn & io_WB_RegWriteID == io_ID_Rs2ID & io_ID_MemWriteEn)	// EXU.scala:66:{34,76,97}, :67:{54,70}, utils.scala:15:29
+      else if (io_WB_RegWriteEn & io_WB_RegWriteID == io_ID_Rs2ID & io_ID_MemWriteEn)	// EXU.scala:66:{34,77,99}, :67:{55,72}, utils.scala:15:29
         rhsReg_4 <= io_WB_RegWriteData;	// utils.scala:15:29
-      else	// EXU.scala:66:{34,76,97}, :67:{54,70}, utils.scala:15:29
+      else	// EXU.scala:66:{34,77,99}, :67:{55,72}, utils.scala:15:29
         rhsReg_4 <= io_ID_Rs2Data;	// utils.scala:15:29
       rhsReg_5 <= io_ID_MemWriteEn;	// utils.scala:15:29
       rhsReg_6 <= io_ID_MemReadEn;	// utils.scala:15:29
@@ -1511,4 +1511,3 @@ module sim(input[63:0] IF_pc, input [63:0] GPR [31:0], input unknown_inst_flag, 
 endmodule
 
 // ----- 8< ----- FILE "firrtl_black_box_resource_files.f" ----- 8< -----
-
