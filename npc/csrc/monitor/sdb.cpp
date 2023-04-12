@@ -44,7 +44,8 @@ static int cmd_c(char *args)
 
 static int cmd_q(char *args)
 {
-    npc_state.state = NPC_QUIT;
+    if(npc_state.state != NPC_ABORT)
+      npc_state.state = NPC_QUIT;
     return -1;
 }
 
