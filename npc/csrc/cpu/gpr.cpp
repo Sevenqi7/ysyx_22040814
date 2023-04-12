@@ -34,6 +34,7 @@ bool difftest_checkregs(REF_GPR *ref, vaddr_t pc) {
       return false;
     }
   }
+  Log("Difftest correct");
   return true;
 }
 #endif

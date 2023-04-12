@@ -47,6 +47,23 @@ char *strcat(char *dst, const char *src) {
 }
 
 int strcmp(const char *s1, const char *s2) {
+	// int l1 = strlen(s1);
+	// int l2 = strlen(s2);
+
+	// if (l1 != l2) {
+	// 	return l1 > l2 ? 1 : -1;
+	// }
+
+	// while (*s1 && *s2) {
+	// 	int d = *s1++ - *s2++;
+	// 	if (d != 0) {
+	// 		return d > 0 ? 1 : -1;
+	// 	}
+	// }
+
+	// return 0;
+	
+
 	while (*s1 && *s1 == *s2)
 		s1++, s2++;
 	return (int) ((unsigned char) *s1 - (unsigned char) *s2);
