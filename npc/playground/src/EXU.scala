@@ -9,7 +9,7 @@ class EXU extends Module{
         val ID_ALU_Data1  =     Input(UInt(64.W))
         val ID_ALU_Data2  =     Input(UInt(64.W))
         val ID_Rs2Data    =     Input(UInt(64.W))
-        val ID_Rs1Data    =     Input(UInt(64.W))
+        val ID_Rs2ID      =     Input(UInt(5.W))
         val ID_optype     =     Input(UInt(5.W))
         val ID_FuType     =     Input(UInt(1.W))
         val ID_RegWriteEn =     Input(UInt(1.W))
@@ -25,6 +25,9 @@ class EXU extends Module{
         val EX_LsuType    =     Output(UInt(5.W))
         val EX_RegWriteID =     Output(UInt(5.W))
         val EX_RegWriteEn =     Output(UInt(1.W))
+
+        //From MEMU to resolve store after load adventure
+        val MEM_RegWrtieData = Input(UInt(64.W))
 
         //to IDU.Bypass
         val EX_ALUResult_Pass = Output(UInt(64.W))
@@ -47,18 +50,21 @@ class EXU extends Module{
 
 
     val LsuType = Mux(io.ID_FuType === FuType.lsu, io.ID_optype, 0.U)
+    val MemWriteData = Wire(UInt(64.W))
     val ALU_Data1 = Wire(UInt(64.W))
     val ALU_Data2 = Wire(UInt(64.W))
     val ALU_Result = Wire(UInt(64.W))
     val shamt = Wire(UInt(6.W))
     
     shamt := ALU_Data2(5, 0)
+    MemWriteData := (io.EX_MemReadEn.asBool && io.ID_Rs2ID === io.EX_RegWriteID && 
+                     io.ID_MemWriteEn.asBool, io.MEM_MemWrtieData, io.ID_Rs2Data)
     
     regConnect(io.EX_pc             ,         io.ID_pc)
     regConnect(io.EX_Inst           ,       io.ID_Inst)
     regConnect(io.EX_RegWriteEn     , io.ID_RegWriteEn)
     regConnect(io.EX_RegWriteID     , io.ID_RegWriteID)
-    regConnect(io.EX_MemWriteData   ,    io.ID_Rs2Data)
+    regConnect(io.EX_MemWriteData   ,     MemWriteData)
     regConnect(io.EX_MemWriteEn     , io.ID_MemWriteEn)
     regConnect(io.EX_MemReadEn      ,  io.ID_MemReadEn)
     regConnect(io.EX_LsuType        ,          LsuType)

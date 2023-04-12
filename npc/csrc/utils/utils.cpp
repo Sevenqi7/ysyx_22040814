@@ -14,7 +14,7 @@ void clock_step()
     Log("ID_pc:0x%lx", top->io_ID_pc);
     Log("EX_pc:0x%lx", top->io_MEM_pc);
     Log("WB_pc:0x%lx ", top->io_WB_pc);
-    Log("ALUData1:0x%lx ALUData2:0x%lx", top->io_ALU_Data1, top->io_ALU_Data2);
+    Log("ID_ALUData1:0x%lx ID_ALUData2:0x%lx", top->io_ALU_Data1, top->io_ALU_Data2);
     Log("ID_Rs1Data:0x%lx ID_Rs2Data:0x%lx", top->io_ID_Rs1Data, top->io_ID_Rs2Data);
     Log("ALUResult:0x%lx", top->io_ALUResult);
     Log("MemRegWriteData_Pass:0x%lx", top->io_MEM_RegWriteData);

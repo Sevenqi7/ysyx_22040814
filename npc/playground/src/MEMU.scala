@@ -41,7 +41,11 @@ class MEMU extends Module{
         val MEM_Inst        = Output(UInt(32.W))
     })
 
+    val mem = Module(new LSU)
     val RegWriteData = Wire(UInt(64.W))
+
+    io.MEM_RegWriteData_Pass := RegWriteData
+    RegWriteData := Mux(io.EX_MemReadEn.asBool, mem.io.ReadData, io.EX_ALUResult)
     
     regConnect(io.MEM_pc                ,                 io.EX_pc)
     regConnect(io.MEM_Inst              ,               io.EX_Inst)
@@ -49,15 +53,12 @@ class MEMU extends Module{
     regConnect(io.MEM_RegWriteID        ,         io.EX_RegWriteID)
     regConnect(io.MEM_RegWriteData      ,             RegWriteData)
     
-    io.MEM_RegWriteData_Pass := RegWriteData
 
     //LSU for DPI-C with verilator
-    val mem = Module(new LSU)
     mem.io.pc   := io.MEM_pc
     mem.io.addr := io.EX_ALUResult
     mem.io.LsuType := io.EX_LsuType
     mem.io.WriteEn := io.EX_MemWriteEn
     mem.io.WriteData := io.EX_MemWriteData
     mem.io.ReadEn  := io.EX_MemReadEn
-    RegWriteData := Mux(io.EX_MemReadEn.asBool, mem.io.ReadData, io.EX_ALUResult)
 }  

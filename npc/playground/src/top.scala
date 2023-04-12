@@ -25,8 +25,8 @@ class top extends Module{
         val MEM_RegWriteData = Output(UInt(64.W))
         val stall   = Output(Bool())
 
-        val ALU_Data1 = Output(UInt(64.W))
-        val ALU_Data2 = Output(UInt(64.W))
+        val ID_ALU_Data1 = Output(UInt(64.W))
+        val ID_ALU_Data2 = Output(UInt(64.W))
         val ID_Rs1Data = Output(UInt(64.W))
         val ID_Rs2Data = Output(UInt(64.W))
         val ALUResult = Output(UInt(64.W))
@@ -37,18 +37,19 @@ class top extends Module{
     val excute_unit = Module(new EXU)
     val mem_unit = Module(new MEMU)
     val wb_unit = Module(new WBU)
-
+    
     io.IF_pc := inst_fetch_unit.io.IF_pc
     io.ID_pc := inst_decode_unit.io.ID_pc
     io.WB_pc := wb_unit.io.WB_pc
     io.MEM_pc := mem_unit.io.EX_pc
     io.WB_Inst := wb_unit.io.WB_Inst
     io.MEM_RegWriteData := mem_unit.io.MEM_RegWriteData_Pass
-
-    io.ALU_Data1 := inst_decode_unit.io.ID_ALU_Data1
-    io.ALU_Data2 := inst_decode_unit.io.ID_ALU_Data2
+    
+    io.ID_ALU_Data1 := inst_decode_unit.io.ID_ALU_Data1
+    io.ID_ALU_Data2 := inst_decode_unit.io.ID_ALU_Data2
     io.ID_Rs1Data := inst_decode_unit.io.ID_Rs1Data
     io.ID_Rs2Data := inst_decode_unit.io.ID_Rs2Data
+    io.ALUResult  := excute_unit.io.EX_ALUResult
     io.stall := inst_decode_unit.io.ID_stall
     
     val simulate = Module(new sim)
@@ -83,7 +84,9 @@ class top extends Module{
     excute_unit.io.ID_FuType                := inst_decode_unit.io.ID_FuType
     excute_unit.io.ID_Rs1Data               := inst_decode_unit.io.ID_Rs1Data
     excute_unit.io.ID_Rs2Data               := inst_decode_unit.io.ID_Rs2Data
+    excute_unit.io.ID_Rs2ID                 := inst_decode_unit.io.ID_Rs2ID
     excute_unit.io.flush                    := inst_decode_unit.io.ID_stall
+    excute_unit.io.MEM_RegWrtieData         := mem_unit.io.MEM_RegWriteData_Pass
 
     mem_unit.io.EX_pc                       := excute_unit.io.EX_pc
     mem_unit.io.EX_Inst                     := excute_unit.io.EX_Inst  
@@ -94,7 +97,6 @@ class top extends Module{
     mem_unit.io.EX_LsuType                  := excute_unit.io.EX_LsuType
     mem_unit.io.EX_RegWriteEn               := excute_unit.io.EX_RegWriteEn
     mem_unit.io.EX_RegWriteID               := excute_unit.io.EX_RegWriteID
-    io.ALUResult                            := excute_unit.io.EX_ALUResult
 
     wb_unit.io.MEM_pc                       := mem_unit.io.MEM_pc
     wb_unit.io.MEM_Inst                     := mem_unit.io.MEM_Inst
