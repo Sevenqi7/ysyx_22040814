@@ -76,15 +76,16 @@ void exec_once()            //disassemble实质上是反汇编的上一个已执
     clock_step();
     
     if(top->io_stall)    
-        {stall_flag++;Log("stall detected");}
+        // {stall_flag++;Log("stall detected");}
+        stall_flag++;
 
     while(stall_flag && !top->io_WB_pc)
     {
         stall_flag--;
         clock_step();
-        Log("stall handled");
+        // Log("stall handled");
         if(top->io_stall)    
-        {stall_flag++;Log("stall detected");}
+            stall_flag++;
     }
 trace:
     char logbuf[128];
