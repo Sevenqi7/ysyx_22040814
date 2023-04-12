@@ -57,7 +57,7 @@ class EXU extends Module{
     val shamt = Wire(UInt(6.W))
     
     shamt := ALU_Data2(5, 0)
-    MemWriteData := (io.EX_MemReadEn.asBool && io.ID_Rs2ID === io.EX_RegWriteID && 
+    MemWriteData := Mux(io.EX_MemReadEn.asBool && io.ID_Rs2ID === io.EX_RegWriteID && 
                      io.ID_MemWriteEn.asBool, io.MEM_MemWrtieData, io.ID_Rs2Data)
     
     regConnect(io.EX_pc             ,         io.ID_pc)
