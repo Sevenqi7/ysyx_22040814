@@ -28,6 +28,18 @@ static char* rl_gets() {
   if (line_read && *line_read) {
     add_history(line_read);
   }
+  else if(*line_read == '\0'){
+    HIST_ENTRY** pp = history_list();
+    if (pp != NULL) {
+      while (true) {
+        if (*(pp + 1) == NULL) {
+          line_read = strdup((*pp)->line);
+          break;
+        }
+        ++pp;
+      }
+    }
+  }
 
   return line_read;
 }

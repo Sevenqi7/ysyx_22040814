@@ -18,6 +18,7 @@ class IDU extends Module{
         val ID_optype     = Output(UInt(5.W))
 
         val ID_Rs1Data    = Output(UInt(64.W))
+        val ID_Rs1ID      = Output(UInt(5.W))
         val ID_Rs2Data    = Output(UInt(64.W))
         val ID_Rs2ID      = Output(UInt(5.W))
         val ID_RegWriteID = Output(UInt(5.W))
@@ -177,6 +178,7 @@ class IDU extends Module{
     regConnectWithReset(io.ID_optype    , opType    , flush, 0.U    )
     regConnectWithReset(io.ID_FuType    , futype    , flush, 0.U    )
     regConnectWithReset(io.ID_Rs1Data   , rs1_data  , flush, 0.U    )
+    regConnectWithReset(io.ID_Rs1ID     , rs1       , flush, 0.U    )
     regConnectWithReset(io.ID_Rs2Data   , rs2_data  , flush, 0.U    )
     regConnectWithReset(io.ID_Rs2ID     , rs2       , flush, 0.U    )
 

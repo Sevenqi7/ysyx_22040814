@@ -8,6 +8,8 @@ class EXU extends Module{
     val io = IO(new Bundle{
         val ID_ALU_Data1  =     Input(UInt(64.W))
         val ID_ALU_Data2  =     Input(UInt(64.W))
+        val ID_Rs1Data    =     Input(UInt(64.W))
+        val ID_Rs1ID      =     Input(UInt(5.W))
         val ID_Rs2Data    =     Input(UInt(64.W))
         val ID_Rs2ID      =     Input(UInt(5.W))
         val ID_optype     =     Input(UInt(5.W))
@@ -89,8 +91,9 @@ class EXU extends Module{
 
     io.EX_ALUResult_Pass := ALU_Result
     
-    ALU_Data1 := io.ID_ALU_Data1
-    ALU_Data2 := io.ID_ALU_Data2
+    ALU_Data1 := Mux(io.EX_MemReadEn.asBool && io.EX_RegWriteID === io.ID_Rs1ID && io.ID_MemWriteEn.asBool,
+         io.MEM_RegWriteData, io.ID_ALU_Data1)
+    ALU_Data2 := io.ID_ALU_Data2 
     
     ALU_Result := MuxCase(0.U, Seq(
         ((io.ID_optype === OP_PLUS) || (io.ID_FuType === FuType.lsu), ALU_Data1 + ALU_Data2),
