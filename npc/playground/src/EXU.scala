@@ -27,6 +27,8 @@ class EXU extends Module{
         val EX_RegWriteEn =     Output(UInt(1.W))
 
         //From MEMU and WBU to resolve store after load adventure
+        val WB_RegWriteEn    = Input(UInt(1.W))
+        val WB_RegWriteID    = Input(UInt(5.W))
         val WB_RegWriteData  = Input(UInt(64.W))
         val MEM_RegWrtieData = Input(UInt(64.W))
 
