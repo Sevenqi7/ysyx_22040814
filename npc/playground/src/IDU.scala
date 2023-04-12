@@ -88,10 +88,15 @@ class IDU extends Module{
     
     
     //GPR
+    
     val GPR = RegInit(VecInit(Seq.fill(32)(0.U(64.W))))
     val rs1 = Wire(UInt(5.W))
     val rs2 = Wire(UInt(5.W))
     val rd  = Wire(UInt(5.W))
+    
+    val RegWriteEn = Wire(UInt(1.W))
+    val MemWriteEn = Wire(UInt(1.W)) 
+    val MemReadEn = Wire(UInt(1.W))
     
     val rs1_data = Wire(UInt(64.W))
     val rs2_data = Wire(UInt(64.W))
@@ -131,9 +136,6 @@ class IDU extends Module{
     
     val ALU_Data1 = Wire(UInt(64.W))
     val ALU_Data2 = Wire(UInt(64.W))
-    val RegWriteEn = Wire(UInt(1.W))
-    val MemWriteEn = Wire(UInt(1.W)) 
-    val MemReadEn = Wire(UInt(1.W))
     
     
     imm := MuxCase(0.U, Seq(
