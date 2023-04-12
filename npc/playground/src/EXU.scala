@@ -58,7 +58,7 @@ class EXU extends Module{
     
     shamt := ALU_Data2(5, 0)
     MemWriteData := Mux(io.EX_MemReadEn.asBool && io.ID_Rs2ID === io.EX_RegWriteID && 
-                     io.ID_MemWriteEn.asBool, io.MEM_MemWrtieData, io.ID_Rs2Data)
+                     io.ID_MemWriteEn.asBool, io.MEM_RegWrtieData, io.ID_Rs2Data)
     
     regConnect(io.EX_pc             ,         io.ID_pc)
     regConnect(io.EX_Inst           ,       io.ID_Inst)
