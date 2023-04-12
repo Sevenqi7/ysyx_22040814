@@ -3,6 +3,7 @@
 
 #include <macro.h>
 #include <autoconf.h>
+#include <utils.h>
 
 #include <stdio.h>
 #include <stdint.h>
@@ -37,6 +38,8 @@ enum { DIFFTEST_TO_DUT, DIFFTEST_TO_REF };
 extern uint64_t *cpu_gpr;
 extern void reg_display();
 extern uint64_t reg_str2val(const char *s, bool *success);
+
+#define PIPELINE_STAGES 5
 
 //仿照NEMU的一个状态。NPC里可以直接接收ebreak指令，所以只需要一个状态位就够了。
 typedef struct NPCState{

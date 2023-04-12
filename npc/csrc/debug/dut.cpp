@@ -63,7 +63,7 @@ static void checkregs(REF_GPR *ref, vaddr_t pc)
 }
 
 bool is_skip_ref = false;
-extern bool device_io_flag;
+extern uint64_t device_io_pc;
 
 void difftest_step(vaddr_t pc)
 {
@@ -80,9 +80,9 @@ void difftest_step(vaddr_t pc)
   //     Log("can not catch up with ref.pc = " FMT_WORD " at pc = " FMT_WORD, ref_r.pc, pc);
   //   assert(0);
   // }
-  if(device_io_flag)
+  if(pc == device_io_pc)
   {
-    device_io_flag = false;
+    device_io_pc = 0;
     is_skip_ref = true;
     return ;
   }

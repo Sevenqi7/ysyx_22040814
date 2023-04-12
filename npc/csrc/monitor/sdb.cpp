@@ -28,6 +28,18 @@ static char* rl_gets() {
   if (line_read && *line_read) {
     add_history(line_read);
   }
+  else if(*line_read == '\0'){
+    HIST_ENTRY** pp = history_list();
+    if (pp != NULL) {
+      while (true) {
+        if (*(pp + 1) == NULL) {
+          line_read = strdup((*pp)->line);
+          break;
+        }
+        ++pp;
+      }
+    }
+  }
 
   return line_read;
 }
@@ -44,7 +56,8 @@ static int cmd_c(char *args)
 
 static int cmd_q(char *args)
 {
-    npc_state.state = NPC_QUIT;
+    if(npc_state.state != NPC_ABORT)
+      npc_state.state = NPC_QUIT;
     return -1;
 }
 

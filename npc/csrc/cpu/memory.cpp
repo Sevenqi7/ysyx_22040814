@@ -43,7 +43,7 @@ uint64_t pmem_read(uint64_t addr, int len)
         case 2: return *(uint16_t *)(pmem + paddr);
         case 4: return *(uint32_t *)(pmem + paddr);
         case 8: return *(uint64_t *)(pmem + paddr);
-        default: printf("\033[0m\033[1;31mInvalid read len:%d at PC:%016lx\033[0m\n", len, top->io_IF_pc); npc_state.state = NPC_ABORT;
+        default: printf("\033[0m\033[1;31mInvalid read len:%d at PC:%016lx\033[0m\n", len, top->io_MEM_pc); npc_state.state = NPC_ABORT;
     }
     return 0;
 }
@@ -61,16 +61,18 @@ void pmem_write(uint64_t addr, int len, uint64_t data)
     case 2: *(uint16_t *)(pmem + paddr) = data; return;
     case 4: *(uint32_t *)(pmem + paddr) = data; return;
     case 8: *(uint64_t *)(pmem + paddr) = data; return;
-    default: printf("\033[0m\033[1;31mInvalid wirte len:%d at PC:%016lx\033[0m\n", len, top->io_IF_pc); npc_state.state = NPC_ABORT;
+    default: printf("\033[0m\033[1;31mInvalid wirte len:%d at PC:%016lx\033[0m\n", len, top->io_MEM_pc); npc_state.state = NPC_ABORT;
   }
 }
 
-extern "C" void dci_pmem_read(long long raddr, long long *rdata,char rmask) {
+extern "C" void dci_pmem_read(long long raddr, long long *rdata, char rmask) {
   // 总是读取地址为`raddr & ~0x7ull`的8字节返回给`rdata`
   int len = 0;
   uint8_t mask = rmask;
+  if(top->reset) return;
   for(;mask;mask=mask>>1,len++);
   *rdata = pmem_read(raddr, len);
+  // Log("raddr:%lx value:%lx len:%d", raddr, *rdata, len);
 }
 extern "C" void dci_pmem_write(long long waddr, long long wdata, char wmask) {
   // 总是往地址为`waddr & ~0x7ull`的8字节按写掩码`wmask`写入`wdata`
@@ -78,6 +80,8 @@ extern "C" void dci_pmem_write(long long waddr, long long wdata, char wmask) {
   // 如`wmask = 0x3`代表只写入最低2个字节, 内存中的其它字节保持不变
   int len = 0;
   uint8_t mask = wmask;
+  if(top->reset) return;
   for(;mask;mask=mask>>1,len++);
   pmem_write(waddr, len, wdata);
+  // Log("waddr:%lx value:%lx len:%d", waddr, wdata, len);
 }

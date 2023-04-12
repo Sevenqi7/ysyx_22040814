@@ -9,6 +9,7 @@ class sim extends BlackBox with HasBlackBoxPath{
         val IF_pc = Input(UInt(64.W))
         val GPR  = Input(Vec(32, UInt(64.W)))
         val unknown_inst_flag = Input(UInt(1.W))
+        val WB_Inst = Input(UInt(32.W))
         val inst = Output(UInt(64.W))
     })
     addPath("/home/seven7/Documents/学业/一生一芯/ysyx-workbench/npc/playground/verilog/sim.v")
@@ -17,6 +18,18 @@ class sim extends BlackBox with HasBlackBoxPath{
 class top extends Module{
     val io = IO(new Bundle{
         val IF_pc = Output(UInt(64.W))
+        val ID_pc = Output(UInt(64.W))
+        val WB_pc = Output(UInt(64.W))
+        val WB_Inst = Output(UInt(32.W))
+        val WB_RegWriteData = Output(UInt(64.W))
+        val MEM_pc = Output(UInt(64.W))
+        val MEM_RegWriteData = Output(UInt(64.W))
+        val stall   = Output(Bool())
+
+        val ID_ALU_Data1 = Output(UInt(64.W))
+        val ID_ALU_Data2 = Output(UInt(64.W))
+        val ID_Rs1Data = Output(UInt(64.W))
+        val ID_Rs2Data = Output(UInt(64.W))
         val ALUResult = Output(UInt(64.W))
     })
 
@@ -24,45 +37,76 @@ class top extends Module{
     val inst_decode_unit = Module(new IDU)
     val excute_unit = Module(new EXU)
     val mem_unit = Module(new MEMU)
-
-    val simulate = Module(new sim)
-    simulate.io.IF_pc := inst_fetch_unit.io.IF_pc
-    simulate.io.GPR  := inst_decode_unit.io.ID_GPR
-    simulate.io.unknown_inst_flag := inst_decode_unit.io.ID_unknown_inst
-    inst_decode_unit.io.IF_Inst := simulate.io.inst(31, 0)
-
+    val wb_unit = Module(new WBU)
+    
     io.IF_pc := inst_fetch_unit.io.IF_pc
-    inst_fetch_unit.io.IF_npc := inst_decode_unit.io.ID_npc
-    inst_decode_unit.io.IF_pc  := inst_fetch_unit.io.IF_pc
+    io.ID_pc := inst_decode_unit.io.ID_pc
+    io.WB_pc := wb_unit.io.WB_pc
+    io.MEM_pc := mem_unit.io.EX_pc
+    io.WB_Inst := wb_unit.io.WB_Inst
+    io.WB_RegWriteData := wb_unit.io.WB_RegWriteData
+    io.MEM_RegWriteData := mem_unit.io.MEM_RegWriteData_Pass
+    
+    io.ID_ALU_Data1 := inst_decode_unit.io.ID_ALU_Data1
+    io.ID_ALU_Data2 := inst_decode_unit.io.ID_ALU_Data2
+    io.ID_Rs1Data := inst_decode_unit.io.ID_Rs1Data
+    io.ID_Rs2Data := inst_decode_unit.io.ID_Rs2Data
+    io.ALUResult  := excute_unit.io.EX_ALUResult
+    io.stall := inst_decode_unit.io.ID_stall
+    
+    val simulate = Module(new sim)
+    
+    simulate.io.IF_pc                       := inst_fetch_unit.io.IF_pc
+    simulate.io.GPR                         := inst_decode_unit.io.ID_GPR
+    simulate.io.WB_Inst                     := wb_unit.io.WB_Inst
+    simulate.io.unknown_inst_flag           := inst_decode_unit.io.ID_unknown_inst
+    
+    inst_fetch_unit.io.ID_npc               := inst_decode_unit.io.ID_npc
+    inst_fetch_unit.io.ID_stall             := inst_decode_unit.io.ID_stall
+    
+    inst_decode_unit.io.IF_pc               := inst_fetch_unit.io.IF_pc
+    inst_decode_unit.io.IF_Inst             := simulate.io.inst(31, 0)
+    inst_decode_unit.io.WB_RegWriteData     := wb_unit.io.WB_RegWriteData
+    inst_decode_unit.io.WB_RegWriteEn       := wb_unit.io.WB_RegWriteEn
+    inst_decode_unit.io.WB_RegWriteID       := wb_unit.io.WB_RegWriteID
+    inst_decode_unit.io.MEM_RegWriteData    := mem_unit.io.MEM_RegWriteData_Pass
+    inst_decode_unit.io.MEM_RegWriteEn      := excute_unit.io.EX_RegWriteEn
+    inst_decode_unit.io.MEM_RegWriteID      := excute_unit.io.EX_RegWriteID
+    inst_decode_unit.io.EX_ALUResult        := excute_unit.io.EX_ALUResult_Pass
 
-    // val ID_ALU_Data1 := inst_decode_unit.io.ID_ALU_Data1
-    // val ID_ALU_Data2 := inst_decode_unit.io.ID_ALU_Data2
-    // val ID_optype := inst_decode_unit.io.ID_optype
-    // val ID_RegWritEn := inst_decode_unit.io.ID_RegWriteEn
-    // val ID_RegWriteID := inst_decode_unit.io.ID_RegWriteID
+    excute_unit.io.ID_pc                    := inst_decode_unit.io.ID_pc
+    excute_unit.io.ID_Inst                  := inst_decode_unit.io.ID_Inst
+    excute_unit.io.ID_RegWriteEn            := inst_decode_unit.io.ID_RegWriteEn
+    excute_unit.io.ID_RegWriteID            := inst_decode_unit.io.ID_RegWriteID
+    excute_unit.io.ID_ALU_Data1             := inst_decode_unit.io.ID_ALU_Data1
+    excute_unit.io.ID_ALU_Data2             := inst_decode_unit.io.ID_ALU_Data2
+    excute_unit.io.ID_optype                := inst_decode_unit.io.ID_optype
+    excute_unit.io.ID_MemWriteEn            := inst_decode_unit.io.ID_MemWriteEn
+    excute_unit.io.ID_MemReadEn             := inst_decode_unit.io.ID_MemReadEn
+    excute_unit.io.ID_FuType                := inst_decode_unit.io.ID_FuType
+    excute_unit.io.ID_Rs1Data               := inst_decode_unit.io.ID_Rs1Data
+    excute_unit.io.ID_Rs1ID                 := inst_decode_unit.io.ID_Rs1ID
+    excute_unit.io.ID_Rs2Data               := inst_decode_unit.io.ID_Rs2Data
+    excute_unit.io.ID_Rs2ID                 := inst_decode_unit.io.ID_Rs2ID
+    excute_unit.io.flush                    := inst_decode_unit.io.ID_stall
+    excute_unit.io.MEM_RegWriteData         := mem_unit.io.MEM_RegWriteData_Pass
+    excute_unit.io.WB_RegWriteEn            := wb_unit.io.WB_RegWriteEn
+    excute_unit.io.WB_RegWriteID            := wb_unit.io.WB_RegWriteID
+    excute_unit.io.WB_RegWriteData          := wb_unit.io.WB_RegWriteData
 
-    excute_unit.io.ID_RegWriteEn := inst_decode_unit.io.ID_RegWriteEn
-    excute_unit.io.ID_RegWriteID := inst_decode_unit.io.ID_RegWriteID
-    excute_unit.io.ID_ALU_Data1  := inst_decode_unit.io.ID_ALU_Data1
-    excute_unit.io.ID_ALU_Data2  := inst_decode_unit.io.ID_ALU_Data2
-    excute_unit.io.ID_optype     := inst_decode_unit.io.ID_optype
-    excute_unit.io.ID_MemWriteEn := inst_decode_unit.io.ID_MemWriteEn
-    excute_unit.io.ID_MemReadEn  := inst_decode_unit.io.ID_MemReadEn
-    excute_unit.io.ID_FuType     := inst_decode_unit.io.ID_FuType
-    excute_unit.io.ID_Rs1Data    := inst_decode_unit.io.ID_Rs1Data
-    excute_unit.io.ID_Rs2Data    := inst_decode_unit.io.ID_Rs2Data
+    mem_unit.io.EX_pc                       := excute_unit.io.EX_pc
+    mem_unit.io.EX_Inst                     := excute_unit.io.EX_Inst  
+    mem_unit.io.EX_ALUResult                := excute_unit.io.EX_ALUResult
+    mem_unit.io.EX_MemWriteData             := excute_unit.io.EX_MemWriteData
+    mem_unit.io.EX_MemWriteEn               := excute_unit.io.EX_MemWriteEn
+    mem_unit.io.EX_MemReadEn                := excute_unit.io.EX_MemReadEn
+    mem_unit.io.EX_LsuType                  := excute_unit.io.EX_LsuType
+    mem_unit.io.EX_RegWriteEn               := excute_unit.io.EX_RegWriteEn
+    mem_unit.io.EX_RegWriteID               := excute_unit.io.EX_RegWriteID
 
-    mem_unit.io.EX_ALUResult     := excute_unit.io.EX_ALUResult
-    mem_unit.io.EX_MemWriteData  := excute_unit.io.EX_MemWriteData
-    mem_unit.io.EX_MemWriteEn    := excute_unit.io.EX_MemWriteEn
-    mem_unit.io.EX_MemReadEn     := excute_unit.io.EX_MemReadEn
-    mem_unit.io.EX_LsuType       := excute_unit.io.EX_LsuType
-    mem_unit.io.EX_RegWriteEn    := excute_unit.io.EX_RegWriteEn
-    mem_unit.io.EX_RegWriteID    := excute_unit.io.EX_RegWriteID
-    io.ALUResult := mem_unit.io.MEM_RegWriteData
-
-    inst_decode_unit.io.EX_RegWriteData := mem_unit.io.MEM_RegWriteData
-    inst_decode_unit.io.EX_RegWriteEn   := mem_unit.io.MEM_RegWriteEn
-    inst_decode_unit.io.EX_RegWriteID   := mem_unit.io.MEM_RegWriteID
-
+    wb_unit.io.MEM_pc                       := mem_unit.io.MEM_pc
+    wb_unit.io.MEM_Inst                     := mem_unit.io.MEM_Inst
+    wb_unit.io.MEM_RegWriteData             := mem_unit.io.MEM_RegWriteData
+    wb_unit.io.MEM_RegWriteEn               := mem_unit.io.MEM_RegWriteEn
+    wb_unit.io.MEM_RegWriteID               := mem_unit.io.MEM_RegWriteID
 }

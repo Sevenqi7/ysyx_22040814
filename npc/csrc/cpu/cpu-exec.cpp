@@ -6,11 +6,10 @@
 #define MAX_INST_TO_PRINT 10
 #define MAX_ITRACE_STORE 10
 
-static bool  g_print_step;
 
-uint64_t pmem_read(uint64_t addr, int len);
 
 char g_itrace_buf[MAX_ITRACE_STORE][128];
+static bool  g_print_step;
 static uint32_t g_itrace_base = 0;
 static uint32_t g_itrace_end = 0;
 #ifdef CONFIG_ITRACE
@@ -18,8 +17,10 @@ static uint32_t g_itrace_num = 0;
 #endif
 
 extern bool inst_fault;
+
 void device_update();
 void difftest_regcpy(void *dut, bool direction);
+uint8_t stall_flag ;
 
 static void trace_and_difftest(char *logbuf)
 {
@@ -28,15 +29,16 @@ static void trace_and_difftest(char *logbuf)
 #ifdef CONFIG_FTRACE
     void ftrace_check_jal(uint64_t jump_addr, uint64_t ret_addr, int rs1, int rd);
     int rd = BITS(npc_state.inst, 11, 7), rs1 = BITS(npc_state.inst, 19, 15);
-    ftrace_check_jal(top->io_IF_pc, npc_state.pc + 4, rs1, rd);
+    ftrace_check_jal(top->io_WB_pc, npc_state.pc + 4, rs1, rd);
 #endif
 #ifdef CONFIG_WATCHPOINT
     if(check_watchpoints())
         npc_state.state = NPC_STOP;
 #endif
+
 #ifdef CONFIG_DIFFTEST
     void difftest_step(vaddr_t pc);
-    difftest_step(top->io_IF_pc);
+    difftest_step(top->io_WB_pc);
 #endif
 }
 
@@ -55,25 +57,35 @@ void display_itrace()
     printf("\nItrace Info End\n");
 }
 
+
 void disassemble(char *str, int size, uint64_t pc, uint8_t *code, int nbyte);
 
 void exec_once()            //disassemble实质上是反汇编的上一个已执行完的指令（正要执行的指令还在等待上升沿）
 {
-    npc_state.inst = pmem_read(top->io_IF_pc, 4);       //record the pc value and inst that excuted last time
-    npc_state.pc   = top->io_IF_pc;                     
+    // npc_state.inst = pmem_read(top->io_WB_pc, 4);       //record the pc value and inst that excuted last time
+    npc_state.inst = top->io_WB_Inst;
+    npc_state.pc   = top->io_WB_pc;                   
+    
     if(inst_fault)                           //if an unimplemented inst found, directly record inst trace without excuting next inst
-    {
+    {                                                       
         npc_state.state = NPC_ABORT;
-        printf("\033[0m\033[1;31m%s\033[0m\n", "UNKNOWN INST RECEIVED:");
-        printf("\033[0m\033[1;31mPC:0x%016lx inst:0x%08x\033[0m\n", npc_state.pc, (uint32_t)npc_state.inst);
+        uint32_t abort_inst = pmem_read(top->io_IF_pc, 4);
+        printf("\033[0m\033[1;31m%s\033[0m\n", "UNKNOWN INST RECEIVED in IDU:");
+        printf("\033[0m\033[1;31mPC:0x%016lx inst:0x%08x\033[0m\n", top->io_IF_pc, abort_inst);
     }
-    for(int i=0;i<2;i++)
+    clock_step();
+    
+    if(top->io_stall)    
+        // {stall_flag++;Log("stall detected");}
+        stall_flag++;
+
+    while(stall_flag && !top->io_WB_pc)
     {
-        contextp->timeInc(1); // 1 timeprecision period passes...
-        top->clock = !top->clock;
-        // if(top->clock)
-        //     Log("time=%ld clk=%x rst=%x inst=0x%x IF_pc=0x%lx", contextp->time(), top->clock, top->reset, top->io_inst, top->io_IF_pc);
-        top->eval();
+        stall_flag--;
+        clock_step();
+        // Log("stall handled");
+        if(top->io_stall)    
+            stall_flag++;
     }
 trace:
     char logbuf[128];
@@ -91,6 +103,7 @@ trace:
     else  g_itrace_base = g_itrace_base < MAX_ITRACE_STORE - 1 ? g_itrace_base+1 : 0;
     g_itrace_end = g_itrace_end < MAX_ITRACE_STORE - 1 ? g_itrace_end+1 : 0;
     #endif
+
     trace_and_difftest(logbuf);
 }
 

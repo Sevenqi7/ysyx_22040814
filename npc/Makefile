@@ -72,7 +72,7 @@ $(BIN): $(VSRC_OBJ) $(CSRC_OBJ)
 	--Mdir $(OBJ_DIR) -o $(abspath $(BIN))
 
 run: $(BIN)
-	$(abspath $(BIN)) $(IMG) $(ELF) $(DIFF_REF_SO)
+	$(abspath $(BIN)) $(IMG) $(ELF) $(DIFF_REF_SO) +trace
 	
 sim: $(BIN)
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
@@ -81,7 +81,7 @@ sim: $(BIN)
 	$(shell mkdir logs)
 	@echo "-- VERILATE ----------------"
 	@echo "Verilating..."
-	$(MAKE) run
+	$(MAKE) run 
 	@echo "Finish building and verilating."
 	@echo "-- RUN ---------------------"
 	./build/top +trace
