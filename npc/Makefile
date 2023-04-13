@@ -72,7 +72,7 @@ $(BIN): $(VSRC_OBJ) $(CSRC_OBJ)
 	--Mdir $(OBJ_DIR) -o $(abspath $(BIN))
 
 run: $(BIN)
-	$(abspath $(BIN)) $(IMG) $(ELF) $(DIFF_REF_SO) +trace
+	$(abspath $(BIN)) $(IMG) $(ELF) $(DIFF_REF_SO) 
 	
 sim: $(BIN)
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
