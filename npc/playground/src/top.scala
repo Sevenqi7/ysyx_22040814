@@ -90,7 +90,7 @@ class top extends Module{
     // excute_unit.io.ID_Rs2Data               := inst_decode_unit.io.ID_Rs2Data
     // excute_unit.io.ID_Rs2ID                 := inst_decode_unit.io.ID_Rs2ID
 
-    excute_unit.io.ID_to_EX_bus                := inst_decode_unit.io.ID_to_EX_bus
+    excute_unit.io.ID_to_EX_bus             := inst_decode_unit.io.ID_to_EX_bus
 
     excute_unit.io.flush                    := inst_decode_unit.io.ID_stall
     excute_unit.io.MEM_RegWriteData         := mem_unit.io.MEM_RegWriteData_Pass
