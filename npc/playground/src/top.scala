@@ -42,10 +42,10 @@ class top extends Module{
     io.IF_pc := inst_fetch_unit.io.IF_pc
     io.ID_pc := inst_decode_unit.io.ID_to_EX_bus.bits.PC
     io.WB_pc := wb_unit.io.WB_pc
-    io.MEM_pc := excute_unit.io.EX_to_MEM_bus.bits.PC
+    io.MEM_pc := mem_unit.io.MEM_to_WB_bus.bits.PC
     io.WB_Inst := wb_unit.io.WB_Inst
     io.WB_RegWriteData := wb_unit.io.WB_RegWriteData
-    io.MEM_RegWriteData := mem_unit.io.MEM_RegWriteData_Pass
+    io.MEM_RegWriteData := mem_unit.io.MEM_regWriteData_Pass
     
     io.ID_ALU_Data1 := inst_decode_unit.io.ID_to_EX_bus.bits.ALU_Data1
     io.ID_ALU_Data2 := inst_decode_unit.io.ID_to_EX_bus.bits.ALU_Data2
@@ -83,19 +83,11 @@ class top extends Module{
 
     mem_unit.io.EX_to_MEM_bus               <> excute_unit.io.EX_to_MEM_bus
 
-    // mem_unit.io.EX_pc                       := excute_unit.io.EX_pc
-    // mem_unit.io.EX_Inst                     := excute_unit.io.EX_Inst  
-    // mem_unit.io.EX_ALUResult                := excute_unit.io.EX_ALUResult
-    // mem_unit.io.EX_MemWriteData             := excute_unit.io.EX_MemWriteData
-    // mem_unit.io.EX_MemWriteEn               := excute_unit.io.EX_MemWriteEn
-    // mem_unit.io.EX_MemReadEn                := excute_unit.io.EX_MemReadEn
-    // mem_unit.io.EX_LsuType                  := excute_unit.io.EX_LsuType
-    // mem_unit.io.EX_RegWriteEn               := excute_unit.io.EX_RegWriteEn
-    // mem_unit.io.EX_RegWriteID               := excute_unit.io.EX_RegWriteID
+    wb_unit.io.MEM_to_WB_bus                <> mem_unit.io.MEM_to_WB_bus
 
-    wb_unit.io.MEM_pc                       := mem_unit.io.MEM_pc
-    wb_unit.io.MEM_Inst                     := mem_unit.io.MEM_Inst
-    wb_unit.io.MEM_RegWriteData             := mem_unit.io.MEM_RegWriteData
-    wb_unit.io.MEM_RegWriteEn               := mem_unit.io.MEM_RegWriteEn
-    wb_unit.io.MEM_RegWriteID               := mem_unit.io.MEM_RegWriteID
+    // wb_unit.io.MEM_pc                       := mem_unit.io.MEM_pc
+    // wb_unit.io.MEM_Inst                     := mem_unit.io.MEM_Inst
+    // wb_unit.io.MEM_RegWriteData             := mem_unit.io.MEM_RegWriteData
+    // wb_unit.io.MEM_RegWriteEn               := mem_unit.io.MEM_RegWriteEn
+    // wb_unit.io.MEM_RegWriteID               := mem_unit.io.MEM_RegWriteID
 }

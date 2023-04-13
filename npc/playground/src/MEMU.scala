@@ -3,6 +3,7 @@ import chisel3.util._
 import utils._
 import OpType._
 import InstType._
+import java.util.Base64.Decoder
 
 class LSU extends BlackBox with HasBlackBoxPath{
     val io = IO(new Bundle{
@@ -17,20 +18,24 @@ class LSU extends BlackBox with HasBlackBoxPath{
     addPath("/home/seven7/Documents/学业/一生一芯/ysyx-workbench/npc/playground/verilog/LSU.v")
 }
 
+class MEM_to_WB_Message extends Bundle{
+
+    val regWriteData = Output(UInt(64.W))
+    val regWriteEn   = Output(UInt(1.W))
+    val regWriteID   = Output(UInt(5.W))
+
+    //for NPC to trace
+    val PC           = Output(UInt(64.W))
+    val Inst         = Output(UInt(32.W))
+}
+
+
 class MEMU extends Module{
     val io = IO(new Bundle{
         val EX_to_MEM_bus = Flipped(Decoupled(new EX_MEM_Message))
-        
-        val MEM_RegWriteData = Output(UInt(64.W))
-        val MEM_RegWriteEn  = Output(UInt(1.W))
-        val MEM_RegWriteID  = Output(UInt(5.W))
-
+        val MEM_to_WB_bus = Decoupled(new MEM_to_WB_Message)
         //for IDU.Bypass
-        val MEM_RegWriteData_Pass = Output(UInt(64.W))
-
-        //for NPC to trace
-        val MEM_pc          = Output(UInt(64.W))
-        val MEM_Inst        = Output(UInt(32.W))
+        val MEM_regWriteData_Pass = Output(UInt(64.W))
     })
 
     //unpack bus from EXU
@@ -46,13 +51,13 @@ class MEMU extends Module{
     val RegWriteData = Wire(UInt(64.W))
 
     io.MEM_RegWriteData_Pass := RegWriteData
-    RegWriteData := Mux(memReadEn.asBool, mem.io.ReadData, ALU_result)
+    regWriteData := Mux(memReadEn.asBool, mem.io.ReadData, ALU_result)
     
-    regConnect(io.MEM_pc                ,         io.EX_to_MEM_bus.bits.PC  )
-    regConnect(io.MEM_Inst              ,         io.EX_to_MEM_bus.bits.Inst)
-    regConnect(io.MEM_RegWriteEn        ,                         regWriteEn)
-    regConnect(io.MEM_RegWriteID        ,                         regWriteID)
-    regConnect(io.MEM_RegWriteData      ,                       RegWriteData)
+    regConnect(io.MEM_to_WB_bus.bits.pc                ,         io.EX_to_MEM_bus.bits.PC  )
+    regConnect(io.MEM_to_WB_bus.bits.Inst              ,         io.EX_to_MEM_bus.bits.Inst)
+    regConnect(io.MEM_to_WB_bus.bits.regWriteEn        ,                         regWriteEn)
+    regConnect(io.MEM_to_WB_bus.bits.regWriteID        ,                         regWriteID)
+    regConnect(io.MEM_to_WB_bus.bits.regWriteData      ,                       regWriteData)
     io.EX_to_MEM_bus.ready := 1.U    
 
     //LSU for DPI-C with verilator
