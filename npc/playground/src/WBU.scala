@@ -22,5 +22,5 @@ class WBU extends Module{
     io.WB_RegWriteEn   := io.MEM_to_WB_bus.bits.regWriteEn
     io.WB_RegWriteID   := io.MEM_to_WB_bus.bits.regWriteID
 
-    io.MEM_to_WB_bus.bits.ready := 1.U
+    io.MEM_to_WB_bus.ready := 1.U
 }
