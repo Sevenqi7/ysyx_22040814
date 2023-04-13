@@ -59,6 +59,7 @@ class MEMU extends Module{
     regConnect(io.MEM_to_WB_bus.bits.regWriteID        ,                         regWriteID)
     regConnect(io.MEM_to_WB_bus.bits.regWriteData      ,                       regWriteData)
     io.EX_to_MEM_bus.ready := 1.U    
+    io.MEM_to_WB_bus.valid := 1.U
 
     //LSU for DPI-C with verilator
     mem.io.pc   := io.MEM_to_WB_bus.bits.PC
