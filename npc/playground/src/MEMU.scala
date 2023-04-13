@@ -3,6 +3,7 @@ import chisel3.util._
 import utils._
 import OpType._
 import InstType._
+import java.util.Base64.Decoder
 
 class LSU extends BlackBox with HasBlackBoxPath{
     val io = IO(new Bundle{
@@ -17,48 +18,54 @@ class LSU extends BlackBox with HasBlackBoxPath{
     addPath("/home/seven7/Documents/学业/一生一芯/ysyx-workbench/npc/playground/verilog/LSU.v")
 }
 
+class MEM_to_WB_Message extends Bundle{
+
+    val regWriteData = Output(UInt(64.W))
+    val regWriteEn   = Output(UInt(1.W))
+    val regWriteID   = Output(UInt(5.W))
+
+    //for NPC to trace
+    val PC           = Output(UInt(64.W))
+    val Inst         = Output(UInt(32.W))
+}
+
+
 class MEMU extends Module{
     val io = IO(new Bundle{
-        val EX_ALUResult = Input(UInt(64.W))
-        val EX_MemWriteData = Input(UInt(64.W))
-        val EX_MemWriteEn = Input(UInt(1.W))
-        val EX_MemReadEn = Input(UInt(1.W))
-        val EX_LsuType      = Input(UInt(5.W))
-        val EX_RegWriteEn   = Input(UInt(1.W))
-        val EX_RegWriteID   = Input(UInt(5.W))
-        
-        val MEM_RegWriteData = Output(UInt(64.W))
-        val MEM_RegWriteEn  = Output(UInt(1.W))
-        val MEM_RegWriteID  = Output(UInt(5.W))
-
+        val EX_to_MEM_bus = Flipped(Decoupled(new EX_MEM_Message))
+        val MEM_to_WB_bus = Decoupled(new MEM_to_WB_Message)
         //for IDU.Bypass
-        val MEM_RegWriteData_Pass = Output(UInt(64.W))
-
-        //for NPC to trace
-        val EX_pc           = Input(UInt(64.W))
-        val EX_Inst         = Input(UInt(32.W))
-        val MEM_pc          = Output(UInt(64.W))
-        val MEM_Inst        = Output(UInt(32.W))
+        val MEM_regWriteData_Pass = Output(UInt(64.W))
     })
 
-    val mem = Module(new LSU)
-    val RegWriteData = Wire(UInt(64.W))
+    //unpack bus from EXU
+    val ALU_result   =  io.EX_to_MEM_bus.bits.ALU_result  
+    val memWriteData =  io.EX_to_MEM_bus.bits.memWriteData
+    val memWriteEn   =  io.EX_to_MEM_bus.bits.memWriteEn
+    val memReadEn    =  io.EX_to_MEM_bus.bits.memReadEn
+    val lsutype      =  io.EX_to_MEM_bus.bits.lsutype
+    val regWriteID   =  io.EX_to_MEM_bus.bits.regWriteID
+    val regWriteEn   =  io.EX_to_MEM_bus.bits.regWriteEn
 
-    io.MEM_RegWriteData_Pass := RegWriteData
-    RegWriteData := Mux(io.EX_MemReadEn.asBool, mem.io.ReadData, io.EX_ALUResult)
+    val mem = Module(new LSU)
+    val regWriteData = Wire(UInt(64.W))
+
+    io.MEM_regWriteData_Pass := regWriteData
+    regWriteData := Mux(memReadEn.asBool, mem.io.ReadData, ALU_result)
     
-    regConnect(io.MEM_pc                ,                 io.EX_pc)
-    regConnect(io.MEM_Inst              ,               io.EX_Inst)
-    regConnect(io.MEM_RegWriteEn        ,         io.EX_RegWriteEn)
-    regConnect(io.MEM_RegWriteID        ,         io.EX_RegWriteID)
-    regConnect(io.MEM_RegWriteData      ,             RegWriteData)
-    
+    regConnect(io.MEM_to_WB_bus.bits.PC                ,         io.EX_to_MEM_bus.bits.PC  )
+    regConnect(io.MEM_to_WB_bus.bits.Inst              ,         io.EX_to_MEM_bus.bits.Inst)
+    regConnect(io.MEM_to_WB_bus.bits.regWriteEn        ,                         regWriteEn)
+    regConnect(io.MEM_to_WB_bus.bits.regWriteID        ,                         regWriteID)
+    regConnect(io.MEM_to_WB_bus.bits.regWriteData      ,                       regWriteData)
+    io.EX_to_MEM_bus.ready := 1.U    
+    io.MEM_to_WB_bus.valid := 1.U
 
     //LSU for DPI-C with verilator
-    mem.io.pc   := io.MEM_pc
-    mem.io.addr := io.EX_ALUResult
-    mem.io.LsuType := io.EX_LsuType
-    mem.io.WriteEn := io.EX_MemWriteEn
-    mem.io.WriteData := io.EX_MemWriteData
-    mem.io.ReadEn  := io.EX_MemReadEn
+    mem.io.pc   := io.MEM_to_WB_bus.bits.PC
+    mem.io.addr := ALU_result
+    mem.io.LsuType := lsutype
+    mem.io.WriteEn := memWriteEn
+    mem.io.WriteData := memWriteData
+    mem.io.ReadEn  := memReadEn
 }  

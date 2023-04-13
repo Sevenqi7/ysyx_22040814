@@ -4,19 +4,26 @@ import utils._
 import OpType._
 import InstType._
 
+class EX_MEM_Message extends Bundle{
+    //for NPC to trace
+    val Inst    =      Output(UInt(32.W))
+    val PC      =      Output(UInt(64.W))    
+    
+    //Reg
+    val ALU_result  =     Output(UInt(64.W))
+    val memWriteData =   Output(UInt(64.W))
+    val memWriteEn =     Output(UInt(1.W))
+    val memReadEn  =     Output(UInt(1.W))
+    val lsutype    =     Output(UInt(5.W))
+    val regWriteID =     Output(UInt(5.W))
+    val regWriteEn =     Output(UInt(1.W))
+}
+
 class EXU extends Module{
     val io = IO(new Bundle{
-        val ID_to_EX_bus =      Flipped(Decoupled(new(ID_EX_Message)))
+        val ID_to_EX_bus  =     Flipped(Decoupled(new(ID_EX_Message)))
 
-        //Reg
-        val EX_ALUResult  =     Output(UInt(64.W))
-        val EX_MemWriteData =   Output(UInt(64.W))
-        val EX_MemWriteEn =     Output(UInt(1.W))
-        val EX_MemReadEn  =     Output(UInt(1.W))
-        val EX_LsuType    =     Output(UInt(5.W))
-        val EX_RegWriteID =     Output(UInt(5.W))
-        val EX_RegWriteEn =     Output(UInt(1.W))
-
+        val EX_to_MEM_bus =     Decoupled(new(EX_MEM_Message))
         //From MEMU and WBU to resolve store after load adventure
         val WB_RegWriteEn    = Input(UInt(1.W))
         val WB_RegWriteID    = Input(UInt(5.W))
@@ -31,9 +38,6 @@ class EXU extends Module{
         //it is actually the ID_stall in IDU
         val flush      =      Input(Bool())
 
-        //for NPC to trace
-        val EX_Inst    =      Output(UInt(32.W))
-        val EX_pc      =      Output(UInt(64.W))
     })
     
     //  pipeline register reset
@@ -41,6 +45,8 @@ class EXU extends Module{
     pplrst := reset.asBool | io.flush
 
     //unpack bus from IDU
+    val pc     = io.ID_to_EX_bus.bits.PC
+    val inst   = io.ID_to_EX_bus.bits.Inst
     val futype = io.ID_to_EX_bus.bits.futype
     val optype = io.ID_to_EX_bus.bits.optype
     val regWriteEn = io.ID_to_EX_bus.bits.regWriteEn
@@ -55,47 +61,38 @@ class EXU extends Module{
     val ALU_Data2 = Wire(UInt(64.W))
     
     val shamt = Wire(UInt(6.W))
-    val LsuType = Mux(futype === FuType.lsu, optype, 0.U)
-    val ALU_Result = Wire(UInt(64.W))
-    val MemWriteData = Wire(UInt(64.W))
+    val lsutype = Mux(futype === FuType.lsu, optype, 0.U)
+    val ALU_result = Wire(UInt(64.W))
+    val memWriteData = Wire(UInt(64.W))
     
     shamt := ALU_Data2(5, 0)
-    MemWriteData := MuxCase(rs2_data, Seq(
-        ((io.EX_MemReadEn.asBool | io.EX_RegWriteEn.asBool) && (rs2_id === io.EX_RegWriteID) && io.ID_to_EX_bus.bits.memWriteEn.asBool, io.MEM_RegWriteData),
-        (io.WB_RegWriteEn.asBool && (io.WB_RegWriteID === rs2_id && rs2_id > 0.U) && io.ID_to_EX_bus.bits.memWriteEn.asBool, io.WB_RegWriteData)
+    memWriteData := MuxCase(rs2_data, Seq(
+        ((io.EX_to_MEM_bus.bits.memReadEn.asBool | io.EX_to_MEM_bus.bits.regWriteEn.asBool) && (rs2_id === io.EX_to_MEM_bus.bits.regWriteID) && memWriteEn.asBool, io.MEM_RegWriteData),
+        (io.WB_RegWriteEn.asBool && (io.WB_RegWriteID === rs2_id && rs2_id > 0.U) && memWriteEn.asBool, io.WB_RegWriteData)
     ))
-    // MemWriteData := Mux(io.EX_MemReadEn.asBool && io.ID_Rs2ID === io.EX_RegWriteID && 
-    //                  io.ID_MemWriteEn.asBool, io.MEM_RegWriteData, io.ID_Rs2Data)
+
     
-    regConnect(io.EX_pc             ,                 io.ID_to_EX_bus.bits.PC)
-    regConnect(io.EX_Inst           ,               io.ID_to_EX_bus.bits.Inst)
-    regConnect(io.EX_RegWriteEn     ,                              regWriteEn)
-    regConnect(io.EX_RegWriteID     ,                              regWriteID)
-    regConnect(io.EX_MemWriteEn     ,                              memWriteEn)
-    regConnect(io.EX_MemReadEn      ,                               memReadEn)
-    regConnect(io.EX_MemWriteData   ,                            MemWriteData)
-    regConnect(io.EX_ALUResult      ,                              ALU_Result)
-    regConnect(io.EX_LsuType        ,                                 LsuType)
+    regConnect(io.EX_to_MEM_bus.bits.PC             ,                                      pc)
+    regConnect(io.EX_to_MEM_bus.bits.Inst           ,                                    inst)
+    regConnect(io.EX_to_MEM_bus.bits.regWriteEn     ,                              regWriteEn)
+    regConnect(io.EX_to_MEM_bus.bits.regWriteID     ,                              regWriteID)
+    regConnect(io.EX_to_MEM_bus.bits.memWriteEn     ,                              memWriteEn)
+    regConnect(io.EX_to_MEM_bus.bits.memReadEn      ,                               memReadEn)
+    regConnect(io.EX_to_MEM_bus.bits.memWriteData   ,                            memWriteData)
+    regConnect(io.EX_to_MEM_bus.bits.ALU_result     ,                              ALU_result)
+    regConnect(io.EX_to_MEM_bus.bits.lsutype        ,                                 lsutype)
     io.ID_to_EX_bus.ready := 1.U
-    // regConnectWithReset(io.EX_pc            , io.ID_pc          , pplrst)
-    // regConnectWithReset(io.EX_Inst          , io.ID_Inst        , pplrst)
-    // regConnectWithReset(io.EX_RegWriteEn    , io.ID_RegWriteEn  , pplrst)
-    // regConnectWithReset(io.EX_RegWriteID    , io.ID_RegWriteID  , pplrst)
-    // regConnectWithReset(io.EX_MemWriteData  , io.ID_Rs2Data     , pplrst)
-    // regConnectWithReset(io.EX_MemWriteEn    , io.ID_MemWriteEn  , pplrst)
-    // regConnectWithReset(io.EX_MemReadEn     , io.ID_MemReadEn   , pplrst)
-    // regConnectWithReset(io.EX_LsuType       , LsuType           , pplrst)
-    // regConnectWithReset(io.EX_ALUResult     , ALU_Result        , pplrst)
+    io.EX_to_MEM_bus.valid := 1.U
 
 
-    io.EX_ALUResult_Pass := ALU_Result
+    io.EX_ALUResult_Pass := ALU_result
     
-    ALU_Data1 := Mux(io.EX_MemReadEn.asBool && (io.EX_RegWriteID === rs1_data) && (memWriteEn.asBool || memReadEn.asBool),
+    ALU_Data1 := Mux(io.EX_to_MEM_bus.bits.memReadEn.asBool && (io.EX_to_MEM_bus.bits.regWriteID === rs1_id) && (memWriteEn.asBool || memReadEn.asBool),
          io.MEM_RegWriteData, io.ID_to_EX_bus.bits.ALU_Data1)
     // ALU_Data1 := io.ID_ALU_Data1
     ALU_Data2 := io.ID_to_EX_bus.bits.ALU_Data2 
     
-    ALU_Result := MuxCase(0.U, Seq(
+    ALU_result := MuxCase(0.U, Seq(
         ((optype === OP_PLUS) || (futype === FuType.lsu), ALU_Data1 + ALU_Data2),
         (optype === OP_SUB , ALU_Data1  -  ALU_Data2),
         (optype === OP_AND , ALU_Data1  &  ALU_Data2),
