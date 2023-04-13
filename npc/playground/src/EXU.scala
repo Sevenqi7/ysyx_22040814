@@ -23,7 +23,7 @@ class EXU extends Module{
     val io = IO(new Bundle{
         val ID_to_EX_bus  =     Flipped(Decoupled(new(ID_EX_Message)))
 
-        val EX_to_MEM_bus =     Flipped(Decoupled(new(EX_MEM_Message)))
+        val EX_to_MEM_bus =     Decoupled(new(EX_MEM_Message))
         //From MEMU and WBU to resolve store after load adventure
         val WB_RegWriteEn    = Input(UInt(1.W))
         val WB_RegWriteID    = Input(UInt(5.W))
