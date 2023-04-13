@@ -46,7 +46,7 @@ class EXU extends Module{
 
     //unpack bus from IDU
     val pc     = io.ID_to_EX_bus.bits.PC
-    val inst   = io.ID_to_EX_bus.bits.inst
+    val inst   = io.ID_to_EX_bus.bits.Inst
     val futype = io.ID_to_EX_bus.bits.futype
     val optype = io.ID_to_EX_bus.bits.optype
     val regWriteEn = io.ID_to_EX_bus.bits.regWriteEn
@@ -72,7 +72,7 @@ class EXU extends Module{
     ))
 
     
-    regConnect(io.EX_to_MEM_bus.bits.PC             ,                                      PC)
+    regConnect(io.EX_to_MEM_bus.bits.PC             ,                                      pc)
     regConnect(io.EX_to_MEM_bus.bits.Inst           ,                                    inst)
     regConnect(io.EX_to_MEM_bus.bits.regWriteEn     ,                              regWriteEn)
     regConnect(io.EX_to_MEM_bus.bits.regWriteID     ,                              regWriteID)
