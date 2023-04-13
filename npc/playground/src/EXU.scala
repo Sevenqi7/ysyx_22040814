@@ -65,8 +65,8 @@ class EXU extends Module{
     
     shamt := ALU_Data2(5, 0)
     memWriteData := MuxCase(rs2_data, Seq(
-        ((io.EX_MemReadEn.asBool | io.EX_RegWriteEn.asBool) && (rs2_id === io.EX_RegWriteID) && io.ID_to_EX_bus.bits.memWriteEn.asBool, io.MEM_RegWriteData),
-        (io.WB_RegWriteEn.asBool && (io.WB_RegWriteID === rs2_id && rs2_id > 0.U) && io.ID_to_EX_bus.bits.memWriteEn.asBool, io.WB_RegWriteData)
+        ((io.EX_to_MEM_bus.bits.memReadEn.asBool | io.EX_to_MEM_bus.bits.regWriteEn.asBool) && (rs2_id === io.EX_to_MEM_bus.bits.regWriteID) && memWriteEn.asBool, io.MEM_RegWriteData),
+        (io.WB_RegWriteEn.asBool && (io.WB_RegWriteID === rs2_id && rs2_id > 0.U) && memWriteEn.asBool, io.WB_RegWriteData)
     ))
 
     
@@ -84,7 +84,7 @@ class EXU extends Module{
 
     io.EX_ALUResult_Pass := ALU_Result
     
-    ALU_Data1 := Mux(io.EX_MemReadEn.asBool && (io.EX_RegWriteID === rs1_id) && (memWriteEn.asBool || memReadEn.asBool),
+    ALU_Data1 := Mux(io.EX_to_MEM_bus.bits.memReadEn.asBool && (io.EX_to_MEM_bus.bits.regWriteID === rs1_id) && (memWriteEn.asBool || memReadEn.asBool),
          io.MEM_RegWriteData, io.ID_to_EX_bus.bits.ALU_Data1)
     // ALU_Data1 := io.ID_ALU_Data1
     ALU_Data2 := io.ID_to_EX_bus.bits.ALU_Data2 
