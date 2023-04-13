@@ -81,7 +81,7 @@ class top extends Module{
     excute_unit.io.WB_RegWriteID            := wb_unit.io.WB_RegWriteID
     excute_unit.io.WB_RegWriteData          := wb_unit.io.WB_RegWriteData
 
-    mem_unit.io.EX_to_MEM_bus               <> inst_decode_unit.io.EX_to_MEM_bus
+    mem_unit.io.EX_to_MEM_bus               <> ex_excute_unit.io.EX_to_MEM_bus
 
     // mem_unit.io.EX_pc                       := excute_unit.io.EX_pc
     // mem_unit.io.EX_Inst                     := excute_unit.io.EX_Inst  
