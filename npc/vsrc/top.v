@@ -910,6 +910,7 @@ module EXU(	// <stdin>:772:10
   input         io_ID_to_EX_bus_bits_futype,
   input  [4:0]  io_ID_to_EX_bus_bits_optype,
   input  [63:0] io_ID_to_EX_bus_bits_rs1_data,
+                io_ID_to_EX_bus_bits_rs2_data,
   input  [4:0]  io_ID_to_EX_bus_bits_rs2_id,
                 io_ID_to_EX_bus_bits_regWriteID,
   input         io_ID_to_EX_bus_bits_regWriteEn,
@@ -1006,7 +1007,7 @@ module EXU(	// <stdin>:772:10
                                                 (|io_ID_to_EX_bus_bits_rs2_id) & io_ID_to_EX_bus_bits_memWriteEn)	// EXU.scala:64:{34,72,94}, :65:{55,76,83}, utils.scala:15:29
         rhsReg_6 <= io_WB_RegWriteData;	// utils.scala:15:29
       else	// EXU.scala:64:{34,72,94}, :65:{55,76,83}, utils.scala:15:29
-        rhsReg_6 <= io_ID_to_EX_bus_bits_rs1_data;	// utils.scala:15:29
+        rhsReg_6 <= io_ID_to_EX_bus_bits_rs2_data;	// utils.scala:15:29
       rhsReg_7 <= _GEN_5;	// Mux.scala:101:16, utils.scala:15:29
       if (io_ID_to_EX_bus_bits_futype)
         rhsReg_8 <= io_ID_to_EX_bus_bits_optype;	// utils.scala:15:29
@@ -1226,6 +1227,7 @@ module top(	// <stdin>:1138:10
   wire        _inst_decode_unit_io_ID_to_EX_bus_bits_futype;	// top.scala:37:34
   wire [4:0]  _inst_decode_unit_io_ID_to_EX_bus_bits_optype;	// top.scala:37:34
   wire [63:0] _inst_decode_unit_io_ID_to_EX_bus_bits_rs1_data;	// top.scala:37:34
+  wire [63:0] _inst_decode_unit_io_ID_to_EX_bus_bits_rs2_data;	// top.scala:37:34
   wire [4:0]  _inst_decode_unit_io_ID_to_EX_bus_bits_rs2_id;	// top.scala:37:34
   wire [4:0]  _inst_decode_unit_io_ID_to_EX_bus_bits_regWriteID;	// top.scala:37:34
   wire        _inst_decode_unit_io_ID_to_EX_bus_bits_regWriteEn;	// top.scala:37:34
@@ -1293,7 +1295,7 @@ module top(	// <stdin>:1138:10
     .io_ID_to_EX_bus_bits_futype     (_inst_decode_unit_io_ID_to_EX_bus_bits_futype),
     .io_ID_to_EX_bus_bits_optype     (_inst_decode_unit_io_ID_to_EX_bus_bits_optype),
     .io_ID_to_EX_bus_bits_rs1_data   (_inst_decode_unit_io_ID_to_EX_bus_bits_rs1_data),
-    .io_ID_to_EX_bus_bits_rs2_data   (io_ID_Rs2Data),
+    .io_ID_to_EX_bus_bits_rs2_data   (_inst_decode_unit_io_ID_to_EX_bus_bits_rs2_data),
     .io_ID_to_EX_bus_bits_rs2_id     (_inst_decode_unit_io_ID_to_EX_bus_bits_rs2_id),
     .io_ID_to_EX_bus_bits_regWriteID (_inst_decode_unit_io_ID_to_EX_bus_bits_regWriteID),
     .io_ID_to_EX_bus_bits_regWriteEn (_inst_decode_unit_io_ID_to_EX_bus_bits_regWriteEn),
@@ -1344,6 +1346,7 @@ module top(	// <stdin>:1138:10
     .io_ID_to_EX_bus_bits_futype     (_inst_decode_unit_io_ID_to_EX_bus_bits_futype),	// top.scala:37:34
     .io_ID_to_EX_bus_bits_optype     (_inst_decode_unit_io_ID_to_EX_bus_bits_optype),	// top.scala:37:34
     .io_ID_to_EX_bus_bits_rs1_data   (_inst_decode_unit_io_ID_to_EX_bus_bits_rs1_data),	// top.scala:37:34
+    .io_ID_to_EX_bus_bits_rs2_data   (_inst_decode_unit_io_ID_to_EX_bus_bits_rs2_data),	// top.scala:37:34
     .io_ID_to_EX_bus_bits_rs2_id     (_inst_decode_unit_io_ID_to_EX_bus_bits_rs2_id),	// top.scala:37:34
     .io_ID_to_EX_bus_bits_regWriteID (_inst_decode_unit_io_ID_to_EX_bus_bits_regWriteID),	// top.scala:37:34
     .io_ID_to_EX_bus_bits_regWriteEn (_inst_decode_unit_io_ID_to_EX_bus_bits_regWriteEn),	// top.scala:37:34
@@ -1398,6 +1401,7 @@ module top(	// <stdin>:1138:10
     .io_WB_Inst          (_wb_unit_io_WB_Inst)
   );
 
+
 wire [63:0] GPR [31:0];
 assign {GPR[31], GPR[30], GPR[29], GPR[28], GPR[27], GPR[26], GPR[25], GPR[24], GPR[23], GPR[22], GPR[21], GPR[20]
 , GPR[19], GPR[18], GPR[17], GPR[16], GPR[15], GPR[14], GPR[13], GPR[12], GPR[11], GPR[10], GPR[9], GPR[8], GPR[7]
@@ -1430,6 +1434,7 @@ sim simulate (	// top.scala:24:26
   assign io_ID_ALU_Data1 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data1;	// <stdin>:1138:10, top.scala:37:34
   assign io_ID_ALU_Data2 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data2;	// <stdin>:1138:10, top.scala:37:34
   assign io_ID_Rs1Data = _inst_decode_unit_io_ID_to_EX_bus_bits_rs1_data;	// <stdin>:1138:10, top.scala:37:34
+  assign io_ID_Rs2Data = _inst_decode_unit_io_ID_to_EX_bus_bits_rs2_data;	// <stdin>:1138:10, top.scala:37:34
   assign io_ALUResult = _excute_unit_io_EX_ALUResult;	// <stdin>:1138:10, top.scala:38:29
 endmodule
 
@@ -1477,7 +1482,6 @@ import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
 import "DPI-C" function void unknown_inst();
 import "DPI-C" function void ebreak(input longint halt_ret);
 
-
 module sim(input[63:0] IF_pc, input [63:0] GPR [31:0], input unknown_inst_flag, output [63:0] inst, input[31:0] WB_Inst);
 
    initial begin
@@ -1488,6 +1492,7 @@ module sim(input[63:0] IF_pc, input [63:0] GPR [31:0], input unknown_inst_flag, 
       end
       $display("[%0t] Model running...\n", $time);
    end
+
 
    initial set_gpr_ptr(GPR);    // rf为通用寄存器的二维数组变量
 

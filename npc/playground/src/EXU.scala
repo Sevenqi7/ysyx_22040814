@@ -90,7 +90,7 @@ class EXU extends Module{
 
     io.EX_ALUResult_Pass := ALU_Result
     
-    ALU_Data1 := Mux(io.EX_MemReadEn.asBool && (io.EX_RegWriteID === rs1_data) && (memWriteEn.asBool || memReadEn.asBool),
+    ALU_Data1 := Mux(io.EX_MemReadEn.asBool && (io.EX_RegWriteID === rs1_id) && (memWriteEn.asBool || memReadEn.asBool),
          io.MEM_RegWriteData, io.ID_to_EX_bus.bits.ALU_Data1)
     // ALU_Data1 := io.ID_ALU_Data1
     ALU_Data2 := io.ID_to_EX_bus.bits.ALU_Data2 
