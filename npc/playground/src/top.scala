@@ -42,7 +42,7 @@ class top extends Module{
     io.IF_pc := inst_fetch_unit.io.IF_pc
     io.ID_pc := inst_decode_unit.io.ID_to_EX_bus.bits.PC
     io.WB_pc := wb_unit.io.WB_pc
-    io.MEM_pc := excute_unit.io.EX_to_MEM_bus.bits.EX_PC
+    io.MEM_pc := excute_unit.io.EX_to_MEM_bus.bits.PC
     io.WB_Inst := wb_unit.io.WB_Inst
     io.WB_RegWriteData := wb_unit.io.WB_RegWriteData
     io.MEM_RegWriteData := mem_unit.io.MEM_RegWriteData_Pass

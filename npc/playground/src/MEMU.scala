@@ -58,7 +58,7 @@ class MEMU extends Module{
     //LSU for DPI-C with verilator
     mem.io.pc   := io.MEM_pc
     mem.io.addr := ALU_result
-    mem.io.LsuType := lsuType
+    mem.io.LsuType := lsutype
     mem.io.WriteEn := memWriteEn
     mem.io.WriteData := memWriteData
     mem.io.ReadEn  := memReadEn
