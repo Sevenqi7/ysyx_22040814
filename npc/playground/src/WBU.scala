@@ -3,7 +3,7 @@ import chisel3.util._
 
 class WBU extends Module{
     val io = IO(new Bundle{
-        val MEM_to_WB_bus    = Flipped(Decoupled(new MEM_to_WB_bus))
+        val MEM_to_WB_bus    = Flipped(Decoupled(new MEM_to_WB_Message))
         val MEM_pc           = Input(UInt(64.W))
         val MEM_Inst         = Input(UInt(32.W))
         val MEM_RegWriteData = Input(UInt(64.W))
