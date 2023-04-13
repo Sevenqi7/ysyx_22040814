@@ -128,6 +128,8 @@ void execute(uint64_t n)
     if(npc_state.state == NPC_ABORT)
     {
         printf("\n\033[0m\033[1;31mNPC ABORT \033[0mat pc = %016lx\n", npc_state.pc);
+        #ifdef CONFIG_ITRACE
         display_itrace();
+        #endif
     }
 }
