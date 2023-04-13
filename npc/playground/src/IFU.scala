@@ -2,6 +2,8 @@ import chisel3._
 import chisel3.util._
 import utils._
 
+
+
 class IFU extends Module{
     val io = IO(new Bundle{
         val ID_npc = Input(UInt(64.W))
@@ -14,3 +16,4 @@ class IFU extends Module{
     // pcReg := io.ID_npc
     // io.IF_pc := pcReg
 }
+
