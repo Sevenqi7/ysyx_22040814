@@ -67,12 +67,12 @@ class EXU extends Module{
     // MemWriteData := Mux(io.EX_MemReadEn.asBool && io.ID_Rs2ID === io.EX_RegWriteID && 
     //                  io.ID_MemWriteEn.asBool, io.MEM_RegWriteData, io.ID_Rs2Data)
     
-    regConnect(io.EX_pc             ,       io.ID_to_EX_bus.bits.PC          )
-    regConnect(io.EX_Inst           ,       io.ID_to_EX_bus.bits.Inst        )
-    regConnect(io.EX_RegWriteEn     ,       io.ID_to_EX_bus.bits.regWriteEn  )
-    regConnect(io.EX_RegWriteID     ,       io.ID_to_EX_bus.bits.regWriteID  )
-    regConnect(io.EX_MemWriteEn     ,       io.ID_to_EX_bus.bits.memWriteEn  )
-    regConnect(io.EX_MemReadEn      ,       io.ID_to_EX_bus.bits.memReadEn   )
+    regConnect(io.EX_pc             ,                 io.ID_to_EX_bus.bits.PC)
+    regConnect(io.EX_Inst           ,               io.ID_to_EX_bus.bits.Inst)
+    regConnect(io.EX_RegWriteEn     ,                              regWriteEn)
+    regConnect(io.EX_RegWriteID     ,                              regWriteID)
+    regConnect(io.EX_MemWriteEn     ,                              memWriteEn)
+    regConnect(io.EX_MemReadEn      ,                               memReadEn)
     regConnect(io.EX_MemWriteData   ,                            MemWriteData)
     regConnect(io.EX_ALUResult      ,                              ALU_Result)
     regConnect(io.EX_LsuType        ,                                 LsuType)
