@@ -53,7 +53,7 @@ class MEMU extends Module{
     io.MEM_regWriteData_Pass := regWriteData
     regWriteData := Mux(memReadEn.asBool, mem.io.ReadData, ALU_result)
     
-    regConnect(io.MEM_to_WB_bus.bits.pc                ,         io.EX_to_MEM_bus.bits.PC  )
+    regConnect(io.MEM_to_WB_bus.bits.PC                ,         io.EX_to_MEM_bus.bits.PC  )
     regConnect(io.MEM_to_WB_bus.bits.Inst              ,         io.EX_to_MEM_bus.bits.Inst)
     regConnect(io.MEM_to_WB_bus.bits.regWriteEn        ,                         regWriteEn)
     regConnect(io.MEM_to_WB_bus.bits.regWriteID        ,                         regWriteID)
@@ -61,7 +61,7 @@ class MEMU extends Module{
     io.EX_to_MEM_bus.ready := 1.U    
 
     //LSU for DPI-C with verilator
-    mem.io.pc   := io.MEM_pc
+    mem.io.pc   := io.MEM_to_WB_bus.bits.pc
     mem.io.addr := ALU_result
     mem.io.LsuType := lsutype
     mem.io.WriteEn := memWriteEn
