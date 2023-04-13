@@ -60,7 +60,7 @@ class EXU extends Module{
     val MemWriteData = Wire(UInt(64.W))
     
     shamt := ALU_Data2(5, 0)
-    MemWriteData := MuxCase(rs1_data, Seq(
+    MemWriteData := MuxCase(rs2_data, Seq(
         ((io.EX_MemReadEn.asBool | io.EX_RegWriteEn.asBool) && (rs2_id === io.EX_RegWriteID) && io.ID_to_EX_bus.bits.memWriteEn.asBool, io.MEM_RegWriteData),
         (io.WB_RegWriteEn.asBool && (io.WB_RegWriteID === rs2_id && rs2_id > 0.U) && io.ID_to_EX_bus.bits.memWriteEn.asBool, io.WB_RegWriteData)
     ))
