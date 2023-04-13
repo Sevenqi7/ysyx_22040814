@@ -184,6 +184,7 @@ class IDU extends Module{
     regConnectWithReset(io.ID_to_EX_bus.bits.rs1_id     , rs1      , flush, 0.U    )
     regConnectWithReset(io.ID_to_EX_bus.bits.rs2_data   , rs2_data , flush, 0.U    )
     regConnectWithReset(io.ID_to_EX_bus.bits.rs2_id     , rs2      , flush, 0.U    )
+    io.ID_to_EX_bus.valid := 1.U
 
     val stall_cnt = RegInit(0.U(2.W))
 

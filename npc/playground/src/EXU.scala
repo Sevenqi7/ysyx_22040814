@@ -76,6 +76,7 @@ class EXU extends Module{
     regConnect(io.EX_MemWriteData   ,                            MemWriteData)
     regConnect(io.EX_ALUResult      ,                              ALU_Result)
     regConnect(io.EX_LsuType        ,                                 LsuType)
+    io.ID_to_EX_bus.ready := 1.U
     // regConnectWithReset(io.EX_pc            , io.ID_pc          , pplrst)
     // regConnectWithReset(io.EX_Inst          , io.ID_Inst        , pplrst)
     // regConnectWithReset(io.EX_RegWriteEn    , io.ID_RegWriteEn  , pplrst)
