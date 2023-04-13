@@ -42,7 +42,7 @@ class top extends Module{
     io.IF_pc := inst_fetch_unit.io.IF_pc
     io.ID_pc := inst_decode_unit.io.ID_to_EX_bus.bits.PC
     io.WB_pc := wb_unit.io.WB_pc
-    io.MEM_pc := mem_unit.io.EX_pc
+    io.MEM_pc := excute_unit.io.EX_to_MEM_bus.bits.EX_PC
     io.WB_Inst := wb_unit.io.WB_Inst
     io.WB_RegWriteData := wb_unit.io.WB_RegWriteData
     io.MEM_RegWriteData := mem_unit.io.MEM_RegWriteData_Pass
@@ -51,7 +51,7 @@ class top extends Module{
     io.ID_ALU_Data2 := inst_decode_unit.io.ID_to_EX_bus.bits.ALU_Data2
     io.ID_Rs1Data := inst_decode_unit.io.ID_to_EX_bus.bits.rs1_data
     io.ID_Rs2Data := inst_decode_unit.io.ID_to_EX_bus.bits.rs2_data
-    io.ALUResult  := excute_unit.io.EX_ALUResult
+    io.ALUResult  := excute_unit.io.EX_to_MEM_bus.bits.ALU_result
     io.stall := inst_decode_unit.io.ID_stall
     
     val simulate = Module(new sim)
@@ -74,39 +74,24 @@ class top extends Module{
     inst_decode_unit.io.MEM_RegWriteID      := excute_unit.io.EX_RegWriteID
     inst_decode_unit.io.EX_ALUResult        := excute_unit.io.EX_ALUResult_Pass
 
-    
-    // excute_unit.io.ID_pc                    := inst_decode_unit.io.ID_pc
-    // excute_unit.io.ID_Inst                  := inst_decode_unit.io.ID_Inst
-    // excute_unit.io.ID_RegWriteEn            := inst_decode_unit.io.ID_RegWriteEn
-    // excute_unit.io.ID_RegWriteID            := inst_decode_unit.io.ID_RegWriteID
-    // excute_unit.io.ID_ALU_Data1             := inst_decode_unit.io.ID_ALU_Data1
-    // excute_unit.io.ID_ALU_Data2             := inst_decode_unit.io.ID_ALU_Data2
-    // excute_unit.io.ID_optype                := inst_decode_unit.io.ID_optype
-    // excute_unit.io.ID_MemWriteEn            := inst_decode_unit.io.ID_MemWriteEn
-    // excute_unit.io.ID_MemReadEn             := inst_decode_unit.io.ID_MemReadEn
-    // excute_unit.io.ID_FuType                := inst_decode_unit.io.ID_FuType
-    // excute_unit.io.ID_Rs1Data               := inst_decode_unit.io.ID_Rs1Data
-    // excute_unit.io.ID_Rs1ID                 := inst_decode_unit.io.ID_Rs1ID
-    // excute_unit.io.ID_Rs2Data               := inst_decode_unit.io.ID_Rs2Data
-    // excute_unit.io.ID_Rs2ID                 := inst_decode_unit.io.ID_Rs2ID
-
     excute_unit.io.ID_to_EX_bus             <> inst_decode_unit.io.ID_to_EX_bus
-
     excute_unit.io.flush                    := inst_decode_unit.io.ID_stall
     excute_unit.io.MEM_RegWriteData         := mem_unit.io.MEM_RegWriteData_Pass
     excute_unit.io.WB_RegWriteEn            := wb_unit.io.WB_RegWriteEn
     excute_unit.io.WB_RegWriteID            := wb_unit.io.WB_RegWriteID
     excute_unit.io.WB_RegWriteData          := wb_unit.io.WB_RegWriteData
 
-    mem_unit.io.EX_pc                       := excute_unit.io.EX_pc
-    mem_unit.io.EX_Inst                     := excute_unit.io.EX_Inst  
-    mem_unit.io.EX_ALUResult                := excute_unit.io.EX_ALUResult
-    mem_unit.io.EX_MemWriteData             := excute_unit.io.EX_MemWriteData
-    mem_unit.io.EX_MemWriteEn               := excute_unit.io.EX_MemWriteEn
-    mem_unit.io.EX_MemReadEn                := excute_unit.io.EX_MemReadEn
-    mem_unit.io.EX_LsuType                  := excute_unit.io.EX_LsuType
-    mem_unit.io.EX_RegWriteEn               := excute_unit.io.EX_RegWriteEn
-    mem_unit.io.EX_RegWriteID               := excute_unit.io.EX_RegWriteID
+    mem_unit.io.EX_to_MEM_bus               <> inst_decode_unit.io.EX_to_MEM_bus
+
+    // mem_unit.io.EX_pc                       := excute_unit.io.EX_pc
+    // mem_unit.io.EX_Inst                     := excute_unit.io.EX_Inst  
+    // mem_unit.io.EX_ALUResult                := excute_unit.io.EX_ALUResult
+    // mem_unit.io.EX_MemWriteData             := excute_unit.io.EX_MemWriteData
+    // mem_unit.io.EX_MemWriteEn               := excute_unit.io.EX_MemWriteEn
+    // mem_unit.io.EX_MemReadEn                := excute_unit.io.EX_MemReadEn
+    // mem_unit.io.EX_LsuType                  := excute_unit.io.EX_LsuType
+    // mem_unit.io.EX_RegWriteEn               := excute_unit.io.EX_RegWriteEn
+    // mem_unit.io.EX_RegWriteID               := excute_unit.io.EX_RegWriteID
 
     wb_unit.io.MEM_pc                       := mem_unit.io.MEM_pc
     wb_unit.io.MEM_Inst                     := mem_unit.io.MEM_Inst
