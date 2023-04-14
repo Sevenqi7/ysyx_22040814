@@ -2,38 +2,34 @@ import "DPI-C" function void dci_pmem_write(input longint waddr, input longint w
 import "DPI-C" function void dci_pmem_read(input longint raddr, output longint rdata, input byte rmask);
 
 module sim_sram(
-    input  [63:0]    pc         ,     //for debug
-    input            aresetn    ,
-    input            aclk       ,
+    input       [63:0]      pc          ,         //for debug
+    input                   aresetn     ,
+    input                   aclk        ,
     //ar
-    input  [31:0]    araddr     ,
-    input            arvalid    ,
-    output           arready     ,
+    input       [31:0]      araddr      ,
+    input                   arvalid     ,
+    output reg              arready     ,
     //r
-    output [63:0]    rdata      ,
-    output [1 :0]    rresp      ,
-    output           rvalid     ,
-    input            rready     ,
+    output reg  [63:0]      rdata       ,
+    output reg  [1: 0]      rresp       ,
+    output reg              rvalid      ,
+    input                   rready      ,
     //aw
-    input  [31:0]    awaddr     ,
-    input            awvalid    ,
-    output           awready    ,
+    input       [31:0]      awaddr      ,
+    input                   awvalid     ,
+    output reg              awready     , 
     //w
-    input  [63:0]    wdata      ,
-    input  [7: 0]    wstrb      ,
-    input            wvalid     ,
-    output           wready     ,
+    input       [63:0]      wdata       , 
+    input       [7: 0]      wstrb       ,
+    input                   wvalid      ,
+    output reg              wready      ,
     //b
-    output [1: 0]    bresp      ,
-    output           bvalid     ,
-    input            bready     
+    output reg  [1: 0]      bresp       ,
+    output reg              bvalid      ,
+    input                   bready
 );
 
-reg aready, rresp, rvalid, awready, wready, bvalid;
-reg [1:0] bresp; 
-reg [63:0] rdata;
-reg [63:0] wdata_r;
-assign rdata = rdata_r;
+reg [63:0] rdata_r, wdata_r;
 
 //ar
 always@(posedge aclk) begin
@@ -43,7 +39,7 @@ always@(posedge aclk) begin
   else begin
     arready <= 1'b1;
     if(arvalid & arready) begin
-        dci_pmem_read(raddr, rdata_r, 8'hFF);
+        dci_pmem_read({32'h8000 ,araddr}, rdata_r, 8'hFF);
     end
   end
 end
@@ -51,13 +47,11 @@ end
 always@(posedge aclk) begin
   if(!aresetn) 
       rvalid <= 1'b0;
-  else begin
-    if(arvalid & arready) begin
+  else if(arvalid & arready) begin
         rvalid <= 1'b1;
         rresp  <= 2'b00;
         if(rready)
             rdata <= rdata_r;
-    end
   end
   else begin
       rvalid <= 1'b0;
@@ -81,14 +75,14 @@ always@(posedge aclk) begin
   if(!aresetn)
       wready <= 1'b1;
   else if(wvalid & wready) begin
-      dci_pmem_write(waddr, wdata_r, wstrb);
+      dci_pmem_write({32'h8000 ,araddr}, wdata_r, wstrb);
       bvalid <= 1'b1;
   end
 end
 
 always@(posedge aclk) begin
     bvalid <= 1'b1;     //write is always successful
-    brresp <= 2'b00;
+    bresp  <= 2'b00;
 end
 
 endmodule
