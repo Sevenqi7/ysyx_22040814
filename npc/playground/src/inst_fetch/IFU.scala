@@ -65,7 +65,7 @@ class IFU extends Module{
     inst_ram.io.wvalid                      := pre_fetch.axi_lite.writeData.valid
     pre_fetch.axi_lite.writeData.ready      := inst_ram.io.wready
     //b
-    pre_fetch.axi_lite.writeResp            := inst_ram.io.bresp
+    pre_fetch.axi_lite.writeResp            <> inst_ram.io.bresp
     pre_fetch.axi_lite.writeResp.valid      := inst_ram.io.bready
     inst_ram.io.bready                      := pre_fetch.axi_lite.writeResp.ready
 
