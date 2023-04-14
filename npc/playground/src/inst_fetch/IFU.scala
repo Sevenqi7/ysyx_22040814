@@ -47,6 +47,8 @@ class IFU extends Module{
     val bp_fail = Wire(Bool())
     val flush   = Wire(Bool())
 
+    io.PF_pc                                := pre_fetch.io.PF_pc
+
     bp_fail                                 := pre_fetch.io.bp_fail
     pre_fetch.io.ID_npc                     := io.ID_npc
     pre_fetch.io.stall                      := io.ID_stall
