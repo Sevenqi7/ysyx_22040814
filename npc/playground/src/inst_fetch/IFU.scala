@@ -44,8 +44,8 @@ class IFU extends Module{
 
     val inst_ram = Module(new sim_sram)
     val pre_fetch = Module(new IF_pre_fetch)
-    val bp_fail = Bool()
-    val flush   = Bool()
+    val bp_fail = Wire(Bool())
+    val flush   = Wire(Bool())
 
     bp_fail                                 := pre_fetch.io.bp_fail
     pre_fetch.io.ID_npc                     := io.ID_npc
