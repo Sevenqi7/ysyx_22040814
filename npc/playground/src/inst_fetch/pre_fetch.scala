@@ -15,9 +15,12 @@ class IF_pre_fetch extends Module{
         val bp_fail      = Output(Bool())
     })
     val axi_lite = IO(new AXILiteMasterIF(32, 64))
+    val PF_npc   = RegInit(0x80000004L.U(64.W))
+    PF_npc      := Mux(!io.bp_fail, io.PF_npc+4.U, io.ID_npc+4.U)
+
     io.bp_fail := io.ID_npc =/= io.PF_pc && io.IF_pc =/= 0.U
 
-    regConnectWithResetAndStall(io.PF_pc, Mux(!io.bp_fail, io.PF_pc+4.U, io.ID_npc), reset, 0x7FFFFFFCL.U(64.W), io.stall)
+    regConnectWithResetAndStall(io.PF_pc, Mux(!io.bp_fail, PF_npc, io.ID_npc), reset, 0x80000000L.U(64.W), io.stall)
 
     //IFU doesn't write mem
     axi_lite.writeAddr.valid        := 0.U
