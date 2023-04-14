@@ -1313,7 +1313,8 @@ endmodule
 module top(	// <stdin>:1269:10
   input         clock,
                 reset,
-  output [63:0] io_PF_pc,
+  output [63:0] io_ID_npc,
+                io_PF_pc,
                 io_IF_pc,
                 io_ID_pc,
                 io_WB_pc,
@@ -1328,98 +1329,98 @@ module top(	// <stdin>:1269:10
                 io_ID_Rs2Data,
                 io_ALUResult);
 
-  wire [63:0] _simulate_inst;	// top.scala:59:26
-  wire [63:0] _wb_unit_io_WB_RegWriteData;	// top.scala:41:25
-  wire        _wb_unit_io_WB_RegWriteEn;	// top.scala:41:25
-  wire [4:0]  _wb_unit_io_WB_RegWriteID;	// top.scala:41:25
-  wire [31:0] _wb_unit_io_WB_Inst;	// top.scala:41:25
-  wire [63:0] _mem_unit_io_MEM_to_WB_bus_bits_regWriteData;	// top.scala:40:26
-  wire        _mem_unit_io_MEM_to_WB_bus_bits_regWriteEn;	// top.scala:40:26
-  wire [4:0]  _mem_unit_io_MEM_to_WB_bus_bits_regWriteID;	// top.scala:40:26
-  wire [63:0] _mem_unit_io_MEM_to_WB_bus_bits_PC;	// top.scala:40:26
-  wire [31:0] _mem_unit_io_MEM_to_WB_bus_bits_Inst;	// top.scala:40:26
-  wire [63:0] _mem_unit_io_MEM_regWriteData_Pass;	// top.scala:40:26
-  wire [31:0] _excute_unit_io_EX_to_MEM_bus_bits_Inst;	// top.scala:39:29
-  wire [63:0] _excute_unit_io_EX_to_MEM_bus_bits_PC;	// top.scala:39:29
-  wire [63:0] _excute_unit_io_EX_to_MEM_bus_bits_ALU_result;	// top.scala:39:29
-  wire [63:0] _excute_unit_io_EX_to_MEM_bus_bits_memWriteData;	// top.scala:39:29
-  wire        _excute_unit_io_EX_to_MEM_bus_bits_memWriteEn;	// top.scala:39:29
-  wire        _excute_unit_io_EX_to_MEM_bus_bits_memReadEn;	// top.scala:39:29
-  wire [4:0]  _excute_unit_io_EX_to_MEM_bus_bits_lsutype;	// top.scala:39:29
-  wire [4:0]  _excute_unit_io_EX_to_MEM_bus_bits_regWriteID;	// top.scala:39:29
-  wire        _excute_unit_io_EX_to_MEM_bus_bits_regWriteEn;	// top.scala:39:29
-  wire [63:0] _excute_unit_io_EX_ALUResult_Pass;	// top.scala:39:29
-  wire [63:0] _inst_decode_unit_io_ID_npc;	// top.scala:38:34
-  wire [63:0] _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data1;	// top.scala:38:34
-  wire [63:0] _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data2;	// top.scala:38:34
-  wire        _inst_decode_unit_io_ID_to_EX_bus_bits_futype;	// top.scala:38:34
-  wire [4:0]  _inst_decode_unit_io_ID_to_EX_bus_bits_optype;	// top.scala:38:34
-  wire [4:0]  _inst_decode_unit_io_ID_to_EX_bus_bits_rs1_id;	// top.scala:38:34
-  wire [63:0] _inst_decode_unit_io_ID_to_EX_bus_bits_rs2_data;	// top.scala:38:34
-  wire [4:0]  _inst_decode_unit_io_ID_to_EX_bus_bits_rs2_id;	// top.scala:38:34
-  wire [4:0]  _inst_decode_unit_io_ID_to_EX_bus_bits_regWriteID;	// top.scala:38:34
-  wire        _inst_decode_unit_io_ID_to_EX_bus_bits_regWriteEn;	// top.scala:38:34
-  wire        _inst_decode_unit_io_ID_to_EX_bus_bits_memWriteEn;	// top.scala:38:34
-  wire        _inst_decode_unit_io_ID_to_EX_bus_bits_memReadEn;	// top.scala:38:34
-  wire [63:0] _inst_decode_unit_io_ID_to_EX_bus_bits_PC;	// top.scala:38:34
-  wire [31:0] _inst_decode_unit_io_ID_to_EX_bus_bits_Inst;	// top.scala:38:34
-  wire        _inst_decode_unit_io_ID_stall;	// top.scala:38:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_0;	// top.scala:38:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_1;	// top.scala:38:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_2;	// top.scala:38:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_3;	// top.scala:38:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_4;	// top.scala:38:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_5;	// top.scala:38:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_6;	// top.scala:38:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_7;	// top.scala:38:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_8;	// top.scala:38:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_9;	// top.scala:38:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_10;	// top.scala:38:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_11;	// top.scala:38:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_12;	// top.scala:38:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_13;	// top.scala:38:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_14;	// top.scala:38:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_15;	// top.scala:38:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_16;	// top.scala:38:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_17;	// top.scala:38:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_18;	// top.scala:38:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_19;	// top.scala:38:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_20;	// top.scala:38:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_21;	// top.scala:38:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_22;	// top.scala:38:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_23;	// top.scala:38:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_24;	// top.scala:38:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_25;	// top.scala:38:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_26;	// top.scala:38:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_27;	// top.scala:38:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_28;	// top.scala:38:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_29;	// top.scala:38:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_30;	// top.scala:38:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_31;	// top.scala:38:34
-  wire        _inst_decode_unit_io_ID_unknown_inst;	// top.scala:38:34
-  wire [63:0] _inst_fetch_unit_io_IF_pc;	// top.scala:37:33
-  wire [31:0] _inst_fetch_unit_io_IF_Inst;	// top.scala:37:33
-  IFU inst_fetch_unit (	// top.scala:37:33
+  wire [63:0] _simulate_inst;	// top.scala:61:26
+  wire [63:0] _wb_unit_io_WB_RegWriteData;	// top.scala:42:25
+  wire        _wb_unit_io_WB_RegWriteEn;	// top.scala:42:25
+  wire [4:0]  _wb_unit_io_WB_RegWriteID;	// top.scala:42:25
+  wire [31:0] _wb_unit_io_WB_Inst;	// top.scala:42:25
+  wire [63:0] _mem_unit_io_MEM_to_WB_bus_bits_regWriteData;	// top.scala:41:26
+  wire        _mem_unit_io_MEM_to_WB_bus_bits_regWriteEn;	// top.scala:41:26
+  wire [4:0]  _mem_unit_io_MEM_to_WB_bus_bits_regWriteID;	// top.scala:41:26
+  wire [63:0] _mem_unit_io_MEM_to_WB_bus_bits_PC;	// top.scala:41:26
+  wire [31:0] _mem_unit_io_MEM_to_WB_bus_bits_Inst;	// top.scala:41:26
+  wire [63:0] _mem_unit_io_MEM_regWriteData_Pass;	// top.scala:41:26
+  wire [31:0] _excute_unit_io_EX_to_MEM_bus_bits_Inst;	// top.scala:40:29
+  wire [63:0] _excute_unit_io_EX_to_MEM_bus_bits_PC;	// top.scala:40:29
+  wire [63:0] _excute_unit_io_EX_to_MEM_bus_bits_ALU_result;	// top.scala:40:29
+  wire [63:0] _excute_unit_io_EX_to_MEM_bus_bits_memWriteData;	// top.scala:40:29
+  wire        _excute_unit_io_EX_to_MEM_bus_bits_memWriteEn;	// top.scala:40:29
+  wire        _excute_unit_io_EX_to_MEM_bus_bits_memReadEn;	// top.scala:40:29
+  wire [4:0]  _excute_unit_io_EX_to_MEM_bus_bits_lsutype;	// top.scala:40:29
+  wire [4:0]  _excute_unit_io_EX_to_MEM_bus_bits_regWriteID;	// top.scala:40:29
+  wire        _excute_unit_io_EX_to_MEM_bus_bits_regWriteEn;	// top.scala:40:29
+  wire [63:0] _excute_unit_io_EX_ALUResult_Pass;	// top.scala:40:29
+  wire [63:0] _inst_decode_unit_io_ID_npc;	// top.scala:39:34
+  wire [63:0] _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data1;	// top.scala:39:34
+  wire [63:0] _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data2;	// top.scala:39:34
+  wire        _inst_decode_unit_io_ID_to_EX_bus_bits_futype;	// top.scala:39:34
+  wire [4:0]  _inst_decode_unit_io_ID_to_EX_bus_bits_optype;	// top.scala:39:34
+  wire [4:0]  _inst_decode_unit_io_ID_to_EX_bus_bits_rs1_id;	// top.scala:39:34
+  wire [63:0] _inst_decode_unit_io_ID_to_EX_bus_bits_rs2_data;	// top.scala:39:34
+  wire [4:0]  _inst_decode_unit_io_ID_to_EX_bus_bits_rs2_id;	// top.scala:39:34
+  wire [4:0]  _inst_decode_unit_io_ID_to_EX_bus_bits_regWriteID;	// top.scala:39:34
+  wire        _inst_decode_unit_io_ID_to_EX_bus_bits_regWriteEn;	// top.scala:39:34
+  wire        _inst_decode_unit_io_ID_to_EX_bus_bits_memWriteEn;	// top.scala:39:34
+  wire        _inst_decode_unit_io_ID_to_EX_bus_bits_memReadEn;	// top.scala:39:34
+  wire [63:0] _inst_decode_unit_io_ID_to_EX_bus_bits_PC;	// top.scala:39:34
+  wire [31:0] _inst_decode_unit_io_ID_to_EX_bus_bits_Inst;	// top.scala:39:34
+  wire        _inst_decode_unit_io_ID_stall;	// top.scala:39:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_0;	// top.scala:39:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_1;	// top.scala:39:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_2;	// top.scala:39:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_3;	// top.scala:39:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_4;	// top.scala:39:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_5;	// top.scala:39:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_6;	// top.scala:39:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_7;	// top.scala:39:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_8;	// top.scala:39:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_9;	// top.scala:39:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_10;	// top.scala:39:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_11;	// top.scala:39:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_12;	// top.scala:39:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_13;	// top.scala:39:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_14;	// top.scala:39:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_15;	// top.scala:39:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_16;	// top.scala:39:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_17;	// top.scala:39:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_18;	// top.scala:39:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_19;	// top.scala:39:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_20;	// top.scala:39:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_21;	// top.scala:39:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_22;	// top.scala:39:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_23;	// top.scala:39:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_24;	// top.scala:39:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_25;	// top.scala:39:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_26;	// top.scala:39:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_27;	// top.scala:39:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_28;	// top.scala:39:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_29;	// top.scala:39:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_30;	// top.scala:39:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_31;	// top.scala:39:34
+  wire        _inst_decode_unit_io_ID_unknown_inst;	// top.scala:39:34
+  wire [63:0] _inst_fetch_unit_io_IF_pc;	// top.scala:38:33
+  wire [31:0] _inst_fetch_unit_io_IF_Inst;	// top.scala:38:33
+  IFU inst_fetch_unit (	// top.scala:38:33
     .clock       (clock),
     .reset       (reset),
-    .io_ID_npc   (_inst_decode_unit_io_ID_npc),	// top.scala:38:34
-    .io_ID_stall (_inst_decode_unit_io_ID_stall),	// top.scala:38:34
+    .io_ID_npc   (_inst_decode_unit_io_ID_npc),	// top.scala:39:34
+    .io_ID_stall (_inst_decode_unit_io_ID_stall),	// top.scala:39:34
     .io_PF_pc    (io_PF_pc),
     .io_IF_pc    (_inst_fetch_unit_io_IF_pc),
     .io_IF_Inst  (_inst_fetch_unit_io_IF_Inst)
   );
-  IDU inst_decode_unit (	// top.scala:38:34
+  IDU inst_decode_unit (	// top.scala:39:34
     .clock                           (clock),
     .reset                           (reset),
-    .io_IF_Inst                      (_inst_fetch_unit_io_IF_Inst),	// top.scala:37:33
-    .io_IF_pc                        (_inst_fetch_unit_io_IF_pc),	// top.scala:37:33
-    .io_WB_RegWriteData              (_wb_unit_io_WB_RegWriteData),	// top.scala:41:25
-    .io_WB_RegWriteID                (_wb_unit_io_WB_RegWriteID),	// top.scala:41:25
-    .io_WB_RegWriteEn                (_wb_unit_io_WB_RegWriteEn),	// top.scala:41:25
-    .io_MEM_RegWriteData             (_mem_unit_io_MEM_regWriteData_Pass),	// top.scala:40:26
-    .io_MEM_RegWriteEn               (_excute_unit_io_EX_to_MEM_bus_bits_regWriteEn),	// top.scala:39:29
-    .io_MEM_RegWriteID               (_excute_unit_io_EX_to_MEM_bus_bits_regWriteID),	// top.scala:39:29
-    .io_EX_ALUResult                 (_excute_unit_io_EX_ALUResult_Pass),	// top.scala:39:29
+    .io_IF_Inst                      (_inst_fetch_unit_io_IF_Inst),	// top.scala:38:33
+    .io_IF_pc                        (_inst_fetch_unit_io_IF_pc),	// top.scala:38:33
+    .io_WB_RegWriteData              (_wb_unit_io_WB_RegWriteData),	// top.scala:42:25
+    .io_WB_RegWriteID                (_wb_unit_io_WB_RegWriteID),	// top.scala:42:25
+    .io_WB_RegWriteEn                (_wb_unit_io_WB_RegWriteEn),	// top.scala:42:25
+    .io_MEM_RegWriteData             (_mem_unit_io_MEM_regWriteData_Pass),	// top.scala:41:26
+    .io_MEM_RegWriteEn               (_excute_unit_io_EX_to_MEM_bus_bits_regWriteEn),	// top.scala:40:29
+    .io_MEM_RegWriteID               (_excute_unit_io_EX_to_MEM_bus_bits_regWriteID),	// top.scala:40:29
+    .io_EX_ALUResult                 (_excute_unit_io_EX_ALUResult_Pass),	// top.scala:40:29
     .io_ID_npc                       (_inst_decode_unit_io_ID_npc),
     .io_ID_to_EX_bus_bits_ALU_Data1  (_inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data1),
     .io_ID_to_EX_bus_bits_ALU_Data2  (_inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data2),
@@ -1470,26 +1471,26 @@ module top(	// <stdin>:1269:10
     .io_ID_GPR_31                    (_inst_decode_unit_io_ID_GPR_31),
     .io_ID_unknown_inst              (_inst_decode_unit_io_ID_unknown_inst)
   );
-  EXU excute_unit (	// top.scala:39:29
+  EXU excute_unit (	// top.scala:40:29
     .clock                              (clock),
     .reset                              (reset),
-    .io_ID_to_EX_bus_bits_ALU_Data1     (_inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data1),	// top.scala:38:34
-    .io_ID_to_EX_bus_bits_ALU_Data2     (_inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data2),	// top.scala:38:34
-    .io_ID_to_EX_bus_bits_futype        (_inst_decode_unit_io_ID_to_EX_bus_bits_futype),	// top.scala:38:34
-    .io_ID_to_EX_bus_bits_optype        (_inst_decode_unit_io_ID_to_EX_bus_bits_optype),	// top.scala:38:34
-    .io_ID_to_EX_bus_bits_rs1_id        (_inst_decode_unit_io_ID_to_EX_bus_bits_rs1_id),	// top.scala:38:34
-    .io_ID_to_EX_bus_bits_rs2_data      (_inst_decode_unit_io_ID_to_EX_bus_bits_rs2_data),	// top.scala:38:34
-    .io_ID_to_EX_bus_bits_rs2_id        (_inst_decode_unit_io_ID_to_EX_bus_bits_rs2_id),	// top.scala:38:34
-    .io_ID_to_EX_bus_bits_regWriteID    (_inst_decode_unit_io_ID_to_EX_bus_bits_regWriteID),	// top.scala:38:34
-    .io_ID_to_EX_bus_bits_regWriteEn    (_inst_decode_unit_io_ID_to_EX_bus_bits_regWriteEn),	// top.scala:38:34
-    .io_ID_to_EX_bus_bits_memWriteEn    (_inst_decode_unit_io_ID_to_EX_bus_bits_memWriteEn),	// top.scala:38:34
-    .io_ID_to_EX_bus_bits_memReadEn     (_inst_decode_unit_io_ID_to_EX_bus_bits_memReadEn),	// top.scala:38:34
-    .io_ID_to_EX_bus_bits_PC            (_inst_decode_unit_io_ID_to_EX_bus_bits_PC),	// top.scala:38:34
-    .io_ID_to_EX_bus_bits_Inst          (_inst_decode_unit_io_ID_to_EX_bus_bits_Inst),	// top.scala:38:34
-    .io_WB_RegWriteEn                   (_wb_unit_io_WB_RegWriteEn),	// top.scala:41:25
-    .io_WB_RegWriteID                   (_wb_unit_io_WB_RegWriteID),	// top.scala:41:25
-    .io_WB_RegWriteData                 (_wb_unit_io_WB_RegWriteData),	// top.scala:41:25
-    .io_MEM_RegWriteData                (_mem_unit_io_MEM_regWriteData_Pass),	// top.scala:40:26
+    .io_ID_to_EX_bus_bits_ALU_Data1     (_inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data1),	// top.scala:39:34
+    .io_ID_to_EX_bus_bits_ALU_Data2     (_inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data2),	// top.scala:39:34
+    .io_ID_to_EX_bus_bits_futype        (_inst_decode_unit_io_ID_to_EX_bus_bits_futype),	// top.scala:39:34
+    .io_ID_to_EX_bus_bits_optype        (_inst_decode_unit_io_ID_to_EX_bus_bits_optype),	// top.scala:39:34
+    .io_ID_to_EX_bus_bits_rs1_id        (_inst_decode_unit_io_ID_to_EX_bus_bits_rs1_id),	// top.scala:39:34
+    .io_ID_to_EX_bus_bits_rs2_data      (_inst_decode_unit_io_ID_to_EX_bus_bits_rs2_data),	// top.scala:39:34
+    .io_ID_to_EX_bus_bits_rs2_id        (_inst_decode_unit_io_ID_to_EX_bus_bits_rs2_id),	// top.scala:39:34
+    .io_ID_to_EX_bus_bits_regWriteID    (_inst_decode_unit_io_ID_to_EX_bus_bits_regWriteID),	// top.scala:39:34
+    .io_ID_to_EX_bus_bits_regWriteEn    (_inst_decode_unit_io_ID_to_EX_bus_bits_regWriteEn),	// top.scala:39:34
+    .io_ID_to_EX_bus_bits_memWriteEn    (_inst_decode_unit_io_ID_to_EX_bus_bits_memWriteEn),	// top.scala:39:34
+    .io_ID_to_EX_bus_bits_memReadEn     (_inst_decode_unit_io_ID_to_EX_bus_bits_memReadEn),	// top.scala:39:34
+    .io_ID_to_EX_bus_bits_PC            (_inst_decode_unit_io_ID_to_EX_bus_bits_PC),	// top.scala:39:34
+    .io_ID_to_EX_bus_bits_Inst          (_inst_decode_unit_io_ID_to_EX_bus_bits_Inst),	// top.scala:39:34
+    .io_WB_RegWriteEn                   (_wb_unit_io_WB_RegWriteEn),	// top.scala:42:25
+    .io_WB_RegWriteID                   (_wb_unit_io_WB_RegWriteID),	// top.scala:42:25
+    .io_WB_RegWriteData                 (_wb_unit_io_WB_RegWriteData),	// top.scala:42:25
+    .io_MEM_RegWriteData                (_mem_unit_io_MEM_regWriteData_Pass),	// top.scala:41:26
     .io_EX_to_MEM_bus_bits_Inst         (_excute_unit_io_EX_to_MEM_bus_bits_Inst),
     .io_EX_to_MEM_bus_bits_PC           (_excute_unit_io_EX_to_MEM_bus_bits_PC),
     .io_EX_to_MEM_bus_bits_ALU_result   (_excute_unit_io_EX_to_MEM_bus_bits_ALU_result),
@@ -1501,18 +1502,18 @@ module top(	// <stdin>:1269:10
     .io_EX_to_MEM_bus_bits_regWriteEn   (_excute_unit_io_EX_to_MEM_bus_bits_regWriteEn),
     .io_EX_ALUResult_Pass               (_excute_unit_io_EX_ALUResult_Pass)
   );
-  MEMU mem_unit (	// top.scala:40:26
+  MEMU mem_unit (	// top.scala:41:26
     .clock                              (clock),
     .reset                              (reset),
-    .io_EX_to_MEM_bus_bits_Inst         (_excute_unit_io_EX_to_MEM_bus_bits_Inst),	// top.scala:39:29
-    .io_EX_to_MEM_bus_bits_PC           (_excute_unit_io_EX_to_MEM_bus_bits_PC),	// top.scala:39:29
-    .io_EX_to_MEM_bus_bits_ALU_result   (_excute_unit_io_EX_to_MEM_bus_bits_ALU_result),	// top.scala:39:29
-    .io_EX_to_MEM_bus_bits_memWriteData (_excute_unit_io_EX_to_MEM_bus_bits_memWriteData),	// top.scala:39:29
-    .io_EX_to_MEM_bus_bits_memWriteEn   (_excute_unit_io_EX_to_MEM_bus_bits_memWriteEn),	// top.scala:39:29
-    .io_EX_to_MEM_bus_bits_memReadEn    (_excute_unit_io_EX_to_MEM_bus_bits_memReadEn),	// top.scala:39:29
-    .io_EX_to_MEM_bus_bits_lsutype      (_excute_unit_io_EX_to_MEM_bus_bits_lsutype),	// top.scala:39:29
-    .io_EX_to_MEM_bus_bits_regWriteID   (_excute_unit_io_EX_to_MEM_bus_bits_regWriteID),	// top.scala:39:29
-    .io_EX_to_MEM_bus_bits_regWriteEn   (_excute_unit_io_EX_to_MEM_bus_bits_regWriteEn),	// top.scala:39:29
+    .io_EX_to_MEM_bus_bits_Inst         (_excute_unit_io_EX_to_MEM_bus_bits_Inst),	// top.scala:40:29
+    .io_EX_to_MEM_bus_bits_PC           (_excute_unit_io_EX_to_MEM_bus_bits_PC),	// top.scala:40:29
+    .io_EX_to_MEM_bus_bits_ALU_result   (_excute_unit_io_EX_to_MEM_bus_bits_ALU_result),	// top.scala:40:29
+    .io_EX_to_MEM_bus_bits_memWriteData (_excute_unit_io_EX_to_MEM_bus_bits_memWriteData),	// top.scala:40:29
+    .io_EX_to_MEM_bus_bits_memWriteEn   (_excute_unit_io_EX_to_MEM_bus_bits_memWriteEn),	// top.scala:40:29
+    .io_EX_to_MEM_bus_bits_memReadEn    (_excute_unit_io_EX_to_MEM_bus_bits_memReadEn),	// top.scala:40:29
+    .io_EX_to_MEM_bus_bits_lsutype      (_excute_unit_io_EX_to_MEM_bus_bits_lsutype),	// top.scala:40:29
+    .io_EX_to_MEM_bus_bits_regWriteID   (_excute_unit_io_EX_to_MEM_bus_bits_regWriteID),	// top.scala:40:29
+    .io_EX_to_MEM_bus_bits_regWriteEn   (_excute_unit_io_EX_to_MEM_bus_bits_regWriteEn),	// top.scala:40:29
     .io_MEM_to_WB_bus_bits_regWriteData (_mem_unit_io_MEM_to_WB_bus_bits_regWriteData),
     .io_MEM_to_WB_bus_bits_regWriteEn   (_mem_unit_io_MEM_to_WB_bus_bits_regWriteEn),
     .io_MEM_to_WB_bus_bits_regWriteID   (_mem_unit_io_MEM_to_WB_bus_bits_regWriteID),
@@ -1520,19 +1521,18 @@ module top(	// <stdin>:1269:10
     .io_MEM_to_WB_bus_bits_Inst         (_mem_unit_io_MEM_to_WB_bus_bits_Inst),
     .io_MEM_regWriteData_Pass           (_mem_unit_io_MEM_regWriteData_Pass)
   );
-  WBU wb_unit (	// top.scala:41:25
-    .io_MEM_to_WB_bus_bits_regWriteData (_mem_unit_io_MEM_to_WB_bus_bits_regWriteData),	// top.scala:40:26
-    .io_MEM_to_WB_bus_bits_regWriteEn   (_mem_unit_io_MEM_to_WB_bus_bits_regWriteEn),	// top.scala:40:26
-    .io_MEM_to_WB_bus_bits_regWriteID   (_mem_unit_io_MEM_to_WB_bus_bits_regWriteID),	// top.scala:40:26
-    .io_MEM_to_WB_bus_bits_PC           (_mem_unit_io_MEM_to_WB_bus_bits_PC),	// top.scala:40:26
-    .io_MEM_to_WB_bus_bits_Inst         (_mem_unit_io_MEM_to_WB_bus_bits_Inst),	// top.scala:40:26
+  WBU wb_unit (	// top.scala:42:25
+    .io_MEM_to_WB_bus_bits_regWriteData (_mem_unit_io_MEM_to_WB_bus_bits_regWriteData),	// top.scala:41:26
+    .io_MEM_to_WB_bus_bits_regWriteEn   (_mem_unit_io_MEM_to_WB_bus_bits_regWriteEn),	// top.scala:41:26
+    .io_MEM_to_WB_bus_bits_regWriteID   (_mem_unit_io_MEM_to_WB_bus_bits_regWriteID),	// top.scala:41:26
+    .io_MEM_to_WB_bus_bits_PC           (_mem_unit_io_MEM_to_WB_bus_bits_PC),	// top.scala:41:26
+    .io_MEM_to_WB_bus_bits_Inst         (_mem_unit_io_MEM_to_WB_bus_bits_Inst),	// top.scala:41:26
     .io_WB_RegWriteData                 (_wb_unit_io_WB_RegWriteData),
     .io_WB_RegWriteEn                   (_wb_unit_io_WB_RegWriteEn),
     .io_WB_RegWriteID                   (_wb_unit_io_WB_RegWriteID),
     .io_WB_pc                           (io_WB_pc),
     .io_WB_Inst                         (_wb_unit_io_WB_Inst)
   );
-
 wire [63:0] GPR [31:0];
 assign {GPR[31], GPR[30], GPR[29], GPR[28], GPR[27], GPR[26], GPR[25], GPR[24], GPR[23], GPR[22], GPR[21], GPR[20]
 , GPR[19], GPR[18], GPR[17], GPR[16], GPR[15], GPR[14], GPR[13], GPR[12], GPR[11], GPR[10], GPR[9], GPR[8], GPR[7]
@@ -1553,17 +1553,19 @@ sim simulate (	// top.scala:24:26
    .GPR               (GPR),
    .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
 );
-  assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:1269:10, top.scala:37:33
-  assign io_ID_pc = _inst_decode_unit_io_ID_to_EX_bus_bits_PC;	// <stdin>:1269:10, top.scala:38:34
-  assign io_WB_Inst = _wb_unit_io_WB_Inst;	// <stdin>:1269:10, top.scala:41:25
-  assign io_WB_RegWriteData = _wb_unit_io_WB_RegWriteData;	// <stdin>:1269:10, top.scala:41:25
-  assign io_MEM_pc = _mem_unit_io_MEM_to_WB_bus_bits_PC;	// <stdin>:1269:10, top.scala:40:26
-  assign io_MEM_RegWriteData = _mem_unit_io_MEM_regWriteData_Pass;	// <stdin>:1269:10, top.scala:40:26
-  assign io_stall = _inst_decode_unit_io_ID_stall;	// <stdin>:1269:10, top.scala:38:34
-  assign io_ID_ALU_Data1 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data1;	// <stdin>:1269:10, top.scala:38:34
-  assign io_ID_ALU_Data2 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data2;	// <stdin>:1269:10, top.scala:38:34
-  assign io_ID_Rs2Data = _inst_decode_unit_io_ID_to_EX_bus_bits_rs2_data;	// <stdin>:1269:10, top.scala:38:34
-  assign io_ALUResult = _excute_unit_io_EX_to_MEM_bus_bits_ALU_result;	// <stdin>:1269:10, top.scala:39:29
+
+  assign io_ID_npc = _inst_decode_unit_io_ID_npc;	// <stdin>:1269:10, top.scala:39:34
+  assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:1269:10, top.scala:38:33
+  assign io_ID_pc = _inst_decode_unit_io_ID_to_EX_bus_bits_PC;	// <stdin>:1269:10, top.scala:39:34
+  assign io_WB_Inst = _wb_unit_io_WB_Inst;	// <stdin>:1269:10, top.scala:42:25
+  assign io_WB_RegWriteData = _wb_unit_io_WB_RegWriteData;	// <stdin>:1269:10, top.scala:42:25
+  assign io_MEM_pc = _mem_unit_io_MEM_to_WB_bus_bits_PC;	// <stdin>:1269:10, top.scala:41:26
+  assign io_MEM_RegWriteData = _mem_unit_io_MEM_regWriteData_Pass;	// <stdin>:1269:10, top.scala:41:26
+  assign io_stall = _inst_decode_unit_io_ID_stall;	// <stdin>:1269:10, top.scala:39:34
+  assign io_ID_ALU_Data1 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data1;	// <stdin>:1269:10, top.scala:39:34
+  assign io_ID_ALU_Data2 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data2;	// <stdin>:1269:10, top.scala:39:34
+  assign io_ID_Rs2Data = _inst_decode_unit_io_ID_to_EX_bus_bits_rs2_data;	// <stdin>:1269:10, top.scala:39:34
+  assign io_ALUResult = _excute_unit_io_EX_to_MEM_bus_bits_ALU_result;	// <stdin>:1269:10, top.scala:40:29
 endmodule
 
 
@@ -1728,3 +1730,4 @@ module sim(input[63:0] IF_pc, input [63:0] GPR [31:0], input unknown_inst_flag, 
 endmodule
 
 // ----- 8< ----- FILE "firrtl_black_box_resource_files.f" ----- 8< -----
+

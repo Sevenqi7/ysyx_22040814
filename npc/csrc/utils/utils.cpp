@@ -11,6 +11,7 @@ void clock_step()
         top->eval();    
     }
 #ifdef CONFIG_DEBUGMSG
+    Log("ID_npc:0x%lx", top->io_ID_npc);
     Log("PF_pc:0x%lx", top->io_PF_pc);
     Log("IF_pc:0x%lx", top->io_IF_pc); 
     Log("ID_pc:0x%lx", top->io_ID_pc);
