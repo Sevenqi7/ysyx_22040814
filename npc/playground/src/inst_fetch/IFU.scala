@@ -37,7 +37,6 @@ class IFU extends Module{
     val io = IO(new Bundle{
         val ID_npc = Input(UInt(64.W))
         val ID_stall = Input(Bool())
-        val PF_pc = Output(UInt(64.W))
         val IF_pc = Output(UInt(64.W))
         val IF_Inst = Output(UInt(32.W))
     })
@@ -45,7 +44,6 @@ class IFU extends Module{
     val inst_ram = Module(new sim_sram)
     val pre_fetch = Module(new IF_pre_fetch)
     //for debug
-    io.PF_pc                                := pre_fetch.io.PF_pc
 
     pre_fetch.io.pre_fetch_pc               := io.ID_npc
     pre_fetch.io.stall                      := io.ID_stall
@@ -76,7 +74,7 @@ class IFU extends Module{
     inst_ram.io.bready                      := pre_fetch.axi_lite.writeResp.ready
 
     
-    regConnectWithResetAndStall(io.IF_pc, pre_fetch.io.PF_pc, reset, 0.U, io.ID_stall)
+    io.IF_pc                                := pre_fetch.io.PF_pc
     regConnectWithResetAndStall(io.IF_Inst, pre_fetch.io.inst, reset.asBool | pre_fetch.io.inst_valid, 0.U, io.ID_stall)
     // val pcReg = RegInit(0x80000000L.U(64.W))
     // pcReg := io.ID_npc

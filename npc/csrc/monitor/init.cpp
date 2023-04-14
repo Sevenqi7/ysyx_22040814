@@ -41,7 +41,6 @@ void init_npc(int argc, char **argv)
     Verilated::traceEverOn(true);
     
     img_size = init_img(argc, argv);
-    assert(0);
     init_disasm("riscv64");
     init_ftrace(argv[2]);
     #ifdef CONFIG_DIFFTEST

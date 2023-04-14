@@ -19,7 +19,6 @@ assign {GPR[31], GPR[30], GPR[29], GPR[28], GPR[27], GPR[26], GPR[25], GPR[24], 
 
 sim simulate (	// top.scala:24:26
    .IF_pc             (_inst_fetch_unit_io_IF_pc),	// top.scala:24:33
-   .inst              (_simulate_inst),
    .WB_Inst           (io_WB_Inst),
    .GPR               (GPR),
    .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
