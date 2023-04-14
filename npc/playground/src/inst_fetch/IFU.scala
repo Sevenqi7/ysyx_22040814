@@ -44,6 +44,8 @@ class IFU extends Module{
 
     val inst_ram = Module(new sim_sram)
     val pre_fetch = Module(new IF_pre_fetch)
+    //for debug
+    io.PF_pc                                := pre_fetch.io.PF_pc
 
     pre_fetch.io.pre_fetch_pc               := io.ID_npc
     pre_fetch.io.stall                      := io.ID_stall
