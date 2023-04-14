@@ -79,7 +79,7 @@ class IFU extends Module{
     pre_fetch.axi_lite.writeResp.valid      := inst_ram.io.bready
     inst_ram.io.bready                      := pre_fetch.axi_lite.writeResp.ready
 
-    flush                                   := reset.asBool | pre_fetch.io.inst_valid | bp_fail
+    flush                                   := reset.asBool | !pre_fetch.io.inst_valid | bp_fail
 
     regConnectWithResetAndStall(io.IF_pc, pre_fetch.io.PF_pc , flush, 0.U, io.ID_stall)
     regConnectWithResetAndStall(io.IF_Inst, pre_fetch.io.inst, flush, 0.U, io.ID_stall)
