@@ -1,5 +1,5 @@
-import "DPI-C" function void dci_pmem_write(input longint waddr, input longint wdata, input byte wmask);
-import "DPI-C" function void dci_pmem_read(input longint raddr, output longint rdata, input byte rmask);
+// import "DPI-C" function void dci_pmem_write(input longint waddr, input longint wdata, input byte wmask);
+// import "DPI-C" function void dci_pmem_read(input longint raddr, output longint rdata, input byte rmask);
 
 module LSU(input [63:0] pc, input [63:0] addr, input [4:0] LsuType, input WriteEn, input ReadEn, input [63:0]WriteData, output [63:0] ReadData);
 
