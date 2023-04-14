@@ -44,6 +44,7 @@ class IFU extends Module{
     val pre_fetch = Module(new IF_pre_fetch)
 
     pre_fetch.io.pre_fetch_pc               := io.ID_npc
+    pre_fetch.io.stall                      := io.ID_stall
     inst_ram.io.pc                          := pre_fetch.io.PF_pc
     inst_ram.io.aclk                        := clock
     //ar
