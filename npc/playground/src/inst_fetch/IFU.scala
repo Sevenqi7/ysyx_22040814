@@ -37,6 +37,7 @@ class IFU extends Module{
     val io = IO(new Bundle{
         val ID_npc = Input(UInt(64.W))
         val ID_stall = Input(Bool())
+        val PF_pc   = Output(UInt(64.W))
         val IF_pc = Output(UInt(64.W))
         val IF_Inst = Output(UInt(32.W))
     })
@@ -77,7 +78,7 @@ class IFU extends Module{
 
     flush                                   := reset.asBool | pre_fetch.io.inst_valid | bp_fail
 
-    regConnectWithResetAndStall(io.IF_pc, pre_fetch.io.PF_pc , flush, pre_fetch.io.PF_pc+4, io.ID_stall)
+    regConnectWithResetAndStall(io.IF_pc, pre_fetch.io.PF_pc , flush, pre_fetch.io.PF_pc+4.U, io.ID_stall)
     regConnectWithResetAndStall(io.IF_Inst, pre_fetch.io.inst, flush, 0.U, io.ID_stall)
     // val pcReg = RegInit(0x80000000L.U(64.W))
     // pcReg := io.ID_npc

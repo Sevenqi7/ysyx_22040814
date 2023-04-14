@@ -14,8 +14,8 @@ class IF_pre_fetch extends Module{
         val stall        = Input(Bool())
         val bp_fail      = Output(Bool())
     })
-    val axi_lite = IO(new AXILiteMasterI F(32, 64))
-    io.bp_fail = io.ID_npc =/= io.IF_pc
+    val axi_lite = IO(new AXILiteMasterIF(32, 64))
+    io.bp_fail := io.ID_npc =/= io.IF_pc
 
     regConnectWithResetAndStall(io.PF_pc, Mux(!io.bp_fail, io.PF_pc+4, io.ID_npc), reset, 0x80000000L.U(64.W), io.stall)
 
