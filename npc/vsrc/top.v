@@ -1533,11 +1533,11 @@ assign {GPR[31], GPR[30], GPR[29], GPR[28], GPR[27], GPR[26], GPR[25], GPR[24], 
 
 sim simulate (	// top.scala:24:26
    .IF_pc             (_inst_fetch_unit_io_IF_pc),	// top.scala:24:33
-   .inst              (_simulate_inst),
    .WB_Inst           (io_WB_Inst),
    .GPR               (GPR),
    .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
 );
+
   assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:1247:10, top.scala:36:33
   assign io_ID_pc = _inst_decode_unit_io_ID_to_EX_bus_bits_PC;	// <stdin>:1247:10, top.scala:37:34
   assign io_WB_Inst = _wb_unit_io_WB_Inst;	// <stdin>:1247:10, top.scala:40:25
@@ -1558,37 +1558,34 @@ import "DPI-C" function void dci_pmem_write(input longint waddr, input longint w
 import "DPI-C" function void dci_pmem_read(input longint raddr, output longint rdata, input byte rmask);
 
 module sim_sram(
-    input  [63:0]    pc         ,     //for debug
-    input            aresetn    ,
-    input            aclk       ,
+    input       [63:0]      pc          ,         //for debug
+    input                   aresetn     ,
+    input                   aclk        ,
     //ar
-    input  [31:0]    araddr     ,
-    input            arvalid    ,
-    output           arready     ,
+    input       [31:0]      araddr      ,
+    input                   arvalid     ,
+    output reg              arready     ,
     //r
-    output [63:0]    rdata      ,
-    output [1 :0]    rresp      ,
-    output           rvalid     ,
-    input            rready     ,
+    output reg  [63:0]      rdata       ,
+    output reg  [1: 0]      rresp       ,
+    output reg              rvalid      ,
+    input                   rready      ,
     //aw
-    input  [31:0]    awaddr     ,
-    input            awvalid    ,
-    output           awready    ,
+    input       [31:0]      awaddr      ,
+    input                   awvalid     ,
+    output reg              awready     , 
     //w
-    input  [63:0]    wdata      ,
-    input  [7: 0]    wstrb      ,
-    input            wvalid     ,
-    output           wready     ,
+    input       [63:0]      wdata       , 
+    input       [7: 0]      wstrb       ,
+    input                   wvalid      ,
+    output reg              wready      ,
     //b
-    output [1: 0]    bresp      ,
-    output           bvalid     ,
-    input            bready     
+    output reg  [1: 0]      bresp       ,
+    output reg              bvalid      ,
+    input                   bready
 );
 
-reg aready, rresp, rvalid, awready, wready, bvalid;
-reg [1:0] bresp; 
-reg [63:0] rdata;
-reg [63:0] wdata_r;
+reg [63:0] rdata_r, wdata_r;
 
 //ar
 always@(posedge aclk) begin
@@ -1598,7 +1595,7 @@ always@(posedge aclk) begin
   else begin
     arready <= 1'b1;
     if(arvalid & arready) begin
-        dci_pmem_read(raddr, rdata_r, 8'hFF);
+        dci_pmem_read({32'h8000 ,araddr}, rdata_r, 8'hFF);
     end
   end
 end
@@ -1634,14 +1631,14 @@ always@(posedge aclk) begin
   if(!aresetn)
       wready <= 1'b1;
   else if(wvalid & wready) begin
-      dci_pmem_write(waddr, wdata_r, wstrb);
+      dci_pmem_write({32'h8000 ,araddr}, wdata_r, wstrb);
       bvalid <= 1'b1;
   end
 end
 
 always@(posedge aclk) begin
-    bvalid <= 1'b1;     //write is always successful
-    brresp <= 2'b00;
+    bvalid <= 1'b1;       //write is always successful
+    bresp  <= 2'b00;
 end
 
 endmodule
@@ -1688,7 +1685,6 @@ endmodule
 import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
 import "DPI-C" function void unknown_inst();
 import "DPI-C" function void ebreak(input longint halt_ret);
-
 
 
 

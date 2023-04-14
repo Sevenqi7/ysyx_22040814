@@ -29,6 +29,7 @@ void reset(int time)
 
 void init_npc(int argc, char **argv)
 {
+    Log("npc initialize...");
     Verilated::mkdir("logs");
     contextp = new VerilatedContext;
     contextp->debug(0);
@@ -40,6 +41,7 @@ void init_npc(int argc, char **argv)
     Verilated::traceEverOn(true);
     
     img_size = init_img(argc, argv);
+    assert(0);
     init_disasm("riscv64");
     init_ftrace(argv[2]);
     #ifdef CONFIG_DIFFTEST
@@ -88,7 +90,7 @@ long init_img(int argc, char **argv)
         exit(-1);
     }
     fclose(fp);
-    while(top->io_IF_pc != RESET_VECTOR)
+    while(top->io_PF_pc != RESET_VECTOR)
         reset(10);
     return size;
 }
