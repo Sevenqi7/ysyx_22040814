@@ -19,6 +19,9 @@ package AXILiteDefs
     val resp    = UInt(2.W)
   }
 
+  class AXILiteWriteResp extends Bundle {
+    val resp    = UInt(2.W)
+  }
   // Part II: Definitions for the actual AXI interfaces
 
   class AXILiteSlaveIF(addrWidth: Int, dataWidth: Int) extends Bundle {
@@ -27,7 +30,7 @@ package AXILiteDefs
     // write data channel
     val writeData   = Flipped(Decoupled(new AXILiteWriteData(dataWidth)))
     // write response channel (for memory consistency)
-    val writeResp   = Decoupled(UInt(2.W))
+    val writeResp   = Decoupled(new AXILiteWriteResp)
     
     // read address channel
     val readAddr    = Flipped(Decoupled(new AXILiteAddress(addrWidth)))
