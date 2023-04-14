@@ -39,7 +39,7 @@ always@(posedge aclk) begin
   else begin
     arready <= 1'b1;
     if(arvalid & arready) begin
-        dci_pmem_read({32'h8000 ,araddr}, rdata_r, 8'hFF);
+        dci_pmem_read({32'h0 ,araddr}, rdata_r, 8'hFF);
     end
   end
 end
@@ -75,7 +75,7 @@ always@(posedge aclk) begin
   if(!aresetn)
       wready <= 1'b1;
   else if(wvalid & wready) begin
-      dci_pmem_write({32'h8000 ,araddr}, wdata_r, wstrb);
+      dci_pmem_write({32'h0 ,araddr}, wdata_r, wstrb);
       bvalid <= 1'b1;
   end
 end

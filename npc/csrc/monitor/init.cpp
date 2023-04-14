@@ -89,7 +89,7 @@ long init_img(int argc, char **argv)
         exit(-1);
     }
     fclose(fp);
-    while(top->io_PF_pc != RESET_VECTOR)
+    while(top->io_IF_pc != RESET_VECTOR)
         reset(10);
     return size;
 }
