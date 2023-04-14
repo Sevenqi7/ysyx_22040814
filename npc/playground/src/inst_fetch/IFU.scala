@@ -43,9 +43,11 @@ class IFU extends Module{
 
     val inst_ram = Module(new sim_sram)
     val pre_fetch = Module(new IF_pre_fetch)
-    //for debug
+    val bp_fail = Bool()
+    val flush   = Bool()
 
-    pre_fetch.io.pre_fetch_pc               := io.ID_npc
+    bp_fail                                 := pre_fetch.io.bp_fail
+    pre_fetch.io.ID_npc                     := io.ID_npc
     pre_fetch.io.stall                      := io.ID_stall
     inst_ram.io.pc                          := pre_fetch.io.PF_pc
     inst_ram.io.aclk                        := clock
@@ -73,9 +75,10 @@ class IFU extends Module{
     pre_fetch.axi_lite.writeResp.valid      := inst_ram.io.bready
     inst_ram.io.bready                      := pre_fetch.axi_lite.writeResp.ready
 
-    
-    io.IF_pc                                := pre_fetch.io.PF_pc
-    regConnectWithResetAndStall(io.IF_Inst, pre_fetch.io.inst, reset.asBool | pre_fetch.io.inst_valid, 0.U, io.ID_stall)
+    flush                                   := reset.asBool | pre_fetch.io.inst_valid | bp_fail
+
+    regConnectWithResetAndStall(io.IF_pc, pre_fetch.io.PF_pc , flush, pre_fetch.io.PF_pc+4, io.ID_stall)
+    regConnectWithResetAndStall(io.IF_Inst, pre_fetch.io.inst, flush, 0.U, io.ID_stall)
     // val pcReg = RegInit(0x80000000L.U(64.W))
     // pcReg := io.ID_npc
     // io.IF_pc := pcReg

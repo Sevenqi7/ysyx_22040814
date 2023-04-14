@@ -6,15 +6,18 @@ import utils._
 
 class IF_pre_fetch extends Module{
     val io = IO(new Bundle{
-        val pre_fetch_pc = Input(UInt(64.W))
+        val IF_pc        = Input(UInt(64.W))
+        val ID_npc       = Input(UInt(64.W))
         val inst         = Output(UInt(32.W))
         val inst_valid   = Output(Bool())
         val PF_pc        = Output(UInt(64.W))
         val stall        = Input(Bool())
+        val bp_fail      = Output(Bool())
     })
-    val axi_lite = IO(new AXILiteMasterIF(32, 64))
+    val axi_lite = IO(new AXILiteMasterI F(32, 64))
+    io.bp_fail = io.ID_npc =/= io.IF_pc
 
-    regConnectWithResetAndStall(io.PF_pc, io.pre_fetch_pc, reset, 0x80000000L.U(64.W), io.stall)
+    regConnectWithResetAndStall(io.PF_pc, Mux(!io.bp_fail, io.PF_pc+4, io.ID_npc), reset, 0x80000000L.U(64.W), io.stall)
 
     //IFU doesn't write mem
     axi_lite.writeAddr.valid        := 0.U
@@ -26,7 +29,7 @@ class IF_pre_fetch extends Module{
 
     //Fetch inst from sram
     axi_lite.readAddr.valid         := !io.stall && !reset.asBool
-    axi_lite.readAddr.bits.addr     := io.pre_fetch_pc(31, 0)
+    axi_lite.readAddr.bits.addr     := io.PF_pc(31, 0)
     axi_lite.readData.ready         := 1.U
 
     io.inst                         := axi_lite.readData.bits.data
