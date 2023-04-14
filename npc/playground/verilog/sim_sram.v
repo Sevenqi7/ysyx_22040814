@@ -3,6 +3,7 @@ import "DPI-C" function void dci_pmem_read(input longint raddr, output longint r
 
 module sim_sram(
     input  [63:0]    pc         ,     //for debug
+    input            aresetn    ,
     input            aclk       ,
     //ar
     input  [31:0]    araddr     ,
@@ -28,49 +29,66 @@ module sim_sram(
     input            bready     
 );
 
-reg aready, rresp, rvalid, awready, wready, [1:0] bresp, bvalid; 
-
-reg [63:0] data_r, [31:0] waddr_r, [31:0] raddr_r;
+reg aready, rresp, rvalid, awready, wready, bvalid;
+reg [1:0] bresp; 
+reg [63:0] rdata;
+reg [63:0] wdata_r;
 assign rdata = rdata_r;
 
+//ar
 always@(posedge aclk) begin
+  if(!aresetn) begin
+      arready <= 1'b1;
+  end
+  else begin
+    arready <= 1'b1;
     if(arvalid & arready) begin
-        raddr_r <= araddr;
-        arready <= 1'b0;
+        dci_pmem_read(raddr, rdata_r, 8'hFF);
     end
-    else if(!arready) begin
-        dci_pmem_read(raddr_r, rdata, 8'hFF);
-        arvalid <= 1'b1;
+  end
+end
+//r
+always@(posedge aclk) begin
+  if(!aresetn) 
+      rvalid <= 1'b0;
+  else begin
+    if(arvalid & arready) begin
+        rvalid <= 1'b1;
+        rresp  <= 2'b00;
+        if(rready)
+            rdata <= rdata_r;
     end
-    else if(rready) begin
-        arvalid <= 1'b0;
-        rresp <= 2'b00;
-    end
-    else begin
-        arready <= 1'b1;
-        arvalid <= 1'b0;
-        rresp   <= 2'b00;
-    end
+  end
+  else begin
+      rvalid <= 1'b0;
+      rresp  <= 2'b00;
+  end
+end
+
+//aw
+always@(posedge aclk) begin
+  if(!aresetn)
+      awready <= 1'b1;
+  else if(awvalid & awready) begin
+      wdata_r <= wdata;
+  end
+  else
+      awready <= 1'b1;
+end
+
+//w
+always@(posedge aclk) begin
+  if(!aresetn)
+      wready <= 1'b1;
+  else if(wvalid & wready) begin
+      dci_pmem_write(waddr, wdata_r, wstrb);
+      bvalid <= 1'b1;
+  end
 end
 
 always@(posedge aclk) begin
-    if(awvalid & awready) begin
-        waddr_r <= awaddr;
-        awready <= 1'b0;
-    end
-    else if(wvalid & wready) begin
-        dci_pmem_write(addr, wdata, wstrb);
-        wready <= 1'b0;
-        bresp  <= 2'b00;
-    end
-    else if(bready)
-        bvalid <= 1'b1;
-    else begin
-        awready <= 1'b1;
-        wready  <= 1'b1;
-        bvalid  <= 1'b0;
-        bresp   <= 2'b00;
-    end
+    bvalid <= 1'b1;     //write is always successful
+    brresp <= 2'b00;
 end
 
 endmodule

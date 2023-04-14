@@ -6,6 +6,7 @@ class sim_sram extends BlackBox with HasBlackBoxPath{
     val io = IO(new Bundle{
         val pc = Input(UInt(64.W))
         val aclk = Input(Clock())
+        val aresetn = Input(Reset())
         //ar
         val araddr = Input(UInt(32.W))
         val arvalid = Input(Bool())
@@ -47,6 +48,7 @@ class IFU extends Module{
     pre_fetch.io.stall                      := io.ID_stall
     inst_ram.io.pc                          := pre_fetch.io.PF_pc
     inst_ram.io.aclk                        := clock
+    inst_ram.io.aresetn                     := !reset.asBool
     //ar
     inst_ram.io.araddr                      := pre_fetch.axi_lite.readAddr.bits.addr
     inst_ram.io.arvalid                     := pre_fetch.axi_lite.readAddr.valid

@@ -1516,46 +1516,26 @@ module top(	// <stdin>:1242:10
     .io_WB_pc                           (io_WB_pc),
     .io_WB_Inst                         (_wb_unit_io_WB_Inst)
   );
-  sim simulate (	// top.scala:57:26
-    .clock             (1'h0),	// <stdin>:1282:20
-    .reset             (1'h0),	// <stdin>:1282:20
-    .IF_pc             (_inst_fetch_unit_io_IF_pc),	// top.scala:36:33
-    .GPR_0             (_inst_decode_unit_io_ID_GPR_0),	// top.scala:37:34
-    .GPR_1             (_inst_decode_unit_io_ID_GPR_1),	// top.scala:37:34
-    .GPR_2             (_inst_decode_unit_io_ID_GPR_2),	// top.scala:37:34
-    .GPR_3             (_inst_decode_unit_io_ID_GPR_3),	// top.scala:37:34
-    .GPR_4             (_inst_decode_unit_io_ID_GPR_4),	// top.scala:37:34
-    .GPR_5             (_inst_decode_unit_io_ID_GPR_5),	// top.scala:37:34
-    .GPR_6             (_inst_decode_unit_io_ID_GPR_6),	// top.scala:37:34
-    .GPR_7             (_inst_decode_unit_io_ID_GPR_7),	// top.scala:37:34
-    .GPR_8             (_inst_decode_unit_io_ID_GPR_8),	// top.scala:37:34
-    .GPR_9             (_inst_decode_unit_io_ID_GPR_9),	// top.scala:37:34
-    .GPR_10            (_inst_decode_unit_io_ID_GPR_10),	// top.scala:37:34
-    .GPR_11            (_inst_decode_unit_io_ID_GPR_11),	// top.scala:37:34
-    .GPR_12            (_inst_decode_unit_io_ID_GPR_12),	// top.scala:37:34
-    .GPR_13            (_inst_decode_unit_io_ID_GPR_13),	// top.scala:37:34
-    .GPR_14            (_inst_decode_unit_io_ID_GPR_14),	// top.scala:37:34
-    .GPR_15            (_inst_decode_unit_io_ID_GPR_15),	// top.scala:37:34
-    .GPR_16            (_inst_decode_unit_io_ID_GPR_16),	// top.scala:37:34
-    .GPR_17            (_inst_decode_unit_io_ID_GPR_17),	// top.scala:37:34
-    .GPR_18            (_inst_decode_unit_io_ID_GPR_18),	// top.scala:37:34
-    .GPR_19            (_inst_decode_unit_io_ID_GPR_19),	// top.scala:37:34
-    .GPR_20            (_inst_decode_unit_io_ID_GPR_20),	// top.scala:37:34
-    .GPR_21            (_inst_decode_unit_io_ID_GPR_21),	// top.scala:37:34
-    .GPR_22            (_inst_decode_unit_io_ID_GPR_22),	// top.scala:37:34
-    .GPR_23            (_inst_decode_unit_io_ID_GPR_23),	// top.scala:37:34
-    .GPR_24            (_inst_decode_unit_io_ID_GPR_24),	// top.scala:37:34
-    .GPR_25            (_inst_decode_unit_io_ID_GPR_25),	// top.scala:37:34
-    .GPR_26            (_inst_decode_unit_io_ID_GPR_26),	// top.scala:37:34
-    .GPR_27            (_inst_decode_unit_io_ID_GPR_27),	// top.scala:37:34
-    .GPR_28            (_inst_decode_unit_io_ID_GPR_28),	// top.scala:37:34
-    .GPR_29            (_inst_decode_unit_io_ID_GPR_29),	// top.scala:37:34
-    .GPR_30            (_inst_decode_unit_io_ID_GPR_30),	// top.scala:37:34
-    .GPR_31            (_inst_decode_unit_io_ID_GPR_31),	// top.scala:37:34
-    .unknown_inst_flag (_inst_decode_unit_io_ID_unknown_inst),	// top.scala:37:34
-    .WB_Inst           (_wb_unit_io_WB_Inst),	// top.scala:40:25
-    .inst              (_simulate_inst)
-  );
+wire [63:0] GPR [31:0];
+assign {GPR[31], GPR[30], GPR[29], GPR[28], GPR[27], GPR[26], GPR[25], GPR[24], GPR[23], GPR[22], GPR[21], GPR[20]
+, GPR[19], GPR[18], GPR[17], GPR[16], GPR[15], GPR[14], GPR[13], GPR[12], GPR[11], GPR[10], GPR[9], GPR[8], GPR[7]
+, GPR[6], GPR[5], GPR[4], GPR[3], GPR[2], GPR[1], GPR[0]} = 
+{{_inst_decode_unit_io_ID_GPR_31}, {_inst_decode_unit_io_ID_GPR_30}, {_inst_decode_unit_io_ID_GPR_29}, 
+{_inst_decode_unit_io_ID_GPR_28}, {_inst_decode_unit_io_ID_GPR_27}, {_inst_decode_unit_io_ID_GPR_26}, {_inst_decode_unit_io_ID_GPR_25}, 
+{_inst_decode_unit_io_ID_GPR_24}, {_inst_decode_unit_io_ID_GPR_23}, {_inst_decode_unit_io_ID_GPR_22}, {_inst_decode_unit_io_ID_GPR_21}, 
+{_inst_decode_unit_io_ID_GPR_20}, {_inst_decode_unit_io_ID_GPR_19}, {_inst_decode_unit_io_ID_GPR_18}, {_inst_decode_unit_io_ID_GPR_17}, 
+{_inst_decode_unit_io_ID_GPR_16}, {_inst_decode_unit_io_ID_GPR_15}, {_inst_decode_unit_io_ID_GPR_14}, {_inst_decode_unit_io_ID_GPR_13}, 
+{_inst_decode_unit_io_ID_GPR_12}, {_inst_decode_unit_io_ID_GPR_11}, {_inst_decode_unit_io_ID_GPR_10}, {_inst_decode_unit_io_ID_GPR_9 }, 
+{_inst_decode_unit_io_ID_GPR_8 }, {_inst_decode_unit_io_ID_GPR_7 }, {_inst_decode_unit_io_ID_GPR_6 }, {_inst_decode_unit_io_ID_GPR_5 },
+{_inst_decode_unit_io_ID_GPR_4 }, {_inst_decode_unit_io_ID_GPR_3 }, {_inst_decode_unit_io_ID_GPR_2 }, {_inst_decode_unit_io_ID_GPR_1 }, 
+{_inst_decode_unit_io_ID_GPR_0}};	// IDU.scala:55:22, :66:20
+
+sim simulate (	// top.scala:24:26
+   .IF_pc             (_inst_fetch_unit_io_IF_pc),	// top.scala:24:33
+   .WB_Inst           (io_WB_Inst),
+   .GPR               (GPR),
+   .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
+);
   assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:1242:10, top.scala:36:33
   assign io_ID_pc = _inst_decode_unit_io_ID_to_EX_bus_bits_PC;	// <stdin>:1242:10, top.scala:37:34
   assign io_WB_Inst = _wb_unit_io_WB_Inst;	// <stdin>:1242:10, top.scala:40:25
@@ -1577,6 +1557,7 @@ import "DPI-C" function void dci_pmem_read(input longint raddr, output longint r
 
 module sim_sram(
     input  [63:0]    pc         ,     //for debug
+    input            aresetn    ,
     input            aclk       ,
     //ar
     input  [31:0]    araddr     ,
@@ -1602,57 +1583,74 @@ module sim_sram(
     input            bready     
 );
 
-reg aready, rresp, rvalid, awready, wready, [1:0] bresp, bvalid; 
-
-reg [63:0] data_r, [31:0] waddr_r, [31:0] raddr_r;
+reg aready, rresp, rvalid, awready, wready, bvalid;
+reg [1:0] bresp; 
+reg [63:0] rdata;
+reg [63:0] wdata_r;
 assign rdata = rdata_r;
 
+//ar
 always@(posedge aclk) begin
+  if(!aresetn) begin
+      arready <= 1'b1;
+  end
+  else begin
+    arready <= 1'b1;
     if(arvalid & arready) begin
-        raddr_r <= araddr;
-        arready <= 1'b0;
+        dci_pmem_read(raddr, rdata_r, 8'hFF);
     end
-    else if(!arready) begin
-        dci_pmem_read(raddr_r, rdata, 8'hFF);
-        arvalid <= 1'b1;
+  end
+end
+//r
+always@(posedge aclk) begin
+  if(!aresetn) 
+      rvalid <= 1'b0;
+  else begin
+    if(arvalid & arready) begin
+        rvalid <= 1'b1;
+        rresp  <= 2'b00;
+        if(rready)
+            rdata <= rdata_r;
     end
-    else if(rready) begin
-        arvalid <= 1'b0;
-        rresp <= 2'b00;
-    end
-    else begin
-        arready <= 1'b1;
-        arvalid <= 1'b0;
-        rresp   <= 2'b00;
-    end
+  end
+  else begin
+      rvalid <= 1'b0;
+      rresp  <= 2'b00;
+  end
+end
+
+//aw
+always@(posedge aclk) begin
+  if(!aresetn)
+      awready <= 1'b1;
+  else if(awvalid & awready) begin
+      wdata_r <= wdata;
+  end
+  else
+      awready <= 1'b1;
+end
+
+//w
+always@(posedge aclk) begin
+  if(!aresetn)
+      wready <= 1'b1;
+  else if(wvalid & wready) begin
+      dci_pmem_write(waddr, wdata_r, wstrb);
+      bvalid <= 1'b1;
+  end
 end
 
 always@(posedge aclk) begin
-    if(awvalid & awready) begin
-        waddr_r <= awaddr;
-        awready <= 1'b0;
-    end
-    else if(wvalid & wready) begin
-        dci_pmem_write(addr, wdata, wstrb);
-        wready <= 1'b0;
-        bresp  <= 2'b00;
-    end
-    else if(bready)
-        bvalid <= 1'b1;
-    else begin
-        awready <= 1'b1;
-        wready  <= 1'b1;
-        bvalid  <= 1'b0;
-        bresp   <= 2'b00;
-    end
+    bvalid <= 1'b1;     //write is always successful
+    brresp <= 2'b00;
 end
 
 endmodule
 
 // ----- 8< ----- FILE "./build/LSU.v" ----- 8< -----
 
-import "DPI-C" function void dci_pmem_write(input longint waddr, input longint wdata, input byte wmask);
-import "DPI-C" function void dci_pmem_read(input longint raddr, output longint rdata, input byte rmask);
+// import "DPI-C" function void dci_pmem_write(input longint waddr, input longint wdata, input byte wmask);
+// import "DPI-C" function void dci_pmem_read(input longint raddr, output longint rdata, input byte rmask);
 
 module LSU(input [63:0] pc, input [63:0] addr, input [4:0] LsuType, input WriteEn, input ReadEn, input [63:0]WriteData, output [63:0] ReadData);
 
@@ -1693,27 +1691,7 @@ import "DPI-C" function void unknown_inst();
 import "DPI-C" function void ebreak(input longint halt_ret);
 
 
-wire [63:0] GPR [31:0];
-assign {GPR[31], GPR[30], GPR[29], GPR[28], GPR[27], GPR[26], GPR[25], GPR[24], GPR[23], GPR[22], GPR[21], GPR[20]
-, GPR[19], GPR[18], GPR[17], GPR[16], GPR[15], GPR[14], GPR[13], GPR[12], GPR[11], GPR[10], GPR[9], GPR[8], GPR[7]
-, GPR[6], GPR[5], GPR[4], GPR[3], GPR[2], GPR[1], GPR[0]} = 
-{{_inst_decode_unit_io_ID_GPR_31}, {_inst_decode_unit_io_ID_GPR_30}, {_inst_decode_unit_io_ID_GPR_29}, 
-{_inst_decode_unit_io_ID_GPR_28}, {_inst_decode_unit_io_ID_GPR_27}, {_inst_decode_unit_io_ID_GPR_26}, {_inst_decode_unit_io_ID_GPR_25}, 
-{_inst_decode_unit_io_ID_GPR_24}, {_inst_decode_unit_io_ID_GPR_23}, {_inst_decode_unit_io_ID_GPR_22}, {_inst_decode_unit_io_ID_GPR_21}, 
-{_inst_decode_unit_io_ID_GPR_20}, {_inst_decode_unit_io_ID_GPR_19}, {_inst_decode_unit_io_ID_GPR_18}, {_inst_decode_unit_io_ID_GPR_17}, 
-{_inst_decode_unit_io_ID_GPR_16}, {_inst_decode_unit_io_ID_GPR_15}, {_inst_decode_unit_io_ID_GPR_14}, {_inst_decode_unit_io_ID_GPR_13}, 
-{_inst_decode_unit_io_ID_GPR_12}, {_inst_decode_unit_io_ID_GPR_11}, {_inst_decode_unit_io_ID_GPR_10}, {_inst_decode_unit_io_ID_GPR_9 }, 
-{_inst_decode_unit_io_ID_GPR_8 }, {_inst_decode_unit_io_ID_GPR_7 }, {_inst_decode_unit_io_ID_GPR_6 }, {_inst_decode_unit_io_ID_GPR_5 },
-{_inst_decode_unit_io_ID_GPR_4 }, {_inst_decode_unit_io_ID_GPR_3 }, {_inst_decode_unit_io_ID_GPR_2 }, {_inst_decode_unit_io_ID_GPR_1 }, 
-{_inst_decode_unit_io_ID_GPR_0}};	// IDU.scala:55:22, :66:20
 
-sim simulate (	// top.scala:24:26
-   .IF_pc             (_inst_fetch_unit_io_IF_pc),	// top.scala:24:33
-   .inst              (_simulate_inst),
-   .WB_Inst           (io_WB_Inst),
-   .GPR               (GPR),
-   .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
-);
 
 module sim(input[63:0] IF_pc, input [63:0] GPR [31:0], input unknown_inst_flag, input[31:0] WB_Inst);
 
@@ -1740,7 +1718,3 @@ module sim(input[63:0] IF_pc, input [63:0] GPR [31:0], input unknown_inst_flag, 
 endmodule
 
 // ----- 8< ----- FILE "firrtl_black_box_resource_files.f" ----- 8< -----
-
-build/build/LSU.v
-build/build/sim.v
-build/build/sim_sram.v
