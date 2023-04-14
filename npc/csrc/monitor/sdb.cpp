@@ -168,6 +168,21 @@ static int cmd_info(char *args)
     return 0;
 }
 
+static int cmd_ptrace(char *args)
+{
+    Log("PTRACE INFO:");
+    Log("PF_pc:0x%lx", top->io_PF_pc);
+    Log("IF_pc:0x%lx", top->io_IF_pc); 
+    Log("ID_pc:0x%lx", top->io_ID_pc);
+    Log("EX_pc:0x%lx", top->io_MEM_pc);
+    Log("WB_pc:0x%lx ", top->io_WB_pc);
+    Log("ID_ALUData1:0x%lx ID_ALUData2:0x%lx", top->io_ID_ALU_Data1, top->io_ID_ALU_Data2);
+    Log("ID_Rs1Data:0x%lx ID_Rs2Data:0x%lx", top->io_ID_Rs1Data, top->io_ID_Rs2Data);
+    Log("ALUResult:0x%lx", top->io_ALUResult);
+    Log("MemRegWriteData_Pass:0x%lx", top->io_MEM_RegWriteData);
+    Log("WB_RegWriteData:0x%lx", top->io_WB_RegWriteData);
+    return 0;
+}
 
 static struct {
   const char *name;
@@ -184,6 +199,7 @@ static struct {
   #ifdef CONFIG_FTRACE
   { "ftrace", "Display function call trace.", cmd_ftrace},
   #endif
+  { "ptrace", "Display pipeline infomation.", cmd_ptrace},
   { "info", "Print the content of register(-r) or watchpoing(-w).", cmd_info}
 
   /* TODO: Add more commands */
