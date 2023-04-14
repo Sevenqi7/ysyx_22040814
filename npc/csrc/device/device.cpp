@@ -17,7 +17,7 @@ uint64_t device_io_pc;
 uint64_t device_read(uint64_t addr)
 {
     assert(addr>MMIO_BASE && addr<MMIO_END);
-    device_io_pc = top->io_MEM_pc;
+    device_io_pc = top->io_EX_pc;
     // Log("device_io_read at pc:%lx", top->io_MEM_pc);
     if(addr == RTC_ADDR)
         return get_time();
@@ -28,7 +28,7 @@ uint64_t device_read(uint64_t addr)
     else if(addr >= FB_ADDR && addr < FB_ADDR + 480000) return ((uint32_t *)vmem)[(addr - FB_ADDR)/4];
     else{
         Log("addr:0x%lx", addr);
-        Log("pc:%016lx", top->io_MEM_pc);
+        Log("pc:%016lx", top->io_EX_pc);
         assert(0);
     }
 }
@@ -36,7 +36,7 @@ uint64_t device_read(uint64_t addr)
 void device_write(uint64_t addr, uint64_t data, int len)
 {
     assert(addr>MMIO_BASE && addr<MMIO_END);
-    device_io_pc = top->io_MEM_pc;
+    device_io_pc = top->io_EX_pc;
     // Log("device_io_write at pc:%lx", top->io_MEM_pc);
     if(addr == SERIAL_PORT) putchar((char)data);
     else if(addr == SYNC_ADDR){assert(len == 4);vgactl_port_base[1] = data;}
