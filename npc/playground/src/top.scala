@@ -25,7 +25,7 @@ class top extends Module{
         val WB_pc = Output(UInt(64.W))
         val WB_Inst = Output(UInt(32.W))
         val WB_RegWriteData = Output(UInt(64.W))
-        val MEM_pc = Output(UInt(64.W))
+        // val MEM_pc = Output(UInt(64.W))
         val MEM_RegWriteData = Output(UInt(64.W))
         val stall   = Output(Bool())
 
