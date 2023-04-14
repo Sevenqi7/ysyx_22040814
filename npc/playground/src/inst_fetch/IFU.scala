@@ -25,9 +25,9 @@ class sim_sram extends BlackBox with HasBlackBoxPath{
         val wvalid = Input(Bool())
         val wready = Output(Bool())
         //b
-        val bresp = Input(UInt(2.W))
-        val bvalid = Input(Bool())
-        val bready = Output(Bool())
+        val bresp = Output(UInt(2.W))
+        val bvalid = Output(Bool())
+        val bready = Input(Bool())
     })
     addPath("/home/seven7/Documents/学业/一生一芯/ysyx-workbench/npc/playground/verilog/sim_sram.v")
 }
