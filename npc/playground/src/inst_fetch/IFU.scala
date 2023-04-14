@@ -37,6 +37,7 @@ class IFU extends Module{
     val io = IO(new Bundle{
         val ID_npc = Input(UInt(64.W))
         val ID_stall = Input(Bool())
+        val PF_pc = Output(UInt(64.W))
         val IF_pc = Output(UInt(64.W))
         val IF_Inst = Output(UInt(32.W))
     })
