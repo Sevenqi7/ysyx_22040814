@@ -55,8 +55,8 @@ module IF_pre_fetch(	// <stdin>:25:10
   wire        _io_bp_fail_T_2 = io_ID_npc != rhsReg & (|io_IF_pc);	// pre_fetch.scala:21:{29,42,54}, tools.scala:32:33
   always @(posedge clock) begin
     if (reset) begin
-      PF_npc <= 64'h80000004;	// pre_fetch.scala:18:27
-      rhsReg <= 64'h80000000;	// tools.scala:32:33
+      PF_npc <= 64'h80000000;	// pre_fetch.scala:18:27
+      rhsReg <= 64'h80000000;	// pre_fetch.scala:18:27, tools.scala:32:33
     end
     else begin
       if (_io_bp_fail_T_2)	// pre_fetch.scala:21:42
@@ -1547,6 +1547,7 @@ module top(	// <stdin>:1275:10
     .io_WB_pc                           (io_WB_pc),
     .io_WB_Inst                         (_wb_unit_io_WB_Inst)
   );
+
 wire [63:0] GPR [31:0];
 assign {GPR[31], GPR[30], GPR[29], GPR[28], GPR[27], GPR[26], GPR[25], GPR[24], GPR[23], GPR[22], GPR[21], GPR[20]
 , GPR[19], GPR[18], GPR[17], GPR[16], GPR[15], GPR[14], GPR[13], GPR[12], GPR[11], GPR[10], GPR[9], GPR[8], GPR[7]
@@ -1715,7 +1716,6 @@ endmodule
 import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
 import "DPI-C" function void unknown_inst();
 import "DPI-C" function void ebreak(input longint halt_ret);
-
 
 
 

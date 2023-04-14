@@ -29,6 +29,8 @@ class top extends Module{
         val MEM_RegWriteData = Output(UInt(64.W))
         val stall   = Output(Bool())
 
+        val IF_Inst = Output(UInt(32.W))
+
         val ID_ALU_Data1 = Output(UInt(64.W))
         val ID_ALU_Data2 = Output(UInt(64.W))
         val ID_Rs1Data = Output(UInt(64.W))
@@ -41,6 +43,8 @@ class top extends Module{
     val excute_unit = Module(new EXU)
     val mem_unit = Module(new MEMU)
     val wb_unit = Module(new WBU)
+
+    io.IF_Inst  := inst_fetch_unit.io.IF_Inst
     
     io.ID_npc   := inst_decode_unit.io.ID_npc
     io.PF_pc := inst_fetch_unit.io.PF_pc

@@ -171,6 +171,7 @@ static int cmd_info(char *args)
 static int cmd_ptrace(char *args)
 {
     Log("PTRACE INFO:");
+    Log("ID_npc:0x%lx", top->io_ID_npc);
     Log("PF_pc:0x%lx", top->io_PF_pc);
     Log("IF_pc:0x%lx", top->io_IF_pc); 
     Log("ID_pc:0x%lx", top->io_ID_pc);
