@@ -50,7 +50,7 @@ module IF_pre_fetch(	// <stdin>:25:10
                 axi_lite_readAddr_valid,
   output [31:0] axi_lite_readAddr_bits_addr);
 
-  wire        _io_bp_fail_T_4 = io_ID_npc != io_IF_pc & (|io_IF_pc) & (|io_ID_npc);	// pre_fetch.scala:18:{29,54,62,75}
+  wire        _io_bp_fail_T_4 = io_ID_npc != io_IF_pc & (|io_IF_pc) & io_ID_npc != 64'h4;	// pre_fetch.scala:18:{29,54,62,75}
   reg  [63:0] rhsReg;	// tools.scala:32:33
   always @(posedge clock) begin
     if (reset)
@@ -60,7 +60,7 @@ module IF_pre_fetch(	// <stdin>:25:10
     else if (_io_bp_fail_T_4)	// pre_fetch.scala:18:62
       rhsReg <= io_ID_npc;	// tools.scala:32:33
     else	// pre_fetch.scala:18:62
-      rhsReg <= rhsReg + 64'h4;	// pre_fetch.scala:20:68, tools.scala:32:33
+      rhsReg <= rhsReg + 64'h4;	// pre_fetch.scala:18:75, :20:68, tools.scala:32:33
   end // always @(posedge)
   `ifndef SYNTHESIS	// <stdin>:25:10
     `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:25:10
