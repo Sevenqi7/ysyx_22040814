@@ -50,6 +50,7 @@ class IFU extends Module{
     io.PF_pc                                := pre_fetch.io.PF_pc
 
     bp_fail                                 := pre_fetch.io.bp_fail
+    pre_fetch.io.IF_pc                      := io.IF_pc
     pre_fetch.io.ID_npc                     := io.ID_npc
     pre_fetch.io.stall                      := io.ID_stall
     inst_ram.io.pc                          := pre_fetch.io.PF_pc
