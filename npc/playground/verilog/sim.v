@@ -25,7 +25,7 @@ sim simulate (	// top.scala:24:26
    .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
 );
 
-module sim(input[63:0] IF_pc, input [63:0] GPR [31:0], input unknown_inst_flag, output [63:0] inst, input[31:0] WB_Inst);
+module sim(input[63:0] IF_pc, input [63:0] GPR [31:0], input unknown_inst_flag, input[31:0] WB_Inst);
 
    initial begin
       if ($test$plusargs("trace") != 0) begin
@@ -37,11 +37,6 @@ module sim(input[63:0] IF_pc, input [63:0] GPR [31:0], input unknown_inst_flag, 
    end
 
    initial set_gpr_ptr(GPR);    // rf为通用寄存器的二维数组变量
-
-
-   always@(*) begin
-         dci_pmem_read(IF_pc, inst, 8'HFF);
-   end
 
   always@(*) begin
       reg [63:0] i = GPR[10][63:0];
