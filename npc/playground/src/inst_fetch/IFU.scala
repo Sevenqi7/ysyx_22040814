@@ -84,7 +84,7 @@ class IFU extends Module{
 
     flush                                   := reset.asBool | !pre_fetch.io.inst_valid | bp_fail
 
-    when(io.ID_stall){
+    when(io.ID_stall.asBool){
         regConnectWithReset(io.IF_pc, pre_fetch.io.PF_pc , flush)
         regConnectWithReset(io.IF_Inst, pre_fetch.io.inst, flush)
         regConnectWithReset(io.IF_valid, pre_fetch.io.inst_valid, flush)
