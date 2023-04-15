@@ -51,21 +51,27 @@ module IF_pre_fetch(	// <stdin>:25:10
   output [31:0] axi_lite_readAddr_bits_addr);
 
   reg  [63:0] rhsReg;	// tools.scala:32:33
-  wire        _io_bp_fail_T_4;	// pre_fetch.scala:24:62
+  wire        _io_bp_fail_T_4;	// pre_fetch.scala:25:62
   reg  [63:0] PF_npc;	// pre_fetch.scala:20:27
-  assign _io_bp_fail_T_4 = io_ID_npc != rhsReg & (|rhsReg) & (|io_IF_pc);	// pre_fetch.scala:24:{29,54,62,74}, tools.scala:32:33
+  assign _io_bp_fail_T_4 = io_ID_npc != rhsReg & (|rhsReg) & (|io_IF_pc);	// pre_fetch.scala:25:{29,54,62,74}, tools.scala:32:33
+  reg         bp_fail_r;	// pre_fetch.scala:26:28
   always @(posedge clock) begin
-    if (reset)
+    if (reset) begin
       PF_npc <= 64'h80000000;	// pre_fetch.scala:20:27
-    else if (_io_bp_fail_T_4)	// pre_fetch.scala:24:62
-      PF_npc <= io_ID_npc;	// pre_fetch.scala:20:27
-    else	// pre_fetch.scala:24:62
-      PF_npc <= PF_npc + 64'h4;	// pre_fetch.scala:20:27, :23:43
-    if (reset | _io_bp_fail_T_4)	// pre_fetch.scala:24:62, :26:64
-      rhsReg <= 64'h0;	// tools.scala:32:33
-    else if (io_stall) begin	// pre_fetch.scala:24:62, :26:64
+      bp_fail_r <= 1'h0;	// pre_fetch.scala:24:24, :26:28
     end
-    else	// pre_fetch.scala:24:62, :26:64
+    else begin
+      if (_io_bp_fail_T_4)	// pre_fetch.scala:25:62
+        PF_npc <= io_ID_npc;	// pre_fetch.scala:20:27
+      else	// pre_fetch.scala:25:62
+        PF_npc <= PF_npc + 64'h4;	// pre_fetch.scala:20:27, :24:43
+      bp_fail_r <= _io_bp_fail_T_4;	// pre_fetch.scala:25:62, :26:28
+    end
+    if (reset | _io_bp_fail_T_4)	// pre_fetch.scala:25:62, :28:64
+      rhsReg <= 64'h0;	// tools.scala:32:33
+    else if (io_stall) begin	// pre_fetch.scala:25:62, :28:64
+    end
+    else	// pre_fetch.scala:25:62, :28:64
       rhsReg <= PF_npc;	// pre_fetch.scala:20:27, tools.scala:32:33
   end // always @(posedge)
   `ifndef SYNTHESIS	// <stdin>:25:10
@@ -77,6 +83,7 @@ module IF_pre_fetch(	// <stdin>:25:10
       automatic logic [31:0] _RANDOM_1;	// <stdin>:25:10
       automatic logic [31:0] _RANDOM_2;	// <stdin>:25:10
       automatic logic [31:0] _RANDOM_3;	// <stdin>:25:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:25:10
       `ifdef INIT_RANDOM_PROLOG_	// <stdin>:25:10
         `INIT_RANDOM_PROLOG_	// <stdin>:25:10
       `endif // INIT_RANDOM_PROLOG_
@@ -85,21 +92,23 @@ module IF_pre_fetch(	// <stdin>:25:10
         _RANDOM_1 = `RANDOM;	// <stdin>:25:10
         _RANDOM_2 = `RANDOM;	// <stdin>:25:10
         _RANDOM_3 = `RANDOM;	// <stdin>:25:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:25:10
         PF_npc = {_RANDOM_0, _RANDOM_1};	// pre_fetch.scala:20:27
-        rhsReg = {_RANDOM_2, _RANDOM_3};	// tools.scala:32:33
+        bp_fail_r = _RANDOM_2[0];	// pre_fetch.scala:26:28
+        rhsReg = {_RANDOM_2[31:1], _RANDOM_3, _RANDOM_4[0]};	// pre_fetch.scala:26:28, tools.scala:32:33
       `endif // RANDOMIZE_REG_INIT
     end // initial
     `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:25:10
       `FIRRTL_AFTER_INITIAL	// <stdin>:25:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  assign io_inst = axi_lite_readData_bits_data[31:0];	// <stdin>:25:10, pre_fetch.scala:41:37
-  assign io_inst_valid = axi_lite_readData_valid & axi_lite_readData_bits_resp == 2'h0 & ~_io_bp_fail_T_4 & io_IF_pc
-                == rhsReg + 64'h4;	// <stdin>:25:10, pre_fetch.scala:23:{24,43}, :24:62, :42:{96,119,131,143}, tools.scala:32:33
+  assign io_inst = axi_lite_readData_bits_data[31:0];	// <stdin>:25:10, pre_fetch.scala:43:37
+  assign io_inst_valid = axi_lite_readData_valid & axi_lite_readData_bits_resp == 2'h0 & ~_io_bp_fail_T_4 &
+                bp_fail_r;	// <stdin>:25:10, pre_fetch.scala:24:24, :25:62, :26:28, :44:{96,119}
   assign io_PF_pc = rhsReg;	// <stdin>:25:10, tools.scala:32:33
-  assign io_bp_fail = _io_bp_fail_T_4;	// <stdin>:25:10, pre_fetch.scala:24:62
+  assign io_bp_fail = _io_bp_fail_T_4;	// <stdin>:25:10, pre_fetch.scala:25:62
   assign io_PF_npc = PF_npc;	// <stdin>:25:10, pre_fetch.scala:20:27
-  assign axi_lite_readAddr_bits_addr = PF_npc[31:0];	// <stdin>:25:10, pre_fetch.scala:20:27, :38:46
+  assign axi_lite_readAddr_bits_addr = PF_npc[31:0];	// <stdin>:25:10, pre_fetch.scala:20:27, :40:46
 endmodule
 
 module IFU(	// <stdin>:74:10
@@ -1596,6 +1605,7 @@ module top(	// <stdin>:1300:10
     .io_WB_pc                           (io_WB_pc),
     .io_WB_Inst                         (_wb_unit_io_WB_Inst)
   );
+
 wire [63:0] GPR [31:0];
 assign {GPR[31], GPR[30], GPR[29], GPR[28], GPR[27], GPR[26], GPR[25], GPR[24], GPR[23], GPR[22], GPR[21], GPR[20]
 , GPR[19], GPR[18], GPR[17], GPR[16], GPR[15], GPR[14], GPR[13], GPR[12], GPR[11], GPR[10], GPR[9], GPR[8], GPR[7]
@@ -1616,6 +1626,7 @@ sim simulate (	// top.scala:24:26
    .GPR               (GPR),
    .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
 );
+
   assign io_ID_npc = _inst_decode_unit_io_ID_npc;	// <stdin>:1300:10, top.scala:46:34
   assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:1300:10, top.scala:45:33
   assign io_ID_pc = _inst_decode_unit_io_ID_to_EX_bus_bits_PC;	// <stdin>:1300:10, top.scala:46:34
@@ -1767,8 +1778,6 @@ endmodule
 import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
 import "DPI-C" function void unknown_inst();
 import "DPI-C" function void ebreak(input longint halt_ret);
-
-
 
 
 module sim(input[63:0] IF_pc, input [63:0] GPR [31:0], input unknown_inst_flag, input[31:0] WB_Inst);
