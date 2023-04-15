@@ -34,7 +34,7 @@ class IF_pre_fetch extends Module{
     axi_lite.writeResp.ready        := 0.U
 
     //Fetch inst from sram
-    axi_lite.readAddr.valid         := !io.stall && !reset.asBool
+    axi_lite.readAddr.valid         := 1.U
     axi_lite.readAddr.bits.addr     := PF_npc(31, 0)
     axi_lite.readData.ready         := 1.U
 
