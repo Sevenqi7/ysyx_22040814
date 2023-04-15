@@ -12,7 +12,7 @@ void vga_update_screen();
 uint64_t get_time_internal();
 uint64_t get_time();
 
-uint64_t device_io_pc;
+uint64_t device_io_pc = -1;
 
 uint64_t device_read(uint64_t addr)
 {
