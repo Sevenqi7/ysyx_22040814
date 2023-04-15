@@ -44,6 +44,7 @@ class IF_pre_fetch extends Module{
     axi_lite.readAddr.bits.addr     := PF_npc(31, 0)
     axi_lite.readData.ready         := 1.U
 
-    io.inst                         := axi_lite.readData.bits.data
+    // io.inst                         := axi_lite.readData.bits.data
+    regConnectWithResetAndStall(io.inst, axi_lite.readData.bits.data, reset.asBool | io.bp_fail, 0.U(32.W), io.stall)
     io.inst_valid                   := (axi_lite.readData.valid && axi_lite.readData.bits.resp === 0.U) & !io.bp_fail & !bp_fail_r
 }
