@@ -37,6 +37,7 @@ class IFU extends Module{
     val io = IO(new Bundle{
         val ID_npc = Input(UInt(64.W))
         val ID_stall = Input(Bool())
+        val PF_npc  = Output(UInt(64.W))
         val PF_pc   = Output(UInt(64.W))
         val IF_pc = Output(UInt(64.W))
         val IF_Inst = Output(UInt(32.W))
@@ -47,6 +48,7 @@ class IFU extends Module{
     val bp_fail = Wire(Bool())
     val flush   = Wire(Bool())
 
+    io.PF_npc                               := pre_fetch.io.PF_npc
     io.PF_pc                                := pre_fetch.io.PF_pc
 
     bp_fail                                 := pre_fetch.io.bp_fail
