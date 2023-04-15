@@ -64,7 +64,7 @@ module sim_sram(
             rresp_r  <= 2'b0;
         end
         else begin
-            if(arready_r & arvalid & !rvalid_r) begin
+            if(arready_r & arvalid) begin
                 rvalid_r <= 1'b1;
                 rresp_r  <= 2'b00;
             end
