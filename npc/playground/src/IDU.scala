@@ -19,7 +19,6 @@ class ID_EX_Message extends Bundle{
     val memWriteEn = Output(UInt(1.W))
     val memReadEn  = Output(UInt(1.W))
 
-    val IF_valid   = Input(Bool())
     //For npc trace
     val PC         = Output(UInt(64.W))
     val Inst       = Output(UInt(32.W))
@@ -29,8 +28,8 @@ class IDU extends Module{
     val io = IO(new Bundle{
         val IF_Inst = Input(UInt(32.W))
         val IF_pc   = Input(UInt(64.W))
+        val IF_valid = Input(Bool())
         val ID_npc = Output(UInt(64.W))
-
         //Bus
         val ID_to_EX_bus = Decoupled(new ID_EX_Message)
 
