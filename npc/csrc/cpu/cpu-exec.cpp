@@ -75,7 +75,7 @@ void exec_once()            //disassemble实质上是反汇编的上一个已执
     }
     clock_step();
     
-    if(top->io_stall)    
+    if(!top->io_WB_valid)    
         // {stall_flag++;Log("stall detected");}
         stall_flag++;
 
@@ -84,7 +84,7 @@ void exec_once()            //disassemble实质上是反汇编的上一个已执
         stall_flag--;
         clock_step();
         // Log("stall handled");
-        if(top->io_stall)    
+        if(!top->io_WB_valid)    
             stall_flag++;
     }
 trace:
