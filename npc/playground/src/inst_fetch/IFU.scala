@@ -84,8 +84,8 @@ class IFU extends Module{
 
     flush                                   := reset.asBool | !pre_fetch.io.inst_valid | bp_fail
 
-    regConnectWithReset(io.IF_pc, pre_fetch.io.PF_pc , flush)
-    regConnectWithResetAndStall(io.IF_Inst, pre_fetch.io.inst, flush, 0.U, io.ID_stall)
+    regConnectWithReset(io.IF_Inst, pre_fetch.io.inst, flush)
+    regConnectWithResetAndStall(io.IF_pc, pre_fetch.io.PF_pc , flush, 0.U, io.ID_stall)
     regConnectWithResetAndStall(io.IF_valid, pre_fetch.io.inst_valid, flush, 0.U, io.ID_stall)
     // val pcReg = RegInit(0x80000000L.U(64.W))
     // pcReg := io.ID_npc
