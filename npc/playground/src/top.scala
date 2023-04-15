@@ -32,6 +32,7 @@ class top extends Module{
         val stall   = Output(Bool())
 
         val IF_Inst = Output(UInt(32.W))
+        val IF_valid = Output(Bool())
 
         val ID_ALU_Data1 = Output(UInt(64.W))
         val ID_ALU_Data2 = Output(UInt(64.W))
@@ -47,6 +48,7 @@ class top extends Module{
     val wb_unit = Module(new WBU)
 
     io.IF_Inst  := inst_fetch_unit.io.IF_Inst
+    io.IF_valid := inst_fetch_unit.io.IF_valid
     
     io.ID_npc   := inst_decode_unit.io.ID_npc
     io.PF_npc   := inst_fetch_unit.io.PF_npc
