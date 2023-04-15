@@ -136,21 +136,21 @@ module IFU(	// <stdin>:75:10
   wire        _inst_ram_wready;	// IFU.scala:47:26
   wire [1:0]  _inst_ram_bresp;	// IFU.scala:47:26
   wire        _inst_ram_bvalid;	// IFU.scala:47:26
-  reg  [63:0] rhsReg;	// tools.scala:23:33
-  reg  [31:0] rhsReg_1;	// tools.scala:32:33
+  reg  [31:0] rhsReg;	// tools.scala:23:33
+  reg  [63:0] rhsReg_1;	// tools.scala:32:33
   reg         rhsReg_2;	// tools.scala:32:33
   always @(posedge clock) begin
     if (reset | ~_pre_fetch_io_inst_valid | _pre_fetch_io_bp_fail) begin	// IFU.scala:48:27, :85:{63,88}
-      rhsReg <= 64'h0;	// IFU.scala:48:27, tools.scala:23:33
-      rhsReg_1 <= 32'h0;	// IFU.scala:48:27, tools.scala:32:33
+      rhsReg <= 32'h0;	// IFU.scala:48:27, tools.scala:23:33
+      rhsReg_1 <= 64'h0;	// IFU.scala:48:27, tools.scala:32:33
       rhsReg_2 <= 1'h0;	// IFU.scala:48:27, tools.scala:32:33
     end
     else begin	// IFU.scala:48:27, :85:{63,88}
-      rhsReg <= _pre_fetch_io_PF_pc;	// IFU.scala:48:27, tools.scala:23:33
+      rhsReg <= _pre_fetch_io_inst;	// IFU.scala:48:27, tools.scala:23:33
       if (io_ID_stall) begin
       end
       else begin
-        rhsReg_1 <= _pre_fetch_io_inst;	// IFU.scala:48:27, tools.scala:32:33
+        rhsReg_1 <= _pre_fetch_io_PF_pc;	// IFU.scala:48:27, tools.scala:32:33
         rhsReg_2 <= _pre_fetch_io_inst_valid;	// IFU.scala:48:27, tools.scala:32:33
       end
     end
@@ -172,8 +172,8 @@ module IFU(	// <stdin>:75:10
         _RANDOM_1 = `RANDOM;	// <stdin>:75:10
         _RANDOM_2 = `RANDOM;	// <stdin>:75:10
         _RANDOM_3 = `RANDOM;	// <stdin>:75:10
-        rhsReg = {_RANDOM_0, _RANDOM_1};	// tools.scala:23:33
-        rhsReg_1 = _RANDOM_2;	// tools.scala:32:33
+        rhsReg = _RANDOM_0;	// tools.scala:23:33
+        rhsReg_1 = {_RANDOM_1, _RANDOM_2};	// tools.scala:32:33
         rhsReg_2 = _RANDOM_3[0];	// tools.scala:32:33
       `endif // RANDOMIZE_REG_INIT
     end // initial
@@ -206,7 +206,7 @@ module IFU(	// <stdin>:75:10
   IF_pre_fetch pre_fetch (	// IFU.scala:48:27
     .clock                       (clock),
     .reset                       (reset),
-    .io_IF_pc                    (rhsReg),	// tools.scala:23:33
+    .io_IF_pc                    (rhsReg_1),	// tools.scala:32:33
     .io_ID_npc                   (io_ID_npc),
     .io_stall                    (io_ID_stall),
     .axi_lite_readData_valid     (_inst_ram_rvalid),	// IFU.scala:47:26
@@ -220,8 +220,8 @@ module IFU(	// <stdin>:75:10
     .axi_lite_readAddr_bits_addr (_pre_fetch_axi_lite_readAddr_bits_addr)
   );
   assign io_PF_pc = _pre_fetch_io_PF_pc;	// <stdin>:75:10, IFU.scala:48:27
-  assign io_IF_pc = rhsReg;	// <stdin>:75:10, tools.scala:23:33
-  assign io_IF_Inst = rhsReg_1;	// <stdin>:75:10, tools.scala:32:33
+  assign io_IF_pc = rhsReg_1;	// <stdin>:75:10, tools.scala:32:33
+  assign io_IF_Inst = rhsReg;	// <stdin>:75:10, tools.scala:23:33
   assign io_IF_valid = rhsReg_2;	// <stdin>:75:10, tools.scala:32:33
 endmodule
 
@@ -1628,6 +1628,7 @@ sim simulate (	// top.scala:24:26
    .GPR               (GPR),
    .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
 );
+
   assign io_ID_npc = _inst_decode_unit_io_ID_npc;	// <stdin>:1299:10, top.scala:46:34
   assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:1299:10, top.scala:45:33
   assign io_ID_pc = _inst_decode_unit_io_ID_to_EX_bus_bits_PC;	// <stdin>:1299:10, top.scala:46:34
@@ -1779,7 +1780,6 @@ endmodule
 import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
 import "DPI-C" function void unknown_inst();
 import "DPI-C" function void ebreak(input longint halt_ret);
-
 
 
 
