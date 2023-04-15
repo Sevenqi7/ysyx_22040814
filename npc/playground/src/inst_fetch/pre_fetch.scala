@@ -21,7 +21,7 @@ class IF_pre_fetch extends Module{
     io.PF_npc    := PF_npc
 
     PF_npc      := Mux(!io.bp_fail, PF_npc+4.U, io.ID_npc)
-    io.bp_fail := io.ID_npc =/= (io.PF_pc+4.U) && io.PF_pc =/= 0.U
+    io.bp_fail := io.ID_npc =/= (io.PF_pc+4.U) && io.PF_pc =/= 0.U && io.IF_pc =/= 0.U
 
     regConnectWithResetAndStall(io.PF_pc, Mux(!io.bp_fail, PF_npc, io.ID_npc), reset.asBool | io.bp_fail, 0.U(64.W), io.stall)
 
