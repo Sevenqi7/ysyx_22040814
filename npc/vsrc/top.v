@@ -51,9 +51,8 @@ module IF_pre_fetch(	// <stdin>:25:10
   output [31:0] axi_lite_readAddr_bits_addr);
 
   reg  [63:0] rhsReg;	// tools.scala:32:33
-  wire        _io_bp_fail_T_4;	// pre_fetch.scala:27:62
   reg  [63:0] PF_npc;	// pre_fetch.scala:20:27
-  assign _io_bp_fail_T_4 = io_ID_npc != rhsReg & (|rhsReg) & (|io_IF_pc);	// pre_fetch.scala:27:{29,54,62,74}, tools.scala:32:33
+  wire        _io_bp_fail_T_4 = io_ID_npc != rhsReg & (|rhsReg) & (|io_IF_pc);	// pre_fetch.scala:27:{29,54,62,74}, tools.scala:32:33
   reg         bp_fail_r;	// pre_fetch.scala:28:28
   always @(posedge clock) begin
     if (reset) begin
@@ -61,10 +60,10 @@ module IF_pre_fetch(	// <stdin>:25:10
       bp_fail_r <= 1'h0;	// pre_fetch.scala:24:24, :28:28
     end
     else begin
-      if (_io_bp_fail_T_4)	// pre_fetch.scala:27:62
+      if (~_io_bp_fail_T_4 | io_stall)	// pre_fetch.scala:24:{24,36}, :27:62
+        PF_npc <= PF_npc + 64'h4;	// pre_fetch.scala:20:27, :24:54
+      else	// pre_fetch.scala:24:{24,36}, :27:62
         PF_npc <= io_ID_npc;	// pre_fetch.scala:20:27
-      else	// pre_fetch.scala:27:62
-        PF_npc <= PF_npc + 64'h4;	// pre_fetch.scala:20:27, :24:43
       bp_fail_r <= _io_bp_fail_T_4;	// pre_fetch.scala:27:62, :28:28
     end
     if (reset | _io_bp_fail_T_4)	// pre_fetch.scala:27:62, :30:64
@@ -111,7 +110,7 @@ module IF_pre_fetch(	// <stdin>:25:10
   assign axi_lite_readAddr_bits_addr = PF_npc[31:0];	// <stdin>:25:10, pre_fetch.scala:20:27, :42:46
 endmodule
 
-module IFU(	// <stdin>:75:10
+module IFU(	// <stdin>:76:10
   input         clock,
                 reset,
   input  [63:0] io_ID_npc,
@@ -152,30 +151,30 @@ module IFU(	// <stdin>:75:10
       rhsReg_2 <= _pre_fetch_io_inst_valid;	// IFU.scala:48:27, tools.scala:32:33
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:75:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:75:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:75:10
+  `ifndef SYNTHESIS	// <stdin>:76:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:76:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:76:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:75:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:75:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:75:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:75:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:75:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:75:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:75:10
+    initial begin	// <stdin>:76:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:76:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:76:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:76:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:76:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:76:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:76:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:75:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:75:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:75:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:75:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:75:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:76:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:76:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:76:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:76:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:76:10
         rhsReg = {_RANDOM_0, _RANDOM_1};	// tools.scala:32:33
         rhsReg_1 = _RANDOM_2;	// tools.scala:32:33
         rhsReg_2 = _RANDOM_3[0];	// tools.scala:32:33
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:75:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:75:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:76:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:76:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
   sim_sram inst_ram (	// IFU.scala:47:26
@@ -216,13 +215,13 @@ module IFU(	// <stdin>:75:10
     .io_PF_npc                   (io_PF_npc),
     .axi_lite_readAddr_bits_addr (_pre_fetch_axi_lite_readAddr_bits_addr)
   );
-  assign io_PF_pc = _pre_fetch_io_PF_pc;	// <stdin>:75:10, IFU.scala:48:27
-  assign io_IF_pc = rhsReg;	// <stdin>:75:10, tools.scala:32:33
-  assign io_IF_Inst = rhsReg_1;	// <stdin>:75:10, tools.scala:32:33
-  assign io_IF_valid = rhsReg_2;	// <stdin>:75:10, tools.scala:32:33
+  assign io_PF_pc = _pre_fetch_io_PF_pc;	// <stdin>:76:10, IFU.scala:48:27
+  assign io_IF_pc = rhsReg;	// <stdin>:76:10, tools.scala:32:33
+  assign io_IF_Inst = rhsReg_1;	// <stdin>:76:10, tools.scala:32:33
+  assign io_IF_valid = rhsReg_2;	// <stdin>:76:10, tools.scala:32:33
 endmodule
 
-module IDU(	// <stdin>:158:10
+module IDU(	// <stdin>:159:10
   input         clock,
                 reset,
   input  [31:0] io_IF_Inst,
@@ -792,167 +791,167 @@ module IDU(	// <stdin>:158:10
       rhsReg_14 <= io_IF_valid & ~_io_ID_stall_T_21;	// IDU.scala:187:{70,72}, :194:21, tools.scala:23:33
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:158:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:158:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:158:10
+  `ifndef SYNTHESIS	// <stdin>:159:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:159:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:159:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_4;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_5;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_6;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_7;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_8;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_9;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_10;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_11;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_12;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_13;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_14;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_15;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_16;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_17;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_18;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_19;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_20;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_21;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_22;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_23;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_24;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_25;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_26;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_27;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_28;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_29;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_30;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_31;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_32;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_33;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_34;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_35;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_36;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_37;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_38;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_39;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_40;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_41;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_42;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_43;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_44;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_45;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_46;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_47;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_48;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_49;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_50;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_51;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_52;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_53;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_54;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_55;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_56;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_57;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_58;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_59;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_60;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_61;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_62;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_63;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_64;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_65;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_66;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_67;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_68;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_69;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_70;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_71;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_72;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_73;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_74;	// <stdin>:158:10
-      automatic logic [31:0] _RANDOM_75;	// <stdin>:158:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:158:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:158:10
+    initial begin	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_5;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_6;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_7;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_8;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_9;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_10;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_11;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_12;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_13;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_14;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_15;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_16;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_17;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_18;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_19;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_20;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_21;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_22;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_23;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_24;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_25;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_26;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_27;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_28;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_29;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_30;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_31;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_32;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_33;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_34;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_35;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_36;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_37;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_38;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_39;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_40;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_41;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_42;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_43;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_44;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_45;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_46;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_47;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_48;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_49;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_50;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_51;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_52;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_53;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_54;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_55;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_56;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_57;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_58;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_59;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_60;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_61;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_62;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_63;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_64;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_65;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_66;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_67;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_68;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_69;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_70;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_71;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_72;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_73;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_74;	// <stdin>:159:10
+      automatic logic [31:0] _RANDOM_75;	// <stdin>:159:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:159:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:159:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:158:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_4 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_5 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_6 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_7 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_8 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_9 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_10 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_11 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_12 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_13 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_14 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_15 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_16 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_17 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_18 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_19 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_20 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_21 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_22 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_23 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_24 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_25 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_26 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_27 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_28 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_29 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_30 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_31 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_32 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_33 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_34 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_35 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_36 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_37 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_38 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_39 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_40 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_41 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_42 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_43 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_44 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_45 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_46 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_47 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_48 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_49 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_50 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_51 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_52 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_53 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_54 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_55 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_56 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_57 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_58 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_59 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_60 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_61 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_62 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_63 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_64 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_65 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_66 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_67 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_68 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_69 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_70 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_71 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_72 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_73 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_74 = `RANDOM;	// <stdin>:158:10
-        _RANDOM_75 = `RANDOM;	// <stdin>:158:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:159:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_5 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_6 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_7 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_8 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_9 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_10 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_11 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_12 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_13 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_14 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_15 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_16 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_17 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_18 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_19 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_20 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_21 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_22 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_23 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_24 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_25 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_26 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_27 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_28 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_29 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_30 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_31 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_32 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_33 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_34 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_35 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_36 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_37 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_38 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_39 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_40 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_41 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_42 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_43 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_44 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_45 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_46 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_47 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_48 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_49 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_50 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_51 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_52 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_53 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_54 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_55 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_56 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_57 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_58 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_59 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_60 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_61 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_62 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_63 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_64 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_65 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_66 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_67 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_68 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_69 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_70 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_71 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_72 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_73 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_74 = `RANDOM;	// <stdin>:159:10
+        _RANDOM_75 = `RANDOM;	// <stdin>:159:10
         GPR_0 = {_RANDOM_0, _RANDOM_1};	// IDU.scala:96:22
         GPR_1 = {_RANDOM_2, _RANDOM_3};	// IDU.scala:96:22
         GPR_2 = {_RANDOM_4, _RANDOM_5};	// IDU.scala:96:22
@@ -1002,8 +1001,8 @@ module IDU(	// <stdin>:158:10
         rhsReg_14 = _RANDOM_75[25];	// tools.scala:23:33
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:158:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:158:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:159:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:159:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
   assign io_ID_npc = _io_ID_npc_T ? io_IF_pc + {{44{io_IF_Inst[31]}}, io_IF_Inst[19:12], io_IF_Inst[20],
@@ -1014,59 +1013,59 @@ module IDU(	// <stdin>:158:10
                 _rs2_data_T_13 : InstInfo_4 == 5'h5 & _rs1_data_T_13 >= _rs2_data_T_13) ? io_IF_pc +
                 {_GEN_8, io_IF_Inst[7], io_IF_Inst[30:25], io_IF_Inst[11:8], 1'h0} : _io_ID_npc_T_9 &
                 _io_ID_npc_T_10 ? _rs1_data_T_13 + {_immI_T_2, io_IF_Inst[31:20]} : {32'h0,
-                _ALU_Data1_T_5[31:0]};	// <stdin>:158:10, Bitwise.scala:77:12, IDU.scala:81:{36,53}, :83:10, :84:{80,107,128}, :85:{54,76,101}, :128:31, :146:19, :147:19, :156:{15,33}, :167:104, :198:13, :199:19, :200:{34,46}, :201:{34,46}, :202:{34,53}, :203:{34,53}, :204:{34,46}, :205:{34,46}, :209:13, :211:40, :212:{31,58}, :213:{31,58}, Lookup.scala:34:39, Mux.scala:101:16
-  assign io_ID_to_EX_bus_valid = rhsReg_14;	// <stdin>:158:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_ALU_Data1 = rhsReg_2;	// <stdin>:158:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_ALU_Data2 = rhsReg_4;	// <stdin>:158:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_futype = rhsReg_9[0];	// <stdin>:158:10, tools.scala:23:33, :25:17
-  assign io_ID_to_EX_bus_bits_optype = rhsReg_8;	// <stdin>:158:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_rs1_data = rhsReg_10;	// <stdin>:158:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_rs1_id = rhsReg_11;	// <stdin>:158:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_rs2_data = rhsReg_12;	// <stdin>:158:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_rs2_id = rhsReg_13;	// <stdin>:158:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_regWriteID = rhsReg_3;	// <stdin>:158:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_regWriteEn = rhsReg_5;	// <stdin>:158:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_memWriteEn = rhsReg_7;	// <stdin>:158:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_memReadEn = rhsReg_6;	// <stdin>:158:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_PC = rhsReg;	// <stdin>:158:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_Inst = rhsReg_1;	// <stdin>:158:10, tools.scala:23:33
-  assign io_ID_stall = _io_ID_stall_T_21;	// <stdin>:158:10, IDU.scala:194:21
-  assign io_ID_GPR_0 = GPR_0;	// <stdin>:158:10, IDU.scala:96:22
-  assign io_ID_GPR_1 = GPR_1;	// <stdin>:158:10, IDU.scala:96:22
-  assign io_ID_GPR_2 = GPR_2;	// <stdin>:158:10, IDU.scala:96:22
-  assign io_ID_GPR_3 = GPR_3;	// <stdin>:158:10, IDU.scala:96:22
-  assign io_ID_GPR_4 = GPR_4;	// <stdin>:158:10, IDU.scala:96:22
-  assign io_ID_GPR_5 = GPR_5;	// <stdin>:158:10, IDU.scala:96:22
-  assign io_ID_GPR_6 = GPR_6;	// <stdin>:158:10, IDU.scala:96:22
-  assign io_ID_GPR_7 = GPR_7;	// <stdin>:158:10, IDU.scala:96:22
-  assign io_ID_GPR_8 = GPR_8;	// <stdin>:158:10, IDU.scala:96:22
-  assign io_ID_GPR_9 = GPR_9;	// <stdin>:158:10, IDU.scala:96:22
-  assign io_ID_GPR_10 = GPR_10;	// <stdin>:158:10, IDU.scala:96:22
-  assign io_ID_GPR_11 = GPR_11;	// <stdin>:158:10, IDU.scala:96:22
-  assign io_ID_GPR_12 = GPR_12;	// <stdin>:158:10, IDU.scala:96:22
-  assign io_ID_GPR_13 = GPR_13;	// <stdin>:158:10, IDU.scala:96:22
-  assign io_ID_GPR_14 = GPR_14;	// <stdin>:158:10, IDU.scala:96:22
-  assign io_ID_GPR_15 = GPR_15;	// <stdin>:158:10, IDU.scala:96:22
-  assign io_ID_GPR_16 = GPR_16;	// <stdin>:158:10, IDU.scala:96:22
-  assign io_ID_GPR_17 = GPR_17;	// <stdin>:158:10, IDU.scala:96:22
-  assign io_ID_GPR_18 = GPR_18;	// <stdin>:158:10, IDU.scala:96:22
-  assign io_ID_GPR_19 = GPR_19;	// <stdin>:158:10, IDU.scala:96:22
-  assign io_ID_GPR_20 = GPR_20;	// <stdin>:158:10, IDU.scala:96:22
-  assign io_ID_GPR_21 = GPR_21;	// <stdin>:158:10, IDU.scala:96:22
-  assign io_ID_GPR_22 = GPR_22;	// <stdin>:158:10, IDU.scala:96:22
-  assign io_ID_GPR_23 = GPR_23;	// <stdin>:158:10, IDU.scala:96:22
-  assign io_ID_GPR_24 = GPR_24;	// <stdin>:158:10, IDU.scala:96:22
-  assign io_ID_GPR_25 = GPR_25;	// <stdin>:158:10, IDU.scala:96:22
-  assign io_ID_GPR_26 = GPR_26;	// <stdin>:158:10, IDU.scala:96:22
-  assign io_ID_GPR_27 = GPR_27;	// <stdin>:158:10, IDU.scala:96:22
-  assign io_ID_GPR_28 = GPR_28;	// <stdin>:158:10, IDU.scala:96:22
-  assign io_ID_GPR_29 = GPR_29;	// <stdin>:158:10, IDU.scala:96:22
-  assign io_ID_GPR_30 = GPR_30;	// <stdin>:158:10, IDU.scala:96:22
-  assign io_ID_GPR_31 = GPR_31;	// <stdin>:158:10, IDU.scala:96:22
-  assign io_ID_unknown_inst = InstInfo_0 == 3'h0 & io_IF_valid;	// <stdin>:158:10, IDU.scala:191:{39,47}, Lookup.scala:34:39
+                _ALU_Data1_T_5[31:0]};	// <stdin>:159:10, Bitwise.scala:77:12, IDU.scala:81:{36,53}, :83:10, :84:{80,107,128}, :85:{54,76,101}, :128:31, :146:19, :147:19, :156:{15,33}, :167:104, :198:13, :199:19, :200:{34,46}, :201:{34,46}, :202:{34,53}, :203:{34,53}, :204:{34,46}, :205:{34,46}, :209:13, :211:40, :212:{31,58}, :213:{31,58}, Lookup.scala:34:39, Mux.scala:101:16
+  assign io_ID_to_EX_bus_valid = rhsReg_14;	// <stdin>:159:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_ALU_Data1 = rhsReg_2;	// <stdin>:159:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_ALU_Data2 = rhsReg_4;	// <stdin>:159:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_futype = rhsReg_9[0];	// <stdin>:159:10, tools.scala:23:33, :25:17
+  assign io_ID_to_EX_bus_bits_optype = rhsReg_8;	// <stdin>:159:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_rs1_data = rhsReg_10;	// <stdin>:159:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_rs1_id = rhsReg_11;	// <stdin>:159:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_rs2_data = rhsReg_12;	// <stdin>:159:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_rs2_id = rhsReg_13;	// <stdin>:159:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_regWriteID = rhsReg_3;	// <stdin>:159:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_regWriteEn = rhsReg_5;	// <stdin>:159:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_memWriteEn = rhsReg_7;	// <stdin>:159:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_memReadEn = rhsReg_6;	// <stdin>:159:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_PC = rhsReg;	// <stdin>:159:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_Inst = rhsReg_1;	// <stdin>:159:10, tools.scala:23:33
+  assign io_ID_stall = _io_ID_stall_T_21;	// <stdin>:159:10, IDU.scala:194:21
+  assign io_ID_GPR_0 = GPR_0;	// <stdin>:159:10, IDU.scala:96:22
+  assign io_ID_GPR_1 = GPR_1;	// <stdin>:159:10, IDU.scala:96:22
+  assign io_ID_GPR_2 = GPR_2;	// <stdin>:159:10, IDU.scala:96:22
+  assign io_ID_GPR_3 = GPR_3;	// <stdin>:159:10, IDU.scala:96:22
+  assign io_ID_GPR_4 = GPR_4;	// <stdin>:159:10, IDU.scala:96:22
+  assign io_ID_GPR_5 = GPR_5;	// <stdin>:159:10, IDU.scala:96:22
+  assign io_ID_GPR_6 = GPR_6;	// <stdin>:159:10, IDU.scala:96:22
+  assign io_ID_GPR_7 = GPR_7;	// <stdin>:159:10, IDU.scala:96:22
+  assign io_ID_GPR_8 = GPR_8;	// <stdin>:159:10, IDU.scala:96:22
+  assign io_ID_GPR_9 = GPR_9;	// <stdin>:159:10, IDU.scala:96:22
+  assign io_ID_GPR_10 = GPR_10;	// <stdin>:159:10, IDU.scala:96:22
+  assign io_ID_GPR_11 = GPR_11;	// <stdin>:159:10, IDU.scala:96:22
+  assign io_ID_GPR_12 = GPR_12;	// <stdin>:159:10, IDU.scala:96:22
+  assign io_ID_GPR_13 = GPR_13;	// <stdin>:159:10, IDU.scala:96:22
+  assign io_ID_GPR_14 = GPR_14;	// <stdin>:159:10, IDU.scala:96:22
+  assign io_ID_GPR_15 = GPR_15;	// <stdin>:159:10, IDU.scala:96:22
+  assign io_ID_GPR_16 = GPR_16;	// <stdin>:159:10, IDU.scala:96:22
+  assign io_ID_GPR_17 = GPR_17;	// <stdin>:159:10, IDU.scala:96:22
+  assign io_ID_GPR_18 = GPR_18;	// <stdin>:159:10, IDU.scala:96:22
+  assign io_ID_GPR_19 = GPR_19;	// <stdin>:159:10, IDU.scala:96:22
+  assign io_ID_GPR_20 = GPR_20;	// <stdin>:159:10, IDU.scala:96:22
+  assign io_ID_GPR_21 = GPR_21;	// <stdin>:159:10, IDU.scala:96:22
+  assign io_ID_GPR_22 = GPR_22;	// <stdin>:159:10, IDU.scala:96:22
+  assign io_ID_GPR_23 = GPR_23;	// <stdin>:159:10, IDU.scala:96:22
+  assign io_ID_GPR_24 = GPR_24;	// <stdin>:159:10, IDU.scala:96:22
+  assign io_ID_GPR_25 = GPR_25;	// <stdin>:159:10, IDU.scala:96:22
+  assign io_ID_GPR_26 = GPR_26;	// <stdin>:159:10, IDU.scala:96:22
+  assign io_ID_GPR_27 = GPR_27;	// <stdin>:159:10, IDU.scala:96:22
+  assign io_ID_GPR_28 = GPR_28;	// <stdin>:159:10, IDU.scala:96:22
+  assign io_ID_GPR_29 = GPR_29;	// <stdin>:159:10, IDU.scala:96:22
+  assign io_ID_GPR_30 = GPR_30;	// <stdin>:159:10, IDU.scala:96:22
+  assign io_ID_GPR_31 = GPR_31;	// <stdin>:159:10, IDU.scala:96:22
+  assign io_ID_unknown_inst = InstInfo_0 == 3'h0 & io_IF_valid;	// <stdin>:159:10, IDU.scala:191:{39,47}, Lookup.scala:34:39
 endmodule
 
-module EXU(	// <stdin>:924:10
+module EXU(	// <stdin>:925:10
   input         clock,
                 reset,
                 io_ID_to_EX_bus_valid,
@@ -1183,31 +1182,31 @@ module EXU(	// <stdin>:924:10
       rhsReg_9 <= io_ID_to_EX_bus_valid;	// tools.scala:15:29
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:924:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:924:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:924:10
+  `ifndef SYNTHESIS	// <stdin>:925:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:925:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:925:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:924:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:924:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:924:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:924:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:924:10
-      automatic logic [31:0] _RANDOM_4;	// <stdin>:924:10
-      automatic logic [31:0] _RANDOM_5;	// <stdin>:924:10
-      automatic logic [31:0] _RANDOM_6;	// <stdin>:924:10
-      automatic logic [31:0] _RANDOM_7;	// <stdin>:924:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:924:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:924:10
+    initial begin	// <stdin>:925:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:925:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:925:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:925:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:925:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:925:10
+      automatic logic [31:0] _RANDOM_5;	// <stdin>:925:10
+      automatic logic [31:0] _RANDOM_6;	// <stdin>:925:10
+      automatic logic [31:0] _RANDOM_7;	// <stdin>:925:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:925:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:925:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:924:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:924:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:924:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:924:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:924:10
-        _RANDOM_4 = `RANDOM;	// <stdin>:924:10
-        _RANDOM_5 = `RANDOM;	// <stdin>:924:10
-        _RANDOM_6 = `RANDOM;	// <stdin>:924:10
-        _RANDOM_7 = `RANDOM;	// <stdin>:924:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:925:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:925:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:925:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:925:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:925:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:925:10
+        _RANDOM_5 = `RANDOM;	// <stdin>:925:10
+        _RANDOM_6 = `RANDOM;	// <stdin>:925:10
+        _RANDOM_7 = `RANDOM;	// <stdin>:925:10
         rhsReg = {_RANDOM_0, _RANDOM_1};	// tools.scala:15:29
         rhsReg_1 = _RANDOM_2;	// tools.scala:15:29
         rhsReg_2 = _RANDOM_3[0];	// tools.scala:15:29
@@ -1220,26 +1219,26 @@ module EXU(	// <stdin>:924:10
         rhsReg_9 = _RANDOM_7[13];	// tools.scala:15:29
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:924:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:924:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:925:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:925:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  assign io_EX_to_MEM_bus_valid = rhsReg_9;	// <stdin>:924:10, tools.scala:15:29
-  assign io_EX_to_MEM_bus_bits_Inst = rhsReg_1;	// <stdin>:924:10, tools.scala:15:29
-  assign io_EX_to_MEM_bus_bits_PC = rhsReg;	// <stdin>:924:10, tools.scala:15:29
-  assign io_EX_to_MEM_bus_bits_ALU_result = rhsReg_7;	// <stdin>:924:10, tools.scala:15:29
-  assign io_EX_to_MEM_bus_bits_memWriteData = rhsReg_6;	// <stdin>:924:10, tools.scala:15:29
-  assign io_EX_to_MEM_bus_bits_memWriteEn = rhsReg_4;	// <stdin>:924:10, tools.scala:15:29
-  assign io_EX_to_MEM_bus_bits_memReadEn = rhsReg_5;	// <stdin>:924:10, tools.scala:15:29
-  assign io_EX_to_MEM_bus_bits_lsutype = rhsReg_8;	// <stdin>:924:10, tools.scala:15:29
-  assign io_EX_to_MEM_bus_bits_regWriteID = rhsReg_3;	// <stdin>:924:10, tools.scala:15:29
-  assign io_EX_to_MEM_bus_bits_regWriteEn = rhsReg_2;	// <stdin>:924:10, tools.scala:15:29
-  assign io_EX_ALUResult_Pass = _GEN_5;	// <stdin>:924:10, Mux.scala:101:16
+  assign io_EX_to_MEM_bus_valid = rhsReg_9;	// <stdin>:925:10, tools.scala:15:29
+  assign io_EX_to_MEM_bus_bits_Inst = rhsReg_1;	// <stdin>:925:10, tools.scala:15:29
+  assign io_EX_to_MEM_bus_bits_PC = rhsReg;	// <stdin>:925:10, tools.scala:15:29
+  assign io_EX_to_MEM_bus_bits_ALU_result = rhsReg_7;	// <stdin>:925:10, tools.scala:15:29
+  assign io_EX_to_MEM_bus_bits_memWriteData = rhsReg_6;	// <stdin>:925:10, tools.scala:15:29
+  assign io_EX_to_MEM_bus_bits_memWriteEn = rhsReg_4;	// <stdin>:925:10, tools.scala:15:29
+  assign io_EX_to_MEM_bus_bits_memReadEn = rhsReg_5;	// <stdin>:925:10, tools.scala:15:29
+  assign io_EX_to_MEM_bus_bits_lsutype = rhsReg_8;	// <stdin>:925:10, tools.scala:15:29
+  assign io_EX_to_MEM_bus_bits_regWriteID = rhsReg_3;	// <stdin>:925:10, tools.scala:15:29
+  assign io_EX_to_MEM_bus_bits_regWriteEn = rhsReg_2;	// <stdin>:925:10, tools.scala:15:29
+  assign io_EX_ALUResult_Pass = _GEN_5;	// <stdin>:925:10, Mux.scala:101:16
 endmodule
 
 // external module LSU
 
-module MEMU(	// <stdin>:1228:10
+module MEMU(	// <stdin>:1229:10
   input         clock,
                 reset,
                 io_EX_to_MEM_bus_valid,
@@ -1288,27 +1287,27 @@ module MEMU(	// <stdin>:1228:10
       rhsReg_5 <= io_EX_to_MEM_bus_valid;	// tools.scala:15:29
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:1228:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:1228:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:1228:10
+  `ifndef SYNTHESIS	// <stdin>:1229:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:1229:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:1229:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:1228:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:1228:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:1228:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:1228:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:1228:10
-      automatic logic [31:0] _RANDOM_4;	// <stdin>:1228:10
-      automatic logic [31:0] _RANDOM_5;	// <stdin>:1228:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:1228:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:1228:10
+    initial begin	// <stdin>:1229:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:1229:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:1229:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:1229:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:1229:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:1229:10
+      automatic logic [31:0] _RANDOM_5;	// <stdin>:1229:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:1229:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:1229:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:1228:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:1228:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:1228:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:1228:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:1228:10
-        _RANDOM_4 = `RANDOM;	// <stdin>:1228:10
-        _RANDOM_5 = `RANDOM;	// <stdin>:1228:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:1229:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:1229:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:1229:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:1229:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:1229:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:1229:10
+        _RANDOM_5 = `RANDOM;	// <stdin>:1229:10
         rhsReg = {_RANDOM_0, _RANDOM_1};	// tools.scala:15:29
         rhsReg_1 = _RANDOM_2;	// tools.scala:15:29
         rhsReg_2 = _RANDOM_3[0];	// tools.scala:15:29
@@ -1317,8 +1316,8 @@ module MEMU(	// <stdin>:1228:10
         rhsReg_5 = _RANDOM_5[6];	// tools.scala:15:29
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:1228:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:1228:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:1229:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:1229:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
   LSU mem (	// MEMU.scala:50:21
@@ -1330,16 +1329,16 @@ module MEMU(	// <stdin>:1228:10
     .WriteData (io_EX_to_MEM_bus_bits_memWriteData),
     .ReadData  (_mem_ReadData)
   );
-  assign io_MEM_to_WB_bus_valid = rhsReg_5;	// <stdin>:1228:10, tools.scala:15:29
-  assign io_MEM_to_WB_bus_bits_regWriteData = rhsReg_4;	// <stdin>:1228:10, tools.scala:15:29
-  assign io_MEM_to_WB_bus_bits_regWriteEn = rhsReg_2;	// <stdin>:1228:10, tools.scala:15:29
-  assign io_MEM_to_WB_bus_bits_regWriteID = rhsReg_3;	// <stdin>:1228:10, tools.scala:15:29
-  assign io_MEM_to_WB_bus_bits_PC = rhsReg;	// <stdin>:1228:10, tools.scala:15:29
-  assign io_MEM_to_WB_bus_bits_Inst = rhsReg_1;	// <stdin>:1228:10, tools.scala:15:29
-  assign io_MEM_regWriteData_Pass = io_EX_to_MEM_bus_bits_memReadEn ? _mem_ReadData : io_EX_to_MEM_bus_bits_ALU_result;	// <stdin>:1228:10, MEMU.scala:50:21, :54:24
+  assign io_MEM_to_WB_bus_valid = rhsReg_5;	// <stdin>:1229:10, tools.scala:15:29
+  assign io_MEM_to_WB_bus_bits_regWriteData = rhsReg_4;	// <stdin>:1229:10, tools.scala:15:29
+  assign io_MEM_to_WB_bus_bits_regWriteEn = rhsReg_2;	// <stdin>:1229:10, tools.scala:15:29
+  assign io_MEM_to_WB_bus_bits_regWriteID = rhsReg_3;	// <stdin>:1229:10, tools.scala:15:29
+  assign io_MEM_to_WB_bus_bits_PC = rhsReg;	// <stdin>:1229:10, tools.scala:15:29
+  assign io_MEM_to_WB_bus_bits_Inst = rhsReg_1;	// <stdin>:1229:10, tools.scala:15:29
+  assign io_MEM_regWriteData_Pass = io_EX_to_MEM_bus_bits_memReadEn ? _mem_ReadData : io_EX_to_MEM_bus_bits_ALU_result;	// <stdin>:1229:10, MEMU.scala:50:21, :54:24
 endmodule
 
-module WBU(	// <stdin>:1278:10
+module WBU(	// <stdin>:1279:10
   input         io_MEM_to_WB_bus_valid,
   input  [63:0] io_MEM_to_WB_bus_bits_regWriteData,
   input         io_MEM_to_WB_bus_bits_regWriteEn,
@@ -1353,17 +1352,17 @@ module WBU(	// <stdin>:1278:10
   output [63:0] io_WB_pc,
   output [31:0] io_WB_Inst);
 
-  assign io_WB_RegWriteData = io_MEM_to_WB_bus_bits_regWriteData;	// <stdin>:1278:10
-  assign io_WB_RegWriteEn = io_MEM_to_WB_bus_bits_regWriteEn;	// <stdin>:1278:10
-  assign io_WB_RegWriteID = io_MEM_to_WB_bus_bits_regWriteID;	// <stdin>:1278:10
-  assign io_WB_valid = io_MEM_to_WB_bus_valid;	// <stdin>:1278:10
-  assign io_WB_pc = io_MEM_to_WB_bus_bits_PC;	// <stdin>:1278:10
-  assign io_WB_Inst = io_MEM_to_WB_bus_bits_Inst;	// <stdin>:1278:10
+  assign io_WB_RegWriteData = io_MEM_to_WB_bus_bits_regWriteData;	// <stdin>:1279:10
+  assign io_WB_RegWriteEn = io_MEM_to_WB_bus_bits_regWriteEn;	// <stdin>:1279:10
+  assign io_WB_RegWriteID = io_MEM_to_WB_bus_bits_regWriteID;	// <stdin>:1279:10
+  assign io_WB_valid = io_MEM_to_WB_bus_valid;	// <stdin>:1279:10
+  assign io_WB_pc = io_MEM_to_WB_bus_bits_PC;	// <stdin>:1279:10
+  assign io_WB_Inst = io_MEM_to_WB_bus_bits_Inst;	// <stdin>:1279:10
 endmodule
 
 // external module sim
 
-module top(	// <stdin>:1301:10
+module top(	// <stdin>:1302:10
   input         clock,
                 reset,
   output [63:0] io_ID_npc,
@@ -1626,21 +1625,21 @@ sim simulate (	// top.scala:24:26
    .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
 );
 
-  assign io_ID_npc = _inst_decode_unit_io_ID_npc;	// <stdin>:1301:10, top.scala:46:34
-  assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:1301:10, top.scala:45:33
-  assign io_ID_pc = _inst_decode_unit_io_ID_to_EX_bus_bits_PC;	// <stdin>:1301:10, top.scala:46:34
-  assign io_EX_pc = _excute_unit_io_EX_to_MEM_bus_bits_PC;	// <stdin>:1301:10, top.scala:47:29
-  assign io_WB_Inst = _wb_unit_io_WB_Inst;	// <stdin>:1301:10, top.scala:49:25
-  assign io_WB_RegWriteData = _wb_unit_io_WB_RegWriteData;	// <stdin>:1301:10, top.scala:49:25
-  assign io_WB_RegWriteID = {59'h0, _wb_unit_io_WB_RegWriteID};	// <stdin>:1301:10, top.scala:49:25, :63:24
-  assign io_MEM_RegWriteData = _mem_unit_io_MEM_regWriteData_Pass;	// <stdin>:1301:10, top.scala:48:26
-  assign io_stall = _inst_decode_unit_io_ID_stall;	// <stdin>:1301:10, top.scala:46:34
-  assign io_IF_Inst = _inst_fetch_unit_io_IF_Inst;	// <stdin>:1301:10, top.scala:45:33
-  assign io_IF_valid = _inst_fetch_unit_io_IF_valid;	// <stdin>:1301:10, top.scala:45:33
-  assign io_ID_ALU_Data1 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data1;	// <stdin>:1301:10, top.scala:46:34
-  assign io_ID_ALU_Data2 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data2;	// <stdin>:1301:10, top.scala:46:34
-  assign io_ID_Rs2Data = _inst_decode_unit_io_ID_to_EX_bus_bits_rs2_data;	// <stdin>:1301:10, top.scala:46:34
-  assign io_ALUResult = _excute_unit_io_EX_to_MEM_bus_bits_ALU_result;	// <stdin>:1301:10, top.scala:47:29
+  assign io_ID_npc = _inst_decode_unit_io_ID_npc;	// <stdin>:1302:10, top.scala:46:34
+  assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:1302:10, top.scala:45:33
+  assign io_ID_pc = _inst_decode_unit_io_ID_to_EX_bus_bits_PC;	// <stdin>:1302:10, top.scala:46:34
+  assign io_EX_pc = _excute_unit_io_EX_to_MEM_bus_bits_PC;	// <stdin>:1302:10, top.scala:47:29
+  assign io_WB_Inst = _wb_unit_io_WB_Inst;	// <stdin>:1302:10, top.scala:49:25
+  assign io_WB_RegWriteData = _wb_unit_io_WB_RegWriteData;	// <stdin>:1302:10, top.scala:49:25
+  assign io_WB_RegWriteID = {59'h0, _wb_unit_io_WB_RegWriteID};	// <stdin>:1302:10, top.scala:49:25, :63:24
+  assign io_MEM_RegWriteData = _mem_unit_io_MEM_regWriteData_Pass;	// <stdin>:1302:10, top.scala:48:26
+  assign io_stall = _inst_decode_unit_io_ID_stall;	// <stdin>:1302:10, top.scala:46:34
+  assign io_IF_Inst = _inst_fetch_unit_io_IF_Inst;	// <stdin>:1302:10, top.scala:45:33
+  assign io_IF_valid = _inst_fetch_unit_io_IF_valid;	// <stdin>:1302:10, top.scala:45:33
+  assign io_ID_ALU_Data1 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data1;	// <stdin>:1302:10, top.scala:46:34
+  assign io_ID_ALU_Data2 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data2;	// <stdin>:1302:10, top.scala:46:34
+  assign io_ID_Rs2Data = _inst_decode_unit_io_ID_to_EX_bus_bits_rs2_data;	// <stdin>:1302:10, top.scala:46:34
+  assign io_ALUResult = _excute_unit_io_EX_to_MEM_bus_bits_ALU_result;	// <stdin>:1302:10, top.scala:47:29
 endmodule
 
 
@@ -1730,7 +1729,7 @@ module sim_sram(
             if(arready_r & arvalid)
                 dci_pmem_read({32'H000, araddr_r}, rdata_r, 8'HFF);
         end
-        $display("addr:0x%x, rdata:0x%x", araddr_r, rdata_r);
+        // $display("addr:0x%x, rdata:0x%x", araddr_r, rdata_r);
     end
 
 endmodule
