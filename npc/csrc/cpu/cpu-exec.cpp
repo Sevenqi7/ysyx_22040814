@@ -38,6 +38,7 @@ static void trace_and_difftest(char *logbuf)
 
 #ifdef CONFIG_DIFFTEST
     void difftest_step(vaddr_t pc);
+    Log("difftest");
     difftest_step(top->io_WB_pc);
 #endif
 }

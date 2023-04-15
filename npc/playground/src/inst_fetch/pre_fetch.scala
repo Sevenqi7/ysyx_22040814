@@ -39,5 +39,5 @@ class IF_pre_fetch extends Module{
     axi_lite.readData.ready         := 1.U
 
     io.inst                         := axi_lite.readData.bits.data
-    io.inst_valid                   := (axi_lite.readData.valid && axi_lite.readData.bits.resp === 0.U)
+    io.inst_valid                   := (axi_lite.readData.valid && axi_lite.readData.bits.resp === 0.U) & !io.bp_fail
 }
