@@ -20,8 +20,10 @@ class IF_pre_fetch extends Module{
     val PF_npc   = RegInit(0x80000000L.U(64.W))
     
     io.PF_npc    := PF_npc
+    
+    PF_npc      := Mux(!io.bp_fail & !io.stall, PF_npc+4.U, io.ID_npc)
+    
 
-    PF_npc      := Mux(!io.bp_fail, PF_npc+4.U, io.ID_npc)
     io.bp_fail := io.ID_npc =/= io.PF_pc && io.PF_pc =/= 0.U && io.IF_pc =/= 0.U
     val bp_fail_r = RegInit(0.U(1.W))
     bp_fail_r := io.bp_fail
