@@ -25,5 +25,8 @@ void clock_step()
     Log("ALUResult:0x%lx", top->io_ALUResult);
     Log("MemRegWriteData_Pass:0x%lx", top->io_MEM_RegWriteData);
     Log("WB_RegWriteData:0x%lx", top->io_WB_RegWriteData);
+    Log("WB_RegWriteID:%d", top->io_WB_RegWriteID);
+    if(top->io_stall)
+        Log("stall deteceted");
 #endif
 }
