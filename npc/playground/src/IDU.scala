@@ -190,8 +190,8 @@ class IDU extends Module{
 
     io.ID_unknown_inst := InstInfo(0) === 0.U && io.IF_valid
     io.ID_stall := (io.ID_to_EX_bus.bits.memReadEn.asBool && !MemReadEn.asBool 
-                    && (RegWriteEn.asBool || instType === TYPE_B || instType === TYPE_J || ((instType === TYPE_I  &&  src1 === NPC))) 
-                    && ((io.ID_to_EX_bus.bits.regWriteID === rs1 && src1 === RS1) || (io.ID_to_EX_bus.bits.regWriteID === rs2 && src2 === RS2))) 
+                    && (RegWriteEn.asBool || instType === TYPE_B || instType === TYPE_J || ((instType === TYPE_I  &&  src1 === NPC)) 
+                    && ((io.ID_to_EX_bus.bits.regWriteID === rs1 && src1 === RS1) || (io.ID_to_EX_bus.bits.regWriteID === rs2 && src2 === RS2)))) 
 
     //NPC
     val BJ_flag = Wire(Bool())

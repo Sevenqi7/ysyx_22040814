@@ -80,7 +80,6 @@ void difftest_step(vaddr_t pc)
   //     Log("can not catch up with ref.pc = " FMT_WORD " at pc = " FMT_WORD, ref_r.pc, pc);
   //   assert(0);
   // }
-  Log("device_io_pc:0x%lx", device_io_pc);
   if(pc == device_io_pc)
   {
     device_io_pc = 0;
@@ -90,7 +89,6 @@ void difftest_step(vaddr_t pc)
   if(is_skip_ref)
   {
     // ref.pc = npc_state.pc;
-  Log("skip_ref");
 
     ref.pc = pc;
     memcpy(ref.gpr, cpu_gpr, sizeof(ref.gpr));
@@ -99,7 +97,6 @@ void difftest_step(vaddr_t pc)
     is_skip_ref = false;
     return ;
   }
-  Log("difftest");
   ref_difftest_exec(1);
   ref_difftest_regcpy(&ref, DIFFTEST_TO_DUT);
   checkregs(&ref, pc);
