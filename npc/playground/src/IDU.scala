@@ -168,7 +168,7 @@ class IDU extends Module{
     MemWriteEn := (instType === TYPE_S)
     MemReadEn  := (instType === TYPE_I  && futype === FuType.lsu)
 
-    val flush = reset.asBool | io.ID_stall       
+    val flush = reset.asBool | io.ID_stall  | !io.IF_valid
 
     regConnectWithReset(io.ID_to_EX_bus.bits.PC        , io.IF_pc  , flush, 0.U    )
     regConnectWithReset(io.ID_to_EX_bus.bits.Inst      , io.IF_Inst, flush, 0.U    )
@@ -184,7 +184,7 @@ class IDU extends Module{
     regConnectWithReset(io.ID_to_EX_bus.bits.rs1_id     , rs1      , flush, 0.U    )
     regConnectWithReset(io.ID_to_EX_bus.bits.rs2_data   , rs2_data , flush, 0.U    )
     regConnectWithReset(io.ID_to_EX_bus.bits.rs2_id     , rs2      , flush, 0.U    )
-    regConnectWithReset(io.ID_to_EX_bus.valid           ,io.IF_valid & io.ID_stall, flush, 0.U   )
+    regConnectWithReset(io.ID_to_EX_bus.valid           ,io.IF_valid & !io.ID_stall, flush, 0.U   )
 
     val stall_cnt = RegInit(0.U(2.W))
 
