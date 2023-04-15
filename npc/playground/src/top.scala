@@ -17,14 +17,23 @@ class sim extends BlackBox with HasBlackBoxPath{
 
 class top extends Module{
     val io = IO(new Bundle{
+        val ID_npc = Output(UInt(64.W))
+        val PF_npc = Output(UInt(64.W))
+        val PF_pc = Output(UInt(64.W))
         val IF_pc = Output(UInt(64.W))
         val ID_pc = Output(UInt(64.W))
+        val EX_pc = Output(UInt(64.W))
         val WB_pc = Output(UInt(64.W))
         val WB_Inst = Output(UInt(32.W))
         val WB_RegWriteData = Output(UInt(64.W))
-        val MEM_pc = Output(UInt(64.W))
+        val WB_RegWriteID = Output(UInt(64.W))
+        val WB_valid = Output(Bool())
+        // val MEM_pc = Output(UInt(64.W))
         val MEM_RegWriteData = Output(UInt(64.W))
         val stall   = Output(Bool())
+
+        val IF_Inst = Output(UInt(32.W))
+        val IF_valid = Output(Bool())
 
         val ID_ALU_Data1 = Output(UInt(64.W))
         val ID_ALU_Data2 = Output(UInt(64.W))
@@ -38,13 +47,21 @@ class top extends Module{
     val excute_unit = Module(new EXU)
     val mem_unit = Module(new MEMU)
     val wb_unit = Module(new WBU)
+
+    io.IF_Inst  := inst_fetch_unit.io.IF_Inst
+    io.IF_valid := inst_fetch_unit.io.IF_valid
     
+    io.ID_npc   := inst_decode_unit.io.ID_npc
+    io.PF_npc   := inst_fetch_unit.io.PF_npc
+    io.PF_pc := inst_fetch_unit.io.PF_pc
     io.IF_pc := inst_fetch_unit.io.IF_pc
     io.ID_pc := inst_decode_unit.io.ID_to_EX_bus.bits.PC
+    io.EX_pc := mem_unit.io.EX_to_MEM_bus.bits.PC
     io.WB_pc := wb_unit.io.WB_pc
-    io.MEM_pc := mem_unit.io.MEM_to_WB_bus.bits.PC
     io.WB_Inst := wb_unit.io.WB_Inst
     io.WB_RegWriteData := wb_unit.io.WB_RegWriteData
+    io.WB_RegWriteID   := wb_unit.io.WB_RegWriteID
+    io.WB_valid     := wb_unit.io.WB_valid
     io.MEM_RegWriteData := mem_unit.io.MEM_regWriteData_Pass
     
     io.ID_ALU_Data1 := inst_decode_unit.io.ID_to_EX_bus.bits.ALU_Data1
@@ -65,7 +82,8 @@ class top extends Module{
     inst_fetch_unit.io.ID_stall             := inst_decode_unit.io.ID_stall
     
     inst_decode_unit.io.IF_pc               := inst_fetch_unit.io.IF_pc
-    inst_decode_unit.io.IF_Inst             := simulate.io.inst(31, 0)
+    inst_decode_unit.io.IF_Inst             := inst_fetch_unit.io.IF_Inst
+    inst_decode_unit.io.IF_valid            := inst_fetch_unit.io.IF_valid
     inst_decode_unit.io.WB_RegWriteData     := wb_unit.io.WB_RegWriteData
     inst_decode_unit.io.WB_RegWriteEn       := wb_unit.io.WB_RegWriteEn
     inst_decode_unit.io.WB_RegWriteID       := wb_unit.io.WB_RegWriteID

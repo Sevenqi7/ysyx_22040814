@@ -89,6 +89,7 @@ void difftest_step(vaddr_t pc)
   if(is_skip_ref)
   {
     // ref.pc = npc_state.pc;
+
     ref.pc = pc;
     memcpy(ref.gpr, cpu_gpr, sizeof(ref.gpr));
     ref_difftest_regcpy(&ref, DIFFTEST_TO_REF);

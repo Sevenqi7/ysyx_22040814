@@ -10,13 +10,13 @@ class EX_MEM_Message extends Bundle{
     val PC      =      Output(UInt(64.W))    
     
     //Reg
-    val ALU_result  =     Output(UInt(64.W))
+    val ALU_result   =   Output(UInt(64.W))
     val memWriteData =   Output(UInt(64.W))
-    val memWriteEn =     Output(UInt(1.W))
-    val memReadEn  =     Output(UInt(1.W))
-    val lsutype    =     Output(UInt(5.W))
-    val regWriteID =     Output(UInt(5.W))
-    val regWriteEn =     Output(UInt(1.W))
+    val memWriteEn   =   Output(UInt(1.W))
+    val memReadEn    =   Output(UInt(1.W))
+    val lsutype      =   Output(UInt(5.W))
+    val regWriteID   =   Output(UInt(5.W))
+    val regWriteEn   =   Output(UInt(1.W))
 }
 
 class EXU extends Module{
@@ -81,8 +81,8 @@ class EXU extends Module{
     regConnect(io.EX_to_MEM_bus.bits.memWriteData   ,                            memWriteData)
     regConnect(io.EX_to_MEM_bus.bits.ALU_result     ,                              ALU_result)
     regConnect(io.EX_to_MEM_bus.bits.lsutype        ,                                 lsutype)
+    regConnect(io.EX_to_MEM_bus.valid               ,                   io.ID_to_EX_bus.valid)
     io.ID_to_EX_bus.ready := 1.U
-    io.EX_to_MEM_bus.valid := 1.U
 
 
     io.EX_ALUResult_Pass := ALU_result

@@ -23,7 +23,7 @@ typedef struct REF_GPR{
 bool difftest_checkregs(REF_GPR *ref, vaddr_t pc) {
   if(ref->pc != pc)
   {
-    Log("Difftest found PC value is 0x%lx, should be %lx", pc, ref->pc);
+    Log("Difftest found PC value is 0x%lx, should be 0x%lx", pc, ref->pc);
     return false;
   }
   for(int i=0;i<32;i++)

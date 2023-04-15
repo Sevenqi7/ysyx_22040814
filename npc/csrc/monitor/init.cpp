@@ -29,6 +29,7 @@ void reset(int time)
 
 void init_npc(int argc, char **argv)
 {
+    Log("npc initialize...");
     Verilated::mkdir("logs");
     contextp = new VerilatedContext;
     contextp->debug(0);
@@ -48,11 +49,12 @@ void init_npc(int argc, char **argv)
     init_sdb();
     init_vga();
 
-    for(int i=0;i<6;i++)
+    for(int i=0;i<5;i++)
     {
-        contextp->timeInc(1);
-        top->clock = !top->clock;
-        top->eval();
+        // contextp->timeInc(1);
+        // top->clock = !top->clock;
+        // top->eval();
+        clock_step();
     }
 }
 
@@ -88,7 +90,7 @@ long init_img(int argc, char **argv)
         exit(-1);
     }
     fclose(fp);
-    while(top->io_IF_pc != RESET_VECTOR)
+    while(top->io_PF_npc != RESET_VECTOR)
         reset(10);
     return size;
 }

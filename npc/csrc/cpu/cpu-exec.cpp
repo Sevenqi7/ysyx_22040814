@@ -75,18 +75,8 @@ void exec_once()            //disassemble实质上是反汇编的上一个已执
     }
     clock_step();
     
-    if(top->io_stall)    
-        // {stall_flag++;Log("stall detected");}
-        stall_flag++;
-
-    while(stall_flag && !top->io_WB_pc)
-    {
-        stall_flag--;
+    while(!top->io_WB_valid)
         clock_step();
-        // Log("stall handled");
-        if(top->io_stall)    
-            stall_flag++;
-    }
 trace:
     char logbuf[128];
     #ifdef CONFIG_ITRACE

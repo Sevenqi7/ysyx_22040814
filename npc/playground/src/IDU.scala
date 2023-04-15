@@ -27,9 +27,9 @@ class ID_EX_Message extends Bundle{
 class IDU extends Module{
     val io = IO(new Bundle{
         val IF_Inst = Input(UInt(32.W))
-        val IF_pc = Input(UInt(64.W))
+        val IF_pc   = Input(UInt(64.W))
+        val IF_valid = Input(Bool())
         val ID_npc = Output(UInt(64.W))
-
         //Bus
         val ID_to_EX_bus = Decoupled(new ID_EX_Message)
 
@@ -168,7 +168,7 @@ class IDU extends Module{
     MemWriteEn := (instType === TYPE_S)
     MemReadEn  := (instType === TYPE_I  && futype === FuType.lsu)
 
-    val flush = reset.asBool | io.ID_stall       
+    val flush = reset.asBool | io.ID_stall  | !io.IF_valid
 
     regConnectWithReset(io.ID_to_EX_bus.bits.PC        , io.IF_pc  , flush, 0.U    )
     regConnectWithReset(io.ID_to_EX_bus.bits.Inst      , io.IF_Inst, flush, 0.U    )
@@ -184,11 +184,11 @@ class IDU extends Module{
     regConnectWithReset(io.ID_to_EX_bus.bits.rs1_id     , rs1      , flush, 0.U    )
     regConnectWithReset(io.ID_to_EX_bus.bits.rs2_data   , rs2_data , flush, 0.U    )
     regConnectWithReset(io.ID_to_EX_bus.bits.rs2_id     , rs2      , flush, 0.U    )
-    io.ID_to_EX_bus.valid := 1.U
+    regConnectWithReset(io.ID_to_EX_bus.valid           ,io.IF_valid & !io.ID_stall, flush, 0.U   )
 
     val stall_cnt = RegInit(0.U(2.W))
 
-    io.ID_unknown_inst := InstInfo(0) === 0.U
+    io.ID_unknown_inst := InstInfo(0) === 0.U && io.IF_valid
     io.ID_stall := (io.ID_to_EX_bus.bits.memReadEn.asBool && !MemReadEn.asBool 
                     && (RegWriteEn.asBool || instType === TYPE_B || instType === TYPE_J || ((instType === TYPE_I  &&  src1 === NPC)) 
                     && ((io.ID_to_EX_bus.bits.regWriteID === rs1 && src1 === RS1) || (io.ID_to_EX_bus.bits.regWriteID === rs2 && src2 === RS2)))) 
