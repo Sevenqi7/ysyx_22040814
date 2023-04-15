@@ -19,6 +19,7 @@ class ID_EX_Message extends Bundle{
     val memWriteEn = Output(UInt(1.W))
     val memReadEn  = Output(UInt(1.W))
 
+    val IF_valid   = Input(Bool())
     //For npc trace
     val PC         = Output(UInt(64.W))
     val Inst       = Output(UInt(32.W))
@@ -184,11 +185,11 @@ class IDU extends Module{
     regConnectWithReset(io.ID_to_EX_bus.bits.rs1_id     , rs1      , flush, 0.U    )
     regConnectWithReset(io.ID_to_EX_bus.bits.rs2_data   , rs2_data , flush, 0.U    )
     regConnectWithReset(io.ID_to_EX_bus.bits.rs2_id     , rs2      , flush, 0.U    )
-    io.ID_to_EX_bus.valid := 1.U
+    regConnectWithReset(io.ID_to_EX_bus.valid           ,io.IF_validm flush, 0,U   )
 
     val stall_cnt = RegInit(0.U(2.W))
 
-    io.ID_unknown_inst := InstInfo(0) === 0.U
+    io.ID_unknown_inst := InstInfo(0) === 0.U && io.IF_valid
     io.ID_stall := (io.ID_to_EX_bus.bits.memReadEn.asBool && !MemReadEn.asBool 
                     && (RegWriteEn.asBool || instType === TYPE_B || instType === TYPE_J || ((instType === TYPE_I  &&  src1 === NPC)) 
                     && ((io.ID_to_EX_bus.bits.regWriteID === rs1 && src1 === RS1) || (io.ID_to_EX_bus.bits.regWriteID === rs2 && src2 === RS2)))) 

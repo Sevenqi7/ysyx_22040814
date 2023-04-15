@@ -41,6 +41,7 @@ class IFU extends Module{
         val PF_pc   = Output(UInt(64.W))
         val IF_pc = Output(UInt(64.W))
         val IF_Inst = Output(UInt(32.W))
+        val IF_valid = Output(Bool())
     })
 
     val inst_ram = Module(new sim_sram)
@@ -85,6 +86,7 @@ class IFU extends Module{
 
     regConnectWithResetAndStall(io.IF_pc, pre_fetch.io.PF_pc , flush, 0.U, io.ID_stall)
     regConnectWithResetAndStall(io.IF_Inst, pre_fetch.io.inst, flush, 0.U, io.ID_stall)
+    regConnectWithResetAndStall(io.IF_valid, pre_fetch.io.inst_valid, flush, 0.U, io.ID_stall)
     // val pcReg = RegInit(0x80000000L.U(64.W))
     // pcReg := io.ID_npc
     // io.IF_pc := pcReg

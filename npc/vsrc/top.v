@@ -1573,7 +1573,6 @@ sim simulate (	// top.scala:24:26
    .GPR               (GPR),
    .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
 );
-
   assign io_ID_npc = _inst_decode_unit_io_ID_npc;	// <stdin>:1279:10, top.scala:43:34
   assign io_IF_pc = _inst_fetch_unit_io_IF_pc;	// <stdin>:1279:10, top.scala:42:33
   assign io_ID_pc = _inst_decode_unit_io_ID_to_EX_bus_bits_PC;	// <stdin>:1279:10, top.scala:43:34
@@ -1658,7 +1657,7 @@ module sim_sram(
             rresp_r  <= 2'b0;
         end
         else begin
-            if(arready_r & arvalid & !rvalid_r) begin
+            if(arready_r & arvalid) begin
                 rvalid_r <= 1'b1;
                 rresp_r  <= 2'b00;
             end
@@ -1673,7 +1672,7 @@ module sim_sram(
             rdata_r = 64'b0;
         end
         else begin
-            if(arready_r & arvalid & !rvalid_r)
+            if(arready_r & arvalid)
                 dci_pmem_read({32'H8000, araddr_r}, rdata_r, 8'HFF);
         end
         $display("addr:0x%x, rdata:0x%x", araddr_r, rdata_r);
@@ -1723,6 +1722,7 @@ endmodule
 import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
 import "DPI-C" function void unknown_inst();
 import "DPI-C" function void ebreak(input longint halt_ret);
+
 
 
 module sim(input[63:0] IF_pc, input [63:0] GPR [31:0], input unknown_inst_flag, input[31:0] WB_Inst);
