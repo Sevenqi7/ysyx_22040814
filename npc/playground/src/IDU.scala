@@ -48,6 +48,7 @@ class IDU extends Module{
         val EX_ALUResult  = Input(UInt(64.W))
 
         //For NPCTRAP
+        val ID_stall = Output(Bool())
         val ID_GPR =Output(Vec(32, UInt(64.W)))
         val ID_unknown_inst = Output(UInt(1.W))
     })
@@ -170,6 +171,7 @@ class IDU extends Module{
 
     val load_use_stall = Wire(Bool())
     val flush = reset.asBool | load_use_stall  | !io.IF_to_ID_bus.valid
+    io.ID_stall := load_use_stall
 
     regConnectWithReset(io.ID_to_EX_bus.bits.PC        , IF_pc     , flush, 0.U    )
     regConnectWithReset(io.ID_to_EX_bus.bits.Inst      , IF_Inst   , flush, 0.U    )
