@@ -8,24 +8,24 @@ module sim_sram(
     //ar
     input       [31:0]      araddr      ,
     input                   arvalid     ,
-    output reg              arready     ,
+    output                  arready     ,
     //r
-    output reg  [63:0]      rdata       ,
-    output reg  [1: 0]      rresp       ,
-    output reg              rvalid      ,
+    output      [63:0]      rdata       ,
+    output      [1: 0]      rresp       ,
+    output                  rvalid      ,
     input                   rready      ,
     //aw
     input       [31:0]      awaddr      ,
     input                   awvalid     ,
-    output reg              awready     , 
+    output                  awready     , 
     //w
     input       [63:0]      wdata       , 
     input       [7: 0]      wstrb       ,
     input                   wvalid      ,
-    output reg              wready      ,
+    output                  wready      ,
     //b
-    output reg  [1: 0]      bresp       ,
-    output reg              bvalid      ,
+    output      [1: 0]      bresp       ,
+    output                  bvalid      ,
     input                   bready
 );
 
@@ -33,7 +33,7 @@ module sim_sram(
     reg [1:0] rresp_r, bresp_r;
     reg [63:0] rdata_r;
 
-    reg [31:0] araddr_r;
+    reg [31:0] araddr_r, awaddr_r;
 
     assign arready = arready_r;
     assign rvalid = rvalid_r;
@@ -58,6 +58,7 @@ module sim_sram(
             arready_r <= 1'b1;
     end
 
+    //rresp
     always@(posedge aclk) begin
         if(!aresetn) begin
             rvalid_r <= 1'b0;
@@ -74,15 +75,57 @@ module sim_sram(
         end 
     end
 
+    //r
     always@(posedge aclk) begin
         if(!aresetn) begin
             rdata_r = 64'b0;
         end
         else begin
             if(arready_r & arvalid)
-                dci_pmem_read({32'H000, araddr_r}, rdata_r, 8'HFF);
+                dci_pmem_read({32'H0000, araddr_r}, rdata_r, 8'HFF);
         end
         // $display("addr:0x%x, rdata:0x%x", araddr_r, rdata_r);
+    end
+
+    //aw
+    always@(posedge aclk) begin
+        if(!aresetn) begin
+            awready_r <= 1'b1;
+            awaddr_r <= 32'b0;
+        end
+        else begin
+            if(awvalid) begin
+                awaddr_r <= awaddr;
+                awready_r <= 1'b1;
+            end
+        end
+    end
+
+    //w
+    always@(posedge aclk) begin
+        if(!aresetn) begin
+            wready_r <= 1'b1;
+        end
+        else begin
+            if(wvalid & awvalid) 
+                dci_pmem_write({32'H0000, awaddr_r}, wdata, wstrb);
+        end
+    end
+
+    //b
+    always@(posedge aclk) begin
+        if(!aresetn) begin
+            bvalid_r <= 1'b0;
+            bresp_r  <= 2'b00;
+        end
+        else begin
+            if(wready_r & wvalid & wready_r) begin
+                bvalid_r <= 1'b1;
+                bresp_r  <= 2'b00;
+            end
+            else if(bready & bvalid_r)
+                bvalid_r <= 1'b0;
+        end
     end
 
 endmodule

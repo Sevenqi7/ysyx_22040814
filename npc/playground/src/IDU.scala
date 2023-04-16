@@ -33,9 +33,6 @@ class IDU extends Module{
 
         //Bypass
         //1. Reg R/W from WB
-        // val WB_RegWriteData = Input(UInt(64.W))
-        // val WB_RegWriteID = Input(UInt(5.W))
-        // val WB_RegWriteEn = Input(Bool())
         val WB_to_ID_forward = Flipped(Decoupled(new MEM_to_ID_Message))
 
         //2. Data from MEM (from ex_unit in top)
@@ -118,7 +115,7 @@ class IDU extends Module{
     
     rs1_data := MuxCase(GPR(rs1), Seq(
         ((rs1 === 0.U)                                          ,                 0.U),
-        ((io.ID_to_EX_bus.bits.regWriteID  === rs1) && io.ID_to_EX_bus.bits.regWriteEn , io.EX_ALUResult    ),
+        ((io.ID_to_EX_bus.bits.regWriteID  === rs1) && io.ID_to_EX_bus.bits.regWriteEn , io.EX_ALUResult),
         ((MEM_regWriteID === rs1) && MEM_regWriteEn, MEM_regWriteData),
         ((WB_regWriteID  === rs1) && WB_regWriteEn , WB_regWriteData )
     ))
@@ -201,8 +198,11 @@ class IDU extends Module{
     val stall_cnt = RegInit(0.U(2.W))
 
     io.ID_unknown_inst := InstInfo(0) === 0.U && io.IF_to_ID_bus.valid
-    load_use_stall := (io.ID_to_EX_bus.bits.memReadEn && !memReadEn 
-                    && (regWriteEn || instType === TYPE_B || instType === TYPE_J || ((instType === TYPE_I  &&  src1 === NPC)) 
+    // load_use_stall := (io.ID_to_EX_bus.bits.memReadEn && !memReadEn 
+    //                 && (regWriteEn || instType === TYPE_B || instType === TYPE_J || ((instType === TYPE_I  &&  src1 === NPC)) 
+    //                 && ((io.ID_to_EX_bus.bits.regWriteID === rs1 && src1 === RS1) || (io.ID_to_EX_bus.bits.regWriteID === rs2 && src2 === RS2)))) 
+    load_use_stall := (io.ID_to_EX_bus.bits.memReadEn
+                    && (regWriteEn || instType === TYPE_S || instType === TYPE_B || instType === TYPE_J || ((instType === TYPE_I  &&  src1 === NPC)) 
                     && ((io.ID_to_EX_bus.bits.regWriteID === rs1 && src1 === RS1) || (io.ID_to_EX_bus.bits.regWriteID === rs2 && src2 === RS2)))) 
 
     //NPC
