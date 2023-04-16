@@ -135,22 +135,22 @@ endmodule
 
 // external module LSU
 
-module MEMU();	// <stdin>:1238:10
+module MEMU();	// <stdin>:1234:10
   wire [63:0] _mem_ReadData;	// MEMU.scala:50:21
   LSU mem (	// MEMU.scala:50:21
-    .pc        (64'h0),	// <stdin>:1238:10
-    .addr      (64'h0),	// <stdin>:1238:10
-    .LsuType   (5'h0),	// <stdin>:1238:10
-    .WriteEn   (1'h0),	// <stdin>:1238:10
-    .ReadEn    (1'h0),	// <stdin>:1238:10
-    .WriteData (64'h0),	// <stdin>:1238:10
+    .pc        (64'h0),	// <stdin>:1234:10
+    .addr      (64'h0),	// <stdin>:1234:10
+    .LsuType   (5'h0),	// <stdin>:1234:10
+    .WriteEn   (1'h0),	// <stdin>:1234:10
+    .ReadEn    (1'h0),	// <stdin>:1234:10
+    .WriteData (64'h0),	// <stdin>:1234:10
     .ReadData  (_mem_ReadData)
   );
 endmodule
 
 // external module sim
 
-module top(	// <stdin>:1311:10
+module top(	// <stdin>:1307:10
   input         clock,
                 reset,
   output [63:0] io_ID_npc,
@@ -222,24 +222,24 @@ module top(	// <stdin>:1311:10
     .WB_Inst           (32'h0),	// top.scala:74:26
     .inst              (_simulate_inst)
   );
-  assign io_ID_npc = 64'h4;	// <stdin>:1311:10, top.scala:46:34
-  assign io_IF_pc = 64'h0;	// <stdin>:1311:10, top.scala:74:26
-  assign io_ID_pc = 64'h0;	// <stdin>:1311:10, top.scala:74:26
-  assign io_EX_pc = 64'h0;	// <stdin>:1311:10, top.scala:74:26
-  assign io_WB_pc = 64'h0;	// <stdin>:1311:10, top.scala:74:26
-  assign io_WB_Inst = 32'h0;	// <stdin>:1311:10, top.scala:74:26
-  assign io_WB_RegWriteData = 64'h0;	// <stdin>:1311:10, top.scala:74:26
-  assign io_WB_RegWriteID = 64'h0;	// <stdin>:1311:10, top.scala:74:26
-  assign io_WB_valid = 1'h0;	// <stdin>:1311:10, top.scala:74:26
-  assign io_MEM_RegWriteData = 64'h0;	// <stdin>:1311:10, top.scala:74:26
-  assign io_stall = 1'h0;	// <stdin>:1311:10, top.scala:74:26
-  assign io_IF_Inst = 32'h0;	// <stdin>:1311:10, top.scala:74:26
-  assign io_IF_valid = 1'h0;	// <stdin>:1311:10, top.scala:74:26
-  assign io_ID_ALU_Data1 = 64'h0;	// <stdin>:1311:10, top.scala:74:26
-  assign io_ID_ALU_Data2 = 64'h0;	// <stdin>:1311:10, top.scala:74:26
-  assign io_ID_Rs1Data = 64'h0;	// <stdin>:1311:10, top.scala:74:26
-  assign io_ID_Rs2Data = 64'h0;	// <stdin>:1311:10, top.scala:74:26
-  assign io_ALUResult = 64'h0;	// <stdin>:1311:10, top.scala:74:26
+  assign io_ID_npc = 64'h4;	// <stdin>:1307:10, top.scala:46:34
+  assign io_IF_pc = 64'h0;	// <stdin>:1307:10, top.scala:74:26
+  assign io_ID_pc = 64'h0;	// <stdin>:1307:10, top.scala:74:26
+  assign io_EX_pc = 64'h0;	// <stdin>:1307:10, top.scala:74:26
+  assign io_WB_pc = 64'h0;	// <stdin>:1307:10, top.scala:74:26
+  assign io_WB_Inst = 32'h0;	// <stdin>:1307:10, top.scala:74:26
+  assign io_WB_RegWriteData = 64'h0;	// <stdin>:1307:10, top.scala:74:26
+  assign io_WB_RegWriteID = 64'h0;	// <stdin>:1307:10, top.scala:74:26
+  assign io_WB_valid = 1'h0;	// <stdin>:1307:10, top.scala:74:26
+  assign io_MEM_RegWriteData = 64'h0;	// <stdin>:1307:10, top.scala:74:26
+  assign io_stall = 1'h0;	// <stdin>:1307:10, top.scala:74:26
+  assign io_IF_Inst = 32'h0;	// <stdin>:1307:10, top.scala:74:26
+  assign io_IF_valid = 1'h0;	// <stdin>:1307:10, top.scala:74:26
+  assign io_ID_ALU_Data1 = 64'h0;	// <stdin>:1307:10, top.scala:74:26
+  assign io_ID_ALU_Data2 = 64'h0;	// <stdin>:1307:10, top.scala:74:26
+  assign io_ID_Rs1Data = 64'h0;	// <stdin>:1307:10, top.scala:74:26
+  assign io_ID_Rs2Data = 64'h0;	// <stdin>:1307:10, top.scala:74:26
+  assign io_ALUResult = 64'h0;	// <stdin>:1307:10, top.scala:74:26
 endmodule
 
 
