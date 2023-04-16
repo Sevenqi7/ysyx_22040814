@@ -25,7 +25,7 @@ class EXU extends Module{
 
         val EX_to_MEM_bus =     Decoupled(new(EX_MEM_Message))
         //From MEMU and WBU to resolve store after load adventure
-        val WB_to_EX_forward = Flipped(new WB_to_ID_Message)
+        val WB_to_EX_forward = Flipped(Decoupled(new )WB_to_ID_Message)
         val MEM_regWriteData = Input(UInt(64.W))
 
         //to IDU.Bypass
