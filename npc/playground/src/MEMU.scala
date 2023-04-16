@@ -58,7 +58,6 @@ class MEMU extends Module{
     val mem = Module(new LSU)
     val regWriteData = Wire(UInt(64.W))
 
-    io.MEM_regWriteData_Pass := regWriteData
     regWriteData := Mux(memReadEn.asBool, mem.io.ReadData, ALU_result)
     
     regConnect(io.MEM_to_WB_bus.bits.PC                ,         io.EX_to_MEM_bus.bits.PC  )
