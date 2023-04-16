@@ -59,9 +59,9 @@ class top extends Module{
     io.EX_pc := mem_unit.io.EX_to_MEM_bus.bits.PC
     io.WB_pc := wb_unit.io.WB_pc
     io.WB_Inst := wb_unit.io.WB_Inst
-    io.WB_RegWriteData := wb_unit.io.WB_RegWriteData
-    io.WB_RegWriteID   := wb_unit.io.WB_RegWriteID
-    io.WB_valid     := wb_unit.io.WB_valid
+    io.WB_RegWriteData := wb_unit.io.WB_to_ID_forward.bits.regWriteData
+    io.WB_RegWriteID   := wb_unit.io.WB_to_ID_forward.bits.regWriteID
+    io.WB_valid     := wb_unit.io.WB_to_ID_forward.valid
     io.MEM_RegWriteData := mem_unit.io.MEM_to_ID_forward.bits.regWriteData
     
     io.ID_ALU_Data1 := inst_decode_unit.io.ID_to_EX_bus.bits.ALU_Data1
@@ -81,12 +81,7 @@ class top extends Module{
     inst_fetch_unit.io.ID_npc               := inst_decode_unit.io.ID_npc
     
     inst_decode_unit.io.IF_to_ID_bus        <> inst_fetch_unit.io.IF_to_ID_bus
-    inst_decode_unit.io.WB_RegWriteData     := wb_unit.io.WB_RegWriteData
-    inst_decode_unit.io.WB_RegWriteEn       := wb_unit.io.WB_RegWriteEn
-    inst_decode_unit.io.WB_RegWriteID       := wb_unit.io.WB_RegWriteID
-    // inst_decode_unit.io.MEM_RegWriteData    := mem_unit.io.MEM_regWriteData_Pass
-    // inst_decode_unit.io.MEM_RegWriteEn      := excute_unit.io.EX_to_MEM_bus.bits.regWriteEn
-    // inst_decode_unit.io.MEM_RegWriteID      := excute_unit.io.EX_to_MEM_bus.bits.regWriteID
+    inst_decode_unit.io.WB_to_ID_forward    <> wb_unit.io.WB_to_ID_forward
     inst_decode_unit.io.MEM_to_ID_forward   <> mem_unit.io.MEM_to_ID_forward
     inst_decode_unit.io.EX_ALUResult        := excute_unit.io.EX_ALUResult_Pass
 

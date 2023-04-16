@@ -33,9 +33,10 @@ class IDU extends Module{
 
         //Bypass
         //1. Reg R/W from WB
-        val WB_RegWriteData = Input(UInt(64.W))
-        val WB_RegWriteID = Input(UInt(5.W))
-        val WB_RegWriteEn = Input(Bool())
+        // val WB_RegWriteData = Input(UInt(64.W))
+        // val WB_RegWriteID = Input(UInt(5.W))
+        // val WB_RegWriteEn = Input(Bool())
+        val WB_to_ID_forward = Flipped(Decoupled(new MEM_to_ID_Message))
 
         //2. Data from MEM (from ex_unit in top)
         val MEM_to_ID_forward = Flipped(Decoupled(new MEM_to_ID_Message))
@@ -52,13 +53,17 @@ class IDU extends Module{
     })
 
 
-    //unpack bus from IFU/MEMU
+    //unpack bus from IFU/MEMU/WBU
     val IF_pc = io.IF_to_ID_bus.bits.PC
     val IF_Inst = io.IF_to_ID_bus.bits.Inst
     
-    val MEM_RegWriteData = io.MEM_to_ID_forward.bits.regWriteData
-    val MEM_RegWriteEn   = io.MEM_to_ID_forward.bits.regWriteEn
-    val MEM_RegWriteID   = io.MEM_to_ID_forward.bits.regWriteID
+    val MEM_regWriteData = io.MEM_to_ID_forward.bits.regWriteData
+    val MEM_regWriteEn   = io.MEM_to_ID_forward.bits.regWriteEn
+    val MEM_regWriteID   = io.MEM_to_ID_forward.bits.regWriteID
+
+    val WB_regWriteData  = io.WB_to_ID_forward.bits.regWriteData        
+    val WB_regWriteEn    = io.WB_to_ID_forward.bits.regWriteEn
+    val WB_regWriteID    = io.WB_to_ID_forward.bits.regWriteID
 
     //Decode
     val InstInfo = ListLookup(IF_Inst, List(0.U, 0.U, 0.U, 0.U, 0.U), RV64IInstr.table)
@@ -100,9 +105,9 @@ class IDU extends Module{
     val rs2 = Wire(UInt(5.W))
     val rd  = Wire(UInt(5.W))
     
-    val RegWriteEn = Wire(Bool())
-    val MemWriteEn = Wire(Bool()) 
-    val MemReadEn =  Wire(Bool())
+    val regWriteEn = Wire(Bool())
+    val memWriteEn = Wire(Bool()) 
+    val memReadEn =  Wire(Bool())
     
     val rs1_data = Wire(UInt(64.W))
     val rs2_data = Wire(UInt(64.W))
@@ -114,20 +119,20 @@ class IDU extends Module{
     rs1_data := MuxCase(GPR(rs1), Seq(
         ((rs1 === 0.U)                                          ,                 0.U),
         ((io.ID_to_EX_bus.bits.regWriteID  === rs1) && io.ID_to_EX_bus.bits.regWriteEn , io.EX_ALUResult    ),
-        ((MEM_RegWriteID === rs1) && MEM_RegWriteEn, MEM_RegWriteData),
-        ((io.WB_RegWriteID  === rs1) && io.WB_RegWriteEn , io.WB_RegWriteData )
+        ((MEM_regWriteID === rs1) && MEM_regWriteEn, MEM_regWriteData),
+        ((WB_regWriteID  === rs1) && WB_regWriteEn , WB_regWriteData )
     ))
         
     rs2_data := MuxCase(GPR(rs2), Seq(
         ((rs2 === 0.U)                                          ,                 0.U),
         ((io.ID_to_EX_bus.bits.regWriteID  === rs2) && io.ID_to_EX_bus.bits.regWriteEn , io.EX_ALUResult    ),
-        ((MEM_RegWriteID === rs2) && MEM_RegWriteEn, MEM_RegWriteData),
-        ((io.WB_RegWriteID  === rs2) && io.WB_RegWriteEn, io.WB_RegWriteData ),
+        ((MEM_regWriteID === rs2) && MEM_regWriteEn, MEM_regWriteData),
+        ((WB_regWriteID  === rs2) && WB_regWriteEn , WB_regWriteData ),
     ))
             
-    when(io.WB_RegWriteEn && io.WB_RegWriteID =/= 0.U)
+    when(WB_regWriteEn && WB_regWriteID =/= 0.U && io.WB_to_ID_forward.valid)
     {
-        GPR(io.WB_RegWriteID) := io.WB_RegWriteData
+        GPR(WB_regWriteID) := WB_regWriteData
     }
     
     io.ID_GPR := GPR
@@ -166,9 +171,9 @@ class IDU extends Module{
         (src2 === SHAMT , shamt    )
     ))
         
-    RegWriteEn := (instType === TYPE_R) || (instType === TYPE_I) || (instType === TYPE_U) || (instType === TYPE_J)
-    MemWriteEn := (instType === TYPE_S)
-    MemReadEn  := (instType === TYPE_I  && futype === FuType.lsu)
+    regWriteEn := (instType === TYPE_R) || (instType === TYPE_I) || (instType === TYPE_U) || (instType === TYPE_J)
+    memWriteEn := (instType === TYPE_S)
+    memReadEn  := (instType === TYPE_I  && futype === FuType.lsu)
 
     val load_use_stall = Wire(Bool())
     val flush = reset.asBool | load_use_stall  | !io.IF_to_ID_bus.valid
@@ -179,9 +184,9 @@ class IDU extends Module{
     regConnectWithReset(io.ID_to_EX_bus.bits.ALU_Data1 , ALU_Data1 , flush, 0.U    )
     regConnectWithReset(io.ID_to_EX_bus.bits.regWriteID, rd        , flush, 0.U    )
     regConnectWithReset(io.ID_to_EX_bus.bits.ALU_Data2 , ALU_Data2 , flush, 0.U    )
-    regConnectWithReset(io.ID_to_EX_bus.bits.regWriteEn, RegWriteEn, flush, 0.U    )
-    regConnectWithReset(io.ID_to_EX_bus.bits.memReadEn , MemReadEn , flush, 0.U    )
-    regConnectWithReset(io.ID_to_EX_bus.bits.memWriteEn, MemWriteEn, flush, 0.U    )
+    regConnectWithReset(io.ID_to_EX_bus.bits.regWriteEn, regWriteEn, flush, 0.U    )
+    regConnectWithReset(io.ID_to_EX_bus.bits.memReadEn , memReadEn , flush, 0.U    )
+    regConnectWithReset(io.ID_to_EX_bus.bits.memWriteEn, memWriteEn, flush, 0.U    )
     regConnectWithReset(io.ID_to_EX_bus.bits.optype    , opType    , flush, 0.U    )
     regConnectWithReset(io.ID_to_EX_bus.bits.futype    , futype    , flush, 0.U    )
     regConnectWithReset(io.ID_to_EX_bus.bits.rs1_data   , rs1_data , flush, 0.U    )
@@ -195,8 +200,8 @@ class IDU extends Module{
     val stall_cnt = RegInit(0.U(2.W))
 
     io.ID_unknown_inst := InstInfo(0) === 0.U && io.IF_to_ID_bus.valid
-    load_use_stall := (io.ID_to_EX_bus.bits.memReadEn && !MemReadEn 
-                    && (RegWriteEn || instType === TYPE_B || instType === TYPE_J || ((instType === TYPE_I  &&  src1 === NPC)) 
+    load_use_stall := (io.ID_to_EX_bus.bits.memReadEn && !memReadEn 
+                    && (regWriteEn || instType === TYPE_B || instType === TYPE_J || ((instType === TYPE_I  &&  src1 === NPC)) 
                     && ((io.ID_to_EX_bus.bits.regWriteID === rs1 && src1 === RS1) || (io.ID_to_EX_bus.bits.regWriteID === rs2 && src2 === RS2)))) 
 
     //NPC
