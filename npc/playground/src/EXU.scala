@@ -59,10 +59,6 @@ class EXU extends Module{
     val memWriteData = Wire(UInt(64.W))
     
     shamt := ALU_Data2(5, 0)
-    // memWriteData := MuxCase(rs2_data, Seq(
-    //     ((io.EX_to_MEM_bus.bits.memReadEn | io.EX_to_MEM_bus.bits.regWriteEn) && (rs2_id === io.EX_to_MEM_bus.bits.regWriteID) && memWriteEn, io.MEM_regWriteData),
-    //     (WB_regWriteEn && (WB_regWriteID === rs2_id && rs2_id > 0.U) && memWriteEn, WB_regWriteData)
-    // ))
     memWriteData := rs2_data
     
     regConnect(io.EX_to_MEM_bus.bits.PC             ,                                      pc)
@@ -80,10 +76,8 @@ class EXU extends Module{
 
     io.EX_ALUResult_Pass := ALU_result
     
-    // ALU_Data1 := Mux(io.EX_to_MEM_bus.bits.memReadEn && (io.EX_to_MEM_bus.bits.regWriteID === rs1_id) && (memWriteEn || memReadEn),
-    //      io.MEM_regWriteData, io.ID_to_EX_bus.bits.ALU_Data1)
+
     ALU_Data1 := io.ID_to_EX_bus.bits.ALU_Data1
-    // ALU_Data1 := io.ID_ALU_Data1
     ALU_Data2 := io.ID_to_EX_bus.bits.ALU_Data2 
     
     ALU_result := MuxCase(0.U, Seq(
