@@ -14,7 +14,6 @@ class WBU extends Module{
         val WB_to_ID_forward = Decoupled(new WB_to_ID_Message)
 
         //for NPC to trace
-        val WB_valid         = Output(Bool())
         val WB_pc            = Output(UInt(64.W))
         val WB_Inst          = Output(UInt(32.W))
     })
