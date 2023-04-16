@@ -19,10 +19,6 @@ class WBU extends Module{
 
     //the actual reg writing operation is in IDU
     //so here directly connect WB_* with MEM_*
-    // io.WB_valid        := io.MEM_to_WB_bus.valid
-    // io.WB_RegWriteData := io.MEM_to_WB_bus.bits.regWriteData
-    // io.WB_RegWriteEn   := io.MEM_to_WB_bus.bits.regWriteEn
-    // io.WB_RegWriteID   := io.MEM_to_WB_bus.bits.regWriteID
     io.WB_to_ID_forward.bits.regWriteData := io.MEM_to_WB_bus.bits.regWriteData    
     io.WB_to_ID_forward.bits.regWriteEn   := io.MEM_to_WB_bus.bits.regWriteEn
     io.WB_to_ID_forward.bits.regWriteID   := io.MEM_to_WB_bus.bits.regWriteID

@@ -88,9 +88,6 @@ class top extends Module{
     excute_unit.io.ID_to_EX_bus             <> inst_decode_unit.io.ID_to_EX_bus
     excute_unit.io.MEM_regWriteData         := mem_unit.io.MEM_to_ID_forward.bits.regWriteData
     excute_unit.io.WB_to_EX_forward         <> wb_unit.io.WB_to_ID_forward
-    // excute_unit.io.WB_RegWriteEn            := wb_unit.io.WB_RegWriteEn
-    // excute_unit.io.WB_RegWriteID            := wb_unit.io.WB_RegWriteID
-    // excute_unit.io.WB_RegWriteData          := wb_unit.io.WB_RegWriteData
 
     mem_unit.io.EX_to_MEM_bus               <> excute_unit.io.EX_to_MEM_bus
 
