@@ -41,7 +41,6 @@ class IF_to_ID_Message extends Bundle{
 class IFU extends Module{
     val io = IO(new Bundle{
         val ID_npc = Input(UInt(64.W))
-        val ID_stall = Input(Bool())
         val IF_to_ID_bus = Decoupled(new IF_to_ID_Message)
         //for npc to trap
         val PF_npc  = Output(UInt(64.W))
@@ -59,8 +58,9 @@ class IFU extends Module{
     bp_fail                                 := pre_fetch.io.bp_fail
     pre_fetch.io.IF_pc                      := io.IF_to_ID_bus.bits.PC
     pre_fetch.io.ID_npc                     := io.ID_npc
-    pre_fetch.io.stall                      := io.ID_stall
+    pre_fetch.io.stall                      := !io.IF_to_ID_bus.ready
 
+    //axi-lite
     inst_ram.io.pc                          := pre_fetch.io.PF_pc
     inst_ram.io.aclk                        := clock
     inst_ram.io.aresetn                     := !reset.asBool
@@ -89,9 +89,11 @@ class IFU extends Module{
 
     flush                                   := reset.asBool | !pre_fetch.io.inst_valid | bp_fail
 
+    //pipeline
     regConnectWithResetAndStall(io.IF_to_ID_bus.bits.PC, pre_fetch.io.PF_pc   , flush, 0.U, !io.IF_to_ID_bus.ready)
     regConnectWithResetAndStall(io.IF_to_ID_bus.bits.Inst, pre_fetch.io.inst  , flush, 0.U, !io.IF_to_ID_bus.ready)
     regConnectWithResetAndStall(io.IF_to_ID_bus.valid, pre_fetch.io.inst_valid, flush, 0.U, !io.IF_to_ID_bus.ready)
+    
     // val pcReg = RegInit(0x80000000L.U(64.W))
     // pcReg := io.ID_npc
     // io.IF_pc := pcReg
