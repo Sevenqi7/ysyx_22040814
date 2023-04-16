@@ -94,8 +94,5 @@ class IFU extends Module{
     regConnectWithResetAndStall(io.IF_to_ID_bus.bits.Inst, pre_fetch.io.inst  , flush, 0.U, !io.IF_to_ID_bus.ready)
     regConnectWithResetAndStall(io.IF_to_ID_bus.valid, pre_fetch.io.inst_valid, flush, 0.U, !io.IF_to_ID_bus.ready)
     
-    // val pcReg = RegInit(0x80000000L.U(64.W))
-    // pcReg := io.ID_npc
-    // io.IF_pc := pcReg
 }
 

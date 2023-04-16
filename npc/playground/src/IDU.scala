@@ -3,7 +3,7 @@ import chisel3.util._
 import InstType._
 import FuSource._
 import utils._
-import java.awt.font.OpenType
+
 
 class ID_EX_Message extends Bundle{
     val ALU_Data1  = Output(UInt(64.W))
@@ -38,9 +38,10 @@ class IDU extends Module{
         val WB_RegWriteEn = Input(UInt(1.W))
 
         //2. Data from MEM (from ex_unit in top)
-        val MEM_RegWriteData = Input(UInt(64.W))
-        val MEM_RegWriteEn   = Input(UInt(1.W))
-        val MEM_RegWriteID   = Input(UInt(5.W))
+        // val MEM_RegWriteData = Input(UInt(64.W))
+        // val MEM_RegWriteEn   = Input(UInt(1.W))
+        // val MEM_RegWriteID   = Input(UInt(5.W))
+        val MEM_to_ID_forward = Flipped(Decoupled(new MEM_to_ID_Message))
 
         //3. ALUResult from EX
         //this signal is connected to  "ALU_Result" in EXU, not "EX_ALUResult" because the
@@ -54,10 +55,13 @@ class IDU extends Module{
     })
 
 
-    //unpack bus from IFU
+    //unpack bus from IFU/MEMU
     val IF_pc = io.IF_to_ID_bus.bits.PC
     val IF_Inst = io.IF_to_ID_bus.bits.Inst
     
+    val MEM_RegWriteData := io.MEM_to_ID_forward.bits.regWriteData
+    val MEM_RegWriteEn   := io.MEM_to_ID_forward.bits.regWriteEn
+    val MEM_RegWriteID   := io.MEM_to_ID_forward.bits.regWriteID
 
     //Decode
     val InstInfo = ListLookup(IF_Inst, List(0.U, 0.U, 0.U, 0.U, 0.U), RV64IInstr.table)
@@ -113,14 +117,14 @@ class IDU extends Module{
     rs1_data := MuxCase(GPR(rs1), Seq(
         ((rs1 === 0.U)                                          ,                 0.U),
         ((io.ID_to_EX_bus.bits.regWriteID  === rs1) && io.ID_to_EX_bus.bits.regWriteEn.asBool , io.EX_ALUResult    ),
-        ((io.MEM_RegWriteID === rs1) && io.MEM_RegWriteEn.asBool, io.MEM_RegWriteData),
+        ((MEM_RegWriteID === rs1) && MEM_RegWriteEn, MEM_RegWriteData),
         ((io.WB_RegWriteID  === rs1) && io.WB_RegWriteEn.asBool , io.WB_RegWriteData )
     ))
         
     rs2_data := MuxCase(GPR(rs2), Seq(
         ((rs2 === 0.U)                                          ,                 0.U),
         ((io.ID_to_EX_bus.bits.regWriteID  === rs2) && io.ID_to_EX_bus.bits.regWriteEn.asBool , io.EX_ALUResult    ),
-        ((io.MEM_RegWriteID === rs2) && io.MEM_RegWriteEn.asBool, io.MEM_RegWriteData),
+        ((MEM_RegWriteID === rs2) && MEM_RegWriteEn, MEM_RegWriteData),
         ((io.WB_RegWriteID  === rs2) && io.WB_RegWriteEn.asBool , io.WB_RegWriteData ),
     ))
             
