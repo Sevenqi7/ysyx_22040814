@@ -59,8 +59,8 @@ class IDU extends Module{
     //unpack bus from IFU
     // val IF_pc = io.IF_to_ID_bus.bits.PC
     // val IF_Inst = io.IF_to_ID_bus.bits.Inst
-    val IF_pc = Wire(64.W)
-    val IF_Inst = Wire(32.W)
+    val IF_pc = Wire(UInt(64.W))
+    val IF_Inst = Wire(UInt(32.W))
     IF_pc := io.IF_to_ID_bus.bits.PC
     IF_Inst := io.IF_to_ID_bus.bits.Inst
 
