@@ -79,7 +79,6 @@ class top extends Module{
     simulate.io.unknown_inst_flag           := inst_decode_unit.io.ID_unknown_inst
     
     inst_fetch_unit.io.ID_npc               := inst_decode_unit.io.ID_npc
-    // inst_fetch_unit.io.ID_stall             := inst_decode_unit.io.ID_stall
     
     inst_decode_unit.io.IF_to_ID_bus        <> inst_fetch_unit.io.IF_to_ID_bus
     inst_decode_unit.io.WB_RegWriteData     := wb_unit.io.WB_RegWriteData

@@ -18,7 +18,7 @@ assign {GPR[31], GPR[30], GPR[29], GPR[28], GPR[27], GPR[26], GPR[25], GPR[24], 
 {_inst_decode_unit_io_ID_GPR_0}};	// IDU.scala:55:22, :66:20
 
 sim simulate (	// top.scala:24:26
-   .IF_pc             (_inst_fetch_unit_io_IF_pc),	// top.scala:24:33
+   .IF_pc             (_inst_fetch_unit_io_IF_to_ID_bus_PC),	// top.scala:24:33
    .WB_Inst           (io_WB_Inst),
    .GPR               (GPR),
    .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
