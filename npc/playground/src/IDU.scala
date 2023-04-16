@@ -59,9 +59,9 @@ class IDU extends Module{
     val IF_pc = io.IF_to_ID_bus.bits.PC
     val IF_Inst = io.IF_to_ID_bus.bits.Inst
     
-    val MEM_RegWriteData := io.MEM_to_ID_forward.bits.regWriteData
-    val MEM_RegWriteEn   := io.MEM_to_ID_forward.bits.regWriteEn
-    val MEM_RegWriteID   := io.MEM_to_ID_forward.bits.regWriteID
+    val MEM_RegWriteData = io.MEM_to_ID_forward.bits.regWriteData
+    val MEM_RegWriteEn   = io.MEM_to_ID_forward.bits.regWriteEn
+    val MEM_RegWriteID   = io.MEM_to_ID_forward.bits.regWriteID
 
     //Decode
     val InstInfo = ListLookup(IF_Inst, List(0.U, 0.U, 0.U, 0.U, 0.U), RV64IInstr.table)
