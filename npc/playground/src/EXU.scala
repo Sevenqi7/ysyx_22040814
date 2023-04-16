@@ -76,7 +76,7 @@ class EXU extends Module{
     regConnect(io.EX_to_MEM_bus.bits.lsutype        ,                                 lsutype)
     regConnect(io.EX_to_MEM_bus.valid               ,                   io.ID_to_EX_bus.valid)
     io.ID_to_EX_bus.ready := 1.U
-
+    io.WB_to_EX_bus.ready := 1.U
 
     io.EX_ALUResult_Pass := ALU_result
     
