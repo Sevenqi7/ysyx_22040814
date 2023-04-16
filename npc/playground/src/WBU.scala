@@ -1,7 +1,7 @@
 import chisel3._
 import chisel3.util._
 
-class WB_to_ID_Message
+class WB_to_ID_Message extends Bundle
 {
     val regWriteData  = UInt(64.W)
     val regWriteEn    = Bool()
