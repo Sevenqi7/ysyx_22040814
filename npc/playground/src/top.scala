@@ -48,21 +48,21 @@ class top extends Module{
     val mem_unit = Module(new MEMU)
     val wb_unit = Module(new WBU)
 
-    io.IF_Inst  := inst_fetch_unit.io.IF_Inst
-    io.IF_valid := inst_fetch_unit.io.IF_valid
+    io.IF_Inst  := inst_fetch_unit.io.IF_to_ID_bus.bits.Inst
+    io.IF_valid := inst_fetch_unit.io.IF_to_ID_bus.valid
     
     io.ID_npc   := inst_decode_unit.io.ID_npc
     io.PF_npc   := inst_fetch_unit.io.PF_npc
     io.PF_pc := inst_fetch_unit.io.PF_pc
-    io.IF_pc := inst_fetch_unit.io.IF_pc
+    io.IF_pc := inst_fetch_unit.io.IF_to_ID_bus.bits.PC
     io.ID_pc := inst_decode_unit.io.ID_to_EX_bus.bits.PC
     io.EX_pc := mem_unit.io.EX_to_MEM_bus.bits.PC
     io.WB_pc := wb_unit.io.WB_pc
     io.WB_Inst := wb_unit.io.WB_Inst
-    io.WB_RegWriteData := wb_unit.io.WB_RegWriteData
-    io.WB_RegWriteID   := wb_unit.io.WB_RegWriteID
-    io.WB_valid     := wb_unit.io.WB_valid
-    io.MEM_RegWriteData := mem_unit.io.MEM_regWriteData_Pass
+    io.WB_RegWriteData := wb_unit.io.WB_to_ID_forward.bits.regWriteData
+    io.WB_RegWriteID   := wb_unit.io.WB_to_ID_forward.bits.regWriteID
+    io.WB_valid     := wb_unit.io.WB_to_ID_forward.valid
+    io.MEM_RegWriteData := mem_unit.io.MEM_to_ID_forward.bits.regWriteData
     
     io.ID_ALU_Data1 := inst_decode_unit.io.ID_to_EX_bus.bits.ALU_Data1
     io.ID_ALU_Data2 := inst_decode_unit.io.ID_to_EX_bus.bits.ALU_Data2
@@ -73,39 +73,27 @@ class top extends Module{
     
     val simulate = Module(new sim)
     
-    simulate.io.IF_pc                       := inst_fetch_unit.io.IF_pc
+    simulate.io.IF_pc                       := inst_fetch_unit.io.IF_to_ID_bus.bits.PC
     simulate.io.GPR                         := inst_decode_unit.io.ID_GPR
     simulate.io.WB_Inst                     := wb_unit.io.WB_Inst
     simulate.io.unknown_inst_flag           := inst_decode_unit.io.ID_unknown_inst
     
     inst_fetch_unit.io.ID_npc               := inst_decode_unit.io.ID_npc
-    inst_fetch_unit.io.ID_stall             := inst_decode_unit.io.ID_stall
     
-    inst_decode_unit.io.IF_pc               := inst_fetch_unit.io.IF_pc
-    inst_decode_unit.io.IF_Inst             := inst_fetch_unit.io.IF_Inst
-    inst_decode_unit.io.IF_valid            := inst_fetch_unit.io.IF_valid
-    inst_decode_unit.io.WB_RegWriteData     := wb_unit.io.WB_RegWriteData
-    inst_decode_unit.io.WB_RegWriteEn       := wb_unit.io.WB_RegWriteEn
-    inst_decode_unit.io.WB_RegWriteID       := wb_unit.io.WB_RegWriteID
-    inst_decode_unit.io.MEM_RegWriteData    := mem_unit.io.MEM_regWriteData_Pass
-    inst_decode_unit.io.MEM_RegWriteEn      := excute_unit.io.EX_to_MEM_bus.bits.regWriteEn
-    inst_decode_unit.io.MEM_RegWriteID      := excute_unit.io.EX_to_MEM_bus.bits.regWriteID
+    inst_decode_unit.io.IF_to_ID_bus        <> inst_fetch_unit.io.IF_to_ID_bus
+    inst_decode_unit.io.WB_to_ID_forward    <> wb_unit.io.WB_to_ID_forward
+    inst_decode_unit.io.MEM_to_ID_forward   <> mem_unit.io.MEM_to_ID_forward
     inst_decode_unit.io.EX_ALUResult        := excute_unit.io.EX_ALUResult_Pass
 
     excute_unit.io.ID_to_EX_bus             <> inst_decode_unit.io.ID_to_EX_bus
-    excute_unit.io.flush                    := inst_decode_unit.io.ID_stall
-    excute_unit.io.MEM_RegWriteData         := mem_unit.io.MEM_regWriteData_Pass
-    excute_unit.io.WB_RegWriteEn            := wb_unit.io.WB_RegWriteEn
-    excute_unit.io.WB_RegWriteID            := wb_unit.io.WB_RegWriteID
-    excute_unit.io.WB_RegWriteData          := wb_unit.io.WB_RegWriteData
+    excute_unit.io.MEM_regWriteData         := mem_unit.io.MEM_to_ID_forward.bits.regWriteData
+    excute_unit.io.WB_to_EX_forward         <> wb_unit.io.WB_to_ID_forward
+    // excute_unit.io.WB_RegWriteEn            := wb_unit.io.WB_RegWriteEn
+    // excute_unit.io.WB_RegWriteID            := wb_unit.io.WB_RegWriteID
+    // excute_unit.io.WB_RegWriteData          := wb_unit.io.WB_RegWriteData
 
     mem_unit.io.EX_to_MEM_bus               <> excute_unit.io.EX_to_MEM_bus
 
     wb_unit.io.MEM_to_WB_bus                <> mem_unit.io.MEM_to_WB_bus
 
-    // wb_unit.io.MEM_pc                       := mem_unit.io.MEM_pc
-    // wb_unit.io.MEM_Inst                     := mem_unit.io.MEM_Inst
-    // wb_unit.io.MEM_RegWriteData             := mem_unit.io.MEM_RegWriteData
-    // wb_unit.io.MEM_RegWriteEn               := mem_unit.io.MEM_RegWriteEn
-    // wb_unit.io.MEM_RegWriteID               := mem_unit.io.MEM_RegWriteID
 }
