@@ -33,17 +33,8 @@ class EXU extends Module{
         //to IDU.Bypass
         val EX_ALUResult_Pass = Output(UInt(64.W))
 
-        //Flush
-        //it is used when there is a load-to-use adventure
-        //it is actually the ID_stall in IDU
-        val flush      =      Input(Bool())
-
     })
     
-    //  pipeline register reset
-    val pplrst = Wire(Bool())
-    pplrst := reset.asBool | io.flush
-
     //unpack bus from IDU
     val pc     = io.ID_to_EX_bus.bits.PC
     val inst   = io.ID_to_EX_bus.bits.Inst

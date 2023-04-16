@@ -90,7 +90,6 @@ class top extends Module{
     inst_decode_unit.io.EX_ALUResult        := excute_unit.io.EX_ALUResult_Pass
 
     excute_unit.io.ID_to_EX_bus             <> inst_decode_unit.io.ID_to_EX_bus
-    excute_unit.io.flush                    := inst_decode_unit.io.ID_stall
     excute_unit.io.MEM_RegWriteData         := mem_unit.io.MEM_regWriteData_Pass
     excute_unit.io.WB_RegWriteEn            := wb_unit.io.WB_RegWriteEn
     excute_unit.io.WB_RegWriteID            := wb_unit.io.WB_RegWriteID
