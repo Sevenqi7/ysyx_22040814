@@ -104,9 +104,4 @@ class top extends Module{
 
     wb_unit.io.MEM_to_WB_bus                <> mem_unit.io.MEM_to_WB_bus
 
-    // wb_unit.io.MEM_pc                       := mem_unit.io.MEM_pc
-    // wb_unit.io.MEM_Inst                     := mem_unit.io.MEM_Inst
-    // wb_unit.io.MEM_RegWriteData             := mem_unit.io.MEM_RegWriteData
-    // wb_unit.io.MEM_RegWriteEn               := mem_unit.io.MEM_RegWriteEn
-    // wb_unit.io.MEM_RegWriteID               := mem_unit.io.MEM_RegWriteID
 }
