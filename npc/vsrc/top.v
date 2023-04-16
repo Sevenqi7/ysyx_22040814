@@ -450,8 +450,8 @@ module IDU(	// <stdin>:162:10
   reg  [63:0]       GPR_30;	// IDU.scala:96:22
   reg  [63:0]       GPR_31;	// IDU.scala:96:22
   wire              _rs1_data_T = io_IF_Inst[19:15] == 5'h0;	// IDU.scala:83:63, :109:22, :113:15
-  wire              _io_ID_stall_T_14 = rhsReg_3 == io_IF_Inst[19:15];	// IDU.scala:109:22, :114:44, tools.scala:23:33
-  wire              _rs1_data_T_3 = _io_ID_stall_T_14 & rhsReg_5;	// IDU.scala:114:{44,53}, tools.scala:23:33
+  wire              _io_ID_stall_T_12 = rhsReg_3 == io_IF_Inst[19:15];	// IDU.scala:109:22, :114:44, tools.scala:23:33
+  wire              _rs1_data_T_3 = _io_ID_stall_T_12 & rhsReg_5;	// IDU.scala:114:{44,53}, tools.scala:23:33
   wire              _rs1_data_T_6 = io_MEM_RegWriteID == io_IF_Inst[19:15] & io_MEM_RegWriteEn;	// IDU.scala:109:22, :115:{29,38}
   wire              _rs1_data_T_9 = io_WB_RegWriteID == io_IF_Inst[19:15] & io_WB_RegWriteEn;	// IDU.scala:109:22, :116:{29,38}
   wire [31:0][63:0] _GEN_9 = {{GPR_31}, {GPR_30}, {GPR_29}, {GPR_28}, {GPR_27}, {GPR_26}, {GPR_25}, {GPR_24}, {GPR_23},
@@ -464,8 +464,8 @@ module IDU(	// <stdin>:162:10
   wire [63:0]       _rs1_data_T_13 = _rs1_data_T ? 64'h0 : _rs1_data_T_3 ? io_EX_ALUResult : _rs1_data_T_6 ? io_MEM_RegWriteData
                 : _rs1_data_T_9 ? io_WB_RegWriteData : _GEN_10;	// IDU.scala:96:30, :113:15, :114:53, :115:38, :116:38, Mux.scala:101:16
   wire              _rs2_data_T = io_IF_Inst[24:20] == 5'h0;	// IDU.scala:83:63, :110:22, :120:15
-  wire              _io_ID_stall_T_17 = rhsReg_3 == io_IF_Inst[24:20];	// IDU.scala:110:22, :121:44, tools.scala:23:33
-  wire              _rs2_data_T_3 = _io_ID_stall_T_17 & rhsReg_5;	// IDU.scala:121:{44,53}, tools.scala:23:33
+  wire              _io_ID_stall_T_15 = rhsReg_3 == io_IF_Inst[24:20];	// IDU.scala:110:22, :121:44, tools.scala:23:33
+  wire              _rs2_data_T_3 = _io_ID_stall_T_15 & rhsReg_5;	// IDU.scala:121:{44,53}, tools.scala:23:33
   wire              _rs2_data_T_6 = io_MEM_RegWriteID == io_IF_Inst[24:20] & io_MEM_RegWriteEn;	// IDU.scala:110:22, :122:{29,38}
   wire              _rs2_data_T_9 = io_WB_RegWriteID == io_IF_Inst[24:20] & io_WB_RegWriteEn;	// IDU.scala:110:22, :123:{29,38}
   wire [63:0]       _GEN_11;	// Mux.scala:101:16
@@ -476,10 +476,10 @@ module IDU(	// <stdin>:162:10
   wire              _io_ID_npc_T_9 = InstInfo_0 == 3'h1;	// IDU.scala:146:19, Lookup.scala:34:39
   wire              _io_ID_npc_T_4 = InstInfo_0 == 3'h6;	// IDU.scala:147:19, Lookup.scala:34:39
   wire              _RegWriteEn_T_3 = InstInfo_0 == 3'h3;	// IDU.scala:148:19, Lookup.scala:34:39
-  wire              _io_ID_stall_T_15 = InstInfo_2 == 3'h2;	// IDU.scala:155:15, Lookup.scala:34:39
+  wire              _io_ID_stall_T_13 = InstInfo_2 == 3'h2;	// IDU.scala:155:15, Lookup.scala:34:39
   wire              _io_ID_npc_T_10 = InstInfo_2 == 3'h6;	// IDU.scala:156:15, Lookup.scala:34:39
   wire [63:0]       _ALU_Data1_T_5 = io_IF_pc + 64'h4;	// IDU.scala:156:33
-  wire              _io_ID_stall_T_18 = InstInfo_3 == 3'h3;	// IDU.scala:162:15, Lookup.scala:34:39
+  wire              _io_ID_stall_T_16 = InstInfo_3 == 3'h3;	// IDU.scala:162:15, Lookup.scala:34:39
   wire              _io_ID_npc_T = InstInfo_0 == 3'h5;	// IDU.scala:167:104, Lookup.scala:34:39
   wire              _RegWriteEn_T_6 = InstInfo_0 == 3'h2 | _io_ID_npc_T_9 | _RegWriteEn_T_3 | _io_ID_npc_T;	// IDU.scala:146:19, :148:19, :167:{29,91,104}, Lookup.scala:34:39
   wire              _MemReadEn_T_2 = _io_ID_npc_T_9 & InstInfo_1;	// IDU.scala:146:19, :169:41, Lookup.scala:34:39
@@ -497,8 +497,8 @@ module IDU(	// <stdin>:162:10
   reg  [4:0]        rhsReg_13;	// tools.scala:23:33
   reg               rhsReg_14;	// tools.scala:23:33
   wire              _io_ID_stall_T_21 = rhsReg_6 & ~_MemReadEn_T_2 & (_RegWriteEn_T_6 | _io_ID_npc_T_4 | _io_ID_npc_T |
-                _io_ID_npc_T_9 & _io_ID_npc_T_10) & (_io_ID_stall_T_14 & _io_ID_stall_T_15 |
-                _io_ID_stall_T_17 & _io_ID_stall_T_18);	// IDU.scala:114:44, :121:44, :146:19, :147:19, :155:15, :156:15, :162:15, :167:{91,104}, :169:41, :192:62, :193:{89,115}, :194:{21,66,83,127}, tools.scala:23:33
+                _io_ID_npc_T_9 & _io_ID_npc_T_10 & (_io_ID_stall_T_12 & _io_ID_stall_T_13 |
+                _io_ID_stall_T_15 & _io_ID_stall_T_16));	// IDU.scala:114:44, :121:44, :146:19, :147:19, :155:15, :156:15, :162:15, :167:{91,104}, :169:41, :192:62, :193:{21,89}, :194:{21,66,83,127}, tools.scala:23:33
   always @(posedge clock) begin
     if (reset) begin
       GPR_0 <= 64'h0;	// IDU.scala:96:{22,30}
@@ -601,7 +601,7 @@ module IDU(	// <stdin>:162:10
       if (_T_2 & (&io_WB_RegWriteID))	// IDU.scala:96:22, :126:36, :127:5, :128:31
         GPR_31 <= io_WB_RegWriteData;	// IDU.scala:96:22
     end
-    if (reset | _io_ID_stall_T_21 | ~io_IF_valid) begin	// IDU.scala:171:{45,47}, :194:21
+    if (reset | _io_ID_stall_T_21 | ~io_IF_valid) begin	// IDU.scala:171:{45,47}, :193:21
       rhsReg <= 64'h0;	// IDU.scala:96:30, tools.scala:23:33
       rhsReg_1 <= 32'h0;	// Mux.scala:101:16, tools.scala:23:33
       rhsReg_2 <= 64'h0;	// IDU.scala:96:30, tools.scala:23:33
@@ -618,7 +618,7 @@ module IDU(	// <stdin>:162:10
       rhsReg_13 <= 5'h0;	// IDU.scala:83:63, tools.scala:23:33
       rhsReg_14 <= 1'h0;	// Lookup.scala:34:39, tools.scala:23:33
     end
-    else begin	// IDU.scala:171:{45,47}, :194:21
+    else begin	// IDU.scala:171:{45,47}, :193:21
       automatic logic _MemWriteEn_T;	// IDU.scala:149:19
       _MemWriteEn_T = InstInfo_0 == 3'h4;	// IDU.scala:149:19, Lookup.scala:34:39
       rhsReg <= io_IF_pc;	// tools.scala:23:33
@@ -627,7 +627,7 @@ module IDU(	// <stdin>:162:10
         rhsReg_2 <= 64'h0;	// IDU.scala:96:30, tools.scala:23:33
       else if (InstInfo_2 == 3'h1)	// IDU.scala:153:15, :154:15, Lookup.scala:34:39
         rhsReg_2 <= io_IF_pc;	// tools.scala:23:33
-      else if (_io_ID_stall_T_15) begin	// IDU.scala:153:15, :154:15, :155:15, Lookup.scala:34:39
+      else if (_io_ID_stall_T_13) begin	// IDU.scala:153:15, :154:15, :155:15, Lookup.scala:34:39
         if (_rs1_data_T)	// IDU.scala:113:15
           rhsReg_2 <= 64'h0;	// IDU.scala:96:30, tools.scala:23:33
         else if (_rs1_data_T_3)	// IDU.scala:113:15, :114:53
@@ -648,7 +648,7 @@ module IDU(	// <stdin>:162:10
         rhsReg_4 <= 64'h0;	// IDU.scala:96:30, tools.scala:23:33
       else if (InstInfo_3 == 3'h1)	// IDU.scala:160:15, :161:15, Lookup.scala:34:39
         rhsReg_4 <= io_IF_pc;	// tools.scala:23:33
-      else if (_io_ID_stall_T_18) begin	// IDU.scala:160:15, :161:15, :162:15, Lookup.scala:34:39
+      else if (_io_ID_stall_T_16) begin	// IDU.scala:160:15, :161:15, :162:15, Lookup.scala:34:39
         if (_rs2_data_T)	// IDU.scala:120:15
           rhsReg_4 <= 64'h0;	// IDU.scala:96:30, tools.scala:23:33
         else if (_rs2_data_T_3)	// IDU.scala:120:15, :121:53
@@ -798,7 +798,7 @@ module IDU(	// <stdin>:162:10
       else	// IDU.scala:120:15, :121:53, :122:38, :123:38
         rhsReg_12 <= _GEN_11;	// Mux.scala:101:16, tools.scala:23:33
       rhsReg_13 <= io_IF_Inst[24:20];	// IDU.scala:110:22, tools.scala:23:33
-      rhsReg_14 <= io_IF_valid & ~_io_ID_stall_T_21;	// IDU.scala:187:{70,72}, :194:21, tools.scala:23:33
+      rhsReg_14 <= io_IF_valid & ~_io_ID_stall_T_21;	// IDU.scala:187:{70,72}, :193:21, tools.scala:23:33
     end
   end // always @(posedge)
   `ifndef SYNTHESIS	// <stdin>:162:10
@@ -1039,7 +1039,7 @@ module IDU(	// <stdin>:162:10
   assign io_ID_to_EX_bus_bits_memReadEn = rhsReg_6;	// <stdin>:162:10, tools.scala:23:33
   assign io_ID_to_EX_bus_bits_PC = rhsReg;	// <stdin>:162:10, tools.scala:23:33
   assign io_ID_to_EX_bus_bits_Inst = rhsReg_1;	// <stdin>:162:10, tools.scala:23:33
-  assign io_ID_stall = _io_ID_stall_T_21;	// <stdin>:162:10, IDU.scala:194:21
+  assign io_ID_stall = _io_ID_stall_T_21;	// <stdin>:162:10, IDU.scala:193:21
   assign io_ID_GPR_0 = GPR_0;	// <stdin>:162:10, IDU.scala:96:22
   assign io_ID_GPR_1 = GPR_1;	// <stdin>:162:10, IDU.scala:96:22
   assign io_ID_GPR_2 = GPR_2;	// <stdin>:162:10, IDU.scala:96:22

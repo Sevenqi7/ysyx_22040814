@@ -26,9 +26,7 @@ class ID_EX_Message extends Bundle{
 
 class IDU extends Module{
     val io = IO(new Bundle{
-        val IF_Inst = Input(UInt(32.W))
-        val IF_pc   = Input(UInt(64.W))
-        val IF_valid = Input(Bool())
+        val IF_to_ID_bus = Flipped(Decoupled(new IF_to_ID_Message))
         val ID_npc = Output(UInt(64.W))
         //Bus
         val ID_to_EX_bus = Decoupled(new ID_EX_Message)
@@ -58,8 +56,13 @@ class IDU extends Module{
     })
 
 
+    //unpack bus from IFU
+    val IF_pc = io.IF_to_ID_bus.bits.PC
+    val IF_Inst = io.IF_to_ID_bus.bits.Inst
+
+
     //Decode
-    val InstInfo = ListLookup(io.IF_Inst, List(0.U, 0.U, 0.U, 0.U, 0.U), RV64IInstr.table)
+    val InstInfo = ListLookup(IF_Inst, List(0.U, 0.U, 0.U, 0.U, 0.U), RV64IInstr.table)
     val instType = Wire(UInt(3.W))
     val opType   = Wire(UInt(5.W))
     val futype   = Wire(UInt(2.W))
@@ -78,17 +81,17 @@ class IDU extends Module{
     val shamt = Wire(UInt(6.W))
     
     
-    immI := Cat(Fill(52, io.IF_Inst(31)), io.IF_Inst(31, 20))
-    immU := Cat(Fill(44, io.IF_Inst(31)), io.IF_Inst(31, 12)) << 12
-    immS := Cat(Fill(57, io.IF_Inst(31)), io.IF_Inst(31, 25)) << 5 | io.IF_Inst(11, 7)
-    immB := Cat(Fill(52, io.IF_Inst(31)), ((io.IF_Inst(31) << 11) | (io.IF_Inst(30, 25) << 4) | io.IF_Inst(11, 8) | (io.IF_Inst(7) << 10)))
-    immJ := Cat(Fill(44, io.IF_Inst(31)), (io.IF_Inst(30, 21) | (io.IF_Inst(20) << 10) | (io.IF_Inst(19, 12) << 11) | (io.IF_Inst(31, 31) << 19)))
-    // immI := SEXT(io.IF_Inst(31, 20), 12)
-    // immU := SEXT(io.IF_Inst(31, 12), 20) << 12
-    // immS := (SEXT(io.IF_Inst(31, 25), 7) << 5) | io.IF_Inst(11, 7)
-    // immJ := SEXT(io.IF_Inst(30, 21) | (io.IF_Inst(20) << 10) | (io.IF_Inst(19, 12) << 11) | (io.IF_Inst(31) << 19), 20)
-    // immB := SEXT((io.IF_Inst(31) << 11) | (io.IF_Inst(30, 25) << 4) | io.IF_Inst(11, 8) | (io.IF_Inst(7 ,7) << 10), 12)
-    shamt := io.IF_Inst(25, 20)
+    immI := Cat(Fill(52, IF_Inst(31)), IF_Inst(31, 20))
+    immU := Cat(Fill(44, IF_Inst(31)), IF_Inst(31, 12)) << 12
+    immS := Cat(Fill(57, IF_Inst(31)), IF_Inst(31, 25)) << 5 | IF_Inst(11, 7)
+    immB := Cat(Fill(52, IF_Inst(31)), ((IF_Inst(31) << 11) | (IF_Inst(30, 25) << 4) | IF_Inst(11, 8) | (IF_Inst(7) << 10)))
+    immJ := Cat(Fill(44, IF_Inst(31)), (IF_Inst(30, 21) | (IF_Inst(20) << 10) | (IF_Inst(19, 12) << 11) | (IF_Inst(31, 31) << 19)))
+    // immI := SEXT(IF_Inst(31, 20), 12)
+    // immU := SEXT(IF_Inst(31, 12), 20) << 12
+    // immS := (SEXT(IF_Inst(31, 25), 7) << 5) | IF_Inst(11, 7)
+    // immJ := SEXT(IF_Inst(30, 21) | (IF_Inst(20) << 10) | (IF_Inst(19, 12) << 11) | (IF_Inst(31) << 19), 20)
+    // immB := SEXT((IF_Inst(31) << 11) | (IF_Inst(30, 25) << 4) | IF_Inst(11, 8) | (IF_Inst(7 ,7) << 10), 12)
+    shamt := IF_Inst(25, 20)
     
     
     //GPR
@@ -105,9 +108,9 @@ class IDU extends Module{
     val rs1_data = Wire(UInt(64.W))
     val rs2_data = Wire(UInt(64.W))
     
-    rd := io.IF_Inst(11, 7)
-    rs1 := io.IF_Inst(19, 15)
-    rs2 := io.IF_Inst(24, 20)
+    rd := IF_Inst(11, 7)
+    rs1 := IF_Inst(19, 15)
+    rs2 := IF_Inst(24, 20)
     
     rs1_data := MuxCase(GPR(rs1), Seq(
         ((rs1 === 0.U)                                          ,                 0.U),
@@ -151,14 +154,14 @@ class IDU extends Module{
         
     ALU_Data1 := MuxCase(0.U, Seq(
         (src1 === ZERO, 0.U     ),
-        (src1 === PC  , io.IF_pc),
+        (src1 === PC  , IF_pc   ),
         (src1 === RS1 , rs1_data),
-        (src1 === NPC , io.IF_pc+4.U)
+        (src1 === NPC , IF_pc+4.U)
     ))
             
     ALU_Data2 := MuxCase(0.U, Seq(
         (src2 === ZERO  , 0.U      ),
-        (src2 === PC    , io.IF_pc ),
+        (src2 === PC    , IF_pc    ),
         (src2 === RS2   , rs2_data ),
         (src2 === IMM   , imm      ),
         (src2 === SHAMT , shamt    )
@@ -168,10 +171,10 @@ class IDU extends Module{
     MemWriteEn := (instType === TYPE_S)
     MemReadEn  := (instType === TYPE_I  && futype === FuType.lsu)
 
-    val flush = reset.asBool | io.ID_stall  | !io.IF_valid
+    val flush = reset.asBool | io.ID_stall  | !io.IF_to_ID_bus.valid
 
-    regConnectWithReset(io.ID_to_EX_bus.bits.PC        , io.IF_pc  , flush, 0.U    )
-    regConnectWithReset(io.ID_to_EX_bus.bits.Inst      , io.IF_Inst, flush, 0.U    )
+    regConnectWithReset(io.ID_to_EX_bus.bits.PC        , IF_pc     , flush, 0.U    )
+    regConnectWithReset(io.ID_to_EX_bus.bits.Inst      , IF_Inst   , flush, 0.U    )
     regConnectWithReset(io.ID_to_EX_bus.bits.ALU_Data1 , ALU_Data1 , flush, 0.U    )
     regConnectWithReset(io.ID_to_EX_bus.bits.regWriteID, rd        , flush, 0.U    )
     regConnectWithReset(io.ID_to_EX_bus.bits.ALU_Data2 , ALU_Data2 , flush, 0.U    )
@@ -184,11 +187,12 @@ class IDU extends Module{
     regConnectWithReset(io.ID_to_EX_bus.bits.rs1_id     , rs1      , flush, 0.U    )
     regConnectWithReset(io.ID_to_EX_bus.bits.rs2_data   , rs2_data , flush, 0.U    )
     regConnectWithReset(io.ID_to_EX_bus.bits.rs2_id     , rs2      , flush, 0.U    )
-    regConnectWithReset(io.ID_to_EX_bus.valid           ,io.IF_valid & !io.ID_stall, flush, 0.U   )
+    regConnectWithReset(io.ID_to_EX_bus.valid           ,io.IF_to_ID_bus.valid & !io.ID_stall, flush, 0.U   )
+    io.IF_to_ID_bus.ready := !io.ID_stall
 
     val stall_cnt = RegInit(0.U(2.W))
 
-    io.ID_unknown_inst := InstInfo(0) === 0.U && io.IF_valid
+    io.ID_unknown_inst := InstInfo(0) === 0.U && io.IF_to_ID_bus.valid
     io.ID_stall := (io.ID_to_EX_bus.bits.memReadEn.asBool && !MemReadEn.asBool 
                     && (RegWriteEn.asBool || instType === TYPE_B || instType === TYPE_J || ((instType === TYPE_I  &&  src1 === NPC)) 
                     && ((io.ID_to_EX_bus.bits.regWriteID === rs1 && src1 === RS1) || (io.ID_to_EX_bus.bits.regWriteID === rs2 && src2 === RS2)))) 
@@ -206,10 +210,10 @@ class IDU extends Module{
     }
 
     val pcplus4 = Wire(UInt(32.W))
-    pcplus4 := io.IF_pc + 4.U
+    pcplus4 := io.IF_to_ID_bus.bits.PC + 4.U
     io.ID_npc := MuxCase(pcplus4, Seq(
-        (instType === TYPE_J, io.IF_pc + immJ * 2.U),
-        (instType === TYPE_B  &&  BJ_flag     , io.IF_pc + immB * 2.U),
+        (instType === TYPE_J, IF_pc + immJ * 2.U),
+        (instType === TYPE_B  &&  BJ_flag     , IF_pc + immB * 2.U),
         (instType === TYPE_I  &&  src1 === NPC, rs1_data + immI)
     ))
 }

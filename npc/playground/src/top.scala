@@ -48,13 +48,13 @@ class top extends Module{
     val mem_unit = Module(new MEMU)
     val wb_unit = Module(new WBU)
 
-    io.IF_Inst  := inst_fetch_unit.io.IF_Inst
-    io.IF_valid := inst_fetch_unit.io.IF_valid
+    io.IF_Inst  := inst_fetch_unit.io.IF_to_ID_bus.bits.Inst
+    io.IF_valid := inst_fetch_unit.io.IF_to_ID_bus.valid
     
     io.ID_npc   := inst_decode_unit.io.ID_npc
     io.PF_npc   := inst_fetch_unit.io.PF_npc
     io.PF_pc := inst_fetch_unit.io.PF_pc
-    io.IF_pc := inst_fetch_unit.io.IF_pc
+    io.IF_pc := inst_fetch_unit.io.IF_to_ID_bus.bits.PC
     io.ID_pc := inst_decode_unit.io.ID_to_EX_bus.bits.PC
     io.EX_pc := mem_unit.io.EX_to_MEM_bus.bits.PC
     io.WB_pc := wb_unit.io.WB_pc
@@ -73,7 +73,7 @@ class top extends Module{
     
     val simulate = Module(new sim)
     
-    simulate.io.IF_pc                       := inst_fetch_unit.io.IF_pc
+    simulate.io.IF_pc                       := inst_fetch_unit.io.IF_to_ID_bus.bits.PC
     simulate.io.GPR                         := inst_decode_unit.io.ID_GPR
     simulate.io.WB_Inst                     := wb_unit.io.WB_Inst
     simulate.io.unknown_inst_flag           := inst_decode_unit.io.ID_unknown_inst
@@ -81,9 +81,10 @@ class top extends Module{
     inst_fetch_unit.io.ID_npc               := inst_decode_unit.io.ID_npc
     inst_fetch_unit.io.ID_stall             := inst_decode_unit.io.ID_stall
     
-    inst_decode_unit.io.IF_pc               := inst_fetch_unit.io.IF_pc
-    inst_decode_unit.io.IF_Inst             := inst_fetch_unit.io.IF_Inst
-    inst_decode_unit.io.IF_valid            := inst_fetch_unit.io.IF_valid
+    // inst_decode_unit.io.IF_pc               := inst_fetch_unit.io.IF_pc
+    // inst_decode_unit.io.IF_Inst             := inst_fetch_unit.io.IF_Inst
+    // inst_decode_unit.io.IF_valid            := inst_fetch_unit.io.IF_valid
+    inst_decode_unit.io.IF_to_ID_bus        <> inst_fetch_unit.io.IF_to_ID_bus
     inst_decode_unit.io.WB_RegWriteData     := wb_unit.io.WB_RegWriteData
     inst_decode_unit.io.WB_RegWriteEn       := wb_unit.io.WB_RegWriteEn
     inst_decode_unit.io.WB_RegWriteID       := wb_unit.io.WB_RegWriteID
