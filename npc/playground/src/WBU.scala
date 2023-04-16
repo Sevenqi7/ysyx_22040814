@@ -3,9 +3,9 @@ import chisel3.util._
 
 class WB_to_ID_Message
 {
-    val WB_regWriteData  = UInt(64.W)
-    val WB_regWriteEn    = Bool()
-    val WB_regWriteID    = UInt(5.W)
+    val regWriteData  = UInt(64.W)
+    val regWriteEn    = Bool()
+    val regWriteID    = UInt(5.W)
 }
 
 class WBU extends Module{
@@ -25,10 +25,10 @@ class WBU extends Module{
     // io.WB_RegWriteData := io.MEM_to_WB_bus.bits.regWriteData
     // io.WB_RegWriteEn   := io.MEM_to_WB_bus.bits.regWriteEn
     // io.WB_RegWriteID   := io.MEM_to_WB_bus.bits.regWriteID
-    io.WB_to_ID_forward.bits.WB_regWriteData := io.MEM_to_WB_bus.bits.regWriteData    
-    io.WB_to_ID_forward.bits.WB_regWriteEn   := io.MEM_to_WB_bus.bits.regWriteEn
-    io.WB_to_ID_forward.bits.WB_regWrite     := io.MEM_to_WB_bus.bits.regWriteID
-    io.WB_to_ID_forward.valid                := io.MEM_to_WB_bus.valid
+    io.WB_to_ID_forward.bits.regWriteData := io.MEM_to_WB_bus.bits.regWriteData    
+    io.WB_to_ID_forward.bits.regWriteEn   := io.MEM_to_WB_bus.bits.regWriteEn
+    io.WB_to_ID_forward.bits.regWrite     := io.MEM_to_WB_bus.bits.regWriteID
+    io.WB_to_ID_forward.valid             := io.MEM_to_WB_bus.valid
 
     io.WB_pc           := io.MEM_to_WB_bus.bits.PC
     io.WB_Inst         := io.MEM_to_WB_bus.bits.Inst

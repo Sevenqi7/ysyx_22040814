@@ -25,17 +25,15 @@ class EXU extends Module{
 
         val EX_to_MEM_bus =     Decoupled(new(EX_MEM_Message))
         //From MEMU and WBU to resolve store after load adventure
-        val WB_RegWriteEn    = Input(Bool())
-        val WB_RegWriteID    = Input(UInt(5.W))
-        val WB_RegWriteData  = Input(UInt(64.W))
-        val MEM_RegWriteData = Input(UInt(64.W))
+        val WB_to_EX_forward = Flipped(new WB_to_ID_forward)
+        val MEM_regWriteData = Input(UInt(64.W))
 
         //to IDU.Bypass
         val EX_ALUResult_Pass = Output(UInt(64.W))
 
     })
     
-    //unpack bus from IDU
+    //unpack bus from IDU/WBU
     val pc     = io.ID_to_EX_bus.bits.PC
     val inst   = io.ID_to_EX_bus.bits.Inst
     val futype = io.ID_to_EX_bus.bits.futype
@@ -50,6 +48,10 @@ class EXU extends Module{
     val rs2_data = io.ID_to_EX_bus.bits.rs2_data
     val ALU_Data1 = Wire(UInt(64.W))
     val ALU_Data2 = Wire(UInt(64.W))
+
+    val WB_regWriteData = io.WB_to_EX_forward.bits.regWriteData
+    val WB_regWriteEn   = io.WB_to_EX_forward.bits.regWriteEn
+    val WB_regWriteID   = io.WB_to_EX_forward.bits.regWriteID
     
     val shamt = Wire(UInt(6.W))
     val lsutype = Mux(futype === FuType.lsu, optype, 0.U)
@@ -58,8 +60,8 @@ class EXU extends Module{
     
     shamt := ALU_Data2(5, 0)
     memWriteData := MuxCase(rs2_data, Seq(
-        ((io.EX_to_MEM_bus.bits.memReadEn | io.EX_to_MEM_bus.bits.regWriteEn) && (rs2_id === io.EX_to_MEM_bus.bits.regWriteID) && memWriteEn, io.MEM_RegWriteData),
-        (io.WB_RegWriteEn && (io.WB_RegWriteID === rs2_id && rs2_id > 0.U) && memWriteEn, io.WB_RegWriteData)
+        ((io.EX_to_MEM_bus.bits.memReadEn | io.EX_to_MEM_bus.bits.regWriteEn) && (rs2_id === io.EX_to_MEM_bus.bits.regWriteID) && memWriteEn, io.MEM_regWriteData),
+        (WB_regWriteEn && (WB_regWriteID === rs2_id && rs2_id > 0.U) && memWriteEn, WB_regWriteData)
     ))
 
     
@@ -79,7 +81,7 @@ class EXU extends Module{
     io.EX_ALUResult_Pass := ALU_result
     
     ALU_Data1 := Mux(io.EX_to_MEM_bus.bits.memReadEn && (io.EX_to_MEM_bus.bits.regWriteID === rs1_id) && (memWriteEn || memReadEn),
-         io.MEM_RegWriteData, io.ID_to_EX_bus.bits.ALU_Data1)
+         io.MEM_regWriteData, io.ID_to_EX_bus.bits.ALU_Data1)
     // ALU_Data1 := io.ID_ALU_Data1
     ALU_Data2 := io.ID_to_EX_bus.bits.ALU_Data2 
     
