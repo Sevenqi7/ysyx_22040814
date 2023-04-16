@@ -6,7 +6,7 @@ class WBU extends Module{
         val MEM_to_WB_bus    = Flipped(Decoupled(new MEM_to_WB_Message))
 
         val WB_RegWriteData  = Output(UInt(64.W))
-        val WB_RegWriteEn    = Output(UInt(1.W))
+        val WB_RegWriteEn    = Output(Bool())
         val WB_RegWriteID    = Output(UInt(5.W))
 
         //for NPC to trace

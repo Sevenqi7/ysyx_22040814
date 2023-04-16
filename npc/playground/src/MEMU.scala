@@ -42,8 +42,6 @@ class MEMU extends Module{
         val EX_to_MEM_bus = Flipped(Decoupled(new EX_MEM_Message))
         val MEM_to_WB_bus = Decoupled(new MEM_to_WB_Message)
         val MEM_to_ID_forward = Decoupled(new MEM_to_ID_Message)
-        // //for IDU.Bypass
-        // val MEM_regWriteData_Pass = Output(UInt(64.W))
     })
 
     //unpack bus from EXU

@@ -15,9 +15,9 @@ class ID_EX_Message extends Bundle{
     val rs2_data    = Output(UInt(64.W))
     val rs2_id      = Output(UInt(5.W))
     val regWriteID = Output(UInt(5.W))
-    val regWriteEn = Output(UInt(1.W))
-    val memWriteEn = Output(UInt(1.W))
-    val memReadEn  = Output(UInt(1.W))
+    val regWriteEn = Output(Bool())
+    val memWriteEn = Output(Bool())
+    val memReadEn  = Output(Bool())
 
     //For npc trace
     val PC         = Output(UInt(64.W))
@@ -35,12 +35,9 @@ class IDU extends Module{
         //1. Reg R/W from WB
         val WB_RegWriteData = Input(UInt(64.W))
         val WB_RegWriteID = Input(UInt(5.W))
-        val WB_RegWriteEn = Input(UInt(1.W))
+        val WB_RegWriteEn = Input(Bool())
 
         //2. Data from MEM (from ex_unit in top)
-        // val MEM_RegWriteData = Input(UInt(64.W))
-        // val MEM_RegWriteEn   = Input(UInt(1.W))
-        // val MEM_RegWriteID   = Input(UInt(5.W))
         val MEM_to_ID_forward = Flipped(Decoupled(new MEM_to_ID_Message))
 
         //3. ALUResult from EX
@@ -51,7 +48,7 @@ class IDU extends Module{
         //For NPCTRAP
         val ID_stall = Output(Bool())
         val ID_GPR =Output(Vec(32, UInt(64.W)))
-        val ID_unknown_inst = Output(UInt(1.W))
+        val ID_unknown_inst = Output(Bool())
     })
 
 
@@ -103,9 +100,9 @@ class IDU extends Module{
     val rs2 = Wire(UInt(5.W))
     val rd  = Wire(UInt(5.W))
     
-    val RegWriteEn = Wire(UInt(1.W))
-    val MemWriteEn = Wire(UInt(1.W)) 
-    val MemReadEn = Wire(UInt(1.W))
+    val RegWriteEn = Wire(Bool())
+    val MemWriteEn = Wire(Bool()) 
+    val MemReadEn =  Wire(Bool())
     
     val rs1_data = Wire(UInt(64.W))
     val rs2_data = Wire(UInt(64.W))
@@ -116,19 +113,19 @@ class IDU extends Module{
     
     rs1_data := MuxCase(GPR(rs1), Seq(
         ((rs1 === 0.U)                                          ,                 0.U),
-        ((io.ID_to_EX_bus.bits.regWriteID  === rs1) && io.ID_to_EX_bus.bits.regWriteEn.asBool , io.EX_ALUResult    ),
+        ((io.ID_to_EX_bus.bits.regWriteID  === rs1) && io.ID_to_EX_bus.bits.regWriteEn , io.EX_ALUResult    ),
         ((MEM_RegWriteID === rs1) && MEM_RegWriteEn, MEM_RegWriteData),
-        ((io.WB_RegWriteID  === rs1) && io.WB_RegWriteEn.asBool , io.WB_RegWriteData )
+        ((io.WB_RegWriteID  === rs1) && io.WB_RegWriteEn , io.WB_RegWriteData )
     ))
         
     rs2_data := MuxCase(GPR(rs2), Seq(
         ((rs2 === 0.U)                                          ,                 0.U),
-        ((io.ID_to_EX_bus.bits.regWriteID  === rs2) && io.ID_to_EX_bus.bits.regWriteEn.asBool , io.EX_ALUResult    ),
+        ((io.ID_to_EX_bus.bits.regWriteID  === rs2) && io.ID_to_EX_bus.bits.regWriteEn , io.EX_ALUResult    ),
         ((MEM_RegWriteID === rs2) && MEM_RegWriteEn, MEM_RegWriteData),
-        ((io.WB_RegWriteID  === rs2) && io.WB_RegWriteEn.asBool , io.WB_RegWriteData ),
+        ((io.WB_RegWriteID  === rs2) && io.WB_RegWriteEn, io.WB_RegWriteData ),
     ))
             
-    when(io.WB_RegWriteEn.asBool() && io.WB_RegWriteID =/= 0.U)
+    when(io.WB_RegWriteEn && io.WB_RegWriteID =/= 0.U)
     {
         GPR(io.WB_RegWriteID) := io.WB_RegWriteData
     }
@@ -198,8 +195,8 @@ class IDU extends Module{
     val stall_cnt = RegInit(0.U(2.W))
 
     io.ID_unknown_inst := InstInfo(0) === 0.U && io.IF_to_ID_bus.valid
-    load_use_stall := (io.ID_to_EX_bus.bits.memReadEn.asBool && !MemReadEn.asBool 
-                    && (RegWriteEn.asBool || instType === TYPE_B || instType === TYPE_J || ((instType === TYPE_I  &&  src1 === NPC)) 
+    load_use_stall := (io.ID_to_EX_bus.bits.memReadEn && !MemReadEn 
+                    && (RegWriteEn || instType === TYPE_B || instType === TYPE_J || ((instType === TYPE_I  &&  src1 === NPC)) 
                     && ((io.ID_to_EX_bus.bits.regWriteID === rs1 && src1 === RS1) || (io.ID_to_EX_bus.bits.regWriteID === rs2 && src2 === RS2)))) 
 
     //NPC
@@ -283,7 +280,6 @@ object RV64IInstr{
     def REMW      = BitPat("b0000001 ????? ????? 110 ????? 01110 11")
     def REMUW     = BitPat("b0000001 ????? ????? 111 ????? 01110 11")
     
-    // def SRAW    = BitPat("b0100000_?????_?????_101_?????_0111011")
     //S Type
     def SD         = BitPat("b??????? ????? ????? 011 ????? 01000 11")
     def SW         = BitPat("b??????? ????? ????? 010 ????? 01000 11")

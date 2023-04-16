@@ -10,13 +10,13 @@ class EX_MEM_Message extends Bundle{
     val PC      =      Output(UInt(64.W))    
     
     //Reg
-    val ALU_result   =   Output(UInt(64.W))
-    val memWriteData =   Output(UInt(64.W))
-    val memWriteEn   =   Output(UInt(1.W))
-    val memReadEn    =   Output(UInt(1.W))
-    val lsutype      =   Output(UInt(5.W))
-    val regWriteID   =   Output(UInt(5.W))
-    val regWriteEn   =   Output(UInt(1.W))
+    val ALU_result   =   (UInt(64.W))
+    val memWriteData =   (UInt(64.W))
+    val memWriteEn   =   (Bool())
+    val memReadEn    =   (Bool())
+    val lsutype      =   (UInt(5.W))
+    val regWriteID   =   (UInt(5.W))
+    val regWriteEn   =   (Bool())
 }
 
 class EXU extends Module{
@@ -25,7 +25,7 @@ class EXU extends Module{
 
         val EX_to_MEM_bus =     Decoupled(new(EX_MEM_Message))
         //From MEMU and WBU to resolve store after load adventure
-        val WB_RegWriteEn    = Input(UInt(1.W))
+        val WB_RegWriteEn    = Input(Bool())
         val WB_RegWriteID    = Input(UInt(5.W))
         val WB_RegWriteData  = Input(UInt(64.W))
         val MEM_RegWriteData = Input(UInt(64.W))
@@ -58,8 +58,8 @@ class EXU extends Module{
     
     shamt := ALU_Data2(5, 0)
     memWriteData := MuxCase(rs2_data, Seq(
-        ((io.EX_to_MEM_bus.bits.memReadEn.asBool | io.EX_to_MEM_bus.bits.regWriteEn.asBool) && (rs2_id === io.EX_to_MEM_bus.bits.regWriteID) && memWriteEn.asBool, io.MEM_RegWriteData),
-        (io.WB_RegWriteEn.asBool && (io.WB_RegWriteID === rs2_id && rs2_id > 0.U) && memWriteEn.asBool, io.WB_RegWriteData)
+        ((io.EX_to_MEM_bus.bits.memReadEn | io.EX_to_MEM_bus.bits.regWriteEn) && (rs2_id === io.EX_to_MEM_bus.bits.regWriteID) && memWriteEn, io.MEM_RegWriteData),
+        (io.WB_RegWriteEn && (io.WB_RegWriteID === rs2_id && rs2_id > 0.U) && memWriteEn, io.WB_RegWriteData)
     ))
 
     
@@ -78,7 +78,7 @@ class EXU extends Module{
 
     io.EX_ALUResult_Pass := ALU_result
     
-    ALU_Data1 := Mux(io.EX_to_MEM_bus.bits.memReadEn.asBool && (io.EX_to_MEM_bus.bits.regWriteID === rs1_id) && (memWriteEn.asBool || memReadEn.asBool),
+    ALU_Data1 := Mux(io.EX_to_MEM_bus.bits.memReadEn && (io.EX_to_MEM_bus.bits.regWriteID === rs1_id) && (memWriteEn || memReadEn),
          io.MEM_RegWriteData, io.ID_to_EX_bus.bits.ALU_Data1)
     // ALU_Data1 := io.ID_ALU_Data1
     ALU_Data2 := io.ID_to_EX_bus.bits.ALU_Data2 
