@@ -57,13 +57,9 @@ class IDU extends Module{
 
 
     //unpack bus from IFU
-    // val IF_pc = io.IF_to_ID_bus.bits.PC
-    // val IF_Inst = io.IF_to_ID_bus.bits.Inst
-    val IF_pc = Wire(UInt(64.W))
-    val IF_Inst = Wire(UInt(32.W))
-    IF_pc := io.IF_to_ID_bus.bits.PC
-    IF_Inst := io.IF_to_ID_bus.bits.Inst
-
+    val IF_pc = io.IF_to_ID_bus.bits.PC
+    val IF_Inst = io.IF_to_ID_bus.bits.Inst
+    
 
     //Decode
     val InstInfo = ListLookup(IF_Inst, List(0.U, 0.U, 0.U, 0.U, 0.U), RV64IInstr.table)
@@ -214,7 +210,7 @@ class IDU extends Module{
     }
 
     val pcplus4 = Wire(UInt(32.W))
-    pcplus4 := io.IF_to_ID_bus.bits.PC + 4.U
+    pcplus4 := IF_pc + 4.U
     io.ID_npc := MuxCase(pcplus4, Seq(
         (instType === TYPE_J, IF_pc + immJ * 2.U),
         (instType === TYPE_B  &&  BJ_flag     , IF_pc + immB * 2.U),
