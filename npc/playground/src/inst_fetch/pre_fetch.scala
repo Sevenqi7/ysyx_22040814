@@ -17,7 +17,7 @@ class IF_pre_fetch extends Module{
         val PF_npc       = Output(UInt(64.W))
     })
     val axi_lite = IO(new AXILiteMasterIF(32, 64))
-    val PF_npc   = RegInit(0x80000004L.U(64.W))
+    val PF_npc   = RegInit(0x80000000L.U(64.W))
     
     io.PF_npc    := PF_npc
     // PF_npc      := Mux(!io.bp_fail | io.stall, PF_npc+4.U, io.ID_npc)
