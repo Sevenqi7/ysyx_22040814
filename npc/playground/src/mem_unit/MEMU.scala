@@ -52,7 +52,7 @@ class MEMU extends Module{
 
     val pre_mem      =  Module(new MEM_pre_stage)
     val data_ram     =  Module(new sim_sram)
-    io.PMEM_pc       =  pre_mem.io.PMEM_to_MEM_bus.bits.PC
+    io.PMEM_pc       :=  pre_mem.io.PMEM_to_MEM_bus.bits.PC
 
     pre_mem.io.EX_to_MEM_bus <> io.EX_to_MEM_bus
 
