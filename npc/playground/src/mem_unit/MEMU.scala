@@ -54,7 +54,7 @@ class MEMU extends Module{
     val data_ram     =  Module(new sim_sram)
     io.PMEM_pc       :=  pre_mem.io.PMEM_to_MEM_bus.bits.PC
 
-    pre_mem.io.EX_to_MEM_bus := io.EX_to_MEM_bus
+    pre_mem.io.EX_to_MEM_bus <> io.EX_to_MEM_bus
 
     data_ram.io.pc      := pre_mem.io.PMEM_to_MEM_bus.bits.PC
     data_ram.io.aclk    := clock
