@@ -44,7 +44,7 @@ class MEMU extends Module{
         val MEM_to_ID_forward = Decoupled(new MEM_to_ID_Message)
 
         //for NPC to trace
-        val PMEM_pc = UInt(64.W)
+        val PMEM_pc = Output(UInt(64.W))
     })
 
     //unpack bus from EXU
