@@ -1256,10 +1256,10 @@ module MEM_pre_stage(	// <stdin>:1220:10
   output [63:0] io_PMEM_to_MEM_bus_bits_ALU_result,
   output        io_PMEM_to_MEM_bus_bits_regWriteEn,
   output [4:0]  io_PMEM_to_MEM_bus_bits_regWriteID,
-  output [63:0] io_PMEM_to_MEM_bus_bits_memReadData,
   output        io_PMEM_to_MEM_bus_bits_memReadEn,
   output [63:0] io_PMEM_to_MEM_bus_bits_PC,
   output [31:0] io_PMEM_to_MEM_bus_bits_Inst,
+  output [63:0] io_memReadData,
   output        axi_lite_writeAddr_valid,
   output [31:0] axi_lite_writeAddr_bits_addr,
   output        axi_lite_writeData_valid,
@@ -1352,16 +1352,16 @@ module MEM_pre_stage(	// <stdin>:1220:10
   assign io_PMEM_to_MEM_bus_bits_ALU_result = rhsReg_2;	// <stdin>:1220:10, tools.scala:15:29
   assign io_PMEM_to_MEM_bus_bits_regWriteEn = rhsReg_3;	// <stdin>:1220:10, tools.scala:15:29
   assign io_PMEM_to_MEM_bus_bits_regWriteID = rhsReg_4;	// <stdin>:1220:10, tools.scala:15:29
-  assign io_PMEM_to_MEM_bus_bits_memReadData = rhsReg_8 == 5'h11 ? axi_lite_readData_bits_data : rhsReg_8 == 5'h9 ?
+  assign io_PMEM_to_MEM_bus_bits_memReadEn = rhsReg_5;	// <stdin>:1220:10, tools.scala:15:29
+  assign io_PMEM_to_MEM_bus_bits_PC = rhsReg;	// <stdin>:1220:10, tools.scala:15:29
+  assign io_PMEM_to_MEM_bus_bits_Inst = rhsReg_1;	// <stdin>:1220:10, tools.scala:15:29
+  assign io_memReadData = rhsReg_8 == 5'h11 ? axi_lite_readData_bits_data : rhsReg_8 == 5'h9 ?
                 {{32{axi_lite_readData_bits_data[31]}}, axi_lite_readData_bits_data[31:0]} : rhsReg_8 ==
                 5'h5 ? {{48{axi_lite_readData_bits_data[15]}}, axi_lite_readData_bits_data[15:0]} :
                 rhsReg_8 == 5'h3 ? {{56{axi_lite_readData_bits_data[7]}}, axi_lite_readData_bits_data[7:0]}
                 : rhsReg_8 == 5'h8 ? {32'h0, axi_lite_readData_bits_data[31:0]} : rhsReg_8 == 5'h4 ?
                 {48'h0, axi_lite_readData_bits_data[15:0]} : rhsReg_8 == 5'h2 ? {56'h0,
                 axi_lite_readData_bits_data[7:0]} : 64'h0;	// <stdin>:1220:10, Bitwise.scala:77:12, Cat.scala:33:92, pre_mem.scala:40:44, :48:17, :49:44, :50:30, :51:{30,65}, :52:{30,65}, :53:{30,65}, :54:{30,60}, :55:{30,60}, :56:{30,60}, tools.scala:9:34, :15:29
-  assign io_PMEM_to_MEM_bus_bits_memReadEn = rhsReg_5;	// <stdin>:1220:10, tools.scala:15:29
-  assign io_PMEM_to_MEM_bus_bits_PC = rhsReg;	// <stdin>:1220:10, tools.scala:15:29
-  assign io_PMEM_to_MEM_bus_bits_Inst = rhsReg_1;	// <stdin>:1220:10, tools.scala:15:29
   assign axi_lite_writeAddr_valid = io_EX_to_MEM_bus_bits_memWriteEn | rhsReg_6;	// <stdin>:1220:10, pre_mem.scala:79:59, tools.scala:15:29
   assign axi_lite_writeAddr_bits_addr = io_EX_to_MEM_bus_bits_ALU_result[31:0];	// <stdin>:1220:10, pre_mem.scala:75:58
   assign axi_lite_writeData_valid = rhsReg_6;	// <stdin>:1220:10, tools.scala:15:29
@@ -1410,10 +1410,10 @@ module MEMU(	// <stdin>:1379:10
   wire [63:0] _pre_mem_io_PMEM_to_MEM_bus_bits_ALU_result;	// MEMU.scala:53:31
   wire        _pre_mem_io_PMEM_to_MEM_bus_bits_regWriteEn;	// MEMU.scala:53:31
   wire [4:0]  _pre_mem_io_PMEM_to_MEM_bus_bits_regWriteID;	// MEMU.scala:53:31
-  wire [63:0] _pre_mem_io_PMEM_to_MEM_bus_bits_memReadData;	// MEMU.scala:53:31
   wire        _pre_mem_io_PMEM_to_MEM_bus_bits_memReadEn;	// MEMU.scala:53:31
   wire [63:0] _pre_mem_io_PMEM_to_MEM_bus_bits_PC;	// MEMU.scala:53:31
   wire [31:0] _pre_mem_io_PMEM_to_MEM_bus_bits_Inst;	// MEMU.scala:53:31
+  wire [63:0] _pre_mem_io_memReadData;	// MEMU.scala:53:31
   wire        _pre_mem_axi_lite_writeAddr_valid;	// MEMU.scala:53:31
   wire [31:0] _pre_mem_axi_lite_writeAddr_bits_addr;	// MEMU.scala:53:31
   wire        _pre_mem_axi_lite_writeData_valid;	// MEMU.scala:53:31
@@ -1444,7 +1444,7 @@ module MEMU(	// <stdin>:1379:10
       rhsReg_2 <= _pre_mem_io_PMEM_to_MEM_bus_bits_regWriteEn;	// MEMU.scala:53:31, tools.scala:15:29
       rhsReg_3 <= _pre_mem_io_PMEM_to_MEM_bus_bits_regWriteID;	// MEMU.scala:53:31, tools.scala:15:29
       if (_pre_mem_io_PMEM_to_MEM_bus_bits_memReadEn)	// MEMU.scala:53:31
-        rhsReg_4 <= _pre_mem_io_PMEM_to_MEM_bus_bits_memReadData;	// MEMU.scala:53:31, tools.scala:15:29
+        rhsReg_4 <= _pre_mem_io_memReadData;	// MEMU.scala:53:31, tools.scala:15:29
       else	// MEMU.scala:53:31
         rhsReg_4 <= _pre_mem_io_PMEM_to_MEM_bus_bits_ALU_result;	// MEMU.scala:53:31, tools.scala:15:29
       rhsReg_5 <= _pre_mem_io_PMEM_to_MEM_bus_valid;	// MEMU.scala:53:31, tools.scala:15:29
@@ -1484,36 +1484,36 @@ module MEMU(	// <stdin>:1379:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
   MEM_pre_stage pre_mem (	// MEMU.scala:53:31
-    .clock                               (clock),
-    .reset                               (reset),
-    .io_EX_to_MEM_bus_valid              (io_EX_to_MEM_bus_valid),
-    .io_EX_to_MEM_bus_bits_Inst          (io_EX_to_MEM_bus_bits_Inst),
-    .io_EX_to_MEM_bus_bits_PC            (io_EX_to_MEM_bus_bits_PC),
-    .io_EX_to_MEM_bus_bits_ALU_result    (io_EX_to_MEM_bus_bits_ALU_result),
-    .io_EX_to_MEM_bus_bits_memWriteData  (io_EX_to_MEM_bus_bits_memWriteData),
-    .io_EX_to_MEM_bus_bits_memWriteEn    (io_EX_to_MEM_bus_bits_memWriteEn),
-    .io_EX_to_MEM_bus_bits_memReadEn     (io_EX_to_MEM_bus_bits_memReadEn),
-    .io_EX_to_MEM_bus_bits_lsutype       (io_EX_to_MEM_bus_bits_lsutype),
-    .io_EX_to_MEM_bus_bits_regWriteID    (io_EX_to_MEM_bus_bits_regWriteID),
-    .io_EX_to_MEM_bus_bits_regWriteEn    (io_EX_to_MEM_bus_bits_regWriteEn),
-    .axi_lite_readData_bits_data         (_data_ram_rdata),	// MEMU.scala:54:31
-    .io_PMEM_to_MEM_bus_valid            (_pre_mem_io_PMEM_to_MEM_bus_valid),
-    .io_PMEM_to_MEM_bus_bits_ALU_result  (_pre_mem_io_PMEM_to_MEM_bus_bits_ALU_result),
-    .io_PMEM_to_MEM_bus_bits_regWriteEn  (_pre_mem_io_PMEM_to_MEM_bus_bits_regWriteEn),
-    .io_PMEM_to_MEM_bus_bits_regWriteID  (_pre_mem_io_PMEM_to_MEM_bus_bits_regWriteID),
-    .io_PMEM_to_MEM_bus_bits_memReadData (_pre_mem_io_PMEM_to_MEM_bus_bits_memReadData),
-    .io_PMEM_to_MEM_bus_bits_memReadEn   (_pre_mem_io_PMEM_to_MEM_bus_bits_memReadEn),
-    .io_PMEM_to_MEM_bus_bits_PC          (_pre_mem_io_PMEM_to_MEM_bus_bits_PC),
-    .io_PMEM_to_MEM_bus_bits_Inst        (_pre_mem_io_PMEM_to_MEM_bus_bits_Inst),
-    .axi_lite_writeAddr_valid            (_pre_mem_axi_lite_writeAddr_valid),
-    .axi_lite_writeAddr_bits_addr        (_pre_mem_axi_lite_writeAddr_bits_addr),
-    .axi_lite_writeData_valid            (_pre_mem_axi_lite_writeData_valid),
-    .axi_lite_writeData_bits_data        (_pre_mem_axi_lite_writeData_bits_data),
-    .axi_lite_writeData_bits_strb        (_pre_mem_axi_lite_writeData_bits_strb),
-    .axi_lite_writeResp_ready            (_pre_mem_axi_lite_writeResp_ready),
-    .axi_lite_readAddr_valid             (_pre_mem_axi_lite_readAddr_valid),
-    .axi_lite_readAddr_bits_addr         (_pre_mem_axi_lite_readAddr_bits_addr),
-    .axi_lite_readData_ready             (_pre_mem_axi_lite_readData_ready)
+    .clock                              (clock),
+    .reset                              (reset),
+    .io_EX_to_MEM_bus_valid             (io_EX_to_MEM_bus_valid),
+    .io_EX_to_MEM_bus_bits_Inst         (io_EX_to_MEM_bus_bits_Inst),
+    .io_EX_to_MEM_bus_bits_PC           (io_EX_to_MEM_bus_bits_PC),
+    .io_EX_to_MEM_bus_bits_ALU_result   (io_EX_to_MEM_bus_bits_ALU_result),
+    .io_EX_to_MEM_bus_bits_memWriteData (io_EX_to_MEM_bus_bits_memWriteData),
+    .io_EX_to_MEM_bus_bits_memWriteEn   (io_EX_to_MEM_bus_bits_memWriteEn),
+    .io_EX_to_MEM_bus_bits_memReadEn    (io_EX_to_MEM_bus_bits_memReadEn),
+    .io_EX_to_MEM_bus_bits_lsutype      (io_EX_to_MEM_bus_bits_lsutype),
+    .io_EX_to_MEM_bus_bits_regWriteID   (io_EX_to_MEM_bus_bits_regWriteID),
+    .io_EX_to_MEM_bus_bits_regWriteEn   (io_EX_to_MEM_bus_bits_regWriteEn),
+    .axi_lite_readData_bits_data        (_data_ram_rdata),	// MEMU.scala:54:31
+    .io_PMEM_to_MEM_bus_valid           (_pre_mem_io_PMEM_to_MEM_bus_valid),
+    .io_PMEM_to_MEM_bus_bits_ALU_result (_pre_mem_io_PMEM_to_MEM_bus_bits_ALU_result),
+    .io_PMEM_to_MEM_bus_bits_regWriteEn (_pre_mem_io_PMEM_to_MEM_bus_bits_regWriteEn),
+    .io_PMEM_to_MEM_bus_bits_regWriteID (_pre_mem_io_PMEM_to_MEM_bus_bits_regWriteID),
+    .io_PMEM_to_MEM_bus_bits_memReadEn  (_pre_mem_io_PMEM_to_MEM_bus_bits_memReadEn),
+    .io_PMEM_to_MEM_bus_bits_PC         (_pre_mem_io_PMEM_to_MEM_bus_bits_PC),
+    .io_PMEM_to_MEM_bus_bits_Inst       (_pre_mem_io_PMEM_to_MEM_bus_bits_Inst),
+    .io_memReadData                     (_pre_mem_io_memReadData),
+    .axi_lite_writeAddr_valid           (_pre_mem_axi_lite_writeAddr_valid),
+    .axi_lite_writeAddr_bits_addr       (_pre_mem_axi_lite_writeAddr_bits_addr),
+    .axi_lite_writeData_valid           (_pre_mem_axi_lite_writeData_valid),
+    .axi_lite_writeData_bits_data       (_pre_mem_axi_lite_writeData_bits_data),
+    .axi_lite_writeData_bits_strb       (_pre_mem_axi_lite_writeData_bits_strb),
+    .axi_lite_writeResp_ready           (_pre_mem_axi_lite_writeResp_ready),
+    .axi_lite_readAddr_valid            (_pre_mem_axi_lite_readAddr_valid),
+    .axi_lite_readAddr_bits_addr        (_pre_mem_axi_lite_readAddr_bits_addr),
+    .axi_lite_readData_ready            (_pre_mem_axi_lite_readData_ready)
   );
   sim_sram data_ram (	// MEMU.scala:54:31
     .pc      (_pre_mem_io_PMEM_to_MEM_bus_bits_PC),	// MEMU.scala:53:31
@@ -1543,7 +1543,7 @@ module MEMU(	// <stdin>:1379:10
   assign io_MEM_to_WB_bus_bits_regWriteID = rhsReg_3;	// <stdin>:1379:10, tools.scala:15:29
   assign io_MEM_to_WB_bus_bits_PC = rhsReg;	// <stdin>:1379:10, tools.scala:15:29
   assign io_MEM_to_WB_bus_bits_Inst = rhsReg_1;	// <stdin>:1379:10, tools.scala:15:29
-  assign io_MEM_to_ID_forward_bits_regWriteData = _pre_mem_io_PMEM_to_MEM_bus_bits_memReadEn ? _pre_mem_io_PMEM_to_MEM_bus_bits_memReadData :
+  assign io_MEM_to_ID_forward_bits_regWriteData = _pre_mem_io_PMEM_to_MEM_bus_bits_memReadEn ? _pre_mem_io_memReadData :
                 _pre_mem_io_PMEM_to_MEM_bus_bits_ALU_result;	// <stdin>:1379:10, MEMU.scala:53:31, :88:24
   assign io_MEM_to_ID_forward_bits_regWriteEn = _pre_mem_io_PMEM_to_MEM_bus_bits_regWriteEn;	// <stdin>:1379:10, MEMU.scala:53:31
   assign io_MEM_to_ID_forward_bits_regWriteID = _pre_mem_io_PMEM_to_MEM_bus_bits_regWriteID;	// <stdin>:1379:10, MEMU.scala:53:31
@@ -1940,7 +1940,7 @@ module sim_sram(
             if(arready_r & arvalid)
                 dci_pmem_read({32'H0000, araddr_r}, rdata_r, 8'HFF);
         end
-        $display("arvalid:%d rvalid:%d rready:%d addr:0x%x, rdata:0x%x",arvalid, rvalid, rready, araddr_r, rdata_r);
+        $display("addr:0x%x, rdata:0x%x", araddr_r, rdata_r);
     end
 
     //aw
@@ -2019,4 +2019,3 @@ module sim(input[63:0] IF_pc, input [63:0] GPR [31:0], input unknown_inst_flag, 
 endmodule
 
 // ----- 8< ----- FILE "firrtl_black_box_resource_files.f" ----- 8< -----
-

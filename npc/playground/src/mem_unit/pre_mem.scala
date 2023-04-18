@@ -71,9 +71,11 @@ class MEM_pre_stage extends Module{
     io.EX_to_MEM_bus.ready                  := 1.U
 
     //r
-    axi_lite.readAddr.valid                 := memReadEn | io.PMEM_to_MEM_bus.bits.memReadEn
+    // axi_lite.readAddr.valid                 := memReadEn | io.PMEM_to_MEM_bus.bits.memReadEn
+        axi_lite.readAddr.valid                 := 1.U
+    // axi_lite.readData.ready                 := memReadEn | io.PMEM_to_MEM_bus.bits.memReadEn
+        axi_lite.readData.ready                 := 1.U
     axi_lite.readAddr.bits.addr             := ALU_result(31, 0)
-    axi_lite.readData.ready                 := memReadEn | io.PMEM_to_MEM_bus.bits.memReadEn
 
     //w
     axi_lite.writeAddr.valid                := memWriteEn | io.PMEM_to_MEM_bus.bits.memWriteEn
