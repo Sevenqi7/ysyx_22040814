@@ -67,7 +67,7 @@ class MEM_pre_stage extends Module{
     regConnect(io.PMEM_to_MEM_bus.bits.memWriteData , memWriteData  )
     regConnect(io.PMEM_to_MEM_bus.bits.lsutype      , lsutype       )
     regConnect(io.PMEM_to_MEM_bus.valid             , io.EX_to_MEM_bus.valid)
-    io.PMEM_to_MEM_bus.bits.memReadData     := axi_lite.readData.bits.data
+    io.PMEM_to_MEM_bus.bits.memReadData     := memReadData
     io.EX_to_MEM_bus.ready                  := 1.U
 
     //r
