@@ -1282,14 +1282,14 @@ module MEM_pre_stage(	// <stdin>:1220:10
   reg        rhsReg_9;	// tools.scala:15:29
   always @(posedge clock) begin
     if (reset) begin
-      rhsReg <= 64'h0;	// tools.scala:15:29
-      rhsReg_1 <= 32'h0;	// tools.scala:15:29
-      rhsReg_2 <= 64'h0;	// tools.scala:15:29
+      rhsReg <= 64'h0;	// pre_mem.scala:48:17, tools.scala:15:29
+      rhsReg_1 <= 32'h0;	// Bitwise.scala:77:12, tools.scala:15:29
+      rhsReg_2 <= 64'h0;	// pre_mem.scala:48:17, tools.scala:15:29
       rhsReg_3 <= 1'h0;	// pre_mem.scala:39:11, tools.scala:15:29
       rhsReg_4 <= 5'h0;	// tools.scala:15:29
       rhsReg_5 <= 1'h0;	// pre_mem.scala:39:11, tools.scala:15:29
       rhsReg_6 <= 1'h0;	// pre_mem.scala:39:11, tools.scala:15:29
-      rhsReg_7 <= 64'h0;	// tools.scala:15:29
+      rhsReg_7 <= 64'h0;	// pre_mem.scala:48:17, tools.scala:15:29
       rhsReg_8 <= 5'h0;	// tools.scala:15:29
       rhsReg_9 <= 1'h0;	// pre_mem.scala:39:11, tools.scala:15:29
     end
@@ -1351,7 +1351,13 @@ module MEM_pre_stage(	// <stdin>:1220:10
   assign io_PMEM_to_MEM_bus_bits_ALU_result = rhsReg_2;	// <stdin>:1220:10, tools.scala:15:29
   assign io_PMEM_to_MEM_bus_bits_regWriteEn = rhsReg_3;	// <stdin>:1220:10, tools.scala:15:29
   assign io_PMEM_to_MEM_bus_bits_regWriteID = rhsReg_4;	// <stdin>:1220:10, tools.scala:15:29
-  assign io_PMEM_to_MEM_bus_bits_memReadData = axi_lite_readData_bits_data;	// <stdin>:1220:10
+  assign io_PMEM_to_MEM_bus_bits_memReadData = rhsReg_8 == 5'h11 ? axi_lite_readData_bits_data : rhsReg_8 == 5'h9 ?
+                {{32{axi_lite_readData_bits_data[31]}}, axi_lite_readData_bits_data[31:0]} : rhsReg_8 ==
+                5'h5 ? {{48{axi_lite_readData_bits_data[15]}}, axi_lite_readData_bits_data[15:0]} :
+                rhsReg_8 == 5'h3 ? {{56{axi_lite_readData_bits_data[7]}}, axi_lite_readData_bits_data[7:0]}
+                : rhsReg_8 == 5'h8 ? {32'h0, axi_lite_readData_bits_data[31:0]} : rhsReg_8 == 5'h4 ?
+                {48'h0, axi_lite_readData_bits_data[15:0]} : rhsReg_8 == 5'h2 ? {56'h0,
+                axi_lite_readData_bits_data[7:0]} : 64'h0;	// <stdin>:1220:10, Bitwise.scala:77:12, Cat.scala:33:92, pre_mem.scala:40:44, :48:17, :49:44, :50:30, :51:{30,65}, :52:{30,65}, :53:{30,65}, :54:{30,60}, :55:{30,60}, :56:{30,60}, tools.scala:9:34, :15:29
   assign io_PMEM_to_MEM_bus_bits_memReadEn = rhsReg_5;	// <stdin>:1220:10, tools.scala:15:29
   assign io_PMEM_to_MEM_bus_bits_PC = rhsReg;	// <stdin>:1220:10, tools.scala:15:29
   assign io_PMEM_to_MEM_bus_bits_Inst = rhsReg_1;	// <stdin>:1220:10, tools.scala:15:29
@@ -1802,7 +1808,6 @@ module top(	// <stdin>:1486:10
     .io_WB_pc                              (io_WB_pc),
     .io_WB_Inst                            (_wb_unit_io_WB_Inst)
   );
-
 wire [63:0] GPR [31:0];
 assign {GPR[31], GPR[30], GPR[29], GPR[28], GPR[27], GPR[26], GPR[25], GPR[24], GPR[23], GPR[22], GPR[21], GPR[20]
 , GPR[19], GPR[18], GPR[17], GPR[16], GPR[15], GPR[14], GPR[13], GPR[12], GPR[11], GPR[10], GPR[9], GPR[8], GPR[7]
@@ -1972,10 +1977,6 @@ module sim_sram(
         end
     end
 
-    always@(posedge aclk) begin
-        $display("wvalid:%d awvalid:%d waddr:0x%x wdata:0x%x", wvalid ,awvalid ,awaddr_r, wdata);
-    end
-
 endmodule
 
 // ----- 8< ----- FILE "./build/sim.v" ----- 8< -----
@@ -1983,6 +1984,7 @@ endmodule
 import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
 import "DPI-C" function void unknown_inst();
 import "DPI-C" function void ebreak(input longint halt_ret);
+
 
 
 

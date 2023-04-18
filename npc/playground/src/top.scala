@@ -23,6 +23,7 @@ class top extends Module{
         val IF_pc = Output(UInt(64.W))
         val ID_pc = Output(UInt(64.W))
         val EX_pc = Output(UInt(64.W))
+        val PMEM_pc = Output(UInt(64.W))
         val WB_pc = Output(UInt(64.W))
         val WB_Inst = Output(UInt(32.W))
         val WB_RegWriteData = Output(UInt(64.W))
@@ -57,6 +58,7 @@ class top extends Module{
     io.IF_pc := inst_fetch_unit.io.IF_to_ID_bus.bits.PC
     io.ID_pc := inst_decode_unit.io.ID_to_EX_bus.bits.PC
     io.EX_pc := mem_unit.io.EX_to_MEM_bus.bits.PC
+    io.PMEM_pc := mem_unit.io.PMEM_pc
     io.WB_pc := wb_unit.io.WB_pc
     io.WB_Inst := wb_unit.io.WB_Inst
     io.WB_RegWriteData := wb_unit.io.WB_to_ID_forward.bits.regWriteData

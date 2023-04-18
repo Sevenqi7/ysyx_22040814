@@ -42,6 +42,9 @@ class MEMU extends Module{
         val EX_to_MEM_bus = Flipped(Decoupled(new EX_MEM_Message))
         val MEM_to_WB_bus = Decoupled(new MEM_to_WB_Message)
         val MEM_to_ID_forward = Decoupled(new MEM_to_ID_Message)
+
+        //for NPC to trace
+        val PMEM_pc = UInt(64.W)
     })
 
     //unpack bus from EXU
@@ -49,6 +52,7 @@ class MEMU extends Module{
 
     val pre_mem      =  Module(new MEM_pre_stage)
     val data_ram     =  Module(new sim_sram)
+    io.PMEM_pc       =  pre_mem.io.PMEM_to_MEM_bus.bits.PC
 
     pre_mem.io.EX_to_MEM_bus <> io.EX_to_MEM_bus
 
