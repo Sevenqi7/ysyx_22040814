@@ -58,7 +58,7 @@ module IF_pre_fetch(	// <stdin>:25:10
   reg         bp_fail_r;	// pre_fetch.scala:30:28
   always @(posedge clock) begin
     if (reset) begin
-      PF_npc <= 64'h80000004;	// pre_fetch.scala:20:27
+      PF_npc <= 64'h80000000;	// pre_fetch.scala:20:27
       bp_fail_r <= 1'h0;	// pre_fetch.scala:29:54, :30:28
     end
     else begin
@@ -71,7 +71,7 @@ module IF_pre_fetch(	// <stdin>:25:10
       bp_fail_r <= _io_bp_fail_T_6;	// pre_fetch.scala:29:82, :30:28
     end
     if (reset | _io_bp_fail_T_6)	// pre_fetch.scala:29:82, :32:64
-      rhsReg <= 64'h80000000;	// tools.scala:32:33
+      rhsReg <= 64'h80000000;	// pre_fetch.scala:20:27, tools.scala:32:33
     else if (io_stall) begin	// pre_fetch.scala:29:82, :32:64
     end
     else	// pre_fetch.scala:29:82, :32:64
