@@ -29,7 +29,7 @@ class IF_pre_fetch extends Module{
     io.bp_fail := io.ID_npc =/= io.PF_pc && io.PF_pc =/= 0.U && io.IF_pc =/= 0.U && !io.stall
     val bp_fail_r = RegInit(0.U(1.W))
     bp_fail_r := io.bp_fail
-    regConnectWithResetAndStall(io.PF_pc, PF_npc, reset.asBool | io.bp_fail, 0x80000000.U(64.W), io.stall)
+    regConnectWithResetAndStall(io.PF_pc, PF_npc, reset.asBool | io.bp_fail, 0x80000000L.U(64.W), io.stall)
 
     //IFU doesn't write mem
     axi_lite.writeAddr.valid        := 0.U
