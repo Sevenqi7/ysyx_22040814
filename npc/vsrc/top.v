@@ -71,7 +71,7 @@ module IF_pre_fetch(	// <stdin>:25:10
       bp_fail_r <= _io_bp_fail_T_6;	// pre_fetch.scala:29:82, :30:28
     end
     if (reset | _io_bp_fail_T_6)	// pre_fetch.scala:29:82, :32:64
-      rhsReg <= 64'h80000000;	// pre_fetch.scala:20:27, tools.scala:32:33
+      rhsReg <= 64'h0;	// tools.scala:32:33
     else if (io_stall) begin	// pre_fetch.scala:29:82, :32:64
     end
     else	// pre_fetch.scala:29:82, :32:64
@@ -1804,7 +1804,6 @@ module top(	// <stdin>:1488:10
     .io_WB_pc                              (io_WB_pc),
     .io_WB_Inst                            (_wb_unit_io_WB_Inst)
   );
-
 wire [63:0] GPR [31:0];
 assign {GPR[31], GPR[30], GPR[29], GPR[28], GPR[27], GPR[26], GPR[25], GPR[24], GPR[23], GPR[22], GPR[21], GPR[20]
 , GPR[19], GPR[18], GPR[17], GPR[16], GPR[15], GPR[14], GPR[13], GPR[12], GPR[11], GPR[10], GPR[9], GPR[8], GPR[7]
@@ -1825,7 +1824,6 @@ sim simulate (	// top.scala:24:26
    .GPR               (GPR),
    .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
 );
-
   assign io_ID_npc = _inst_decode_unit_io_ID_npc;	// <stdin>:1488:10, top.scala:47:34
   assign io_IF_pc = _inst_fetch_unit_io_IF_to_ID_bus_bits_PC;	// <stdin>:1488:10, top.scala:46:33
   assign io_ID_pc = _inst_decode_unit_io_ID_to_EX_bus_bits_PC;	// <stdin>:1488:10, top.scala:47:34
@@ -1928,8 +1926,10 @@ module sim_sram(
             rdata_r = 64'b0;
         end
         else begin
-            if(arready_r & arvalid)
-                dci_pmem_read({32'H0000, araddr}, rdata_r, 8'HFF);
+            if(arready_r & arvalid) begin
+                dci_pmem_read({32'H0000, araddr_r}, rdata_r, 8'HFF);
+                $display("rdata:0x%x araddr_r:0x%x araddr:0x%x",rdata_r, araddr_r, araddr);
+            end
         end
         // $display("addr:0x%x, rdata:0x%x", araddr_r, rdata_r);
     end
@@ -1983,6 +1983,8 @@ endmodule
 import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
 import "DPI-C" function void unknown_inst();
 import "DPI-C" function void ebreak(input longint halt_ret);
+
+
 
 
 module sim(input[63:0] IF_pc, input [63:0] GPR [31:0], input unknown_inst_flag, input[31:0] WB_Inst);

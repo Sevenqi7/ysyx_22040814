@@ -18,7 +18,7 @@ class PMEM_MEM_Message extends Bundle{
 
 class MEM_pre_stage extends Module{
     val io = IO(new Bundle{
-        val EX_to_MEM_bus   = Flipped(Decoupled(new EX_MEM_Message))
+        val EX_to_MEM_bus   = Decoupled(new EX_MEM_Message)
         val PMEM_to_MEM_bus = Decoupled(new PMEM_MEM_Message)
         val memReadData     = Output(UInt(64.W))
     })
