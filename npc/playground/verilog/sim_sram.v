@@ -50,12 +50,10 @@ module sim_sram(
             arready_r <= 1'b1;
             araddr_r  <= 32'b0;
         end
-        else if(arvalid) begin
+        else begin
             arready_r <= 1'b1;
-            araddr_r <= araddr;
+            araddr_r  <= araddr;
         end
-        else 
-            arready_r <= 1'b1;
     end
 
     //rresp
