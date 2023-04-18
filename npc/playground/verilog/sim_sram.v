@@ -107,8 +107,9 @@ module sim_sram(
             wready_r <= 1'b1;
         end
         else begin
-            if(wvalid & awvalid) 
+            if(wvalid & awvalid)  begin
                 dci_pmem_write({32'H0000, awaddr_r}, wdata, wstrb);
+            end
         end
     end
 
