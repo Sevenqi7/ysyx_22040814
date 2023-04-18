@@ -44,6 +44,18 @@ class MEM_pre_stage extends Module{
         is (sb) {wstrb := 0x01.U}
     }
 
+    val memReadData = Wire(UInt(64.U))
+    memReadData := 0.U
+    switch(io.PMEM_to_MEM_bus.bits.lsutype){
+        is (ld) {memReadData := axi_lite.readData.bits.data}
+        is (lw) {memReadData := SEXT(axi_lite.readData.bits.data(31, 0), 32)}
+        is (lh) {memReadData := SEXT(axi_lite.readData.bits.data(15, 0), 16)}
+        is (lb) {memReadData := SEXT(axi_lite.readData.bits.data( 7, 0),  8)}
+        is (lwu){memReadData := axi_lite.readData.bits.data(31, 0)}
+        is (lhu){memReadData := axi_lite.readData.bits.data(15, 0)}
+        is (lbu){memReadData := axi_lite.readData.bits.data( 7 ,0)}
+    }
+
 
     regConnect(io.PMEM_to_MEM_bus.bits.PC           , EX_pc         )
     regConnect(io.PMEM_to_MEM_bus.bits.Inst         , EX_Inst       )
