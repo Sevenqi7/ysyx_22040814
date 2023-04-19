@@ -81,8 +81,10 @@ module sim_sram(
             rdata_r = 64'b0;
         end
         else begin
-            if(arready_r & arvalid)
+            if(arready_r & arvalid) begin
                 dci_pmem_read({32'H0000, araddr_r}, rdata_r, 8'HFF);
+                $display("raddr:0x%x raddr_r:0x%x rdata:0x%x", araddr, araddr_r, rdata);
+            end
         end
         // $display("addr:0x%x, rdata:0x%x", araddr_r, rdata_r);
     end
