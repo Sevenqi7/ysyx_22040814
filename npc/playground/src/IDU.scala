@@ -36,7 +36,7 @@ class IDU extends Module{
         val WB_to_ID_forward = Flipped(Decoupled(new MEM_to_ID_Message))
 
         //2. Data from MEM (from ex_unit in top)
-        val PMEM_to_ID_forward = Flipped(Deoupled(new PMEM_to_ID_Message))
+        val PMEM_to_ID_forward = Flipped(Decoupled(new PMEM_to_ID_Message))
         val MEM_to_ID_forward = Flipped(Decoupled(new MEM_to_ID_Message))
 
         //3. ALUResult from EX
