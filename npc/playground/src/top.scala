@@ -125,6 +125,7 @@ class top extends Module{
     //PMEM END
 
     mem_unit.io.PMEM_to_MEM_bus             <> pre_mem_unit.io.PMEM_to_MEM_bus
+    mem_unit.io.memReadData                 := pre_mem_unit.io.memReadData
 
     wb_unit.io.MEM_to_WB_bus                <> mem_unit.io.MEM_to_WB_bus
 

@@ -40,6 +40,7 @@ class MEM_to_WB_Message extends Bundle{
 class MEMU extends Module{
     val io = IO(new Bundle{
         val PMEM_to_MEM_bus = Flipped(Decoupled(new PMEM_MEM_Message))
+        val memReadData = Input(UInt(64.W))
         val MEM_to_WB_bus = Decoupled(new MEM_to_WB_Message)
         val MEM_to_ID_forward = Decoupled(new MEM_to_ID_Message)
     })
