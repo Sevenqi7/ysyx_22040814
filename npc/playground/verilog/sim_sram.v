@@ -32,9 +32,8 @@ module sim_sram(
     reg arready_r, rvalid_r, awready_r, wready_r, bvalid_r;
     reg [1:0] rresp_r, bresp_r;
     reg [63:0] rdata_r;
-
-    reg [31:0] araddr_r, awaddr_r;
-
+    reg [31:0] awaddr_r;
+ 
     assign arready = arready_r;
     assign rvalid = rvalid_r;
     assign awready = awready_r;
@@ -44,15 +43,13 @@ module sim_sram(
     assign bresp = bresp_r;
     assign rdata = rdata_r;
 
-    //ar
+    //ar      
     always@(posedge aclk) begin
         if(!aresetn) begin
             arready_r <= 1'b1;
-            araddr_r  <= 32'b0;
         end
         else if(arvalid) begin
             arready_r <= 1'b1;
-            araddr_r <= araddr;
         end
         else 
             arready_r <= 1'b1;
@@ -82,8 +79,8 @@ module sim_sram(
         end
         else begin
             if(arready_r & arvalid) begin
-                dci_pmem_read({32'H0000, araddr_r}, rdata_r, 8'HFF);
-                $display("raddr:0x%x raddr_r:0x%x rdata:0x%x", araddr, araddr_r, rdata);
+                dci_pmem_read({32'H0000, araddr}, rdata_r, 8'HFF);
+                $display("raddr:0x%x rdata:0x%x", araddr, rdata);
             end
         end
         // $display("addr:0x%x, rdata:0x%x", araddr_r, rdata_r);
@@ -110,7 +107,7 @@ module sim_sram(
         end
         else begin
             if(wvalid & awvalid)  begin
-                dci_pmem_write({32'H0000, awaddr_r}, wdata, wstrb);
+                dci_pmem_write({32'H0000, awaddr}, wdata, wstrb);
             end
         end
     end

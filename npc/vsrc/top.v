@@ -43,7 +43,6 @@ module IF_pre_fetch(	// <stdin>:25:10
                 axi_lite_readData_valid,
   input  [63:0] axi_lite_readData_bits_data,
   input  [1:0]  axi_lite_readData_bits_resp,
-  output [31:0] io_inst,
   output        io_inst_valid,
   output [63:0] io_PF_pc,
   output        io_bp_fail,
@@ -105,7 +104,6 @@ module IF_pre_fetch(	// <stdin>:25:10
       `FIRRTL_AFTER_INITIAL	// <stdin>:25:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  assign io_inst = axi_lite_readData_bits_data[31:0];	// <stdin>:25:10, pre_fetch.scala:48:67
   assign io_inst_valid = axi_lite_readData_valid & axi_lite_readData_bits_resp == 2'h0 & ~_io_bp_fail_T_6 &
                 ~bp_fail_r;	// <stdin>:25:10, pre_fetch.scala:30:82, :31:28, :49:{96,107,119,121}
   assign io_PF_pc = rhsReg;	// <stdin>:25:10, tools.scala:32:33
@@ -128,7 +126,6 @@ module IFU(	// <stdin>:80:10
                 io_PF_pc,
                 io_axidata);
 
-  wire [31:0] _pre_fetch_io_inst;	// IFU.scala:53:27
   wire        _pre_fetch_io_inst_valid;	// IFU.scala:53:27
   wire [63:0] _pre_fetch_io_PF_pc;	// IFU.scala:53:27
   wire        _pre_fetch_io_bp_fail;	// IFU.scala:53:27
@@ -145,17 +142,17 @@ module IFU(	// <stdin>:80:10
   wire        _inst_ram_bvalid;	// IFU.scala:52:26
   reg  [63:0] rhsReg;	// tools.scala:32:33
   reg         rhsReg_1;	// tools.scala:32:33
-  reg  [31:0] rhsReg_2;	// tools.scala:32:33
+  reg  [63:0] rhsReg_2;	// tools.scala:32:33
   always @(posedge clock) begin
     if (reset | ~_pre_fetch_io_inst_valid | _pre_fetch_io_bp_fail) begin	// IFU.scala:53:27, :93:{63,88}
       rhsReg <= 64'h0;	// IFU.scala:53:27, tools.scala:32:33
       rhsReg_1 <= 1'h0;	// IFU.scala:53:27, tools.scala:32:33
-      rhsReg_2 <= 32'h0;	// IFU.scala:53:27, tools.scala:32:33
+      rhsReg_2 <= 64'h0;	// IFU.scala:53:27, tools.scala:32:33
     end
     else if (io_IF_to_ID_bus_ready) begin	// IFU.scala:53:27, :93:{63,88}
       rhsReg <= _pre_fetch_io_PF_pc;	// IFU.scala:53:27, tools.scala:32:33
       rhsReg_1 <= _pre_fetch_io_inst_valid;	// IFU.scala:53:27, tools.scala:32:33
-      rhsReg_2 <= _pre_fetch_io_inst;	// IFU.scala:53:27, tools.scala:32:33
+      rhsReg_2 <= _inst_ram_rdata;	// IFU.scala:52:26, tools.scala:32:33
     end
   end // always @(posedge)
   `ifndef SYNTHESIS	// <stdin>:80:10
@@ -167,6 +164,7 @@ module IFU(	// <stdin>:80:10
       automatic logic [31:0] _RANDOM_1;	// <stdin>:80:10
       automatic logic [31:0] _RANDOM_2;	// <stdin>:80:10
       automatic logic [31:0] _RANDOM_3;	// <stdin>:80:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:80:10
       `ifdef INIT_RANDOM_PROLOG_	// <stdin>:80:10
         `INIT_RANDOM_PROLOG_	// <stdin>:80:10
       `endif // INIT_RANDOM_PROLOG_
@@ -175,9 +173,10 @@ module IFU(	// <stdin>:80:10
         _RANDOM_1 = `RANDOM;	// <stdin>:80:10
         _RANDOM_2 = `RANDOM;	// <stdin>:80:10
         _RANDOM_3 = `RANDOM;	// <stdin>:80:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:80:10
         rhsReg = {_RANDOM_0, _RANDOM_1};	// tools.scala:32:33
         rhsReg_1 = _RANDOM_2[0];	// tools.scala:32:33
-        rhsReg_2 = {_RANDOM_2[31:1], _RANDOM_3[0]};	// tools.scala:32:33
+        rhsReg_2 = {_RANDOM_2[31:1], _RANDOM_3, _RANDOM_4[0]};	// tools.scala:32:33
       `endif // RANDOMIZE_REG_INIT
     end // initial
     `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:80:10
@@ -215,7 +214,6 @@ module IFU(	// <stdin>:80:10
     .axi_lite_readData_valid     (_inst_ram_rvalid),	// IFU.scala:52:26
     .axi_lite_readData_bits_data (_inst_ram_rdata),	// IFU.scala:52:26
     .axi_lite_readData_bits_resp (_inst_ram_rresp),	// IFU.scala:52:26
-    .io_inst                     (_pre_fetch_io_inst),
     .io_inst_valid               (_pre_fetch_io_inst_valid),
     .io_PF_pc                    (_pre_fetch_io_PF_pc),
     .io_bp_fail                  (_pre_fetch_io_bp_fail),
@@ -226,7 +224,7 @@ module IFU(	// <stdin>:80:10
   );
   assign io_IF_to_ID_bus_valid = rhsReg_1;	// <stdin>:80:10, tools.scala:32:33
   assign io_IF_to_ID_bus_bits_PC = rhsReg;	// <stdin>:80:10, tools.scala:32:33
-  assign io_IF_to_ID_bus_bits_Inst = rhsReg_2;	// <stdin>:80:10, tools.scala:32:33
+  assign io_IF_to_ID_bus_bits_Inst = rhsReg_2[31:0];	// <stdin>:80:10, tools.scala:32:33, :37:17
   assign io_PF_pc = _pre_fetch_io_PF_pc;	// <stdin>:80:10, IFU.scala:53:27
   assign io_axidata = _inst_ram_rdata;	// <stdin>:80:10, IFU.scala:52:26
 endmodule
@@ -1905,9 +1903,8 @@ module sim_sram(
     reg arready_r, rvalid_r, awready_r, wready_r, bvalid_r;
     reg [1:0] rresp_r, bresp_r;
     reg [63:0] rdata_r;
-
-    reg [31:0] araddr_r, awaddr_r;
-
+    reg [31:0] awaddr_r;
+ 
     assign arready = arready_r;
     assign rvalid = rvalid_r;
     assign awready = awready_r;
@@ -1917,15 +1914,13 @@ module sim_sram(
     assign bresp = bresp_r;
     assign rdata = rdata_r;
 
-    //ar
+    //ar      
     always@(posedge aclk) begin
         if(!aresetn) begin
             arready_r <= 1'b1;
-            araddr_r  <= 32'b0;
         end
         else if(arvalid) begin
             arready_r <= 1'b1;
-            araddr_r <= araddr;
         end
         else 
             arready_r <= 1'b1;
@@ -1956,7 +1951,7 @@ module sim_sram(
         else begin
             if(arready_r & arvalid) begin
                 dci_pmem_read({32'H0000, araddr}, rdata_r, 8'HFF);
-                $display("raddr:0x%x raddr_r:0x%x rdata:0x%x", araddr, araddr_r, rdata);
+                $display("raddr:0x%x rdata:0x%x", araddr, rdata);
             end
         end
         // $display("addr:0x%x, rdata:0x%x", araddr_r, rdata_r);
@@ -1983,7 +1978,7 @@ module sim_sram(
         end
         else begin
             if(wvalid & awvalid)  begin
-                dci_pmem_write({32'H0000, awaddr_r}, wdata, wstrb);
+                dci_pmem_write({32'H0000, awaddr}, wdata, wstrb);
             end
         end
     end
