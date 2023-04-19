@@ -95,8 +95,8 @@ class IFU extends Module{
     //pipeline
     regConnectWithResetAndStall(io.IF_to_ID_bus.bits.PC, pre_fetch.io.PF_pc   , flush, 0.U, !io.IF_to_ID_bus.ready)
     regConnectWithResetAndStall(io.IF_to_ID_bus.valid, pre_fetch.io.inst_valid, flush, 0.U, !io.IF_to_ID_bus.ready)
-    // regConnectWithResetAndStall(io.IF_to_ID_bus.bits.Inst, pre_fetch.axi_lite.readData.bits.data  , flush, 0.U, !io.IF_to_ID_bus.ready)
-    regConnectWithResetAndStall(io.IF_to_ID_bus.bits.Inst, pre_fetch.io.inst  , flush, 0.U, !io.IF_to_ID_bus.ready)
+    regConnectWithResetAndStall(io.IF_to_ID_bus.bits.Inst, pre_fetch.axi_lite.readData.bits.data  , flush, 0.U, !io.IF_to_ID_bus.ready)
+    // regConnectWithResetAndStall(io.IF_to_ID_bus.bits.Inst, pre_fetch.io.inst  , flush, 0.U, !io.IF_to_ID_bus.ready)
 
 }
 
