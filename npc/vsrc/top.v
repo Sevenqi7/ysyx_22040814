@@ -1855,7 +1855,7 @@ sim simulate (	// top.scala:24:26
   assign io_WB_Inst = _wb_unit_io_WB_Inst;	// <stdin>:1423:10, top.scala:51:25
   assign io_WB_RegWriteData = _wb_unit_io_WB_to_ID_forward_bits_regWriteData;	// <stdin>:1423:10, top.scala:51:25
   assign io_WB_RegWriteID = {59'h0, _wb_unit_io_WB_to_ID_forward_bits_regWriteID};	// <stdin>:1423:10, top.scala:51:25, :68:24
-  assign io_MEM_RegWriteData = _mem_unit_io_MEM_to_ID_forward_bits_regWriteData;	// <stdin>:1423:10, top.scala:50:26
+  assign io_MEM_RegWriteData = _data_ram_rdata;	// <stdin>:1423:10, top.scala:53:31
   assign io_IF_Inst = _inst_fetch_unit_io_IF_to_ID_bus_bits_Inst;	// <stdin>:1423:10, top.scala:46:33
   assign io_IF_valid = _inst_fetch_unit_io_IF_to_ID_bus_valid;	// <stdin>:1423:10, top.scala:46:33
   assign io_ID_ALU_Data1 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data1;	// <stdin>:1423:10, top.scala:47:34
@@ -1952,7 +1952,7 @@ module sim_sram(
         else begin
             if(arready_r & arvalid) begin
                 dci_pmem_read({32'H0000, araddr_r}, rdata_r, 8'HFF);
-                $display("raddr:0x%x raddr_r:0x%x rdata_r:0x%x", araddr, araddr_r, rdata_r);
+                $display("pc:0x%x raddr:0x%x raddr_r:0x%x rdata:0x%x",pc, araddr, araddr_r, rdata_r);
             end
         end
         // $display("addr:0x%x, rdata:0x%x", araddr_r, rdata_r);

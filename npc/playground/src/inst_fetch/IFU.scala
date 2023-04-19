@@ -45,6 +45,8 @@ class IFU extends Module{
         //for npc to trap
         val PF_npc  = Output(UInt(64.W))
         val PF_pc   = Output(UInt(64.W))
+
+        val axidata = Output(UInt(64.W))
     })
 
     val inst_ram = Module(new sim_sram)
@@ -54,6 +56,7 @@ class IFU extends Module{
 
     io.PF_npc                               := pre_fetch.io.PF_npc
     io.PF_pc                                := pre_fetch.io.PF_pc
+    io.axidata                              := pre_fetch.axi_lite.readData.bits.data
 
     bp_fail                                 := pre_fetch.io.bp_fail
     pre_fetch.io.IF_pc                      := io.IF_to_ID_bus.bits.PC
