@@ -34,7 +34,6 @@ class top extends Module{
         val stall   = Output(Bool())
 
         val IF_Inst = Output(UInt(32.W))
-        val IF_Inst2 = Output(UInt(32.W))
         val IF_valid = Output(Bool())
 
         val ID_ALU_Data1 = Output(UInt(64.W))
