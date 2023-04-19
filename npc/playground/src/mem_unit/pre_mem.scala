@@ -45,7 +45,7 @@ class MEM_pre_stage extends Module{
 
     val wstrb = Wire(UInt(8.W))
     wstrb := 0.U
-    switch(io.PMEM_to_MEM_bus.bits.lsutype){
+    switch(lsutype){
         is (sd) {wstrb := 0xFF.U}
         is (sw) {wstrb := 0x0F.U}
         is (sh) {wstrb := 0x03.U}
