@@ -209,7 +209,7 @@ class IDU extends Module{
     io.ID_unknown_inst := InstInfo(0) === 0.U && io.IF_to_ID_bus.valid
 
     load_use_stall := (
-        (src1 === RS1 && ((io.ID_to_EX_bus.bits.memReadEn && io.ID_to_EX_bus.bits.regWriteID === rs1) || (PMEM_memReadEn && PMEM_regWriteID === rs1))) ||
+        ((src1 === RS1 || src1 === NPC) && ((io.ID_to_EX_bus.bits.memReadEn && io.ID_to_EX_bus.bits.regWriteID === rs1) || (PMEM_memReadEn && PMEM_regWriteID === rs1))) ||
         (src2 === RS2 && ((io.ID_to_EX_bus.bits.memReadEn && io.ID_to_EX_bus.bits.regWriteID === rs2) || (PMEM_memReadEn && PMEM_regWriteID === rs2)))
     )
 
