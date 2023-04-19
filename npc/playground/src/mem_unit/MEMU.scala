@@ -39,43 +39,35 @@ class MEM_to_WB_Message extends Bundle{
 
 class MEMU extends Module{
     val io = IO(new Bundle{
-        val EX_to_MEM_bus = Flipped(Decoupled(new EX_MEM_Message))
+        val PMEM_to_MEM_bus = Flipped(Decoupled(new PMEM_MEM_Message))
+        val memReadData = Input(UInt(64.W))
         val MEM_to_WB_bus = Decoupled(new MEM_to_WB_Message)
         val MEM_to_ID_forward = Decoupled(new MEM_to_ID_Message)
     })
 
-    //unpack bus from EXU
-    val ALU_result   =  io.EX_to_MEM_bus.bits.ALU_result  
-    val memWriteData =  io.EX_to_MEM_bus.bits.memWriteData
-    val memWriteEn   =  io.EX_to_MEM_bus.bits.memWriteEn
-    val memReadEn    =  io.EX_to_MEM_bus.bits.memReadEn
-    val lsutype      =  io.EX_to_MEM_bus.bits.lsutype
-    val regWriteID   =  io.EX_to_MEM_bus.bits.regWriteID
-    val regWriteEn   =  io.EX_to_MEM_bus.bits.regWriteEn
+    //unpack bus from PMEMU
+    val PMEM_pc    = io.PMEM_to_MEM_bus.bits.PC
+    val PMEM_Inst  = io.PMEM_to_MEM_bus.bits.Inst
+    val ALU_result = io.PMEM_to_MEM_bus.bits.ALU_result
+    val regWriteEn = io.PMEM_to_MEM_bus.bits.regWriteEn
+    val regWriteID = io.PMEM_to_MEM_bus.bits.regWriteID
+    val memReadEn  = io.PMEM_to_MEM_bus.bits.memReadEn
+    val lsutype    = io.PMEM_to_MEM_bus.bits.lsutype
 
-    val mem = Module(new LSU)
     val regWriteData = Wire(UInt(64.W))
 
-    regWriteData := Mux(memReadEn.asBool, mem.io.ReadData, ALU_result)
+    regWriteData := Mux(memReadEn, io.memReadData, ALU_result)
     
-    regConnect(io.MEM_to_WB_bus.bits.PC                ,         io.EX_to_MEM_bus.bits.PC  )
-    regConnect(io.MEM_to_WB_bus.bits.Inst              ,         io.EX_to_MEM_bus.bits.Inst)
-    regConnect(io.MEM_to_WB_bus.bits.regWriteEn        ,                         regWriteEn)
-    regConnect(io.MEM_to_WB_bus.bits.regWriteID        ,                         regWriteID)
-    regConnect(io.MEM_to_WB_bus.bits.regWriteData      ,                       regWriteData)
-    regConnect(io.MEM_to_WB_bus.valid                  ,             io.EX_to_MEM_bus.valid)
-    io.EX_to_MEM_bus.ready := 1.U    
+    regConnect(io.MEM_to_WB_bus.bits.PC                , PMEM_pc        )
+    regConnect(io.MEM_to_WB_bus.bits.Inst              , PMEM_Inst      )
+    regConnect(io.MEM_to_WB_bus.bits.regWriteEn        , regWriteEn     )
+    regConnect(io.MEM_to_WB_bus.bits.regWriteID        , regWriteID     )
+    regConnect(io.MEM_to_WB_bus.bits.regWriteData      , regWriteData   )
+    regConnect(io.MEM_to_WB_bus.valid                  , io.PMEM_to_MEM_bus.valid)
+    io.PMEM_to_MEM_bus.ready               := 1.U
 
     io.MEM_to_ID_forward.bits.regWriteData := regWriteData
     io.MEM_to_ID_forward.bits.regWriteEn   := regWriteEn
     io.MEM_to_ID_forward.bits.regWriteID   := regWriteID
     io.MEM_to_ID_forward.valid             := regWriteEn & (regWriteID > 0.U)
-
-    //LSU for DPI-C with verilator
-    mem.io.pc   := io.MEM_to_WB_bus.bits.PC
-    mem.io.addr := ALU_result
-    mem.io.LsuType := lsutype
-    mem.io.WriteEn := memWriteEn
-    mem.io.WriteData := memWriteData
-    mem.io.ReadEn  := memReadEn
 }  

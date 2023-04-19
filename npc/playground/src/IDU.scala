@@ -36,6 +36,7 @@ class IDU extends Module{
         val WB_to_ID_forward = Flipped(Decoupled(new MEM_to_ID_Message))
 
         //2. Data from MEM (from ex_unit in top)
+        val PMEM_to_ID_forward = Flipped(Decoupled(new PMEM_to_ID_Message))
         val MEM_to_ID_forward = Flipped(Decoupled(new MEM_to_ID_Message))
 
         //3. ALUResult from EX
@@ -53,6 +54,11 @@ class IDU extends Module{
     //unpack bus from IFU/MEMU/WBU
     val IF_pc = io.IF_to_ID_bus.bits.PC
     val IF_Inst = io.IF_to_ID_bus.bits.Inst
+
+    val PMEM_ALUresult   = io.PMEM_to_ID_forward.bits.ALU_result
+    val PMEM_regWriteEn  = io.PMEM_to_ID_forward.bits.regWriteEn
+    val PMEM_regWriteID  = io.PMEM_to_ID_forward.bits.regWriteID
+    val PMEM_memReadEn   = io.PMEM_to_ID_forward.bits.memReadEn
     
     val MEM_regWriteData = io.MEM_to_ID_forward.bits.regWriteData
     val MEM_regWriteEn   = io.MEM_to_ID_forward.bits.regWriteEn
@@ -116,6 +122,7 @@ class IDU extends Module{
     rs1_data := MuxCase(GPR(rs1), Seq(
         ((rs1 === 0.U)                                          ,                 0.U),
         ((io.ID_to_EX_bus.bits.regWriteID  === rs1) && io.ID_to_EX_bus.bits.regWriteEn , io.EX_ALUResult),
+        ((PMEM_regWriteID === rs1) && PMEM_regWriteEn, PMEM_ALUresult),
         ((MEM_regWriteID === rs1) && MEM_regWriteEn, MEM_regWriteData),
         ((WB_regWriteID  === rs1) && WB_regWriteEn , WB_regWriteData )
     ))
@@ -123,6 +130,7 @@ class IDU extends Module{
     rs2_data := MuxCase(GPR(rs2), Seq(
         ((rs2 === 0.U)                                          ,                 0.U),
         ((io.ID_to_EX_bus.bits.regWriteID  === rs2) && io.ID_to_EX_bus.bits.regWriteEn , io.EX_ALUResult    ),
+        ((PMEM_regWriteID === rs2) && PMEM_regWriteEn, PMEM_ALUresult),
         ((MEM_regWriteID === rs2) && MEM_regWriteEn, MEM_regWriteData),
         ((WB_regWriteID  === rs2) && WB_regWriteEn , WB_regWriteData ),
     ))
@@ -193,15 +201,21 @@ class IDU extends Module{
     regConnectWithReset(io.ID_to_EX_bus.valid           ,io.IF_to_ID_bus.valid & !load_use_stall, flush, 0.U   )
     io.IF_to_ID_bus.ready := !load_use_stall
     io.MEM_to_ID_forward.ready := 1.U
+    io.PMEM_to_ID_forward.ready := 1.U
     io.WB_to_ID_forward.ready := 1.U
 
-    // val stall_cnt = RegInit(0.U(2.W))
+    val stall_cnt = RegInit(0.U(2.W))
 
     io.ID_unknown_inst := InstInfo(0) === 0.U && io.IF_to_ID_bus.valid
 
-    load_use_stall := (io.ID_to_EX_bus.bits.memReadEn
-                    && (regWriteEn || instType === TYPE_S || instType === TYPE_B || ((instType === TYPE_I  &&  src1 === NPC)) 
-                    && ((io.ID_to_EX_bus.bits.regWriteID === rs1 && src1 === RS1) || (io.ID_to_EX_bus.bits.regWriteID === rs2 && src2 === RS2)))) 
+    load_use_stall := (
+        ((src1 === RS1 || src1 === NPC) && ((io.ID_to_EX_bus.bits.memReadEn && io.ID_to_EX_bus.bits.regWriteID === rs1) || (PMEM_memReadEn && PMEM_regWriteID === rs1))) ||
+        ((src2 === RS2 || futype === FuType.lsu) && ((io.ID_to_EX_bus.bits.memReadEn && io.ID_to_EX_bus.bits.regWriteID === rs2) || (PMEM_memReadEn && PMEM_regWriteID === rs2)))
+    )
+
+    // load_use_stall := ((io.ID_to_EX_bus.bits.memReadEn
+    //                 && (regWriteEn || instType === TYPE_S || instType === TYPE_B || ((instType === TYPE_I  &&  src1 === NPC)) 
+    //                 && ((io.ID_to_EX_bus.bits.regWriteID === rs1 && src1 === RS1) || (io.ID_to_EX_bus.bits.regWriteID === rs2 && src2 === RS2))))) 
 
 
     //NPC
