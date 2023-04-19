@@ -60,8 +60,8 @@ class top extends Module{
     io.PF_pc := inst_fetch_unit.io.PF_pc
     io.IF_pc := inst_fetch_unit.io.IF_to_ID_bus.bits.PC
     io.ID_pc := inst_decode_unit.io.ID_to_EX_bus.bits.PC
-    io.EX_pc := mem_unit.io.EX_to_MEM_bus.bits.PC
-    io.PMEM_pc := mem_unit.io.PMEM_pc
+    io.EX_pc := excute_unit.io.EX_to_MEM_bus.bits.PC
+    io.PMEM_pc := pre_mem_unit.io.PMEM_to_MEM_bus.bits.PC
     io.WB_pc := wb_unit.io.WB_pc
     io.WB_Inst := wb_unit.io.WB_Inst
     io.WB_RegWriteData := wb_unit.io.WB_to_ID_forward.bits.regWriteData
@@ -96,7 +96,7 @@ class top extends Module{
 
     //PMEM
     pre_mem_unit.io.EX_to_MEM_bus           <> excute_unit.io.EX_to_MEM_bus
-    data_ram.io.pc                          := pre_mem.io.PMEM_to_MEM_bus.bits.PC
+    data_ram.io.pc                          := pre_mem_unit.io.PMEM_to_MEM_bus.bits.PC
 
     data_ram.io.aclk                        := clock
     data_ram.io.aresetn                     := !reset.asBool

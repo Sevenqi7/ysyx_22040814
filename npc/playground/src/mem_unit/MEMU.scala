@@ -62,7 +62,7 @@ class MEMU extends Module{
     regConnect(io.MEM_to_WB_bus.bits.regWriteEn        , regWriteEn     )
     regConnect(io.MEM_to_WB_bus.bits.regWriteID        , regWriteID     )
     regConnect(io.MEM_to_WB_bus.bits.regWriteData      , regWriteData   )
-    regConnect(io.MEM_to_WB_bus.valid                  , pre_mem.io.PMEM_to_MEM_bus.valid)
+    regConnect(io.MEM_to_WB_bus.valid                  , io.PMEM_to_MEM_bus.valid)
     io.PMEM_to_MEM_bus.ready               := 1.U
 
     io.MEM_to_ID_forward.bits.regWriteData := regWriteData
