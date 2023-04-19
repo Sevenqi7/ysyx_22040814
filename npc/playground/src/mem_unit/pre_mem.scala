@@ -16,7 +16,7 @@ class PMEM_MEM_Message extends Bundle{
     val Inst            = UInt(32.W)
 }
 
-class PMEM_ID_Message extends Bundle{
+class PMEM_to_ID_Message extends Bundle{
     val ALU_result      = UInt(64.W)
     val regWriteEn      = Bool()
     val regWriteID      = UInt(5.W)
@@ -27,7 +27,7 @@ class MEM_pre_stage extends Module{
     val io = IO(new Bundle{
         val EX_to_MEM_bus   = Flipped(Decoupled(new EX_MEM_Message))
         val PMEM_to_MEM_bus = Decoupled(new PMEM_MEM_Message)
-        val PMEM_to_ID_forward = Decoupled(new PMEM_ID_Message)
+        val PMEM_to_ID_forward = Decoupled(new PMEM_to_ID_Message)
         val memReadData     = Output(UInt(64.W))
     })
     val axi_lite = IO(new AXILiteMasterIF(32, 64))
