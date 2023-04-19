@@ -20,6 +20,7 @@ class top extends Module{
         val ID_npc = Output(UInt(64.W))
         val PF_npc = Output(UInt(64.W))
         val PF_pc = Output(UInt(64.W))
+        val PF_axidata =Output(UInt(64.W))
         val IF_pc = Output(UInt(64.W))
         val ID_pc = Output(UInt(64.W))
         val EX_pc = Output(UInt(64.W))
@@ -54,7 +55,7 @@ class top extends Module{
 
     io.IF_Inst  := inst_fetch_unit.io.IF_to_ID_bus.bits.Inst
     io.IF_valid := inst_fetch_unit.io.IF_to_ID_bus.valid
-    
+    io.PF_axidata := inst_fetch_unit.io.axidata
     io.ID_npc   := inst_decode_unit.io.ID_npc
     io.PF_npc   := inst_fetch_unit.io.PF_npc
     io.PF_pc := inst_fetch_unit.io.PF_pc
