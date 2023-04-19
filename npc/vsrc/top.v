@@ -62,12 +62,12 @@ module IF_pre_fetch(	// <stdin>:25:10
       bp_fail_r <= 1'h0;	// pre_fetch.scala:30:54, :31:28
     end
     else begin
-      if (io_stall)
-        PF_npc <= rhsReg;	// pre_fetch.scala:20:27, tools.scala:32:33
+      if (io_stall) begin
+      end
       else if (_io_bp_fail_T_6)	// pre_fetch.scala:30:82
         PF_npc <= io_ID_npc;	// pre_fetch.scala:20:27
       else	// pre_fetch.scala:30:82
-        PF_npc <= rhsReg + 64'h4;	// pre_fetch.scala:20:27, :25:36, tools.scala:32:33
+        PF_npc <= PF_npc + 64'h4;	// pre_fetch.scala:20:27, :25:37
       bp_fail_r <= _io_bp_fail_T_6;	// pre_fetch.scala:30:82, :31:28
     end
     if (reset | _io_bp_fail_T_6)	// pre_fetch.scala:30:82, :33:64
@@ -1831,6 +1831,7 @@ module top(	// <stdin>:1424:10
     .bvalid  (_data_ram_bvalid)
   );
 
+
 wire [63:0] GPR [31:0];
 assign {GPR[31], GPR[30], GPR[29], GPR[28], GPR[27], GPR[26], GPR[25], GPR[24], GPR[23], GPR[22], GPR[21], GPR[20]
 , GPR[19], GPR[18], GPR[17], GPR[16], GPR[15], GPR[14], GPR[13], GPR[12], GPR[11], GPR[10], GPR[9], GPR[8], GPR[7]
@@ -1955,7 +1956,7 @@ module sim_sram(
         end
         else begin
             if(arready_r & arvalid) begin
-                dci_pmem_read({32'H0000, araddr}, rdata_r, 8'HFF);
+                dci_pmem_read({32'H0000, araddr_r}, rdata_r, 8'HFF);
                 $display("raddr:0x%x raddr_r:0x%x rdata:0x%x", araddr, araddr_r, rdata);
             end
         end
@@ -2011,7 +2012,6 @@ endmodule
 import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
 import "DPI-C" function void unknown_inst();
 import "DPI-C" function void ebreak(input longint halt_ret);
-
 
 
 module sim(input[63:0] IF_pc, input [63:0] GPR [31:0], input unknown_inst_flag, input[31:0] WB_Inst);
