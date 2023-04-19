@@ -54,7 +54,6 @@ class top extends Module{
     val data_ram     =  Module(new sim_sram)
 
     io.IF_Inst  := inst_fetch_unit.io.IF_to_ID_bus.bits.Inst
-    io.IF_Inst2  := inst_fetch_unit.io.axidata
     io.IF_valid := inst_fetch_unit.io.IF_to_ID_bus.valid
     
     io.ID_npc   := inst_decode_unit.io.ID_npc
