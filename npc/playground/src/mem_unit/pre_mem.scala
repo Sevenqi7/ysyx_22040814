@@ -16,10 +16,18 @@ class PMEM_MEM_Message extends Bundle{
     val Inst            = UInt(32.W)
 }
 
+class PMEM_ID_Message extends Bundle{
+    val ALU_result      = UInt(64.W)
+    val regWriteEn      = Bool()
+    val regWriteID      = UInt(5.W)
+    val memReadEn       = Bool()
+}
+
 class MEM_pre_stage extends Module{
     val io = IO(new Bundle{
         val EX_to_MEM_bus   = Flipped(Decoupled(new EX_MEM_Message))
         val PMEM_to_MEM_bus = Decoupled(new PMEM_MEM_Message)
+        val PMEM_to_ID_forward = Decoupled(new PMEM_ID_Message)
         val memReadData     = Output(UInt(64.W))
     })
     val axi_lite = IO(new AXILiteMasterIF(32, 64))
@@ -56,7 +64,6 @@ class MEM_pre_stage extends Module{
         is (lbu){memReadData := axi_lite.readData.bits.data( 7 ,0)}
     }
 
-
     regConnect(io.PMEM_to_MEM_bus.bits.PC           , EX_pc         )
     regConnect(io.PMEM_to_MEM_bus.bits.Inst         , EX_Inst       )
     regConnect(io.PMEM_to_MEM_bus.bits.ALU_result   , ALU_result    )
@@ -72,9 +79,9 @@ class MEM_pre_stage extends Module{
 
     //r
     // axi_lite.readAddr.valid                 := memReadEn | io.PMEM_to_MEM_bus.bits.memReadEn
-        axi_lite.readAddr.valid                 := 1.U
+    axi_lite.readAddr.valid                 := 1.U
     // axi_lite.readData.ready                 := memReadEn | io.PMEM_to_MEM_bus.bits.memReadEn
-        axi_lite.readData.ready                 := 1.U
+    axi_lite.readData.ready                 := 1.U
     axi_lite.readAddr.bits.addr             := ALU_result(31, 0)
 
     //w
@@ -84,4 +91,11 @@ class MEM_pre_stage extends Module{
     axi_lite.writeData.bits.data            := io.PMEM_to_MEM_bus.bits.memWriteData
     axi_lite.writeData.bits.strb            := wstrb
     axi_lite.writeResp.ready                := io.PMEM_to_MEM_bus.bits.memWriteEn 
+
+    //forward
+    io.PMEM_to_ID_forward.bits.ALU_result   := ALU_result    
+    io.PMEM_to_ID_forward.bits.regWriteEn   := regWriteEn
+    io.PMEM_to_ID_forward.bits.regWriteID   := regWriteID
+    io.PMEM_to_ID_forward.bits.memReadEn    := memReadEn
+    io.PMEM_to_ID_forward.valid             := 1.U
 }
