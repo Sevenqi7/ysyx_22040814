@@ -39,7 +39,6 @@ class AXI_Arbiter extends Module{
         val axi_out = Decoupled(new AXILiteMasterIF(64, 32))
     })
 
-    val data_ram = Module(new sim_sram)
     val axi_arbiter = Module(new Arbiter(new AXILiteMasterIF(64, 32), 2))
     axi_arbiter.io.in(0) <> io.axi_MEM
     axi_arbiter.io.in(1) <> io.axi_IF
@@ -52,7 +51,9 @@ class RAMU extends Module{
         val axi_MEM = Flipped(Decoupled(new AXILiteMasterIF(64, 32)))
     })
 
+    val data_ram = Module(new sim_sram)
     val arbiter = Module(new AXI_Arbiter)
+    
     arbiter.io.axi_IF <> io.axi_IF
     arbiter.io.axi_MEM <> io.axi_MEM
 
