@@ -30,7 +30,7 @@ class MEM_pre_stage extends Module{
         val PMEM_to_ID_forward = Decoupled(new PMEM_to_ID_Message)
         val memReadData     = Output(UInt(64.W))
     })
-    val axi_lite = IO(Decoupled(new AXILiteMasterIF(32, 64)))
+    val axi_lite = IO(new AXILiteMasterIF(32, 64))
 
     //unpack bus from EXU
     val EX_pc        =  io.EX_to_MEM_bus.bits.PC
@@ -55,13 +55,13 @@ class MEM_pre_stage extends Module{
     val memReadData = Wire(UInt(64.W))
     memReadData := 0.U
     switch(io.PMEM_to_MEM_bus.bits.lsutype){
-        is (ld) {memReadData := axi_lite.bits.readData.bits.data}
-        is (lw) {memReadData := SEXT(axi_lite.bits.readData.bits.data(31, 0), 32)}
-        is (lh) {memReadData := SEXT(axi_lite.bits.readData.bits.data(15, 0), 16)}
-        is (lb) {memReadData := SEXT(axi_lite.bits.readData.bits.data( 7, 0),  8)}
-        is (lwu){memReadData := axi_lite.bits.readData.bits.data(31, 0)}
-        is (lhu){memReadData := axi_lite.bits.readData.bits.data(15, 0)}
-        is (lbu){memReadData := axi_lite.bits.readData.bits.data( 7 ,0)}
+        is (ld) {memReadData := axi_lite.readData.bits.data}
+        is (lw) {memReadData := SEXT(axi_lite.readData.bits.data(31, 0), 32)}
+        is (lh) {memReadData := SEXT(axi_lite.readData.bits.data(15, 0), 16)}
+        is (lb) {memReadData := SEXT(axi_lite.readData.bits.data( 7, 0),  8)}
+        is (lwu){memReadData := axi_lite.readData.bits.data(31, 0)}
+        is (lhu){memReadData := axi_lite.readData.bits.data(15, 0)}
+        is (lbu){memReadData := axi_lite.readData.bits.data( 7 ,0)}
     }
 
     regConnect(io.PMEM_to_MEM_bus.bits.PC           , EX_pc         )
@@ -78,18 +78,19 @@ class MEM_pre_stage extends Module{
     io.EX_to_MEM_bus.ready                  := 1.U
 
     //r
-    axi_lite.bits.readAddr.valid                 := memReadEn
-    axi_lite.bits.readData.ready                 := memReadEn
-    axi_lite.bits.readAddr.bits.addr             := ALU_result(31, 0)
+    axi_lite.readAddr.valid                 := memReadEn
+    // axi_lite.readAddr.valid                 := 1.U
+    axi_lite.readData.ready                 := memReadEn
+    // axi_lite.readData.ready                 := 1.U
+    axi_lite.readAddr.bits.addr             := ALU_result(31, 0)
 
     //w
-    axi_lite.bits.writeAddr.valid                := memWriteEn
-    axi_lite.bits.writeAddr.bits.addr            := ALU_result(31, 0)
-    axi_lite.bits.writeData.valid                := memWriteEn
-    axi_lite.bits.writeData.bits.data            := memWriteData
-    axi_lite.bits.writeResp.ready                := memWriteEn 
-    axi_lite.bits.writeData.bits.strb            := wstrb
-    axi_lite.valid                               := memWriteEn | memReadEn
+    axi_lite.writeAddr.valid                := memWriteEn
+    axi_lite.writeAddr.bits.addr            := ALU_result(31, 0)
+    axi_lite.writeData.valid                := memWriteEn
+    axi_lite.writeData.bits.data            := memWriteData
+    axi_lite.writeResp.ready                := memWriteEn 
+    axi_lite.writeData.bits.strb            := wstrb
 
     //forward
     io.PMEM_to_ID_forward.bits.ALU_result   := ALU_result    
