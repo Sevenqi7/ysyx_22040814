@@ -30,7 +30,7 @@ package AXILiteDefs
     // write data channel
     val writeData   = Flipped(Decoupled(new AXILiteWriteData(dataWidth)))
     // write response channel (for memory consistency)
-    val writeResp   = Decoupled(UInt(2.W))
+    val writeResp   = Decoupled(new AXILiteWriteResp)
     
     // read address channel
     val readAddr    = Flipped(Decoupled(new AXILiteAddress(addrWidth)))
