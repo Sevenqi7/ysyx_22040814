@@ -140,16 +140,20 @@ class top extends Module{
     inst_ram.io.bready                      := inst_fetch_unit.axi_lite.writeResp.ready
 
     val ram_unit = Module(new RAMU)
-    val arb = Module(new AXI_Arbiter)
+    val arb = Module(new AXI_Arbiter(2))
     ram_unit.axi_lite <> arb.out
     arb.in(0) <> pre_mem_unit.axi_lite
     arb.req(0) <> pre_mem_unit.axi_req
+    arb.in(1) <> inst_fetch_unit.axi_lite
+    arb.req(1) <> inst_fetch_unit.axi_req
 }
 
-class AXI_Arbiter extends Module{
-    val in = IO(Flipped(Vec(1, new AXILiteMasterIF(32, 64))))
-    val req = IO(Flipped(Vec(1, new MyReadyValidIO)))
+class AXI_Arbiter(val n: Int) extends Module{
+    val in = IO(Flipped(Vec(n, new AXILiteMasterIF(32, 64))))
+    val req = IO(Flipped(Vec(n, new MyReadyValidIO)))
     val out = IO(new AXILiteMasterIF(32, 64))
+
+    req(1).ready := 0.U
     req(0).ready := 1.U
     out <> in(0)
 }
