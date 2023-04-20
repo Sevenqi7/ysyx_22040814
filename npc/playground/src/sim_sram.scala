@@ -48,7 +48,7 @@ class RAMU extends Module{
     //ar
     data_ram.io.araddr                          := axi_arbiter.io.out.bits.readAddr.bits.addr
     data_ram.io.arvalid                         := axi_arbiter.io.out.bits.readAddr.valid
-    axi_arbiter.io.out.bits.readAddr.ready      := data_ram.io.arready
+    // axi_arbiter.io.out.bits.readAddr.ready      := data_ram.io.arready
     //r
     axi_arbiter.io.out.bits.readData.bits.data  := data_ram.io.rdata
     axi_arbiter.io.out.bits.readData.bits.resp  := data_ram.io.rresp
