@@ -40,7 +40,7 @@ class RAMU extends Module{
 
     val data_ram = Module(new sim_sram)
     val axi_sel  = Decoupled(new AXILiteMasterIF(64, 32))
-    axi_sel      = Mux(0.U , Seq(
+    axi_sel      <> Mux(0.U , Seq(
         (io.axi_MEM.valid, axi_MEM),
         (io.axi_IF.valid , axi_IF )
     ))
