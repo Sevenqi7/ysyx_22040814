@@ -97,7 +97,7 @@ class top extends Module{
 
     //PMEM
     pre_mem_unit.io.EX_to_MEM_bus           <> excute_unit.io.EX_to_MEM_bus
-    ram_unit.axi_MEM                        <> pre_mem_unit.axi_lite
+    ram_unit.axi_MEM                        := pre_mem_unit.axi_lite
     //PMEM END
 
     mem_unit.io.PMEM_to_MEM_bus             <> pre_mem_unit.io.PMEM_to_MEM_bus
