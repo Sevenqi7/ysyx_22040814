@@ -32,10 +32,11 @@ class sim_sram extends BlackBox with HasBlackBoxPath{
     })
     addPath("/home/seven7/Documents/学业/一生一芯/ysyx-workbench/npc/playground/verilog/sim_sram.v")
 }
+
 class AXI_Arbiter extends Module{
     val io = IO(new Bundle{
-        val axi_IF  = Flipped(Decoupled(new AXILiteMasterIF(32, 64)))
-        val axi_MEM = Flipped(Decoupled(new AXILiteMasterIF(32, 64)))  
+        val axi_IF  = Decoupled(new AXILiteMasterIF(32, 64))
+        val axi_MEM = Decoupled(new AXILiteMasterIF(32, 64))
         val axi_out = Decoupled(new AXILiteMasterIF(32, 64))
     })
 
@@ -53,8 +54,8 @@ class RAMU extends Module{
     val data_ram = Module(new sim_sram())
     val arb = Module(new AXI_Arbiter)
     val axi_sel = arb.io.axi_out
-    arb.io.axi_IF                               := io.axi_IF
-    arb.io.axi_MEM                              := io.axi_MEM
+    arb.io.axi_IF                               <> io.axi_IF
+    arb.io.axi_MEM                              <> io.axi_MEM
 
     data_ram.io.aclk                            := clock
     data_ram.io.aresetn                         := !reset.asBool
