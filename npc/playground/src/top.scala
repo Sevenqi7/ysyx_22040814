@@ -69,7 +69,7 @@ class top extends Module{
     io.WB_RegWriteData := wb_unit.io.WB_to_ID_forward.bits.regWriteData
     io.WB_RegWriteID   := wb_unit.io.WB_to_ID_forward.bits.regWriteID
     io.WB_valid     := wb_unit.io.WB_to_ID_forward.valid
-    io.MEM_RegWriteData := pre_mem_unit.axi_lite.bits.readData.bits.data
+    io.MEM_RegWriteData := pre_mem_unit.axi_lite.readData.bits.data
     
     io.ID_ALU_Data1 := inst_decode_unit.io.ID_to_EX_bus.bits.ALU_Data1
     io.ID_ALU_Data2 := inst_decode_unit.io.ID_to_EX_bus.bits.ALU_Data2
@@ -107,6 +107,9 @@ class top extends Module{
 
     wb_unit.io.MEM_to_WB_bus                <> mem_unit.io.MEM_to_WB_bus
 
+
+
+
     //inst ram
 
     //axi-lite
@@ -140,8 +143,12 @@ class top extends Module{
     ram_unit.axi_lite <> pre_mem_unit.axi_lite
 }
 
+// class AXI_Arbiter extends Module{
+//     val Flipepd()
+// }
+
 class RAMU extends Module{
-    val axi_lite = IO(Flipped(Decoupled(new AXILiteMasterIF(32, 64))))
+    val axi_lite = IO(Flipped(new AXILiteMasterIF(32, 64)))
     val data_ram = Module(new sim_sram)
 
     //data ram
@@ -150,26 +157,26 @@ class RAMU extends Module{
     data_ram.io.aclk                        := clock
     data_ram.io.aresetn                     := !reset.asBool
     //ar
-    data_ram.io.araddr                      := axi_lite.bits.readAddr.bits.addr
-    data_ram.io.arvalid                     := axi_lite.bits.readAddr.valid
-    axi_lite.bits.readAddr.ready                 := data_ram.io.arready
+    data_ram.io.araddr                      := axi_lite.readAddr.bits.addr
+    data_ram.io.arvalid                     := axi_lite.readAddr.valid
+    axi_lite.readAddr.ready                 := data_ram.io.arready
     //r
-    axi_lite.bits.readData.bits.data             := data_ram.io.rdata
-    axi_lite.bits.readData.bits.resp             := data_ram.io.rresp
-    axi_lite.bits.readData.valid                 := data_ram.io.rvalid
-    data_ram.io.rready                      := axi_lite.bits.readData.ready
+    axi_lite.readData.bits.data             := data_ram.io.rdata
+    axi_lite.readData.bits.resp             := data_ram.io.rresp
+    axi_lite.readData.valid                 := data_ram.io.rvalid
+    data_ram.io.rready                      := axi_lite.readData.ready
     //aw
-    data_ram.io.awaddr                      := axi_lite.bits.writeAddr.bits.addr
-    data_ram.io.awvalid                     := axi_lite.bits.writeAddr.valid
-    axi_lite.bits.writeAddr.ready                := data_ram.io.awready
+    data_ram.io.awaddr                      := axi_lite.writeAddr.bits.addr
+    data_ram.io.awvalid                     := axi_lite.writeAddr.valid
+    axi_lite.writeAddr.ready                := data_ram.io.awready
     //w
-    data_ram.io.wdata                       := axi_lite.bits.writeData.bits.data
-    data_ram.io.wstrb                       := axi_lite.bits.writeData.bits.strb
-    data_ram.io.wvalid                      := axi_lite.bits.writeData.valid
-    axi_lite.bits.writeData.ready                := data_ram.io.wready
+    data_ram.io.wdata                       := axi_lite.writeData.bits.data
+    data_ram.io.wstrb                       := axi_lite.writeData.bits.strb
+    data_ram.io.wvalid                      := axi_lite.writeData.valid
+    axi_lite.writeData.ready                := data_ram.io.wready
     //b
-    axi_lite.bits.writeResp.bits.resp            := data_ram.io.bresp
-    axi_lite.bits.writeResp.valid                := data_ram.io.bvalid
-    data_ram.io.bready                      := axi_lite.bits.writeResp.ready
+    axi_lite.writeResp.bits.resp            := data_ram.io.bresp
+    axi_lite.writeResp.valid                := data_ram.io.bvalid
+    data_ram.io.bready                      := axi_lite.writeResp.ready
 
 }
