@@ -51,7 +51,6 @@ class top extends Module{
     val mem_unit = Module(new MEMU)
     val wb_unit = Module(new WBU)
 
-    val data_ram     =  Module(new sim_sram)
 
     io.IF_Inst  := inst_fetch_unit.io.IF_to_ID_bus.bits.Inst
     io.IF_valid := inst_fetch_unit.io.IF_to_ID_bus.valid
@@ -98,32 +97,7 @@ class top extends Module{
 
     //PMEM
     pre_mem_unit.io.EX_to_MEM_bus           <> excute_unit.io.EX_to_MEM_bus
-    data_ram.io.pc                          := pre_mem_unit.io.PMEM_to_MEM_bus.bits.PC
 
-    data_ram.io.aclk                        := clock
-    data_ram.io.aresetn                     := !reset.asBool
-    //ar
-    data_ram.io.araddr                      := pre_mem_unit.axi_lite.readAddr.bits.addr
-    data_ram.io.arvalid                     := pre_mem_unit.axi_lite.readAddr.valid
-    pre_mem_unit.axi_lite.readAddr.ready    := data_ram.io.arready
-    //r
-    pre_mem_unit.axi_lite.readData.bits.data := data_ram.io.rdata
-    pre_mem_unit.axi_lite.readData.bits.resp := data_ram.io.rresp
-    pre_mem_unit.axi_lite.readData.valid     := data_ram.io.rvalid
-    data_ram.io.rready                      := pre_mem_unit.axi_lite.readData.ready
-    //aw
-    data_ram.io.awaddr                      := pre_mem_unit.axi_lite.writeAddr.bits.addr
-    data_ram.io.awvalid                     := pre_mem_unit.axi_lite.writeAddr.valid
-    pre_mem_unit.axi_lite.writeAddr.ready   := data_ram.io.awready
-    //w
-    data_ram.io.wdata                       := pre_mem_unit.axi_lite.writeData.bits.data
-    data_ram.io.wstrb                       := pre_mem_unit.axi_lite.writeData.bits.strb
-    data_ram.io.wvalid                      := pre_mem_unit.axi_lite.writeData.valid
-    pre_mem_unit.axi_lite.writeData.ready        := data_ram.io.wready
-    //b
-    pre_mem_unit.axi_lite.writeResp.bits.resp := data_ram.io.bresp
-    pre_mem_unit.axi_lite.writeResp.valid     := data_ram.io.bvalid
-    data_ram.io.bready                      := pre_mem_unit.axi_lite.writeResp.ready
     //PMEM END
 
     mem_unit.io.PMEM_to_MEM_bus             <> pre_mem_unit.io.PMEM_to_MEM_bus
