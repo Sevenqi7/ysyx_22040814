@@ -1,6 +1,7 @@
 import chisel3._
 import chisel3.util._
 import chisel3.experimental._
+import AXILiteDefs
 
 class sim extends BlackBox with HasBlackBoxPath{
     val io = IO(new Bundle{
