@@ -46,25 +46,25 @@ class RAMU extends Module{
     data_ram.io.aclk                        := clock
     data_ram.io.aresetn                     := !reset.asBool
     //ar
-    data_ram.io.araddr                      := axi_arbiter.io.out.readAddr.bits.addr
-    data_ram.io.arvalid                     := axi_arbiter.io.out.readAddr.valid
-    axi_arbiter.io.out.readAddr.ready       := data_ram.io.arready
+    data_ram.io.araddr                      := axi_arbiter.io.out.bits.readAddr.bits.addr
+    data_ram.io.arvalid                     := axi_arbiter.io.out.bits.readAddr.valid
+    axi_arbiter.io.out.bits.readAddr.ready       := data_ram.io.arready
     //r
-    axi_arbiter.io.out.readData.bits.data   := data_ram.io.rdata
-    axi_arbiter.io.out.readData.bits.resp   := data_ram.io.rresp
-    axi_arbiter.io.out.readData.valid       := data_ram.io.rvalid
-    data_ram.io.rready                      := axi_arbiter.io.out.readData.ready
+    axi_arbiter.io.out.bits.readData.bits.data   := data_ram.io.rdata
+    axi_arbiter.io.out.bits.readData.bits.resp   := data_ram.io.rresp
+    axi_arbiter.io.out.bits.readData.valid       := data_ram.io.rvalid
+    data_ram.io.rready                      := axi_arbiter.io.out.bits.readData.ready
     //aw
-    data_ram.io.awaddr                      := axi_arbiter.io.out.writeAddr.bits.addr
-    data_ram.io.awvalid                     := axi_arbiter.io.out.writeAddr.valid
-    axi_arbiter.io.out.writeAddr.ready      := data_ram.io.awready
+    data_ram.io.awaddr                      := axi_arbiter.io.out.bits.writeAddr.bits.addr
+    data_ram.io.awvalid                     := axi_arbiter.io.out.bits.writeAddr.valid
+    axi_arbiter.io.out.bits.writeAddr.ready      := data_ram.io.awready
     //w
-    data_ram.io.wdata                       := axi_arbiter.io.out.writeData.bits.data
-    data_ram.io.wstrb                       := axi_arbiter.io.out.writeData.bits.strb
-    data_ram.io.wvalid                      := axi_arbiter.io.out.writeData.valid
-    axi_arbiter.io.out.writeData.ready      := data_ram.io.wready
+    data_ram.io.wdata                       := axi_arbiter.io.out.bits.writeData.bits.data
+    data_ram.io.wstrb                       := axi_arbiter.io.out.bits.writeData.bits.strb
+    data_ram.io.wvalid                      := axi_arbiter.io.out.bits.writeData.valid
+    axi_arbiter.io.out.bits.writeData.ready      := data_ram.io.wready
     //b
-    axi_arbiter.io.out.writeResp.bits.resp  := data_ram.io.bresp
-    axi_arbiter.io.out.writeResp.valid      := data_ram.io.bvalid
-    data_ram.io.bready                      := axi_arbiter.io.out.writeResp.ready
+    axi_arbiter.io.out.bits.writeResp.bits.resp  := data_ram.io.bresp
+    axi_arbiter.io.out.bits.writeResp.valid      := data_ram.io.bvalid
+    data_ram.io.bready                      := axi_arbiter.io.out.bits.writeResp.ready
 }
