@@ -1,5 +1,6 @@
 import chisel3._
 import chisel3.util._
+import AXILiteDefs._
 import utils._
 
 
@@ -28,7 +29,7 @@ class IFU extends Module{
 
     io.PF_npc                               := pre_fetch.io.PF_npc
     io.PF_pc                                := pre_fetch.io.PF_pc
-    io.axidata                              := pre_fetch.axi_lite.readData.bits.data
+    io.axidata                              := pre_fetch.axi_lite.bits.readData.bits.data
 
     bp_fail                                 := pre_fetch.io.bp_fail
     pre_fetch.io.IF_pc                      := io.IF_to_ID_bus.bits.PC
