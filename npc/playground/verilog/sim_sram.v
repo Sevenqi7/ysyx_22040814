@@ -2,6 +2,7 @@ import "DPI-C" function void dci_pmem_write(input longint waddr, input longint w
 import "DPI-C" function void dci_pmem_read(input longint raddr, output longint rdata, input byte rmask);
 
 module sim_sram(
+    input       [63:0]      pc          ,         //for debug
     input                   aresetn     ,
     input                   aclk        ,
     //ar

@@ -51,7 +51,8 @@ class top extends Module{
     val mem_unit = Module(new MEMU)
     val wb_unit = Module(new WBU)
 
-    val data_ram     =  Module(new sim_sram)
+    val inst_ram     = Module(new sim_sram)
+    val data_ram     = Module(new sim_sram)
 
     io.IF_Inst  := inst_fetch_unit.io.IF_to_ID_bus.bits.Inst
     io.IF_valid := inst_fetch_unit.io.IF_to_ID_bus.valid
@@ -84,6 +85,35 @@ class top extends Module{
     simulate.io.WB_Inst                     := wb_unit.io.WB_Inst
     simulate.io.unknown_inst_flag           := inst_decode_unit.io.ID_unknown_inst
     
+
+    //axi-lite
+    inst_ram.io.pc                          := inst_fetch_unit.io.PF_pc
+    inst_ram.io.aclk                        := clock
+    inst_ram.io.aresetn                     := !reset.asBool
+    //ar
+    inst_ram.io.araddr                      := inst_fetch_unit.axi_lite.readAddr.bits.addr
+    inst_ram.io.arvalid                     := inst_fetch_unit.axi_lite.readAddr.valid
+    inst_fetch_unit.axi_lite.readAddr.ready       := inst_ram.io.arready
+    //r
+    inst_fetch_unit.axi_lite.readData.bits.data   := inst_ram.io.rdata
+    inst_fetch_unit.axi_lite.readData.bits.resp   := inst_ram.io.rresp
+    inst_fetch_unit.axi_lite.readData.valid       := inst_ram.io.rvalid
+    inst_ram.io.rready                      := inst_fetch_unit.axi_lite.readData.ready
+    //aw
+    inst_ram.io.awaddr                      := inst_fetch_unit.axi_lite.writeAddr.bits.addr
+    inst_ram.io.awvalid                     := inst_fetch_unit.axi_lite.writeAddr.valid
+    inst_fetch_unit.axi_lite.writeAddr.ready      := inst_ram.io.awready
+    //w
+    inst_ram.io.wdata                       := inst_fetch_unit.axi_lite.writeData.bits.data
+    inst_ram.io.wstrb                       := inst_fetch_unit.axi_lite.writeData.bits.strb
+    inst_ram.io.wvalid                      := inst_fetch_unit.axi_lite.writeData.valid
+    inst_fetch_unit.axi_lite.writeData.ready      := inst_ram.io.wready
+    //b
+    inst_fetch_unit.axi_lite.writeResp.bits.resp  := inst_ram.io.bresp
+    inst_fetch_unit.axi_lite.writeResp.valid      := inst_ram.io.bready
+    inst_ram.io.bready                      := inst_fetch_unit.axi_lite.writeResp.ready
+
+
     inst_fetch_unit.io.ID_npc               := inst_decode_unit.io.ID_npc
     
     inst_decode_unit.io.IF_to_ID_bus        <> inst_fetch_unit.io.IF_to_ID_bus
@@ -98,6 +128,7 @@ class top extends Module{
 
     //PMEM
     pre_mem_unit.io.EX_to_MEM_bus           <> excute_unit.io.EX_to_MEM_bus
+    data_ram.io.pc                          := pre_mem_unit.io.PMEM_to_MEM_bus.bits.PC
 
     data_ram.io.aclk                        := clock
     data_ram.io.aresetn                     := !reset.asBool
