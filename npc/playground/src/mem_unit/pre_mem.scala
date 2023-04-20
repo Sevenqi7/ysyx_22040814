@@ -33,7 +33,7 @@ class MEM_pre_stage extends Module{
     val axi_req = IO(new AXI_Request)
     val axi_lite = new AXILiteMasterIF(32, 64)
 
-    axi_req.axi_lite <> axi_lite
+    axi_req.axi <> axi_lite
     axi_req.valid   := 1.U
 
     //unpack bus from EXU
