@@ -149,7 +149,7 @@ class AXI_Arbiter extends Module{
     val in = IO(Flipped(Vec(1, new AXILiteMasterIF(32, 64))))
     val req = IO(Flipped(Vec(1, Decoupled(new MyReadyValidIO))))
     val out = IO(new AXILiteMasterIF(32, 64))
-
+    req(0).ready := 1.U
     out <> in(0)
 }
 
