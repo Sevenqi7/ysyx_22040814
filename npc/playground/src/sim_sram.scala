@@ -57,7 +57,7 @@ class RAMU extends Module{
     arb.io.axi_IF                               <> io.axi_IF
     arb.io.axi_MEM                              <> io.axi_MEM
 
-    val axi_sram = Wire(new AXILiteSlaveIF(32, 64))
+    val axi_sram = Wire(Decoupled(new AXILiteSlaveIF(32, 64)))
     
     axi_sram    <> axi_sel
 
