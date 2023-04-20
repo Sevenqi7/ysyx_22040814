@@ -31,7 +31,7 @@ class MEM_pre_stage extends Module{
         val memReadData     = Output(UInt(64.W))
     })
     val axi_lite = IO(new AXILiteMasterIF(32, 64))
-    val axi_req  = IO(new ReadyValidIO)
+    val axi_req  = IO(new DecoupledIO)
 
     //unpack bus from EXU
     val EX_pc        =  io.EX_to_MEM_bus.bits.PC
