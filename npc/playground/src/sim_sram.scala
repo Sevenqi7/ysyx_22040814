@@ -40,8 +40,8 @@ class RAMU extends Module{
 
     val data_ram = Module(new sim_sram)
     val axi_arbiter = Module(new Arbiter(new AXILiteMasterIF(64, 32), 2))
-    axi_arbiter.io.in(0) := io.axi_MEM
-    axi_arbiter.io.in(1) := io.axi_IF
+    axi_arbiter.io.in(0) <> io.axi_MEM
+    axi_arbiter.io.in(1) <> io.axi_IF
 
     data_ram.io.aclk                            := clock
     data_ram.io.aresetn                         := !reset.asBool
