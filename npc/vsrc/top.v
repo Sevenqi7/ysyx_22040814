@@ -1488,17 +1488,17 @@ module RAMU(	// <stdin>:1397:10
   input         axi_lite_readData_ready,
   output [63:0] axi_lite_readData_bits_data);
 
-  wire       _data_ram_arready;	// top.scala:152:26
-  wire [1:0] _data_ram_rresp;	// top.scala:152:26
-  wire       _data_ram_rvalid;	// top.scala:152:26
-  wire       _data_ram_awready;	// top.scala:152:26
-  wire       _data_ram_wready;	// top.scala:152:26
-  wire [1:0] _data_ram_bresp;	// top.scala:152:26
-  wire       _data_ram_bvalid;	// top.scala:152:26
-  sim_sram data_ram (	// top.scala:152:26
-    .pc      (64'h0),	// top.scala:155:45
+  wire       _data_ram_arready;	// top.scala:153:26
+  wire [1:0] _data_ram_rresp;	// top.scala:153:26
+  wire       _data_ram_rvalid;	// top.scala:153:26
+  wire       _data_ram_awready;	// top.scala:153:26
+  wire       _data_ram_wready;	// top.scala:153:26
+  wire [1:0] _data_ram_bresp;	// top.scala:153:26
+  wire       _data_ram_bvalid;	// top.scala:153:26
+  sim_sram data_ram (	// top.scala:153:26
+    .pc      (64'h0),	// top.scala:156:45
     .aclk    (clock),
-    .aresetn (~reset),	// top.scala:158:48
+    .aresetn (~reset),	// top.scala:159:48
     .araddr  (axi_lite_readAddr_bits_addr),
     .arvalid (axi_lite_readAddr_valid),
     .rready  (axi_lite_readData_ready),
