@@ -26,7 +26,7 @@ class RAMU extends Module{
         val axi_IF  = Flipped(Decoupled(new AXILiteMasterIF(32, 64)))
         val axi_MEM = Flipped(Decoupled(new AXILiteMasterIF(32, 64)))  
     })
-
+    val data_ram = Module(new sim_sram())
     val arb = Module(new AXI_Arbiter)
     val axi_sel = arb.io.axi_out
     arb.io.axi_IF                               := io.axi_IF
