@@ -38,3 +38,7 @@ object utils {
         }
     }
 }
+
+class MyReadyValidIO extends ReadyValidIO{
+    
+}

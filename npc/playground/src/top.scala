@@ -143,9 +143,6 @@ class top extends Module{
     ram_unit.axi_lite <> pre_mem_unit.axi_lite
 }
 
-// class AXI_Arbiter extends Module{
-//     val Flipepd()
-// }
 
 
 class RAMU extends Module{
