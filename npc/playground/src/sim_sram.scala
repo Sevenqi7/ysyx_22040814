@@ -35,8 +35,8 @@ class sim_sram extends BlackBox with HasBlackBoxPath{
 
 class RAMU extends Module{
     val io = IO(new Bundle{
-        val axi_IF  = Flipped(Decoupled(new AXILiteMasterIF(32, 64)))
-        val axi_MEM = Flipped(Decoupled(new AXILiteMasterIF(32, 64)))  
+        val axi_IF  = Decoupled(new AXILiteMasterIF(32, 64))
+        val axi_MEM = Decoupled(new AXILiteMasterIF(32, 64))  
     })
     val data_ram = Module(new sim_sram())
     data_ram.io.aclk                            := clock
