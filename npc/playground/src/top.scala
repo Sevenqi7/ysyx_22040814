@@ -108,6 +108,6 @@ class top extends Module{
     wb_unit.io.MEM_to_WB_bus                <> mem_unit.io.MEM_to_WB_bus
 
     //RAM
-    ram_unit.io.axi_IF                      := inst_fetch_unit.io.axi_IF
-    ram_unit.io.axi_MEM                     := pre_mem_unit.axi_lite
+    ram_unit.io.axi_IF                      <> inst_fetch_unit.io.axi_IF
+    ram_unit.io.axi_MEM                     <> pre_mem_unit.axi_lite
 }
