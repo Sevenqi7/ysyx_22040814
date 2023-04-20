@@ -34,8 +34,8 @@ class sim_sram extends BlackBox with HasBlackBoxPath{
 
 class RAMU extends Module{
     val io = IO(new Bundle{
-        val axi_IF  = AXILiteMasterIF(64, 32)
-        val axi_MEM = AXILiteMasterIF(64, 32)  
+        val axi_IF  = Flipped(new AXILiteMasterIF(64, 32))
+        val axi_MEM = Flipped(new AXILiteMasterIF(64, 32))  
     })
 
     val data_ram = Module(new sim_sram)
