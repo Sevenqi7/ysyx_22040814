@@ -109,5 +109,5 @@ class top extends Module{
 
     //RAM
     ram_unit.io.axi_IF                      <> inst_fetch_unit.io.axi_IF
-    ram_unit.io.axi_MEM                     <> pre_mem_unit.io.axi_lite
+    ram_unit.io.axi_MEM                     <> pre_mem_unit.axi_lite
 }
