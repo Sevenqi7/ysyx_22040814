@@ -4,10 +4,34 @@ import chisel3.experimental.dataview._
 import AXILiteDefs._
 
 class sim_sram extends BlackBox with HasBlackBoxPath{
-    val io = IO(new AXIBundleIF)
+    val io = IO(new Bundle{
+        val aclk = Input(Clock())
+        val aresetn = Input(Reset())
+        //ar
+        val araddr = Input(UInt(32.W))
+        val arvalid = Input(Bool())
+        val arready = Output(Bool())
+        //r
+        val rdata = Output(UInt(64.W))
+        val rresp = Output(UInt(2.W))
+        val rvalid = Output(Bool())
+        val rready = Input(Bool())
+        //aw
+        val awaddr = Input(UInt(32.W))
+        val awvalid = Input(Bool())
+        val awready = Output(Bool())
+        //w
+        val wdata = Input(UInt(64.W)) 
+        val wstrb = Input(UInt(8.W))
+        val wvalid = Input(Bool())
+        val wready = Output(Bool())
+        //b
+        val bresp = Output(UInt(2.W))
+        val bvalid = Output(Bool())
+        val bready = Input(Bool())
+    })
     addPath("/home/seven7/Documents/学业/一生一芯/ysyx-workbench/npc/playground/verilog/sim_sram.v")
 }
-
 class AXI_Arbiter extends Module{
     val io = IO(new Bundle{
         val axi_IF  = Flipped(Decoupled(new AXILiteMasterIF(32, 64)))
