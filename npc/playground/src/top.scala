@@ -164,26 +164,26 @@ class RAMU extends Module{
     data_ram.io.aclk                        := clock
     data_ram.io.aresetn                     := !reset.asBool
     //ar
-    data_ram.io.araddr                      := axi_lite.readAddr.bits.addr
-    data_ram.io.arvalid                     := axi_lite.readAddr.valid
-    axi_lite.readAddr.ready                 := data_ram.io.arready
+    data_ram.io.araddr                      := axi_lite.axi.readAddr.bits.addr
+    data_ram.io.arvalid                     := axi_lite.axi.readAddr.valid
+    axi_lite.axi.readAddr.ready                 := data_ram.io.arready
     //r
-    axi_lite.readData.bits.data             := data_ram.io.rdata
-    axi_lite.readData.bits.resp             := data_ram.io.rresp
-    axi_lite.readData.valid                 := data_ram.io.rvalid
-    data_ram.io.rready                      := axi_lite.readData.ready
+    axi_lite.axi.readData.bits.data             := data_ram.io.rdata
+    axi_lite.axi.readData.bits.resp             := data_ram.io.rresp
+    axi_lite.axi.readData.valid                 := data_ram.io.rvalid
+    data_ram.io.rready                      := axi_lite.axi.readData.ready
     //aw
-    data_ram.io.awaddr                      := axi_lite.writeAddr.bits.addr
-    data_ram.io.awvalid                     := axi_lite.writeAddr.valid
-    axi_lite.writeAddr.ready                := data_ram.io.awready
+    data_ram.io.awaddr                      := axi_lite.axi.writeAddr.bits.addr
+    data_ram.io.awvalid                     := axi_lite.axi.writeAddr.valid
+    axi_lite.axi.writeAddr.ready                := data_ram.io.awready
     //w
-    data_ram.io.wdata                       := axi_lite.writeData.bits.data
-    data_ram.io.wstrb                       := axi_lite.writeData.bits.strb
-    data_ram.io.wvalid                      := axi_lite.writeData.valid
-    axi_lite.writeData.ready                := data_ram.io.wready
+    data_ram.io.wdata                       := axi_lite.axi.writeData.bits.data
+    data_ram.io.wstrb                       := axi_lite.axi.writeData.bits.strb
+    data_ram.io.wvalid                      := axi_lite.axi.writeData.valid
+    axi_lite.axi.writeData.ready                := data_ram.io.wready
     //b
-    axi_lite.writeResp.bits.resp            := data_ram.io.bresp
-    axi_lite.writeResp.valid                := data_ram.io.bvalid
-    data_ram.io.bready                      := axi_lite.writeResp.ready
+    axi_lite.axi.writeResp.bits.resp            := data_ram.io.bresp
+    axi_lite.axi.writeResp.valid                := data_ram.io.bvalid
+    data_ram.io.bready                      := axi_lite.axi.writeResp.ready
 
 }
