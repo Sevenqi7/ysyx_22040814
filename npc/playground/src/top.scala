@@ -144,7 +144,7 @@ class top extends Module{
 }
 
 class AXI_Arbiter extends Module{
-    val axi_lite = IO(Flipped(Decoupled(new AXILiteMasterIF(32, 64))))
+    val axi_lite = IO(Flipped(new AXILiteMasterIF(32, 64)))
     val data_ram     = Module(new sim_sram)
 
     //data ram
