@@ -50,7 +50,7 @@ class top extends Module{
     val pre_mem_unit = Module(new MEM_pre_stage)
     val mem_unit = Module(new MEMU)
     val wb_unit = Module(new WBU)
-
+    val ram_unit = Module(new RAMU)
 
     io.IF_Inst  := inst_fetch_unit.io.IF_to_ID_bus.bits.Inst
     io.IF_valid := inst_fetch_unit.io.IF_to_ID_bus.valid
@@ -97,7 +97,7 @@ class top extends Module{
 
     //PMEM
     pre_mem_unit.io.EX_to_MEM_bus           <> excute_unit.io.EX_to_MEM_bus
-
+    ram_unit.axi_MEM                        <> pre_mem_unit.axi_lite
     //PMEM END
 
     mem_unit.io.PMEM_to_MEM_bus             <> pre_mem_unit.io.PMEM_to_MEM_bus
