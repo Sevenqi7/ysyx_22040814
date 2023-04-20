@@ -374,6 +374,12 @@ module IDU(	// <stdin>:168:10
                 _InstInfo_T_51 | _InstInfo_T_53 | _InstInfo_T_203 ? 3'h4 : _GEN_2 ? 3'h2 : _InstInfo_T_103
                 ? 3'h5 : _InstInfo_T_105 | _InstInfo_T_107 | _InstInfo_T_109 | _InstInfo_T_111 |
                 _InstInfo_T_113 | _InstInfo_T_115 ? 3'h6 : 3'h0;	// Lookup.scala:31:38, :34:39
+  wire              InstInfo_1 = ~_InstInfo_T_1 & ~_InstInfo_T_3 & ~_InstInfo_T_5 & ~_InstInfo_T_7 & ~_InstInfo_T_9 &
+                ~_InstInfo_T_11 & ~_InstInfo_T_13 & ~_InstInfo_T_15 & ~_InstInfo_T_17 & ~_InstInfo_T_19 &
+                ~_InstInfo_T_21 & ~_InstInfo_T_23 & ~_InstInfo_T_25 & ~_InstInfo_T_27 & ~_InstInfo_T_29 &
+                ~_InstInfo_T_31 & ~_InstInfo_T_33 & (_InstInfo_T_35 | _InstInfo_T_37 | _InstInfo_T_39 |
+                _InstInfo_T_41 | _InstInfo_T_43 | _InstInfo_T_45 | _InstInfo_T_47 | _InstInfo_T_49 |
+                _InstInfo_T_51 | _InstInfo_T_53 | _InstInfo_T_203);	// Lookup.scala:31:38, :34:39
   wire              _GEN_3 = _InstInfo_T_105 | _InstInfo_T_107 | _InstInfo_T_109 | _InstInfo_T_111 | _InstInfo_T_113;	// Lookup.scala:31:38, :34:39
   wire              _GEN_4 = _InstInfo_T_17 | _InstInfo_T_19 | _InstInfo_T_21 | _InstInfo_T_23 | _InstInfo_T_25 |
                 _InstInfo_T_27 | _InstInfo_T_29 | _InstInfo_T_31 | _InstInfo_T_33 | _InstInfo_T_35 |
@@ -487,7 +493,6 @@ module IDU(	// <stdin>:168:10
   wire              _load_use_stall_T = InstInfo_2 == 3'h2;	// IDU.scala:167:15, Lookup.scala:34:39
   wire              _io_ID_npc_T_10 = InstInfo_2 == 3'h6;	// IDU.scala:168:15, Lookup.scala:34:39
   wire [63:0]       _ALU_Data1_T_5 = io_IF_to_ID_bus_bits_PC + 64'h4;	// IDU.scala:168:30
-  wire              _load_use_stall_T_10 = InstInfo_3 == 3'h1;	// IDU.scala:173:15, Lookup.scala:34:39
   wire              _load_use_stall_T_9 = InstInfo_3 == 3'h3;	// IDU.scala:174:15, Lookup.scala:34:39
   wire              _io_ID_npc_T = InstInfo_0 == 3'h5;	// IDU.scala:179:104, Lookup.scala:34:39
   reg  [63:0]       rhsReg;	// tools.scala:23:33
@@ -503,8 +508,8 @@ module IDU(	// <stdin>:168:10
   reg               rhsReg_14;	// tools.scala:23:33
   wire              _load_use_stall_T_18 = (_load_use_stall_T | _io_ID_npc_T_10) & (rhsReg_6 & _load_use_stall_T_3 |
                 io_PMEM_to_ID_forward_bits_memReadEn & _load_use_stall_T_5) | (_load_use_stall_T_9 |
-                _load_use_stall_T_10) & (rhsReg_6 & _load_use_stall_T_12 |
-                io_PMEM_to_ID_forward_bits_memReadEn & _load_use_stall_T_14);	// IDU.scala:124:44, :125:27, :132:44, :133:27, :167:15, :168:15, :173:15, :174:15, :212:{24,41,77,121,140,170}, :213:{24,48,84,128,147}, tools.scala:23:33
+                InstInfo_1) & (rhsReg_6 & _load_use_stall_T_12 | io_PMEM_to_ID_forward_bits_memReadEn &
+                _load_use_stall_T_14);	// IDU.scala:124:44, :125:27, :132:44, :133:27, :167:15, :168:15, :174:15, :212:{24,41,77,121,140,170}, :213:{24,50,86,130,149}, Lookup.scala:34:39, tools.scala:23:33
   always @(posedge clock) begin
     if (reset) begin
       GPR_0 <= 64'h0;	// IDU.scala:106:{22,30}
@@ -623,12 +628,6 @@ module IDU(	// <stdin>:168:10
       rhsReg_14 <= 1'h0;	// Lookup.scala:34:39, tools.scala:23:33
     end
     else begin	// IDU.scala:184:{48,50}, :212:170
-      automatic logic InstInfo_1 = ~_InstInfo_T_1 & ~_InstInfo_T_3 & ~_InstInfo_T_5 & ~_InstInfo_T_7 & ~_InstInfo_T_9 &
-                                                ~_InstInfo_T_11 & ~_InstInfo_T_13 & ~_InstInfo_T_15 & ~_InstInfo_T_17 & ~_InstInfo_T_19 &
-                                                ~_InstInfo_T_21 & ~_InstInfo_T_23 & ~_InstInfo_T_25 & ~_InstInfo_T_27 & ~_InstInfo_T_29 &
-                                                ~_InstInfo_T_31 & ~_InstInfo_T_33 & (_InstInfo_T_35 | _InstInfo_T_37 | _InstInfo_T_39 |
-                                                _InstInfo_T_41 | _InstInfo_T_43 | _InstInfo_T_45 | _InstInfo_T_47 | _InstInfo_T_49 |
-                                                _InstInfo_T_51 | _InstInfo_T_53 | _InstInfo_T_203);	// Lookup.scala:31:38, :34:39
       automatic logic _regWriteEn_T_3;	// IDU.scala:160:19
       automatic logic _memWriteEn_T;	// IDU.scala:161:19
       _regWriteEn_T_3 = InstInfo_0 == 3'h3;	// IDU.scala:160:19, Lookup.scala:34:39
@@ -660,7 +659,7 @@ module IDU(	// <stdin>:168:10
       rhsReg_3 <= io_IF_to_ID_bus_bits_Inst[11:7];	// IDU.scala:93:71, tools.scala:23:33
       if (InstInfo_3 == 3'h0)	// IDU.scala:172:15, Lookup.scala:34:39
         rhsReg_4 <= 64'h0;	// IDU.scala:106:30, tools.scala:23:33
-      else if (_load_use_stall_T_10)	// IDU.scala:172:15, :173:15, Lookup.scala:34:39
+      else if (InstInfo_3 == 3'h1)	// IDU.scala:172:15, :173:15, Lookup.scala:34:39
         rhsReg_4 <= io_IF_to_ID_bus_bits_PC;	// tools.scala:23:33
       else if (_load_use_stall_T_9) begin	// IDU.scala:172:15, :173:15, :174:15, Lookup.scala:34:39
         if (_rs2_data_T)	// IDU.scala:131:15
@@ -1954,7 +1953,7 @@ module sim_sram(
         else begin
             if(arready_r & arvalid) begin
                 dci_pmem_read({32'H0000, araddr}, rdata_r, 8'HFF);
-                $display("raddr:0x%x rdata:0x%x", araddr, rdata);
+                // $display("raddr:0x%x rdata:0x%x", araddr, rdata);
             end
         end
         // $display("addr:0x%x, rdata:0x%x", araddr_r, rdata_r);
@@ -2037,4 +2036,3 @@ module sim(input[63:0] IF_pc, input [63:0] GPR [31:0], input unknown_inst_flag, 
 endmodule
 
 // ----- 8< ----- FILE "firrtl_black_box_resource_files.f" ----- 8< -----
-

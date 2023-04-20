@@ -8,7 +8,6 @@ class IF_pre_fetch extends Module{
     val io = IO(new Bundle{
         val IF_pc        = Input(UInt(64.W))
         val ID_npc       = Input(UInt(64.W))
-        val inst         = Output(UInt(32.W))
         val inst_valid   = Output(Bool())
         val PF_pc        = Output(UInt(64.W))
         val stall        = Input(Bool())
@@ -45,6 +44,5 @@ class IF_pre_fetch extends Module{
     axi_lite.readAddr.bits.addr     := PF_npc(31, 0)
     axi_lite.readData.ready         := !io.stall
 
-    io.inst                         := axi_lite.readData.bits.data(31, 0)
     io.inst_valid                   := (axi_lite.readData.valid && axi_lite.readData.bits.resp === 0.U) & !io.bp_fail & !bp_fail_r
 }
