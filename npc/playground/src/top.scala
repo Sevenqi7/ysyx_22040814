@@ -146,9 +146,9 @@ class top extends Module{
 }
 
 class AXI_Arbiter extends Module{
-    val in = Flipped(Vec(1, AXILiteMasterIF(32, 64)))
-    val req = Flipped(Vec(1, Decoupled(new MyReadyValidIO)))
-    val out = AXILiteMasterIF(32, 64)
+    val in = IO(Flipped(Vec(1, AXILiteMasterIF(32, 64))))
+    val req = IO(Flipped(Vec(1, Decoupled(new MyReadyValidIO))))
+    val out = IO(new AXILiteMasterIF(32, 64))
 
     out <> in(0)
 }
