@@ -64,7 +64,6 @@ class IFU extends Module{
     pre_fetch.io.stall                      := !io.IF_to_ID_bus.ready
 
     //axi-lite
-    inst_ram.io.pc                          := pre_fetch.io.PF_pc
     inst_ram.io.aclk                        := clock
     inst_ram.io.aresetn                     := !reset.asBool
     //ar

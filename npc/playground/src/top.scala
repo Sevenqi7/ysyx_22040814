@@ -98,7 +98,6 @@ class top extends Module{
 
     //PMEM
     pre_mem_unit.io.EX_to_MEM_bus           <> excute_unit.io.EX_to_MEM_bus
-    data_ram.io.pc                          := pre_mem_unit.io.PMEM_to_MEM_bus.bits.PC
 
     data_ram.io.aclk                        := clock
     data_ram.io.aresetn                     := !reset.asBool
