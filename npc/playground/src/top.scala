@@ -143,6 +143,7 @@ class top extends Module{
     val arb = Module(new AXI_Arbiter)
     ram_unit.axi_lite <> arb.out
     arb.in(0) <> pre_mem_unit.axi_lite
+    arb.req(0) <> pre_mem_unit.axi_req
 }
 
 class AXI_Arbiter extends Module{
