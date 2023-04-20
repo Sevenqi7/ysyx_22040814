@@ -1,3 +1,7 @@
+import chisel3._
+import chisel3.util._
+import AXILiteDefs._
+
 class sim_sram extends BlackBox with HasBlackBoxPath{
     val io = IO(new Bundle{
         val aclk = Input(Clock())
