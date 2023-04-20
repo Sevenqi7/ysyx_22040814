@@ -140,15 +140,22 @@ class top extends Module{
     inst_ram.io.bready                      := inst_fetch_unit.axi_lite.writeResp.ready
 
     val ram_unit = Module(new RAMU)
-    ram_unit.axi_lite <> pre_mem_unit.axi_lite
+    ram_unit.axi_lite <> pre_mem_unit.axi_req
 }
 
 // class AXI_Arbiter extends Module{
 //     val Flipepd()
 // }
 
+class AXI_Request extends Bundle{
+    val axi = new AXILiteMasterIF(32, 64)
+    val valid = Output(Bool())
+    val ready = Input(Bool())
+}
+
 class RAMU extends Module{
-    val axi_lite = IO(Flipped(new AXILiteMasterIF(32, 64)))
+    // val axi_lite = IO(Flipped(new AXILiteMasterIF(32, 64)))
+    val axi_lite = IO(Flipped(new AXI_Request))
     val data_ram = Module(new sim_sram)
 
     //data ram

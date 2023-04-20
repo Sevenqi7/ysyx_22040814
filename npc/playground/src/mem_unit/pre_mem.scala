@@ -30,7 +30,11 @@ class MEM_pre_stage extends Module{
         val PMEM_to_ID_forward = Decoupled(new PMEM_to_ID_Message)
         val memReadData     = Output(UInt(64.W))
     })
-    val axi_lite = IO(new AXILiteMasterIF(32, 64))
+    val axi_req = IO(new AXI_Request)
+    val axi_lite = new AXILiteMasterIF
+
+    axi_req.axi_lite <> axi_lite
+    axi_req.valid   := 1.U
 
     //unpack bus from EXU
     val EX_pc        =  io.EX_to_MEM_bus.bits.PC
