@@ -4,7 +4,7 @@ import chisel3.experimental.dataview._
 import AXILiteDefs._
 
 class sim_sram extends BlackBox with HasBlackBoxPath{
-    val AXI = IO(new AXIBundleIF)
+    val io = IO(new AXIBundleIF)
     addPath("/home/seven7/Documents/学业/一生一芯/ysyx-workbench/npc/playground/verilog/sim_sram.v")
 }
 
