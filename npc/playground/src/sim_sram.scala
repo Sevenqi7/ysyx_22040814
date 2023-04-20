@@ -15,7 +15,7 @@ class AXI_Arbiter extends Module{
         val axi_out = Decoupled(new AXILiteMasterIF(32, 64))
     })
 
-    val arbiter = Module(new Arbiter(AXILiteMasterIF(32, 64), 2))
+    val arbiter = Module(new Arbiter(new AXILiteMasterIF(32, 64), 2))
     arbiter.io.in(0) <> io.axi_IF
     arbiter.io.in(1) <> io.axi_MEM
     io.axi_out       <> arbiter.io.out
