@@ -15,34 +15,34 @@ class IF_pre_fetch extends Module{
 
         val PF_npc       = Output(UInt(64.W))
     })
-    val axi_lite = IO(new AXILiteMasterIF(32, 64))
+    val axi_lite = IO(Decoupled(new AXILiteMasterIF(32, 64)))
     val PF_npc   = RegInit(0x80000000L.U(64.W))
-    // val PF_npc      = Wire(UInt(64.W))
     
     io.PF_npc    := PF_npc
-    // PF_npc      := Mux(!io.bp_fail | io.stall, PF_npc+4.U, io.ID_npc)
     PF_npc      := MuxCase(io.PF_npc+4.U, Seq(
-        (io.stall,   io.PF_npc),
-        (io.bp_fail, io.ID_npc)
+        (io.stall | !axi_lite.ready, io.PF_npc),
+        (io.bp_fail                , io.ID_npc)
     ))
 
     io.bp_fail := io.ID_npc =/= io.PF_pc && io.PF_pc =/= 0.U && io.IF_pc =/= 0.U && !io.stall
     val bp_fail_r = RegInit(0.U(1.W))
     bp_fail_r := io.bp_fail
-    regConnectWithResetAndStall(io.PF_pc, PF_npc, reset.asBool | io.bp_fail, 0.U(64.W), io.stall)
+    regConnectWithResetAndStall(io.PF_pc, PF_npc, reset.asBool | io.bp_fail, 0.U(64.W), io.stall | !axi_lite.ready)
 
     //IFU doesn't write mem
-    axi_lite.writeAddr.valid        := 0.U
-    axi_lite.writeAddr.bits.addr    := 0.U
-    axi_lite.writeData.valid        := 0.U
-    axi_lite.writeData.bits.data    := 0.U
-    axi_lite.writeData.bits.strb    := 0.U
-    axi_lite.writeResp.ready        := 0.U
-
+    axi_lite.bits.writeAddr.valid        := 0.U
+    axi_lite.bits.writeAddr.bits.addr    := 0.U
+    axi_lite.bits.writeData.valid        := 0.U
+    axi_lite.bits.writeData.bits.data    := 0.U
+    axi_lite.bits.writeData.bits.strb    := 0.U
+    axi_lite.bits.writeResp.ready        := 0.U
+    
     //Fetch inst from sram
-    axi_lite.readAddr.valid         := !io.stall
-    axi_lite.readAddr.bits.addr     := PF_npc(31, 0)
-    axi_lite.readData.ready         := !io.stall
+    axi_lite.bits.readAddr.valid         := !io.stall
+    axi_lite.bits.readAddr.bits.addr     := PF_npc(31, 0)
+    axi_lite.bits.readData.ready         := !io.stall
 
-    io.inst_valid                   := (axi_lite.readData.valid && axi_lite.readData.bits.resp === 0.U) & !io.bp_fail & !bp_fail_r
+    axi_lite.valid                       := !io.stall
+
+    io.inst_valid                   := (axi_lite.readData.valid && axi_lite.readData.bits.resp === 0.U) & !io.bp_fail & !bp_fail_r & axi_lite.ready
 }
