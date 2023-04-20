@@ -31,7 +31,7 @@ class MEM_pre_stage extends Module{
         val memReadData     = Output(UInt(64.W))
     })
     val axi_req = IO(new AXI_Request)
-    val axi_lite = new AXILiteMasterIF(32, 64)
+    val axi_lite = Wire(new AXILiteMasterIF(32, 64))
 
     axi_req.axi <> axi_lite
     axi_req.valid   := 1.U
