@@ -40,25 +40,25 @@ class RAMU extends Module{
     data_ram.io.aclk                        := clock
     data_ram.io.aresetn                     := !reset.asBool
     //ar
-    data_ram.io.araddr                      := io.axi_MEM.readAddr.bits.addr
-    data_ram.io.arvalid                     := io.axi_MEM.readAddr.valid
-    io.axi_MEM.readAddr.ready    := data_ram.io.arready
+    data_ram.io.araddr                      := axi_MEM.readAddr.bits.addr
+    data_ram.io.arvalid                     := axi_MEM.readAddr.valid
+    axi_MEM.readAddr.ready    := data_ram.io.arready
     //r
-    io.axi_MEM.readData.bits.data := data_ram.io.rdata
-    io.axi_MEM.readData.bits.resp := data_ram.io.rresp
-    io.axi_MEM.readData.valid     := data_ram.io.rvalid
-    data_ram.io.rready                      := io.axi_MEM.readData.ready
+    axi_MEM.readData.bits.data := data_ram.io.rdata
+    axi_MEM.readData.bits.resp := data_ram.io.rresp
+    axi_MEM.readData.valid     := data_ram.io.rvalid
+    data_ram.io.rready                      := axi_MEM.readData.ready
     //aw
-    data_ram.io.awaddr                      := io.axi_MEM.writeAddr.bits.addr
-    data_ram.io.awvalid                     := io.axi_MEM.writeAddr.valid
-    io.axi_MEM.writeAddr.ready   := data_ram.io.awready
+    data_ram.io.awaddr                      := axi_MEM.writeAddr.bits.addr
+    data_ram.io.awvalid                     := axi_MEM.writeAddr.valid
+    axi_MEM.writeAddr.ready   := data_ram.io.awready
     //w
-    data_ram.io.wdata                       := io.axi_MEM.writeData.bits.data
-    data_ram.io.wstrb                       := io.axi_MEM.writeData.bits.strb
-    data_ram.io.wvalid                      := io.axi_MEM.writeData.valid
-    io.axi_MEM.writeData.ready        := data_ram.io.wready
+    data_ram.io.wdata                       := axi_MEM.writeData.bits.data
+    data_ram.io.wstrb                       := axi_MEM.writeData.bits.strb
+    data_ram.io.wvalid                      := axi_MEM.writeData.valid
+    axi_MEM.writeData.ready        := data_ram.io.wready
     //b
-    io.axi_MEM.writeResp.bits.resp := data_ram.io.bresp
-    io.axi_MEM.writeResp.valid     := data_ram.io.bvalid
-    data_ram.io.bready                      := io.axi_MEM.writeResp.ready
+    axi_MEM.writeResp.bits.resp := data_ram.io.bresp
+    axi_MEM.writeResp.valid     := data_ram.io.bvalid
+    data_ram.io.bready                      := axi_MEM.writeResp.ready
 }
