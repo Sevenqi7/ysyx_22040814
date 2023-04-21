@@ -18,6 +18,7 @@ void clock_step()
     Log("IF_pc:0x%lx", top->io_IF_pc); 
     Log("IF_valid:%d", top->io_IF_valid);
     Log("IF_req:%d", top->io_IF_AXIREQ);
+    Log("BP_fail:%d", top->io_BP_fail);
     Log("IF_Inst:0x%x", top->io_IF_Inst);
     Log("ID_pc:0x%lx", top->io_ID_pc);
     Log("EX_pc:0x%lx", top->io_EX_pc);

@@ -48,7 +48,6 @@ class IFU extends Module{
         val PF_pc   = Output(UInt(64.W))
 
         val axidata = Output(UInt(64.W))
-        val bp_fail = Output(Bool())
     })
     val axi_lite = IO(new AXILiteMasterIF(32, 64))
     val axi_req  = IO(new MyReadyValidIO)
@@ -57,7 +56,6 @@ class IFU extends Module{
     val bp_fail = Wire(Bool())
     val flush   = Wire(Bool())
 
-    io.bp_fail := pre_fetch.io.bp_fail
     axi_lite                                <> pre_fetch.axi_lite
     axi_req                                 <> pre_fetch.axi_req
 
