@@ -165,7 +165,8 @@ class AXI_Arbiter(val n: Int) extends Module{
                 in(j).readData.bits.data    := 0.U 
                 in(j).writeAddr.ready       := 0.U
                 in(j).writeData.ready       := 0.U
-                in(j).writeResp.ready       := 0.U
+                in(j).writeResp.valid       := 0.U
+                in(i).writeResp.resp        := 0.U
             }
         }
     }
