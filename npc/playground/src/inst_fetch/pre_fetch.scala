@@ -20,13 +20,16 @@ class IF_pre_fetch extends Module{
     val axi_req  = IO(new MyReadyValidIO)
     val PF_npc   = RegInit(0x80000000L.U(64.W))
     
-    val axi_busy = RegInit(0.U(1.W))
-    axi_busy := !axi_req.ready & !io.stall
+    val axi_busy = RegInit(0.U(2.W))
+    when(!axi_req.ready){
+        axi_busy := 2.U
+    }.elsewhen(axi_busy > 0.U){
+        axi_busy := axi_busy - 1.U
+    }
+
     io.bp_fail := io.ID_npc =/= io.PF_pc && io.PF_pc =/= 0.U && io.IF_pc =/= 0.U && !io.stall
     val bp_fail_r = RegInit(0.U(1.W))
     bp_fail_r := io.bp_fail
-    val stall_r = RegInit(0.U(1.W))
-    stall_r := io.stall
 
     axi_req.valid   := 1.U
     
@@ -54,5 +57,5 @@ class IF_pre_fetch extends Module{
     axi_lite.readData.ready         := !io.stall
 
     io.inst                         := axi_lite.readData.bits.data(31, 0)
-    io.inst_valid                   := (axi_lite.readData.valid && axi_lite.readData.bits.resp === 0.U) & !io.bp_fail & !bp_fail_r & !axi_busy & !stall_r
+    io.inst_valid                   := (axi_lite.readData.valid && axi_lite.readData.bits.resp === 0.U) & !io.bp_fail & !bp_fail_r & !axi_busy
 }
