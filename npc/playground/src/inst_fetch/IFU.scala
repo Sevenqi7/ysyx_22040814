@@ -66,7 +66,7 @@ class IFU extends Module{
     bp_fail                                 := pre_fetch.io.bp_fail
     pre_fetch.io.IF_pc                      := io.IF_to_ID_bus.bits.PC
     pre_fetch.io.ID_npc                     := io.ID_npc
-    pre_fetch.io.stall                      := !io.IF_to_ID_bus.ready
+    pre_fetch.io.stall                      := !io.IF_to_ID_bus.ready | !axi_req.ready
 
     flush                                   := reset.asBool | !pre_fetch.io.inst_valid | bp_fail
 
