@@ -21,7 +21,7 @@ class IF_pre_fetch extends Module{
     val PF_npc   = RegInit(0x80000000L.U(64.W))
     
     val axi_busy = RegInit(0.U(2.W))
-    when(!axi_req.ready){
+    when(!axi_req.ready & !io.stall){
         axi_busy := 2.U
     }.elsewhen(axi_busy > 0.U){
         axi_busy := axi_busy - 1.U
