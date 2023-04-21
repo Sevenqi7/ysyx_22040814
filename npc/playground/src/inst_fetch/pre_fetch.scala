@@ -35,7 +35,7 @@ class IF_pre_fetch extends Module{
     ))
 
     
-    regConnectWithResetAndStall(io.PF_pc, PF_npc, reset.asBool | io.bp_fail, 0.U(64.W), io.stall | !axi_req.ready)
+    regConnectWithResetAndStall(io.PF_pc, PF_npc, reset.asBool, 0.U(64.W), io.stall | !axi_req.ready)
 
     //IFU doesn't write mem
     axi_lite.writeAddr.valid        := 0.U
