@@ -24,7 +24,7 @@ class IF_pre_fetch extends Module{
 
     io.PF_npc    := PF_npc
     PF_npc      := MuxCase(io.PF_npc+4.U, Seq(
-        (io.stall   ,   io.PF_npc),
+        (io.stall | !axi_req.ready  ,   io.PF_npc),
         (io.bp_fail , io.ID_npc)
     ))
 
@@ -34,7 +34,7 @@ class IF_pre_fetch extends Module{
     val axi_busy = RegInit(0.U(1.W))
     axi_busy := !axi_req.ready
 
-    regConnectWithResetAndStall(io.PF_pc, PF_npc, reset.asBool | io.bp_fail, 0.U(64.W), io.stall)
+    regConnectWithResetAndStall(io.PF_pc, PF_npc, reset.asBool | io.bp_fail, 0.U(64.W), io.stall | !axi_req.ready)
 
     //IFU doesn't write mem
     axi_lite.writeAddr.valid        := 0.U
