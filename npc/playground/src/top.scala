@@ -108,37 +108,6 @@ class top extends Module{
     wb_unit.io.MEM_to_WB_bus                <> mem_unit.io.MEM_to_WB_bus
 
 
-
-
-    //inst ram
-
-    //axi-lite
-    inst_ram.io.pc                          := inst_fetch_unit.io.PF_pc
-    inst_ram.io.aclk                        := clock
-    inst_ram.io.aresetn                     := !reset.asBool
-    //ar
-    inst_ram.io.araddr                      := inst_fetch_unit.axi_lite.readAddr.bits.addr
-    inst_ram.io.arvalid                     := inst_fetch_unit.axi_lite.readAddr.valid
-    inst_fetch_unit.axi_lite.readAddr.ready       := inst_ram.io.arready
-    //r
-    inst_fetch_unit.axi_lite.readData.bits.data   := inst_ram.io.rdata
-    inst_fetch_unit.axi_lite.readData.bits.resp   := inst_ram.io.rresp
-    inst_fetch_unit.axi_lite.readData.valid       := inst_ram.io.rvalid
-    inst_ram.io.rready                      := inst_fetch_unit.axi_lite.readData.ready
-    //aw
-    inst_ram.io.awaddr                      := inst_fetch_unit.axi_lite.writeAddr.bits.addr
-    inst_ram.io.awvalid                     := inst_fetch_unit.axi_lite.writeAddr.valid
-    inst_fetch_unit.axi_lite.writeAddr.ready      := inst_ram.io.awready
-    //w
-    inst_ram.io.wdata                       := inst_fetch_unit.axi_lite.writeData.bits.data
-    inst_ram.io.wstrb                       := inst_fetch_unit.axi_lite.writeData.bits.strb
-    inst_ram.io.wvalid                      := inst_fetch_unit.axi_lite.writeData.valid
-    inst_fetch_unit.axi_lite.writeData.ready      := inst_ram.io.wready
-    //b
-    inst_fetch_unit.axi_lite.writeResp.bits.resp  := inst_ram.io.bresp
-    inst_fetch_unit.axi_lite.writeResp.valid      := inst_ram.io.bready
-    inst_ram.io.bready                      := inst_fetch_unit.axi_lite.writeResp.ready
-
     val ram_unit = Module(new RAMU)
     val arb = Module(new AXI_Arbiter(2))
     ram_unit.axi_lite <> arb.out
