@@ -20,7 +20,7 @@ class IF_pre_fetch extends Module{
     val axi_req  = IO(new MyReadyValidIO)
     val PF_npc   = RegInit(0x80000000L.U(64.W))
     
-    val axi_busy = RegInit(0.U(2.W))
+    val axi_busy = RegInit(0.U(1.W))
     axi_busy := !axi_req.ready
 
     io.bp_fail := io.ID_npc =/= io.PF_pc && io.PF_pc =/= 0.U && io.IF_pc =/= 0.U && !io.stall
