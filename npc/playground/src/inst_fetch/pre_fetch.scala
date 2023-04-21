@@ -32,7 +32,7 @@ class IF_pre_fetch extends Module{
     val bp_fail_r = RegInit(0.U(1.W))
     bp_fail_r := bp_fail_r
     val axi_busy = RegInit(0.U(1.W))
-    axi_busy := !axi_lite.ready
+    axi_busy := !axi_req.ready
 
     regConnectWithResetAndStall(io.PF_pc, PF_npc, reset.asBool | io.bp_fail, 0.U(64.W), io.stall)
 
