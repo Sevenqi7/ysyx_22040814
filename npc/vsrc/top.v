@@ -1358,7 +1358,7 @@ module MEM_pre_stage(	// <stdin>:1165:10
   assign axi_lite_readAddr_valid = io_EX_to_MEM_bus_bits_memReadEn;	// <stdin>:1165:10
   assign axi_lite_readAddr_bits_addr = io_EX_to_MEM_bus_bits_ALU_result[31:0];	// <stdin>:1165:10, pre_mem.scala:87:58
   assign axi_lite_readData_ready = io_EX_to_MEM_bus_bits_memReadEn;	// <stdin>:1165:10
-  assign axi_req_valid = (|io_EX_to_MEM_bus_bits_lsutype) & (|rhsReg_8);	// <stdin>:1165:10, pre_mem.scala:47:{34,41,76}, tools.scala:15:29
+  assign axi_req_valid = (|io_EX_to_MEM_bus_bits_lsutype) | (|rhsReg_8);	// <stdin>:1165:10, pre_mem.scala:47:{34,41,76}, tools.scala:15:29
 endmodule
 
 module MEMU(	// <stdin>:1308:10
@@ -1557,7 +1557,7 @@ module AXI_Arbiter(	// <stdin>:1466:10
   output [31:0] out_readAddr_bits_addr,
   output        out_readData_ready);
 
-  assign in_0_readData_bits_data = req_0_valid ? out_readData_bits_data : 64'h4D;	// <stdin>:1466:10, top.scala:136:37, :142:27, :143:17
+  assign in_0_readData_bits_data = req_0_valid ? out_readData_bits_data : 64'h77;	// <stdin>:1466:10, top.scala:136:37, :142:27, :143:17
   assign in_1_readData_valid = out_readData_valid;	// <stdin>:1466:10
   assign in_1_readData_bits_data = out_readData_bits_data;	// <stdin>:1466:10
   assign in_1_readData_bits_resp = out_readData_bits_resp;	// <stdin>:1466:10
@@ -1934,7 +1934,6 @@ module top(	// <stdin>:1500:10
     .bresp   (_inst_ram_bresp),
     .bvalid  (_inst_ram_bvalid)
   );
-
 wire [63:0] GPR [31:0];
 assign {GPR[31], GPR[30], GPR[29], GPR[28], GPR[27], GPR[26], GPR[25], GPR[24], GPR[23], GPR[22], GPR[21], GPR[20]
 , GPR[19], GPR[18], GPR[17], GPR[16], GPR[15], GPR[14], GPR[13], GPR[12], GPR[11], GPR[10], GPR[9], GPR[8], GPR[7]
@@ -1955,6 +1954,7 @@ sim simulate (	// top.scala:24:26
    .GPR               (GPR),
    .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
 );
+
   RAMU ram_unit (	// top.scala:114:26
     .clock                        (clock),
     .reset                        (reset),
@@ -2175,7 +2175,6 @@ module sim(input[63:0] IF_pc, input [63:0] GPR [31:0], input unknown_inst_flag, 
       end
       $display("[%0t] Model running...\n", $time);
    end
-
 
    initial set_gpr_ptr(GPR);    // rf为通用寄存器的二维数组变量
 
