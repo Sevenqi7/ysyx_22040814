@@ -57,7 +57,7 @@ class IFU extends Module{
     val flush   = Wire(Bool())
 
     axi_lite                                <> pre_fetch.axi_lite
-    axi_req.valid                           <> pre_fetch.axi_req
+    axi_req                                 <> pre_fetch.axi_req
 
     io.PF_npc                               := pre_fetch.io.PF_npc
     io.PF_pc                                := pre_fetch.io.PF_pc
