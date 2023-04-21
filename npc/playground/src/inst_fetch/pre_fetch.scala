@@ -26,15 +26,20 @@ class IF_pre_fetch extends Module{
 
     io.bp_fail := io.ID_npc =/= io.PF_pc && io.PF_pc =/= 0.U && io.IF_pc =/= 0.U && !io.stall & io.IF_valid
     val bp_fail_r = RegInit(0.U(1.W))
-    bp_fail_r := io.bp_fail
+    // bp_fail_r := io.bp_fail
+    when(io.bp_fail){
+        bp_fail_r := 1.U
+    }.elsehwhen(axi_req.ready){
+        bp_fail_r := 0.U
+    }
 
     axi_req.valid   := 1.U
     
     io.PF_npc    := PF_npc
     PF_npc      := MuxCase(io.PF_npc+4.U, Seq(
         (io.bp_fail, io.ID_npc),
+        (bp_fail_r, io.PF_npc)
         (io.stall | !axi_req.ready, io.PF_pc)
-        // (!axi_req.ready, io.PF_npc)
     ))
 
     
