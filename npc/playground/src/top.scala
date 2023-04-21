@@ -154,26 +154,16 @@ class AXI_Arbiter(val n: Int) extends Module{
     val out = IO(new AXILiteMasterIF(32, 64))
 
     out <> in(n-1)
-    out.readAddr.ready        := 0.U
-    out.readData.valid        := 0.U
-    out.readData.bits.data    := 0.U 
-    out.writeAddr.ready       := 0.U
-    out.writeData.ready       := 0.U
-    out.writeResp.valid       := 0.U
-    out.writeResp.bits.resp   := 0.U
-    for(i <- n - 2 to 0 by -1){
+    for(i <- n - 1 to 0 by -1){
+        in(i).readAddr.ready        := 0.U
+        in(i).readData.valid        := 0.U
+        in(i).readData.bits.data    := 0.U 
+        in(i).writeAddr.ready       := 0.U
+        in(i).writeData.ready       := 0.U
+        in(i).writeResp.valid       := 0.U
+        in(i).writeResp.bits.resp   := 0.U
         when(req(i).valid){
             out <> in(i)
-            for(j <- i to n-1){
-                req(j).ready := 0.U
-                in(j).readAddr.ready        := 0.U
-                in(j).readData.valid        := 0.U
-                in(j).readData.bits.data    := 0.U 
-                in(j).writeAddr.ready       := 0.U
-                in(j).writeData.ready       := 0.U
-                in(j).writeResp.valid       := 0.U
-                in(j).writeResp.bits.resp   := 0.U
-            }
             req(i).ready := 1.U
         }
     }
