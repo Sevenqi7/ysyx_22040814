@@ -57,7 +57,7 @@ class IFU extends Module{
     val flush   = Wire(Bool())
 
     axi_lite                                <> pre_fetch.axi_lite
-    axi_req.valid                           := 1.U
+    axi_req.valid                           <> pre_fetch.axi_req
 
     io.PF_npc                               := pre_fetch.io.PF_npc
     io.PF_pc                                := pre_fetch.io.PF_pc
@@ -66,7 +66,7 @@ class IFU extends Module{
     bp_fail                                 := pre_fetch.io.bp_fail
     pre_fetch.io.IF_pc                      := io.IF_to_ID_bus.bits.PC
     pre_fetch.io.ID_npc                     := io.ID_npc
-    pre_fetch.io.stall                      := !io.IF_to_ID_bus.ready | !axi_req.ready
+    pre_fetch.io.stall                      := !io.IF_to_ID_bus.ready
 
     flush                                   := reset.asBool | !pre_fetch.io.inst_valid | bp_fail
 
