@@ -37,6 +37,8 @@ class top extends Module{
 
         val IF_Inst = Output(UInt(32.W))
         val IF_valid = Output(Bool())
+        val IF_AXIREQ = Output(Bool())
+        val MEM_AXIREQ = Output(Bool())
 
         val ID_ALU_Data1 = Output(UInt(64.W))
         val ID_ALU_Data2 = Output(UInt(64.W))
@@ -78,6 +80,7 @@ class top extends Module{
     io.ALUResult  := excute_unit.io.EX_to_MEM_bus.bits.ALU_result
     io.stall := inst_decode_unit.io.ID_stall
     
+
     val simulate = Module(new sim)
     
     simulate.io.IF_pc                       := inst_fetch_unit.io.IF_to_ID_bus.bits.PC
@@ -115,6 +118,9 @@ class top extends Module{
     arb.req(0) <> pre_mem_unit.axi_req
     arb.in(1) <> inst_fetch_unit.axi_lite
     arb.req(1) <> inst_fetch_unit.axi_req
+
+    io.IF_AXIREQ := arb.req(1).ready
+    io.MEM_AXIREQ:= arb.req(0).ready
 }
 
 class AXI_Arbiter(val n: Int) extends Module{
