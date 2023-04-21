@@ -57,7 +57,7 @@ class top extends Module{
 
     val inst_ram     = Module(new sim_sram)
 
-    io.BP_fail  := inst_fetch_unit.io.pre_fetch.io.bp_fail
+    io.BP_fail  := inst_fetch_unit.pre_fetch.io.bp_fail
 
     io.IF_Inst  := inst_fetch_unit.io.IF_to_ID_bus.bits.Inst
     io.IF_valid := inst_fetch_unit.io.IF_to_ID_bus.valid
