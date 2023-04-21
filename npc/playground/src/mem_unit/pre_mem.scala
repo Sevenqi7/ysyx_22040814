@@ -44,7 +44,7 @@ class MEM_pre_stage extends Module{
     val regWriteID   =  io.EX_to_MEM_bus.bits.regWriteID
     val regWriteEn   =  io.EX_to_MEM_bus.bits.regWriteEn
     
-    axi_req.valid   :=  (lsutype > 0.U) & (io.PMEM_to_MEM_bus.bits.lsutype > 0.U)
+    axi_req.valid   :=  (lsutype > 0.U) | (io.PMEM_to_MEM_bus.bits.lsutype > 0.U)
     val wstrb = Wire(UInt(8.W))
     wstrb := 0.U
     switch(lsutype){
