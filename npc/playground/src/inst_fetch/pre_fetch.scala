@@ -7,6 +7,7 @@ import utils._
 class IF_pre_fetch extends Module{
     val io = IO(new Bundle{
         val IF_pc        = Input(UInt(64.W))
+        val IF_valid     = Input(Bool())
         val ID_npc       = Input(UInt(64.W))
         val inst         = Output(UInt(32.W))
         val inst_valid   = Output(Bool())
@@ -31,7 +32,7 @@ class IF_pre_fetch extends Module{
     
     io.PF_npc    := PF_npc
     PF_npc      := MuxCase(io.PF_npc+4.U, Seq(
-        (io.bp_fail, io.ID_npc),
+        (io.bp_fail & io.IF_valid, io.ID_npc),
         (io.stall, io.PF_pc),
         (!axi_req.ready, io.PF_npc)
     ))
