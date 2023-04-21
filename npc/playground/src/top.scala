@@ -171,7 +171,7 @@ class AXI_Arbiter(val n: Int) extends Module{
             }
         }
     }
-    ram.axi_lite <> out
+    ram.axi_lite := out
 }
 
 class RAMU extends Module{
