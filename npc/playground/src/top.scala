@@ -139,9 +139,9 @@ class top extends Module{
     inst_fetch_unit.axi_lite.writeResp.valid      := inst_ram.io.bready
     inst_ram.io.bready                      := inst_fetch_unit.axi_lite.writeResp.ready
 
-    // val ram_unit = Module(new RAMU)
+    val ram_unit = Module(new RAMU)
     val arb = Module(new AXI_Arbiter(2))
-    // ram_unit.axi_lite <> arb.out
+    ram_unit.axi_lite <> arb.out
     arb.in(0) <> pre_mem_unit.axi_lite
     arb.req(0) <> pre_mem_unit.axi_req
     arb.in(1) <> inst_fetch_unit.axi_lite
