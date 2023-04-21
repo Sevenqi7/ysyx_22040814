@@ -24,8 +24,8 @@ class IF_pre_fetch extends Module{
 
     io.PF_npc    := PF_npc
     PF_npc      := MuxCase(io.PF_npc+4.U, Seq(
-        (io.stall,   io.PF_npc),
-        (io.bp_fail, io.ID_npc)
+        (io.stall   ,   io.PF_npc),
+        (io.bp_fail , io.ID_npc)
     ))
 
     io.bp_fail := io.ID_npc =/= io.PF_pc && io.PF_pc =/= 0.U && io.IF_pc =/= 0.U && !io.stall
