@@ -24,7 +24,7 @@ class IF_pre_fetch extends Module{
     val axi_busy = RegInit(0.U(1.W))
     axi_busy := !axi_req.ready
 
-    io.bp_fail := io.ID_npc =/= io.PF_pc && io.PF_pc =/= 0.U && io.IF_pc =/= 0.U && !io.stall
+    io.bp_fail := io.ID_npc =/= io.PF_pc && io.PF_pc =/= 0.U && io.IF_pc =/= 0.U && !io.stall & io.IF_valid
     val bp_fail_r = RegInit(0.U(1.W))
     bp_fail_r := io.bp_fail
 
@@ -32,7 +32,7 @@ class IF_pre_fetch extends Module{
     
     io.PF_npc    := PF_npc
     PF_npc      := MuxCase(io.PF_npc+4.U, Seq(
-        (io.bp_fail & io.IF_valid, io.ID_npc),
+        (io.bp_fail, io.ID_npc),
         (io.stall, io.PF_pc),
         (!axi_req.ready, io.PF_npc)
     ))
