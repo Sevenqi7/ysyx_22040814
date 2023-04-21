@@ -155,7 +155,7 @@ class AXI_Arbiter(val n: Int) extends Module{
 
     out <> in(n-1)
     for(i <- n - 1 to 0 by -1){
-        
+        req(i).ready                := 0.U
         in(i).readAddr.ready        := 0.U
         in(i).readData.valid        := 0.U
         in(i).readData.bits.data    := 0.U 
