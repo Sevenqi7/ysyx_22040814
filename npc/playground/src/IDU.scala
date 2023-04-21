@@ -213,11 +213,6 @@ class IDU extends Module{
         ((src2 === RS2 || futype === FuType.lsu) && ((io.ID_to_EX_bus.bits.memReadEn && io.ID_to_EX_bus.bits.regWriteID === rs2) || (PMEM_memReadEn && PMEM_regWriteID === rs2)))
     )
 
-    // load_use_stall := ((io.ID_to_EX_bus.bits.memReadEn
-    //                 && (regWriteEn || instType === TYPE_S || instType === TYPE_B || ((instType === TYPE_I  &&  src1 === NPC)) 
-    //                 && ((io.ID_to_EX_bus.bits.regWriteID === rs1 && src1 === RS1) || (io.ID_to_EX_bus.bits.regWriteID === rs2 && src2 === RS2))))) 
-
-
     //NPC
     val BJ_flag = Wire(Bool())
     BJ_flag := 0.B

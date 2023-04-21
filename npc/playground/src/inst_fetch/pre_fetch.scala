@@ -23,8 +23,14 @@ class IF_pre_fetch extends Module{
     val axi_busy = RegInit(0.U(1.W))
     axi_busy := !axi_req.ready & !io.stall
     io.bp_fail := io.ID_npc =/= io.PF_pc && io.PF_pc =/= 0.U && io.IF_pc =/= 0.U && !io.stall
-    val bp_fail_r = RegInit(0.U(1.W))
-    bp_fail_r := io.bp_fail
+    val bp_fail_r = RegInit(0.U(2.W))
+    // bp_fail_r := io.bp_fail
+    when(io.bp_fail){
+        bp_fail_r := 2.U
+    }.elsewhen(bp_fail_r > 0.U){
+        bp_fail_r := bp_fail_r - 1.U
+    }
+
 
     axi_req.valid   := 1.U
     
