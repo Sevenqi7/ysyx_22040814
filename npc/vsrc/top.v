@@ -53,7 +53,7 @@ module IF_pre_fetch(	// <stdin>:2:10
   reg  [63:0] rhsReg;	// tools.scala:32:33
   reg  [63:0] PF_npc;	// pre_fetch.scala:21:27
   reg         axi_busy;	// pre_fetch.scala:23:27
-  wire        _io_bp_fail_T_6 = io_ID_npc != rhsReg & (|rhsReg) & (|io_IF_pc) & ~io_stall;	// pre_fetch.scala:26:{29,54,74,82,85}, tools.scala:32:33
+  wire        _io_bp_fail_T_6 = io_ID_npc != rhsReg & (|rhsReg) & (|io_IF_pc) & ~io_stall;	// pre_fetch.scala:24:34, :26:{29,54,74,82}, tools.scala:32:33
   reg         bp_fail_r;	// pre_fetch.scala:27:28
   always @(posedge clock) begin
     if (reset) begin
@@ -68,7 +68,7 @@ module IF_pre_fetch(	// <stdin>:2:10
         PF_npc <= rhsReg;	// pre_fetch.scala:21:27, tools.scala:32:33
       else if (axi_req_ready)	// pre_fetch.scala:26:82
         PF_npc <= PF_npc + 64'h4;	// pre_fetch.scala:21:27, :33:37
-      axi_busy <= ~axi_req_ready;	// pre_fetch.scala:23:27, :24:17
+      axi_busy <= ~axi_req_ready & ~io_stall;	// pre_fetch.scala:23:27, :24:{17,32,34}
       bp_fail_r <= _io_bp_fail_T_6;	// pre_fetch.scala:26:82, :27:28
     end
     if (reset | _io_bp_fail_T_6)	// pre_fetch.scala:26:82, :40:64
@@ -106,13 +106,13 @@ module IF_pre_fetch(	// <stdin>:2:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
   assign io_inst_valid = axi_lite_readData_valid & axi_lite_readData_bits_resp == 2'h0 & ~_io_bp_fail_T_6 &
-                ~bp_fail_r & ~axi_busy & ~io_stall;	// <stdin>:2:10, pre_fetch.scala:23:27, :26:{82,85}, :27:28, :56:{96,107,121,134,144}
+                ~bp_fail_r & ~axi_busy;	// <stdin>:2:10, pre_fetch.scala:23:27, :26:82, :27:28, :56:{96,107,121,132,134}
   assign io_PF_pc = rhsReg;	// <stdin>:2:10, tools.scala:32:33
   assign io_bp_fail = _io_bp_fail_T_6;	// <stdin>:2:10, pre_fetch.scala:26:82
   assign io_PF_npc = PF_npc;	// <stdin>:2:10, pre_fetch.scala:21:27
-  assign axi_lite_readAddr_valid = ~io_stall;	// <stdin>:2:10, pre_fetch.scala:26:85
+  assign axi_lite_readAddr_valid = ~io_stall;	// <stdin>:2:10, pre_fetch.scala:24:34
   assign axi_lite_readAddr_bits_addr = PF_npc[31:0];	// <stdin>:2:10, pre_fetch.scala:21:27, :52:46
-  assign axi_lite_readData_ready = ~io_stall;	// <stdin>:2:10, pre_fetch.scala:26:85
+  assign axi_lite_readData_ready = ~io_stall;	// <stdin>:2:10, pre_fetch.scala:24:34
 endmodule
 
 module IFU(	// <stdin>:71:10
@@ -1936,8 +1936,6 @@ module top(	// <stdin>:1502:10
     .bresp   (_inst_ram_bresp),
     .bvalid  (_inst_ram_bvalid)
   );
-
-
 wire [63:0] GPR [31:0];
 assign {GPR[31], GPR[30], GPR[29], GPR[28], GPR[27], GPR[26], GPR[25], GPR[24], GPR[23], GPR[22], GPR[21], GPR[20]
 , GPR[19], GPR[18], GPR[17], GPR[16], GPR[15], GPR[14], GPR[13], GPR[12], GPR[11], GPR[10], GPR[9], GPR[8], GPR[7]
@@ -2165,6 +2163,8 @@ endmodule
 import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
 import "DPI-C" function void unknown_inst();
 import "DPI-C" function void ebreak(input longint halt_ret);
+
+
 
 
 module sim(input[63:0] IF_pc, input [63:0] GPR [31:0], input unknown_inst_flag, input[31:0] WB_Inst);
