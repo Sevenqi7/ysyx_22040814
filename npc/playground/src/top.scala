@@ -35,6 +35,7 @@ class top extends Module{
         val MEM_RegWriteData = Output(UInt(64.W))
         val stall   = Output(Bool())
 
+        val BP_fail = Output(Bool())
         val IF_Inst = Output(UInt(32.W))
         val IF_valid = Output(Bool())
         val IF_AXIREQ = Output(Bool())
@@ -55,6 +56,8 @@ class top extends Module{
     val wb_unit = Module(new WBU)
 
     val inst_ram     = Module(new sim_sram)
+
+    io.BP_fail  := inst_fetch_unit.io.pre_fetch.io.bp_fail
 
     io.IF_Inst  := inst_fetch_unit.io.IF_to_ID_bus.bits.Inst
     io.IF_valid := inst_fetch_unit.io.IF_to_ID_bus.valid
