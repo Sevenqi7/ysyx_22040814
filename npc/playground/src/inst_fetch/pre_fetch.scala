@@ -29,7 +29,7 @@ class IF_pre_fetch extends Module{
     // bp_fail_r := io.bp_fail
     when(io.bp_fail){
         bp_fail_r := 1.U
-    }.elsehwhen(axi_req.ready){
+    }.elsewhen(axi_req.ready){
         bp_fail_r := 0.U
     }
 
