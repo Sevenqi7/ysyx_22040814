@@ -168,7 +168,7 @@ class AXI_Arbiter(val n: Int) extends Module{
             out <> in(i)
             req(i).ready := 1.U
             for(j <- i to n-1){
-                req(j).ready := 0.u
+                req(j).ready := 0.U
             }
         }
     }
