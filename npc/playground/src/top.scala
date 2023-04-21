@@ -170,6 +170,14 @@ class AXI_Arbiter(val n: Int) extends Module{
             req(i).ready := 1.U
         }
     }
+
+    out.readAddr.ready        := 0.U
+    out.readData.valid        := 0.U
+    out.readData.bits.data    := 0.U 
+    out.writeAddr.ready       := 0.U
+    out.writeData.ready       := 0.U
+    out.writeResp.valid       := 0.U
+    out.writeResp.bits.resp   := 0.U
 }
 
 class RAMU extends Module{
