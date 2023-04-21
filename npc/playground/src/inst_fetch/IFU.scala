@@ -68,7 +68,7 @@ class IFU extends Module{
     pre_fetch.io.ID_npc                     := io.ID_npc
     pre_fetch.io.stall                      := !io.IF_to_ID_bus.ready
 
-    flush                                   := reset.asBool | !pre_fetch.io.inst_valid | bp_fail
+    flush                                   := reset.asBool | bp_fail
     //pipeline
     regConnectWithResetAndStall(io.IF_to_ID_bus.bits.PC, pre_fetch.io.PF_pc   , flush, 0.U, !io.IF_to_ID_bus.ready)
     regConnectWithResetAndStall(io.IF_to_ID_bus.valid, pre_fetch.io.inst_valid, flush, 0.U, !io.IF_to_ID_bus.ready)
