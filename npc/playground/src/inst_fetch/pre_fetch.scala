@@ -31,11 +31,11 @@ class IF_pre_fetch extends Module{
     io.PF_npc    := PF_npc
     PF_npc      := MuxCase(io.PF_npc+4.U, Seq(
         (io.bp_fail , io.ID_npc),
-        (io.stall | !axi_req.ready | axi_busy.asBool ,   io.PF_npc)
+        (io.stall | !axi_req.ready,   io.PF_npc)
     ))
 
     
-    regConnectWithResetAndStall(io.PF_pc, PF_npc, reset.asBool | io.bp_fail, 0.U(64.W), io.stall | !axi_req.ready | axi_busy.asBool)
+    regConnectWithResetAndStall(io.PF_pc, PF_npc, reset.asBool | io.bp_fail, 0.U(64.W), io.stall | !axi_req.ready)
 
     //IFU doesn't write mem
     axi_lite.writeAddr.valid        := 0.U
