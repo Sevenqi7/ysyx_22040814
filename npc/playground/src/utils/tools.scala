@@ -38,3 +38,8 @@ object utils {
         }
     }
 }
+
+class MyReadyValidIO extends Bundle{
+    val ready = Input(Bool())
+    val valid = Output(Bool())
+}

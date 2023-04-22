@@ -31,6 +31,7 @@ class MEM_pre_stage extends Module{
         val memReadData     = Output(UInt(64.W))
     })
     val axi_lite = IO(new AXILiteMasterIF(32, 64))
+    val axi_req  = IO(new MyReadyValidIO)
 
     //unpack bus from EXU
     val EX_pc        =  io.EX_to_MEM_bus.bits.PC
@@ -42,7 +43,8 @@ class MEM_pre_stage extends Module{
     val lsutype      =  io.EX_to_MEM_bus.bits.lsutype
     val regWriteID   =  io.EX_to_MEM_bus.bits.regWriteID
     val regWriteEn   =  io.EX_to_MEM_bus.bits.regWriteEn
-
+    
+    axi_req.valid   :=  (lsutype > 0.U) | (io.PMEM_to_MEM_bus.bits.lsutype > 0.U)
     val wstrb = Wire(UInt(8.W))
     wstrb := 0.U
     switch(lsutype){
