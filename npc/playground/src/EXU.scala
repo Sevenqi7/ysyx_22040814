@@ -4,10 +4,16 @@ import utils._
 import OpType._
 import InstType._
 
+class EX_BPU_Message extends Bundle{
+    val PC          = UInt(64.W)
+    val br_target   = UInt(64.W)
+    val taken       = Bool()
+}
+
 class EX_MEM_Message extends Bundle{
     //for NPC to trace
-    val Inst    =      Output(UInt(32.W))
-    val PC      =      Output(UInt(64.W))    
+    val Inst    =      UInt(32.W)
+    val PC      =      UInt(64.W)    
     
     //Reg
     val ALU_result   =   (UInt(64.W))
