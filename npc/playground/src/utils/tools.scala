@@ -18,7 +18,7 @@ object utils {
     }
 
     //connect lhs to rhs through registers with a given reset in Module    
-    def regConnectWithReset(lhs: Data, rhs: Data, reset: Reset, resetVal: UInt =0.U): Unit = {
+    def regConnectWithReset(lhs: Data, rhs: Data, reset: Reset = reset, resetVal: UInt =0.U): Unit = {
         withReset(reset){
             val rhsReg = RegInit(chiselTypeOf(rhs), resetVal)
             rhsReg := rhs

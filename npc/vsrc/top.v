@@ -67,16 +67,16 @@ module IF_pre_fetch(	// <stdin>:2:10
         PF_npc <= io_ID_npc;	// pre_fetch.scala:22:27
       else if (bp_fail_r) begin	// pre_fetch.scala:27:95, :28:28
       end
-      else if (io_stall | ~axi_req_ready)	// pre_fetch.scala:25:17, :27:95, :28:28, :42:19
+      else if (io_stall | ~axi_req_ready)	// pre_fetch.scala:25:17, :27:95, :28:28, :41:19
         PF_npc <= rhsReg;	// pre_fetch.scala:22:27, tools.scala:32:33
-      else	// pre_fetch.scala:25:17, :27:95, :28:28, :42:19
-        PF_npc <= PF_npc + 64'h4;	// pre_fetch.scala:22:27, :39:37
+      else	// pre_fetch.scala:25:17, :27:95, :28:28, :41:19
+        PF_npc <= PF_npc + 64'h4;	// pre_fetch.scala:22:27, :38:37
       axi_busy <= ~axi_req_ready;	// pre_fetch.scala:24:27, :25:17
-      bp_fail_r <= _io_bp_fail_T_7 | ~axi_req_ready & bp_fail_r;	// pre_fetch.scala:27:95, :28:28, :30:21, :31:19, :32:30, :33:19
+      bp_fail_r <= _io_bp_fail_T_7 | ~axi_req_ready & bp_fail_r;	// pre_fetch.scala:27:95, :28:28, :29:21, :30:19, :31:30, :32:19
     end
-    if (reset | _io_bp_fail_T_7)	// pre_fetch.scala:27:95, :46:64
+    if (reset | _io_bp_fail_T_7)	// pre_fetch.scala:27:95, :45:64
       rhsReg <= 64'h0;	// tools.scala:32:33
-    else if (~(io_stall | ~axi_req_ready))	// pre_fetch.scala:25:17, :27:95, :46:{64,98}
+    else if (~(io_stall | ~axi_req_ready))	// pre_fetch.scala:25:17, :27:95, :45:{64,98}
       rhsReg <= PF_npc;	// pre_fetch.scala:22:27, tools.scala:32:33
   end // always @(posedge)
   `ifndef SYNTHESIS	// <stdin>:2:10
@@ -109,12 +109,12 @@ module IF_pre_fetch(	// <stdin>:2:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
   assign io_inst_valid = axi_lite_readData_valid & axi_lite_readData_bits_resp == 2'h0 & ~_io_bp_fail_T_7 &
-                ~bp_fail_r & ~axi_busy;	// <stdin>:2:10, pre_fetch.scala:24:27, :27:95, :28:28, :62:{96,107,121,132,134}
+                ~bp_fail_r & ~axi_busy;	// <stdin>:2:10, pre_fetch.scala:24:27, :27:95, :28:28, :61:{96,107,121,132,134}
   assign io_PF_pc = rhsReg;	// <stdin>:2:10, tools.scala:32:33
   assign io_bp_fail = _io_bp_fail_T_7;	// <stdin>:2:10, pre_fetch.scala:27:95
   assign io_PF_npc = PF_npc;	// <stdin>:2:10, pre_fetch.scala:22:27
   assign axi_lite_readAddr_valid = ~io_stall;	// <stdin>:2:10, pre_fetch.scala:27:85
-  assign axi_lite_readAddr_bits_addr = PF_npc[31:0];	// <stdin>:2:10, pre_fetch.scala:22:27, :58:46
+  assign axi_lite_readAddr_bits_addr = PF_npc[31:0];	// <stdin>:2:10, pre_fetch.scala:22:27, :57:46
   assign axi_lite_readData_ready = ~io_stall;	// <stdin>:2:10, pre_fetch.scala:27:85
 endmodule
 
@@ -1109,25 +1109,25 @@ module EXU(	// <stdin>:919:10
   reg  [63:0]       rhsReg_7;	// tools.scala:15:29
   reg  [4:0]        rhsReg_8;	// tools.scala:15:29
   reg               rhsReg_9;	// tools.scala:15:29
-  wire [63:0]       _ALU_result_T_4 = io_ID_to_EX_bus_bits_ALU_Data1 + io_ID_to_EX_bus_bits_ALU_Data2;	// EXU.scala:84:69
-  wire [63:0]       _ALU_result_T_7 = io_ID_to_EX_bus_bits_ALU_Data1 - io_ID_to_EX_bus_bits_ALU_Data2;	// EXU.scala:85:41
-  wire [63:0]       _ALU_result_T_69 = io_ID_to_EX_bus_bits_ALU_Data1 & io_ID_to_EX_bus_bits_ALU_Data2;	// EXU.scala:86:41
-  wire [63:0]       _ALU_result_T_67 = io_ID_to_EX_bus_bits_ALU_Data1 | io_ID_to_EX_bus_bits_ALU_Data2;	// EXU.scala:87:41
-  wire [63:0]       _ALU_result_T_65 = io_ID_to_EX_bus_bits_ALU_Data1 ^ io_ID_to_EX_bus_bits_ALU_Data2;	// EXU.scala:88:41
-  wire [126:0]      _ALU_result_T_15 = {63'h0, io_ID_to_EX_bus_bits_ALU_Data1} << io_ID_to_EX_bus_bits_ALU_Data2[5:0];	// EXU.scala:61:23, :89:40, tools.scala:15:29
-  wire [63:0]       _GEN = {58'h0, io_ID_to_EX_bus_bits_ALU_Data2[5:0]};	// EXU.scala:61:23, :90:40
-  wire [63:0]       _GEN_0 = io_ID_to_EX_bus_bits_ALU_Data1 * io_ID_to_EX_bus_bits_ALU_Data2;	// EXU.scala:94:40
-  wire [64:0]       _GEN_1 = {io_ID_to_EX_bus_bits_ALU_Data1[63], io_ID_to_EX_bus_bits_ALU_Data1};	// EXU.scala:95:48
-  wire [64:0]       _GEN_2 = {io_ID_to_EX_bus_bits_ALU_Data2[63], io_ID_to_EX_bus_bits_ALU_Data2};	// EXU.scala:95:48
-  wire [64:0]       _ALU_result_T_33 = $signed(_GEN_1) / $signed(_GEN_2);	// EXU.scala:95:48
-  wire [63:0]       _ALU_result_T_78 = io_ID_to_EX_bus_bits_ALU_Data1 / io_ID_to_EX_bus_bits_ALU_Data2;	// EXU.scala:96:40
-  wire [63:0]       _ALU_result_T_85 = io_ID_to_EX_bus_bits_ALU_Data1 % io_ID_to_EX_bus_bits_ALU_Data2;	// EXU.scala:98:41
-  wire [62:0]       _ALU_result_T_53 = {31'h0, io_ID_to_EX_bus_bits_ALU_Data1[31:0]} << io_ID_to_EX_bus_bits_ALU_Data2[4:0];	// EXU.scala:101:{45,53,61}, tools.scala:15:29
-  wire [31:0]       _GEN_3 = {27'h0, io_ID_to_EX_bus_bits_ALU_Data2[4:0]};	// EXU.scala:101:61, :102:53
-  wire [31:0]       _ALU_result_ret_T_18 = io_ID_to_EX_bus_bits_ALU_Data1[31:0] >> _GEN_3;	// EXU.scala:101:45, :102:53
-  wire [31:0]       _ALU_result_T_62 = $signed($signed(io_ID_to_EX_bus_bits_ALU_Data1[31:0]) >>> _GEN_3);	// EXU.scala:101:45, :102:53, :103:61
-  wire [64:0]       _ALU_result_T_75 = $signed(_GEN_1) / $signed(_GEN_2);	// EXU.scala:95:48, :108:54
-  wire [63:0]       _ALU_result_T_82 = $signed(io_ID_to_EX_bus_bits_ALU_Data1) % $signed(io_ID_to_EX_bus_bits_ALU_Data2);	// EXU.scala:110:54
+  wire [63:0]       _ALU_result_T_4 = io_ID_to_EX_bus_bits_ALU_Data1 + io_ID_to_EX_bus_bits_ALU_Data2;	// EXU.scala:90:69
+  wire [63:0]       _ALU_result_T_7 = io_ID_to_EX_bus_bits_ALU_Data1 - io_ID_to_EX_bus_bits_ALU_Data2;	// EXU.scala:91:41
+  wire [63:0]       _ALU_result_T_69 = io_ID_to_EX_bus_bits_ALU_Data1 & io_ID_to_EX_bus_bits_ALU_Data2;	// EXU.scala:92:41
+  wire [63:0]       _ALU_result_T_67 = io_ID_to_EX_bus_bits_ALU_Data1 | io_ID_to_EX_bus_bits_ALU_Data2;	// EXU.scala:93:41
+  wire [63:0]       _ALU_result_T_65 = io_ID_to_EX_bus_bits_ALU_Data1 ^ io_ID_to_EX_bus_bits_ALU_Data2;	// EXU.scala:94:41
+  wire [126:0]      _ALU_result_T_15 = {63'h0, io_ID_to_EX_bus_bits_ALU_Data1} << io_ID_to_EX_bus_bits_ALU_Data2[5:0];	// EXU.scala:67:23, :95:40, tools.scala:15:29
+  wire [63:0]       _GEN = {58'h0, io_ID_to_EX_bus_bits_ALU_Data2[5:0]};	// EXU.scala:67:23, :96:40
+  wire [63:0]       _GEN_0 = io_ID_to_EX_bus_bits_ALU_Data1 * io_ID_to_EX_bus_bits_ALU_Data2;	// EXU.scala:100:40
+  wire [64:0]       _GEN_1 = {io_ID_to_EX_bus_bits_ALU_Data1[63], io_ID_to_EX_bus_bits_ALU_Data1};	// EXU.scala:101:48
+  wire [64:0]       _GEN_2 = {io_ID_to_EX_bus_bits_ALU_Data2[63], io_ID_to_EX_bus_bits_ALU_Data2};	// EXU.scala:101:48
+  wire [64:0]       _ALU_result_T_33 = $signed(_GEN_1) / $signed(_GEN_2);	// EXU.scala:101:48
+  wire [63:0]       _ALU_result_T_78 = io_ID_to_EX_bus_bits_ALU_Data1 / io_ID_to_EX_bus_bits_ALU_Data2;	// EXU.scala:102:40
+  wire [63:0]       _ALU_result_T_85 = io_ID_to_EX_bus_bits_ALU_Data1 % io_ID_to_EX_bus_bits_ALU_Data2;	// EXU.scala:104:41
+  wire [62:0]       _ALU_result_T_53 = {31'h0, io_ID_to_EX_bus_bits_ALU_Data1[31:0]} << io_ID_to_EX_bus_bits_ALU_Data2[4:0];	// EXU.scala:107:{45,53,61}, tools.scala:15:29
+  wire [31:0]       _GEN_3 = {27'h0, io_ID_to_EX_bus_bits_ALU_Data2[4:0]};	// EXU.scala:107:61, :108:53
+  wire [31:0]       _ALU_result_ret_T_18 = io_ID_to_EX_bus_bits_ALU_Data1[31:0] >> _GEN_3;	// EXU.scala:107:45, :108:53
+  wire [31:0]       _ALU_result_T_62 = $signed($signed(io_ID_to_EX_bus_bits_ALU_Data1[31:0]) >>> _GEN_3);	// EXU.scala:107:45, :108:53, :109:61
+  wire [64:0]       _ALU_result_T_75 = $signed(_GEN_1) / $signed(_GEN_2);	// EXU.scala:101:48, :114:54
+  wire [63:0]       _ALU_result_T_82 = $signed(io_ID_to_EX_bus_bits_ALU_Data1) % $signed(io_ID_to_EX_bus_bits_ALU_Data2);	// EXU.scala:116:54
   wire [31:0][63:0] _GEN_4 = {{64'h0}, {64'h0}, {{{32{_ALU_result_T_85[31]}}, _ALU_result_T_85[31:0]}},
                 {{{32{_ALU_result_T_82[31]}}, _ALU_result_T_82[31:0]}}, {{{32{_ALU_result_T_78[31]}},
                 _ALU_result_T_78[31:0]}}, {{{32{_ALU_result_T_75[31]}}, _ALU_result_T_75[31:0]}},
@@ -1143,21 +1143,21 @@ module EXU(	// <stdin>:919:10
                 $signed(io_ID_to_EX_bus_bits_ALU_Data1) < $signed(io_ID_to_EX_bus_bits_ALU_Data2)}},
                 {$signed($signed(io_ID_to_EX_bus_bits_ALU_Data1) >>> _GEN)},
                 {io_ID_to_EX_bus_bits_ALU_Data1 >> _GEN}, {_ALU_result_T_15[63:0]}, {_ALU_result_T_65},
-                {_ALU_result_T_67}, {_ALU_result_T_69}, {64'h0}, {_ALU_result_T_7}, {64'h0}, {64'h0}};	// Bitwise.scala:77:12, Cat.scala:33:92, EXU.scala:84:69, :85:{17,41}, :86:{17,41}, :87:{17,41}, :88:{17,41}, :89:{17,40}, :90:{17,40}, :91:{17,48}, :92:{17,41}, :93:{17,48}, :94:{17,40}, :95:{17,48}, :96:{17,40}, :97:{17,48}, :98:{17,41}, :99:17, :100:17, :101:{17,53}, :102:{17,53}, :103:{17,61}, :104:17, :105:17, :106:17, :107:17, :108:{17,54}, :109:17, :110:{17,54}, :111:17, Mux.scala:101:16, tools.scala:9:{34,45}, :15:29
+                {_ALU_result_T_67}, {_ALU_result_T_69}, {64'h0}, {_ALU_result_T_7}, {64'h0}, {64'h0}};	// Bitwise.scala:77:12, Cat.scala:33:92, EXU.scala:90:69, :91:{17,41}, :92:{17,41}, :93:{17,41}, :94:{17,41}, :95:{17,40}, :96:{17,40}, :97:{17,48}, :98:{17,41}, :99:{17,48}, :100:{17,40}, :101:{17,48}, :102:{17,40}, :103:{17,48}, :104:{17,41}, :105:17, :106:17, :107:{17,53}, :108:{17,53}, :109:{17,61}, :110:17, :111:17, :112:17, :113:17, :114:{17,54}, :115:17, :116:{17,54}, :117:17, Mux.scala:101:16, tools.scala:9:{34,45}, :15:29
   wire [63:0]       _GEN_5 = io_ID_to_EX_bus_bits_optype == 5'h1 | io_ID_to_EX_bus_bits_futype ? _ALU_result_T_4 :
-                _GEN_4[io_ID_to_EX_bus_bits_optype];	// EXU.scala:84:{18,31,69}, :85:17, :86:17, :87:17, :88:17, :89:17, :90:17, :91:17, :92:17, :93:17, :94:17, :95:17, :96:17, :97:17, :98:17, :99:17, :100:17, :101:17, :102:17, :103:17, :104:17, :105:17, :106:17, :107:17, :108:17, :109:17, :110:17, :111:17, Mux.scala:101:16
+                _GEN_4[io_ID_to_EX_bus_bits_optype];	// EXU.scala:90:{18,31,69}, :91:17, :92:17, :93:17, :94:17, :95:17, :96:17, :97:17, :98:17, :99:17, :100:17, :101:17, :102:17, :103:17, :104:17, :105:17, :106:17, :107:17, :108:17, :109:17, :110:17, :111:17, :112:17, :113:17, :114:17, :115:17, :116:17, :117:17, Mux.scala:101:16
   always @(posedge clock) begin
     if (reset) begin
       rhsReg <= 64'h0;	// Mux.scala:101:16, tools.scala:15:29
       rhsReg_1 <= 32'h0;	// Bitwise.scala:77:12, tools.scala:15:29
-      rhsReg_2 <= 1'h0;	// EXU.scala:57:22, tools.scala:15:29
-      rhsReg_3 <= 5'h0;	// EXU.scala:57:22, tools.scala:15:29
-      rhsReg_4 <= 1'h0;	// EXU.scala:57:22, tools.scala:15:29
-      rhsReg_5 <= 1'h0;	// EXU.scala:57:22, tools.scala:15:29
+      rhsReg_2 <= 1'h0;	// EXU.scala:63:22, tools.scala:15:29
+      rhsReg_3 <= 5'h0;	// EXU.scala:63:22, tools.scala:15:29
+      rhsReg_4 <= 1'h0;	// EXU.scala:63:22, tools.scala:15:29
+      rhsReg_5 <= 1'h0;	// EXU.scala:63:22, tools.scala:15:29
       rhsReg_6 <= 64'h0;	// Mux.scala:101:16, tools.scala:15:29
       rhsReg_7 <= 64'h0;	// Mux.scala:101:16, tools.scala:15:29
-      rhsReg_8 <= 5'h0;	// EXU.scala:57:22, tools.scala:15:29
-      rhsReg_9 <= 1'h0;	// EXU.scala:57:22, tools.scala:15:29
+      rhsReg_8 <= 5'h0;	// EXU.scala:63:22, tools.scala:15:29
+      rhsReg_9 <= 1'h0;	// EXU.scala:63:22, tools.scala:15:29
     end
     else begin
       rhsReg <= io_ID_to_EX_bus_bits_PC;	// tools.scala:15:29
@@ -1171,7 +1171,7 @@ module EXU(	// <stdin>:919:10
       if (io_ID_to_EX_bus_bits_futype)
         rhsReg_8 <= io_ID_to_EX_bus_bits_optype;	// tools.scala:15:29
       else
-        rhsReg_8 <= 5'h0;	// EXU.scala:57:22, tools.scala:15:29
+        rhsReg_8 <= 5'h0;	// EXU.scala:63:22, tools.scala:15:29
       rhsReg_9 <= io_ID_to_EX_bus_valid;	// tools.scala:15:29
     end
   end // always @(posedge)
@@ -1940,29 +1940,46 @@ module top(	// <stdin>:1521:10
     .bresp   (_inst_ram_bresp),
     .bvalid  (_inst_ram_bvalid)
   );
-
-wire [63:0] GPR [31:0];
-assign {GPR[31], GPR[30], GPR[29], GPR[28], GPR[27], GPR[26], GPR[25], GPR[24], GPR[23], GPR[22], GPR[21], GPR[20]
-, GPR[19], GPR[18], GPR[17], GPR[16], GPR[15], GPR[14], GPR[13], GPR[12], GPR[11], GPR[10], GPR[9], GPR[8], GPR[7]
-, GPR[6], GPR[5], GPR[4], GPR[3], GPR[2], GPR[1], GPR[0]} = 
-{{_inst_decode_unit_io_ID_GPR_31}, {_inst_decode_unit_io_ID_GPR_30}, {_inst_decode_unit_io_ID_GPR_29}, 
-{_inst_decode_unit_io_ID_GPR_28}, {_inst_decode_unit_io_ID_GPR_27}, {_inst_decode_unit_io_ID_GPR_26}, {_inst_decode_unit_io_ID_GPR_25}, 
-{_inst_decode_unit_io_ID_GPR_24}, {_inst_decode_unit_io_ID_GPR_23}, {_inst_decode_unit_io_ID_GPR_22}, {_inst_decode_unit_io_ID_GPR_21}, 
-{_inst_decode_unit_io_ID_GPR_20}, {_inst_decode_unit_io_ID_GPR_19}, {_inst_decode_unit_io_ID_GPR_18}, {_inst_decode_unit_io_ID_GPR_17}, 
-{_inst_decode_unit_io_ID_GPR_16}, {_inst_decode_unit_io_ID_GPR_15}, {_inst_decode_unit_io_ID_GPR_14}, {_inst_decode_unit_io_ID_GPR_13}, 
-{_inst_decode_unit_io_ID_GPR_12}, {_inst_decode_unit_io_ID_GPR_11}, {_inst_decode_unit_io_ID_GPR_10}, {_inst_decode_unit_io_ID_GPR_9 }, 
-{_inst_decode_unit_io_ID_GPR_8 }, {_inst_decode_unit_io_ID_GPR_7 }, {_inst_decode_unit_io_ID_GPR_6 }, {_inst_decode_unit_io_ID_GPR_5 },
-{_inst_decode_unit_io_ID_GPR_4 }, {_inst_decode_unit_io_ID_GPR_3 }, {_inst_decode_unit_io_ID_GPR_2 }, {_inst_decode_unit_io_ID_GPR_1 }, 
-{_inst_decode_unit_io_ID_GPR_0}};	// IDU.scala:55:22, :66:20
-
-sim simulate (	// top.scala:24:26
-   .IF_pc             (_inst_fetch_unit_io_IF_to_ID_bus_bits_PC),	// top.scala:24:33
-   .WB_Inst           (io_WB_Inst),
-   .GPR               (GPR),
-   .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
-);
-
-
+  sim simulate (	// top.scala:85:26
+    .clock             (1'h0),	// top.scala:116:21
+    .reset             (1'h0),	// top.scala:116:21
+    .IF_pc             (_inst_fetch_unit_io_IF_to_ID_bus_bits_PC),	// top.scala:50:33
+    .GPR_0             (_inst_decode_unit_io_ID_GPR_0),	// top.scala:51:34
+    .GPR_1             (_inst_decode_unit_io_ID_GPR_1),	// top.scala:51:34
+    .GPR_2             (_inst_decode_unit_io_ID_GPR_2),	// top.scala:51:34
+    .GPR_3             (_inst_decode_unit_io_ID_GPR_3),	// top.scala:51:34
+    .GPR_4             (_inst_decode_unit_io_ID_GPR_4),	// top.scala:51:34
+    .GPR_5             (_inst_decode_unit_io_ID_GPR_5),	// top.scala:51:34
+    .GPR_6             (_inst_decode_unit_io_ID_GPR_6),	// top.scala:51:34
+    .GPR_7             (_inst_decode_unit_io_ID_GPR_7),	// top.scala:51:34
+    .GPR_8             (_inst_decode_unit_io_ID_GPR_8),	// top.scala:51:34
+    .GPR_9             (_inst_decode_unit_io_ID_GPR_9),	// top.scala:51:34
+    .GPR_10            (_inst_decode_unit_io_ID_GPR_10),	// top.scala:51:34
+    .GPR_11            (_inst_decode_unit_io_ID_GPR_11),	// top.scala:51:34
+    .GPR_12            (_inst_decode_unit_io_ID_GPR_12),	// top.scala:51:34
+    .GPR_13            (_inst_decode_unit_io_ID_GPR_13),	// top.scala:51:34
+    .GPR_14            (_inst_decode_unit_io_ID_GPR_14),	// top.scala:51:34
+    .GPR_15            (_inst_decode_unit_io_ID_GPR_15),	// top.scala:51:34
+    .GPR_16            (_inst_decode_unit_io_ID_GPR_16),	// top.scala:51:34
+    .GPR_17            (_inst_decode_unit_io_ID_GPR_17),	// top.scala:51:34
+    .GPR_18            (_inst_decode_unit_io_ID_GPR_18),	// top.scala:51:34
+    .GPR_19            (_inst_decode_unit_io_ID_GPR_19),	// top.scala:51:34
+    .GPR_20            (_inst_decode_unit_io_ID_GPR_20),	// top.scala:51:34
+    .GPR_21            (_inst_decode_unit_io_ID_GPR_21),	// top.scala:51:34
+    .GPR_22            (_inst_decode_unit_io_ID_GPR_22),	// top.scala:51:34
+    .GPR_23            (_inst_decode_unit_io_ID_GPR_23),	// top.scala:51:34
+    .GPR_24            (_inst_decode_unit_io_ID_GPR_24),	// top.scala:51:34
+    .GPR_25            (_inst_decode_unit_io_ID_GPR_25),	// top.scala:51:34
+    .GPR_26            (_inst_decode_unit_io_ID_GPR_26),	// top.scala:51:34
+    .GPR_27            (_inst_decode_unit_io_ID_GPR_27),	// top.scala:51:34
+    .GPR_28            (_inst_decode_unit_io_ID_GPR_28),	// top.scala:51:34
+    .GPR_29            (_inst_decode_unit_io_ID_GPR_29),	// top.scala:51:34
+    .GPR_30            (_inst_decode_unit_io_ID_GPR_30),	// top.scala:51:34
+    .GPR_31            (_inst_decode_unit_io_ID_GPR_31),	// top.scala:51:34
+    .unknown_inst_flag (_inst_decode_unit_io_ID_unknown_inst),	// top.scala:51:34
+    .WB_Inst           (_wb_unit_io_WB_Inst),	// top.scala:55:25
+    .inst              (_simulate_inst)
+  );
   RAMU ram_unit (	// top.scala:115:26
     .clock                        (clock),
     .reset                        (reset),
@@ -2172,6 +2189,27 @@ import "DPI-C" function void unknown_inst();
 import "DPI-C" function void ebreak(input longint halt_ret);
 
 
+wire [63:0] GPR [31:0];
+assign {GPR[31], GPR[30], GPR[29], GPR[28], GPR[27], GPR[26], GPR[25], GPR[24], GPR[23], GPR[22], GPR[21], GPR[20]
+, GPR[19], GPR[18], GPR[17], GPR[16], GPR[15], GPR[14], GPR[13], GPR[12], GPR[11], GPR[10], GPR[9], GPR[8], GPR[7]
+, GPR[6], GPR[5], GPR[4], GPR[3], GPR[2], GPR[1], GPR[0]} = 
+{{_inst_decode_unit_io_ID_GPR_31}, {_inst_decode_unit_io_ID_GPR_30}, {_inst_decode_unit_io_ID_GPR_29}, 
+{_inst_decode_unit_io_ID_GPR_28}, {_inst_decode_unit_io_ID_GPR_27}, {_inst_decode_unit_io_ID_GPR_26}, {_inst_decode_unit_io_ID_GPR_25}, 
+{_inst_decode_unit_io_ID_GPR_24}, {_inst_decode_unit_io_ID_GPR_23}, {_inst_decode_unit_io_ID_GPR_22}, {_inst_decode_unit_io_ID_GPR_21}, 
+{_inst_decode_unit_io_ID_GPR_20}, {_inst_decode_unit_io_ID_GPR_19}, {_inst_decode_unit_io_ID_GPR_18}, {_inst_decode_unit_io_ID_GPR_17}, 
+{_inst_decode_unit_io_ID_GPR_16}, {_inst_decode_unit_io_ID_GPR_15}, {_inst_decode_unit_io_ID_GPR_14}, {_inst_decode_unit_io_ID_GPR_13}, 
+{_inst_decode_unit_io_ID_GPR_12}, {_inst_decode_unit_io_ID_GPR_11}, {_inst_decode_unit_io_ID_GPR_10}, {_inst_decode_unit_io_ID_GPR_9 }, 
+{_inst_decode_unit_io_ID_GPR_8 }, {_inst_decode_unit_io_ID_GPR_7 }, {_inst_decode_unit_io_ID_GPR_6 }, {_inst_decode_unit_io_ID_GPR_5 },
+{_inst_decode_unit_io_ID_GPR_4 }, {_inst_decode_unit_io_ID_GPR_3 }, {_inst_decode_unit_io_ID_GPR_2 }, {_inst_decode_unit_io_ID_GPR_1 }, 
+{_inst_decode_unit_io_ID_GPR_0}};	// IDU.scala:55:22, :66:20
+
+sim simulate (	// top.scala:24:26
+   .IF_pc             (_inst_fetch_unit_io_IF_to_ID_bus_bits_PC),	// top.scala:24:33
+   .WB_Inst           (io_WB_Inst),
+   .GPR               (GPR),
+   .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
+);
+
 module sim(input[63:0] IF_pc, input [63:0] GPR [31:0], input unknown_inst_flag, input[31:0] WB_Inst);
 
    initial begin
@@ -2197,3 +2235,6 @@ module sim(input[63:0] IF_pc, input [63:0] GPR [31:0], input unknown_inst_flag, 
 endmodule
 
 // ----- 8< ----- FILE "firrtl_black_box_resource_files.f" ----- 8< -----
+
+build/build/sim.v
+build/build/sim_sram.v
