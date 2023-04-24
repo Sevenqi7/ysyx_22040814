@@ -81,9 +81,7 @@ class MEM_pre_stage extends Module{
 
     //r
     axi_lite.readAddr.valid                 := memReadEn
-    // axi_lite.readAddr.valid                 := 1.U
     axi_lite.readData.ready                 := memReadEn
-    // axi_lite.readData.ready                 := 1.U
     axi_lite.readAddr.bits.addr             := ALU_result(31, 0)
 
     //w
