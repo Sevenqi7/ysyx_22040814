@@ -71,6 +71,7 @@ class BPU extends Module{
     val io = IO(new Bundle{
         val PF_npc   = Input(UInt(64.W))
         val PF_pc    = Input(UInt(64.W))
+        val PF_valid = Input(Bool())
         val bp_stall = Output(Bool())
         val bp_flush = Output(Bool())
 
