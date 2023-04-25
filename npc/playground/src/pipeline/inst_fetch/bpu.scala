@@ -15,7 +15,7 @@ class CacheLine extends Bundle{
     val valid = Bool()
 }
 
-class BPU_Cache(tagWidth: Int, nrSets: Int, nrLines: Int) extends RawModule{
+class BPU_Cache(tagWidth: Int, nrSets: Int, nrLines: Int) extends Module{
     val io = IO(new Bundle{
         val raddr = Input(UInt(64.W))
         val waddr = Input(UInt(64.W))
