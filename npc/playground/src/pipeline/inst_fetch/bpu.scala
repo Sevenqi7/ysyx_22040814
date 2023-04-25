@@ -104,6 +104,10 @@ class BPU extends Module{
     BTB.io.waddr      := ID_pc
     BTB.io.writeEn    := ID_br_taken
     BTB.io.writeData  := io.ID_to_BPU_bus.bits.br_target 
+
+    io.BTB_rdata      := BTB.io.rdata
+    io.BTB_hit        := BTB.io.hit
+
     io.bp_stall       := 0.U
     io.bp_flush       := io.ID_to_BPU_bus.valid & (io.ID_to_BPU_bus.bits.PC =/= io.PF_pc)
     io.bp_npc         := Mux(bp_taken, BTB.io.readData, io.PF_pc + 4.U)

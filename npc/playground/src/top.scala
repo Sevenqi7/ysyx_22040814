@@ -35,6 +35,11 @@ class top extends Module{
         val MEM_RegWriteData = Output(UInt(64.W))
         val stall   = Output(Bool())
 
+        val BTB_hit = Output(UInt(Bool()))
+        val BTB_rdata = Output(UInt(64.W))
+        val bp_npc  = Output(UInt(64.W))
+        val bp_flush = Output(Bool())
+
         val IF_Inst = Output(UInt(32.W))
         val IF_valid = Output(Bool())
         val IF_AXIREQ = Output(Bool())
@@ -57,6 +62,10 @@ class top extends Module{
 
     val inst_ram     = Module(new sim_sram)
 
+    io.BTB_hit   := bp_unit.io.BTB_hit
+    io.BTB_rdata := bp_unit.io.BTB_rdata
+    io.bp_npc    := bp_unit.io.bp_npc
+    io.bp_flush  := bp_unit.io.bp_flush
 
     io.IF_Inst  := inst_fetch_unit.io.IF_to_ID_bus.bits.Inst
     io.IF_valid := inst_fetch_unit.io.IF_to_ID_bus.valid
