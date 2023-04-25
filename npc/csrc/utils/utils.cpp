@@ -11,6 +11,10 @@ void clock_step()
         top->eval();    
     }
 #ifdef CONFIG_DEBUGMSG
+    Log("bp_npc:0x%lx", top->io_bp_npc);
+    Log("bp_flush:%d", top->io_bp_flush);
+    Log("BTB_hit:%d", top->io_BTB_hit);
+    Log("BTB_rdata:0x%lx", top->io_BTB_rdata);
     Log("ID_npc:0x%lx", top->io_ID_npc);
     Log("PF_npc:0x%lx", top->io_PF_npc);
     Log("PF_pc:0x%lx", top->io_PF_pc);

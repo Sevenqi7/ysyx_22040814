@@ -62,6 +62,7 @@ class top extends Module{
 
     val inst_ram     = Module(new sim_sram)
 
+    //for npc to trace
     io.BTB_hit   := bp_unit.io.BTB_hit
     io.BTB_rdata := bp_unit.io.BTB_rdata
     io.bp_npc    := bp_unit.io.bp_npc

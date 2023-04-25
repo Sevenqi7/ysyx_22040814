@@ -110,7 +110,7 @@ class BPU extends Module{
 
     io.bp_stall       := 0.U
     io.bp_flush       := io.ID_to_BPU_bus.valid & (io.ID_to_BPU_bus.bits.PC =/= io.PF_pc)
-    io.bp_npc         := Mux(bp_taken, BTB.io.readData, io.PF_pc + 4.U)
+    io.bp_npc         := Mux(bp_taken, BTB.io.readData, io.PF_npc + 4.U)
 
     //BHT & PHT
     //1.prediction
