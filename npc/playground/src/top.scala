@@ -47,6 +47,7 @@ class top extends Module{
         val ALUResult = Output(UInt(64.W))
     })
 
+    val bp_unit         = Module(new BPU)
     val inst_fetch_unit = Module(new IFU)
     val inst_decode_unit = Module(new IDU)
     val excute_unit = Module(new EXU)
@@ -60,7 +61,7 @@ class top extends Module{
     io.IF_Inst  := inst_fetch_unit.io.IF_to_ID_bus.bits.Inst
     io.IF_valid := inst_fetch_unit.io.IF_to_ID_bus.valid
     io.PF_axidata := inst_fetch_unit.io.axidata
-    io.ID_npc   := inst_decode_unit.io.ID_npc
+    io.ID_npc   := inst_decode_unit.io.ID_to_BPU_bus.bits.br_target
     io.PF_npc   := inst_fetch_unit.io.PF_npc
     io.PF_pc := inst_fetch_unit.io.PF_pc
     io.IF_pc := inst_fetch_unit.io.IF_to_ID_bus.bits.PC
@@ -89,8 +90,12 @@ class top extends Module{
     simulate.io.WB_Inst                     := wb_unit.io.WB_Inst
     simulate.io.unknown_inst_flag           := inst_decode_unit.io.ID_unknown_inst
 
-    inst_fetch_unit.io.ID_npc               := inst_decode_unit.io.ID_npc
-    
+    bp_unit.io.pc                           := inst_fetch_unit.io.PF_pc
+    inst_fetch_unit.io.bp_npc               := bp_unit.io.bp_npc
+    inst_fetch_unit.io.bp_stall             := bp_unit.io.bp_stall
+    inst_fetch_unit.io.bp_flush             := bp_unit.io.bp_flush
+    bp_unit.io.ID_to_BPU_bus                <> inst_decode_unit.io.ID_to_BPU_bus
+
     inst_decode_unit.io.IF_to_ID_bus        <> inst_fetch_unit.io.IF_to_ID_bus
     inst_decode_unit.io.WB_to_ID_forward    <> wb_unit.io.WB_to_ID_forward
     inst_decode_unit.io.PMEM_to_ID_forward  <> pre_mem_unit.io.PMEM_to_ID_forward
@@ -134,7 +139,7 @@ class AXI_Arbiter(val n: Int) extends Module{
         req(i).ready                := 0.U
         in(i).readAddr.ready        := 0.U
         in(i).readData.valid        := 0.U
-        in(i).readData.bits.data    := 0x77.U 
+        in(i).readData.bits.data    := 0x77.U       //MAGIC NUMBER FOR DEBUG
         in(i).readData.bits.resp    := 0.U
         in(i).writeAddr.ready       := 0.U
         in(i).writeData.ready       := 0.U

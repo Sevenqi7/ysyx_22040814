@@ -17,6 +17,7 @@ static uint32_t g_itrace_num = 0;
 #endif
 
 extern bool inst_fault;
+static uint64_t nr_bubble = 0;
 
 void device_update();
 void difftest_regcpy(void *dut, bool direction);
@@ -76,7 +77,10 @@ void exec_once()            //disassemble实质上是反汇编的上一个已执
     clock_step();
     
     while(!top->io_WB_valid)
+    {
+        nr_bubble++;
         clock_step();
+    }
 trace:
     char logbuf[128];
     #ifdef CONFIG_ITRACE
@@ -103,8 +107,8 @@ void execute(uint64_t n)
     switch(npc_state.state)
     {
         case NPC_END: case NPC_ABORT:
-        printf("Simulation has ended.\n");
-        return ;
+            printf("Simulation has ended.\n");
+            return ;
         default: npc_state.state = NPC_RUNNING;
     }
 
@@ -112,7 +116,10 @@ void execute(uint64_t n)
     {
         exec_once();
         device_update();
-        if(npc_state.state != NPC_RUNNING) break;
+        if(npc_state.state != NPC_RUNNING){
+            Log("Recieve %ld bubbles in pipeline running", nr_bubble);
+            break;
+        }
     }
 
     if(npc_state.state == NPC_ABORT)

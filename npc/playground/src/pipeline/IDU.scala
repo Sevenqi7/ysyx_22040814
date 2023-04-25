@@ -5,6 +5,12 @@ import FuSource._
 import utils._
 
 
+class ID_BPU_Message extends Bundle{
+    val PC    = UInt(64.W)
+    val taken = Bool()
+    val br_target = UInt(64.W)
+}
+
 class ID_EX_Message extends Bundle{
     val ALU_Data1  = Output(UInt(64.W))
     val ALU_Data2  = Output(UInt(64.W))
@@ -27,7 +33,6 @@ class ID_EX_Message extends Bundle{
 class IDU extends Module{
     val io = IO(new Bundle{
         val IF_to_ID_bus = Flipped(Decoupled(new IF_to_ID_Message))
-        val ID_npc = Output(UInt(64.W))
         //Bus
         val ID_to_EX_bus = Decoupled(new ID_EX_Message)
 
@@ -44,6 +49,8 @@ class IDU extends Module{
         //later one is not immediate
         val EX_ALUResult  = Input(UInt(64.W))
 
+        //For branch prediction
+        val ID_to_BPU_bus = Decoupled(new ID_BPU_Message)
         //For NPCTRAP
         val ID_stall = Output(Bool())
         val ID_GPR =Output(Vec(32, UInt(64.W)))
@@ -187,33 +194,40 @@ class IDU extends Module{
     regConnectWithReset(io.ID_to_EX_bus.bits.PC        , IF_pc     , flush, 0.U    )
     regConnectWithReset(io.ID_to_EX_bus.bits.Inst      , IF_Inst   , flush, 0.U    )
     regConnectWithReset(io.ID_to_EX_bus.bits.ALU_Data1 , ALU_Data1 , flush, 0.U    )
-    regConnectWithReset(io.ID_to_EX_bus.bits.regWriteID, rd        , flush, 0.U    )
     regConnectWithReset(io.ID_to_EX_bus.bits.ALU_Data2 , ALU_Data2 , flush, 0.U    )
+    regConnectWithReset(io.ID_to_EX_bus.bits.regWriteID, rd        , flush, 0.U    )
     regConnectWithReset(io.ID_to_EX_bus.bits.regWriteEn, regWriteEn, flush, 0.U    )
     regConnectWithReset(io.ID_to_EX_bus.bits.memReadEn , memReadEn , flush, 0.U    )
     regConnectWithReset(io.ID_to_EX_bus.bits.memWriteEn, memWriteEn, flush, 0.U    )
     regConnectWithReset(io.ID_to_EX_bus.bits.optype    , opType    , flush, 0.U    )
     regConnectWithReset(io.ID_to_EX_bus.bits.futype    , futype    , flush, 0.U    )
-    regConnectWithReset(io.ID_to_EX_bus.bits.rs1_data   , rs1_data , flush, 0.U    )
-    regConnectWithReset(io.ID_to_EX_bus.bits.rs1_id     , rs1      , flush, 0.U    )
-    regConnectWithReset(io.ID_to_EX_bus.bits.rs2_data   , rs2_data , flush, 0.U    )
-    regConnectWithReset(io.ID_to_EX_bus.bits.rs2_id     , rs2      , flush, 0.U    )
-    regConnectWithReset(io.ID_to_EX_bus.valid           ,io.IF_to_ID_bus.valid & !load_use_stall, flush, 0.U   )
+    regConnectWithReset(io.ID_to_EX_bus.bits.rs1_data  , rs1_data , flush, 0.U     )
+    regConnectWithReset(io.ID_to_EX_bus.bits.rs1_id    , rs1      , flush, 0.U     )
+    regConnectWithReset(io.ID_to_EX_bus.bits.rs2_data  , rs2_data , flush, 0.U     )
+    regConnectWithReset(io.ID_to_EX_bus.bits.rs2_id    , rs2      , flush, 0.U     )
+    regConnectWithReset(io.ID_to_EX_bus.valid          ,io.IF_to_ID_bus.valid & !load_use_stall, flush, 0.U   )
     io.IF_to_ID_bus.ready := !load_use_stall
     io.MEM_to_ID_forward.ready := 1.U
     io.PMEM_to_ID_forward.ready := 1.U
     io.WB_to_ID_forward.ready := 1.U
 
-    val stall_cnt = RegInit(0.U(2.W))
 
     io.ID_unknown_inst := InstInfo(0) === 0.U && io.IF_to_ID_bus.valid
 
     load_use_stall := (
-        ((src1 === RS1 || src1 === NPC) && ((io.ID_to_EX_bus.bits.memReadEn && io.ID_to_EX_bus.bits.regWriteID === rs1) || (PMEM_memReadEn && PMEM_regWriteID === rs1))) ||
-        ((src2 === RS2 || futype === FuType.lsu) && ((io.ID_to_EX_bus.bits.memReadEn && io.ID_to_EX_bus.bits.regWriteID === rs2) || (PMEM_memReadEn && PMEM_regWriteID === rs2)))
+        (
+            (src1 === RS1 || src1 === NPC || instType === TYPE_B) && 
+            ((io.ID_to_EX_bus.bits.memReadEn && io.ID_to_EX_bus.bits.regWriteID === rs1) || 
+            (PMEM_memReadEn && PMEM_regWriteID === rs1))
+                                                            )   ||
+        (
+            (src2 === RS2 || futype === FuType.lsu || instType === TYPE_B) && 
+            ((io.ID_to_EX_bus.bits.memReadEn && io.ID_to_EX_bus.bits.regWriteID === rs2) || 
+            (PMEM_memReadEn && PMEM_regWriteID === rs2))
+                                                            )
     )
 
-    //NPC
+    // Check branch
     val BJ_flag = Wire(Bool())
     BJ_flag := 0.B
     switch(opType){
@@ -225,13 +239,23 @@ class IDU extends Module{
         is (BType.BGEU) {BJ_flag := rs1_data >= rs2_data                 }
     }
 
+    val br_taken = 0.U
+    switch(instType){
+        is (TYPE_J) {br_taken := 1.U            }
+        is (TYPE_B) {br_taken := BJ_flag        }
+        is (TYPE_I) {br_taken := src1 === NPC   }       //JALR
+    }
+
     val pcplus4 = Wire(UInt(32.W))
     pcplus4 := IF_pc + 4.U
-    io.ID_npc := MuxCase(pcplus4, Seq(
+    io.ID_to_BPU_bus.bits.br_target := MuxCase(pcplus4, Seq(
         (instType === TYPE_J, IF_pc + immJ * 2.U),
-        (instType === TYPE_B  &&  BJ_flag     , IF_pc + immB * 2.U),
+        (instType === TYPE_B  &&  BJ_flag, IF_pc + immB * 2.U),
         (instType === TYPE_I  &&  src1 === NPC, rs1_data + immI)
     ))
+
+    io.ID_to_BPU_bus.bits.taken := br_taken
+    io.ID_to_BPU_bus.valid      := (instType === TYPE_J) || (instType === TYPE_B) || (instType === TYPE_I  &&  src1 === NPC)
 }
             
             
@@ -377,11 +401,11 @@ object RV64IInstr{
         JAL            -> List(TYPE_J, FuType.alu, NPC, ZERO , OpType.OP_PLUS),
         
         //B Type
-        BEQ            -> List(TYPE_B, FuType.alu, RS1 , RS2 , BType.BEQ   ),
-        BNE            -> List(TYPE_B, FuType.alu, RS1 , RS2 , BType.BNE   ),
-        BLT            -> List(TYPE_B, FuType.alu, RS1 , RS2 , BType.BLT   ),
-        BLTU           -> List(TYPE_B, FuType.alu, RS1 , RS2 , BType.BLTU  ),
-        BGE            -> List(TYPE_B, FuType.alu, RS1 , RS2 , BType.BGE   ),
-        BGEU           -> List(TYPE_B, FuType.alu, RS1 , RS2 , BType.BGEU  )
+        BEQ            -> List(TYPE_B, FuType.alu, PC , IMM , BType.BEQ   ),
+        BNE            -> List(TYPE_B, FuType.alu, PC , IMM , BType.BNE   ),
+        BLT            -> List(TYPE_B, FuType.alu, PC , IMM , BType.BLT   ),
+        BLTU           -> List(TYPE_B, FuType.alu, PC , IMM , BType.BLTU  ),
+        BGE            -> List(TYPE_B, FuType.alu, PC , IMM , BType.BGE   ),
+        BGEU           -> List(TYPE_B, FuType.alu, PC , IMM , BType.BGEU  )
         )
 }

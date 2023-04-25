@@ -64,16 +64,16 @@ class BPU_Cache(tagWidth: Int, nrSets: Int, nrLines: Int) extends RawModule{
 
 class BPU extends RawModule{
     val io = (new Bundle{
-        val pc      = Input(UInt(64.W))
-        val inst    = Input(UInt(32.W))
-        val bp_stall =   Output(Bool())
-        
-        val EX_to_BPU_forward = Flipped(Decoupled(new EX_BPU_Message))
-        val npc     = Output(UInt(64.W))
+        val pc       = Input(UInt(64.W))
+        val bp_stall = Output(Bool())
+        val bp_flush = Output(Bool())
+
+        val ID_to_BPU_bus = Flipped(Decoupled(new ID_BPU_Message))
+        val bp_npc     = Output(UInt(64.W))
     })
 
-    val EX_pc = io.EX_to_BPU_forward.bits.PC
-    val EX_br_taken = io.EX_to_BPU_forward.bits.taken
+    val ID_pc = io.ID_to_BPU_bus.bits.PC
+    val ID_br_taken = io.ID_to_BPU_bus.bits.taken
 
     val bp_taken = Wire(Bool())
 
@@ -86,42 +86,40 @@ class BPU extends RawModule{
 
     val BHT = RegInit(VecInit(Seq.fill(256)(0.U(4.W))))
     val PHT = RegInit(VecInit(Seq.fill(256)("b01".U(2.W))))
-    val BTB = Module(new BPU_Cache(16, 2, 2))
-
-    val opcode = io.inst(6, 0)
-    val Br_type = (opcode === "b1100011".U)
-    val J_type  = (opcode === "b110?111".U)
+    val BTB = Module(new BPU_Cache(16, 16, 2))
 
     //BTB
     BTB.io.raddr      := io.pc
-    BTB.io.waddr      := EX_pc
-    BTB.io.writeEn    := EX_br_taken
-    BTB.io.writeData  := io.EX_to_BPU_forward.bits.br_target 
-    io.npc            := Mux(bp_taken, io.pc+4.U, BTB.io.readData)
-    io.bp_stall       := (BTB.io.hit & Br_type) | J_type    
+    BTB.io.waddr      := ID_pc
+    BTB.io.writeEn    := ID_br_taken
+    BTB.io.writeData  := io.ID_to_BPU_bus.bits.br_target 
+    io.bp_stall       := 0.U
+    io.bp_npc         := Mux(bp_taken, BTB.io.readData, io.pc + 4.U)
 
     //BHT & PHT
     //1.prediction
     val bht_idx = hash(io.pc)
     val pht_idx = BHT(bht_idx) ^ io.pc(3, 0)
 
-    when(Br_type){
+    bp_taken     := 0.U
+    when(BTB.io.hit){
         bp_taken := PHT(pht_idx) & 1.U
     }
+
     
     //2.update
-    val up_bht_idx = hash(EX_pc)
-    val up_pht_idx = BHT(up_bht_idx) ^ EX_pc(3, 0)
-    when(io.EX_to_BPU_forward.valid){
-        BHT(up_bht_idx) := (BHT(up_bht_idx) << 1) + EX_br_taken
+    val up_bht_idx = hash(ID_pc)
+    val up_pht_idx = BHT(up_bht_idx) ^ ID_pc(3, 0)
+    when(io.ID_to_BPU_bus.valid){
+        BHT(up_bht_idx) := (BHT(up_bht_idx) << 1) + ID_br_taken
 
         PHT(up_pht_idx) := MuxCase(PHT(up_pht_idx), Seq(
-            (PHT(up_pht_idx) === PH_State.ST  && !EX_br_taken, PH_State.WT ),
-            (PHT(up_pht_idx) === PH_State.WT  && !EX_br_taken, PH_State.WNT),
-            (PHT(up_pht_idx) === PH_State.WT  &&  EX_br_taken, PH_State.ST ),
-            (PHT(up_pht_idx) === PH_State.WNT &&  EX_br_taken, PH_State.WT ),
-            (PHT(up_pht_idx) === PH_State.WNT && !EX_br_taken, PH_State.SNT),
-            (PHT(up_bht_idx) === PH_State.SNT &&  EX_br_taken, PH_State.SNT)
+            (PHT(up_pht_idx) === PH_State.ST  && !ID_br_taken, PH_State.WT ),
+            (PHT(up_pht_idx) === PH_State.WT  && !ID_br_taken, PH_State.WNT),
+            (PHT(up_pht_idx) === PH_State.WT  &&  ID_br_taken, PH_State.ST ),
+            (PHT(up_pht_idx) === PH_State.WNT &&  ID_br_taken, PH_State.WT ),
+            (PHT(up_pht_idx) === PH_State.WNT && !ID_br_taken, PH_State.SNT),
+            (PHT(up_bht_idx) === PH_State.SNT &&  ID_br_taken, PH_State.SNT)
         ))
     }
 

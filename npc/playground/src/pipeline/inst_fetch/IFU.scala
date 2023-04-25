@@ -41,8 +41,10 @@ class IF_to_ID_Message extends Bundle{
 
 class IFU extends Module{
     val io = IO(new Bundle{
-        val ID_npc = Input(UInt(64.W))
         val IF_to_ID_bus = Decoupled(new IF_to_ID_Message)
+        val bp_stall = Input(Bool())
+        val bp_flush = Input(Bool())
+        val bp_npc   = Input(UInt(64.W))
         //for npc to trap
         val PF_npc  = Output(UInt(64.W))
         val PF_pc   = Output(UInt(64.W))
@@ -53,7 +55,6 @@ class IFU extends Module{
     val axi_req  = IO(new MyReadyValidIO)
 
     val pre_fetch = Module(new IF_pre_fetch)
-    val bp_fail = Wire(Bool())
     val flush   = Wire(Bool())
 
     axi_lite                                <> pre_fetch.axi_lite
@@ -63,13 +64,12 @@ class IFU extends Module{
     io.PF_pc                                := pre_fetch.io.PF_pc
     io.axidata                              := pre_fetch.axi_lite.readData.bits.data
 
-    bp_fail                                 := pre_fetch.io.bp_fail
     pre_fetch.io.IF_pc                      := io.IF_to_ID_bus.bits.PC
     pre_fetch.io.IF_valid                   := io.IF_to_ID_bus.valid
-    pre_fetch.io.ID_npc                     := io.ID_npc
-    pre_fetch.io.stall                      := !io.IF_to_ID_bus.ready
+    pre_fetch.io.bp_flush                   := io.bp_flush
+    pre_fetch.io.stall                      := !io.IF_to_ID_bus.ready | io.bp_stall
 
-    flush                                   := reset.asBool | bp_fail
+    flush                                   := reset.asBool | io.bp_flush
     //pipeline
     regConnectWithResetAndStall(io.IF_to_ID_bus.bits.PC, pre_fetch.io.PF_pc   , flush, 0.U, !io.IF_to_ID_bus.ready)
     regConnectWithResetAndStall(io.IF_to_ID_bus.valid, pre_fetch.io.inst_valid, flush, 0.U, !io.IF_to_ID_bus.ready)
