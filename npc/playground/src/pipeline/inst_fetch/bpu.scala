@@ -91,7 +91,7 @@ class BPU extends Module{
     val BTB = Module(new BPU_Cache(16, 16, 2))
 
     //BTB
-    BTB.io.raddr      := 0.U
+    BTB.io.raddr      := io.pc
     BTB.io.waddr      := ID_pc
     BTB.io.writeEn    := ID_br_taken
     BTB.io.writeData  := io.ID_to_BPU_bus.bits.br_target 
