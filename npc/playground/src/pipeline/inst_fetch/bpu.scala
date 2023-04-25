@@ -110,7 +110,7 @@ class BPU extends Module{
     io.BTB_hit        := BTB.io.hit
 
     io.bp_stall       := 0.U
-    io.bp_flush       := io.ID_to_BPU_bus.valid & (io.ID_to_BPU_bus.bits.PC =/= io.PF_pc)
+    io.bp_flush       := io.ID_to_BPU_bus.valid & io.PF_valid &(io.ID_to_BPU_bus.bits.PC =/= io.PF_pc)
     io.bp_npc         := MuxCase(io.PF_npc + 4.U, Seq(
                             (io.bp_flush, io.ID_to_BPU_bus.bits.br_target),
                             (bp_taken   , BTB.io.readData                )
