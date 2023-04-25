@@ -76,6 +76,7 @@ class BPU extends Module{
 
     val ID_pc = io.ID_to_BPU_bus.bits.PC
     val ID_br_taken = io.ID_to_BPU_bus.bits.taken
+    io.ID_to_BPU_bus.ready := 1.U
 
     val bp_taken = Wire(Bool())
 
@@ -96,6 +97,7 @@ class BPU extends Module{
     BTB.io.writeEn    := ID_br_taken
     BTB.io.writeData  := io.ID_to_BPU_bus.bits.br_target 
     io.bp_stall       := 0.U
+    io.bp_flush       := 0.U
     io.bp_npc         := Mux(bp_taken, BTB.io.readData, io.pc + 4.U)
 
     //BHT & PHT
