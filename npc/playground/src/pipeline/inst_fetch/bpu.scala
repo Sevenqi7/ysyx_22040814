@@ -69,12 +69,17 @@ class BPU_Cache(tagWidth: Int, nrSets: Int, nrLines: Int) extends Module{
 
 class BPU extends Module{
     val io = IO(new Bundle{
-        val pc       = Input(UInt(64.W))
+        val PF_npc   = Input(UInt(64.W))
+        val PF_pc    = Input(UInt(64.W))
         val bp_stall = Output(Bool())
         val bp_flush = Output(Bool())
 
         val ID_to_BPU_bus = Flipped(Decoupled(new ID_BPU_Message))
         val bp_npc     = Output(UInt(64.W))
+
+        //for debug
+        val BTB_rdata = Output(UInt(64.W))
+        val BTB_hit   = Output(Bool())
     })
 
     val ID_pc = io.ID_to_BPU_bus.bits.PC
@@ -100,7 +105,7 @@ class BPU extends Module{
     BTB.io.writeEn    := ID_br_taken
     BTB.io.writeData  := io.ID_to_BPU_bus.bits.br_target 
     io.bp_stall       := 0.U
-    io.bp_flush       := 0.U
+    io.bp_flush       := io.ID_to_BPU_bus.valid & (io.ID_to_BPU_bus.bits.PC =/= io.PF_pc)
     io.bp_npc         := Mux(bp_taken, BTB.io.readData, io.pc + 4.U)
 
     //BHT & PHT

@@ -195,9 +195,9 @@ module BPU_Cache(	// <stdin>:65:10
   reg  [15:0] cache_1_1_tag;	// bpu.scala:29:24
   reg  [63:0] cache_1_1_data;	// bpu.scala:29:24
   reg         cache_1_1_valid;	// bpu.scala:29:24
-  wire        _T_3 = io_raddr[19:4] == (io_raddr[0] ? cache_1_0_tag : cache_0_0_tag) & (io_raddr[0] ?
+  wire        _T_3 = io_raddr[18:3] == (io_raddr[0] ? cache_1_0_tag : cache_0_0_tag) & (io_raddr[0] ?
                 cache_1_0_valid : cache_0_0_valid);	// <stdin>:107:15, bpu.scala:29:24, :33:24, :40:{20,44}
-  wire        _T_7 = io_raddr[19:4] == (io_raddr[0] ? cache_1_1_tag : cache_0_1_tag) & (io_raddr[0] ?
+  wire        _T_7 = io_raddr[18:3] == (io_raddr[0] ? cache_1_1_tag : cache_0_1_tag) & (io_raddr[0] ?
                 cache_1_1_valid : cache_0_1_valid);	// <stdin>:107:15, bpu.scala:29:24, :33:24, :40:{20,44}
   always @(posedge clock) begin
     if (reset) begin
@@ -221,8 +221,8 @@ module BPU_Cache(	// <stdin>:65:10
       automatic logic       _GEN_0;	// bpu.scala:63:37
       automatic logic       _GEN_1;	// bpu.scala:29:24, :59:21, :63:37
       automatic logic       _GEN_2;	// bpu.scala:29:24, :59:21, :63:37
-      _T_11 = io_waddr[19:4] == (io_waddr[0] ? cache_1_1_tag : cache_0_1_tag);	// <stdin>:129:17, bpu.scala:29:24, :47:24, :54:19
-      _T_18 = ~io_writeEn | _T_11 | io_waddr[19:4] == (io_waddr[0] ? cache_1_0_tag : cache_0_0_tag) ?
+      _T_11 = io_waddr[18:3] == (io_waddr[0] ? cache_1_1_tag : cache_0_1_tag);	// <stdin>:129:17, bpu.scala:29:24, :47:24, :54:19
+      _T_18 = ~io_writeEn | _T_11 | io_waddr[18:3] == (io_waddr[0] ? cache_1_0_tag : cache_0_0_tag) ?
                                                 {1'h0, _T_11} : {_writeIDX_prng_io_out_1, _writeIDX_prng_io_out_0};	// <stdin>:129:17, PRNG.scala:91:22, bpu.scala:29:{24,56}, :47:24, :54:{19,42}, :55:22, :59:21, :60:24, :61:22
       _GEN = _T_18 == 2'h0;	// bpu.scala:54:42, :59:21, :60:24, :63:37
       _GEN_0 = _T_18 == 2'h1;	// bpu.scala:54:42, :59:21, :60:24, :63:37
@@ -231,24 +231,24 @@ module BPU_Cache(	// <stdin>:65:10
       if (~io_writeEn | io_waddr[0] | ~_GEN) begin	// <stdin>:129:17, bpu.scala:29:24, :54:42, :59:21, :60:24, :63:37, :64:37
       end
       else begin	// <stdin>:129:17, bpu.scala:29:24, :54:42, :59:21, :60:24, :63:37, :64:37
-        cache_0_0_tag <= io_waddr[19:4];	// bpu.scala:29:24, :47:24
+        cache_0_0_tag <= io_waddr[18:3];	// bpu.scala:29:24, :47:24
         cache_0_0_data <= io_writeData;	// bpu.scala:29:24
       end
       cache_0_0_valid <= io_writeEn & ~(io_waddr[0]) & _GEN | cache_0_0_valid;	// <stdin>:129:17, bpu.scala:29:24, :59:21, :63:37
       if (~io_writeEn | io_waddr[0] | ~_GEN_0) begin	// <stdin>:129:17, bpu.scala:29:24, :54:42, :59:21, :60:24, :63:37, :64:37
       end
       else begin	// <stdin>:129:17, bpu.scala:29:24, :54:42, :59:21, :60:24, :63:37, :64:37
-        cache_0_1_tag <= io_waddr[19:4];	// bpu.scala:29:24, :47:24
+        cache_0_1_tag <= io_waddr[18:3];	// bpu.scala:29:24, :47:24
         cache_0_1_data <= io_writeData;	// bpu.scala:29:24
       end
       cache_0_1_valid <= io_writeEn & ~(io_waddr[0]) & _GEN_0 | cache_0_1_valid;	// <stdin>:129:17, bpu.scala:29:24, :59:21, :63:37
       if (_GEN_1) begin	// bpu.scala:29:24, :59:21, :63:37
-        cache_1_0_tag <= io_waddr[19:4];	// bpu.scala:29:24, :47:24
+        cache_1_0_tag <= io_waddr[18:3];	// bpu.scala:29:24, :47:24
         cache_1_0_data <= io_writeData;	// bpu.scala:29:24
       end
       cache_1_0_valid <= _GEN_1 | cache_1_0_valid;	// bpu.scala:29:24, :59:21, :63:37
       if (_GEN_2) begin	// bpu.scala:29:24, :59:21, :63:37
-        cache_1_1_tag <= io_waddr[19:4];	// bpu.scala:29:24, :47:24
+        cache_1_1_tag <= io_waddr[18:3];	// bpu.scala:29:24, :47:24
         cache_1_1_data <= io_writeData;	// bpu.scala:29:24
       end
       cache_1_1_valid <= _GEN_2 | cache_1_1_valid;	// bpu.scala:29:24, :59:21, :63:37
