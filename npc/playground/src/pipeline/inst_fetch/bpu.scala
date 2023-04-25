@@ -113,7 +113,7 @@ class BPU extends Module{
     io.bp_npc         := Mux(bp_taken, BTB.io.readData, io.PF_npc + 4.U)
     io.bp_npc         := MuxCase(io.PF_npc + 4.U, Seq(
                             (io.bp_flush, ID_pc + 4.U    ),
-                            (br_taken   , BTB.io.readData)
+                            (bp_taken   , BTB.io.readData)
                         ))
 
     //BHT & PHT
