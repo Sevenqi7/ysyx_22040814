@@ -33,6 +33,10 @@ class IF_pre_fetch extends Module{
     }
 
     axi_req.valid   := 1.U
+    PF_npc := MuxCase(io.bp_npc, Seq(
+        (bp_fail_r, PF_npc ),
+        (io.stall , io.PF_pc)
+    ))
     PF_npc := Mux(!io.stall, io.bp_npc, io.PF_npc)
     // PF_npc      := MuxCase(io.PF_npc+4.U, Seq(
     //     (io.bp_fail, io.ID_npc),
