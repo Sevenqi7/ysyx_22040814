@@ -10,7 +10,7 @@ object PH_State{
 }
 
 class CacheLine extends Bundle{
-    val tag  = UInt()
+    val tag  = UInt(16.W)
     val data = UInt(64.W)
     val valid = Bool()
 }
