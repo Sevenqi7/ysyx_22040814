@@ -54,11 +54,11 @@ class BPU_Cache(tagWidth: Int, nrSets: Int, nrLines: Int) extends Module{
         }
     }
     when(io.writeEn){
-        when((writeIDX >> 2).asBool){
+        when((writeIDX & "b100".U).asBool){
             writeIDX := random.LFSR(16)(setWidth, 0)
         }
         cache(wset)(writeIDX).valid := 1.U
-        cache(wset)(writeIDX).tag   := wtag
+        // cache(wset)(writeIDX).tag   := wtag
         cache(wset)(writeIDX).data  := io.writeData
     }
     
