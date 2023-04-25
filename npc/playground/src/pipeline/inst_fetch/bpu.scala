@@ -100,7 +100,7 @@ class BPU extends Module{
     val BTB = Module(new BPU_Cache(16, 8, 2))
 
     //BTB
-    BTB.io.raddr      := io.pc
+    BTB.io.raddr      := io.PF_npc
     BTB.io.waddr      := ID_pc
     BTB.io.writeEn    := ID_br_taken
     BTB.io.writeData  := io.ID_to_BPU_bus.bits.br_target 
@@ -110,8 +110,8 @@ class BPU extends Module{
 
     //BHT & PHT
     //1.prediction
-    val bht_idx = hash(io.pc)
-    val pht_idx = BHT(bht_idx) ^ io.pc(3, 0)
+    val bht_idx = hash(io.PF_npc)
+    val pht_idx = BHT(bht_idx) ^ io.PF_npc(3, 0)
 
     bp_taken     := 0.U
     when(BTB.io.hit){

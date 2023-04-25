@@ -90,7 +90,8 @@ class top extends Module{
     simulate.io.WB_Inst                     := wb_unit.io.WB_Inst
     simulate.io.unknown_inst_flag           := inst_decode_unit.io.ID_unknown_inst
 
-    bp_unit.io.pc                           := inst_fetch_unit.io.PF_pc
+    bp_unit.io.PF_npc                       := inst_fetch_unit.io.PF_npc
+    bp_unit.io.PF_pc                        := inst_fetch_unit.io.PF_pc
     inst_fetch_unit.io.bp_npc               := bp_unit.io.bp_npc
     inst_fetch_unit.io.bp_stall             := bp_unit.io.bp_stall
     inst_fetch_unit.io.bp_flush             := bp_unit.io.bp_flush
