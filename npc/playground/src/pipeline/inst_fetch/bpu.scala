@@ -47,14 +47,14 @@ class BPU_Cache(tagWidth: Int, nrSets: Int, nrLines: Int) extends Module{
     val wtag = io.waddr(tagWidth + setWidth - 1, setWidth)
     val wset = io.waddr(setWidth - 1, 0)
     val writeIDX = Wire(UInt((setWidth+1).W))
-    writeIDX := 1.U << (setWidth-1)        //the highest bit is used as writeHit
+    writeIDX := 1.U << setWidth        //the highest bit is used as writeHit
     for(i <- 0 until nrLines){
         when(wtag === cache(wset)(i).tag){
             writeIDX := i.U
         }
     }
     when(io.writeEn){
-        when((writeIDX >> (setWidth-1)).asBool){
+        when(writeIDX >> (setWidth-1).asBool){
             writeIDX := random.LFSR(16)(setWidth, 0)
         }
         cache(wset)(writeIDX).valid := 1.U
