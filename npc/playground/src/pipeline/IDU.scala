@@ -257,6 +257,7 @@ class IDU extends Module{
 
     io.ID_to_BPU_bus.bits.taken := br_taken
     io.ID_to_BPU_bus.valid      := (instType === TYPE_J) || (instType === TYPE_B) || (instType === TYPE_I  &&  src1 === NPC)
+    io.ID_to_BPU_bus.bits.PC    := IF_pc
 }
             
             
