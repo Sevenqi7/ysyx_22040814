@@ -62,7 +62,7 @@ class BPU_Cache(tagWidth: Int, nrSets: Int, nrLines: Int) extends RawModule{
     
 }
 
-class BPU extends RawModule{
+class BPU extends Module{
     val io = (new Bundle{
         val pc       = Input(UInt(64.W))
         val bp_stall = Output(Bool())
