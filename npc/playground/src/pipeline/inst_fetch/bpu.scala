@@ -105,7 +105,7 @@ class BPU extends Module{
     BTB.io.writeEn    := ID_br_taken
     BTB.io.writeData  := io.ID_to_BPU_bus.bits.br_target 
 
-    io.BTB_rdata      := BTB.io.rdata
+    io.BTB_rdata      := BTB.io.readData
     io.BTB_hit        := BTB.io.hit
 
     io.bp_stall       := 0.U

@@ -35,7 +35,7 @@ class top extends Module{
         val MEM_RegWriteData = Output(UInt(64.W))
         val stall   = Output(Bool())
 
-        val BTB_hit = Output(UInt(Bool()))
+        val BTB_hit = Output(Bool())
         val BTB_rdata = Output(UInt(64.W))
         val bp_npc  = Output(UInt(64.W))
         val bp_flush = Output(Bool())
