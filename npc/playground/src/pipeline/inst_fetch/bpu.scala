@@ -34,7 +34,7 @@ class BPU_Cache(tagWidth: Int, nrSets: Int, nrLines: Int) extends Module{
     val rset = io.raddr(setWidth - 1, 0)
 
     //read
-    io.readData := 7777.U       //Magic number, for debug
+    io.readData := 0x7777.U       //Magic number, for debug
     io.hit := 0.U
     for(i <- 0 until nrLines){
         when((rtag === cache(rset)(i).tag) & cache(rset)(i).valid){
@@ -79,7 +79,11 @@ class BPU extends Module{
         val bp_npc     = Output(UInt(64.W))
 
         //for debug
+        val BTB_raddr = Output(UInt(64.W))
         val BTB_rdata = Output(UInt(64.W))
+        val BTB_waddr = Output(UInt(64.W))
+        val BTB_wdata = Output(UInt(64.W))
+
         val BTB_hit   = Output(Bool())
     })
 
@@ -106,8 +110,12 @@ class BPU extends Module{
     BTB.io.writeEn    := ID_br_taken
     BTB.io.writeData  := io.ID_to_BPU_bus.bits.br_target 
 
+    //debug
     io.BTB_rdata      := BTB.io.readData
     io.BTB_hit        := BTB.io.hit
+    io.BTB_waddr      := ID_pc
+    io.BTB_wdata      := Mux(ID_br_taken, io.ID_to_BPU_bus.bits.br_target, 0.U)
+
 
     io.bp_stall       := 0.U
     io.bp_flush       := io.ID_to_BPU_bus.valid & io.PF_valid &(io.ID_to_BPU_bus.bits.PC =/= io.PF_pc)

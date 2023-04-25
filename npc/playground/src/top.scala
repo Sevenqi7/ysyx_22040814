@@ -37,6 +37,8 @@ class top extends Module{
 
         val BTB_hit = Output(Bool())
         val BTB_rdata = Output(UInt(64.W))
+        val BTB_waddr = Output(UInt(64.W))
+        val BTB_wdata = Output(UInt(64.W))
         val bp_npc  = Output(UInt(64.W))
         val bp_flush = Output(Bool())
 
@@ -65,6 +67,8 @@ class top extends Module{
     //for npc to trace
     io.BTB_hit   := bp_unit.io.BTB_hit
     io.BTB_rdata := bp_unit.io.BTB_rdata
+    io.BTB_waddr := bp_unit.io.BTB_waddr
+    io.BTB_wdata := bp_unit.io.BTB_wdata
     io.bp_npc    := bp_unit.io.bp_npc
     io.bp_flush  := bp_unit.io.bp_flush
 
