@@ -239,7 +239,8 @@ class IDU extends Module{
         is (BType.BGEU) {BJ_flag := rs1_data >= rs2_data                 }
     }
 
-    val br_taken = 0.U
+    val br_taken = Wire(Bool())
+    br_taken  := 0.U
     switch(instType){
         is (TYPE_J) {br_taken := 1.U            }
         is (TYPE_B) {br_taken := BJ_flag        }
