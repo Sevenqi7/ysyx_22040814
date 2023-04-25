@@ -67,6 +67,7 @@ class IFU extends Module{
     pre_fetch.io.IF_pc                      := io.IF_to_ID_bus.bits.PC
     pre_fetch.io.IF_valid                   := io.IF_to_ID_bus.valid
     pre_fetch.io.bp_flush                   := io.bp_flush
+    pre_fetch.io.bp_npc                     := io.bp_npc
     pre_fetch.io.stall                      := !io.IF_to_ID_bus.ready | io.bp_stall
 
     flush                                   := reset.asBool | io.bp_flush
