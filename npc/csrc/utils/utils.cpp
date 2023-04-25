@@ -11,6 +11,7 @@ void clock_step()
         top->eval();    
     }
 #ifdef CONFIG_DEBUGMSG
+    printf("\n");
     Log("bp_npc:0x%lx", top->io_bp_npc);
     Log("bp_flush:%d", top->io_bp_flush);
     Log("BTB_hit:%d", top->io_BTB_hit);
