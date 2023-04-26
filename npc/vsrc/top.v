@@ -3035,9 +3035,7 @@ module IF_pre_fetch(	// <stdin>:778:10
         PF_npc <= io_bp_npc;	// pre_fetch.scala:24:27
       else if (io_bp_taken)
         PF_npc <= io_bp_npc + 64'h4;	// pre_fetch.scala:24:27, :37:33, :39:47
-      else if (io_stall | ~axi_req_ready)	// pre_fetch.scala:27:17, :41:19
-        PF_npc <= rhsReg;	// pre_fetch.scala:24:27, tools.scala:32:33
-      else	// pre_fetch.scala:27:17, :41:19
+      else if (~(io_stall | ~axi_req_ready))	// pre_fetch.scala:27:17, :41:19
         PF_npc <= PF_npc + 64'h4;	// pre_fetch.scala:24:27, :37:33
       axi_busy <= ~axi_req_ready;	// pre_fetch.scala:26:27, :27:17
       bp_fail_r <= io_bp_flush | ~axi_req_ready & bp_fail_r;	// pre_fetch.scala:29:28, :30:22, :31:19, :32:30, :33:19
@@ -4984,7 +4982,6 @@ sim simulate (	// top.scala:24:26
    .GPR               (GPR),
    .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
 );
-
   RAMU ram_unit (	// top.scala:146:26
     .clock                        (clock),
     .reset                        (reset),
@@ -5196,6 +5193,7 @@ endmodule
 import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
 import "DPI-C" function void unknown_inst();
 import "DPI-C" function void ebreak(input longint halt_ret);
+
 
 
 
