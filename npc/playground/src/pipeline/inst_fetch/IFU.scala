@@ -44,6 +44,7 @@ class IFU extends Module{
         val IF_to_ID_bus = Decoupled(new IF_to_ID_Message)
         val bp_stall = Input(Bool())
         val bp_flush = Input(Bool())
+        val bp_taken = Input(Bool())
         val bp_npc   = Input(UInt(64.W))
         //for npc to trap
         val PF_npc  = Output(UInt(64.W))
@@ -70,6 +71,7 @@ class IFU extends Module{
     pre_fetch.io.IF_valid                   := io.IF_to_ID_bus.valid
     pre_fetch.io.bp_flush                   := io.bp_flush
     pre_fetch.io.bp_npc                     := io.bp_npc
+    pre_fetch.io.bp_taken                   := io.bp_taken
     pre_fetch.io.stall                      := !io.IF_to_ID_bus.ready | io.bp_stall
 
     flush                                   := reset.asBool | io.bp_flush

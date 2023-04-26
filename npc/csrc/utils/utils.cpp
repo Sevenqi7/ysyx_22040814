@@ -16,6 +16,8 @@ void clock_step()
     Log("bp_flush:%d", top->io_bp_flush);
     Log("BTB_hit:%d", top->io_BTB_hit);
     Log("BTB_rdata:0x%lx", top->io_BTB_rdata);
+    Log("BTB_waddr:0x%lx", top->io_BTB_waddr);
+    Log("BTB_wdata:0x%lx", top->io_BTB_wdata);
     Log("ID_npc:0x%lx", top->io_ID_npc);
     Log("PF_npc:0x%lx", top->io_PF_npc);
     Log("PF_pc:0x%lx", top->io_PF_pc);

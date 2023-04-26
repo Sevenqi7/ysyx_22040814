@@ -71,8 +71,10 @@ class BPU extends Module{
     val io = IO(new Bundle{
         val PF_npc   = Input(UInt(64.W))
         val PF_pc    = Input(UInt(64.W))
+        val PF_inst  = Input(UInt(32.W))
         val PF_valid = Input(Bool())
         val bp_stall = Output(Bool())
+        val bp_taken = Output(Bool())
         val bp_flush = Output(Bool())
 
         val ID_to_BPU_bus = Flipped(Decoupled(new ID_BPU_Message))
@@ -86,9 +88,19 @@ class BPU extends Module{
         val BTB_hit   = Output(Bool())
     })
 
+    //unpack bus from IDU
     val ID_pc = io.ID_to_BPU_bus.bits.PC
     val ID_br_taken = io.ID_to_BPU_bus.bits.taken
     io.ID_to_BPU_bus.ready := 1.U
+
+    //fast decode
+    val opcode = io.PF_inst(6, 0)
+    val B_type = Wire(Bool())
+    val J_type = Wire(Bool())
+ 
+    B_type  := (opcode === "b1100011".U)
+    J_type  := (opcode === "b1101111".U) || (opcode === "b1100111".U)
+
 
     val bp_taken = Wire(Bool())
 
@@ -104,7 +116,7 @@ class BPU extends Module{
     val BTB = Module(new BPU_Cache(16, 8, 2))
 
     //BTB
-    BTB.io.raddr      := io.PF_npc
+    BTB.io.raddr      := io.PF_pc
     BTB.io.waddr      := ID_pc
     BTB.io.writeEn    := ID_br_taken
     BTB.io.writeData  := io.ID_to_BPU_bus.bits.br_target 
@@ -115,18 +127,19 @@ class BPU extends Module{
     io.BTB_waddr      := ID_pc
     io.BTB_wdata      := Mux(ID_br_taken, io.ID_to_BPU_bus.bits.br_target, 0.U)
 
-
+    
+    io.bp_flush       := io.ID_to_BPU_bus.valid & io.PF_valid & (io.ID_to_BPU_bus.bits.PC =/= io.PF_pc)
+    io.bp_npc         := MuxCase(io.PF_pc + 4.U, Seq(
+        (io.bp_flush, io.ID_to_BPU_bus.bits.br_target),
+        (bp_taken   , BTB.io.readData                )
+        ))
+    io.bp_taken       := bp_taken
     io.bp_stall       := 0.U
-    io.bp_flush       := io.ID_to_BPU_bus.valid & io.PF_valid &(io.ID_to_BPU_bus.bits.PC =/= io.PF_pc)
-    io.bp_npc         := MuxCase(io.PF_npc + 4.U, Seq(
-                            (io.bp_flush, io.ID_to_BPU_bus.bits.br_target),
-                            (bp_taken   , BTB.io.readData                )
-                        ))
-
+        
     //BHT & PHT
     //1.prediction
-    val bht_idx = hash(io.PF_npc)
-    val pht_idx = BHT(bht_idx) ^ io.PF_npc(3, 0)
+    val bht_idx = hash(io.PF_pc)
+    val pht_idx = BHT(bht_idx) ^ io.PF_pc(3, 0)
 
     bp_taken     := 0.U
     when(BTB.io.hit){

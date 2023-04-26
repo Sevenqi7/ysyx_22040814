@@ -13,6 +13,7 @@ class IF_pre_fetch extends Module{
         val PF_pc        = Output(UInt(64.W))
         val stall        = Input(Bool())
         val bp_npc       = Input(UInt(64.W))
+        val bp_taken     = Input(Bool())
         val bp_flush     = Input(Bool())
 
         val PF_npc       = Output(UInt(64.W))
@@ -33,9 +34,10 @@ class IF_pre_fetch extends Module{
     }
 
     axi_req.valid   := 1.U
-    PF_npc := MuxCase(io.bp_npc, Seq(
-        (io.bp_flush              , io.bp_npc),
-        (io.stall | !axi_req.ready, io.PF_npc)
+    PF_npc := MuxCase(io.PF_npc + 4.U, Seq(
+        (io.bp_flush              , io.bp_npc      ),
+        (io.bp_taken              , io.bp_npc + 4.U),
+        (io.stall | !axi_req.ready, io.PF_npc      )
     ))
     // PF_npc      := MuxCase(io.PF_npc+4.U, Seq(
     //     (io.bp_fail, io.ID_npc),

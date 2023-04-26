@@ -108,6 +108,7 @@ class top extends Module{
     bp_unit.io.PF_pc                        := inst_fetch_unit.io.PF_pc
     bp_unit.io.PF_valid                     := inst_fetch_unit.io.PF_valid
     inst_fetch_unit.io.bp_npc               := bp_unit.io.bp_npc
+    inst_fetch_unit.io.bp_taken             := bp_unit.io.bp_taken
     inst_fetch_unit.io.bp_stall             := bp_unit.io.bp_stall
     inst_fetch_unit.io.bp_flush             := bp_unit.io.bp_flush
     bp_unit.io.ID_to_BPU_bus                <> inst_decode_unit.io.ID_to_BPU_bus
