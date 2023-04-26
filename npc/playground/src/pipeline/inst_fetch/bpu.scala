@@ -31,7 +31,7 @@ class BPU_Cache(tagWidth: Int, nrSets: Int, nrLines: Int) extends Module{
     cacheline.tag := 0.U
     cacheline.data := 0.U
     cacheline.valid := 0.U
-    val cache = RegInit(Vec(nrSets, Seq.fill(nrLines)(cacheline)))
+    val cache = RegInit(VecInit.fill(nrSets, nrLines)(cacheline))
 
     val setWidth = log2Ceil(nrSets)
     val lineWidth = log2Ceil(nrLines)
