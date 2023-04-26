@@ -23,6 +23,12 @@ class BPU_Cache(tagWidth: Int, nrSets: Int, nrLines: Int) extends Module{
         val writeEn   = Input(Bool())
         val readData = Output(UInt(64.W))
         val hit  = Output(Bool())
+
+        //debug
+        val wset = Output(UInt(log2Ceil(nrSets).W))
+        val wtag = Output(UInt(tagWidth.W))
+        val rset = Output(UInt(log2Ceil(nrSets).W))
+        val rtag = Output(UInt(tagWidth.W))
     })
 
     // val cache = RegInit(Vec(nrSets, VecInit(Seq.fill(nrLines)(0.U.asTypeOf(new CacheLine)))))
@@ -77,6 +83,10 @@ class BPU_Cache(tagWidth: Int, nrSets: Int, nrLines: Int) extends Module{
         cache(wset)(writeIDX).data  := io.writeData
     }
     
+    io.wset := wset
+    io.rset := rset
+    io.wtag := wtag
+    io.rtag := rtag
 }
 
 class BPU extends Module{
@@ -93,9 +103,11 @@ class BPU extends Module{
         val bp_npc     = Output(UInt(64.W))
 
         //for debug
-        val BTB_raddr = Output(UInt(64.W))
+        val BTB_wset = Output(UInt(2.W))
+        val BTB_wtag = Output(UInt(16.W))
+        val BTB_rset = Output(UInt(2.W))
+        val BTB_rtag = Output(UInt(16.W))
         val BTB_rdata = Output(UInt(64.W))
-        val BTB_waddr = Output(UInt(64.W))
         val BTB_wdata = Output(UInt(64.W))
 
         val BTB_hit   = Output(Bool())
@@ -135,10 +147,12 @@ class BPU extends Module{
     BTB.io.writeData  := io.ID_to_BPU_bus.bits.br_target 
 
     //debug
-    io.BTB_raddr      := BTB.io.raddr
+    io.BTB_rtag       := BTB.io.rtag
+    io.BTB_rset       := BTB.io.rset
     io.BTB_rdata      := BTB.io.readData
     io.BTB_hit        := BTB.io.hit
-    io.BTB_waddr      := ID_pc
+    io.BTB_wtag       := BTB.io.wtag
+    io.BTB_wset       := BTB.io.wset
     io.BTB_wdata      := Mux(ID_br_taken, io.ID_to_BPU_bus.bits.br_target, 0.U)
 
     

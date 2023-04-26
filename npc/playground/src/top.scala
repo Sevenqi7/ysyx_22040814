@@ -36,9 +36,11 @@ class top extends Module{
         val stall   = Output(Bool())
 
         val BTB_hit = Output(Bool())
-        val BTB_raddr = Output(UInt(64.W))
+        val BTB_wset = Output(UInt(2.W))
+        val BTB_wtag = Output(UInt(16.W))
+        val BTB_rset = Output(UInt(2.W))
+        val BTB_rtag = Output(UInt(16.W))
         val BTB_rdata = Output(UInt(64.W))
-        val BTB_waddr = Output(UInt(64.W))
         val BTB_wdata = Output(UInt(64.W))
         val bp_npc  = Output(UInt(64.W))
         val bp_taken = Output(Bool())
@@ -68,7 +70,10 @@ class top extends Module{
 
     //for npc to trace
     io.BTB_hit   := bp_unit.io.BTB_hit
-    io.BTB_raddr := bp_unit.io.BTB_raddr
+    io.BTB_rset  := bp_unit.io.BTB_rset
+    io.BTB_rtag  := bp_unit.io.BTB_rtag
+    io.BTB_wset  := bp_unit.io.BTB_wset
+    io.BTB_wtag  := bp_unit.io.BTB_wtag
     io.BTB_rdata := bp_unit.io.BTB_rdata
     io.BTB_waddr := bp_unit.io.BTB_waddr
     io.BTB_wdata := bp_unit.io.BTB_wdata
