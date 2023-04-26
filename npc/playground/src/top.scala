@@ -40,6 +40,7 @@ class top extends Module{
         val BTB_waddr = Output(UInt(64.W))
         val BTB_wdata = Output(UInt(64.W))
         val bp_npc  = Output(UInt(64.W))
+        val bp_taken = Output(Bool())
         val bp_flush = Output(Bool())
 
         val IF_Inst = Output(UInt(32.W))
@@ -70,6 +71,7 @@ class top extends Module{
     io.BTB_waddr := bp_unit.io.BTB_waddr
     io.BTB_wdata := bp_unit.io.BTB_wdata
     io.bp_npc    := bp_unit.io.bp_npc
+    io.bp_taken  := bp_unit.io.bp_taken
     io.bp_flush  := bp_unit.io.bp_flush
 
     io.IF_Inst  := inst_fetch_unit.io.IF_to_ID_bus.bits.Inst
