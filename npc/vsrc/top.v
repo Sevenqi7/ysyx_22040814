@@ -236,49 +236,49 @@ module BPU_Cache(	// <stdin>:65:10
   reg  [63:0]      cache_7_1_data;	// bpu.scala:40:24
   reg              cache_7_1_valid;	// bpu.scala:40:24
   wire [7:0][15:0] _GEN = {{cache_7_0_tag}, {cache_6_0_tag}, {cache_5_0_tag}, {cache_4_0_tag}, {cache_3_0_tag},
-                {cache_2_0_tag}, {cache_1_0_tag}, {cache_0_0_tag}};	// bpu.scala:40:24, :52:20
-  wire [15:0]      _GEN_0;	// bpu.scala:52:20
+                {cache_2_0_tag}, {cache_1_0_tag}, {cache_0_0_tag}};	// bpu.scala:40:24, :52:19
+  wire [15:0]      _GEN_0;	// bpu.scala:52:19
   /* synopsys infer_mux_override */
-  assign _GEN_0 = _GEN[io_raddr[2:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:20
+  assign _GEN_0 = _GEN[io_raddr[2:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
   wire [7:0][63:0] _GEN_1 = {{cache_7_0_data}, {cache_6_0_data}, {cache_5_0_data}, {cache_4_0_data}, {cache_3_0_data},
-                {cache_2_0_data}, {cache_1_0_data}, {cache_0_0_data}};	// bpu.scala:40:24, :52:20
-  wire [63:0]      _GEN_2;	// bpu.scala:52:20
+                {cache_2_0_data}, {cache_1_0_data}, {cache_0_0_data}};	// bpu.scala:40:24, :52:19
+  wire [63:0]      _GEN_2;	// bpu.scala:52:19
   /* synopsys infer_mux_override */
-  assign _GEN_2 = _GEN_1[io_raddr[2:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:20
+  assign _GEN_2 = _GEN_1[io_raddr[2:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
   wire [7:0]       _GEN_3 = {{cache_7_0_valid}, {cache_6_0_valid}, {cache_5_0_valid}, {cache_4_0_valid},
-                {cache_3_0_valid}, {cache_2_0_valid}, {cache_1_0_valid}, {cache_0_0_valid}};	// bpu.scala:40:24, :52:20
-  wire             _GEN_4;	// bpu.scala:52:20
+                {cache_3_0_valid}, {cache_2_0_valid}, {cache_1_0_valid}, {cache_0_0_valid}};	// bpu.scala:40:24, :52:19
+  wire             _GEN_4;	// bpu.scala:52:19
   /* synopsys infer_mux_override */
-  assign _GEN_4 = _GEN_3[io_raddr[2:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:20
+  assign _GEN_4 = _GEN_3[io_raddr[2:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
   wire [7:0][15:0] _GEN_5 = {{cache_7_1_tag}, {cache_6_1_tag}, {cache_5_1_tag}, {cache_4_1_tag}, {cache_3_1_tag},
-                {cache_2_1_tag}, {cache_1_1_tag}, {cache_0_1_tag}};	// bpu.scala:40:24, :52:20
-  wire [15:0]      _GEN_6;	// bpu.scala:52:20
+                {cache_2_1_tag}, {cache_1_1_tag}, {cache_0_1_tag}};	// bpu.scala:40:24, :52:19
+  wire [15:0]      _GEN_6;	// bpu.scala:52:19
   /* synopsys infer_mux_override */
-  assign _GEN_6 = _GEN_5[io_raddr[2:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:20
+  assign _GEN_6 = _GEN_5[io_raddr[2:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
   wire [7:0][63:0] _GEN_7 = {{cache_7_1_data}, {cache_6_1_data}, {cache_5_1_data}, {cache_4_1_data}, {cache_3_1_data},
-                {cache_2_1_data}, {cache_1_1_data}, {cache_0_1_data}};	// bpu.scala:40:24, :52:20
-  wire [63:0]      _GEN_8;	// bpu.scala:52:20
+                {cache_2_1_data}, {cache_1_1_data}, {cache_0_1_data}};	// bpu.scala:40:24, :52:19
+  wire [63:0]      _GEN_8;	// bpu.scala:52:19
   /* synopsys infer_mux_override */
-  assign _GEN_8 = _GEN_7[io_raddr[2:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:20
+  assign _GEN_8 = _GEN_7[io_raddr[2:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
   wire [7:0]       _GEN_9 = {{cache_7_1_valid}, {cache_6_1_valid}, {cache_5_1_valid}, {cache_4_1_valid},
-                {cache_3_1_valid}, {cache_2_1_valid}, {cache_1_1_valid}, {cache_0_1_valid}};	// bpu.scala:40:24, :52:20
-  wire             _GEN_10;	// bpu.scala:52:20
+                {cache_3_1_valid}, {cache_2_1_valid}, {cache_1_1_valid}, {cache_0_1_valid}};	// bpu.scala:40:24, :52:19
+  wire             _GEN_10;	// bpu.scala:52:19
   /* synopsys infer_mux_override */
-  assign _GEN_10 = _GEN_9[io_raddr[2:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:20
-  wire             _T_1 = io_raddr[18:3] == _GEN_0 & _GEN_4;	// bpu.scala:45:24, :52:{20,44}
-  wire             _T_3 = io_raddr[18:3] == _GEN_6 & _GEN_10;	// bpu.scala:45:24, :52:{20,44}
+  assign _GEN_10 = _GEN_9[io_raddr[2:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
+  wire             _T_1 = io_raddr[18:3] == _GEN_0 & _GEN_4;	// bpu.scala:45:24, :52:{19,42}
+  wire             _T_3 = io_raddr[18:3] == _GEN_6 & _GEN_10;	// bpu.scala:45:24, :52:{19,42}
   wire [15:0]      _GEN_11;	// bpu.scala:66:14
   /* synopsys infer_mux_override */
-  assign _GEN_11 = _GEN[io_waddr[2:0]] /* cadence map_to_mux */;	// bpu.scala:52:20, :60:24, :66:14
+  assign _GEN_11 = _GEN[io_waddr[2:0]] /* cadence map_to_mux */;	// bpu.scala:52:19, :60:24, :66:14
   wire             _GEN_12;	// bpu.scala:66:14
   /* synopsys infer_mux_override */
-  assign _GEN_12 = _GEN_3[io_waddr[2:0]] /* cadence map_to_mux */;	// bpu.scala:52:20, :60:24, :66:14
+  assign _GEN_12 = _GEN_3[io_waddr[2:0]] /* cadence map_to_mux */;	// bpu.scala:52:19, :60:24, :66:14
   wire [15:0]      _GEN_13;	// bpu.scala:66:14
   /* synopsys infer_mux_override */
-  assign _GEN_13 = _GEN_5[io_waddr[2:0]] /* cadence map_to_mux */;	// bpu.scala:52:20, :60:24, :66:14
+  assign _GEN_13 = _GEN_5[io_waddr[2:0]] /* cadence map_to_mux */;	// bpu.scala:52:19, :60:24, :66:14
   wire             _GEN_14;	// bpu.scala:66:14
   /* synopsys infer_mux_override */
-  assign _GEN_14 = _GEN_9[io_waddr[2:0]] /* cadence map_to_mux */;	// bpu.scala:52:20, :60:24, :66:14
+  assign _GEN_14 = _GEN_9[io_waddr[2:0]] /* cadence map_to_mux */;	// bpu.scala:52:19, :60:24, :66:14
   always @(posedge clock) begin
     if (reset) begin
       cache_0_0_tag <= 16'h0;	// bpu.scala:37:19, :40:24
@@ -613,17 +613,12 @@ module BPU_Cache(	// <stdin>:65:10
     .io_out_14 (_writeIDX_prng_io_out_14),
     .io_out_15 (_writeIDX_prng_io_out_15)
   );
-  assign io_readData = _T_3 ? _GEN_8 : _T_1 ? _GEN_2 : 64'h7777;	// <stdin>:65:10, bpu.scala:49:17, :52:{20,44,67}, :54:25
-  assign io_hit = _T_3 | _T_1;	// <stdin>:65:10, bpu.scala:52:{44,67}, :53:20
+  assign io_readData = _T_3 ? _GEN_8 : _T_1 ? _GEN_2 : 64'h7777;	// <stdin>:65:10, bpu.scala:49:17, :52:{19,42,66}, :54:25
+  assign io_hit = _T_3 | _T_1;	// <stdin>:65:10, bpu.scala:52:{42,66}, :53:20
   assign io_wset = io_waddr[2:0];	// <stdin>:65:10, bpu.scala:60:24
   assign io_wtag = io_waddr[18:3];	// <stdin>:65:10, bpu.scala:59:24
   assign io_rset = io_raddr[2:0];	// <stdin>:65:10, bpu.scala:46:24
   assign io_rtag = io_raddr[18:3];	// <stdin>:65:10, bpu.scala:45:24
-
-  always@(posedge clock) begin
-        $display("ee:0x%x 0x%x 0x%x", cache_0_0_tag, cache_0_0_data, cache_0_0_valid);
-        $display("rtag:0x%x", io_rtag);
-  end
 endmodule
 
 module BPU(	// <stdin>:178:10
@@ -5382,4 +5377,3 @@ module sim(input[63:0] IF_pc, input [63:0] GPR [31:0], input unknown_inst_flag, 
 endmodule
 
 // ----- 8< ----- FILE "firrtl_black_box_resource_files.f" ----- 8< -----
-

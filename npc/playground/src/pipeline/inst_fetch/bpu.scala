@@ -103,9 +103,9 @@ class BPU extends Module{
         val bp_npc     = Output(UInt(64.W))
 
         //for debug
-        val BTB_wset = Output(UInt(2.W))
+        val BTB_wset = Output(UInt(3.W))
         val BTB_wtag = Output(UInt(16.W))
-        val BTB_rset = Output(UInt(2.W))
+        val BTB_rset = Output(UInt(3.W))
         val BTB_rtag = Output(UInt(16.W))
         val BTB_rdata = Output(UInt(64.W))
         val BTB_wdata = Output(UInt(64.W))
