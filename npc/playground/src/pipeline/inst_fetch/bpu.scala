@@ -49,7 +49,7 @@ class BPU_Cache(tagWidth: Int, nrSets: Int, nrLines: Int) extends Module{
     io.readData := 0x7777.U       //Magic number, for debug
     io.hit := 0.U
     for(i <- 0 until nrLines){
-        when((rtag === cache(rset)(i).tag) & cache(rset)(i).valid){
+        when(rtag === cache(rset)(i).tag && cache(rset)(i).valid){
             io.hit := 1.U
             io.readData := cache(rset)(i).data
         }
