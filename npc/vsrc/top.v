@@ -3035,7 +3035,9 @@ module IF_pre_fetch(	// <stdin>:778:10
         PF_npc <= io_bp_npc;	// pre_fetch.scala:24:27
       else if (_axi_lite_readAddr_bits_addr_T)	// pre_fetch.scala:27:17, :39:{23,38}
         PF_npc <= io_bp_npc + 64'h4;	// pre_fetch.scala:24:27, :37:33, :40:47
-      else if (~(io_stall | ~axi_req_ready))	// pre_fetch.scala:27:17, :39:{23,38}, :42:19
+      else if (io_stall | ~axi_req_ready)	// pre_fetch.scala:27:17, :39:{23,38}, :42:19
+        PF_npc <= rhsReg;	// pre_fetch.scala:24:27, tools.scala:32:33
+      else	// pre_fetch.scala:27:17, :39:{23,38}, :42:19
         PF_npc <= PF_npc + 64'h4;	// pre_fetch.scala:24:27, :37:33
       axi_busy <= ~axi_req_ready;	// pre_fetch.scala:26:27, :27:17
       if (~(io_stall | ~axi_req_ready)) begin	// pre_fetch.scala:27:17, :51:128
@@ -4962,7 +4964,6 @@ module top(	// <stdin>:2314:10
     .bresp   (_inst_ram_bresp),
     .bvalid  (_inst_ram_bvalid)
   );
-
 wire [63:0] GPR [31:0];
 assign {GPR[31], GPR[30], GPR[29], GPR[28], GPR[27], GPR[26], GPR[25], GPR[24], GPR[23], GPR[22], GPR[21], GPR[20]
 , GPR[19], GPR[18], GPR[17], GPR[16], GPR[15], GPR[14], GPR[13], GPR[12], GPR[11], GPR[10], GPR[9], GPR[8], GPR[7]
@@ -5194,6 +5195,7 @@ endmodule
 import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
 import "DPI-C" function void unknown_inst();
 import "DPI-C" function void ebreak(input longint halt_ret);
+
 
 
 
