@@ -29,6 +29,7 @@ class BPU_Cache(tagWidth: Int, nrSets: Int, nrLines: Int) extends Module{
     val cache = RegInit(VecInit.fill(2, 3)(0.U.asTypeOf(new CacheLine)))
 
     val setWidth = log2Ceil(nrSets)
+    val lineWidth = log2Ceil(nrLines)
 
     val rtag = io.raddr(tagWidth + setWidth - 1, setWidth)
     val rset = io.raddr(setWidth - 1, 0)
@@ -46,7 +47,7 @@ class BPU_Cache(tagWidth: Int, nrSets: Int, nrLines: Int) extends Module{
     //write
     val wtag = io.waddr(tagWidth + setWidth - 1, setWidth)
     val wset = io.waddr(setWidth - 1, 0)
-    val writeIDX = Wire(UInt(setWidth.W))
+    val writeIDX = Wire(UInt(lineWidth.W))
     val writeHit = Wire(Bool())
     writeIDX := 0.U
     writeHit := 0.U
@@ -58,7 +59,7 @@ class BPU_Cache(tagWidth: Int, nrSets: Int, nrLines: Int) extends Module{
     }
     when(io.writeEn){
         when(!writeHit){
-            writeIDX := random.LFSR(16)(setWidth, 0)
+            writeIDX := random.LFSR(16)(lineWidth, 0)
         }
         cache(wset)(writeIDX).valid := 1.U
         cache(wset)(writeIDX).tag   := wtag
