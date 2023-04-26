@@ -82,6 +82,7 @@ class BPU extends Module{
         val bp_npc     = Output(UInt(64.W))
 
         //for debug
+        val BTB_raddr = Output(UInt(64.W))
         val BTB_rdata = Output(UInt(64.W))
         val BTB_waddr = Output(UInt(64.W))
         val BTB_wdata = Output(UInt(64.W))
@@ -123,6 +124,7 @@ class BPU extends Module{
     BTB.io.writeData  := io.ID_to_BPU_bus.bits.br_target 
 
     //debug
+    io.BTB_raddr      := BTB.io.raddr
     io.BTB_rdata      := BTB.io.readData
     io.BTB_hit        := BTB.io.hit
     io.BTB_waddr      := ID_pc
