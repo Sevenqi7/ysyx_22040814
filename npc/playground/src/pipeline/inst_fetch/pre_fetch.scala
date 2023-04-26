@@ -35,10 +35,10 @@ class IF_pre_fetch extends Module{
 
     axi_req.valid   := 1.U
     PF_npc := MuxCase(io.PF_npc + 4.U, Seq(
-        (io.bp_flush              , io.bp_npc      ),
-        (io.bp_taken              , io.bp_npc + 4.U),
+        // (io.bp_flush              , io.bp_npc      ),
+        (io.bp_taken | io.bp_flush   , io.bp_npc + 4.U),
         // (bp_fail_r.asBool         , io.PF_npc      ),
-        (io.stall | !axi_req.ready, io.PF_pc       )
+        (io.stall | !axi_req.ready, io.PF_npc       )
     ))
     // PF_npc      := MuxCase(io.PF_npc+4.U, Seq(
     //     (io.bp_fail, io.ID_npc),
@@ -47,7 +47,7 @@ class IF_pre_fetch extends Module{
     // ))
 
     
-    regConnectWithResetAndStall(io.PF_pc, Mux(io.bp_taken, io.bp_npc, PF_npc), reset.asBool | io.bp_flush, 0.U(64.W), io.stall | !axi_req.ready)
+    regConnectWithResetAndStall(io.PF_pc, Mux(io.bp_taken | io.bp_flush, io.bp_npc, PF_npc), reset.asBool, 0.U(64.W), io.stall | !axi_req.ready)
 
     //IFU doesn't write mem
     axi_lite.writeAddr.valid        := 0.U
@@ -59,7 +59,7 @@ class IF_pre_fetch extends Module{
 
     //Fetch inst from sram
     axi_lite.readAddr.valid         := !io.stall
-    axi_lite.readAddr.bits.addr     := Mux(io.bp_taken, io.bp_npc, PF_npc(31, 0))
+    axi_lite.readAddr.bits.addr     := Mux(io.bp_taken | io.bp_flush, io.bp_npc, PF_npc(31, 0))
     axi_lite.readData.ready         := !io.stall
 
     io.inst                         := axi_lite.readData.bits.data(31, 0)
