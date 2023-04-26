@@ -26,12 +26,12 @@ class IF_pre_fetch extends Module{
     val axi_busy = RegInit(0.U(1.W))
     axi_busy := !axi_req.ready
 
-    val bp_fail_r = RegInit(0.U(1.W))
-    when(io.bp_flush){
-        bp_fail_r := 1.U
-    }.elsewhen(axi_req.ready){
-        bp_fail_r := 0.U
-    }
+    // val bp_fail_r = RegInit(0.U(1.W))
+    // when(io.bp_flush){
+    //     bp_fail_r := 1.U
+    // }.elsewhen(axi_req.ready){
+    //     bp_fail_r := 0.U
+    // }
 
     axi_req.valid   := 1.U
     PF_npc := MuxCase(io.PF_npc + 4.U, Seq(
@@ -63,6 +63,6 @@ class IF_pre_fetch extends Module{
     axi_lite.readData.ready         := !io.stall
 
     io.inst                         := axi_lite.readData.bits.data(31, 0)
-    io.inst_valid                   := (axi_lite.readData.valid && axi_lite.readData.bits.resp === 0.U) & !axi_busy & !bp_fail_r
+    io.inst_valid                   := (axi_lite.readData.valid && axi_lite.readData.bits.resp === 0.U) & !axi_busy
 
 }
