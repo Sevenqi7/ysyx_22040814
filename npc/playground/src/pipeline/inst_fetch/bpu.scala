@@ -57,6 +57,12 @@ class BPU_Cache(tagWidth: Int, nrSets: Int, nrLines: Int) extends Module{
     writeIDX := 0.U
     writeHit := 0.U
     for(i <- 0 until nrLines){
+        when(!cache(wset)(i).valid){
+            writeIDX := i.U
+            writeHit := 1.U
+        }
+    }
+    for(i <- 0 until nrLines){
         when(wtag === cache(wset)(i).tag){
             writeIDX := i.U
             writeHit := 1.U
