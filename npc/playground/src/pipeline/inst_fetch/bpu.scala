@@ -48,7 +48,7 @@ class BPU_Cache(tagWidth: Int, nrSets: Int, nrLines: Int) extends Module{
     //read
     io.readData := 0x7777.U       //Magic number, for debug
     io.hit := 0.U
-    for(i <- 0 until nrLines){
+    for(i <- 0 until nrLines-1){
         when(rtag === cache(rset)(i).tag && cache(rset)(i).valid){
             io.hit := 1.U
             io.readData := cache(rset)(i).data
@@ -62,13 +62,13 @@ class BPU_Cache(tagWidth: Int, nrSets: Int, nrLines: Int) extends Module{
     val writeHit = Wire(Bool())
     writeIDX := 0.U
     writeHit := 0.U
-    for(i <- 0 until nrLines){
+    for(i <- 0 until nrLines-1){
         when(!cache(wset)(i).valid){
             writeIDX := i.U
             writeHit := 1.U
         }
     }
-    for(i <- 0 until nrLines){
+    for(i <- 0 until nrLines-1){
         when(wtag === cache(wset)(i).tag){
             writeIDX := i.U
             writeHit := 1.U

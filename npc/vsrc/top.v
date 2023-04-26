@@ -619,6 +619,12 @@ module BPU_Cache(	// <stdin>:65:10
   assign io_wtag = io_waddr[18:3];	// <stdin>:65:10, bpu.scala:59:24
   assign io_rset = io_raddr[2:0];	// <stdin>:65:10, bpu.scala:46:24
   assign io_rtag = io_raddr[18:3];	// <stdin>:65:10, bpu.scala:45:24
+  always@(posedge clock) begin
+      $display("shabidongxi:%d %d", _T_3, _T_1);
+      $display("caonimade:0x%x: 0x%x 0x%x 0x%x", io_raddr[18:3], cache_0_1_valid, cache_0_1_tag, cache_0_1_data);
+      $display("?:0x%x 0x%x 0x%x",cache_0_1_valid, cache_0_0_tag, cache_0_0_data);
+      $display("zhentamaruozhi:0x%x", io_readData);
+  end
 endmodule
 
 module BPU(	// <stdin>:178:10
@@ -633,9 +639,9 @@ module BPU(	// <stdin>:178:10
   output        io_bp_taken,
                 io_bp_flush,
   output [63:0] io_bp_npc,
-  output [1:0]  io_BTB_wset,
+  output [2:0]  io_BTB_wset,
   output [15:0] io_BTB_wtag,
-  output [1:0]  io_BTB_rset,
+  output [2:0]  io_BTB_rset,
   output [15:0] io_BTB_rtag,
   output [63:0] io_BTB_rdata,
                 io_BTB_wdata,
@@ -644,8 +650,6 @@ module BPU(	// <stdin>:178:10
   wire              _GEN;	// bpu.scala:172:18, :173:21, :174:18
   wire [63:0]       _BTB_io_readData;	// bpu.scala:141:21
   wire              _BTB_io_hit;	// bpu.scala:141:21
-  wire [2:0]        _BTB_io_wset;	// bpu.scala:141:21
-  wire [2:0]        _BTB_io_rset;	// bpu.scala:141:21
   reg  [3:0]        BHT_0;	// bpu.scala:139:22
   reg  [3:0]        BHT_1;	// bpu.scala:139:22
   reg  [3:0]        BHT_2;	// bpu.scala:139:22
@@ -3141,17 +3145,15 @@ module BPU(	// <stdin>:178:10
     .io_writeEn   (io_ID_to_BPU_bus_bits_taken),
     .io_readData  (_BTB_io_readData),
     .io_hit       (_BTB_io_hit),
-    .io_wset      (_BTB_io_wset),
+    .io_wset      (io_BTB_wset),
     .io_wtag      (io_BTB_wtag),
-    .io_rset      (_BTB_io_rset),
+    .io_rset      (io_BTB_rset),
     .io_rtag      (io_BTB_rtag)
   );
   assign io_bp_taken = _GEN;	// <stdin>:178:10, bpu.scala:172:18, :173:21, :174:18
   assign io_bp_flush = _io_bp_flush_T_2;	// <stdin>:178:10, bpu.scala:159:63
   assign io_bp_npc = _io_bp_flush_T_2 ? io_ID_to_BPU_bus_bits_br_target : _GEN ? _BTB_io_readData : io_PF_pc +
                 64'h4;	// <stdin>:178:10, Mux.scala:101:16, bpu.scala:141:21, :159:63, :160:43, :172:18, :173:21, :174:18
-  assign io_BTB_wset = _BTB_io_wset[1:0];	// <stdin>:178:10, bpu.scala:141:21, :155:23
-  assign io_BTB_rset = _BTB_io_rset[1:0];	// <stdin>:178:10, bpu.scala:141:21, :151:23
   assign io_BTB_rdata = _BTB_io_readData;	// <stdin>:178:10, bpu.scala:141:21
   assign io_BTB_wdata = io_ID_to_BPU_bus_bits_taken ? io_ID_to_BPU_bus_bits_br_target : 64'h0;	// <stdin>:178:10, bpu.scala:156:29
   assign io_BTB_hit = _BTB_io_hit;	// <stdin>:178:10, bpu.scala:141:21
@@ -4732,9 +4734,9 @@ module top(	// <stdin>:2329:10
   output [63:0] io_MEM_RegWriteData,
   output        io_stall,
                 io_BTB_hit,
-  output [1:0]  io_BTB_wset,
+  output [2:0]  io_BTB_wset,
   output [15:0] io_BTB_wtag,
-  output [1:0]  io_BTB_rset,
+  output [2:0]  io_BTB_rset,
   output [15:0] io_BTB_rtag,
   output [63:0] io_BTB_rdata,
                 io_BTB_wdata,
@@ -5117,6 +5119,7 @@ module top(	// <stdin>:2329:10
     .bresp   (_inst_ram_bresp),
     .bvalid  (_inst_ram_bvalid)
   );
+
 wire [63:0] GPR [31:0];
 assign {GPR[31], GPR[30], GPR[29], GPR[28], GPR[27], GPR[26], GPR[25], GPR[24], GPR[23], GPR[22], GPR[21], GPR[20]
 , GPR[19], GPR[18], GPR[17], GPR[16], GPR[15], GPR[14], GPR[13], GPR[12], GPR[11], GPR[10], GPR[9], GPR[8], GPR[7]
@@ -5348,7 +5351,6 @@ endmodule
 import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
 import "DPI-C" function void unknown_inst();
 import "DPI-C" function void ebreak(input longint halt_ret);
-
 
 
 
