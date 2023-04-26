@@ -75,7 +75,6 @@ class top extends Module{
     io.BTB_wset  := bp_unit.io.BTB_wset
     io.BTB_wtag  := bp_unit.io.BTB_wtag
     io.BTB_rdata := bp_unit.io.BTB_rdata
-    io.BTB_waddr := bp_unit.io.BTB_waddr
     io.BTB_wdata := bp_unit.io.BTB_wdata
     io.bp_npc    := bp_unit.io.bp_npc
     io.bp_taken  := bp_unit.io.bp_taken
