@@ -147,8 +147,8 @@ class BPU extends Module{
     }    
 
 
-    val BHT = RegInit(VecInit(Seq.fill(256)(0.U(4.W))))
-    val PHT = RegInit(VecInit(Seq.fill(256)("b10".U(2.W))))
+    val BHT = RegInit(VecInit(Seq.fill(256)(0.U(5.W))))
+    val PHT = RegInit(VecInit(Seq.fill(512)("b01".U(2.W))))
     val BTB = Module(new BPU_Cache(16, 8, 3))
 
     //BTB
@@ -178,7 +178,7 @@ class BPU extends Module{
     //BHT & PHT
     //1.prediction
     val bht_idx = hash(io.PF_pc)
-    val pht_idx = BHT(bht_idx) ^ io.PF_pc(3, 0)
+    val pht_idx = BHT(bht_idx) ^ io.PF_pc(4, 0)
 
     bp_taken     := 0.U
     when(BTB.io.hit & io.PF_valid & (B_type | J_type)){
@@ -188,7 +188,7 @@ class BPU extends Module{
     
     //2.update
     val up_bht_idx = hash(ID_pc)
-    val up_pht_idx = BHT(up_bht_idx) ^ ID_pc(3, 0)
+    val up_pht_idx = BHT(up_bht_idx) ^ ID_pc(4, 0)
     when(io.ID_to_BPU_bus.valid){
         BHT(up_bht_idx) := (BHT(up_bht_idx) << 1) + ID_br_taken
 
