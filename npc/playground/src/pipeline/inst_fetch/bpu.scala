@@ -127,7 +127,7 @@ class BPU extends Module{
     //     ret
     // }
     def hash(pc: UInt): UInt = {
-        val hashValue = (pc >> 2) ^ (pc >> 10) ^ (pc >> 18) ^ (pc >> 24)
+        qval hashValue = (pc >> 2) ^ (pc >> 10) ^ (pc >> 18) ^ (pc >> 24)
         hashValue(7, 0)
     }
     
