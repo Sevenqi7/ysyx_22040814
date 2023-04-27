@@ -474,6 +474,7 @@ module BPU(	// <stdin>:165:10
   input         clock,
                 reset,
   input  [63:0] io_PF_pc,
+  input  [31:0] io_PF_inst,
   input         io_PF_valid,
                 io_ID_to_BPU_bus_valid,
   input  [63:0] io_ID_to_BPU_bus_bits_PC,
@@ -490,523 +491,525 @@ module BPU(	// <stdin>:165:10
                 io_BTB_wdata,
   output        io_BTB_hit);
 
-  wire              _GEN;	// bpu.scala:172:18, :173:35, :174:18
-  wire [63:0]       _BTB_io_readData;	// bpu.scala:141:21
-  wire              _BTB_io_hit;	// bpu.scala:141:21
-  reg  [3:0]        BHT_0;	// bpu.scala:139:22
-  reg  [3:0]        BHT_1;	// bpu.scala:139:22
-  reg  [3:0]        BHT_2;	// bpu.scala:139:22
-  reg  [3:0]        BHT_3;	// bpu.scala:139:22
-  reg  [3:0]        BHT_4;	// bpu.scala:139:22
-  reg  [3:0]        BHT_5;	// bpu.scala:139:22
-  reg  [3:0]        BHT_6;	// bpu.scala:139:22
-  reg  [3:0]        BHT_7;	// bpu.scala:139:22
-  reg  [3:0]        BHT_8;	// bpu.scala:139:22
-  reg  [3:0]        BHT_9;	// bpu.scala:139:22
-  reg  [3:0]        BHT_10;	// bpu.scala:139:22
-  reg  [3:0]        BHT_11;	// bpu.scala:139:22
-  reg  [3:0]        BHT_12;	// bpu.scala:139:22
-  reg  [3:0]        BHT_13;	// bpu.scala:139:22
-  reg  [3:0]        BHT_14;	// bpu.scala:139:22
-  reg  [3:0]        BHT_15;	// bpu.scala:139:22
-  reg  [3:0]        BHT_16;	// bpu.scala:139:22
-  reg  [3:0]        BHT_17;	// bpu.scala:139:22
-  reg  [3:0]        BHT_18;	// bpu.scala:139:22
-  reg  [3:0]        BHT_19;	// bpu.scala:139:22
-  reg  [3:0]        BHT_20;	// bpu.scala:139:22
-  reg  [3:0]        BHT_21;	// bpu.scala:139:22
-  reg  [3:0]        BHT_22;	// bpu.scala:139:22
-  reg  [3:0]        BHT_23;	// bpu.scala:139:22
-  reg  [3:0]        BHT_24;	// bpu.scala:139:22
-  reg  [3:0]        BHT_25;	// bpu.scala:139:22
-  reg  [3:0]        BHT_26;	// bpu.scala:139:22
-  reg  [3:0]        BHT_27;	// bpu.scala:139:22
-  reg  [3:0]        BHT_28;	// bpu.scala:139:22
-  reg  [3:0]        BHT_29;	// bpu.scala:139:22
-  reg  [3:0]        BHT_30;	// bpu.scala:139:22
-  reg  [3:0]        BHT_31;	// bpu.scala:139:22
-  reg  [3:0]        BHT_32;	// bpu.scala:139:22
-  reg  [3:0]        BHT_33;	// bpu.scala:139:22
-  reg  [3:0]        BHT_34;	// bpu.scala:139:22
-  reg  [3:0]        BHT_35;	// bpu.scala:139:22
-  reg  [3:0]        BHT_36;	// bpu.scala:139:22
-  reg  [3:0]        BHT_37;	// bpu.scala:139:22
-  reg  [3:0]        BHT_38;	// bpu.scala:139:22
-  reg  [3:0]        BHT_39;	// bpu.scala:139:22
-  reg  [3:0]        BHT_40;	// bpu.scala:139:22
-  reg  [3:0]        BHT_41;	// bpu.scala:139:22
-  reg  [3:0]        BHT_42;	// bpu.scala:139:22
-  reg  [3:0]        BHT_43;	// bpu.scala:139:22
-  reg  [3:0]        BHT_44;	// bpu.scala:139:22
-  reg  [3:0]        BHT_45;	// bpu.scala:139:22
-  reg  [3:0]        BHT_46;	// bpu.scala:139:22
-  reg  [3:0]        BHT_47;	// bpu.scala:139:22
-  reg  [3:0]        BHT_48;	// bpu.scala:139:22
-  reg  [3:0]        BHT_49;	// bpu.scala:139:22
-  reg  [3:0]        BHT_50;	// bpu.scala:139:22
-  reg  [3:0]        BHT_51;	// bpu.scala:139:22
-  reg  [3:0]        BHT_52;	// bpu.scala:139:22
-  reg  [3:0]        BHT_53;	// bpu.scala:139:22
-  reg  [3:0]        BHT_54;	// bpu.scala:139:22
-  reg  [3:0]        BHT_55;	// bpu.scala:139:22
-  reg  [3:0]        BHT_56;	// bpu.scala:139:22
-  reg  [3:0]        BHT_57;	// bpu.scala:139:22
-  reg  [3:0]        BHT_58;	// bpu.scala:139:22
-  reg  [3:0]        BHT_59;	// bpu.scala:139:22
-  reg  [3:0]        BHT_60;	// bpu.scala:139:22
-  reg  [3:0]        BHT_61;	// bpu.scala:139:22
-  reg  [3:0]        BHT_62;	// bpu.scala:139:22
-  reg  [3:0]        BHT_63;	// bpu.scala:139:22
-  reg  [3:0]        BHT_64;	// bpu.scala:139:22
-  reg  [3:0]        BHT_65;	// bpu.scala:139:22
-  reg  [3:0]        BHT_66;	// bpu.scala:139:22
-  reg  [3:0]        BHT_67;	// bpu.scala:139:22
-  reg  [3:0]        BHT_68;	// bpu.scala:139:22
-  reg  [3:0]        BHT_69;	// bpu.scala:139:22
-  reg  [3:0]        BHT_70;	// bpu.scala:139:22
-  reg  [3:0]        BHT_71;	// bpu.scala:139:22
-  reg  [3:0]        BHT_72;	// bpu.scala:139:22
-  reg  [3:0]        BHT_73;	// bpu.scala:139:22
-  reg  [3:0]        BHT_74;	// bpu.scala:139:22
-  reg  [3:0]        BHT_75;	// bpu.scala:139:22
-  reg  [3:0]        BHT_76;	// bpu.scala:139:22
-  reg  [3:0]        BHT_77;	// bpu.scala:139:22
-  reg  [3:0]        BHT_78;	// bpu.scala:139:22
-  reg  [3:0]        BHT_79;	// bpu.scala:139:22
-  reg  [3:0]        BHT_80;	// bpu.scala:139:22
-  reg  [3:0]        BHT_81;	// bpu.scala:139:22
-  reg  [3:0]        BHT_82;	// bpu.scala:139:22
-  reg  [3:0]        BHT_83;	// bpu.scala:139:22
-  reg  [3:0]        BHT_84;	// bpu.scala:139:22
-  reg  [3:0]        BHT_85;	// bpu.scala:139:22
-  reg  [3:0]        BHT_86;	// bpu.scala:139:22
-  reg  [3:0]        BHT_87;	// bpu.scala:139:22
-  reg  [3:0]        BHT_88;	// bpu.scala:139:22
-  reg  [3:0]        BHT_89;	// bpu.scala:139:22
-  reg  [3:0]        BHT_90;	// bpu.scala:139:22
-  reg  [3:0]        BHT_91;	// bpu.scala:139:22
-  reg  [3:0]        BHT_92;	// bpu.scala:139:22
-  reg  [3:0]        BHT_93;	// bpu.scala:139:22
-  reg  [3:0]        BHT_94;	// bpu.scala:139:22
-  reg  [3:0]        BHT_95;	// bpu.scala:139:22
-  reg  [3:0]        BHT_96;	// bpu.scala:139:22
-  reg  [3:0]        BHT_97;	// bpu.scala:139:22
-  reg  [3:0]        BHT_98;	// bpu.scala:139:22
-  reg  [3:0]        BHT_99;	// bpu.scala:139:22
-  reg  [3:0]        BHT_100;	// bpu.scala:139:22
-  reg  [3:0]        BHT_101;	// bpu.scala:139:22
-  reg  [3:0]        BHT_102;	// bpu.scala:139:22
-  reg  [3:0]        BHT_103;	// bpu.scala:139:22
-  reg  [3:0]        BHT_104;	// bpu.scala:139:22
-  reg  [3:0]        BHT_105;	// bpu.scala:139:22
-  reg  [3:0]        BHT_106;	// bpu.scala:139:22
-  reg  [3:0]        BHT_107;	// bpu.scala:139:22
-  reg  [3:0]        BHT_108;	// bpu.scala:139:22
-  reg  [3:0]        BHT_109;	// bpu.scala:139:22
-  reg  [3:0]        BHT_110;	// bpu.scala:139:22
-  reg  [3:0]        BHT_111;	// bpu.scala:139:22
-  reg  [3:0]        BHT_112;	// bpu.scala:139:22
-  reg  [3:0]        BHT_113;	// bpu.scala:139:22
-  reg  [3:0]        BHT_114;	// bpu.scala:139:22
-  reg  [3:0]        BHT_115;	// bpu.scala:139:22
-  reg  [3:0]        BHT_116;	// bpu.scala:139:22
-  reg  [3:0]        BHT_117;	// bpu.scala:139:22
-  reg  [3:0]        BHT_118;	// bpu.scala:139:22
-  reg  [3:0]        BHT_119;	// bpu.scala:139:22
-  reg  [3:0]        BHT_120;	// bpu.scala:139:22
-  reg  [3:0]        BHT_121;	// bpu.scala:139:22
-  reg  [3:0]        BHT_122;	// bpu.scala:139:22
-  reg  [3:0]        BHT_123;	// bpu.scala:139:22
-  reg  [3:0]        BHT_124;	// bpu.scala:139:22
-  reg  [3:0]        BHT_125;	// bpu.scala:139:22
-  reg  [3:0]        BHT_126;	// bpu.scala:139:22
-  reg  [3:0]        BHT_127;	// bpu.scala:139:22
-  reg  [3:0]        BHT_128;	// bpu.scala:139:22
-  reg  [3:0]        BHT_129;	// bpu.scala:139:22
-  reg  [3:0]        BHT_130;	// bpu.scala:139:22
-  reg  [3:0]        BHT_131;	// bpu.scala:139:22
-  reg  [3:0]        BHT_132;	// bpu.scala:139:22
-  reg  [3:0]        BHT_133;	// bpu.scala:139:22
-  reg  [3:0]        BHT_134;	// bpu.scala:139:22
-  reg  [3:0]        BHT_135;	// bpu.scala:139:22
-  reg  [3:0]        BHT_136;	// bpu.scala:139:22
-  reg  [3:0]        BHT_137;	// bpu.scala:139:22
-  reg  [3:0]        BHT_138;	// bpu.scala:139:22
-  reg  [3:0]        BHT_139;	// bpu.scala:139:22
-  reg  [3:0]        BHT_140;	// bpu.scala:139:22
-  reg  [3:0]        BHT_141;	// bpu.scala:139:22
-  reg  [3:0]        BHT_142;	// bpu.scala:139:22
-  reg  [3:0]        BHT_143;	// bpu.scala:139:22
-  reg  [3:0]        BHT_144;	// bpu.scala:139:22
-  reg  [3:0]        BHT_145;	// bpu.scala:139:22
-  reg  [3:0]        BHT_146;	// bpu.scala:139:22
-  reg  [3:0]        BHT_147;	// bpu.scala:139:22
-  reg  [3:0]        BHT_148;	// bpu.scala:139:22
-  reg  [3:0]        BHT_149;	// bpu.scala:139:22
-  reg  [3:0]        BHT_150;	// bpu.scala:139:22
-  reg  [3:0]        BHT_151;	// bpu.scala:139:22
-  reg  [3:0]        BHT_152;	// bpu.scala:139:22
-  reg  [3:0]        BHT_153;	// bpu.scala:139:22
-  reg  [3:0]        BHT_154;	// bpu.scala:139:22
-  reg  [3:0]        BHT_155;	// bpu.scala:139:22
-  reg  [3:0]        BHT_156;	// bpu.scala:139:22
-  reg  [3:0]        BHT_157;	// bpu.scala:139:22
-  reg  [3:0]        BHT_158;	// bpu.scala:139:22
-  reg  [3:0]        BHT_159;	// bpu.scala:139:22
-  reg  [3:0]        BHT_160;	// bpu.scala:139:22
-  reg  [3:0]        BHT_161;	// bpu.scala:139:22
-  reg  [3:0]        BHT_162;	// bpu.scala:139:22
-  reg  [3:0]        BHT_163;	// bpu.scala:139:22
-  reg  [3:0]        BHT_164;	// bpu.scala:139:22
-  reg  [3:0]        BHT_165;	// bpu.scala:139:22
-  reg  [3:0]        BHT_166;	// bpu.scala:139:22
-  reg  [3:0]        BHT_167;	// bpu.scala:139:22
-  reg  [3:0]        BHT_168;	// bpu.scala:139:22
-  reg  [3:0]        BHT_169;	// bpu.scala:139:22
-  reg  [3:0]        BHT_170;	// bpu.scala:139:22
-  reg  [3:0]        BHT_171;	// bpu.scala:139:22
-  reg  [3:0]        BHT_172;	// bpu.scala:139:22
-  reg  [3:0]        BHT_173;	// bpu.scala:139:22
-  reg  [3:0]        BHT_174;	// bpu.scala:139:22
-  reg  [3:0]        BHT_175;	// bpu.scala:139:22
-  reg  [3:0]        BHT_176;	// bpu.scala:139:22
-  reg  [3:0]        BHT_177;	// bpu.scala:139:22
-  reg  [3:0]        BHT_178;	// bpu.scala:139:22
-  reg  [3:0]        BHT_179;	// bpu.scala:139:22
-  reg  [3:0]        BHT_180;	// bpu.scala:139:22
-  reg  [3:0]        BHT_181;	// bpu.scala:139:22
-  reg  [3:0]        BHT_182;	// bpu.scala:139:22
-  reg  [3:0]        BHT_183;	// bpu.scala:139:22
-  reg  [3:0]        BHT_184;	// bpu.scala:139:22
-  reg  [3:0]        BHT_185;	// bpu.scala:139:22
-  reg  [3:0]        BHT_186;	// bpu.scala:139:22
-  reg  [3:0]        BHT_187;	// bpu.scala:139:22
-  reg  [3:0]        BHT_188;	// bpu.scala:139:22
-  reg  [3:0]        BHT_189;	// bpu.scala:139:22
-  reg  [3:0]        BHT_190;	// bpu.scala:139:22
-  reg  [3:0]        BHT_191;	// bpu.scala:139:22
-  reg  [3:0]        BHT_192;	// bpu.scala:139:22
-  reg  [3:0]        BHT_193;	// bpu.scala:139:22
-  reg  [3:0]        BHT_194;	// bpu.scala:139:22
-  reg  [3:0]        BHT_195;	// bpu.scala:139:22
-  reg  [3:0]        BHT_196;	// bpu.scala:139:22
-  reg  [3:0]        BHT_197;	// bpu.scala:139:22
-  reg  [3:0]        BHT_198;	// bpu.scala:139:22
-  reg  [3:0]        BHT_199;	// bpu.scala:139:22
-  reg  [3:0]        BHT_200;	// bpu.scala:139:22
-  reg  [3:0]        BHT_201;	// bpu.scala:139:22
-  reg  [3:0]        BHT_202;	// bpu.scala:139:22
-  reg  [3:0]        BHT_203;	// bpu.scala:139:22
-  reg  [3:0]        BHT_204;	// bpu.scala:139:22
-  reg  [3:0]        BHT_205;	// bpu.scala:139:22
-  reg  [3:0]        BHT_206;	// bpu.scala:139:22
-  reg  [3:0]        BHT_207;	// bpu.scala:139:22
-  reg  [3:0]        BHT_208;	// bpu.scala:139:22
-  reg  [3:0]        BHT_209;	// bpu.scala:139:22
-  reg  [3:0]        BHT_210;	// bpu.scala:139:22
-  reg  [3:0]        BHT_211;	// bpu.scala:139:22
-  reg  [3:0]        BHT_212;	// bpu.scala:139:22
-  reg  [3:0]        BHT_213;	// bpu.scala:139:22
-  reg  [3:0]        BHT_214;	// bpu.scala:139:22
-  reg  [3:0]        BHT_215;	// bpu.scala:139:22
-  reg  [3:0]        BHT_216;	// bpu.scala:139:22
-  reg  [3:0]        BHT_217;	// bpu.scala:139:22
-  reg  [3:0]        BHT_218;	// bpu.scala:139:22
-  reg  [3:0]        BHT_219;	// bpu.scala:139:22
-  reg  [3:0]        BHT_220;	// bpu.scala:139:22
-  reg  [3:0]        BHT_221;	// bpu.scala:139:22
-  reg  [3:0]        BHT_222;	// bpu.scala:139:22
-  reg  [3:0]        BHT_223;	// bpu.scala:139:22
-  reg  [3:0]        BHT_224;	// bpu.scala:139:22
-  reg  [3:0]        BHT_225;	// bpu.scala:139:22
-  reg  [3:0]        BHT_226;	// bpu.scala:139:22
-  reg  [3:0]        BHT_227;	// bpu.scala:139:22
-  reg  [3:0]        BHT_228;	// bpu.scala:139:22
-  reg  [3:0]        BHT_229;	// bpu.scala:139:22
-  reg  [3:0]        BHT_230;	// bpu.scala:139:22
-  reg  [3:0]        BHT_231;	// bpu.scala:139:22
-  reg  [3:0]        BHT_232;	// bpu.scala:139:22
-  reg  [3:0]        BHT_233;	// bpu.scala:139:22
-  reg  [3:0]        BHT_234;	// bpu.scala:139:22
-  reg  [3:0]        BHT_235;	// bpu.scala:139:22
-  reg  [3:0]        BHT_236;	// bpu.scala:139:22
-  reg  [3:0]        BHT_237;	// bpu.scala:139:22
-  reg  [3:0]        BHT_238;	// bpu.scala:139:22
-  reg  [3:0]        BHT_239;	// bpu.scala:139:22
-  reg  [3:0]        BHT_240;	// bpu.scala:139:22
-  reg  [3:0]        BHT_241;	// bpu.scala:139:22
-  reg  [3:0]        BHT_242;	// bpu.scala:139:22
-  reg  [3:0]        BHT_243;	// bpu.scala:139:22
-  reg  [3:0]        BHT_244;	// bpu.scala:139:22
-  reg  [3:0]        BHT_245;	// bpu.scala:139:22
-  reg  [3:0]        BHT_246;	// bpu.scala:139:22
-  reg  [3:0]        BHT_247;	// bpu.scala:139:22
-  reg  [3:0]        BHT_248;	// bpu.scala:139:22
-  reg  [3:0]        BHT_249;	// bpu.scala:139:22
-  reg  [3:0]        BHT_250;	// bpu.scala:139:22
-  reg  [3:0]        BHT_251;	// bpu.scala:139:22
-  reg  [3:0]        BHT_252;	// bpu.scala:139:22
-  reg  [3:0]        BHT_253;	// bpu.scala:139:22
-  reg  [3:0]        BHT_254;	// bpu.scala:139:22
-  reg  [3:0]        BHT_255;	// bpu.scala:139:22
-  reg  [1:0]        PHT_0;	// bpu.scala:140:22
-  reg  [1:0]        PHT_1;	// bpu.scala:140:22
-  reg  [1:0]        PHT_2;	// bpu.scala:140:22
-  reg  [1:0]        PHT_3;	// bpu.scala:140:22
-  reg  [1:0]        PHT_4;	// bpu.scala:140:22
-  reg  [1:0]        PHT_5;	// bpu.scala:140:22
-  reg  [1:0]        PHT_6;	// bpu.scala:140:22
-  reg  [1:0]        PHT_7;	// bpu.scala:140:22
-  reg  [1:0]        PHT_8;	// bpu.scala:140:22
-  reg  [1:0]        PHT_9;	// bpu.scala:140:22
-  reg  [1:0]        PHT_10;	// bpu.scala:140:22
-  reg  [1:0]        PHT_11;	// bpu.scala:140:22
-  reg  [1:0]        PHT_12;	// bpu.scala:140:22
-  reg  [1:0]        PHT_13;	// bpu.scala:140:22
-  reg  [1:0]        PHT_14;	// bpu.scala:140:22
-  reg  [1:0]        PHT_15;	// bpu.scala:140:22
-  reg  [1:0]        PHT_16;	// bpu.scala:140:22
-  reg  [1:0]        PHT_17;	// bpu.scala:140:22
-  reg  [1:0]        PHT_18;	// bpu.scala:140:22
-  reg  [1:0]        PHT_19;	// bpu.scala:140:22
-  reg  [1:0]        PHT_20;	// bpu.scala:140:22
-  reg  [1:0]        PHT_21;	// bpu.scala:140:22
-  reg  [1:0]        PHT_22;	// bpu.scala:140:22
-  reg  [1:0]        PHT_23;	// bpu.scala:140:22
-  reg  [1:0]        PHT_24;	// bpu.scala:140:22
-  reg  [1:0]        PHT_25;	// bpu.scala:140:22
-  reg  [1:0]        PHT_26;	// bpu.scala:140:22
-  reg  [1:0]        PHT_27;	// bpu.scala:140:22
-  reg  [1:0]        PHT_28;	// bpu.scala:140:22
-  reg  [1:0]        PHT_29;	// bpu.scala:140:22
-  reg  [1:0]        PHT_30;	// bpu.scala:140:22
-  reg  [1:0]        PHT_31;	// bpu.scala:140:22
-  reg  [1:0]        PHT_32;	// bpu.scala:140:22
-  reg  [1:0]        PHT_33;	// bpu.scala:140:22
-  reg  [1:0]        PHT_34;	// bpu.scala:140:22
-  reg  [1:0]        PHT_35;	// bpu.scala:140:22
-  reg  [1:0]        PHT_36;	// bpu.scala:140:22
-  reg  [1:0]        PHT_37;	// bpu.scala:140:22
-  reg  [1:0]        PHT_38;	// bpu.scala:140:22
-  reg  [1:0]        PHT_39;	// bpu.scala:140:22
-  reg  [1:0]        PHT_40;	// bpu.scala:140:22
-  reg  [1:0]        PHT_41;	// bpu.scala:140:22
-  reg  [1:0]        PHT_42;	// bpu.scala:140:22
-  reg  [1:0]        PHT_43;	// bpu.scala:140:22
-  reg  [1:0]        PHT_44;	// bpu.scala:140:22
-  reg  [1:0]        PHT_45;	// bpu.scala:140:22
-  reg  [1:0]        PHT_46;	// bpu.scala:140:22
-  reg  [1:0]        PHT_47;	// bpu.scala:140:22
-  reg  [1:0]        PHT_48;	// bpu.scala:140:22
-  reg  [1:0]        PHT_49;	// bpu.scala:140:22
-  reg  [1:0]        PHT_50;	// bpu.scala:140:22
-  reg  [1:0]        PHT_51;	// bpu.scala:140:22
-  reg  [1:0]        PHT_52;	// bpu.scala:140:22
-  reg  [1:0]        PHT_53;	// bpu.scala:140:22
-  reg  [1:0]        PHT_54;	// bpu.scala:140:22
-  reg  [1:0]        PHT_55;	// bpu.scala:140:22
-  reg  [1:0]        PHT_56;	// bpu.scala:140:22
-  reg  [1:0]        PHT_57;	// bpu.scala:140:22
-  reg  [1:0]        PHT_58;	// bpu.scala:140:22
-  reg  [1:0]        PHT_59;	// bpu.scala:140:22
-  reg  [1:0]        PHT_60;	// bpu.scala:140:22
-  reg  [1:0]        PHT_61;	// bpu.scala:140:22
-  reg  [1:0]        PHT_62;	// bpu.scala:140:22
-  reg  [1:0]        PHT_63;	// bpu.scala:140:22
-  reg  [1:0]        PHT_64;	// bpu.scala:140:22
-  reg  [1:0]        PHT_65;	// bpu.scala:140:22
-  reg  [1:0]        PHT_66;	// bpu.scala:140:22
-  reg  [1:0]        PHT_67;	// bpu.scala:140:22
-  reg  [1:0]        PHT_68;	// bpu.scala:140:22
-  reg  [1:0]        PHT_69;	// bpu.scala:140:22
-  reg  [1:0]        PHT_70;	// bpu.scala:140:22
-  reg  [1:0]        PHT_71;	// bpu.scala:140:22
-  reg  [1:0]        PHT_72;	// bpu.scala:140:22
-  reg  [1:0]        PHT_73;	// bpu.scala:140:22
-  reg  [1:0]        PHT_74;	// bpu.scala:140:22
-  reg  [1:0]        PHT_75;	// bpu.scala:140:22
-  reg  [1:0]        PHT_76;	// bpu.scala:140:22
-  reg  [1:0]        PHT_77;	// bpu.scala:140:22
-  reg  [1:0]        PHT_78;	// bpu.scala:140:22
-  reg  [1:0]        PHT_79;	// bpu.scala:140:22
-  reg  [1:0]        PHT_80;	// bpu.scala:140:22
-  reg  [1:0]        PHT_81;	// bpu.scala:140:22
-  reg  [1:0]        PHT_82;	// bpu.scala:140:22
-  reg  [1:0]        PHT_83;	// bpu.scala:140:22
-  reg  [1:0]        PHT_84;	// bpu.scala:140:22
-  reg  [1:0]        PHT_85;	// bpu.scala:140:22
-  reg  [1:0]        PHT_86;	// bpu.scala:140:22
-  reg  [1:0]        PHT_87;	// bpu.scala:140:22
-  reg  [1:0]        PHT_88;	// bpu.scala:140:22
-  reg  [1:0]        PHT_89;	// bpu.scala:140:22
-  reg  [1:0]        PHT_90;	// bpu.scala:140:22
-  reg  [1:0]        PHT_91;	// bpu.scala:140:22
-  reg  [1:0]        PHT_92;	// bpu.scala:140:22
-  reg  [1:0]        PHT_93;	// bpu.scala:140:22
-  reg  [1:0]        PHT_94;	// bpu.scala:140:22
-  reg  [1:0]        PHT_95;	// bpu.scala:140:22
-  reg  [1:0]        PHT_96;	// bpu.scala:140:22
-  reg  [1:0]        PHT_97;	// bpu.scala:140:22
-  reg  [1:0]        PHT_98;	// bpu.scala:140:22
-  reg  [1:0]        PHT_99;	// bpu.scala:140:22
-  reg  [1:0]        PHT_100;	// bpu.scala:140:22
-  reg  [1:0]        PHT_101;	// bpu.scala:140:22
-  reg  [1:0]        PHT_102;	// bpu.scala:140:22
-  reg  [1:0]        PHT_103;	// bpu.scala:140:22
-  reg  [1:0]        PHT_104;	// bpu.scala:140:22
-  reg  [1:0]        PHT_105;	// bpu.scala:140:22
-  reg  [1:0]        PHT_106;	// bpu.scala:140:22
-  reg  [1:0]        PHT_107;	// bpu.scala:140:22
-  reg  [1:0]        PHT_108;	// bpu.scala:140:22
-  reg  [1:0]        PHT_109;	// bpu.scala:140:22
-  reg  [1:0]        PHT_110;	// bpu.scala:140:22
-  reg  [1:0]        PHT_111;	// bpu.scala:140:22
-  reg  [1:0]        PHT_112;	// bpu.scala:140:22
-  reg  [1:0]        PHT_113;	// bpu.scala:140:22
-  reg  [1:0]        PHT_114;	// bpu.scala:140:22
-  reg  [1:0]        PHT_115;	// bpu.scala:140:22
-  reg  [1:0]        PHT_116;	// bpu.scala:140:22
-  reg  [1:0]        PHT_117;	// bpu.scala:140:22
-  reg  [1:0]        PHT_118;	// bpu.scala:140:22
-  reg  [1:0]        PHT_119;	// bpu.scala:140:22
-  reg  [1:0]        PHT_120;	// bpu.scala:140:22
-  reg  [1:0]        PHT_121;	// bpu.scala:140:22
-  reg  [1:0]        PHT_122;	// bpu.scala:140:22
-  reg  [1:0]        PHT_123;	// bpu.scala:140:22
-  reg  [1:0]        PHT_124;	// bpu.scala:140:22
-  reg  [1:0]        PHT_125;	// bpu.scala:140:22
-  reg  [1:0]        PHT_126;	// bpu.scala:140:22
-  reg  [1:0]        PHT_127;	// bpu.scala:140:22
-  reg  [1:0]        PHT_128;	// bpu.scala:140:22
-  reg  [1:0]        PHT_129;	// bpu.scala:140:22
-  reg  [1:0]        PHT_130;	// bpu.scala:140:22
-  reg  [1:0]        PHT_131;	// bpu.scala:140:22
-  reg  [1:0]        PHT_132;	// bpu.scala:140:22
-  reg  [1:0]        PHT_133;	// bpu.scala:140:22
-  reg  [1:0]        PHT_134;	// bpu.scala:140:22
-  reg  [1:0]        PHT_135;	// bpu.scala:140:22
-  reg  [1:0]        PHT_136;	// bpu.scala:140:22
-  reg  [1:0]        PHT_137;	// bpu.scala:140:22
-  reg  [1:0]        PHT_138;	// bpu.scala:140:22
-  reg  [1:0]        PHT_139;	// bpu.scala:140:22
-  reg  [1:0]        PHT_140;	// bpu.scala:140:22
-  reg  [1:0]        PHT_141;	// bpu.scala:140:22
-  reg  [1:0]        PHT_142;	// bpu.scala:140:22
-  reg  [1:0]        PHT_143;	// bpu.scala:140:22
-  reg  [1:0]        PHT_144;	// bpu.scala:140:22
-  reg  [1:0]        PHT_145;	// bpu.scala:140:22
-  reg  [1:0]        PHT_146;	// bpu.scala:140:22
-  reg  [1:0]        PHT_147;	// bpu.scala:140:22
-  reg  [1:0]        PHT_148;	// bpu.scala:140:22
-  reg  [1:0]        PHT_149;	// bpu.scala:140:22
-  reg  [1:0]        PHT_150;	// bpu.scala:140:22
-  reg  [1:0]        PHT_151;	// bpu.scala:140:22
-  reg  [1:0]        PHT_152;	// bpu.scala:140:22
-  reg  [1:0]        PHT_153;	// bpu.scala:140:22
-  reg  [1:0]        PHT_154;	// bpu.scala:140:22
-  reg  [1:0]        PHT_155;	// bpu.scala:140:22
-  reg  [1:0]        PHT_156;	// bpu.scala:140:22
-  reg  [1:0]        PHT_157;	// bpu.scala:140:22
-  reg  [1:0]        PHT_158;	// bpu.scala:140:22
-  reg  [1:0]        PHT_159;	// bpu.scala:140:22
-  reg  [1:0]        PHT_160;	// bpu.scala:140:22
-  reg  [1:0]        PHT_161;	// bpu.scala:140:22
-  reg  [1:0]        PHT_162;	// bpu.scala:140:22
-  reg  [1:0]        PHT_163;	// bpu.scala:140:22
-  reg  [1:0]        PHT_164;	// bpu.scala:140:22
-  reg  [1:0]        PHT_165;	// bpu.scala:140:22
-  reg  [1:0]        PHT_166;	// bpu.scala:140:22
-  reg  [1:0]        PHT_167;	// bpu.scala:140:22
-  reg  [1:0]        PHT_168;	// bpu.scala:140:22
-  reg  [1:0]        PHT_169;	// bpu.scala:140:22
-  reg  [1:0]        PHT_170;	// bpu.scala:140:22
-  reg  [1:0]        PHT_171;	// bpu.scala:140:22
-  reg  [1:0]        PHT_172;	// bpu.scala:140:22
-  reg  [1:0]        PHT_173;	// bpu.scala:140:22
-  reg  [1:0]        PHT_174;	// bpu.scala:140:22
-  reg  [1:0]        PHT_175;	// bpu.scala:140:22
-  reg  [1:0]        PHT_176;	// bpu.scala:140:22
-  reg  [1:0]        PHT_177;	// bpu.scala:140:22
-  reg  [1:0]        PHT_178;	// bpu.scala:140:22
-  reg  [1:0]        PHT_179;	// bpu.scala:140:22
-  reg  [1:0]        PHT_180;	// bpu.scala:140:22
-  reg  [1:0]        PHT_181;	// bpu.scala:140:22
-  reg  [1:0]        PHT_182;	// bpu.scala:140:22
-  reg  [1:0]        PHT_183;	// bpu.scala:140:22
-  reg  [1:0]        PHT_184;	// bpu.scala:140:22
-  reg  [1:0]        PHT_185;	// bpu.scala:140:22
-  reg  [1:0]        PHT_186;	// bpu.scala:140:22
-  reg  [1:0]        PHT_187;	// bpu.scala:140:22
-  reg  [1:0]        PHT_188;	// bpu.scala:140:22
-  reg  [1:0]        PHT_189;	// bpu.scala:140:22
-  reg  [1:0]        PHT_190;	// bpu.scala:140:22
-  reg  [1:0]        PHT_191;	// bpu.scala:140:22
-  reg  [1:0]        PHT_192;	// bpu.scala:140:22
-  reg  [1:0]        PHT_193;	// bpu.scala:140:22
-  reg  [1:0]        PHT_194;	// bpu.scala:140:22
-  reg  [1:0]        PHT_195;	// bpu.scala:140:22
-  reg  [1:0]        PHT_196;	// bpu.scala:140:22
-  reg  [1:0]        PHT_197;	// bpu.scala:140:22
-  reg  [1:0]        PHT_198;	// bpu.scala:140:22
-  reg  [1:0]        PHT_199;	// bpu.scala:140:22
-  reg  [1:0]        PHT_200;	// bpu.scala:140:22
-  reg  [1:0]        PHT_201;	// bpu.scala:140:22
-  reg  [1:0]        PHT_202;	// bpu.scala:140:22
-  reg  [1:0]        PHT_203;	// bpu.scala:140:22
-  reg  [1:0]        PHT_204;	// bpu.scala:140:22
-  reg  [1:0]        PHT_205;	// bpu.scala:140:22
-  reg  [1:0]        PHT_206;	// bpu.scala:140:22
-  reg  [1:0]        PHT_207;	// bpu.scala:140:22
-  reg  [1:0]        PHT_208;	// bpu.scala:140:22
-  reg  [1:0]        PHT_209;	// bpu.scala:140:22
-  reg  [1:0]        PHT_210;	// bpu.scala:140:22
-  reg  [1:0]        PHT_211;	// bpu.scala:140:22
-  reg  [1:0]        PHT_212;	// bpu.scala:140:22
-  reg  [1:0]        PHT_213;	// bpu.scala:140:22
-  reg  [1:0]        PHT_214;	// bpu.scala:140:22
-  reg  [1:0]        PHT_215;	// bpu.scala:140:22
-  reg  [1:0]        PHT_216;	// bpu.scala:140:22
-  reg  [1:0]        PHT_217;	// bpu.scala:140:22
-  reg  [1:0]        PHT_218;	// bpu.scala:140:22
-  reg  [1:0]        PHT_219;	// bpu.scala:140:22
-  reg  [1:0]        PHT_220;	// bpu.scala:140:22
-  reg  [1:0]        PHT_221;	// bpu.scala:140:22
-  reg  [1:0]        PHT_222;	// bpu.scala:140:22
-  reg  [1:0]        PHT_223;	// bpu.scala:140:22
-  reg  [1:0]        PHT_224;	// bpu.scala:140:22
-  reg  [1:0]        PHT_225;	// bpu.scala:140:22
-  reg  [1:0]        PHT_226;	// bpu.scala:140:22
-  reg  [1:0]        PHT_227;	// bpu.scala:140:22
-  reg  [1:0]        PHT_228;	// bpu.scala:140:22
-  reg  [1:0]        PHT_229;	// bpu.scala:140:22
-  reg  [1:0]        PHT_230;	// bpu.scala:140:22
-  reg  [1:0]        PHT_231;	// bpu.scala:140:22
-  reg  [1:0]        PHT_232;	// bpu.scala:140:22
-  reg  [1:0]        PHT_233;	// bpu.scala:140:22
-  reg  [1:0]        PHT_234;	// bpu.scala:140:22
-  reg  [1:0]        PHT_235;	// bpu.scala:140:22
-  reg  [1:0]        PHT_236;	// bpu.scala:140:22
-  reg  [1:0]        PHT_237;	// bpu.scala:140:22
-  reg  [1:0]        PHT_238;	// bpu.scala:140:22
-  reg  [1:0]        PHT_239;	// bpu.scala:140:22
-  reg  [1:0]        PHT_240;	// bpu.scala:140:22
-  reg  [1:0]        PHT_241;	// bpu.scala:140:22
-  reg  [1:0]        PHT_242;	// bpu.scala:140:22
-  reg  [1:0]        PHT_243;	// bpu.scala:140:22
-  reg  [1:0]        PHT_244;	// bpu.scala:140:22
-  reg  [1:0]        PHT_245;	// bpu.scala:140:22
-  reg  [1:0]        PHT_246;	// bpu.scala:140:22
-  reg  [1:0]        PHT_247;	// bpu.scala:140:22
-  reg  [1:0]        PHT_248;	// bpu.scala:140:22
-  reg  [1:0]        PHT_249;	// bpu.scala:140:22
-  reg  [1:0]        PHT_250;	// bpu.scala:140:22
-  reg  [1:0]        PHT_251;	// bpu.scala:140:22
-  reg  [1:0]        PHT_252;	// bpu.scala:140:22
-  reg  [1:0]        PHT_253;	// bpu.scala:140:22
-  reg  [1:0]        PHT_254;	// bpu.scala:140:22
-  reg  [1:0]        PHT_255;	// bpu.scala:140:22
-  wire              _io_bp_flush_T_2 = io_ID_to_BPU_bus_valid & io_PF_valid & io_ID_to_BPU_bus_bits_PC != io_PF_pc;	// bpu.scala:159:{63,91}
-  wire [15:0]       bht_idx_x1 = io_PF_pc[31:16] ^ io_PF_pc[15:0];	// bpu.scala:134:{19,28,31}
+  wire              _GEN;	// bpu.scala:178:18, :179:35, :180:18
+  wire [63:0]       _BTB_io_readData;	// bpu.scala:147:21
+  wire              _BTB_io_hit;	// bpu.scala:147:21
+  reg  [63:0]       bp_target;	// bpu.scala:138:28
+  reg  [3:0]        BHT_0;	// bpu.scala:145:22
+  reg  [3:0]        BHT_1;	// bpu.scala:145:22
+  reg  [3:0]        BHT_2;	// bpu.scala:145:22
+  reg  [3:0]        BHT_3;	// bpu.scala:145:22
+  reg  [3:0]        BHT_4;	// bpu.scala:145:22
+  reg  [3:0]        BHT_5;	// bpu.scala:145:22
+  reg  [3:0]        BHT_6;	// bpu.scala:145:22
+  reg  [3:0]        BHT_7;	// bpu.scala:145:22
+  reg  [3:0]        BHT_8;	// bpu.scala:145:22
+  reg  [3:0]        BHT_9;	// bpu.scala:145:22
+  reg  [3:0]        BHT_10;	// bpu.scala:145:22
+  reg  [3:0]        BHT_11;	// bpu.scala:145:22
+  reg  [3:0]        BHT_12;	// bpu.scala:145:22
+  reg  [3:0]        BHT_13;	// bpu.scala:145:22
+  reg  [3:0]        BHT_14;	// bpu.scala:145:22
+  reg  [3:0]        BHT_15;	// bpu.scala:145:22
+  reg  [3:0]        BHT_16;	// bpu.scala:145:22
+  reg  [3:0]        BHT_17;	// bpu.scala:145:22
+  reg  [3:0]        BHT_18;	// bpu.scala:145:22
+  reg  [3:0]        BHT_19;	// bpu.scala:145:22
+  reg  [3:0]        BHT_20;	// bpu.scala:145:22
+  reg  [3:0]        BHT_21;	// bpu.scala:145:22
+  reg  [3:0]        BHT_22;	// bpu.scala:145:22
+  reg  [3:0]        BHT_23;	// bpu.scala:145:22
+  reg  [3:0]        BHT_24;	// bpu.scala:145:22
+  reg  [3:0]        BHT_25;	// bpu.scala:145:22
+  reg  [3:0]        BHT_26;	// bpu.scala:145:22
+  reg  [3:0]        BHT_27;	// bpu.scala:145:22
+  reg  [3:0]        BHT_28;	// bpu.scala:145:22
+  reg  [3:0]        BHT_29;	// bpu.scala:145:22
+  reg  [3:0]        BHT_30;	// bpu.scala:145:22
+  reg  [3:0]        BHT_31;	// bpu.scala:145:22
+  reg  [3:0]        BHT_32;	// bpu.scala:145:22
+  reg  [3:0]        BHT_33;	// bpu.scala:145:22
+  reg  [3:0]        BHT_34;	// bpu.scala:145:22
+  reg  [3:0]        BHT_35;	// bpu.scala:145:22
+  reg  [3:0]        BHT_36;	// bpu.scala:145:22
+  reg  [3:0]        BHT_37;	// bpu.scala:145:22
+  reg  [3:0]        BHT_38;	// bpu.scala:145:22
+  reg  [3:0]        BHT_39;	// bpu.scala:145:22
+  reg  [3:0]        BHT_40;	// bpu.scala:145:22
+  reg  [3:0]        BHT_41;	// bpu.scala:145:22
+  reg  [3:0]        BHT_42;	// bpu.scala:145:22
+  reg  [3:0]        BHT_43;	// bpu.scala:145:22
+  reg  [3:0]        BHT_44;	// bpu.scala:145:22
+  reg  [3:0]        BHT_45;	// bpu.scala:145:22
+  reg  [3:0]        BHT_46;	// bpu.scala:145:22
+  reg  [3:0]        BHT_47;	// bpu.scala:145:22
+  reg  [3:0]        BHT_48;	// bpu.scala:145:22
+  reg  [3:0]        BHT_49;	// bpu.scala:145:22
+  reg  [3:0]        BHT_50;	// bpu.scala:145:22
+  reg  [3:0]        BHT_51;	// bpu.scala:145:22
+  reg  [3:0]        BHT_52;	// bpu.scala:145:22
+  reg  [3:0]        BHT_53;	// bpu.scala:145:22
+  reg  [3:0]        BHT_54;	// bpu.scala:145:22
+  reg  [3:0]        BHT_55;	// bpu.scala:145:22
+  reg  [3:0]        BHT_56;	// bpu.scala:145:22
+  reg  [3:0]        BHT_57;	// bpu.scala:145:22
+  reg  [3:0]        BHT_58;	// bpu.scala:145:22
+  reg  [3:0]        BHT_59;	// bpu.scala:145:22
+  reg  [3:0]        BHT_60;	// bpu.scala:145:22
+  reg  [3:0]        BHT_61;	// bpu.scala:145:22
+  reg  [3:0]        BHT_62;	// bpu.scala:145:22
+  reg  [3:0]        BHT_63;	// bpu.scala:145:22
+  reg  [3:0]        BHT_64;	// bpu.scala:145:22
+  reg  [3:0]        BHT_65;	// bpu.scala:145:22
+  reg  [3:0]        BHT_66;	// bpu.scala:145:22
+  reg  [3:0]        BHT_67;	// bpu.scala:145:22
+  reg  [3:0]        BHT_68;	// bpu.scala:145:22
+  reg  [3:0]        BHT_69;	// bpu.scala:145:22
+  reg  [3:0]        BHT_70;	// bpu.scala:145:22
+  reg  [3:0]        BHT_71;	// bpu.scala:145:22
+  reg  [3:0]        BHT_72;	// bpu.scala:145:22
+  reg  [3:0]        BHT_73;	// bpu.scala:145:22
+  reg  [3:0]        BHT_74;	// bpu.scala:145:22
+  reg  [3:0]        BHT_75;	// bpu.scala:145:22
+  reg  [3:0]        BHT_76;	// bpu.scala:145:22
+  reg  [3:0]        BHT_77;	// bpu.scala:145:22
+  reg  [3:0]        BHT_78;	// bpu.scala:145:22
+  reg  [3:0]        BHT_79;	// bpu.scala:145:22
+  reg  [3:0]        BHT_80;	// bpu.scala:145:22
+  reg  [3:0]        BHT_81;	// bpu.scala:145:22
+  reg  [3:0]        BHT_82;	// bpu.scala:145:22
+  reg  [3:0]        BHT_83;	// bpu.scala:145:22
+  reg  [3:0]        BHT_84;	// bpu.scala:145:22
+  reg  [3:0]        BHT_85;	// bpu.scala:145:22
+  reg  [3:0]        BHT_86;	// bpu.scala:145:22
+  reg  [3:0]        BHT_87;	// bpu.scala:145:22
+  reg  [3:0]        BHT_88;	// bpu.scala:145:22
+  reg  [3:0]        BHT_89;	// bpu.scala:145:22
+  reg  [3:0]        BHT_90;	// bpu.scala:145:22
+  reg  [3:0]        BHT_91;	// bpu.scala:145:22
+  reg  [3:0]        BHT_92;	// bpu.scala:145:22
+  reg  [3:0]        BHT_93;	// bpu.scala:145:22
+  reg  [3:0]        BHT_94;	// bpu.scala:145:22
+  reg  [3:0]        BHT_95;	// bpu.scala:145:22
+  reg  [3:0]        BHT_96;	// bpu.scala:145:22
+  reg  [3:0]        BHT_97;	// bpu.scala:145:22
+  reg  [3:0]        BHT_98;	// bpu.scala:145:22
+  reg  [3:0]        BHT_99;	// bpu.scala:145:22
+  reg  [3:0]        BHT_100;	// bpu.scala:145:22
+  reg  [3:0]        BHT_101;	// bpu.scala:145:22
+  reg  [3:0]        BHT_102;	// bpu.scala:145:22
+  reg  [3:0]        BHT_103;	// bpu.scala:145:22
+  reg  [3:0]        BHT_104;	// bpu.scala:145:22
+  reg  [3:0]        BHT_105;	// bpu.scala:145:22
+  reg  [3:0]        BHT_106;	// bpu.scala:145:22
+  reg  [3:0]        BHT_107;	// bpu.scala:145:22
+  reg  [3:0]        BHT_108;	// bpu.scala:145:22
+  reg  [3:0]        BHT_109;	// bpu.scala:145:22
+  reg  [3:0]        BHT_110;	// bpu.scala:145:22
+  reg  [3:0]        BHT_111;	// bpu.scala:145:22
+  reg  [3:0]        BHT_112;	// bpu.scala:145:22
+  reg  [3:0]        BHT_113;	// bpu.scala:145:22
+  reg  [3:0]        BHT_114;	// bpu.scala:145:22
+  reg  [3:0]        BHT_115;	// bpu.scala:145:22
+  reg  [3:0]        BHT_116;	// bpu.scala:145:22
+  reg  [3:0]        BHT_117;	// bpu.scala:145:22
+  reg  [3:0]        BHT_118;	// bpu.scala:145:22
+  reg  [3:0]        BHT_119;	// bpu.scala:145:22
+  reg  [3:0]        BHT_120;	// bpu.scala:145:22
+  reg  [3:0]        BHT_121;	// bpu.scala:145:22
+  reg  [3:0]        BHT_122;	// bpu.scala:145:22
+  reg  [3:0]        BHT_123;	// bpu.scala:145:22
+  reg  [3:0]        BHT_124;	// bpu.scala:145:22
+  reg  [3:0]        BHT_125;	// bpu.scala:145:22
+  reg  [3:0]        BHT_126;	// bpu.scala:145:22
+  reg  [3:0]        BHT_127;	// bpu.scala:145:22
+  reg  [3:0]        BHT_128;	// bpu.scala:145:22
+  reg  [3:0]        BHT_129;	// bpu.scala:145:22
+  reg  [3:0]        BHT_130;	// bpu.scala:145:22
+  reg  [3:0]        BHT_131;	// bpu.scala:145:22
+  reg  [3:0]        BHT_132;	// bpu.scala:145:22
+  reg  [3:0]        BHT_133;	// bpu.scala:145:22
+  reg  [3:0]        BHT_134;	// bpu.scala:145:22
+  reg  [3:0]        BHT_135;	// bpu.scala:145:22
+  reg  [3:0]        BHT_136;	// bpu.scala:145:22
+  reg  [3:0]        BHT_137;	// bpu.scala:145:22
+  reg  [3:0]        BHT_138;	// bpu.scala:145:22
+  reg  [3:0]        BHT_139;	// bpu.scala:145:22
+  reg  [3:0]        BHT_140;	// bpu.scala:145:22
+  reg  [3:0]        BHT_141;	// bpu.scala:145:22
+  reg  [3:0]        BHT_142;	// bpu.scala:145:22
+  reg  [3:0]        BHT_143;	// bpu.scala:145:22
+  reg  [3:0]        BHT_144;	// bpu.scala:145:22
+  reg  [3:0]        BHT_145;	// bpu.scala:145:22
+  reg  [3:0]        BHT_146;	// bpu.scala:145:22
+  reg  [3:0]        BHT_147;	// bpu.scala:145:22
+  reg  [3:0]        BHT_148;	// bpu.scala:145:22
+  reg  [3:0]        BHT_149;	// bpu.scala:145:22
+  reg  [3:0]        BHT_150;	// bpu.scala:145:22
+  reg  [3:0]        BHT_151;	// bpu.scala:145:22
+  reg  [3:0]        BHT_152;	// bpu.scala:145:22
+  reg  [3:0]        BHT_153;	// bpu.scala:145:22
+  reg  [3:0]        BHT_154;	// bpu.scala:145:22
+  reg  [3:0]        BHT_155;	// bpu.scala:145:22
+  reg  [3:0]        BHT_156;	// bpu.scala:145:22
+  reg  [3:0]        BHT_157;	// bpu.scala:145:22
+  reg  [3:0]        BHT_158;	// bpu.scala:145:22
+  reg  [3:0]        BHT_159;	// bpu.scala:145:22
+  reg  [3:0]        BHT_160;	// bpu.scala:145:22
+  reg  [3:0]        BHT_161;	// bpu.scala:145:22
+  reg  [3:0]        BHT_162;	// bpu.scala:145:22
+  reg  [3:0]        BHT_163;	// bpu.scala:145:22
+  reg  [3:0]        BHT_164;	// bpu.scala:145:22
+  reg  [3:0]        BHT_165;	// bpu.scala:145:22
+  reg  [3:0]        BHT_166;	// bpu.scala:145:22
+  reg  [3:0]        BHT_167;	// bpu.scala:145:22
+  reg  [3:0]        BHT_168;	// bpu.scala:145:22
+  reg  [3:0]        BHT_169;	// bpu.scala:145:22
+  reg  [3:0]        BHT_170;	// bpu.scala:145:22
+  reg  [3:0]        BHT_171;	// bpu.scala:145:22
+  reg  [3:0]        BHT_172;	// bpu.scala:145:22
+  reg  [3:0]        BHT_173;	// bpu.scala:145:22
+  reg  [3:0]        BHT_174;	// bpu.scala:145:22
+  reg  [3:0]        BHT_175;	// bpu.scala:145:22
+  reg  [3:0]        BHT_176;	// bpu.scala:145:22
+  reg  [3:0]        BHT_177;	// bpu.scala:145:22
+  reg  [3:0]        BHT_178;	// bpu.scala:145:22
+  reg  [3:0]        BHT_179;	// bpu.scala:145:22
+  reg  [3:0]        BHT_180;	// bpu.scala:145:22
+  reg  [3:0]        BHT_181;	// bpu.scala:145:22
+  reg  [3:0]        BHT_182;	// bpu.scala:145:22
+  reg  [3:0]        BHT_183;	// bpu.scala:145:22
+  reg  [3:0]        BHT_184;	// bpu.scala:145:22
+  reg  [3:0]        BHT_185;	// bpu.scala:145:22
+  reg  [3:0]        BHT_186;	// bpu.scala:145:22
+  reg  [3:0]        BHT_187;	// bpu.scala:145:22
+  reg  [3:0]        BHT_188;	// bpu.scala:145:22
+  reg  [3:0]        BHT_189;	// bpu.scala:145:22
+  reg  [3:0]        BHT_190;	// bpu.scala:145:22
+  reg  [3:0]        BHT_191;	// bpu.scala:145:22
+  reg  [3:0]        BHT_192;	// bpu.scala:145:22
+  reg  [3:0]        BHT_193;	// bpu.scala:145:22
+  reg  [3:0]        BHT_194;	// bpu.scala:145:22
+  reg  [3:0]        BHT_195;	// bpu.scala:145:22
+  reg  [3:0]        BHT_196;	// bpu.scala:145:22
+  reg  [3:0]        BHT_197;	// bpu.scala:145:22
+  reg  [3:0]        BHT_198;	// bpu.scala:145:22
+  reg  [3:0]        BHT_199;	// bpu.scala:145:22
+  reg  [3:0]        BHT_200;	// bpu.scala:145:22
+  reg  [3:0]        BHT_201;	// bpu.scala:145:22
+  reg  [3:0]        BHT_202;	// bpu.scala:145:22
+  reg  [3:0]        BHT_203;	// bpu.scala:145:22
+  reg  [3:0]        BHT_204;	// bpu.scala:145:22
+  reg  [3:0]        BHT_205;	// bpu.scala:145:22
+  reg  [3:0]        BHT_206;	// bpu.scala:145:22
+  reg  [3:0]        BHT_207;	// bpu.scala:145:22
+  reg  [3:0]        BHT_208;	// bpu.scala:145:22
+  reg  [3:0]        BHT_209;	// bpu.scala:145:22
+  reg  [3:0]        BHT_210;	// bpu.scala:145:22
+  reg  [3:0]        BHT_211;	// bpu.scala:145:22
+  reg  [3:0]        BHT_212;	// bpu.scala:145:22
+  reg  [3:0]        BHT_213;	// bpu.scala:145:22
+  reg  [3:0]        BHT_214;	// bpu.scala:145:22
+  reg  [3:0]        BHT_215;	// bpu.scala:145:22
+  reg  [3:0]        BHT_216;	// bpu.scala:145:22
+  reg  [3:0]        BHT_217;	// bpu.scala:145:22
+  reg  [3:0]        BHT_218;	// bpu.scala:145:22
+  reg  [3:0]        BHT_219;	// bpu.scala:145:22
+  reg  [3:0]        BHT_220;	// bpu.scala:145:22
+  reg  [3:0]        BHT_221;	// bpu.scala:145:22
+  reg  [3:0]        BHT_222;	// bpu.scala:145:22
+  reg  [3:0]        BHT_223;	// bpu.scala:145:22
+  reg  [3:0]        BHT_224;	// bpu.scala:145:22
+  reg  [3:0]        BHT_225;	// bpu.scala:145:22
+  reg  [3:0]        BHT_226;	// bpu.scala:145:22
+  reg  [3:0]        BHT_227;	// bpu.scala:145:22
+  reg  [3:0]        BHT_228;	// bpu.scala:145:22
+  reg  [3:0]        BHT_229;	// bpu.scala:145:22
+  reg  [3:0]        BHT_230;	// bpu.scala:145:22
+  reg  [3:0]        BHT_231;	// bpu.scala:145:22
+  reg  [3:0]        BHT_232;	// bpu.scala:145:22
+  reg  [3:0]        BHT_233;	// bpu.scala:145:22
+  reg  [3:0]        BHT_234;	// bpu.scala:145:22
+  reg  [3:0]        BHT_235;	// bpu.scala:145:22
+  reg  [3:0]        BHT_236;	// bpu.scala:145:22
+  reg  [3:0]        BHT_237;	// bpu.scala:145:22
+  reg  [3:0]        BHT_238;	// bpu.scala:145:22
+  reg  [3:0]        BHT_239;	// bpu.scala:145:22
+  reg  [3:0]        BHT_240;	// bpu.scala:145:22
+  reg  [3:0]        BHT_241;	// bpu.scala:145:22
+  reg  [3:0]        BHT_242;	// bpu.scala:145:22
+  reg  [3:0]        BHT_243;	// bpu.scala:145:22
+  reg  [3:0]        BHT_244;	// bpu.scala:145:22
+  reg  [3:0]        BHT_245;	// bpu.scala:145:22
+  reg  [3:0]        BHT_246;	// bpu.scala:145:22
+  reg  [3:0]        BHT_247;	// bpu.scala:145:22
+  reg  [3:0]        BHT_248;	// bpu.scala:145:22
+  reg  [3:0]        BHT_249;	// bpu.scala:145:22
+  reg  [3:0]        BHT_250;	// bpu.scala:145:22
+  reg  [3:0]        BHT_251;	// bpu.scala:145:22
+  reg  [3:0]        BHT_252;	// bpu.scala:145:22
+  reg  [3:0]        BHT_253;	// bpu.scala:145:22
+  reg  [3:0]        BHT_254;	// bpu.scala:145:22
+  reg  [3:0]        BHT_255;	// bpu.scala:145:22
+  reg  [1:0]        PHT_0;	// bpu.scala:146:22
+  reg  [1:0]        PHT_1;	// bpu.scala:146:22
+  reg  [1:0]        PHT_2;	// bpu.scala:146:22
+  reg  [1:0]        PHT_3;	// bpu.scala:146:22
+  reg  [1:0]        PHT_4;	// bpu.scala:146:22
+  reg  [1:0]        PHT_5;	// bpu.scala:146:22
+  reg  [1:0]        PHT_6;	// bpu.scala:146:22
+  reg  [1:0]        PHT_7;	// bpu.scala:146:22
+  reg  [1:0]        PHT_8;	// bpu.scala:146:22
+  reg  [1:0]        PHT_9;	// bpu.scala:146:22
+  reg  [1:0]        PHT_10;	// bpu.scala:146:22
+  reg  [1:0]        PHT_11;	// bpu.scala:146:22
+  reg  [1:0]        PHT_12;	// bpu.scala:146:22
+  reg  [1:0]        PHT_13;	// bpu.scala:146:22
+  reg  [1:0]        PHT_14;	// bpu.scala:146:22
+  reg  [1:0]        PHT_15;	// bpu.scala:146:22
+  reg  [1:0]        PHT_16;	// bpu.scala:146:22
+  reg  [1:0]        PHT_17;	// bpu.scala:146:22
+  reg  [1:0]        PHT_18;	// bpu.scala:146:22
+  reg  [1:0]        PHT_19;	// bpu.scala:146:22
+  reg  [1:0]        PHT_20;	// bpu.scala:146:22
+  reg  [1:0]        PHT_21;	// bpu.scala:146:22
+  reg  [1:0]        PHT_22;	// bpu.scala:146:22
+  reg  [1:0]        PHT_23;	// bpu.scala:146:22
+  reg  [1:0]        PHT_24;	// bpu.scala:146:22
+  reg  [1:0]        PHT_25;	// bpu.scala:146:22
+  reg  [1:0]        PHT_26;	// bpu.scala:146:22
+  reg  [1:0]        PHT_27;	// bpu.scala:146:22
+  reg  [1:0]        PHT_28;	// bpu.scala:146:22
+  reg  [1:0]        PHT_29;	// bpu.scala:146:22
+  reg  [1:0]        PHT_30;	// bpu.scala:146:22
+  reg  [1:0]        PHT_31;	// bpu.scala:146:22
+  reg  [1:0]        PHT_32;	// bpu.scala:146:22
+  reg  [1:0]        PHT_33;	// bpu.scala:146:22
+  reg  [1:0]        PHT_34;	// bpu.scala:146:22
+  reg  [1:0]        PHT_35;	// bpu.scala:146:22
+  reg  [1:0]        PHT_36;	// bpu.scala:146:22
+  reg  [1:0]        PHT_37;	// bpu.scala:146:22
+  reg  [1:0]        PHT_38;	// bpu.scala:146:22
+  reg  [1:0]        PHT_39;	// bpu.scala:146:22
+  reg  [1:0]        PHT_40;	// bpu.scala:146:22
+  reg  [1:0]        PHT_41;	// bpu.scala:146:22
+  reg  [1:0]        PHT_42;	// bpu.scala:146:22
+  reg  [1:0]        PHT_43;	// bpu.scala:146:22
+  reg  [1:0]        PHT_44;	// bpu.scala:146:22
+  reg  [1:0]        PHT_45;	// bpu.scala:146:22
+  reg  [1:0]        PHT_46;	// bpu.scala:146:22
+  reg  [1:0]        PHT_47;	// bpu.scala:146:22
+  reg  [1:0]        PHT_48;	// bpu.scala:146:22
+  reg  [1:0]        PHT_49;	// bpu.scala:146:22
+  reg  [1:0]        PHT_50;	// bpu.scala:146:22
+  reg  [1:0]        PHT_51;	// bpu.scala:146:22
+  reg  [1:0]        PHT_52;	// bpu.scala:146:22
+  reg  [1:0]        PHT_53;	// bpu.scala:146:22
+  reg  [1:0]        PHT_54;	// bpu.scala:146:22
+  reg  [1:0]        PHT_55;	// bpu.scala:146:22
+  reg  [1:0]        PHT_56;	// bpu.scala:146:22
+  reg  [1:0]        PHT_57;	// bpu.scala:146:22
+  reg  [1:0]        PHT_58;	// bpu.scala:146:22
+  reg  [1:0]        PHT_59;	// bpu.scala:146:22
+  reg  [1:0]        PHT_60;	// bpu.scala:146:22
+  reg  [1:0]        PHT_61;	// bpu.scala:146:22
+  reg  [1:0]        PHT_62;	// bpu.scala:146:22
+  reg  [1:0]        PHT_63;	// bpu.scala:146:22
+  reg  [1:0]        PHT_64;	// bpu.scala:146:22
+  reg  [1:0]        PHT_65;	// bpu.scala:146:22
+  reg  [1:0]        PHT_66;	// bpu.scala:146:22
+  reg  [1:0]        PHT_67;	// bpu.scala:146:22
+  reg  [1:0]        PHT_68;	// bpu.scala:146:22
+  reg  [1:0]        PHT_69;	// bpu.scala:146:22
+  reg  [1:0]        PHT_70;	// bpu.scala:146:22
+  reg  [1:0]        PHT_71;	// bpu.scala:146:22
+  reg  [1:0]        PHT_72;	// bpu.scala:146:22
+  reg  [1:0]        PHT_73;	// bpu.scala:146:22
+  reg  [1:0]        PHT_74;	// bpu.scala:146:22
+  reg  [1:0]        PHT_75;	// bpu.scala:146:22
+  reg  [1:0]        PHT_76;	// bpu.scala:146:22
+  reg  [1:0]        PHT_77;	// bpu.scala:146:22
+  reg  [1:0]        PHT_78;	// bpu.scala:146:22
+  reg  [1:0]        PHT_79;	// bpu.scala:146:22
+  reg  [1:0]        PHT_80;	// bpu.scala:146:22
+  reg  [1:0]        PHT_81;	// bpu.scala:146:22
+  reg  [1:0]        PHT_82;	// bpu.scala:146:22
+  reg  [1:0]        PHT_83;	// bpu.scala:146:22
+  reg  [1:0]        PHT_84;	// bpu.scala:146:22
+  reg  [1:0]        PHT_85;	// bpu.scala:146:22
+  reg  [1:0]        PHT_86;	// bpu.scala:146:22
+  reg  [1:0]        PHT_87;	// bpu.scala:146:22
+  reg  [1:0]        PHT_88;	// bpu.scala:146:22
+  reg  [1:0]        PHT_89;	// bpu.scala:146:22
+  reg  [1:0]        PHT_90;	// bpu.scala:146:22
+  reg  [1:0]        PHT_91;	// bpu.scala:146:22
+  reg  [1:0]        PHT_92;	// bpu.scala:146:22
+  reg  [1:0]        PHT_93;	// bpu.scala:146:22
+  reg  [1:0]        PHT_94;	// bpu.scala:146:22
+  reg  [1:0]        PHT_95;	// bpu.scala:146:22
+  reg  [1:0]        PHT_96;	// bpu.scala:146:22
+  reg  [1:0]        PHT_97;	// bpu.scala:146:22
+  reg  [1:0]        PHT_98;	// bpu.scala:146:22
+  reg  [1:0]        PHT_99;	// bpu.scala:146:22
+  reg  [1:0]        PHT_100;	// bpu.scala:146:22
+  reg  [1:0]        PHT_101;	// bpu.scala:146:22
+  reg  [1:0]        PHT_102;	// bpu.scala:146:22
+  reg  [1:0]        PHT_103;	// bpu.scala:146:22
+  reg  [1:0]        PHT_104;	// bpu.scala:146:22
+  reg  [1:0]        PHT_105;	// bpu.scala:146:22
+  reg  [1:0]        PHT_106;	// bpu.scala:146:22
+  reg  [1:0]        PHT_107;	// bpu.scala:146:22
+  reg  [1:0]        PHT_108;	// bpu.scala:146:22
+  reg  [1:0]        PHT_109;	// bpu.scala:146:22
+  reg  [1:0]        PHT_110;	// bpu.scala:146:22
+  reg  [1:0]        PHT_111;	// bpu.scala:146:22
+  reg  [1:0]        PHT_112;	// bpu.scala:146:22
+  reg  [1:0]        PHT_113;	// bpu.scala:146:22
+  reg  [1:0]        PHT_114;	// bpu.scala:146:22
+  reg  [1:0]        PHT_115;	// bpu.scala:146:22
+  reg  [1:0]        PHT_116;	// bpu.scala:146:22
+  reg  [1:0]        PHT_117;	// bpu.scala:146:22
+  reg  [1:0]        PHT_118;	// bpu.scala:146:22
+  reg  [1:0]        PHT_119;	// bpu.scala:146:22
+  reg  [1:0]        PHT_120;	// bpu.scala:146:22
+  reg  [1:0]        PHT_121;	// bpu.scala:146:22
+  reg  [1:0]        PHT_122;	// bpu.scala:146:22
+  reg  [1:0]        PHT_123;	// bpu.scala:146:22
+  reg  [1:0]        PHT_124;	// bpu.scala:146:22
+  reg  [1:0]        PHT_125;	// bpu.scala:146:22
+  reg  [1:0]        PHT_126;	// bpu.scala:146:22
+  reg  [1:0]        PHT_127;	// bpu.scala:146:22
+  reg  [1:0]        PHT_128;	// bpu.scala:146:22
+  reg  [1:0]        PHT_129;	// bpu.scala:146:22
+  reg  [1:0]        PHT_130;	// bpu.scala:146:22
+  reg  [1:0]        PHT_131;	// bpu.scala:146:22
+  reg  [1:0]        PHT_132;	// bpu.scala:146:22
+  reg  [1:0]        PHT_133;	// bpu.scala:146:22
+  reg  [1:0]        PHT_134;	// bpu.scala:146:22
+  reg  [1:0]        PHT_135;	// bpu.scala:146:22
+  reg  [1:0]        PHT_136;	// bpu.scala:146:22
+  reg  [1:0]        PHT_137;	// bpu.scala:146:22
+  reg  [1:0]        PHT_138;	// bpu.scala:146:22
+  reg  [1:0]        PHT_139;	// bpu.scala:146:22
+  reg  [1:0]        PHT_140;	// bpu.scala:146:22
+  reg  [1:0]        PHT_141;	// bpu.scala:146:22
+  reg  [1:0]        PHT_142;	// bpu.scala:146:22
+  reg  [1:0]        PHT_143;	// bpu.scala:146:22
+  reg  [1:0]        PHT_144;	// bpu.scala:146:22
+  reg  [1:0]        PHT_145;	// bpu.scala:146:22
+  reg  [1:0]        PHT_146;	// bpu.scala:146:22
+  reg  [1:0]        PHT_147;	// bpu.scala:146:22
+  reg  [1:0]        PHT_148;	// bpu.scala:146:22
+  reg  [1:0]        PHT_149;	// bpu.scala:146:22
+  reg  [1:0]        PHT_150;	// bpu.scala:146:22
+  reg  [1:0]        PHT_151;	// bpu.scala:146:22
+  reg  [1:0]        PHT_152;	// bpu.scala:146:22
+  reg  [1:0]        PHT_153;	// bpu.scala:146:22
+  reg  [1:0]        PHT_154;	// bpu.scala:146:22
+  reg  [1:0]        PHT_155;	// bpu.scala:146:22
+  reg  [1:0]        PHT_156;	// bpu.scala:146:22
+  reg  [1:0]        PHT_157;	// bpu.scala:146:22
+  reg  [1:0]        PHT_158;	// bpu.scala:146:22
+  reg  [1:0]        PHT_159;	// bpu.scala:146:22
+  reg  [1:0]        PHT_160;	// bpu.scala:146:22
+  reg  [1:0]        PHT_161;	// bpu.scala:146:22
+  reg  [1:0]        PHT_162;	// bpu.scala:146:22
+  reg  [1:0]        PHT_163;	// bpu.scala:146:22
+  reg  [1:0]        PHT_164;	// bpu.scala:146:22
+  reg  [1:0]        PHT_165;	// bpu.scala:146:22
+  reg  [1:0]        PHT_166;	// bpu.scala:146:22
+  reg  [1:0]        PHT_167;	// bpu.scala:146:22
+  reg  [1:0]        PHT_168;	// bpu.scala:146:22
+  reg  [1:0]        PHT_169;	// bpu.scala:146:22
+  reg  [1:0]        PHT_170;	// bpu.scala:146:22
+  reg  [1:0]        PHT_171;	// bpu.scala:146:22
+  reg  [1:0]        PHT_172;	// bpu.scala:146:22
+  reg  [1:0]        PHT_173;	// bpu.scala:146:22
+  reg  [1:0]        PHT_174;	// bpu.scala:146:22
+  reg  [1:0]        PHT_175;	// bpu.scala:146:22
+  reg  [1:0]        PHT_176;	// bpu.scala:146:22
+  reg  [1:0]        PHT_177;	// bpu.scala:146:22
+  reg  [1:0]        PHT_178;	// bpu.scala:146:22
+  reg  [1:0]        PHT_179;	// bpu.scala:146:22
+  reg  [1:0]        PHT_180;	// bpu.scala:146:22
+  reg  [1:0]        PHT_181;	// bpu.scala:146:22
+  reg  [1:0]        PHT_182;	// bpu.scala:146:22
+  reg  [1:0]        PHT_183;	// bpu.scala:146:22
+  reg  [1:0]        PHT_184;	// bpu.scala:146:22
+  reg  [1:0]        PHT_185;	// bpu.scala:146:22
+  reg  [1:0]        PHT_186;	// bpu.scala:146:22
+  reg  [1:0]        PHT_187;	// bpu.scala:146:22
+  reg  [1:0]        PHT_188;	// bpu.scala:146:22
+  reg  [1:0]        PHT_189;	// bpu.scala:146:22
+  reg  [1:0]        PHT_190;	// bpu.scala:146:22
+  reg  [1:0]        PHT_191;	// bpu.scala:146:22
+  reg  [1:0]        PHT_192;	// bpu.scala:146:22
+  reg  [1:0]        PHT_193;	// bpu.scala:146:22
+  reg  [1:0]        PHT_194;	// bpu.scala:146:22
+  reg  [1:0]        PHT_195;	// bpu.scala:146:22
+  reg  [1:0]        PHT_196;	// bpu.scala:146:22
+  reg  [1:0]        PHT_197;	// bpu.scala:146:22
+  reg  [1:0]        PHT_198;	// bpu.scala:146:22
+  reg  [1:0]        PHT_199;	// bpu.scala:146:22
+  reg  [1:0]        PHT_200;	// bpu.scala:146:22
+  reg  [1:0]        PHT_201;	// bpu.scala:146:22
+  reg  [1:0]        PHT_202;	// bpu.scala:146:22
+  reg  [1:0]        PHT_203;	// bpu.scala:146:22
+  reg  [1:0]        PHT_204;	// bpu.scala:146:22
+  reg  [1:0]        PHT_205;	// bpu.scala:146:22
+  reg  [1:0]        PHT_206;	// bpu.scala:146:22
+  reg  [1:0]        PHT_207;	// bpu.scala:146:22
+  reg  [1:0]        PHT_208;	// bpu.scala:146:22
+  reg  [1:0]        PHT_209;	// bpu.scala:146:22
+  reg  [1:0]        PHT_210;	// bpu.scala:146:22
+  reg  [1:0]        PHT_211;	// bpu.scala:146:22
+  reg  [1:0]        PHT_212;	// bpu.scala:146:22
+  reg  [1:0]        PHT_213;	// bpu.scala:146:22
+  reg  [1:0]        PHT_214;	// bpu.scala:146:22
+  reg  [1:0]        PHT_215;	// bpu.scala:146:22
+  reg  [1:0]        PHT_216;	// bpu.scala:146:22
+  reg  [1:0]        PHT_217;	// bpu.scala:146:22
+  reg  [1:0]        PHT_218;	// bpu.scala:146:22
+  reg  [1:0]        PHT_219;	// bpu.scala:146:22
+  reg  [1:0]        PHT_220;	// bpu.scala:146:22
+  reg  [1:0]        PHT_221;	// bpu.scala:146:22
+  reg  [1:0]        PHT_222;	// bpu.scala:146:22
+  reg  [1:0]        PHT_223;	// bpu.scala:146:22
+  reg  [1:0]        PHT_224;	// bpu.scala:146:22
+  reg  [1:0]        PHT_225;	// bpu.scala:146:22
+  reg  [1:0]        PHT_226;	// bpu.scala:146:22
+  reg  [1:0]        PHT_227;	// bpu.scala:146:22
+  reg  [1:0]        PHT_228;	// bpu.scala:146:22
+  reg  [1:0]        PHT_229;	// bpu.scala:146:22
+  reg  [1:0]        PHT_230;	// bpu.scala:146:22
+  reg  [1:0]        PHT_231;	// bpu.scala:146:22
+  reg  [1:0]        PHT_232;	// bpu.scala:146:22
+  reg  [1:0]        PHT_233;	// bpu.scala:146:22
+  reg  [1:0]        PHT_234;	// bpu.scala:146:22
+  reg  [1:0]        PHT_235;	// bpu.scala:146:22
+  reg  [1:0]        PHT_236;	// bpu.scala:146:22
+  reg  [1:0]        PHT_237;	// bpu.scala:146:22
+  reg  [1:0]        PHT_238;	// bpu.scala:146:22
+  reg  [1:0]        PHT_239;	// bpu.scala:146:22
+  reg  [1:0]        PHT_240;	// bpu.scala:146:22
+  reg  [1:0]        PHT_241;	// bpu.scala:146:22
+  reg  [1:0]        PHT_242;	// bpu.scala:146:22
+  reg  [1:0]        PHT_243;	// bpu.scala:146:22
+  reg  [1:0]        PHT_244;	// bpu.scala:146:22
+  reg  [1:0]        PHT_245;	// bpu.scala:146:22
+  reg  [1:0]        PHT_246;	// bpu.scala:146:22
+  reg  [1:0]        PHT_247;	// bpu.scala:146:22
+  reg  [1:0]        PHT_248;	// bpu.scala:146:22
+  reg  [1:0]        PHT_249;	// bpu.scala:146:22
+  reg  [1:0]        PHT_250;	// bpu.scala:146:22
+  reg  [1:0]        PHT_251;	// bpu.scala:146:22
+  reg  [1:0]        PHT_252;	// bpu.scala:146:22
+  reg  [1:0]        PHT_253;	// bpu.scala:146:22
+  reg  [1:0]        PHT_254;	// bpu.scala:146:22
+  reg  [1:0]        PHT_255;	// bpu.scala:146:22
+  wire              _io_bp_flush_T_1 = io_ID_to_BPU_bus_valid & bp_target != io_ID_to_BPU_bus_bits_PC;	// bpu.scala:138:28, :165:{49,62}
+  wire [63:0]       _io_bp_npc_T_1 = io_PF_pc + 64'h4;	// bpu.scala:166:43
+  wire [15:0]       bht_idx_x1 = io_PF_pc[31:16] ^ io_PF_pc[15:0];	// bpu.scala:118:{19,28,31}
   wire [255:0][3:0] _GEN_0 = {{BHT_255}, {BHT_254}, {BHT_253}, {BHT_252}, {BHT_251}, {BHT_250}, {BHT_249}, {BHT_248},
                 {BHT_247}, {BHT_246}, {BHT_245}, {BHT_244}, {BHT_243}, {BHT_242}, {BHT_241}, {BHT_240},
                 {BHT_239}, {BHT_238}, {BHT_237}, {BHT_236}, {BHT_235}, {BHT_234}, {BHT_233}, {BHT_232},
@@ -1037,10 +1040,10 @@ module BPU(	// <stdin>:165:10
                 {BHT_32}, {BHT_31}, {BHT_30}, {BHT_29}, {BHT_28}, {BHT_27}, {BHT_26}, {BHT_25}, {BHT_24},
                 {BHT_23}, {BHT_22}, {BHT_21}, {BHT_20}, {BHT_19}, {BHT_18}, {BHT_17}, {BHT_16}, {BHT_15},
                 {BHT_14}, {BHT_13}, {BHT_12}, {BHT_11}, {BHT_10}, {BHT_9}, {BHT_8}, {BHT_7}, {BHT_6},
-                {BHT_5}, {BHT_4}, {BHT_3}, {BHT_2}, {BHT_1}, {BHT_0}};	// bpu.scala:139:22, :170:32
-  wire [3:0]        _GEN_1;	// bpu.scala:170:32
+                {BHT_5}, {BHT_4}, {BHT_3}, {BHT_2}, {BHT_1}, {BHT_0}};	// bpu.scala:145:22, :176:32
+  wire [3:0]        _GEN_1;	// bpu.scala:176:32
   /* synopsys infer_mux_override */
-  assign _GEN_1 = _GEN_0[bht_idx_x1[15:8] ^ bht_idx_x1[7:0]] /* cadence map_to_mux */;	// bpu.scala:134:28, :135:{18,26,30}, :170:32
+  assign _GEN_1 = _GEN_0[bht_idx_x1[15:8] ^ bht_idx_x1[7:0]] /* cadence map_to_mux */;	// bpu.scala:118:28, :119:{18,26,30}, :176:32
   wire [255:0][1:0] _GEN_2 = {{PHT_255}, {PHT_254}, {PHT_253}, {PHT_252}, {PHT_251}, {PHT_250}, {PHT_249}, {PHT_248},
                 {PHT_247}, {PHT_246}, {PHT_245}, {PHT_244}, {PHT_243}, {PHT_242}, {PHT_241}, {PHT_240},
                 {PHT_239}, {PHT_238}, {PHT_237}, {PHT_236}, {PHT_235}, {PHT_234}, {PHT_233}, {PHT_232},
@@ -1071,1288 +1074,1297 @@ module BPU(	// <stdin>:165:10
                 {PHT_32}, {PHT_31}, {PHT_30}, {PHT_29}, {PHT_28}, {PHT_27}, {PHT_26}, {PHT_25}, {PHT_24},
                 {PHT_23}, {PHT_22}, {PHT_21}, {PHT_20}, {PHT_19}, {PHT_18}, {PHT_17}, {PHT_16}, {PHT_15},
                 {PHT_14}, {PHT_13}, {PHT_12}, {PHT_11}, {PHT_10}, {PHT_9}, {PHT_8}, {PHT_7}, {PHT_6},
-                {PHT_5}, {PHT_4}, {PHT_3}, {PHT_2}, {PHT_1}, {PHT_0}};	// bpu.scala:140:22, :174:34
-  wire [1:0]        _GEN_3;	// bpu.scala:174:34
+                {PHT_5}, {PHT_4}, {PHT_3}, {PHT_2}, {PHT_1}, {PHT_0}};	// bpu.scala:146:22, :180:34
+  wire [1:0]        _GEN_3;	// bpu.scala:180:34
   /* synopsys infer_mux_override */
-  assign _GEN_3 = _GEN_2[{4'h0, _GEN_1 ^ io_PF_pc[3:0]}] /* cadence map_to_mux */;	// bpu.scala:139:30, :170:{32,42}, :174:34
-  assign _GEN = _BTB_io_hit & io_PF_valid & _GEN_3[0];	// bpu.scala:141:21, :172:18, :173:35, :174:{18,34}
-  wire [15:0]       up_bht_idx_x1 = io_ID_to_BPU_bus_bits_PC[31:16] ^ io_ID_to_BPU_bus_bits_PC[15:0];	// bpu.scala:134:{19,28,31}
-  wire [7:0]        _up_bht_idx_ret_T_2 = up_bht_idx_x1[15:8] ^ up_bht_idx_x1[7:0];	// bpu.scala:134:28, :135:{18,26,30}
-  wire [3:0]        _GEN_4;	// bpu.scala:180:38
+  assign _GEN_3 = _GEN_2[{4'h0, _GEN_1 ^ io_PF_pc[3:0]}] /* cadence map_to_mux */;	// bpu.scala:145:30, :176:{32,42}, :180:34
+  assign _GEN = _BTB_io_hit & io_PF_valid & _GEN_3[0];	// bpu.scala:147:21, :178:18, :179:35, :180:{18,34}
+  wire [15:0]       up_bht_idx_x1 = io_ID_to_BPU_bus_bits_PC[31:16] ^ io_ID_to_BPU_bus_bits_PC[15:0];	// bpu.scala:118:{19,28,31}
+  wire [7:0]        _up_bht_idx_ret_T_2 = up_bht_idx_x1[15:8] ^ up_bht_idx_x1[7:0];	// bpu.scala:118:28, :119:{18,26,30}
+  wire [3:0]        _GEN_4;	// bpu.scala:186:38
   /* synopsys infer_mux_override */
-  assign _GEN_4 = _GEN_0[_up_bht_idx_ret_T_2] /* cadence map_to_mux */;	// bpu.scala:135:26, :170:32, :180:38
-  wire [3:0]        up_pht_idx = _GEN_4 ^ io_ID_to_BPU_bus_bits_PC[3:0];	// bpu.scala:180:{38,45}
-  wire [1:0]        _GEN_5;	// bpu.scala:185:30
+  assign _GEN_4 = _GEN_0[_up_bht_idx_ret_T_2] /* cadence map_to_mux */;	// bpu.scala:119:26, :176:32, :186:38
+  wire [3:0]        up_pht_idx = _GEN_4 ^ io_ID_to_BPU_bus_bits_PC[3:0];	// bpu.scala:186:{38,45}
+  wire [1:0]        _GEN_5;	// bpu.scala:191:30
   /* synopsys infer_mux_override */
-  assign _GEN_5 = _GEN_2[{4'h0, up_pht_idx}] /* cadence map_to_mux */;	// bpu.scala:139:30, :174:34, :180:38, :185:30
-  wire [1:0]        _GEN_6;	// bpu.scala:190:30
+  assign _GEN_5 = _GEN_2[{4'h0, up_pht_idx}] /* cadence map_to_mux */;	// bpu.scala:145:30, :180:34, :186:38, :191:30
+  wire [1:0]        _GEN_6;	// bpu.scala:196:30
   /* synopsys infer_mux_override */
-  assign _GEN_6 = _GEN_2[_up_bht_idx_ret_T_2] /* cadence map_to_mux */;	// bpu.scala:135:26, :174:34, :190:30
+  assign _GEN_6 = _GEN_2[_up_bht_idx_ret_T_2] /* cadence map_to_mux */;	// bpu.scala:119:26, :180:34, :196:30
   always @(posedge clock) begin
     if (reset) begin
-      BHT_0 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_1 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_2 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_3 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_4 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_5 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_6 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_7 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_8 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_9 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_10 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_11 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_12 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_13 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_14 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_15 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_16 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_17 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_18 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_19 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_20 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_21 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_22 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_23 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_24 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_25 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_26 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_27 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_28 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_29 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_30 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_31 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_32 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_33 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_34 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_35 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_36 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_37 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_38 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_39 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_40 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_41 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_42 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_43 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_44 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_45 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_46 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_47 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_48 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_49 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_50 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_51 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_52 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_53 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_54 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_55 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_56 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_57 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_58 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_59 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_60 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_61 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_62 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_63 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_64 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_65 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_66 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_67 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_68 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_69 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_70 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_71 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_72 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_73 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_74 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_75 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_76 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_77 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_78 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_79 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_80 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_81 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_82 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_83 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_84 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_85 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_86 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_87 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_88 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_89 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_90 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_91 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_92 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_93 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_94 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_95 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_96 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_97 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_98 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_99 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_100 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_101 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_102 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_103 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_104 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_105 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_106 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_107 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_108 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_109 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_110 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_111 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_112 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_113 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_114 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_115 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_116 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_117 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_118 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_119 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_120 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_121 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_122 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_123 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_124 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_125 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_126 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_127 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_128 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_129 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_130 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_131 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_132 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_133 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_134 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_135 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_136 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_137 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_138 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_139 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_140 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_141 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_142 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_143 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_144 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_145 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_146 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_147 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_148 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_149 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_150 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_151 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_152 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_153 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_154 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_155 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_156 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_157 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_158 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_159 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_160 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_161 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_162 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_163 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_164 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_165 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_166 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_167 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_168 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_169 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_170 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_171 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_172 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_173 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_174 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_175 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_176 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_177 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_178 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_179 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_180 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_181 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_182 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_183 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_184 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_185 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_186 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_187 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_188 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_189 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_190 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_191 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_192 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_193 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_194 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_195 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_196 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_197 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_198 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_199 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_200 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_201 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_202 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_203 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_204 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_205 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_206 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_207 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_208 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_209 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_210 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_211 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_212 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_213 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_214 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_215 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_216 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_217 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_218 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_219 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_220 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_221 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_222 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_223 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_224 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_225 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_226 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_227 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_228 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_229 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_230 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_231 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_232 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_233 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_234 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_235 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_236 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_237 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_238 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_239 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_240 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_241 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_242 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_243 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_244 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_245 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_246 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_247 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_248 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_249 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_250 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_251 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_252 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_253 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_254 <= 4'h0;	// bpu.scala:139:{22,30}
-      BHT_255 <= 4'h0;	// bpu.scala:139:{22,30}
-      PHT_0 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_1 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_2 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_3 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_4 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_5 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_6 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_7 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_8 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_9 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_10 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_11 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_12 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_13 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_14 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_15 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_16 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_17 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_18 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_19 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_20 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_21 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_22 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_23 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_24 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_25 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_26 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_27 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_28 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_29 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_30 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_31 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_32 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_33 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_34 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_35 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_36 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_37 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_38 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_39 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_40 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_41 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_42 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_43 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_44 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_45 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_46 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_47 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_48 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_49 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_50 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_51 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_52 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_53 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_54 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_55 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_56 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_57 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_58 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_59 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_60 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_61 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_62 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_63 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_64 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_65 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_66 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_67 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_68 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_69 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_70 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_71 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_72 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_73 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_74 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_75 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_76 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_77 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_78 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_79 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_80 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_81 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_82 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_83 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_84 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_85 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_86 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_87 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_88 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_89 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_90 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_91 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_92 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_93 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_94 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_95 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_96 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_97 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_98 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_99 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_100 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_101 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_102 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_103 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_104 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_105 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_106 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_107 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_108 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_109 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_110 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_111 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_112 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_113 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_114 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_115 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_116 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_117 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_118 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_119 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_120 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_121 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_122 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_123 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_124 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_125 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_126 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_127 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_128 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_129 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_130 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_131 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_132 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_133 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_134 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_135 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_136 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_137 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_138 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_139 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_140 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_141 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_142 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_143 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_144 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_145 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_146 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_147 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_148 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_149 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_150 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_151 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_152 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_153 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_154 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_155 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_156 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_157 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_158 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_159 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_160 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_161 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_162 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_163 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_164 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_165 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_166 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_167 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_168 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_169 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_170 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_171 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_172 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_173 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_174 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_175 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_176 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_177 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_178 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_179 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_180 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_181 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_182 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_183 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_184 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_185 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_186 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_187 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_188 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_189 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_190 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_191 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_192 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_193 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_194 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_195 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_196 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_197 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_198 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_199 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_200 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_201 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_202 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_203 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_204 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_205 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_206 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_207 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_208 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_209 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_210 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_211 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_212 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_213 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_214 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_215 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_216 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_217 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_218 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_219 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_220 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_221 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_222 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_223 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_224 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_225 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_226 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_227 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_228 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_229 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_230 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_231 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_232 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_233 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_234 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_235 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_236 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_237 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_238 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_239 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_240 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_241 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_242 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_243 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_244 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_245 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_246 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_247 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_248 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_249 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_250 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_251 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_252 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_253 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_254 <= 2'h1;	// bpu.scala:140:{22,30}
-      PHT_255 <= 2'h1;	// bpu.scala:140:{22,30}
+      bp_target <= 64'h0;	// bpu.scala:138:28
+      BHT_0 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_1 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_2 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_3 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_4 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_5 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_6 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_7 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_8 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_9 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_10 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_11 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_12 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_13 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_14 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_15 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_16 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_17 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_18 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_19 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_20 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_21 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_22 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_23 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_24 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_25 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_26 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_27 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_28 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_29 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_30 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_31 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_32 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_33 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_34 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_35 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_36 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_37 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_38 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_39 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_40 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_41 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_42 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_43 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_44 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_45 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_46 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_47 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_48 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_49 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_50 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_51 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_52 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_53 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_54 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_55 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_56 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_57 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_58 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_59 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_60 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_61 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_62 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_63 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_64 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_65 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_66 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_67 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_68 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_69 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_70 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_71 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_72 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_73 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_74 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_75 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_76 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_77 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_78 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_79 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_80 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_81 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_82 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_83 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_84 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_85 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_86 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_87 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_88 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_89 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_90 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_91 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_92 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_93 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_94 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_95 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_96 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_97 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_98 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_99 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_100 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_101 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_102 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_103 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_104 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_105 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_106 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_107 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_108 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_109 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_110 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_111 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_112 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_113 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_114 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_115 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_116 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_117 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_118 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_119 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_120 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_121 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_122 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_123 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_124 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_125 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_126 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_127 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_128 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_129 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_130 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_131 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_132 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_133 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_134 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_135 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_136 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_137 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_138 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_139 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_140 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_141 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_142 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_143 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_144 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_145 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_146 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_147 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_148 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_149 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_150 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_151 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_152 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_153 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_154 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_155 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_156 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_157 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_158 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_159 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_160 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_161 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_162 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_163 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_164 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_165 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_166 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_167 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_168 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_169 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_170 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_171 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_172 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_173 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_174 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_175 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_176 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_177 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_178 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_179 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_180 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_181 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_182 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_183 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_184 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_185 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_186 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_187 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_188 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_189 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_190 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_191 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_192 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_193 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_194 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_195 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_196 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_197 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_198 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_199 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_200 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_201 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_202 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_203 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_204 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_205 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_206 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_207 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_208 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_209 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_210 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_211 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_212 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_213 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_214 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_215 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_216 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_217 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_218 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_219 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_220 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_221 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_222 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_223 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_224 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_225 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_226 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_227 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_228 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_229 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_230 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_231 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_232 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_233 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_234 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_235 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_236 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_237 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_238 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_239 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_240 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_241 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_242 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_243 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_244 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_245 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_246 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_247 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_248 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_249 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_250 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_251 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_252 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_253 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_254 <= 4'h0;	// bpu.scala:145:{22,30}
+      BHT_255 <= 4'h0;	// bpu.scala:145:{22,30}
+      PHT_0 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_1 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_2 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_3 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_4 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_5 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_6 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_7 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_8 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_9 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_10 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_11 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_12 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_13 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_14 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_15 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_16 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_17 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_18 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_19 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_20 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_21 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_22 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_23 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_24 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_25 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_26 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_27 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_28 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_29 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_30 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_31 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_32 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_33 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_34 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_35 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_36 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_37 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_38 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_39 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_40 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_41 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_42 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_43 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_44 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_45 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_46 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_47 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_48 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_49 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_50 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_51 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_52 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_53 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_54 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_55 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_56 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_57 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_58 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_59 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_60 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_61 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_62 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_63 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_64 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_65 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_66 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_67 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_68 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_69 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_70 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_71 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_72 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_73 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_74 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_75 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_76 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_77 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_78 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_79 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_80 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_81 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_82 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_83 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_84 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_85 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_86 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_87 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_88 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_89 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_90 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_91 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_92 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_93 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_94 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_95 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_96 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_97 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_98 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_99 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_100 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_101 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_102 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_103 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_104 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_105 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_106 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_107 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_108 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_109 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_110 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_111 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_112 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_113 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_114 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_115 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_116 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_117 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_118 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_119 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_120 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_121 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_122 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_123 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_124 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_125 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_126 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_127 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_128 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_129 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_130 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_131 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_132 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_133 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_134 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_135 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_136 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_137 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_138 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_139 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_140 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_141 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_142 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_143 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_144 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_145 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_146 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_147 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_148 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_149 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_150 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_151 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_152 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_153 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_154 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_155 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_156 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_157 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_158 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_159 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_160 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_161 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_162 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_163 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_164 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_165 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_166 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_167 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_168 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_169 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_170 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_171 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_172 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_173 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_174 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_175 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_176 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_177 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_178 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_179 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_180 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_181 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_182 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_183 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_184 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_185 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_186 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_187 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_188 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_189 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_190 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_191 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_192 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_193 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_194 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_195 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_196 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_197 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_198 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_199 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_200 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_201 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_202 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_203 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_204 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_205 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_206 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_207 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_208 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_209 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_210 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_211 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_212 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_213 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_214 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_215 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_216 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_217 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_218 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_219 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_220 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_221 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_222 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_223 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_224 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_225 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_226 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_227 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_228 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_229 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_230 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_231 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_232 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_233 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_234 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_235 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_236 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_237 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_238 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_239 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_240 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_241 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_242 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_243 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_244 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_245 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_246 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_247 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_248 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_249 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_250 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_251 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_252 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_253 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_254 <= 2'h1;	// bpu.scala:146:{22,30}
+      PHT_255 <= 2'h1;	// bpu.scala:146:{22,30}
     end
     else begin
-      automatic logic [3:0] _GEN_7;	// bpu.scala:182:51
-      automatic logic       _PHT_T_2;	// bpu.scala:185:47
-      automatic logic       _PHT_T_6 = _GEN_5 == 2'h1;	// bpu.scala:140:30, :185:30, :186:30
-      automatic logic       _PHT_T_5;	// bpu.scala:186:47
-      automatic logic       _PHT_T_7;	// bpu.scala:187:47
-      automatic logic       _PHT_T_10 = _GEN_5 == 2'h0;	// Mux.scala:101:16, bpu.scala:185:30, :188:30
-      automatic logic       _PHT_T_9;	// bpu.scala:188:47
+      automatic logic [3:0] _GEN_7;	// bpu.scala:188:51
+      automatic logic       _PHT_T_2;	// bpu.scala:191:47
+      automatic logic       _PHT_T_6 = _GEN_5 == 2'h1;	// bpu.scala:146:30, :191:30, :192:30
+      automatic logic       _PHT_T_5;	// bpu.scala:192:47
+      automatic logic       _PHT_T_7;	// bpu.scala:193:47
+      automatic logic       _PHT_T_10 = _GEN_5 == 2'h0;	// Mux.scala:101:16, bpu.scala:191:30, :194:30
+      automatic logic       _PHT_T_9;	// bpu.scala:194:47
       automatic logic       _GEN_8;	// Mux.scala:101:16
-      _GEN_7 = {_GEN_4[2:0], 1'h0} + {3'h0, io_ID_to_BPU_bus_bits_taken};	// bpu.scala:156:29, :180:38, :182:51
-      _PHT_T_2 = (&_GEN_5) & ~io_ID_to_BPU_bus_bits_taken;	// bpu.scala:185:{30,47,50}
-      _PHT_T_5 = _PHT_T_6 & ~io_ID_to_BPU_bus_bits_taken;	// bpu.scala:185:50, :186:{30,47}
-      _PHT_T_7 = _PHT_T_6 & io_ID_to_BPU_bus_bits_taken;	// bpu.scala:186:30, :187:47
-      _PHT_T_9 = _PHT_T_10 & io_ID_to_BPU_bus_bits_taken;	// bpu.scala:188:{30,47}
-      _GEN_8 = _PHT_T_10 & ~io_ID_to_BPU_bus_bits_taken | _GEN_6 == 2'h2 & io_ID_to_BPU_bus_bits_taken;	// Mux.scala:101:16, bpu.scala:185:50, :188:30, :189:47, :190:{30,47}
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h0)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_0 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h1)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_1 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h2)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_2 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h3)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_3 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h4)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_4 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h5)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_5 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h6)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_6 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h7)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_7 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h8)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_8 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h9)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_9 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hA)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_10 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hB)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_11 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hC)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_12 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hD)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_13 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hE)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_14 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hF)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_15 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h10)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_16 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h11)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_17 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h12)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_18 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h13)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_19 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h14)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_20 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h15)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_21 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h16)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_22 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h17)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_23 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h18)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_24 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h19)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_25 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h1A)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_26 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h1B)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_27 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h1C)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_28 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h1D)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_29 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h1E)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_30 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h1F)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_31 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h20)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_32 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h21)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_33 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h22)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_34 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h23)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_35 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h24)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_36 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h25)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_37 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h26)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_38 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h27)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_39 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h28)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_40 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h29)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_41 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h2A)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_42 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h2B)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_43 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h2C)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_44 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h2D)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_45 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h2E)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_46 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h2F)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_47 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h30)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_48 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h31)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_49 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h32)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_50 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h33)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_51 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h34)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_52 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h35)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_53 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h36)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_54 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h37)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_55 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h38)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_56 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h39)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_57 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h3A)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_58 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h3B)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_59 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h3C)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_60 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h3D)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_61 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h3E)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_62 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h3F)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_63 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h40)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_64 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h41)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_65 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h42)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_66 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h43)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_67 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h44)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_68 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h45)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_69 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h46)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_70 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h47)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_71 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h48)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_72 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h49)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_73 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h4A)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_74 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h4B)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_75 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h4C)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_76 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h4D)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_77 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h4E)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_78 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h4F)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_79 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h50)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_80 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h51)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_81 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h52)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_82 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h53)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_83 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h54)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_84 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h55)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_85 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h56)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_86 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h57)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_87 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h58)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_88 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h59)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_89 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h5A)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_90 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h5B)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_91 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h5C)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_92 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h5D)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_93 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h5E)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_94 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h5F)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_95 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h60)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_96 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h61)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_97 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h62)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_98 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h63)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_99 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h64)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_100 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h65)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_101 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h66)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_102 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h67)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_103 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h68)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_104 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h69)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_105 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h6A)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_106 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h6B)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_107 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h6C)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_108 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h6D)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_109 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h6E)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_110 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h6F)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_111 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h70)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_112 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h71)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_113 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h72)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_114 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h73)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_115 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h74)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_116 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h75)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_117 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h76)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_118 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h77)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_119 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h78)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_120 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h79)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_121 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h7A)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_122 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h7B)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_123 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h7C)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_124 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h7D)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_125 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h7E)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_126 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h7F)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_127 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h80)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_128 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h81)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_129 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h82)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_130 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h83)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_131 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h84)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_132 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h85)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_133 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h86)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_134 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h87)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_135 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h88)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_136 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h89)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_137 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h8A)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_138 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h8B)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_139 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h8C)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_140 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h8D)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_141 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h8E)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_142 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h8F)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_143 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h90)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_144 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h91)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_145 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h92)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_146 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h93)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_147 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h94)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_148 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h95)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_149 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h96)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_150 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h97)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_151 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h98)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_152 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h99)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_153 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h9A)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_154 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h9B)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_155 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h9C)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_156 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h9D)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_157 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h9E)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_158 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h9F)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_159 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hA0)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_160 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hA1)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_161 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hA2)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_162 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hA3)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_163 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hA4)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_164 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hA5)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_165 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hA6)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_166 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hA7)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_167 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hA8)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_168 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hA9)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_169 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hAA)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_170 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hAB)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_171 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hAC)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_172 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hAD)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_173 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hAE)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_174 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hAF)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_175 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hB0)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_176 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hB1)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_177 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hB2)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_178 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hB3)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_179 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hB4)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_180 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hB5)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_181 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hB6)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_182 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hB7)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_183 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hB8)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_184 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hB9)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_185 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hBA)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_186 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hBB)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_187 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hBC)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_188 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hBD)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_189 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hBE)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_190 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hBF)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_191 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hC0)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_192 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hC1)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_193 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hC2)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_194 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hC3)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_195 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hC4)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_196 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hC5)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_197 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hC6)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_198 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hC7)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_199 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hC8)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_200 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hC9)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_201 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hCA)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_202 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hCB)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_203 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hCC)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_204 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hCD)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_205 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hCE)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_206 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hCF)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_207 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hD0)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_208 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hD1)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_209 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hD2)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_210 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hD3)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_211 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hD4)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_212 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hD5)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_213 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hD6)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_214 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hD7)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_215 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hD8)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_216 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hD9)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_217 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hDA)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_218 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hDB)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_219 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hDC)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_220 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hDD)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_221 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hDE)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_222 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hDF)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_223 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hE0)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_224 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hE1)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_225 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hE2)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_226 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hE3)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_227 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hE4)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_228 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hE5)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_229 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hE6)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_230 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hE7)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_231 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hE8)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_232 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hE9)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_233 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hEA)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_234 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hEB)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_235 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hEC)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_236 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hED)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_237 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hEE)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_238 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hEF)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_239 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hF0)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_240 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hF1)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_241 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hF2)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_242 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hF3)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_243 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hF4)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_244 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hF5)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_245 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hF6)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_246 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hF7)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_247 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hF8)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_248 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hF9)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_249 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hFA)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_250 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hFB)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_251 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hFC)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_252 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hFD)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_253 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hFE)	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_254 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & (&_up_bht_idx_ret_T_2))	// bpu.scala:135:26, :139:22, :181:33, :182:25
-        BHT_255 <= _GEN_7;	// bpu.scala:139:22, :182:51
-      if (io_ID_to_BPU_bus_valid & up_pht_idx == 4'h0) begin	// bpu.scala:139:30, :140:22, :180:38, :181:33, :184:25
-        if (_PHT_T_2)	// bpu.scala:185:47
-          PHT_0 <= 2'h1;	// bpu.scala:140:{22,30}
-        else if (_PHT_T_5)	// bpu.scala:185:47, :186:47
-          PHT_0 <= 2'h0;	// Mux.scala:101:16, bpu.scala:140:22
-        else if (_PHT_T_7)	// bpu.scala:185:47, :186:47, :187:47
-          PHT_0 <= 2'h3;	// bpu.scala:140:22, :185:30
-        else if (_PHT_T_9)	// bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_0 <= 2'h1;	// bpu.scala:140:{22,30}
-        else if (_GEN_8)	// Mux.scala:101:16, bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_0 <= 2'h2;	// bpu.scala:140:22, :190:30
-        else	// Mux.scala:101:16, bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_0 <= _GEN_5;	// bpu.scala:140:22, :185:30
+      _GEN_7 = {_GEN_4[2:0], 1'h0} + {3'h0, io_ID_to_BPU_bus_bits_taken};	// bpu.scala:162:29, :186:38, :188:51
+      _PHT_T_2 = (&_GEN_5) & ~io_ID_to_BPU_bus_bits_taken;	// bpu.scala:191:{30,47,50}
+      _PHT_T_5 = _PHT_T_6 & ~io_ID_to_BPU_bus_bits_taken;	// bpu.scala:191:50, :192:{30,47}
+      _PHT_T_7 = _PHT_T_6 & io_ID_to_BPU_bus_bits_taken;	// bpu.scala:192:30, :193:47
+      _PHT_T_9 = _PHT_T_10 & io_ID_to_BPU_bus_bits_taken;	// bpu.scala:194:{30,47}
+      _GEN_8 = _PHT_T_10 & ~io_ID_to_BPU_bus_bits_taken | _GEN_6 == 2'h2 & io_ID_to_BPU_bus_bits_taken;	// Mux.scala:101:16, bpu.scala:191:50, :194:30, :195:47, :196:{30,47}
+      if (io_PF_inst[6:0] == 7'h63 | io_PF_inst[6:0] == 7'h6F | io_PF_inst[6:0] == 7'h67) begin	// bpu.scala:129:28, :133:24, :134:{24,53}, :140:17
+        if (_io_bp_flush_T_1)	// bpu.scala:165:49
+          bp_target <= io_ID_to_BPU_bus_bits_br_target;	// bpu.scala:138:28
+        else if (_GEN)	// bpu.scala:165:49, :178:18, :179:35, :180:18
+          bp_target <= _BTB_io_readData;	// bpu.scala:138:28, :147:21
+        else	// bpu.scala:165:49, :178:18, :179:35, :180:18
+          bp_target <= _io_bp_npc_T_1;	// bpu.scala:138:28, :166:43
       end
-      if (io_ID_to_BPU_bus_valid & up_pht_idx == 4'h1) begin	// bpu.scala:140:22, :180:38, :181:33, :182:25, :184:25
-        if (_PHT_T_2)	// bpu.scala:185:47
-          PHT_1 <= 2'h1;	// bpu.scala:140:{22,30}
-        else if (_PHT_T_5)	// bpu.scala:185:47, :186:47
-          PHT_1 <= 2'h0;	// Mux.scala:101:16, bpu.scala:140:22
-        else if (_PHT_T_7)	// bpu.scala:185:47, :186:47, :187:47
-          PHT_1 <= 2'h3;	// bpu.scala:140:22, :185:30
-        else if (_PHT_T_9)	// bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_1 <= 2'h1;	// bpu.scala:140:{22,30}
-        else if (_GEN_8)	// Mux.scala:101:16, bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_1 <= 2'h2;	// bpu.scala:140:22, :190:30
-        else	// Mux.scala:101:16, bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_1 <= _GEN_5;	// bpu.scala:140:22, :185:30
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h0)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_0 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h1)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_1 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h2)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_2 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h3)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_3 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h4)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_4 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h5)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_5 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h6)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_6 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h7)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_7 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h8)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_8 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h9)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_9 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hA)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_10 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hB)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_11 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hC)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_12 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hD)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_13 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hE)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_14 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hF)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_15 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h10)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_16 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h11)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_17 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h12)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_18 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h13)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_19 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h14)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_20 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h15)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_21 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h16)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_22 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h17)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_23 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h18)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_24 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h19)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_25 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h1A)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_26 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h1B)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_27 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h1C)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_28 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h1D)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_29 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h1E)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_30 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h1F)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_31 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h20)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_32 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h21)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_33 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h22)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_34 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h23)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_35 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h24)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_36 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h25)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_37 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h26)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_38 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h27)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_39 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h28)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_40 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h29)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_41 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h2A)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_42 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h2B)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_43 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h2C)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_44 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h2D)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_45 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h2E)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_46 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h2F)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_47 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h30)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_48 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h31)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_49 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h32)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_50 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h33)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_51 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h34)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_52 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h35)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_53 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h36)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_54 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h37)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_55 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h38)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_56 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h39)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_57 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h3A)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_58 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h3B)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_59 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h3C)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_60 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h3D)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_61 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h3E)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_62 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h3F)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_63 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h40)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_64 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h41)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_65 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h42)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_66 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h43)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_67 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h44)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_68 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h45)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_69 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h46)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_70 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h47)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_71 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h48)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_72 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h49)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_73 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h4A)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_74 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h4B)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_75 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h4C)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_76 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h4D)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_77 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h4E)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_78 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h4F)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_79 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h50)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_80 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h51)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_81 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h52)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_82 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h53)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_83 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h54)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_84 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h55)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_85 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h56)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_86 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h57)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_87 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h58)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_88 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h59)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_89 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h5A)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_90 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h5B)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_91 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h5C)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_92 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h5D)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_93 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h5E)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_94 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h5F)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_95 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h60)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_96 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h61)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_97 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h62)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_98 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h63)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_99 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h64)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_100 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h65)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_101 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h66)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_102 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h67)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_103 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h68)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_104 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h69)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_105 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h6A)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_106 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h6B)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_107 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h6C)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_108 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h6D)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_109 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h6E)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_110 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h6F)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_111 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h70)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_112 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h71)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_113 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h72)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_114 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h73)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_115 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h74)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_116 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h75)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_117 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h76)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_118 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h77)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_119 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h78)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_120 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h79)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_121 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h7A)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_122 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h7B)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_123 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h7C)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_124 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h7D)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_125 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h7E)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_126 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h7F)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_127 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h80)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_128 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h81)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_129 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h82)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_130 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h83)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_131 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h84)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_132 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h85)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_133 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h86)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_134 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h87)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_135 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h88)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_136 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h89)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_137 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h8A)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_138 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h8B)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_139 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h8C)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_140 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h8D)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_141 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h8E)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_142 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h8F)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_143 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h90)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_144 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h91)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_145 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h92)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_146 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h93)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_147 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h94)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_148 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h95)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_149 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h96)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_150 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h97)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_151 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h98)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_152 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h99)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_153 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h9A)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_154 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h9B)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_155 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h9C)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_156 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h9D)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_157 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h9E)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_158 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h9F)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_159 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hA0)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_160 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hA1)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_161 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hA2)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_162 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hA3)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_163 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hA4)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_164 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hA5)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_165 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hA6)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_166 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hA7)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_167 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hA8)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_168 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hA9)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_169 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hAA)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_170 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hAB)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_171 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hAC)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_172 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hAD)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_173 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hAE)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_174 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hAF)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_175 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hB0)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_176 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hB1)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_177 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hB2)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_178 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hB3)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_179 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hB4)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_180 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hB5)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_181 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hB6)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_182 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hB7)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_183 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hB8)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_184 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hB9)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_185 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hBA)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_186 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hBB)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_187 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hBC)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_188 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hBD)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_189 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hBE)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_190 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hBF)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_191 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hC0)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_192 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hC1)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_193 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hC2)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_194 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hC3)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_195 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hC4)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_196 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hC5)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_197 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hC6)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_198 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hC7)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_199 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hC8)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_200 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hC9)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_201 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hCA)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_202 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hCB)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_203 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hCC)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_204 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hCD)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_205 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hCE)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_206 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hCF)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_207 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hD0)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_208 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hD1)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_209 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hD2)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_210 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hD3)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_211 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hD4)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_212 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hD5)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_213 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hD6)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_214 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hD7)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_215 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hD8)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_216 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hD9)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_217 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hDA)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_218 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hDB)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_219 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hDC)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_220 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hDD)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_221 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hDE)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_222 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hDF)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_223 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hE0)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_224 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hE1)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_225 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hE2)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_226 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hE3)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_227 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hE4)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_228 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hE5)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_229 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hE6)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_230 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hE7)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_231 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hE8)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_232 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hE9)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_233 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hEA)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_234 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hEB)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_235 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hEC)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_236 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hED)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_237 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hEE)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_238 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hEF)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_239 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hF0)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_240 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hF1)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_241 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hF2)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_242 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hF3)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_243 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hF4)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_244 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hF5)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_245 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hF6)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_246 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hF7)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_247 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hF8)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_248 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hF9)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_249 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hFA)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_250 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hFB)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_251 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hFC)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_252 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hFD)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_253 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hFE)	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_254 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & (&_up_bht_idx_ret_T_2))	// bpu.scala:119:26, :145:22, :187:33, :188:25
+        BHT_255 <= _GEN_7;	// bpu.scala:145:22, :188:51
+      if (io_ID_to_BPU_bus_valid & up_pht_idx == 4'h0) begin	// bpu.scala:145:30, :146:22, :186:38, :187:33, :190:25
+        if (_PHT_T_2)	// bpu.scala:191:47
+          PHT_0 <= 2'h1;	// bpu.scala:146:{22,30}
+        else if (_PHT_T_5)	// bpu.scala:191:47, :192:47
+          PHT_0 <= 2'h0;	// Mux.scala:101:16, bpu.scala:146:22
+        else if (_PHT_T_7)	// bpu.scala:191:47, :192:47, :193:47
+          PHT_0 <= 2'h3;	// bpu.scala:146:22, :191:30
+        else if (_PHT_T_9)	// bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_0 <= 2'h1;	// bpu.scala:146:{22,30}
+        else if (_GEN_8)	// Mux.scala:101:16, bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_0 <= 2'h2;	// bpu.scala:146:22, :196:30
+        else	// Mux.scala:101:16, bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_0 <= _GEN_5;	// bpu.scala:146:22, :191:30
       end
-      if (io_ID_to_BPU_bus_valid & up_pht_idx == 4'h2) begin	// bpu.scala:140:22, :180:38, :181:33, :182:25, :184:25
-        if (_PHT_T_2)	// bpu.scala:185:47
-          PHT_2 <= 2'h1;	// bpu.scala:140:{22,30}
-        else if (_PHT_T_5)	// bpu.scala:185:47, :186:47
-          PHT_2 <= 2'h0;	// Mux.scala:101:16, bpu.scala:140:22
-        else if (_PHT_T_7)	// bpu.scala:185:47, :186:47, :187:47
-          PHT_2 <= 2'h3;	// bpu.scala:140:22, :185:30
-        else if (_PHT_T_9)	// bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_2 <= 2'h1;	// bpu.scala:140:{22,30}
-        else if (_GEN_8)	// Mux.scala:101:16, bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_2 <= 2'h2;	// bpu.scala:140:22, :190:30
-        else	// Mux.scala:101:16, bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_2 <= _GEN_5;	// bpu.scala:140:22, :185:30
+      if (io_ID_to_BPU_bus_valid & up_pht_idx == 4'h1) begin	// bpu.scala:146:22, :186:38, :187:33, :188:25, :190:25
+        if (_PHT_T_2)	// bpu.scala:191:47
+          PHT_1 <= 2'h1;	// bpu.scala:146:{22,30}
+        else if (_PHT_T_5)	// bpu.scala:191:47, :192:47
+          PHT_1 <= 2'h0;	// Mux.scala:101:16, bpu.scala:146:22
+        else if (_PHT_T_7)	// bpu.scala:191:47, :192:47, :193:47
+          PHT_1 <= 2'h3;	// bpu.scala:146:22, :191:30
+        else if (_PHT_T_9)	// bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_1 <= 2'h1;	// bpu.scala:146:{22,30}
+        else if (_GEN_8)	// Mux.scala:101:16, bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_1 <= 2'h2;	// bpu.scala:146:22, :196:30
+        else	// Mux.scala:101:16, bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_1 <= _GEN_5;	// bpu.scala:146:22, :191:30
       end
-      if (io_ID_to_BPU_bus_valid & up_pht_idx == 4'h3) begin	// bpu.scala:140:22, :180:38, :181:33, :182:25, :184:25
-        if (_PHT_T_2)	// bpu.scala:185:47
-          PHT_3 <= 2'h1;	// bpu.scala:140:{22,30}
-        else if (_PHT_T_5)	// bpu.scala:185:47, :186:47
-          PHT_3 <= 2'h0;	// Mux.scala:101:16, bpu.scala:140:22
-        else if (_PHT_T_7)	// bpu.scala:185:47, :186:47, :187:47
-          PHT_3 <= 2'h3;	// bpu.scala:140:22, :185:30
-        else if (_PHT_T_9)	// bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_3 <= 2'h1;	// bpu.scala:140:{22,30}
-        else if (_GEN_8)	// Mux.scala:101:16, bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_3 <= 2'h2;	// bpu.scala:140:22, :190:30
-        else	// Mux.scala:101:16, bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_3 <= _GEN_5;	// bpu.scala:140:22, :185:30
+      if (io_ID_to_BPU_bus_valid & up_pht_idx == 4'h2) begin	// bpu.scala:146:22, :186:38, :187:33, :188:25, :190:25
+        if (_PHT_T_2)	// bpu.scala:191:47
+          PHT_2 <= 2'h1;	// bpu.scala:146:{22,30}
+        else if (_PHT_T_5)	// bpu.scala:191:47, :192:47
+          PHT_2 <= 2'h0;	// Mux.scala:101:16, bpu.scala:146:22
+        else if (_PHT_T_7)	// bpu.scala:191:47, :192:47, :193:47
+          PHT_2 <= 2'h3;	// bpu.scala:146:22, :191:30
+        else if (_PHT_T_9)	// bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_2 <= 2'h1;	// bpu.scala:146:{22,30}
+        else if (_GEN_8)	// Mux.scala:101:16, bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_2 <= 2'h2;	// bpu.scala:146:22, :196:30
+        else	// Mux.scala:101:16, bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_2 <= _GEN_5;	// bpu.scala:146:22, :191:30
       end
-      if (io_ID_to_BPU_bus_valid & up_pht_idx == 4'h4) begin	// bpu.scala:140:22, :180:38, :181:33, :182:25, :184:25
-        if (_PHT_T_2)	// bpu.scala:185:47
-          PHT_4 <= 2'h1;	// bpu.scala:140:{22,30}
-        else if (_PHT_T_5)	// bpu.scala:185:47, :186:47
-          PHT_4 <= 2'h0;	// Mux.scala:101:16, bpu.scala:140:22
-        else if (_PHT_T_7)	// bpu.scala:185:47, :186:47, :187:47
-          PHT_4 <= 2'h3;	// bpu.scala:140:22, :185:30
-        else if (_PHT_T_9)	// bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_4 <= 2'h1;	// bpu.scala:140:{22,30}
-        else if (_GEN_8)	// Mux.scala:101:16, bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_4 <= 2'h2;	// bpu.scala:140:22, :190:30
-        else	// Mux.scala:101:16, bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_4 <= _GEN_5;	// bpu.scala:140:22, :185:30
+      if (io_ID_to_BPU_bus_valid & up_pht_idx == 4'h3) begin	// bpu.scala:146:22, :186:38, :187:33, :188:25, :190:25
+        if (_PHT_T_2)	// bpu.scala:191:47
+          PHT_3 <= 2'h1;	// bpu.scala:146:{22,30}
+        else if (_PHT_T_5)	// bpu.scala:191:47, :192:47
+          PHT_3 <= 2'h0;	// Mux.scala:101:16, bpu.scala:146:22
+        else if (_PHT_T_7)	// bpu.scala:191:47, :192:47, :193:47
+          PHT_3 <= 2'h3;	// bpu.scala:146:22, :191:30
+        else if (_PHT_T_9)	// bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_3 <= 2'h1;	// bpu.scala:146:{22,30}
+        else if (_GEN_8)	// Mux.scala:101:16, bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_3 <= 2'h2;	// bpu.scala:146:22, :196:30
+        else	// Mux.scala:101:16, bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_3 <= _GEN_5;	// bpu.scala:146:22, :191:30
       end
-      if (io_ID_to_BPU_bus_valid & up_pht_idx == 4'h5) begin	// bpu.scala:140:22, :180:38, :181:33, :182:25, :184:25
-        if (_PHT_T_2)	// bpu.scala:185:47
-          PHT_5 <= 2'h1;	// bpu.scala:140:{22,30}
-        else if (_PHT_T_5)	// bpu.scala:185:47, :186:47
-          PHT_5 <= 2'h0;	// Mux.scala:101:16, bpu.scala:140:22
-        else if (_PHT_T_7)	// bpu.scala:185:47, :186:47, :187:47
-          PHT_5 <= 2'h3;	// bpu.scala:140:22, :185:30
-        else if (_PHT_T_9)	// bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_5 <= 2'h1;	// bpu.scala:140:{22,30}
-        else if (_GEN_8)	// Mux.scala:101:16, bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_5 <= 2'h2;	// bpu.scala:140:22, :190:30
-        else	// Mux.scala:101:16, bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_5 <= _GEN_5;	// bpu.scala:140:22, :185:30
+      if (io_ID_to_BPU_bus_valid & up_pht_idx == 4'h4) begin	// bpu.scala:146:22, :186:38, :187:33, :188:25, :190:25
+        if (_PHT_T_2)	// bpu.scala:191:47
+          PHT_4 <= 2'h1;	// bpu.scala:146:{22,30}
+        else if (_PHT_T_5)	// bpu.scala:191:47, :192:47
+          PHT_4 <= 2'h0;	// Mux.scala:101:16, bpu.scala:146:22
+        else if (_PHT_T_7)	// bpu.scala:191:47, :192:47, :193:47
+          PHT_4 <= 2'h3;	// bpu.scala:146:22, :191:30
+        else if (_PHT_T_9)	// bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_4 <= 2'h1;	// bpu.scala:146:{22,30}
+        else if (_GEN_8)	// Mux.scala:101:16, bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_4 <= 2'h2;	// bpu.scala:146:22, :196:30
+        else	// Mux.scala:101:16, bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_4 <= _GEN_5;	// bpu.scala:146:22, :191:30
       end
-      if (io_ID_to_BPU_bus_valid & up_pht_idx == 4'h6) begin	// bpu.scala:140:22, :180:38, :181:33, :182:25, :184:25
-        if (_PHT_T_2)	// bpu.scala:185:47
-          PHT_6 <= 2'h1;	// bpu.scala:140:{22,30}
-        else if (_PHT_T_5)	// bpu.scala:185:47, :186:47
-          PHT_6 <= 2'h0;	// Mux.scala:101:16, bpu.scala:140:22
-        else if (_PHT_T_7)	// bpu.scala:185:47, :186:47, :187:47
-          PHT_6 <= 2'h3;	// bpu.scala:140:22, :185:30
-        else if (_PHT_T_9)	// bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_6 <= 2'h1;	// bpu.scala:140:{22,30}
-        else if (_GEN_8)	// Mux.scala:101:16, bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_6 <= 2'h2;	// bpu.scala:140:22, :190:30
-        else	// Mux.scala:101:16, bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_6 <= _GEN_5;	// bpu.scala:140:22, :185:30
+      if (io_ID_to_BPU_bus_valid & up_pht_idx == 4'h5) begin	// bpu.scala:146:22, :186:38, :187:33, :188:25, :190:25
+        if (_PHT_T_2)	// bpu.scala:191:47
+          PHT_5 <= 2'h1;	// bpu.scala:146:{22,30}
+        else if (_PHT_T_5)	// bpu.scala:191:47, :192:47
+          PHT_5 <= 2'h0;	// Mux.scala:101:16, bpu.scala:146:22
+        else if (_PHT_T_7)	// bpu.scala:191:47, :192:47, :193:47
+          PHT_5 <= 2'h3;	// bpu.scala:146:22, :191:30
+        else if (_PHT_T_9)	// bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_5 <= 2'h1;	// bpu.scala:146:{22,30}
+        else if (_GEN_8)	// Mux.scala:101:16, bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_5 <= 2'h2;	// bpu.scala:146:22, :196:30
+        else	// Mux.scala:101:16, bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_5 <= _GEN_5;	// bpu.scala:146:22, :191:30
       end
-      if (io_ID_to_BPU_bus_valid & up_pht_idx == 4'h7) begin	// bpu.scala:140:22, :180:38, :181:33, :182:25, :184:25
-        if (_PHT_T_2)	// bpu.scala:185:47
-          PHT_7 <= 2'h1;	// bpu.scala:140:{22,30}
-        else if (_PHT_T_5)	// bpu.scala:185:47, :186:47
-          PHT_7 <= 2'h0;	// Mux.scala:101:16, bpu.scala:140:22
-        else if (_PHT_T_7)	// bpu.scala:185:47, :186:47, :187:47
-          PHT_7 <= 2'h3;	// bpu.scala:140:22, :185:30
-        else if (_PHT_T_9)	// bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_7 <= 2'h1;	// bpu.scala:140:{22,30}
-        else if (_GEN_8)	// Mux.scala:101:16, bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_7 <= 2'h2;	// bpu.scala:140:22, :190:30
-        else	// Mux.scala:101:16, bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_7 <= _GEN_5;	// bpu.scala:140:22, :185:30
+      if (io_ID_to_BPU_bus_valid & up_pht_idx == 4'h6) begin	// bpu.scala:146:22, :186:38, :187:33, :188:25, :190:25
+        if (_PHT_T_2)	// bpu.scala:191:47
+          PHT_6 <= 2'h1;	// bpu.scala:146:{22,30}
+        else if (_PHT_T_5)	// bpu.scala:191:47, :192:47
+          PHT_6 <= 2'h0;	// Mux.scala:101:16, bpu.scala:146:22
+        else if (_PHT_T_7)	// bpu.scala:191:47, :192:47, :193:47
+          PHT_6 <= 2'h3;	// bpu.scala:146:22, :191:30
+        else if (_PHT_T_9)	// bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_6 <= 2'h1;	// bpu.scala:146:{22,30}
+        else if (_GEN_8)	// Mux.scala:101:16, bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_6 <= 2'h2;	// bpu.scala:146:22, :196:30
+        else	// Mux.scala:101:16, bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_6 <= _GEN_5;	// bpu.scala:146:22, :191:30
       end
-      if (io_ID_to_BPU_bus_valid & up_pht_idx == 4'h8) begin	// bpu.scala:140:22, :180:38, :181:33, :182:25, :184:25
-        if (_PHT_T_2)	// bpu.scala:185:47
-          PHT_8 <= 2'h1;	// bpu.scala:140:{22,30}
-        else if (_PHT_T_5)	// bpu.scala:185:47, :186:47
-          PHT_8 <= 2'h0;	// Mux.scala:101:16, bpu.scala:140:22
-        else if (_PHT_T_7)	// bpu.scala:185:47, :186:47, :187:47
-          PHT_8 <= 2'h3;	// bpu.scala:140:22, :185:30
-        else if (_PHT_T_9)	// bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_8 <= 2'h1;	// bpu.scala:140:{22,30}
-        else if (_GEN_8)	// Mux.scala:101:16, bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_8 <= 2'h2;	// bpu.scala:140:22, :190:30
-        else	// Mux.scala:101:16, bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_8 <= _GEN_5;	// bpu.scala:140:22, :185:30
+      if (io_ID_to_BPU_bus_valid & up_pht_idx == 4'h7) begin	// bpu.scala:146:22, :186:38, :187:33, :188:25, :190:25
+        if (_PHT_T_2)	// bpu.scala:191:47
+          PHT_7 <= 2'h1;	// bpu.scala:146:{22,30}
+        else if (_PHT_T_5)	// bpu.scala:191:47, :192:47
+          PHT_7 <= 2'h0;	// Mux.scala:101:16, bpu.scala:146:22
+        else if (_PHT_T_7)	// bpu.scala:191:47, :192:47, :193:47
+          PHT_7 <= 2'h3;	// bpu.scala:146:22, :191:30
+        else if (_PHT_T_9)	// bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_7 <= 2'h1;	// bpu.scala:146:{22,30}
+        else if (_GEN_8)	// Mux.scala:101:16, bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_7 <= 2'h2;	// bpu.scala:146:22, :196:30
+        else	// Mux.scala:101:16, bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_7 <= _GEN_5;	// bpu.scala:146:22, :191:30
       end
-      if (io_ID_to_BPU_bus_valid & up_pht_idx == 4'h9) begin	// bpu.scala:140:22, :180:38, :181:33, :182:25, :184:25
-        if (_PHT_T_2)	// bpu.scala:185:47
-          PHT_9 <= 2'h1;	// bpu.scala:140:{22,30}
-        else if (_PHT_T_5)	// bpu.scala:185:47, :186:47
-          PHT_9 <= 2'h0;	// Mux.scala:101:16, bpu.scala:140:22
-        else if (_PHT_T_7)	// bpu.scala:185:47, :186:47, :187:47
-          PHT_9 <= 2'h3;	// bpu.scala:140:22, :185:30
-        else if (_PHT_T_9)	// bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_9 <= 2'h1;	// bpu.scala:140:{22,30}
-        else if (_GEN_8)	// Mux.scala:101:16, bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_9 <= 2'h2;	// bpu.scala:140:22, :190:30
-        else	// Mux.scala:101:16, bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_9 <= _GEN_5;	// bpu.scala:140:22, :185:30
+      if (io_ID_to_BPU_bus_valid & up_pht_idx == 4'h8) begin	// bpu.scala:146:22, :186:38, :187:33, :188:25, :190:25
+        if (_PHT_T_2)	// bpu.scala:191:47
+          PHT_8 <= 2'h1;	// bpu.scala:146:{22,30}
+        else if (_PHT_T_5)	// bpu.scala:191:47, :192:47
+          PHT_8 <= 2'h0;	// Mux.scala:101:16, bpu.scala:146:22
+        else if (_PHT_T_7)	// bpu.scala:191:47, :192:47, :193:47
+          PHT_8 <= 2'h3;	// bpu.scala:146:22, :191:30
+        else if (_PHT_T_9)	// bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_8 <= 2'h1;	// bpu.scala:146:{22,30}
+        else if (_GEN_8)	// Mux.scala:101:16, bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_8 <= 2'h2;	// bpu.scala:146:22, :196:30
+        else	// Mux.scala:101:16, bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_8 <= _GEN_5;	// bpu.scala:146:22, :191:30
       end
-      if (io_ID_to_BPU_bus_valid & up_pht_idx == 4'hA) begin	// bpu.scala:140:22, :180:38, :181:33, :182:25, :184:25
-        if (_PHT_T_2)	// bpu.scala:185:47
-          PHT_10 <= 2'h1;	// bpu.scala:140:{22,30}
-        else if (_PHT_T_5)	// bpu.scala:185:47, :186:47
-          PHT_10 <= 2'h0;	// Mux.scala:101:16, bpu.scala:140:22
-        else if (_PHT_T_7)	// bpu.scala:185:47, :186:47, :187:47
-          PHT_10 <= 2'h3;	// bpu.scala:140:22, :185:30
-        else if (_PHT_T_9)	// bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_10 <= 2'h1;	// bpu.scala:140:{22,30}
-        else if (_GEN_8)	// Mux.scala:101:16, bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_10 <= 2'h2;	// bpu.scala:140:22, :190:30
-        else	// Mux.scala:101:16, bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_10 <= _GEN_5;	// bpu.scala:140:22, :185:30
+      if (io_ID_to_BPU_bus_valid & up_pht_idx == 4'h9) begin	// bpu.scala:146:22, :186:38, :187:33, :188:25, :190:25
+        if (_PHT_T_2)	// bpu.scala:191:47
+          PHT_9 <= 2'h1;	// bpu.scala:146:{22,30}
+        else if (_PHT_T_5)	// bpu.scala:191:47, :192:47
+          PHT_9 <= 2'h0;	// Mux.scala:101:16, bpu.scala:146:22
+        else if (_PHT_T_7)	// bpu.scala:191:47, :192:47, :193:47
+          PHT_9 <= 2'h3;	// bpu.scala:146:22, :191:30
+        else if (_PHT_T_9)	// bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_9 <= 2'h1;	// bpu.scala:146:{22,30}
+        else if (_GEN_8)	// Mux.scala:101:16, bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_9 <= 2'h2;	// bpu.scala:146:22, :196:30
+        else	// Mux.scala:101:16, bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_9 <= _GEN_5;	// bpu.scala:146:22, :191:30
       end
-      if (io_ID_to_BPU_bus_valid & up_pht_idx == 4'hB) begin	// bpu.scala:140:22, :180:38, :181:33, :182:25, :184:25
-        if (_PHT_T_2)	// bpu.scala:185:47
-          PHT_11 <= 2'h1;	// bpu.scala:140:{22,30}
-        else if (_PHT_T_5)	// bpu.scala:185:47, :186:47
-          PHT_11 <= 2'h0;	// Mux.scala:101:16, bpu.scala:140:22
-        else if (_PHT_T_7)	// bpu.scala:185:47, :186:47, :187:47
-          PHT_11 <= 2'h3;	// bpu.scala:140:22, :185:30
-        else if (_PHT_T_9)	// bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_11 <= 2'h1;	// bpu.scala:140:{22,30}
-        else if (_GEN_8)	// Mux.scala:101:16, bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_11 <= 2'h2;	// bpu.scala:140:22, :190:30
-        else	// Mux.scala:101:16, bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_11 <= _GEN_5;	// bpu.scala:140:22, :185:30
+      if (io_ID_to_BPU_bus_valid & up_pht_idx == 4'hA) begin	// bpu.scala:146:22, :186:38, :187:33, :188:25, :190:25
+        if (_PHT_T_2)	// bpu.scala:191:47
+          PHT_10 <= 2'h1;	// bpu.scala:146:{22,30}
+        else if (_PHT_T_5)	// bpu.scala:191:47, :192:47
+          PHT_10 <= 2'h0;	// Mux.scala:101:16, bpu.scala:146:22
+        else if (_PHT_T_7)	// bpu.scala:191:47, :192:47, :193:47
+          PHT_10 <= 2'h3;	// bpu.scala:146:22, :191:30
+        else if (_PHT_T_9)	// bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_10 <= 2'h1;	// bpu.scala:146:{22,30}
+        else if (_GEN_8)	// Mux.scala:101:16, bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_10 <= 2'h2;	// bpu.scala:146:22, :196:30
+        else	// Mux.scala:101:16, bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_10 <= _GEN_5;	// bpu.scala:146:22, :191:30
       end
-      if (io_ID_to_BPU_bus_valid & up_pht_idx == 4'hC) begin	// bpu.scala:140:22, :180:38, :181:33, :182:25, :184:25
-        if (_PHT_T_2)	// bpu.scala:185:47
-          PHT_12 <= 2'h1;	// bpu.scala:140:{22,30}
-        else if (_PHT_T_5)	// bpu.scala:185:47, :186:47
-          PHT_12 <= 2'h0;	// Mux.scala:101:16, bpu.scala:140:22
-        else if (_PHT_T_7)	// bpu.scala:185:47, :186:47, :187:47
-          PHT_12 <= 2'h3;	// bpu.scala:140:22, :185:30
-        else if (_PHT_T_9)	// bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_12 <= 2'h1;	// bpu.scala:140:{22,30}
-        else if (_GEN_8)	// Mux.scala:101:16, bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_12 <= 2'h2;	// bpu.scala:140:22, :190:30
-        else	// Mux.scala:101:16, bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_12 <= _GEN_5;	// bpu.scala:140:22, :185:30
+      if (io_ID_to_BPU_bus_valid & up_pht_idx == 4'hB) begin	// bpu.scala:146:22, :186:38, :187:33, :188:25, :190:25
+        if (_PHT_T_2)	// bpu.scala:191:47
+          PHT_11 <= 2'h1;	// bpu.scala:146:{22,30}
+        else if (_PHT_T_5)	// bpu.scala:191:47, :192:47
+          PHT_11 <= 2'h0;	// Mux.scala:101:16, bpu.scala:146:22
+        else if (_PHT_T_7)	// bpu.scala:191:47, :192:47, :193:47
+          PHT_11 <= 2'h3;	// bpu.scala:146:22, :191:30
+        else if (_PHT_T_9)	// bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_11 <= 2'h1;	// bpu.scala:146:{22,30}
+        else if (_GEN_8)	// Mux.scala:101:16, bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_11 <= 2'h2;	// bpu.scala:146:22, :196:30
+        else	// Mux.scala:101:16, bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_11 <= _GEN_5;	// bpu.scala:146:22, :191:30
       end
-      if (io_ID_to_BPU_bus_valid & up_pht_idx == 4'hD) begin	// bpu.scala:140:22, :180:38, :181:33, :182:25, :184:25
-        if (_PHT_T_2)	// bpu.scala:185:47
-          PHT_13 <= 2'h1;	// bpu.scala:140:{22,30}
-        else if (_PHT_T_5)	// bpu.scala:185:47, :186:47
-          PHT_13 <= 2'h0;	// Mux.scala:101:16, bpu.scala:140:22
-        else if (_PHT_T_7)	// bpu.scala:185:47, :186:47, :187:47
-          PHT_13 <= 2'h3;	// bpu.scala:140:22, :185:30
-        else if (_PHT_T_9)	// bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_13 <= 2'h1;	// bpu.scala:140:{22,30}
-        else if (_GEN_8)	// Mux.scala:101:16, bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_13 <= 2'h2;	// bpu.scala:140:22, :190:30
-        else	// Mux.scala:101:16, bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_13 <= _GEN_5;	// bpu.scala:140:22, :185:30
+      if (io_ID_to_BPU_bus_valid & up_pht_idx == 4'hC) begin	// bpu.scala:146:22, :186:38, :187:33, :188:25, :190:25
+        if (_PHT_T_2)	// bpu.scala:191:47
+          PHT_12 <= 2'h1;	// bpu.scala:146:{22,30}
+        else if (_PHT_T_5)	// bpu.scala:191:47, :192:47
+          PHT_12 <= 2'h0;	// Mux.scala:101:16, bpu.scala:146:22
+        else if (_PHT_T_7)	// bpu.scala:191:47, :192:47, :193:47
+          PHT_12 <= 2'h3;	// bpu.scala:146:22, :191:30
+        else if (_PHT_T_9)	// bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_12 <= 2'h1;	// bpu.scala:146:{22,30}
+        else if (_GEN_8)	// Mux.scala:101:16, bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_12 <= 2'h2;	// bpu.scala:146:22, :196:30
+        else	// Mux.scala:101:16, bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_12 <= _GEN_5;	// bpu.scala:146:22, :191:30
       end
-      if (io_ID_to_BPU_bus_valid & up_pht_idx == 4'hE) begin	// bpu.scala:140:22, :180:38, :181:33, :182:25, :184:25
-        if (_PHT_T_2)	// bpu.scala:185:47
-          PHT_14 <= 2'h1;	// bpu.scala:140:{22,30}
-        else if (_PHT_T_5)	// bpu.scala:185:47, :186:47
-          PHT_14 <= 2'h0;	// Mux.scala:101:16, bpu.scala:140:22
-        else if (_PHT_T_7)	// bpu.scala:185:47, :186:47, :187:47
-          PHT_14 <= 2'h3;	// bpu.scala:140:22, :185:30
-        else if (_PHT_T_9)	// bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_14 <= 2'h1;	// bpu.scala:140:{22,30}
-        else if (_GEN_8)	// Mux.scala:101:16, bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_14 <= 2'h2;	// bpu.scala:140:22, :190:30
-        else	// Mux.scala:101:16, bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_14 <= _GEN_5;	// bpu.scala:140:22, :185:30
+      if (io_ID_to_BPU_bus_valid & up_pht_idx == 4'hD) begin	// bpu.scala:146:22, :186:38, :187:33, :188:25, :190:25
+        if (_PHT_T_2)	// bpu.scala:191:47
+          PHT_13 <= 2'h1;	// bpu.scala:146:{22,30}
+        else if (_PHT_T_5)	// bpu.scala:191:47, :192:47
+          PHT_13 <= 2'h0;	// Mux.scala:101:16, bpu.scala:146:22
+        else if (_PHT_T_7)	// bpu.scala:191:47, :192:47, :193:47
+          PHT_13 <= 2'h3;	// bpu.scala:146:22, :191:30
+        else if (_PHT_T_9)	// bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_13 <= 2'h1;	// bpu.scala:146:{22,30}
+        else if (_GEN_8)	// Mux.scala:101:16, bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_13 <= 2'h2;	// bpu.scala:146:22, :196:30
+        else	// Mux.scala:101:16, bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_13 <= _GEN_5;	// bpu.scala:146:22, :191:30
       end
-      if (io_ID_to_BPU_bus_valid & (&up_pht_idx)) begin	// bpu.scala:140:22, :180:38, :181:33, :184:25
-        if (_PHT_T_2)	// bpu.scala:185:47
-          PHT_15 <= 2'h1;	// bpu.scala:140:{22,30}
-        else if (_PHT_T_5)	// bpu.scala:185:47, :186:47
-          PHT_15 <= 2'h0;	// Mux.scala:101:16, bpu.scala:140:22
-        else if (_PHT_T_7)	// bpu.scala:185:47, :186:47, :187:47
-          PHT_15 <= 2'h3;	// bpu.scala:140:22, :185:30
-        else if (_PHT_T_9)	// bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_15 <= 2'h1;	// bpu.scala:140:{22,30}
-        else if (_GEN_8)	// Mux.scala:101:16, bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_15 <= 2'h2;	// bpu.scala:140:22, :190:30
-        else	// Mux.scala:101:16, bpu.scala:185:47, :186:47, :187:47, :188:47
-          PHT_15 <= _GEN_5;	// bpu.scala:140:22, :185:30
+      if (io_ID_to_BPU_bus_valid & up_pht_idx == 4'hE) begin	// bpu.scala:146:22, :186:38, :187:33, :188:25, :190:25
+        if (_PHT_T_2)	// bpu.scala:191:47
+          PHT_14 <= 2'h1;	// bpu.scala:146:{22,30}
+        else if (_PHT_T_5)	// bpu.scala:191:47, :192:47
+          PHT_14 <= 2'h0;	// Mux.scala:101:16, bpu.scala:146:22
+        else if (_PHT_T_7)	// bpu.scala:191:47, :192:47, :193:47
+          PHT_14 <= 2'h3;	// bpu.scala:146:22, :191:30
+        else if (_PHT_T_9)	// bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_14 <= 2'h1;	// bpu.scala:146:{22,30}
+        else if (_GEN_8)	// Mux.scala:101:16, bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_14 <= 2'h2;	// bpu.scala:146:22, :196:30
+        else	// Mux.scala:101:16, bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_14 <= _GEN_5;	// bpu.scala:146:22, :191:30
+      end
+      if (io_ID_to_BPU_bus_valid & (&up_pht_idx)) begin	// bpu.scala:146:22, :186:38, :187:33, :190:25
+        if (_PHT_T_2)	// bpu.scala:191:47
+          PHT_15 <= 2'h1;	// bpu.scala:146:{22,30}
+        else if (_PHT_T_5)	// bpu.scala:191:47, :192:47
+          PHT_15 <= 2'h0;	// Mux.scala:101:16, bpu.scala:146:22
+        else if (_PHT_T_7)	// bpu.scala:191:47, :192:47, :193:47
+          PHT_15 <= 2'h3;	// bpu.scala:146:22, :191:30
+        else if (_PHT_T_9)	// bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_15 <= 2'h1;	// bpu.scala:146:{22,30}
+        else if (_GEN_8)	// Mux.scala:101:16, bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_15 <= 2'h2;	// bpu.scala:146:22, :196:30
+        else	// Mux.scala:101:16, bpu.scala:191:47, :192:47, :193:47, :194:47
+          PHT_15 <= _GEN_5;	// bpu.scala:146:22, :191:30
       end
     end
   end // always @(posedge)
@@ -2409,6 +2421,8 @@ module BPU(	// <stdin>:165:10
       automatic logic [31:0] _RANDOM_45;	// <stdin>:165:10
       automatic logic [31:0] _RANDOM_46;	// <stdin>:165:10
       automatic logic [31:0] _RANDOM_47;	// <stdin>:165:10
+      automatic logic [31:0] _RANDOM_48;	// <stdin>:165:10
+      automatic logic [31:0] _RANDOM_49;	// <stdin>:165:10
       `ifdef INIT_RANDOM_PROLOG_	// <stdin>:165:10
         `INIT_RANDOM_PROLOG_	// <stdin>:165:10
       `endif // INIT_RANDOM_PROLOG_
@@ -2461,525 +2475,528 @@ module BPU(	// <stdin>:165:10
         _RANDOM_45 = `RANDOM;	// <stdin>:165:10
         _RANDOM_46 = `RANDOM;	// <stdin>:165:10
         _RANDOM_47 = `RANDOM;	// <stdin>:165:10
-        BHT_0 = _RANDOM_0[3:0];	// bpu.scala:139:22
-        BHT_1 = _RANDOM_0[7:4];	// bpu.scala:139:22
-        BHT_2 = _RANDOM_0[11:8];	// bpu.scala:139:22
-        BHT_3 = _RANDOM_0[15:12];	// bpu.scala:139:22
-        BHT_4 = _RANDOM_0[19:16];	// bpu.scala:139:22
-        BHT_5 = _RANDOM_0[23:20];	// bpu.scala:139:22
-        BHT_6 = _RANDOM_0[27:24];	// bpu.scala:139:22
-        BHT_7 = _RANDOM_0[31:28];	// bpu.scala:139:22
-        BHT_8 = _RANDOM_1[3:0];	// bpu.scala:139:22
-        BHT_9 = _RANDOM_1[7:4];	// bpu.scala:139:22
-        BHT_10 = _RANDOM_1[11:8];	// bpu.scala:139:22
-        BHT_11 = _RANDOM_1[15:12];	// bpu.scala:139:22
-        BHT_12 = _RANDOM_1[19:16];	// bpu.scala:139:22
-        BHT_13 = _RANDOM_1[23:20];	// bpu.scala:139:22
-        BHT_14 = _RANDOM_1[27:24];	// bpu.scala:139:22
-        BHT_15 = _RANDOM_1[31:28];	// bpu.scala:139:22
-        BHT_16 = _RANDOM_2[3:0];	// bpu.scala:139:22
-        BHT_17 = _RANDOM_2[7:4];	// bpu.scala:139:22
-        BHT_18 = _RANDOM_2[11:8];	// bpu.scala:139:22
-        BHT_19 = _RANDOM_2[15:12];	// bpu.scala:139:22
-        BHT_20 = _RANDOM_2[19:16];	// bpu.scala:139:22
-        BHT_21 = _RANDOM_2[23:20];	// bpu.scala:139:22
-        BHT_22 = _RANDOM_2[27:24];	// bpu.scala:139:22
-        BHT_23 = _RANDOM_2[31:28];	// bpu.scala:139:22
-        BHT_24 = _RANDOM_3[3:0];	// bpu.scala:139:22
-        BHT_25 = _RANDOM_3[7:4];	// bpu.scala:139:22
-        BHT_26 = _RANDOM_3[11:8];	// bpu.scala:139:22
-        BHT_27 = _RANDOM_3[15:12];	// bpu.scala:139:22
-        BHT_28 = _RANDOM_3[19:16];	// bpu.scala:139:22
-        BHT_29 = _RANDOM_3[23:20];	// bpu.scala:139:22
-        BHT_30 = _RANDOM_3[27:24];	// bpu.scala:139:22
-        BHT_31 = _RANDOM_3[31:28];	// bpu.scala:139:22
-        BHT_32 = _RANDOM_4[3:0];	// bpu.scala:139:22
-        BHT_33 = _RANDOM_4[7:4];	// bpu.scala:139:22
-        BHT_34 = _RANDOM_4[11:8];	// bpu.scala:139:22
-        BHT_35 = _RANDOM_4[15:12];	// bpu.scala:139:22
-        BHT_36 = _RANDOM_4[19:16];	// bpu.scala:139:22
-        BHT_37 = _RANDOM_4[23:20];	// bpu.scala:139:22
-        BHT_38 = _RANDOM_4[27:24];	// bpu.scala:139:22
-        BHT_39 = _RANDOM_4[31:28];	// bpu.scala:139:22
-        BHT_40 = _RANDOM_5[3:0];	// bpu.scala:139:22
-        BHT_41 = _RANDOM_5[7:4];	// bpu.scala:139:22
-        BHT_42 = _RANDOM_5[11:8];	// bpu.scala:139:22
-        BHT_43 = _RANDOM_5[15:12];	// bpu.scala:139:22
-        BHT_44 = _RANDOM_5[19:16];	// bpu.scala:139:22
-        BHT_45 = _RANDOM_5[23:20];	// bpu.scala:139:22
-        BHT_46 = _RANDOM_5[27:24];	// bpu.scala:139:22
-        BHT_47 = _RANDOM_5[31:28];	// bpu.scala:139:22
-        BHT_48 = _RANDOM_6[3:0];	// bpu.scala:139:22
-        BHT_49 = _RANDOM_6[7:4];	// bpu.scala:139:22
-        BHT_50 = _RANDOM_6[11:8];	// bpu.scala:139:22
-        BHT_51 = _RANDOM_6[15:12];	// bpu.scala:139:22
-        BHT_52 = _RANDOM_6[19:16];	// bpu.scala:139:22
-        BHT_53 = _RANDOM_6[23:20];	// bpu.scala:139:22
-        BHT_54 = _RANDOM_6[27:24];	// bpu.scala:139:22
-        BHT_55 = _RANDOM_6[31:28];	// bpu.scala:139:22
-        BHT_56 = _RANDOM_7[3:0];	// bpu.scala:139:22
-        BHT_57 = _RANDOM_7[7:4];	// bpu.scala:139:22
-        BHT_58 = _RANDOM_7[11:8];	// bpu.scala:139:22
-        BHT_59 = _RANDOM_7[15:12];	// bpu.scala:139:22
-        BHT_60 = _RANDOM_7[19:16];	// bpu.scala:139:22
-        BHT_61 = _RANDOM_7[23:20];	// bpu.scala:139:22
-        BHT_62 = _RANDOM_7[27:24];	// bpu.scala:139:22
-        BHT_63 = _RANDOM_7[31:28];	// bpu.scala:139:22
-        BHT_64 = _RANDOM_8[3:0];	// bpu.scala:139:22
-        BHT_65 = _RANDOM_8[7:4];	// bpu.scala:139:22
-        BHT_66 = _RANDOM_8[11:8];	// bpu.scala:139:22
-        BHT_67 = _RANDOM_8[15:12];	// bpu.scala:139:22
-        BHT_68 = _RANDOM_8[19:16];	// bpu.scala:139:22
-        BHT_69 = _RANDOM_8[23:20];	// bpu.scala:139:22
-        BHT_70 = _RANDOM_8[27:24];	// bpu.scala:139:22
-        BHT_71 = _RANDOM_8[31:28];	// bpu.scala:139:22
-        BHT_72 = _RANDOM_9[3:0];	// bpu.scala:139:22
-        BHT_73 = _RANDOM_9[7:4];	// bpu.scala:139:22
-        BHT_74 = _RANDOM_9[11:8];	// bpu.scala:139:22
-        BHT_75 = _RANDOM_9[15:12];	// bpu.scala:139:22
-        BHT_76 = _RANDOM_9[19:16];	// bpu.scala:139:22
-        BHT_77 = _RANDOM_9[23:20];	// bpu.scala:139:22
-        BHT_78 = _RANDOM_9[27:24];	// bpu.scala:139:22
-        BHT_79 = _RANDOM_9[31:28];	// bpu.scala:139:22
-        BHT_80 = _RANDOM_10[3:0];	// bpu.scala:139:22
-        BHT_81 = _RANDOM_10[7:4];	// bpu.scala:139:22
-        BHT_82 = _RANDOM_10[11:8];	// bpu.scala:139:22
-        BHT_83 = _RANDOM_10[15:12];	// bpu.scala:139:22
-        BHT_84 = _RANDOM_10[19:16];	// bpu.scala:139:22
-        BHT_85 = _RANDOM_10[23:20];	// bpu.scala:139:22
-        BHT_86 = _RANDOM_10[27:24];	// bpu.scala:139:22
-        BHT_87 = _RANDOM_10[31:28];	// bpu.scala:139:22
-        BHT_88 = _RANDOM_11[3:0];	// bpu.scala:139:22
-        BHT_89 = _RANDOM_11[7:4];	// bpu.scala:139:22
-        BHT_90 = _RANDOM_11[11:8];	// bpu.scala:139:22
-        BHT_91 = _RANDOM_11[15:12];	// bpu.scala:139:22
-        BHT_92 = _RANDOM_11[19:16];	// bpu.scala:139:22
-        BHT_93 = _RANDOM_11[23:20];	// bpu.scala:139:22
-        BHT_94 = _RANDOM_11[27:24];	// bpu.scala:139:22
-        BHT_95 = _RANDOM_11[31:28];	// bpu.scala:139:22
-        BHT_96 = _RANDOM_12[3:0];	// bpu.scala:139:22
-        BHT_97 = _RANDOM_12[7:4];	// bpu.scala:139:22
-        BHT_98 = _RANDOM_12[11:8];	// bpu.scala:139:22
-        BHT_99 = _RANDOM_12[15:12];	// bpu.scala:139:22
-        BHT_100 = _RANDOM_12[19:16];	// bpu.scala:139:22
-        BHT_101 = _RANDOM_12[23:20];	// bpu.scala:139:22
-        BHT_102 = _RANDOM_12[27:24];	// bpu.scala:139:22
-        BHT_103 = _RANDOM_12[31:28];	// bpu.scala:139:22
-        BHT_104 = _RANDOM_13[3:0];	// bpu.scala:139:22
-        BHT_105 = _RANDOM_13[7:4];	// bpu.scala:139:22
-        BHT_106 = _RANDOM_13[11:8];	// bpu.scala:139:22
-        BHT_107 = _RANDOM_13[15:12];	// bpu.scala:139:22
-        BHT_108 = _RANDOM_13[19:16];	// bpu.scala:139:22
-        BHT_109 = _RANDOM_13[23:20];	// bpu.scala:139:22
-        BHT_110 = _RANDOM_13[27:24];	// bpu.scala:139:22
-        BHT_111 = _RANDOM_13[31:28];	// bpu.scala:139:22
-        BHT_112 = _RANDOM_14[3:0];	// bpu.scala:139:22
-        BHT_113 = _RANDOM_14[7:4];	// bpu.scala:139:22
-        BHT_114 = _RANDOM_14[11:8];	// bpu.scala:139:22
-        BHT_115 = _RANDOM_14[15:12];	// bpu.scala:139:22
-        BHT_116 = _RANDOM_14[19:16];	// bpu.scala:139:22
-        BHT_117 = _RANDOM_14[23:20];	// bpu.scala:139:22
-        BHT_118 = _RANDOM_14[27:24];	// bpu.scala:139:22
-        BHT_119 = _RANDOM_14[31:28];	// bpu.scala:139:22
-        BHT_120 = _RANDOM_15[3:0];	// bpu.scala:139:22
-        BHT_121 = _RANDOM_15[7:4];	// bpu.scala:139:22
-        BHT_122 = _RANDOM_15[11:8];	// bpu.scala:139:22
-        BHT_123 = _RANDOM_15[15:12];	// bpu.scala:139:22
-        BHT_124 = _RANDOM_15[19:16];	// bpu.scala:139:22
-        BHT_125 = _RANDOM_15[23:20];	// bpu.scala:139:22
-        BHT_126 = _RANDOM_15[27:24];	// bpu.scala:139:22
-        BHT_127 = _RANDOM_15[31:28];	// bpu.scala:139:22
-        BHT_128 = _RANDOM_16[3:0];	// bpu.scala:139:22
-        BHT_129 = _RANDOM_16[7:4];	// bpu.scala:139:22
-        BHT_130 = _RANDOM_16[11:8];	// bpu.scala:139:22
-        BHT_131 = _RANDOM_16[15:12];	// bpu.scala:139:22
-        BHT_132 = _RANDOM_16[19:16];	// bpu.scala:139:22
-        BHT_133 = _RANDOM_16[23:20];	// bpu.scala:139:22
-        BHT_134 = _RANDOM_16[27:24];	// bpu.scala:139:22
-        BHT_135 = _RANDOM_16[31:28];	// bpu.scala:139:22
-        BHT_136 = _RANDOM_17[3:0];	// bpu.scala:139:22
-        BHT_137 = _RANDOM_17[7:4];	// bpu.scala:139:22
-        BHT_138 = _RANDOM_17[11:8];	// bpu.scala:139:22
-        BHT_139 = _RANDOM_17[15:12];	// bpu.scala:139:22
-        BHT_140 = _RANDOM_17[19:16];	// bpu.scala:139:22
-        BHT_141 = _RANDOM_17[23:20];	// bpu.scala:139:22
-        BHT_142 = _RANDOM_17[27:24];	// bpu.scala:139:22
-        BHT_143 = _RANDOM_17[31:28];	// bpu.scala:139:22
-        BHT_144 = _RANDOM_18[3:0];	// bpu.scala:139:22
-        BHT_145 = _RANDOM_18[7:4];	// bpu.scala:139:22
-        BHT_146 = _RANDOM_18[11:8];	// bpu.scala:139:22
-        BHT_147 = _RANDOM_18[15:12];	// bpu.scala:139:22
-        BHT_148 = _RANDOM_18[19:16];	// bpu.scala:139:22
-        BHT_149 = _RANDOM_18[23:20];	// bpu.scala:139:22
-        BHT_150 = _RANDOM_18[27:24];	// bpu.scala:139:22
-        BHT_151 = _RANDOM_18[31:28];	// bpu.scala:139:22
-        BHT_152 = _RANDOM_19[3:0];	// bpu.scala:139:22
-        BHT_153 = _RANDOM_19[7:4];	// bpu.scala:139:22
-        BHT_154 = _RANDOM_19[11:8];	// bpu.scala:139:22
-        BHT_155 = _RANDOM_19[15:12];	// bpu.scala:139:22
-        BHT_156 = _RANDOM_19[19:16];	// bpu.scala:139:22
-        BHT_157 = _RANDOM_19[23:20];	// bpu.scala:139:22
-        BHT_158 = _RANDOM_19[27:24];	// bpu.scala:139:22
-        BHT_159 = _RANDOM_19[31:28];	// bpu.scala:139:22
-        BHT_160 = _RANDOM_20[3:0];	// bpu.scala:139:22
-        BHT_161 = _RANDOM_20[7:4];	// bpu.scala:139:22
-        BHT_162 = _RANDOM_20[11:8];	// bpu.scala:139:22
-        BHT_163 = _RANDOM_20[15:12];	// bpu.scala:139:22
-        BHT_164 = _RANDOM_20[19:16];	// bpu.scala:139:22
-        BHT_165 = _RANDOM_20[23:20];	// bpu.scala:139:22
-        BHT_166 = _RANDOM_20[27:24];	// bpu.scala:139:22
-        BHT_167 = _RANDOM_20[31:28];	// bpu.scala:139:22
-        BHT_168 = _RANDOM_21[3:0];	// bpu.scala:139:22
-        BHT_169 = _RANDOM_21[7:4];	// bpu.scala:139:22
-        BHT_170 = _RANDOM_21[11:8];	// bpu.scala:139:22
-        BHT_171 = _RANDOM_21[15:12];	// bpu.scala:139:22
-        BHT_172 = _RANDOM_21[19:16];	// bpu.scala:139:22
-        BHT_173 = _RANDOM_21[23:20];	// bpu.scala:139:22
-        BHT_174 = _RANDOM_21[27:24];	// bpu.scala:139:22
-        BHT_175 = _RANDOM_21[31:28];	// bpu.scala:139:22
-        BHT_176 = _RANDOM_22[3:0];	// bpu.scala:139:22
-        BHT_177 = _RANDOM_22[7:4];	// bpu.scala:139:22
-        BHT_178 = _RANDOM_22[11:8];	// bpu.scala:139:22
-        BHT_179 = _RANDOM_22[15:12];	// bpu.scala:139:22
-        BHT_180 = _RANDOM_22[19:16];	// bpu.scala:139:22
-        BHT_181 = _RANDOM_22[23:20];	// bpu.scala:139:22
-        BHT_182 = _RANDOM_22[27:24];	// bpu.scala:139:22
-        BHT_183 = _RANDOM_22[31:28];	// bpu.scala:139:22
-        BHT_184 = _RANDOM_23[3:0];	// bpu.scala:139:22
-        BHT_185 = _RANDOM_23[7:4];	// bpu.scala:139:22
-        BHT_186 = _RANDOM_23[11:8];	// bpu.scala:139:22
-        BHT_187 = _RANDOM_23[15:12];	// bpu.scala:139:22
-        BHT_188 = _RANDOM_23[19:16];	// bpu.scala:139:22
-        BHT_189 = _RANDOM_23[23:20];	// bpu.scala:139:22
-        BHT_190 = _RANDOM_23[27:24];	// bpu.scala:139:22
-        BHT_191 = _RANDOM_23[31:28];	// bpu.scala:139:22
-        BHT_192 = _RANDOM_24[3:0];	// bpu.scala:139:22
-        BHT_193 = _RANDOM_24[7:4];	// bpu.scala:139:22
-        BHT_194 = _RANDOM_24[11:8];	// bpu.scala:139:22
-        BHT_195 = _RANDOM_24[15:12];	// bpu.scala:139:22
-        BHT_196 = _RANDOM_24[19:16];	// bpu.scala:139:22
-        BHT_197 = _RANDOM_24[23:20];	// bpu.scala:139:22
-        BHT_198 = _RANDOM_24[27:24];	// bpu.scala:139:22
-        BHT_199 = _RANDOM_24[31:28];	// bpu.scala:139:22
-        BHT_200 = _RANDOM_25[3:0];	// bpu.scala:139:22
-        BHT_201 = _RANDOM_25[7:4];	// bpu.scala:139:22
-        BHT_202 = _RANDOM_25[11:8];	// bpu.scala:139:22
-        BHT_203 = _RANDOM_25[15:12];	// bpu.scala:139:22
-        BHT_204 = _RANDOM_25[19:16];	// bpu.scala:139:22
-        BHT_205 = _RANDOM_25[23:20];	// bpu.scala:139:22
-        BHT_206 = _RANDOM_25[27:24];	// bpu.scala:139:22
-        BHT_207 = _RANDOM_25[31:28];	// bpu.scala:139:22
-        BHT_208 = _RANDOM_26[3:0];	// bpu.scala:139:22
-        BHT_209 = _RANDOM_26[7:4];	// bpu.scala:139:22
-        BHT_210 = _RANDOM_26[11:8];	// bpu.scala:139:22
-        BHT_211 = _RANDOM_26[15:12];	// bpu.scala:139:22
-        BHT_212 = _RANDOM_26[19:16];	// bpu.scala:139:22
-        BHT_213 = _RANDOM_26[23:20];	// bpu.scala:139:22
-        BHT_214 = _RANDOM_26[27:24];	// bpu.scala:139:22
-        BHT_215 = _RANDOM_26[31:28];	// bpu.scala:139:22
-        BHT_216 = _RANDOM_27[3:0];	// bpu.scala:139:22
-        BHT_217 = _RANDOM_27[7:4];	// bpu.scala:139:22
-        BHT_218 = _RANDOM_27[11:8];	// bpu.scala:139:22
-        BHT_219 = _RANDOM_27[15:12];	// bpu.scala:139:22
-        BHT_220 = _RANDOM_27[19:16];	// bpu.scala:139:22
-        BHT_221 = _RANDOM_27[23:20];	// bpu.scala:139:22
-        BHT_222 = _RANDOM_27[27:24];	// bpu.scala:139:22
-        BHT_223 = _RANDOM_27[31:28];	// bpu.scala:139:22
-        BHT_224 = _RANDOM_28[3:0];	// bpu.scala:139:22
-        BHT_225 = _RANDOM_28[7:4];	// bpu.scala:139:22
-        BHT_226 = _RANDOM_28[11:8];	// bpu.scala:139:22
-        BHT_227 = _RANDOM_28[15:12];	// bpu.scala:139:22
-        BHT_228 = _RANDOM_28[19:16];	// bpu.scala:139:22
-        BHT_229 = _RANDOM_28[23:20];	// bpu.scala:139:22
-        BHT_230 = _RANDOM_28[27:24];	// bpu.scala:139:22
-        BHT_231 = _RANDOM_28[31:28];	// bpu.scala:139:22
-        BHT_232 = _RANDOM_29[3:0];	// bpu.scala:139:22
-        BHT_233 = _RANDOM_29[7:4];	// bpu.scala:139:22
-        BHT_234 = _RANDOM_29[11:8];	// bpu.scala:139:22
-        BHT_235 = _RANDOM_29[15:12];	// bpu.scala:139:22
-        BHT_236 = _RANDOM_29[19:16];	// bpu.scala:139:22
-        BHT_237 = _RANDOM_29[23:20];	// bpu.scala:139:22
-        BHT_238 = _RANDOM_29[27:24];	// bpu.scala:139:22
-        BHT_239 = _RANDOM_29[31:28];	// bpu.scala:139:22
-        BHT_240 = _RANDOM_30[3:0];	// bpu.scala:139:22
-        BHT_241 = _RANDOM_30[7:4];	// bpu.scala:139:22
-        BHT_242 = _RANDOM_30[11:8];	// bpu.scala:139:22
-        BHT_243 = _RANDOM_30[15:12];	// bpu.scala:139:22
-        BHT_244 = _RANDOM_30[19:16];	// bpu.scala:139:22
-        BHT_245 = _RANDOM_30[23:20];	// bpu.scala:139:22
-        BHT_246 = _RANDOM_30[27:24];	// bpu.scala:139:22
-        BHT_247 = _RANDOM_30[31:28];	// bpu.scala:139:22
-        BHT_248 = _RANDOM_31[3:0];	// bpu.scala:139:22
-        BHT_249 = _RANDOM_31[7:4];	// bpu.scala:139:22
-        BHT_250 = _RANDOM_31[11:8];	// bpu.scala:139:22
-        BHT_251 = _RANDOM_31[15:12];	// bpu.scala:139:22
-        BHT_252 = _RANDOM_31[19:16];	// bpu.scala:139:22
-        BHT_253 = _RANDOM_31[23:20];	// bpu.scala:139:22
-        BHT_254 = _RANDOM_31[27:24];	// bpu.scala:139:22
-        BHT_255 = _RANDOM_31[31:28];	// bpu.scala:139:22
-        PHT_0 = _RANDOM_32[1:0];	// bpu.scala:140:22
-        PHT_1 = _RANDOM_32[3:2];	// bpu.scala:140:22
-        PHT_2 = _RANDOM_32[5:4];	// bpu.scala:140:22
-        PHT_3 = _RANDOM_32[7:6];	// bpu.scala:140:22
-        PHT_4 = _RANDOM_32[9:8];	// bpu.scala:140:22
-        PHT_5 = _RANDOM_32[11:10];	// bpu.scala:140:22
-        PHT_6 = _RANDOM_32[13:12];	// bpu.scala:140:22
-        PHT_7 = _RANDOM_32[15:14];	// bpu.scala:140:22
-        PHT_8 = _RANDOM_32[17:16];	// bpu.scala:140:22
-        PHT_9 = _RANDOM_32[19:18];	// bpu.scala:140:22
-        PHT_10 = _RANDOM_32[21:20];	// bpu.scala:140:22
-        PHT_11 = _RANDOM_32[23:22];	// bpu.scala:140:22
-        PHT_12 = _RANDOM_32[25:24];	// bpu.scala:140:22
-        PHT_13 = _RANDOM_32[27:26];	// bpu.scala:140:22
-        PHT_14 = _RANDOM_32[29:28];	// bpu.scala:140:22
-        PHT_15 = _RANDOM_32[31:30];	// bpu.scala:140:22
-        PHT_16 = _RANDOM_33[1:0];	// bpu.scala:140:22
-        PHT_17 = _RANDOM_33[3:2];	// bpu.scala:140:22
-        PHT_18 = _RANDOM_33[5:4];	// bpu.scala:140:22
-        PHT_19 = _RANDOM_33[7:6];	// bpu.scala:140:22
-        PHT_20 = _RANDOM_33[9:8];	// bpu.scala:140:22
-        PHT_21 = _RANDOM_33[11:10];	// bpu.scala:140:22
-        PHT_22 = _RANDOM_33[13:12];	// bpu.scala:140:22
-        PHT_23 = _RANDOM_33[15:14];	// bpu.scala:140:22
-        PHT_24 = _RANDOM_33[17:16];	// bpu.scala:140:22
-        PHT_25 = _RANDOM_33[19:18];	// bpu.scala:140:22
-        PHT_26 = _RANDOM_33[21:20];	// bpu.scala:140:22
-        PHT_27 = _RANDOM_33[23:22];	// bpu.scala:140:22
-        PHT_28 = _RANDOM_33[25:24];	// bpu.scala:140:22
-        PHT_29 = _RANDOM_33[27:26];	// bpu.scala:140:22
-        PHT_30 = _RANDOM_33[29:28];	// bpu.scala:140:22
-        PHT_31 = _RANDOM_33[31:30];	// bpu.scala:140:22
-        PHT_32 = _RANDOM_34[1:0];	// bpu.scala:140:22
-        PHT_33 = _RANDOM_34[3:2];	// bpu.scala:140:22
-        PHT_34 = _RANDOM_34[5:4];	// bpu.scala:140:22
-        PHT_35 = _RANDOM_34[7:6];	// bpu.scala:140:22
-        PHT_36 = _RANDOM_34[9:8];	// bpu.scala:140:22
-        PHT_37 = _RANDOM_34[11:10];	// bpu.scala:140:22
-        PHT_38 = _RANDOM_34[13:12];	// bpu.scala:140:22
-        PHT_39 = _RANDOM_34[15:14];	// bpu.scala:140:22
-        PHT_40 = _RANDOM_34[17:16];	// bpu.scala:140:22
-        PHT_41 = _RANDOM_34[19:18];	// bpu.scala:140:22
-        PHT_42 = _RANDOM_34[21:20];	// bpu.scala:140:22
-        PHT_43 = _RANDOM_34[23:22];	// bpu.scala:140:22
-        PHT_44 = _RANDOM_34[25:24];	// bpu.scala:140:22
-        PHT_45 = _RANDOM_34[27:26];	// bpu.scala:140:22
-        PHT_46 = _RANDOM_34[29:28];	// bpu.scala:140:22
-        PHT_47 = _RANDOM_34[31:30];	// bpu.scala:140:22
-        PHT_48 = _RANDOM_35[1:0];	// bpu.scala:140:22
-        PHT_49 = _RANDOM_35[3:2];	// bpu.scala:140:22
-        PHT_50 = _RANDOM_35[5:4];	// bpu.scala:140:22
-        PHT_51 = _RANDOM_35[7:6];	// bpu.scala:140:22
-        PHT_52 = _RANDOM_35[9:8];	// bpu.scala:140:22
-        PHT_53 = _RANDOM_35[11:10];	// bpu.scala:140:22
-        PHT_54 = _RANDOM_35[13:12];	// bpu.scala:140:22
-        PHT_55 = _RANDOM_35[15:14];	// bpu.scala:140:22
-        PHT_56 = _RANDOM_35[17:16];	// bpu.scala:140:22
-        PHT_57 = _RANDOM_35[19:18];	// bpu.scala:140:22
-        PHT_58 = _RANDOM_35[21:20];	// bpu.scala:140:22
-        PHT_59 = _RANDOM_35[23:22];	// bpu.scala:140:22
-        PHT_60 = _RANDOM_35[25:24];	// bpu.scala:140:22
-        PHT_61 = _RANDOM_35[27:26];	// bpu.scala:140:22
-        PHT_62 = _RANDOM_35[29:28];	// bpu.scala:140:22
-        PHT_63 = _RANDOM_35[31:30];	// bpu.scala:140:22
-        PHT_64 = _RANDOM_36[1:0];	// bpu.scala:140:22
-        PHT_65 = _RANDOM_36[3:2];	// bpu.scala:140:22
-        PHT_66 = _RANDOM_36[5:4];	// bpu.scala:140:22
-        PHT_67 = _RANDOM_36[7:6];	// bpu.scala:140:22
-        PHT_68 = _RANDOM_36[9:8];	// bpu.scala:140:22
-        PHT_69 = _RANDOM_36[11:10];	// bpu.scala:140:22
-        PHT_70 = _RANDOM_36[13:12];	// bpu.scala:140:22
-        PHT_71 = _RANDOM_36[15:14];	// bpu.scala:140:22
-        PHT_72 = _RANDOM_36[17:16];	// bpu.scala:140:22
-        PHT_73 = _RANDOM_36[19:18];	// bpu.scala:140:22
-        PHT_74 = _RANDOM_36[21:20];	// bpu.scala:140:22
-        PHT_75 = _RANDOM_36[23:22];	// bpu.scala:140:22
-        PHT_76 = _RANDOM_36[25:24];	// bpu.scala:140:22
-        PHT_77 = _RANDOM_36[27:26];	// bpu.scala:140:22
-        PHT_78 = _RANDOM_36[29:28];	// bpu.scala:140:22
-        PHT_79 = _RANDOM_36[31:30];	// bpu.scala:140:22
-        PHT_80 = _RANDOM_37[1:0];	// bpu.scala:140:22
-        PHT_81 = _RANDOM_37[3:2];	// bpu.scala:140:22
-        PHT_82 = _RANDOM_37[5:4];	// bpu.scala:140:22
-        PHT_83 = _RANDOM_37[7:6];	// bpu.scala:140:22
-        PHT_84 = _RANDOM_37[9:8];	// bpu.scala:140:22
-        PHT_85 = _RANDOM_37[11:10];	// bpu.scala:140:22
-        PHT_86 = _RANDOM_37[13:12];	// bpu.scala:140:22
-        PHT_87 = _RANDOM_37[15:14];	// bpu.scala:140:22
-        PHT_88 = _RANDOM_37[17:16];	// bpu.scala:140:22
-        PHT_89 = _RANDOM_37[19:18];	// bpu.scala:140:22
-        PHT_90 = _RANDOM_37[21:20];	// bpu.scala:140:22
-        PHT_91 = _RANDOM_37[23:22];	// bpu.scala:140:22
-        PHT_92 = _RANDOM_37[25:24];	// bpu.scala:140:22
-        PHT_93 = _RANDOM_37[27:26];	// bpu.scala:140:22
-        PHT_94 = _RANDOM_37[29:28];	// bpu.scala:140:22
-        PHT_95 = _RANDOM_37[31:30];	// bpu.scala:140:22
-        PHT_96 = _RANDOM_38[1:0];	// bpu.scala:140:22
-        PHT_97 = _RANDOM_38[3:2];	// bpu.scala:140:22
-        PHT_98 = _RANDOM_38[5:4];	// bpu.scala:140:22
-        PHT_99 = _RANDOM_38[7:6];	// bpu.scala:140:22
-        PHT_100 = _RANDOM_38[9:8];	// bpu.scala:140:22
-        PHT_101 = _RANDOM_38[11:10];	// bpu.scala:140:22
-        PHT_102 = _RANDOM_38[13:12];	// bpu.scala:140:22
-        PHT_103 = _RANDOM_38[15:14];	// bpu.scala:140:22
-        PHT_104 = _RANDOM_38[17:16];	// bpu.scala:140:22
-        PHT_105 = _RANDOM_38[19:18];	// bpu.scala:140:22
-        PHT_106 = _RANDOM_38[21:20];	// bpu.scala:140:22
-        PHT_107 = _RANDOM_38[23:22];	// bpu.scala:140:22
-        PHT_108 = _RANDOM_38[25:24];	// bpu.scala:140:22
-        PHT_109 = _RANDOM_38[27:26];	// bpu.scala:140:22
-        PHT_110 = _RANDOM_38[29:28];	// bpu.scala:140:22
-        PHT_111 = _RANDOM_38[31:30];	// bpu.scala:140:22
-        PHT_112 = _RANDOM_39[1:0];	// bpu.scala:140:22
-        PHT_113 = _RANDOM_39[3:2];	// bpu.scala:140:22
-        PHT_114 = _RANDOM_39[5:4];	// bpu.scala:140:22
-        PHT_115 = _RANDOM_39[7:6];	// bpu.scala:140:22
-        PHT_116 = _RANDOM_39[9:8];	// bpu.scala:140:22
-        PHT_117 = _RANDOM_39[11:10];	// bpu.scala:140:22
-        PHT_118 = _RANDOM_39[13:12];	// bpu.scala:140:22
-        PHT_119 = _RANDOM_39[15:14];	// bpu.scala:140:22
-        PHT_120 = _RANDOM_39[17:16];	// bpu.scala:140:22
-        PHT_121 = _RANDOM_39[19:18];	// bpu.scala:140:22
-        PHT_122 = _RANDOM_39[21:20];	// bpu.scala:140:22
-        PHT_123 = _RANDOM_39[23:22];	// bpu.scala:140:22
-        PHT_124 = _RANDOM_39[25:24];	// bpu.scala:140:22
-        PHT_125 = _RANDOM_39[27:26];	// bpu.scala:140:22
-        PHT_126 = _RANDOM_39[29:28];	// bpu.scala:140:22
-        PHT_127 = _RANDOM_39[31:30];	// bpu.scala:140:22
-        PHT_128 = _RANDOM_40[1:0];	// bpu.scala:140:22
-        PHT_129 = _RANDOM_40[3:2];	// bpu.scala:140:22
-        PHT_130 = _RANDOM_40[5:4];	// bpu.scala:140:22
-        PHT_131 = _RANDOM_40[7:6];	// bpu.scala:140:22
-        PHT_132 = _RANDOM_40[9:8];	// bpu.scala:140:22
-        PHT_133 = _RANDOM_40[11:10];	// bpu.scala:140:22
-        PHT_134 = _RANDOM_40[13:12];	// bpu.scala:140:22
-        PHT_135 = _RANDOM_40[15:14];	// bpu.scala:140:22
-        PHT_136 = _RANDOM_40[17:16];	// bpu.scala:140:22
-        PHT_137 = _RANDOM_40[19:18];	// bpu.scala:140:22
-        PHT_138 = _RANDOM_40[21:20];	// bpu.scala:140:22
-        PHT_139 = _RANDOM_40[23:22];	// bpu.scala:140:22
-        PHT_140 = _RANDOM_40[25:24];	// bpu.scala:140:22
-        PHT_141 = _RANDOM_40[27:26];	// bpu.scala:140:22
-        PHT_142 = _RANDOM_40[29:28];	// bpu.scala:140:22
-        PHT_143 = _RANDOM_40[31:30];	// bpu.scala:140:22
-        PHT_144 = _RANDOM_41[1:0];	// bpu.scala:140:22
-        PHT_145 = _RANDOM_41[3:2];	// bpu.scala:140:22
-        PHT_146 = _RANDOM_41[5:4];	// bpu.scala:140:22
-        PHT_147 = _RANDOM_41[7:6];	// bpu.scala:140:22
-        PHT_148 = _RANDOM_41[9:8];	// bpu.scala:140:22
-        PHT_149 = _RANDOM_41[11:10];	// bpu.scala:140:22
-        PHT_150 = _RANDOM_41[13:12];	// bpu.scala:140:22
-        PHT_151 = _RANDOM_41[15:14];	// bpu.scala:140:22
-        PHT_152 = _RANDOM_41[17:16];	// bpu.scala:140:22
-        PHT_153 = _RANDOM_41[19:18];	// bpu.scala:140:22
-        PHT_154 = _RANDOM_41[21:20];	// bpu.scala:140:22
-        PHT_155 = _RANDOM_41[23:22];	// bpu.scala:140:22
-        PHT_156 = _RANDOM_41[25:24];	// bpu.scala:140:22
-        PHT_157 = _RANDOM_41[27:26];	// bpu.scala:140:22
-        PHT_158 = _RANDOM_41[29:28];	// bpu.scala:140:22
-        PHT_159 = _RANDOM_41[31:30];	// bpu.scala:140:22
-        PHT_160 = _RANDOM_42[1:0];	// bpu.scala:140:22
-        PHT_161 = _RANDOM_42[3:2];	// bpu.scala:140:22
-        PHT_162 = _RANDOM_42[5:4];	// bpu.scala:140:22
-        PHT_163 = _RANDOM_42[7:6];	// bpu.scala:140:22
-        PHT_164 = _RANDOM_42[9:8];	// bpu.scala:140:22
-        PHT_165 = _RANDOM_42[11:10];	// bpu.scala:140:22
-        PHT_166 = _RANDOM_42[13:12];	// bpu.scala:140:22
-        PHT_167 = _RANDOM_42[15:14];	// bpu.scala:140:22
-        PHT_168 = _RANDOM_42[17:16];	// bpu.scala:140:22
-        PHT_169 = _RANDOM_42[19:18];	// bpu.scala:140:22
-        PHT_170 = _RANDOM_42[21:20];	// bpu.scala:140:22
-        PHT_171 = _RANDOM_42[23:22];	// bpu.scala:140:22
-        PHT_172 = _RANDOM_42[25:24];	// bpu.scala:140:22
-        PHT_173 = _RANDOM_42[27:26];	// bpu.scala:140:22
-        PHT_174 = _RANDOM_42[29:28];	// bpu.scala:140:22
-        PHT_175 = _RANDOM_42[31:30];	// bpu.scala:140:22
-        PHT_176 = _RANDOM_43[1:0];	// bpu.scala:140:22
-        PHT_177 = _RANDOM_43[3:2];	// bpu.scala:140:22
-        PHT_178 = _RANDOM_43[5:4];	// bpu.scala:140:22
-        PHT_179 = _RANDOM_43[7:6];	// bpu.scala:140:22
-        PHT_180 = _RANDOM_43[9:8];	// bpu.scala:140:22
-        PHT_181 = _RANDOM_43[11:10];	// bpu.scala:140:22
-        PHT_182 = _RANDOM_43[13:12];	// bpu.scala:140:22
-        PHT_183 = _RANDOM_43[15:14];	// bpu.scala:140:22
-        PHT_184 = _RANDOM_43[17:16];	// bpu.scala:140:22
-        PHT_185 = _RANDOM_43[19:18];	// bpu.scala:140:22
-        PHT_186 = _RANDOM_43[21:20];	// bpu.scala:140:22
-        PHT_187 = _RANDOM_43[23:22];	// bpu.scala:140:22
-        PHT_188 = _RANDOM_43[25:24];	// bpu.scala:140:22
-        PHT_189 = _RANDOM_43[27:26];	// bpu.scala:140:22
-        PHT_190 = _RANDOM_43[29:28];	// bpu.scala:140:22
-        PHT_191 = _RANDOM_43[31:30];	// bpu.scala:140:22
-        PHT_192 = _RANDOM_44[1:0];	// bpu.scala:140:22
-        PHT_193 = _RANDOM_44[3:2];	// bpu.scala:140:22
-        PHT_194 = _RANDOM_44[5:4];	// bpu.scala:140:22
-        PHT_195 = _RANDOM_44[7:6];	// bpu.scala:140:22
-        PHT_196 = _RANDOM_44[9:8];	// bpu.scala:140:22
-        PHT_197 = _RANDOM_44[11:10];	// bpu.scala:140:22
-        PHT_198 = _RANDOM_44[13:12];	// bpu.scala:140:22
-        PHT_199 = _RANDOM_44[15:14];	// bpu.scala:140:22
-        PHT_200 = _RANDOM_44[17:16];	// bpu.scala:140:22
-        PHT_201 = _RANDOM_44[19:18];	// bpu.scala:140:22
-        PHT_202 = _RANDOM_44[21:20];	// bpu.scala:140:22
-        PHT_203 = _RANDOM_44[23:22];	// bpu.scala:140:22
-        PHT_204 = _RANDOM_44[25:24];	// bpu.scala:140:22
-        PHT_205 = _RANDOM_44[27:26];	// bpu.scala:140:22
-        PHT_206 = _RANDOM_44[29:28];	// bpu.scala:140:22
-        PHT_207 = _RANDOM_44[31:30];	// bpu.scala:140:22
-        PHT_208 = _RANDOM_45[1:0];	// bpu.scala:140:22
-        PHT_209 = _RANDOM_45[3:2];	// bpu.scala:140:22
-        PHT_210 = _RANDOM_45[5:4];	// bpu.scala:140:22
-        PHT_211 = _RANDOM_45[7:6];	// bpu.scala:140:22
-        PHT_212 = _RANDOM_45[9:8];	// bpu.scala:140:22
-        PHT_213 = _RANDOM_45[11:10];	// bpu.scala:140:22
-        PHT_214 = _RANDOM_45[13:12];	// bpu.scala:140:22
-        PHT_215 = _RANDOM_45[15:14];	// bpu.scala:140:22
-        PHT_216 = _RANDOM_45[17:16];	// bpu.scala:140:22
-        PHT_217 = _RANDOM_45[19:18];	// bpu.scala:140:22
-        PHT_218 = _RANDOM_45[21:20];	// bpu.scala:140:22
-        PHT_219 = _RANDOM_45[23:22];	// bpu.scala:140:22
-        PHT_220 = _RANDOM_45[25:24];	// bpu.scala:140:22
-        PHT_221 = _RANDOM_45[27:26];	// bpu.scala:140:22
-        PHT_222 = _RANDOM_45[29:28];	// bpu.scala:140:22
-        PHT_223 = _RANDOM_45[31:30];	// bpu.scala:140:22
-        PHT_224 = _RANDOM_46[1:0];	// bpu.scala:140:22
-        PHT_225 = _RANDOM_46[3:2];	// bpu.scala:140:22
-        PHT_226 = _RANDOM_46[5:4];	// bpu.scala:140:22
-        PHT_227 = _RANDOM_46[7:6];	// bpu.scala:140:22
-        PHT_228 = _RANDOM_46[9:8];	// bpu.scala:140:22
-        PHT_229 = _RANDOM_46[11:10];	// bpu.scala:140:22
-        PHT_230 = _RANDOM_46[13:12];	// bpu.scala:140:22
-        PHT_231 = _RANDOM_46[15:14];	// bpu.scala:140:22
-        PHT_232 = _RANDOM_46[17:16];	// bpu.scala:140:22
-        PHT_233 = _RANDOM_46[19:18];	// bpu.scala:140:22
-        PHT_234 = _RANDOM_46[21:20];	// bpu.scala:140:22
-        PHT_235 = _RANDOM_46[23:22];	// bpu.scala:140:22
-        PHT_236 = _RANDOM_46[25:24];	// bpu.scala:140:22
-        PHT_237 = _RANDOM_46[27:26];	// bpu.scala:140:22
-        PHT_238 = _RANDOM_46[29:28];	// bpu.scala:140:22
-        PHT_239 = _RANDOM_46[31:30];	// bpu.scala:140:22
-        PHT_240 = _RANDOM_47[1:0];	// bpu.scala:140:22
-        PHT_241 = _RANDOM_47[3:2];	// bpu.scala:140:22
-        PHT_242 = _RANDOM_47[5:4];	// bpu.scala:140:22
-        PHT_243 = _RANDOM_47[7:6];	// bpu.scala:140:22
-        PHT_244 = _RANDOM_47[9:8];	// bpu.scala:140:22
-        PHT_245 = _RANDOM_47[11:10];	// bpu.scala:140:22
-        PHT_246 = _RANDOM_47[13:12];	// bpu.scala:140:22
-        PHT_247 = _RANDOM_47[15:14];	// bpu.scala:140:22
-        PHT_248 = _RANDOM_47[17:16];	// bpu.scala:140:22
-        PHT_249 = _RANDOM_47[19:18];	// bpu.scala:140:22
-        PHT_250 = _RANDOM_47[21:20];	// bpu.scala:140:22
-        PHT_251 = _RANDOM_47[23:22];	// bpu.scala:140:22
-        PHT_252 = _RANDOM_47[25:24];	// bpu.scala:140:22
-        PHT_253 = _RANDOM_47[27:26];	// bpu.scala:140:22
-        PHT_254 = _RANDOM_47[29:28];	// bpu.scala:140:22
-        PHT_255 = _RANDOM_47[31:30];	// bpu.scala:140:22
+        _RANDOM_48 = `RANDOM;	// <stdin>:165:10
+        _RANDOM_49 = `RANDOM;	// <stdin>:165:10
+        bp_target = {_RANDOM_0, _RANDOM_1};	// bpu.scala:138:28
+        BHT_0 = _RANDOM_2[3:0];	// bpu.scala:145:22
+        BHT_1 = _RANDOM_2[7:4];	// bpu.scala:145:22
+        BHT_2 = _RANDOM_2[11:8];	// bpu.scala:145:22
+        BHT_3 = _RANDOM_2[15:12];	// bpu.scala:145:22
+        BHT_4 = _RANDOM_2[19:16];	// bpu.scala:145:22
+        BHT_5 = _RANDOM_2[23:20];	// bpu.scala:145:22
+        BHT_6 = _RANDOM_2[27:24];	// bpu.scala:145:22
+        BHT_7 = _RANDOM_2[31:28];	// bpu.scala:145:22
+        BHT_8 = _RANDOM_3[3:0];	// bpu.scala:145:22
+        BHT_9 = _RANDOM_3[7:4];	// bpu.scala:145:22
+        BHT_10 = _RANDOM_3[11:8];	// bpu.scala:145:22
+        BHT_11 = _RANDOM_3[15:12];	// bpu.scala:145:22
+        BHT_12 = _RANDOM_3[19:16];	// bpu.scala:145:22
+        BHT_13 = _RANDOM_3[23:20];	// bpu.scala:145:22
+        BHT_14 = _RANDOM_3[27:24];	// bpu.scala:145:22
+        BHT_15 = _RANDOM_3[31:28];	// bpu.scala:145:22
+        BHT_16 = _RANDOM_4[3:0];	// bpu.scala:145:22
+        BHT_17 = _RANDOM_4[7:4];	// bpu.scala:145:22
+        BHT_18 = _RANDOM_4[11:8];	// bpu.scala:145:22
+        BHT_19 = _RANDOM_4[15:12];	// bpu.scala:145:22
+        BHT_20 = _RANDOM_4[19:16];	// bpu.scala:145:22
+        BHT_21 = _RANDOM_4[23:20];	// bpu.scala:145:22
+        BHT_22 = _RANDOM_4[27:24];	// bpu.scala:145:22
+        BHT_23 = _RANDOM_4[31:28];	// bpu.scala:145:22
+        BHT_24 = _RANDOM_5[3:0];	// bpu.scala:145:22
+        BHT_25 = _RANDOM_5[7:4];	// bpu.scala:145:22
+        BHT_26 = _RANDOM_5[11:8];	// bpu.scala:145:22
+        BHT_27 = _RANDOM_5[15:12];	// bpu.scala:145:22
+        BHT_28 = _RANDOM_5[19:16];	// bpu.scala:145:22
+        BHT_29 = _RANDOM_5[23:20];	// bpu.scala:145:22
+        BHT_30 = _RANDOM_5[27:24];	// bpu.scala:145:22
+        BHT_31 = _RANDOM_5[31:28];	// bpu.scala:145:22
+        BHT_32 = _RANDOM_6[3:0];	// bpu.scala:145:22
+        BHT_33 = _RANDOM_6[7:4];	// bpu.scala:145:22
+        BHT_34 = _RANDOM_6[11:8];	// bpu.scala:145:22
+        BHT_35 = _RANDOM_6[15:12];	// bpu.scala:145:22
+        BHT_36 = _RANDOM_6[19:16];	// bpu.scala:145:22
+        BHT_37 = _RANDOM_6[23:20];	// bpu.scala:145:22
+        BHT_38 = _RANDOM_6[27:24];	// bpu.scala:145:22
+        BHT_39 = _RANDOM_6[31:28];	// bpu.scala:145:22
+        BHT_40 = _RANDOM_7[3:0];	// bpu.scala:145:22
+        BHT_41 = _RANDOM_7[7:4];	// bpu.scala:145:22
+        BHT_42 = _RANDOM_7[11:8];	// bpu.scala:145:22
+        BHT_43 = _RANDOM_7[15:12];	// bpu.scala:145:22
+        BHT_44 = _RANDOM_7[19:16];	// bpu.scala:145:22
+        BHT_45 = _RANDOM_7[23:20];	// bpu.scala:145:22
+        BHT_46 = _RANDOM_7[27:24];	// bpu.scala:145:22
+        BHT_47 = _RANDOM_7[31:28];	// bpu.scala:145:22
+        BHT_48 = _RANDOM_8[3:0];	// bpu.scala:145:22
+        BHT_49 = _RANDOM_8[7:4];	// bpu.scala:145:22
+        BHT_50 = _RANDOM_8[11:8];	// bpu.scala:145:22
+        BHT_51 = _RANDOM_8[15:12];	// bpu.scala:145:22
+        BHT_52 = _RANDOM_8[19:16];	// bpu.scala:145:22
+        BHT_53 = _RANDOM_8[23:20];	// bpu.scala:145:22
+        BHT_54 = _RANDOM_8[27:24];	// bpu.scala:145:22
+        BHT_55 = _RANDOM_8[31:28];	// bpu.scala:145:22
+        BHT_56 = _RANDOM_9[3:0];	// bpu.scala:145:22
+        BHT_57 = _RANDOM_9[7:4];	// bpu.scala:145:22
+        BHT_58 = _RANDOM_9[11:8];	// bpu.scala:145:22
+        BHT_59 = _RANDOM_9[15:12];	// bpu.scala:145:22
+        BHT_60 = _RANDOM_9[19:16];	// bpu.scala:145:22
+        BHT_61 = _RANDOM_9[23:20];	// bpu.scala:145:22
+        BHT_62 = _RANDOM_9[27:24];	// bpu.scala:145:22
+        BHT_63 = _RANDOM_9[31:28];	// bpu.scala:145:22
+        BHT_64 = _RANDOM_10[3:0];	// bpu.scala:145:22
+        BHT_65 = _RANDOM_10[7:4];	// bpu.scala:145:22
+        BHT_66 = _RANDOM_10[11:8];	// bpu.scala:145:22
+        BHT_67 = _RANDOM_10[15:12];	// bpu.scala:145:22
+        BHT_68 = _RANDOM_10[19:16];	// bpu.scala:145:22
+        BHT_69 = _RANDOM_10[23:20];	// bpu.scala:145:22
+        BHT_70 = _RANDOM_10[27:24];	// bpu.scala:145:22
+        BHT_71 = _RANDOM_10[31:28];	// bpu.scala:145:22
+        BHT_72 = _RANDOM_11[3:0];	// bpu.scala:145:22
+        BHT_73 = _RANDOM_11[7:4];	// bpu.scala:145:22
+        BHT_74 = _RANDOM_11[11:8];	// bpu.scala:145:22
+        BHT_75 = _RANDOM_11[15:12];	// bpu.scala:145:22
+        BHT_76 = _RANDOM_11[19:16];	// bpu.scala:145:22
+        BHT_77 = _RANDOM_11[23:20];	// bpu.scala:145:22
+        BHT_78 = _RANDOM_11[27:24];	// bpu.scala:145:22
+        BHT_79 = _RANDOM_11[31:28];	// bpu.scala:145:22
+        BHT_80 = _RANDOM_12[3:0];	// bpu.scala:145:22
+        BHT_81 = _RANDOM_12[7:4];	// bpu.scala:145:22
+        BHT_82 = _RANDOM_12[11:8];	// bpu.scala:145:22
+        BHT_83 = _RANDOM_12[15:12];	// bpu.scala:145:22
+        BHT_84 = _RANDOM_12[19:16];	// bpu.scala:145:22
+        BHT_85 = _RANDOM_12[23:20];	// bpu.scala:145:22
+        BHT_86 = _RANDOM_12[27:24];	// bpu.scala:145:22
+        BHT_87 = _RANDOM_12[31:28];	// bpu.scala:145:22
+        BHT_88 = _RANDOM_13[3:0];	// bpu.scala:145:22
+        BHT_89 = _RANDOM_13[7:4];	// bpu.scala:145:22
+        BHT_90 = _RANDOM_13[11:8];	// bpu.scala:145:22
+        BHT_91 = _RANDOM_13[15:12];	// bpu.scala:145:22
+        BHT_92 = _RANDOM_13[19:16];	// bpu.scala:145:22
+        BHT_93 = _RANDOM_13[23:20];	// bpu.scala:145:22
+        BHT_94 = _RANDOM_13[27:24];	// bpu.scala:145:22
+        BHT_95 = _RANDOM_13[31:28];	// bpu.scala:145:22
+        BHT_96 = _RANDOM_14[3:0];	// bpu.scala:145:22
+        BHT_97 = _RANDOM_14[7:4];	// bpu.scala:145:22
+        BHT_98 = _RANDOM_14[11:8];	// bpu.scala:145:22
+        BHT_99 = _RANDOM_14[15:12];	// bpu.scala:145:22
+        BHT_100 = _RANDOM_14[19:16];	// bpu.scala:145:22
+        BHT_101 = _RANDOM_14[23:20];	// bpu.scala:145:22
+        BHT_102 = _RANDOM_14[27:24];	// bpu.scala:145:22
+        BHT_103 = _RANDOM_14[31:28];	// bpu.scala:145:22
+        BHT_104 = _RANDOM_15[3:0];	// bpu.scala:145:22
+        BHT_105 = _RANDOM_15[7:4];	// bpu.scala:145:22
+        BHT_106 = _RANDOM_15[11:8];	// bpu.scala:145:22
+        BHT_107 = _RANDOM_15[15:12];	// bpu.scala:145:22
+        BHT_108 = _RANDOM_15[19:16];	// bpu.scala:145:22
+        BHT_109 = _RANDOM_15[23:20];	// bpu.scala:145:22
+        BHT_110 = _RANDOM_15[27:24];	// bpu.scala:145:22
+        BHT_111 = _RANDOM_15[31:28];	// bpu.scala:145:22
+        BHT_112 = _RANDOM_16[3:0];	// bpu.scala:145:22
+        BHT_113 = _RANDOM_16[7:4];	// bpu.scala:145:22
+        BHT_114 = _RANDOM_16[11:8];	// bpu.scala:145:22
+        BHT_115 = _RANDOM_16[15:12];	// bpu.scala:145:22
+        BHT_116 = _RANDOM_16[19:16];	// bpu.scala:145:22
+        BHT_117 = _RANDOM_16[23:20];	// bpu.scala:145:22
+        BHT_118 = _RANDOM_16[27:24];	// bpu.scala:145:22
+        BHT_119 = _RANDOM_16[31:28];	// bpu.scala:145:22
+        BHT_120 = _RANDOM_17[3:0];	// bpu.scala:145:22
+        BHT_121 = _RANDOM_17[7:4];	// bpu.scala:145:22
+        BHT_122 = _RANDOM_17[11:8];	// bpu.scala:145:22
+        BHT_123 = _RANDOM_17[15:12];	// bpu.scala:145:22
+        BHT_124 = _RANDOM_17[19:16];	// bpu.scala:145:22
+        BHT_125 = _RANDOM_17[23:20];	// bpu.scala:145:22
+        BHT_126 = _RANDOM_17[27:24];	// bpu.scala:145:22
+        BHT_127 = _RANDOM_17[31:28];	// bpu.scala:145:22
+        BHT_128 = _RANDOM_18[3:0];	// bpu.scala:145:22
+        BHT_129 = _RANDOM_18[7:4];	// bpu.scala:145:22
+        BHT_130 = _RANDOM_18[11:8];	// bpu.scala:145:22
+        BHT_131 = _RANDOM_18[15:12];	// bpu.scala:145:22
+        BHT_132 = _RANDOM_18[19:16];	// bpu.scala:145:22
+        BHT_133 = _RANDOM_18[23:20];	// bpu.scala:145:22
+        BHT_134 = _RANDOM_18[27:24];	// bpu.scala:145:22
+        BHT_135 = _RANDOM_18[31:28];	// bpu.scala:145:22
+        BHT_136 = _RANDOM_19[3:0];	// bpu.scala:145:22
+        BHT_137 = _RANDOM_19[7:4];	// bpu.scala:145:22
+        BHT_138 = _RANDOM_19[11:8];	// bpu.scala:145:22
+        BHT_139 = _RANDOM_19[15:12];	// bpu.scala:145:22
+        BHT_140 = _RANDOM_19[19:16];	// bpu.scala:145:22
+        BHT_141 = _RANDOM_19[23:20];	// bpu.scala:145:22
+        BHT_142 = _RANDOM_19[27:24];	// bpu.scala:145:22
+        BHT_143 = _RANDOM_19[31:28];	// bpu.scala:145:22
+        BHT_144 = _RANDOM_20[3:0];	// bpu.scala:145:22
+        BHT_145 = _RANDOM_20[7:4];	// bpu.scala:145:22
+        BHT_146 = _RANDOM_20[11:8];	// bpu.scala:145:22
+        BHT_147 = _RANDOM_20[15:12];	// bpu.scala:145:22
+        BHT_148 = _RANDOM_20[19:16];	// bpu.scala:145:22
+        BHT_149 = _RANDOM_20[23:20];	// bpu.scala:145:22
+        BHT_150 = _RANDOM_20[27:24];	// bpu.scala:145:22
+        BHT_151 = _RANDOM_20[31:28];	// bpu.scala:145:22
+        BHT_152 = _RANDOM_21[3:0];	// bpu.scala:145:22
+        BHT_153 = _RANDOM_21[7:4];	// bpu.scala:145:22
+        BHT_154 = _RANDOM_21[11:8];	// bpu.scala:145:22
+        BHT_155 = _RANDOM_21[15:12];	// bpu.scala:145:22
+        BHT_156 = _RANDOM_21[19:16];	// bpu.scala:145:22
+        BHT_157 = _RANDOM_21[23:20];	// bpu.scala:145:22
+        BHT_158 = _RANDOM_21[27:24];	// bpu.scala:145:22
+        BHT_159 = _RANDOM_21[31:28];	// bpu.scala:145:22
+        BHT_160 = _RANDOM_22[3:0];	// bpu.scala:145:22
+        BHT_161 = _RANDOM_22[7:4];	// bpu.scala:145:22
+        BHT_162 = _RANDOM_22[11:8];	// bpu.scala:145:22
+        BHT_163 = _RANDOM_22[15:12];	// bpu.scala:145:22
+        BHT_164 = _RANDOM_22[19:16];	// bpu.scala:145:22
+        BHT_165 = _RANDOM_22[23:20];	// bpu.scala:145:22
+        BHT_166 = _RANDOM_22[27:24];	// bpu.scala:145:22
+        BHT_167 = _RANDOM_22[31:28];	// bpu.scala:145:22
+        BHT_168 = _RANDOM_23[3:0];	// bpu.scala:145:22
+        BHT_169 = _RANDOM_23[7:4];	// bpu.scala:145:22
+        BHT_170 = _RANDOM_23[11:8];	// bpu.scala:145:22
+        BHT_171 = _RANDOM_23[15:12];	// bpu.scala:145:22
+        BHT_172 = _RANDOM_23[19:16];	// bpu.scala:145:22
+        BHT_173 = _RANDOM_23[23:20];	// bpu.scala:145:22
+        BHT_174 = _RANDOM_23[27:24];	// bpu.scala:145:22
+        BHT_175 = _RANDOM_23[31:28];	// bpu.scala:145:22
+        BHT_176 = _RANDOM_24[3:0];	// bpu.scala:145:22
+        BHT_177 = _RANDOM_24[7:4];	// bpu.scala:145:22
+        BHT_178 = _RANDOM_24[11:8];	// bpu.scala:145:22
+        BHT_179 = _RANDOM_24[15:12];	// bpu.scala:145:22
+        BHT_180 = _RANDOM_24[19:16];	// bpu.scala:145:22
+        BHT_181 = _RANDOM_24[23:20];	// bpu.scala:145:22
+        BHT_182 = _RANDOM_24[27:24];	// bpu.scala:145:22
+        BHT_183 = _RANDOM_24[31:28];	// bpu.scala:145:22
+        BHT_184 = _RANDOM_25[3:0];	// bpu.scala:145:22
+        BHT_185 = _RANDOM_25[7:4];	// bpu.scala:145:22
+        BHT_186 = _RANDOM_25[11:8];	// bpu.scala:145:22
+        BHT_187 = _RANDOM_25[15:12];	// bpu.scala:145:22
+        BHT_188 = _RANDOM_25[19:16];	// bpu.scala:145:22
+        BHT_189 = _RANDOM_25[23:20];	// bpu.scala:145:22
+        BHT_190 = _RANDOM_25[27:24];	// bpu.scala:145:22
+        BHT_191 = _RANDOM_25[31:28];	// bpu.scala:145:22
+        BHT_192 = _RANDOM_26[3:0];	// bpu.scala:145:22
+        BHT_193 = _RANDOM_26[7:4];	// bpu.scala:145:22
+        BHT_194 = _RANDOM_26[11:8];	// bpu.scala:145:22
+        BHT_195 = _RANDOM_26[15:12];	// bpu.scala:145:22
+        BHT_196 = _RANDOM_26[19:16];	// bpu.scala:145:22
+        BHT_197 = _RANDOM_26[23:20];	// bpu.scala:145:22
+        BHT_198 = _RANDOM_26[27:24];	// bpu.scala:145:22
+        BHT_199 = _RANDOM_26[31:28];	// bpu.scala:145:22
+        BHT_200 = _RANDOM_27[3:0];	// bpu.scala:145:22
+        BHT_201 = _RANDOM_27[7:4];	// bpu.scala:145:22
+        BHT_202 = _RANDOM_27[11:8];	// bpu.scala:145:22
+        BHT_203 = _RANDOM_27[15:12];	// bpu.scala:145:22
+        BHT_204 = _RANDOM_27[19:16];	// bpu.scala:145:22
+        BHT_205 = _RANDOM_27[23:20];	// bpu.scala:145:22
+        BHT_206 = _RANDOM_27[27:24];	// bpu.scala:145:22
+        BHT_207 = _RANDOM_27[31:28];	// bpu.scala:145:22
+        BHT_208 = _RANDOM_28[3:0];	// bpu.scala:145:22
+        BHT_209 = _RANDOM_28[7:4];	// bpu.scala:145:22
+        BHT_210 = _RANDOM_28[11:8];	// bpu.scala:145:22
+        BHT_211 = _RANDOM_28[15:12];	// bpu.scala:145:22
+        BHT_212 = _RANDOM_28[19:16];	// bpu.scala:145:22
+        BHT_213 = _RANDOM_28[23:20];	// bpu.scala:145:22
+        BHT_214 = _RANDOM_28[27:24];	// bpu.scala:145:22
+        BHT_215 = _RANDOM_28[31:28];	// bpu.scala:145:22
+        BHT_216 = _RANDOM_29[3:0];	// bpu.scala:145:22
+        BHT_217 = _RANDOM_29[7:4];	// bpu.scala:145:22
+        BHT_218 = _RANDOM_29[11:8];	// bpu.scala:145:22
+        BHT_219 = _RANDOM_29[15:12];	// bpu.scala:145:22
+        BHT_220 = _RANDOM_29[19:16];	// bpu.scala:145:22
+        BHT_221 = _RANDOM_29[23:20];	// bpu.scala:145:22
+        BHT_222 = _RANDOM_29[27:24];	// bpu.scala:145:22
+        BHT_223 = _RANDOM_29[31:28];	// bpu.scala:145:22
+        BHT_224 = _RANDOM_30[3:0];	// bpu.scala:145:22
+        BHT_225 = _RANDOM_30[7:4];	// bpu.scala:145:22
+        BHT_226 = _RANDOM_30[11:8];	// bpu.scala:145:22
+        BHT_227 = _RANDOM_30[15:12];	// bpu.scala:145:22
+        BHT_228 = _RANDOM_30[19:16];	// bpu.scala:145:22
+        BHT_229 = _RANDOM_30[23:20];	// bpu.scala:145:22
+        BHT_230 = _RANDOM_30[27:24];	// bpu.scala:145:22
+        BHT_231 = _RANDOM_30[31:28];	// bpu.scala:145:22
+        BHT_232 = _RANDOM_31[3:0];	// bpu.scala:145:22
+        BHT_233 = _RANDOM_31[7:4];	// bpu.scala:145:22
+        BHT_234 = _RANDOM_31[11:8];	// bpu.scala:145:22
+        BHT_235 = _RANDOM_31[15:12];	// bpu.scala:145:22
+        BHT_236 = _RANDOM_31[19:16];	// bpu.scala:145:22
+        BHT_237 = _RANDOM_31[23:20];	// bpu.scala:145:22
+        BHT_238 = _RANDOM_31[27:24];	// bpu.scala:145:22
+        BHT_239 = _RANDOM_31[31:28];	// bpu.scala:145:22
+        BHT_240 = _RANDOM_32[3:0];	// bpu.scala:145:22
+        BHT_241 = _RANDOM_32[7:4];	// bpu.scala:145:22
+        BHT_242 = _RANDOM_32[11:8];	// bpu.scala:145:22
+        BHT_243 = _RANDOM_32[15:12];	// bpu.scala:145:22
+        BHT_244 = _RANDOM_32[19:16];	// bpu.scala:145:22
+        BHT_245 = _RANDOM_32[23:20];	// bpu.scala:145:22
+        BHT_246 = _RANDOM_32[27:24];	// bpu.scala:145:22
+        BHT_247 = _RANDOM_32[31:28];	// bpu.scala:145:22
+        BHT_248 = _RANDOM_33[3:0];	// bpu.scala:145:22
+        BHT_249 = _RANDOM_33[7:4];	// bpu.scala:145:22
+        BHT_250 = _RANDOM_33[11:8];	// bpu.scala:145:22
+        BHT_251 = _RANDOM_33[15:12];	// bpu.scala:145:22
+        BHT_252 = _RANDOM_33[19:16];	// bpu.scala:145:22
+        BHT_253 = _RANDOM_33[23:20];	// bpu.scala:145:22
+        BHT_254 = _RANDOM_33[27:24];	// bpu.scala:145:22
+        BHT_255 = _RANDOM_33[31:28];	// bpu.scala:145:22
+        PHT_0 = _RANDOM_34[1:0];	// bpu.scala:146:22
+        PHT_1 = _RANDOM_34[3:2];	// bpu.scala:146:22
+        PHT_2 = _RANDOM_34[5:4];	// bpu.scala:146:22
+        PHT_3 = _RANDOM_34[7:6];	// bpu.scala:146:22
+        PHT_4 = _RANDOM_34[9:8];	// bpu.scala:146:22
+        PHT_5 = _RANDOM_34[11:10];	// bpu.scala:146:22
+        PHT_6 = _RANDOM_34[13:12];	// bpu.scala:146:22
+        PHT_7 = _RANDOM_34[15:14];	// bpu.scala:146:22
+        PHT_8 = _RANDOM_34[17:16];	// bpu.scala:146:22
+        PHT_9 = _RANDOM_34[19:18];	// bpu.scala:146:22
+        PHT_10 = _RANDOM_34[21:20];	// bpu.scala:146:22
+        PHT_11 = _RANDOM_34[23:22];	// bpu.scala:146:22
+        PHT_12 = _RANDOM_34[25:24];	// bpu.scala:146:22
+        PHT_13 = _RANDOM_34[27:26];	// bpu.scala:146:22
+        PHT_14 = _RANDOM_34[29:28];	// bpu.scala:146:22
+        PHT_15 = _RANDOM_34[31:30];	// bpu.scala:146:22
+        PHT_16 = _RANDOM_35[1:0];	// bpu.scala:146:22
+        PHT_17 = _RANDOM_35[3:2];	// bpu.scala:146:22
+        PHT_18 = _RANDOM_35[5:4];	// bpu.scala:146:22
+        PHT_19 = _RANDOM_35[7:6];	// bpu.scala:146:22
+        PHT_20 = _RANDOM_35[9:8];	// bpu.scala:146:22
+        PHT_21 = _RANDOM_35[11:10];	// bpu.scala:146:22
+        PHT_22 = _RANDOM_35[13:12];	// bpu.scala:146:22
+        PHT_23 = _RANDOM_35[15:14];	// bpu.scala:146:22
+        PHT_24 = _RANDOM_35[17:16];	// bpu.scala:146:22
+        PHT_25 = _RANDOM_35[19:18];	// bpu.scala:146:22
+        PHT_26 = _RANDOM_35[21:20];	// bpu.scala:146:22
+        PHT_27 = _RANDOM_35[23:22];	// bpu.scala:146:22
+        PHT_28 = _RANDOM_35[25:24];	// bpu.scala:146:22
+        PHT_29 = _RANDOM_35[27:26];	// bpu.scala:146:22
+        PHT_30 = _RANDOM_35[29:28];	// bpu.scala:146:22
+        PHT_31 = _RANDOM_35[31:30];	// bpu.scala:146:22
+        PHT_32 = _RANDOM_36[1:0];	// bpu.scala:146:22
+        PHT_33 = _RANDOM_36[3:2];	// bpu.scala:146:22
+        PHT_34 = _RANDOM_36[5:4];	// bpu.scala:146:22
+        PHT_35 = _RANDOM_36[7:6];	// bpu.scala:146:22
+        PHT_36 = _RANDOM_36[9:8];	// bpu.scala:146:22
+        PHT_37 = _RANDOM_36[11:10];	// bpu.scala:146:22
+        PHT_38 = _RANDOM_36[13:12];	// bpu.scala:146:22
+        PHT_39 = _RANDOM_36[15:14];	// bpu.scala:146:22
+        PHT_40 = _RANDOM_36[17:16];	// bpu.scala:146:22
+        PHT_41 = _RANDOM_36[19:18];	// bpu.scala:146:22
+        PHT_42 = _RANDOM_36[21:20];	// bpu.scala:146:22
+        PHT_43 = _RANDOM_36[23:22];	// bpu.scala:146:22
+        PHT_44 = _RANDOM_36[25:24];	// bpu.scala:146:22
+        PHT_45 = _RANDOM_36[27:26];	// bpu.scala:146:22
+        PHT_46 = _RANDOM_36[29:28];	// bpu.scala:146:22
+        PHT_47 = _RANDOM_36[31:30];	// bpu.scala:146:22
+        PHT_48 = _RANDOM_37[1:0];	// bpu.scala:146:22
+        PHT_49 = _RANDOM_37[3:2];	// bpu.scala:146:22
+        PHT_50 = _RANDOM_37[5:4];	// bpu.scala:146:22
+        PHT_51 = _RANDOM_37[7:6];	// bpu.scala:146:22
+        PHT_52 = _RANDOM_37[9:8];	// bpu.scala:146:22
+        PHT_53 = _RANDOM_37[11:10];	// bpu.scala:146:22
+        PHT_54 = _RANDOM_37[13:12];	// bpu.scala:146:22
+        PHT_55 = _RANDOM_37[15:14];	// bpu.scala:146:22
+        PHT_56 = _RANDOM_37[17:16];	// bpu.scala:146:22
+        PHT_57 = _RANDOM_37[19:18];	// bpu.scala:146:22
+        PHT_58 = _RANDOM_37[21:20];	// bpu.scala:146:22
+        PHT_59 = _RANDOM_37[23:22];	// bpu.scala:146:22
+        PHT_60 = _RANDOM_37[25:24];	// bpu.scala:146:22
+        PHT_61 = _RANDOM_37[27:26];	// bpu.scala:146:22
+        PHT_62 = _RANDOM_37[29:28];	// bpu.scala:146:22
+        PHT_63 = _RANDOM_37[31:30];	// bpu.scala:146:22
+        PHT_64 = _RANDOM_38[1:0];	// bpu.scala:146:22
+        PHT_65 = _RANDOM_38[3:2];	// bpu.scala:146:22
+        PHT_66 = _RANDOM_38[5:4];	// bpu.scala:146:22
+        PHT_67 = _RANDOM_38[7:6];	// bpu.scala:146:22
+        PHT_68 = _RANDOM_38[9:8];	// bpu.scala:146:22
+        PHT_69 = _RANDOM_38[11:10];	// bpu.scala:146:22
+        PHT_70 = _RANDOM_38[13:12];	// bpu.scala:146:22
+        PHT_71 = _RANDOM_38[15:14];	// bpu.scala:146:22
+        PHT_72 = _RANDOM_38[17:16];	// bpu.scala:146:22
+        PHT_73 = _RANDOM_38[19:18];	// bpu.scala:146:22
+        PHT_74 = _RANDOM_38[21:20];	// bpu.scala:146:22
+        PHT_75 = _RANDOM_38[23:22];	// bpu.scala:146:22
+        PHT_76 = _RANDOM_38[25:24];	// bpu.scala:146:22
+        PHT_77 = _RANDOM_38[27:26];	// bpu.scala:146:22
+        PHT_78 = _RANDOM_38[29:28];	// bpu.scala:146:22
+        PHT_79 = _RANDOM_38[31:30];	// bpu.scala:146:22
+        PHT_80 = _RANDOM_39[1:0];	// bpu.scala:146:22
+        PHT_81 = _RANDOM_39[3:2];	// bpu.scala:146:22
+        PHT_82 = _RANDOM_39[5:4];	// bpu.scala:146:22
+        PHT_83 = _RANDOM_39[7:6];	// bpu.scala:146:22
+        PHT_84 = _RANDOM_39[9:8];	// bpu.scala:146:22
+        PHT_85 = _RANDOM_39[11:10];	// bpu.scala:146:22
+        PHT_86 = _RANDOM_39[13:12];	// bpu.scala:146:22
+        PHT_87 = _RANDOM_39[15:14];	// bpu.scala:146:22
+        PHT_88 = _RANDOM_39[17:16];	// bpu.scala:146:22
+        PHT_89 = _RANDOM_39[19:18];	// bpu.scala:146:22
+        PHT_90 = _RANDOM_39[21:20];	// bpu.scala:146:22
+        PHT_91 = _RANDOM_39[23:22];	// bpu.scala:146:22
+        PHT_92 = _RANDOM_39[25:24];	// bpu.scala:146:22
+        PHT_93 = _RANDOM_39[27:26];	// bpu.scala:146:22
+        PHT_94 = _RANDOM_39[29:28];	// bpu.scala:146:22
+        PHT_95 = _RANDOM_39[31:30];	// bpu.scala:146:22
+        PHT_96 = _RANDOM_40[1:0];	// bpu.scala:146:22
+        PHT_97 = _RANDOM_40[3:2];	// bpu.scala:146:22
+        PHT_98 = _RANDOM_40[5:4];	// bpu.scala:146:22
+        PHT_99 = _RANDOM_40[7:6];	// bpu.scala:146:22
+        PHT_100 = _RANDOM_40[9:8];	// bpu.scala:146:22
+        PHT_101 = _RANDOM_40[11:10];	// bpu.scala:146:22
+        PHT_102 = _RANDOM_40[13:12];	// bpu.scala:146:22
+        PHT_103 = _RANDOM_40[15:14];	// bpu.scala:146:22
+        PHT_104 = _RANDOM_40[17:16];	// bpu.scala:146:22
+        PHT_105 = _RANDOM_40[19:18];	// bpu.scala:146:22
+        PHT_106 = _RANDOM_40[21:20];	// bpu.scala:146:22
+        PHT_107 = _RANDOM_40[23:22];	// bpu.scala:146:22
+        PHT_108 = _RANDOM_40[25:24];	// bpu.scala:146:22
+        PHT_109 = _RANDOM_40[27:26];	// bpu.scala:146:22
+        PHT_110 = _RANDOM_40[29:28];	// bpu.scala:146:22
+        PHT_111 = _RANDOM_40[31:30];	// bpu.scala:146:22
+        PHT_112 = _RANDOM_41[1:0];	// bpu.scala:146:22
+        PHT_113 = _RANDOM_41[3:2];	// bpu.scala:146:22
+        PHT_114 = _RANDOM_41[5:4];	// bpu.scala:146:22
+        PHT_115 = _RANDOM_41[7:6];	// bpu.scala:146:22
+        PHT_116 = _RANDOM_41[9:8];	// bpu.scala:146:22
+        PHT_117 = _RANDOM_41[11:10];	// bpu.scala:146:22
+        PHT_118 = _RANDOM_41[13:12];	// bpu.scala:146:22
+        PHT_119 = _RANDOM_41[15:14];	// bpu.scala:146:22
+        PHT_120 = _RANDOM_41[17:16];	// bpu.scala:146:22
+        PHT_121 = _RANDOM_41[19:18];	// bpu.scala:146:22
+        PHT_122 = _RANDOM_41[21:20];	// bpu.scala:146:22
+        PHT_123 = _RANDOM_41[23:22];	// bpu.scala:146:22
+        PHT_124 = _RANDOM_41[25:24];	// bpu.scala:146:22
+        PHT_125 = _RANDOM_41[27:26];	// bpu.scala:146:22
+        PHT_126 = _RANDOM_41[29:28];	// bpu.scala:146:22
+        PHT_127 = _RANDOM_41[31:30];	// bpu.scala:146:22
+        PHT_128 = _RANDOM_42[1:0];	// bpu.scala:146:22
+        PHT_129 = _RANDOM_42[3:2];	// bpu.scala:146:22
+        PHT_130 = _RANDOM_42[5:4];	// bpu.scala:146:22
+        PHT_131 = _RANDOM_42[7:6];	// bpu.scala:146:22
+        PHT_132 = _RANDOM_42[9:8];	// bpu.scala:146:22
+        PHT_133 = _RANDOM_42[11:10];	// bpu.scala:146:22
+        PHT_134 = _RANDOM_42[13:12];	// bpu.scala:146:22
+        PHT_135 = _RANDOM_42[15:14];	// bpu.scala:146:22
+        PHT_136 = _RANDOM_42[17:16];	// bpu.scala:146:22
+        PHT_137 = _RANDOM_42[19:18];	// bpu.scala:146:22
+        PHT_138 = _RANDOM_42[21:20];	// bpu.scala:146:22
+        PHT_139 = _RANDOM_42[23:22];	// bpu.scala:146:22
+        PHT_140 = _RANDOM_42[25:24];	// bpu.scala:146:22
+        PHT_141 = _RANDOM_42[27:26];	// bpu.scala:146:22
+        PHT_142 = _RANDOM_42[29:28];	// bpu.scala:146:22
+        PHT_143 = _RANDOM_42[31:30];	// bpu.scala:146:22
+        PHT_144 = _RANDOM_43[1:0];	// bpu.scala:146:22
+        PHT_145 = _RANDOM_43[3:2];	// bpu.scala:146:22
+        PHT_146 = _RANDOM_43[5:4];	// bpu.scala:146:22
+        PHT_147 = _RANDOM_43[7:6];	// bpu.scala:146:22
+        PHT_148 = _RANDOM_43[9:8];	// bpu.scala:146:22
+        PHT_149 = _RANDOM_43[11:10];	// bpu.scala:146:22
+        PHT_150 = _RANDOM_43[13:12];	// bpu.scala:146:22
+        PHT_151 = _RANDOM_43[15:14];	// bpu.scala:146:22
+        PHT_152 = _RANDOM_43[17:16];	// bpu.scala:146:22
+        PHT_153 = _RANDOM_43[19:18];	// bpu.scala:146:22
+        PHT_154 = _RANDOM_43[21:20];	// bpu.scala:146:22
+        PHT_155 = _RANDOM_43[23:22];	// bpu.scala:146:22
+        PHT_156 = _RANDOM_43[25:24];	// bpu.scala:146:22
+        PHT_157 = _RANDOM_43[27:26];	// bpu.scala:146:22
+        PHT_158 = _RANDOM_43[29:28];	// bpu.scala:146:22
+        PHT_159 = _RANDOM_43[31:30];	// bpu.scala:146:22
+        PHT_160 = _RANDOM_44[1:0];	// bpu.scala:146:22
+        PHT_161 = _RANDOM_44[3:2];	// bpu.scala:146:22
+        PHT_162 = _RANDOM_44[5:4];	// bpu.scala:146:22
+        PHT_163 = _RANDOM_44[7:6];	// bpu.scala:146:22
+        PHT_164 = _RANDOM_44[9:8];	// bpu.scala:146:22
+        PHT_165 = _RANDOM_44[11:10];	// bpu.scala:146:22
+        PHT_166 = _RANDOM_44[13:12];	// bpu.scala:146:22
+        PHT_167 = _RANDOM_44[15:14];	// bpu.scala:146:22
+        PHT_168 = _RANDOM_44[17:16];	// bpu.scala:146:22
+        PHT_169 = _RANDOM_44[19:18];	// bpu.scala:146:22
+        PHT_170 = _RANDOM_44[21:20];	// bpu.scala:146:22
+        PHT_171 = _RANDOM_44[23:22];	// bpu.scala:146:22
+        PHT_172 = _RANDOM_44[25:24];	// bpu.scala:146:22
+        PHT_173 = _RANDOM_44[27:26];	// bpu.scala:146:22
+        PHT_174 = _RANDOM_44[29:28];	// bpu.scala:146:22
+        PHT_175 = _RANDOM_44[31:30];	// bpu.scala:146:22
+        PHT_176 = _RANDOM_45[1:0];	// bpu.scala:146:22
+        PHT_177 = _RANDOM_45[3:2];	// bpu.scala:146:22
+        PHT_178 = _RANDOM_45[5:4];	// bpu.scala:146:22
+        PHT_179 = _RANDOM_45[7:6];	// bpu.scala:146:22
+        PHT_180 = _RANDOM_45[9:8];	// bpu.scala:146:22
+        PHT_181 = _RANDOM_45[11:10];	// bpu.scala:146:22
+        PHT_182 = _RANDOM_45[13:12];	// bpu.scala:146:22
+        PHT_183 = _RANDOM_45[15:14];	// bpu.scala:146:22
+        PHT_184 = _RANDOM_45[17:16];	// bpu.scala:146:22
+        PHT_185 = _RANDOM_45[19:18];	// bpu.scala:146:22
+        PHT_186 = _RANDOM_45[21:20];	// bpu.scala:146:22
+        PHT_187 = _RANDOM_45[23:22];	// bpu.scala:146:22
+        PHT_188 = _RANDOM_45[25:24];	// bpu.scala:146:22
+        PHT_189 = _RANDOM_45[27:26];	// bpu.scala:146:22
+        PHT_190 = _RANDOM_45[29:28];	// bpu.scala:146:22
+        PHT_191 = _RANDOM_45[31:30];	// bpu.scala:146:22
+        PHT_192 = _RANDOM_46[1:0];	// bpu.scala:146:22
+        PHT_193 = _RANDOM_46[3:2];	// bpu.scala:146:22
+        PHT_194 = _RANDOM_46[5:4];	// bpu.scala:146:22
+        PHT_195 = _RANDOM_46[7:6];	// bpu.scala:146:22
+        PHT_196 = _RANDOM_46[9:8];	// bpu.scala:146:22
+        PHT_197 = _RANDOM_46[11:10];	// bpu.scala:146:22
+        PHT_198 = _RANDOM_46[13:12];	// bpu.scala:146:22
+        PHT_199 = _RANDOM_46[15:14];	// bpu.scala:146:22
+        PHT_200 = _RANDOM_46[17:16];	// bpu.scala:146:22
+        PHT_201 = _RANDOM_46[19:18];	// bpu.scala:146:22
+        PHT_202 = _RANDOM_46[21:20];	// bpu.scala:146:22
+        PHT_203 = _RANDOM_46[23:22];	// bpu.scala:146:22
+        PHT_204 = _RANDOM_46[25:24];	// bpu.scala:146:22
+        PHT_205 = _RANDOM_46[27:26];	// bpu.scala:146:22
+        PHT_206 = _RANDOM_46[29:28];	// bpu.scala:146:22
+        PHT_207 = _RANDOM_46[31:30];	// bpu.scala:146:22
+        PHT_208 = _RANDOM_47[1:0];	// bpu.scala:146:22
+        PHT_209 = _RANDOM_47[3:2];	// bpu.scala:146:22
+        PHT_210 = _RANDOM_47[5:4];	// bpu.scala:146:22
+        PHT_211 = _RANDOM_47[7:6];	// bpu.scala:146:22
+        PHT_212 = _RANDOM_47[9:8];	// bpu.scala:146:22
+        PHT_213 = _RANDOM_47[11:10];	// bpu.scala:146:22
+        PHT_214 = _RANDOM_47[13:12];	// bpu.scala:146:22
+        PHT_215 = _RANDOM_47[15:14];	// bpu.scala:146:22
+        PHT_216 = _RANDOM_47[17:16];	// bpu.scala:146:22
+        PHT_217 = _RANDOM_47[19:18];	// bpu.scala:146:22
+        PHT_218 = _RANDOM_47[21:20];	// bpu.scala:146:22
+        PHT_219 = _RANDOM_47[23:22];	// bpu.scala:146:22
+        PHT_220 = _RANDOM_47[25:24];	// bpu.scala:146:22
+        PHT_221 = _RANDOM_47[27:26];	// bpu.scala:146:22
+        PHT_222 = _RANDOM_47[29:28];	// bpu.scala:146:22
+        PHT_223 = _RANDOM_47[31:30];	// bpu.scala:146:22
+        PHT_224 = _RANDOM_48[1:0];	// bpu.scala:146:22
+        PHT_225 = _RANDOM_48[3:2];	// bpu.scala:146:22
+        PHT_226 = _RANDOM_48[5:4];	// bpu.scala:146:22
+        PHT_227 = _RANDOM_48[7:6];	// bpu.scala:146:22
+        PHT_228 = _RANDOM_48[9:8];	// bpu.scala:146:22
+        PHT_229 = _RANDOM_48[11:10];	// bpu.scala:146:22
+        PHT_230 = _RANDOM_48[13:12];	// bpu.scala:146:22
+        PHT_231 = _RANDOM_48[15:14];	// bpu.scala:146:22
+        PHT_232 = _RANDOM_48[17:16];	// bpu.scala:146:22
+        PHT_233 = _RANDOM_48[19:18];	// bpu.scala:146:22
+        PHT_234 = _RANDOM_48[21:20];	// bpu.scala:146:22
+        PHT_235 = _RANDOM_48[23:22];	// bpu.scala:146:22
+        PHT_236 = _RANDOM_48[25:24];	// bpu.scala:146:22
+        PHT_237 = _RANDOM_48[27:26];	// bpu.scala:146:22
+        PHT_238 = _RANDOM_48[29:28];	// bpu.scala:146:22
+        PHT_239 = _RANDOM_48[31:30];	// bpu.scala:146:22
+        PHT_240 = _RANDOM_49[1:0];	// bpu.scala:146:22
+        PHT_241 = _RANDOM_49[3:2];	// bpu.scala:146:22
+        PHT_242 = _RANDOM_49[5:4];	// bpu.scala:146:22
+        PHT_243 = _RANDOM_49[7:6];	// bpu.scala:146:22
+        PHT_244 = _RANDOM_49[9:8];	// bpu.scala:146:22
+        PHT_245 = _RANDOM_49[11:10];	// bpu.scala:146:22
+        PHT_246 = _RANDOM_49[13:12];	// bpu.scala:146:22
+        PHT_247 = _RANDOM_49[15:14];	// bpu.scala:146:22
+        PHT_248 = _RANDOM_49[17:16];	// bpu.scala:146:22
+        PHT_249 = _RANDOM_49[19:18];	// bpu.scala:146:22
+        PHT_250 = _RANDOM_49[21:20];	// bpu.scala:146:22
+        PHT_251 = _RANDOM_49[23:22];	// bpu.scala:146:22
+        PHT_252 = _RANDOM_49[25:24];	// bpu.scala:146:22
+        PHT_253 = _RANDOM_49[27:26];	// bpu.scala:146:22
+        PHT_254 = _RANDOM_49[29:28];	// bpu.scala:146:22
+        PHT_255 = _RANDOM_49[31:30];	// bpu.scala:146:22
       `endif // RANDOMIZE_REG_INIT
     end // initial
     `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:165:10
       `FIRRTL_AFTER_INITIAL	// <stdin>:165:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  BPU_Cache BTB (	// bpu.scala:141:21
+  BPU_Cache BTB (	// bpu.scala:147:21
     .clock        (clock),
     .reset        (reset),
     .io_raddr     (io_PF_pc),
@@ -2993,16 +3010,16 @@ module BPU(	// <stdin>:165:10
     .io_rset      (io_BTB_rset),
     .io_rtag      (io_BTB_rtag)
   );
-  assign io_bp_taken = _GEN;	// <stdin>:165:10, bpu.scala:172:18, :173:35, :174:18
-  assign io_bp_flush = _io_bp_flush_T_2;	// <stdin>:165:10, bpu.scala:159:63
-  assign io_bp_npc = _io_bp_flush_T_2 ? io_ID_to_BPU_bus_bits_br_target : _GEN ? _BTB_io_readData : io_PF_pc +
-                64'h4;	// <stdin>:165:10, Mux.scala:101:16, bpu.scala:141:21, :159:63, :160:43, :172:18, :173:35, :174:18
-  assign io_BTB_rdata = _BTB_io_readData;	// <stdin>:165:10, bpu.scala:141:21
-  assign io_BTB_wdata = io_ID_to_BPU_bus_bits_taken ? io_ID_to_BPU_bus_bits_br_target : 64'h0;	// <stdin>:165:10, bpu.scala:156:29
-  assign io_BTB_hit = _BTB_io_hit;	// <stdin>:165:10, bpu.scala:141:21
+  assign io_bp_taken = _GEN;	// <stdin>:165:10, bpu.scala:178:18, :179:35, :180:18
+  assign io_bp_flush = _io_bp_flush_T_1;	// <stdin>:165:10, bpu.scala:165:49
+  assign io_bp_npc = _io_bp_flush_T_1 ? io_ID_to_BPU_bus_bits_br_target : _GEN ? _BTB_io_readData :
+                _io_bp_npc_T_1;	// <stdin>:165:10, Mux.scala:101:16, bpu.scala:147:21, :165:49, :166:43, :178:18, :179:35, :180:18
+  assign io_BTB_rdata = _BTB_io_readData;	// <stdin>:165:10, bpu.scala:147:21
+  assign io_BTB_wdata = io_ID_to_BPU_bus_bits_taken ? io_ID_to_BPU_bus_bits_br_target : 64'h0;	// <stdin>:165:10, bpu.scala:138:28, :162:29
+  assign io_BTB_hit = _BTB_io_hit;	// <stdin>:165:10, bpu.scala:147:21
 endmodule
 
-module IF_pre_fetch(	// <stdin>:778:10
+module IF_pre_fetch(	// <stdin>:782:10
   input         clock,
                 reset,
                 io_stall,
@@ -3048,43 +3065,43 @@ module IF_pre_fetch(	// <stdin>:778:10
       end
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:778:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:778:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:778:10
+  `ifndef SYNTHESIS	// <stdin>:782:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:782:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:782:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:778:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:778:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:778:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:778:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:778:10
-      automatic logic [31:0] _RANDOM_4;	// <stdin>:778:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:778:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:778:10
+    initial begin	// <stdin>:782:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:782:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:782:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:782:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:782:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:782:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:782:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:782:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:778:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:778:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:778:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:778:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:778:10
-        _RANDOM_4 = `RANDOM;	// <stdin>:778:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:782:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:782:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:782:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:782:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:782:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:782:10
         PF_npc = {_RANDOM_0, _RANDOM_1};	// pre_fetch.scala:24:27
         axi_busy = _RANDOM_2[0];	// pre_fetch.scala:26:27
         rhsReg = {_RANDOM_2[31:1], _RANDOM_3, _RANDOM_4[0]};	// pre_fetch.scala:26:27, tools.scala:32:33
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:778:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:778:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:782:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:782:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  assign io_inst_valid = axi_lite_readData_valid & axi_lite_readData_bits_resp == 2'h0 & ~axi_busy & axi_req_ready;	// <stdin>:778:10, pre_fetch.scala:26:27, :67:{96,107,117}
-  assign io_PF_pc = rhsReg;	// <stdin>:778:10, tools.scala:32:33
-  assign io_PF_npc = PF_npc;	// <stdin>:778:10, pre_fetch.scala:24:27
-  assign axi_lite_readAddr_valid = ~io_stall;	// <stdin>:778:10, pre_fetch.scala:62:40
-  assign axi_lite_readAddr_bits_addr = _axi_lite_readAddr_bits_addr_T ? io_bp_npc[31:0] : PF_npc[31:0];	// <stdin>:778:10, pre_fetch.scala:24:27, :39:23, :63:{43,88}
-  assign axi_lite_readData_ready = ~io_stall;	// <stdin>:778:10, pre_fetch.scala:62:40
+  assign io_inst_valid = axi_lite_readData_valid & axi_lite_readData_bits_resp == 2'h0 & ~axi_busy & axi_req_ready;	// <stdin>:782:10, pre_fetch.scala:26:27, :67:{96,107,117}
+  assign io_PF_pc = rhsReg;	// <stdin>:782:10, tools.scala:32:33
+  assign io_PF_npc = PF_npc;	// <stdin>:782:10, pre_fetch.scala:24:27
+  assign axi_lite_readAddr_valid = ~io_stall;	// <stdin>:782:10, pre_fetch.scala:62:40
+  assign axi_lite_readAddr_bits_addr = _axi_lite_readAddr_bits_addr_T ? io_bp_npc[31:0] : PF_npc[31:0];	// <stdin>:782:10, pre_fetch.scala:24:27, :39:23, :63:{43,88}
+  assign axi_lite_readData_ready = ~io_stall;	// <stdin>:782:10, pre_fetch.scala:62:40
 endmodule
 
-module IFU(	// <stdin>:841:10
+module IFU(	// <stdin>:845:10
   input         clock,
                 reset,
                 io_IF_to_ID_bus_ready,
@@ -3114,7 +3131,7 @@ module IFU(	// <stdin>:841:10
   always @(posedge clock) begin
     if (reset | io_bp_flush) begin	// IFU.scala:77:61
       rhsReg <= 64'h0;	// tools.scala:32:33
-      rhsReg_1 <= 1'h0;	// <stdin>:841:10, tools.scala:32:33
+      rhsReg_1 <= 1'h0;	// <stdin>:845:10, tools.scala:32:33
       rhsReg_2 <= 64'h0;	// tools.scala:32:33
     end
     else if (io_IF_to_ID_bus_ready) begin	// IFU.scala:77:61
@@ -3123,32 +3140,32 @@ module IFU(	// <stdin>:841:10
       rhsReg_2 <= axi_lite_readData_bits_data;	// tools.scala:32:33
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:841:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:841:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:841:10
+  `ifndef SYNTHESIS	// <stdin>:845:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:845:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:845:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:841:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:841:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:841:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:841:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:841:10
-      automatic logic [31:0] _RANDOM_4;	// <stdin>:841:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:841:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:841:10
+    initial begin	// <stdin>:845:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:845:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:845:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:845:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:845:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:845:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:845:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:845:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:841:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:841:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:841:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:841:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:841:10
-        _RANDOM_4 = `RANDOM;	// <stdin>:841:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:845:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:845:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:845:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:845:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:845:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:845:10
         rhsReg = {_RANDOM_0, _RANDOM_1};	// tools.scala:32:33
         rhsReg_1 = _RANDOM_2[0];	// tools.scala:32:33
         rhsReg_2 = {_RANDOM_2[31:1], _RANDOM_3, _RANDOM_4[0]};	// tools.scala:32:33
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:841:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:841:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:845:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:845:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
   IF_pre_fetch pre_fetch (	// IFU.scala:59:27
@@ -3169,15 +3186,15 @@ module IFU(	// <stdin>:841:10
     .axi_lite_readAddr_bits_addr (axi_lite_readAddr_bits_addr),
     .axi_lite_readData_ready     (axi_lite_readData_ready)
   );
-  assign io_IF_to_ID_bus_valid = rhsReg_1;	// <stdin>:841:10, tools.scala:32:33
-  assign io_IF_to_ID_bus_bits_PC = rhsReg;	// <stdin>:841:10, tools.scala:32:33
-  assign io_IF_to_ID_bus_bits_Inst = rhsReg_2[31:0];	// <stdin>:841:10, tools.scala:32:33, :37:17
-  assign io_PF_pc = _pre_fetch_io_PF_pc;	// <stdin>:841:10, IFU.scala:59:27
-  assign io_PF_valid = _pre_fetch_io_inst_valid;	// <stdin>:841:10, IFU.scala:59:27
-  assign io_axidata = axi_lite_readData_bits_data;	// <stdin>:841:10
+  assign io_IF_to_ID_bus_valid = rhsReg_1;	// <stdin>:845:10, tools.scala:32:33
+  assign io_IF_to_ID_bus_bits_PC = rhsReg;	// <stdin>:845:10, tools.scala:32:33
+  assign io_IF_to_ID_bus_bits_Inst = rhsReg_2[31:0];	// <stdin>:845:10, tools.scala:32:33, :37:17
+  assign io_PF_pc = _pre_fetch_io_PF_pc;	// <stdin>:845:10, IFU.scala:59:27
+  assign io_PF_valid = _pre_fetch_io_inst_valid;	// <stdin>:845:10, IFU.scala:59:27
+  assign io_axidata = axi_lite_readData_bits_data;	// <stdin>:845:10
 endmodule
 
-module IDU(	// <stdin>:902:10
+module IDU(	// <stdin>:906:10
   input         clock,
                 reset,
                 io_IF_to_ID_bus_valid,
@@ -3777,167 +3794,167 @@ module IDU(	// <stdin>:902:10
       rhsReg_14 <= io_IF_to_ID_bus_valid & ~_load_use_stall_T_22;	// IDU.scala:208:{79,81}, :222:65, tools.scala:23:33
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:902:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:902:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:902:10
+  `ifndef SYNTHESIS	// <stdin>:906:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:906:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:906:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_4;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_5;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_6;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_7;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_8;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_9;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_10;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_11;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_12;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_13;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_14;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_15;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_16;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_17;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_18;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_19;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_20;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_21;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_22;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_23;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_24;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_25;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_26;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_27;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_28;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_29;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_30;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_31;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_32;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_33;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_34;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_35;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_36;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_37;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_38;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_39;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_40;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_41;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_42;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_43;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_44;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_45;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_46;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_47;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_48;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_49;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_50;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_51;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_52;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_53;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_54;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_55;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_56;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_57;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_58;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_59;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_60;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_61;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_62;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_63;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_64;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_65;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_66;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_67;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_68;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_69;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_70;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_71;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_72;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_73;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_74;	// <stdin>:902:10
-      automatic logic [31:0] _RANDOM_75;	// <stdin>:902:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:902:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:902:10
+    initial begin	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_5;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_6;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_7;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_8;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_9;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_10;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_11;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_12;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_13;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_14;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_15;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_16;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_17;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_18;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_19;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_20;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_21;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_22;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_23;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_24;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_25;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_26;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_27;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_28;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_29;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_30;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_31;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_32;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_33;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_34;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_35;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_36;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_37;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_38;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_39;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_40;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_41;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_42;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_43;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_44;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_45;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_46;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_47;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_48;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_49;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_50;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_51;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_52;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_53;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_54;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_55;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_56;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_57;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_58;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_59;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_60;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_61;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_62;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_63;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_64;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_65;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_66;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_67;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_68;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_69;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_70;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_71;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_72;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_73;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_74;	// <stdin>:906:10
+      automatic logic [31:0] _RANDOM_75;	// <stdin>:906:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:906:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:906:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:902:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_4 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_5 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_6 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_7 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_8 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_9 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_10 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_11 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_12 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_13 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_14 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_15 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_16 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_17 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_18 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_19 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_20 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_21 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_22 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_23 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_24 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_25 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_26 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_27 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_28 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_29 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_30 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_31 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_32 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_33 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_34 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_35 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_36 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_37 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_38 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_39 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_40 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_41 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_42 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_43 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_44 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_45 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_46 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_47 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_48 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_49 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_50 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_51 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_52 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_53 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_54 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_55 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_56 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_57 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_58 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_59 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_60 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_61 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_62 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_63 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_64 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_65 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_66 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_67 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_68 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_69 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_70 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_71 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_72 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_73 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_74 = `RANDOM;	// <stdin>:902:10
-        _RANDOM_75 = `RANDOM;	// <stdin>:902:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:906:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_5 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_6 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_7 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_8 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_9 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_10 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_11 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_12 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_13 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_14 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_15 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_16 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_17 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_18 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_19 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_20 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_21 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_22 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_23 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_24 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_25 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_26 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_27 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_28 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_29 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_30 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_31 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_32 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_33 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_34 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_35 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_36 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_37 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_38 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_39 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_40 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_41 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_42 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_43 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_44 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_45 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_46 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_47 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_48 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_49 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_50 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_51 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_52 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_53 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_54 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_55 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_56 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_57 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_58 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_59 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_60 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_61 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_62 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_63 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_64 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_65 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_66 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_67 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_68 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_69 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_70 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_71 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_72 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_73 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_74 = `RANDOM;	// <stdin>:906:10
+        _RANDOM_75 = `RANDOM;	// <stdin>:906:10
         GPR_0 = {_RANDOM_0, _RANDOM_1};	// IDU.scala:113:22
         GPR_1 = {_RANDOM_2, _RANDOM_3};	// IDU.scala:113:22
         GPR_2 = {_RANDOM_4, _RANDOM_5};	// IDU.scala:113:22
@@ -3985,29 +4002,29 @@ module IDU(	// <stdin>:902:10
         rhsReg_14 = _RANDOM_75[25];	// tools.scala:23:33
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:902:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:902:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:906:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:906:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  assign io_IF_to_ID_bus_ready = ~_load_use_stall_T_22;	// <stdin>:902:10, IDU.scala:208:81, :222:65
-  assign io_ID_to_EX_bus_valid = rhsReg_14;	// <stdin>:902:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_ALU_Data1 = rhsReg_2;	// <stdin>:902:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_ALU_Data2 = rhsReg_3;	// <stdin>:902:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_futype = rhsReg_9[0];	// <stdin>:902:10, tools.scala:23:33, :25:17
-  assign io_ID_to_EX_bus_bits_optype = rhsReg_8;	// <stdin>:902:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_rs1_data = rhsReg_10;	// <stdin>:902:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_rs2_data = rhsReg_12;	// <stdin>:902:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_regWriteID = rhsReg_4;	// <stdin>:902:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_regWriteEn = rhsReg_5;	// <stdin>:902:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_memWriteEn = rhsReg_7;	// <stdin>:902:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_memReadEn = rhsReg_6;	// <stdin>:902:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_PC = rhsReg;	// <stdin>:902:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_Inst = rhsReg_1;	// <stdin>:902:10, tools.scala:23:33
+  assign io_IF_to_ID_bus_ready = ~_load_use_stall_T_22;	// <stdin>:906:10, IDU.scala:208:81, :222:65
+  assign io_ID_to_EX_bus_valid = rhsReg_14;	// <stdin>:906:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_ALU_Data1 = rhsReg_2;	// <stdin>:906:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_ALU_Data2 = rhsReg_3;	// <stdin>:906:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_futype = rhsReg_9[0];	// <stdin>:906:10, tools.scala:23:33, :25:17
+  assign io_ID_to_EX_bus_bits_optype = rhsReg_8;	// <stdin>:906:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_rs1_data = rhsReg_10;	// <stdin>:906:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_rs2_data = rhsReg_12;	// <stdin>:906:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_regWriteID = rhsReg_4;	// <stdin>:906:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_regWriteEn = rhsReg_5;	// <stdin>:906:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_memWriteEn = rhsReg_7;	// <stdin>:906:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_memReadEn = rhsReg_6;	// <stdin>:906:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_PC = rhsReg;	// <stdin>:906:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_Inst = rhsReg_1;	// <stdin>:906:10, tools.scala:23:33
   assign io_ID_to_BPU_bus_valid = io_IF_to_ID_bus_valid & (_io_ID_to_BPU_bus_valid_T | _io_ID_to_BPU_bus_valid_T_1 |
-                _io_ID_to_BPU_bus_valid_T_3 & _io_ID_to_BPU_bus_valid_T_4);	// <stdin>:902:10, IDU.scala:165:19, :166:19, :175:15, :186:104, :259:{58,108,133}
-  assign io_ID_to_BPU_bus_bits_PC = io_IF_to_ID_bus_bits_PC;	// <stdin>:902:10
+                _io_ID_to_BPU_bus_valid_T_3 & _io_ID_to_BPU_bus_valid_T_4);	// <stdin>:906:10, IDU.scala:165:19, :166:19, :175:15, :186:104, :259:{58,108,133}
+  assign io_ID_to_BPU_bus_bits_PC = io_IF_to_ID_bus_bits_PC;	// <stdin>:906:10
   assign io_ID_to_BPU_bus_bits_taken = _io_ID_to_BPU_bus_valid_T | (_io_ID_to_BPU_bus_valid_T_1 ? _GEN_10 :
-                _io_ID_to_BPU_bus_valid_T_3 & _io_ID_to_BPU_bus_valid_T_4);	// <stdin>:902:10, IDU.scala:165:19, :166:19, :175:15, :186:104, :233:19, :234:34, :243:15, :244:21, :245:31, :246:31, :247:31
+                _io_ID_to_BPU_bus_valid_T_3 & _io_ID_to_BPU_bus_valid_T_4);	// <stdin>:906:10, IDU.scala:165:19, :166:19, :175:15, :186:104, :233:19, :234:34, :243:15, :244:21, :245:31, :246:31, :247:31
   assign io_ID_to_BPU_bus_bits_br_target = _io_ID_to_BPU_bus_valid_T ? io_IF_to_ID_bus_bits_PC + {{44{io_IF_to_ID_bus_bits_Inst[31]}},
                 io_IF_to_ID_bus_bits_Inst[19:12], io_IF_to_ID_bus_bits_Inst[20],
                 io_IF_to_ID_bus_bits_Inst[30:21], 1'h0} : _io_ID_to_BPU_bus_valid_T_1 & _GEN_10 ?
@@ -4015,44 +4032,44 @@ module IDU(	// <stdin>:902:10
                 io_IF_to_ID_bus_bits_Inst[7], io_IF_to_ID_bus_bits_Inst[30:25],
                 io_IF_to_ID_bus_bits_Inst[11:8], 1'h0} : _io_ID_to_BPU_bus_valid_T_3 &
                 _io_ID_to_BPU_bus_valid_T_4 ? _rs1_data_T_13 + {_immI_ret_T_2,
-                io_IF_to_ID_bus_bits_Inst[31:20]} : {32'h0, _ALU_Data1_T_5[31:0]};	// <stdin>:902:10, Bitwise.scala:77:12, IDU.scala:103:25, :106:{25,44,66,92}, :107:{48,72,90}, :165:19, :166:19, :175:{15,30}, :186:104, :233:19, :234:34, :251:13, :253:37, :254:{31,50}, :255:{31,58}, Lookup.scala:34:39, Mux.scala:101:16
-  assign io_ID_stall = _load_use_stall_T_22;	// <stdin>:902:10, IDU.scala:222:65
-  assign io_ID_GPR_0 = GPR_0;	// <stdin>:902:10, IDU.scala:113:22
-  assign io_ID_GPR_1 = GPR_1;	// <stdin>:902:10, IDU.scala:113:22
-  assign io_ID_GPR_2 = GPR_2;	// <stdin>:902:10, IDU.scala:113:22
-  assign io_ID_GPR_3 = GPR_3;	// <stdin>:902:10, IDU.scala:113:22
-  assign io_ID_GPR_4 = GPR_4;	// <stdin>:902:10, IDU.scala:113:22
-  assign io_ID_GPR_5 = GPR_5;	// <stdin>:902:10, IDU.scala:113:22
-  assign io_ID_GPR_6 = GPR_6;	// <stdin>:902:10, IDU.scala:113:22
-  assign io_ID_GPR_7 = GPR_7;	// <stdin>:902:10, IDU.scala:113:22
-  assign io_ID_GPR_8 = GPR_8;	// <stdin>:902:10, IDU.scala:113:22
-  assign io_ID_GPR_9 = GPR_9;	// <stdin>:902:10, IDU.scala:113:22
-  assign io_ID_GPR_10 = GPR_10;	// <stdin>:902:10, IDU.scala:113:22
-  assign io_ID_GPR_11 = GPR_11;	// <stdin>:902:10, IDU.scala:113:22
-  assign io_ID_GPR_12 = GPR_12;	// <stdin>:902:10, IDU.scala:113:22
-  assign io_ID_GPR_13 = GPR_13;	// <stdin>:902:10, IDU.scala:113:22
-  assign io_ID_GPR_14 = GPR_14;	// <stdin>:902:10, IDU.scala:113:22
-  assign io_ID_GPR_15 = GPR_15;	// <stdin>:902:10, IDU.scala:113:22
-  assign io_ID_GPR_16 = GPR_16;	// <stdin>:902:10, IDU.scala:113:22
-  assign io_ID_GPR_17 = GPR_17;	// <stdin>:902:10, IDU.scala:113:22
-  assign io_ID_GPR_18 = GPR_18;	// <stdin>:902:10, IDU.scala:113:22
-  assign io_ID_GPR_19 = GPR_19;	// <stdin>:902:10, IDU.scala:113:22
-  assign io_ID_GPR_20 = GPR_20;	// <stdin>:902:10, IDU.scala:113:22
-  assign io_ID_GPR_21 = GPR_21;	// <stdin>:902:10, IDU.scala:113:22
-  assign io_ID_GPR_22 = GPR_22;	// <stdin>:902:10, IDU.scala:113:22
-  assign io_ID_GPR_23 = GPR_23;	// <stdin>:902:10, IDU.scala:113:22
-  assign io_ID_GPR_24 = GPR_24;	// <stdin>:902:10, IDU.scala:113:22
-  assign io_ID_GPR_25 = GPR_25;	// <stdin>:902:10, IDU.scala:113:22
-  assign io_ID_GPR_26 = GPR_26;	// <stdin>:902:10, IDU.scala:113:22
-  assign io_ID_GPR_27 = GPR_27;	// <stdin>:902:10, IDU.scala:113:22
-  assign io_ID_GPR_28 = GPR_28;	// <stdin>:902:10, IDU.scala:113:22
-  assign io_ID_GPR_29 = GPR_29;	// <stdin>:902:10, IDU.scala:113:22
-  assign io_ID_GPR_30 = GPR_30;	// <stdin>:902:10, IDU.scala:113:22
-  assign io_ID_GPR_31 = GPR_31;	// <stdin>:902:10, IDU.scala:113:22
-  assign io_ID_unknown_inst = InstInfo_0 == 3'h0 & io_IF_to_ID_bus_valid;	// <stdin>:902:10, IDU.scala:215:{39,47}, Lookup.scala:34:39
+                io_IF_to_ID_bus_bits_Inst[31:20]} : {32'h0, _ALU_Data1_T_5[31:0]};	// <stdin>:906:10, Bitwise.scala:77:12, IDU.scala:103:25, :106:{25,44,66,92}, :107:{48,72,90}, :165:19, :166:19, :175:{15,30}, :186:104, :233:19, :234:34, :251:13, :253:37, :254:{31,50}, :255:{31,58}, Lookup.scala:34:39, Mux.scala:101:16
+  assign io_ID_stall = _load_use_stall_T_22;	// <stdin>:906:10, IDU.scala:222:65
+  assign io_ID_GPR_0 = GPR_0;	// <stdin>:906:10, IDU.scala:113:22
+  assign io_ID_GPR_1 = GPR_1;	// <stdin>:906:10, IDU.scala:113:22
+  assign io_ID_GPR_2 = GPR_2;	// <stdin>:906:10, IDU.scala:113:22
+  assign io_ID_GPR_3 = GPR_3;	// <stdin>:906:10, IDU.scala:113:22
+  assign io_ID_GPR_4 = GPR_4;	// <stdin>:906:10, IDU.scala:113:22
+  assign io_ID_GPR_5 = GPR_5;	// <stdin>:906:10, IDU.scala:113:22
+  assign io_ID_GPR_6 = GPR_6;	// <stdin>:906:10, IDU.scala:113:22
+  assign io_ID_GPR_7 = GPR_7;	// <stdin>:906:10, IDU.scala:113:22
+  assign io_ID_GPR_8 = GPR_8;	// <stdin>:906:10, IDU.scala:113:22
+  assign io_ID_GPR_9 = GPR_9;	// <stdin>:906:10, IDU.scala:113:22
+  assign io_ID_GPR_10 = GPR_10;	// <stdin>:906:10, IDU.scala:113:22
+  assign io_ID_GPR_11 = GPR_11;	// <stdin>:906:10, IDU.scala:113:22
+  assign io_ID_GPR_12 = GPR_12;	// <stdin>:906:10, IDU.scala:113:22
+  assign io_ID_GPR_13 = GPR_13;	// <stdin>:906:10, IDU.scala:113:22
+  assign io_ID_GPR_14 = GPR_14;	// <stdin>:906:10, IDU.scala:113:22
+  assign io_ID_GPR_15 = GPR_15;	// <stdin>:906:10, IDU.scala:113:22
+  assign io_ID_GPR_16 = GPR_16;	// <stdin>:906:10, IDU.scala:113:22
+  assign io_ID_GPR_17 = GPR_17;	// <stdin>:906:10, IDU.scala:113:22
+  assign io_ID_GPR_18 = GPR_18;	// <stdin>:906:10, IDU.scala:113:22
+  assign io_ID_GPR_19 = GPR_19;	// <stdin>:906:10, IDU.scala:113:22
+  assign io_ID_GPR_20 = GPR_20;	// <stdin>:906:10, IDU.scala:113:22
+  assign io_ID_GPR_21 = GPR_21;	// <stdin>:906:10, IDU.scala:113:22
+  assign io_ID_GPR_22 = GPR_22;	// <stdin>:906:10, IDU.scala:113:22
+  assign io_ID_GPR_23 = GPR_23;	// <stdin>:906:10, IDU.scala:113:22
+  assign io_ID_GPR_24 = GPR_24;	// <stdin>:906:10, IDU.scala:113:22
+  assign io_ID_GPR_25 = GPR_25;	// <stdin>:906:10, IDU.scala:113:22
+  assign io_ID_GPR_26 = GPR_26;	// <stdin>:906:10, IDU.scala:113:22
+  assign io_ID_GPR_27 = GPR_27;	// <stdin>:906:10, IDU.scala:113:22
+  assign io_ID_GPR_28 = GPR_28;	// <stdin>:906:10, IDU.scala:113:22
+  assign io_ID_GPR_29 = GPR_29;	// <stdin>:906:10, IDU.scala:113:22
+  assign io_ID_GPR_30 = GPR_30;	// <stdin>:906:10, IDU.scala:113:22
+  assign io_ID_GPR_31 = GPR_31;	// <stdin>:906:10, IDU.scala:113:22
+  assign io_ID_unknown_inst = InstInfo_0 == 3'h0 & io_IF_to_ID_bus_valid;	// <stdin>:906:10, IDU.scala:215:{39,47}, Lookup.scala:34:39
 endmodule
 
-module EXU(	// <stdin>:1713:10
+module EXU(	// <stdin>:1717:10
   input         clock,
                 reset,
                 io_ID_to_EX_bus_valid,
@@ -4155,31 +4172,31 @@ module EXU(	// <stdin>:1713:10
       rhsReg_9 <= io_ID_to_EX_bus_valid;	// tools.scala:15:29
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:1713:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:1713:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:1713:10
+  `ifndef SYNTHESIS	// <stdin>:1717:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:1717:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:1717:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:1713:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:1713:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:1713:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:1713:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:1713:10
-      automatic logic [31:0] _RANDOM_4;	// <stdin>:1713:10
-      automatic logic [31:0] _RANDOM_5;	// <stdin>:1713:10
-      automatic logic [31:0] _RANDOM_6;	// <stdin>:1713:10
-      automatic logic [31:0] _RANDOM_7;	// <stdin>:1713:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:1713:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:1713:10
+    initial begin	// <stdin>:1717:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:1717:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:1717:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:1717:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:1717:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:1717:10
+      automatic logic [31:0] _RANDOM_5;	// <stdin>:1717:10
+      automatic logic [31:0] _RANDOM_6;	// <stdin>:1717:10
+      automatic logic [31:0] _RANDOM_7;	// <stdin>:1717:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:1717:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:1717:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:1713:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:1713:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:1713:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:1713:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:1713:10
-        _RANDOM_4 = `RANDOM;	// <stdin>:1713:10
-        _RANDOM_5 = `RANDOM;	// <stdin>:1713:10
-        _RANDOM_6 = `RANDOM;	// <stdin>:1713:10
-        _RANDOM_7 = `RANDOM;	// <stdin>:1713:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:1717:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:1717:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:1717:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:1717:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:1717:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:1717:10
+        _RANDOM_5 = `RANDOM;	// <stdin>:1717:10
+        _RANDOM_6 = `RANDOM;	// <stdin>:1717:10
+        _RANDOM_7 = `RANDOM;	// <stdin>:1717:10
         rhsReg = {_RANDOM_0, _RANDOM_1};	// tools.scala:15:29
         rhsReg_1 = _RANDOM_2;	// tools.scala:15:29
         rhsReg_2 = _RANDOM_3[0];	// tools.scala:15:29
@@ -4192,24 +4209,24 @@ module EXU(	// <stdin>:1713:10
         rhsReg_9 = _RANDOM_7[13];	// tools.scala:15:29
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:1713:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:1713:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:1717:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:1717:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  assign io_EX_to_MEM_bus_valid = rhsReg_9;	// <stdin>:1713:10, tools.scala:15:29
-  assign io_EX_to_MEM_bus_bits_Inst = rhsReg_1;	// <stdin>:1713:10, tools.scala:15:29
-  assign io_EX_to_MEM_bus_bits_PC = rhsReg;	// <stdin>:1713:10, tools.scala:15:29
-  assign io_EX_to_MEM_bus_bits_ALU_result = rhsReg_7;	// <stdin>:1713:10, tools.scala:15:29
-  assign io_EX_to_MEM_bus_bits_memWriteData = rhsReg_6;	// <stdin>:1713:10, tools.scala:15:29
-  assign io_EX_to_MEM_bus_bits_memWriteEn = rhsReg_4;	// <stdin>:1713:10, tools.scala:15:29
-  assign io_EX_to_MEM_bus_bits_memReadEn = rhsReg_5;	// <stdin>:1713:10, tools.scala:15:29
-  assign io_EX_to_MEM_bus_bits_lsutype = rhsReg_8;	// <stdin>:1713:10, tools.scala:15:29
-  assign io_EX_to_MEM_bus_bits_regWriteID = rhsReg_3;	// <stdin>:1713:10, tools.scala:15:29
-  assign io_EX_to_MEM_bus_bits_regWriteEn = rhsReg_2;	// <stdin>:1713:10, tools.scala:15:29
-  assign io_EX_ALUResult_Pass = _GEN_5;	// <stdin>:1713:10, Mux.scala:101:16
+  assign io_EX_to_MEM_bus_valid = rhsReg_9;	// <stdin>:1717:10, tools.scala:15:29
+  assign io_EX_to_MEM_bus_bits_Inst = rhsReg_1;	// <stdin>:1717:10, tools.scala:15:29
+  assign io_EX_to_MEM_bus_bits_PC = rhsReg;	// <stdin>:1717:10, tools.scala:15:29
+  assign io_EX_to_MEM_bus_bits_ALU_result = rhsReg_7;	// <stdin>:1717:10, tools.scala:15:29
+  assign io_EX_to_MEM_bus_bits_memWriteData = rhsReg_6;	// <stdin>:1717:10, tools.scala:15:29
+  assign io_EX_to_MEM_bus_bits_memWriteEn = rhsReg_4;	// <stdin>:1717:10, tools.scala:15:29
+  assign io_EX_to_MEM_bus_bits_memReadEn = rhsReg_5;	// <stdin>:1717:10, tools.scala:15:29
+  assign io_EX_to_MEM_bus_bits_lsutype = rhsReg_8;	// <stdin>:1717:10, tools.scala:15:29
+  assign io_EX_to_MEM_bus_bits_regWriteID = rhsReg_3;	// <stdin>:1717:10, tools.scala:15:29
+  assign io_EX_to_MEM_bus_bits_regWriteEn = rhsReg_2;	// <stdin>:1717:10, tools.scala:15:29
+  assign io_EX_ALUResult_Pass = _GEN_5;	// <stdin>:1717:10, Mux.scala:101:16
 endmodule
 
-module MEM_pre_stage(	// <stdin>:1980:10
+module MEM_pre_stage(	// <stdin>:1984:10
   input         clock,
                 reset,
                 io_EX_to_MEM_bus_valid,
@@ -4276,31 +4293,31 @@ module MEM_pre_stage(	// <stdin>:1980:10
       rhsReg_9 <= io_EX_to_MEM_bus_valid;	// tools.scala:15:29
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:1980:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:1980:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:1980:10
+  `ifndef SYNTHESIS	// <stdin>:1984:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:1984:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:1984:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:1980:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:1980:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:1980:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:1980:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:1980:10
-      automatic logic [31:0] _RANDOM_4;	// <stdin>:1980:10
-      automatic logic [31:0] _RANDOM_5;	// <stdin>:1980:10
-      automatic logic [31:0] _RANDOM_6;	// <stdin>:1980:10
-      automatic logic [31:0] _RANDOM_7;	// <stdin>:1980:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:1980:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:1980:10
+    initial begin	// <stdin>:1984:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:1984:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:1984:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:1984:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:1984:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:1984:10
+      automatic logic [31:0] _RANDOM_5;	// <stdin>:1984:10
+      automatic logic [31:0] _RANDOM_6;	// <stdin>:1984:10
+      automatic logic [31:0] _RANDOM_7;	// <stdin>:1984:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:1984:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:1984:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:1980:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:1980:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:1980:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:1980:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:1980:10
-        _RANDOM_4 = `RANDOM;	// <stdin>:1980:10
-        _RANDOM_5 = `RANDOM;	// <stdin>:1980:10
-        _RANDOM_6 = `RANDOM;	// <stdin>:1980:10
-        _RANDOM_7 = `RANDOM;	// <stdin>:1980:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:1984:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:1984:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:1984:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:1984:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:1984:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:1984:10
+        _RANDOM_5 = `RANDOM;	// <stdin>:1984:10
+        _RANDOM_6 = `RANDOM;	// <stdin>:1984:10
+        _RANDOM_7 = `RANDOM;	// <stdin>:1984:10
         rhsReg = {_RANDOM_0, _RANDOM_1};	// tools.scala:15:29
         rhsReg_1 = _RANDOM_2;	// tools.scala:15:29
         rhsReg_2 = {_RANDOM_3, _RANDOM_4};	// tools.scala:15:29
@@ -4311,43 +4328,43 @@ module MEM_pre_stage(	// <stdin>:1980:10
         rhsReg_9 = _RANDOM_7[13];	// tools.scala:15:29
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:1980:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:1980:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:1984:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:1984:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  assign io_PMEM_to_MEM_bus_valid = rhsReg_9;	// <stdin>:1980:10, tools.scala:15:29
-  assign io_PMEM_to_MEM_bus_bits_ALU_result = rhsReg_2;	// <stdin>:1980:10, tools.scala:15:29
-  assign io_PMEM_to_MEM_bus_bits_regWriteEn = rhsReg_3;	// <stdin>:1980:10, tools.scala:15:29
-  assign io_PMEM_to_MEM_bus_bits_regWriteID = rhsReg_4;	// <stdin>:1980:10, tools.scala:15:29
-  assign io_PMEM_to_MEM_bus_bits_memReadEn = rhsReg_5;	// <stdin>:1980:10, tools.scala:15:29
-  assign io_PMEM_to_MEM_bus_bits_PC = rhsReg;	// <stdin>:1980:10, tools.scala:15:29
-  assign io_PMEM_to_MEM_bus_bits_Inst = rhsReg_1;	// <stdin>:1980:10, tools.scala:15:29
-  assign io_PMEM_to_ID_forward_bits_ALU_result = io_EX_to_MEM_bus_bits_ALU_result;	// <stdin>:1980:10
-  assign io_PMEM_to_ID_forward_bits_regWriteEn = io_EX_to_MEM_bus_bits_regWriteEn;	// <stdin>:1980:10
-  assign io_PMEM_to_ID_forward_bits_regWriteID = io_EX_to_MEM_bus_bits_regWriteID;	// <stdin>:1980:10
-  assign io_PMEM_to_ID_forward_bits_memReadEn = io_EX_to_MEM_bus_bits_memReadEn;	// <stdin>:1980:10
+  assign io_PMEM_to_MEM_bus_valid = rhsReg_9;	// <stdin>:1984:10, tools.scala:15:29
+  assign io_PMEM_to_MEM_bus_bits_ALU_result = rhsReg_2;	// <stdin>:1984:10, tools.scala:15:29
+  assign io_PMEM_to_MEM_bus_bits_regWriteEn = rhsReg_3;	// <stdin>:1984:10, tools.scala:15:29
+  assign io_PMEM_to_MEM_bus_bits_regWriteID = rhsReg_4;	// <stdin>:1984:10, tools.scala:15:29
+  assign io_PMEM_to_MEM_bus_bits_memReadEn = rhsReg_5;	// <stdin>:1984:10, tools.scala:15:29
+  assign io_PMEM_to_MEM_bus_bits_PC = rhsReg;	// <stdin>:1984:10, tools.scala:15:29
+  assign io_PMEM_to_MEM_bus_bits_Inst = rhsReg_1;	// <stdin>:1984:10, tools.scala:15:29
+  assign io_PMEM_to_ID_forward_bits_ALU_result = io_EX_to_MEM_bus_bits_ALU_result;	// <stdin>:1984:10
+  assign io_PMEM_to_ID_forward_bits_regWriteEn = io_EX_to_MEM_bus_bits_regWriteEn;	// <stdin>:1984:10
+  assign io_PMEM_to_ID_forward_bits_regWriteID = io_EX_to_MEM_bus_bits_regWriteID;	// <stdin>:1984:10
+  assign io_PMEM_to_ID_forward_bits_memReadEn = io_EX_to_MEM_bus_bits_memReadEn;	// <stdin>:1984:10
   assign io_memReadData = rhsReg_8 == 5'h11 ? axi_lite_readData_bits_data : rhsReg_8 == 5'h9 ?
                 {{32{axi_lite_readData_bits_data[31]}}, axi_lite_readData_bits_data[31:0]} : rhsReg_8 ==
                 5'h5 ? {{48{axi_lite_readData_bits_data[15]}}, axi_lite_readData_bits_data[15:0]} :
                 rhsReg_8 == 5'h3 ? {{56{axi_lite_readData_bits_data[7]}}, axi_lite_readData_bits_data[7:0]}
                 : rhsReg_8 == 5'h8 ? {32'h0, axi_lite_readData_bits_data[31:0]} : rhsReg_8 == 5'h4 ?
                 {48'h0, axi_lite_readData_bits_data[15:0]} : rhsReg_8 == 5'h2 ? {56'h0,
-                axi_lite_readData_bits_data[7:0]} : 64'h0;	// <stdin>:1980:10, Bitwise.scala:77:12, Cat.scala:33:92, PMEM.scala:50:20, :58:17, :59:44, :60:30, :61:{30,65}, :62:{30,65}, :63:{30,65}, :64:{30,60}, :65:{30,60}, :66:{30,60}, tools.scala:9:34, :15:29
-  assign axi_lite_writeAddr_valid = io_EX_to_MEM_bus_bits_memWriteEn;	// <stdin>:1980:10
-  assign axi_lite_writeAddr_bits_addr = io_EX_to_MEM_bus_bits_ALU_result[31:0];	// <stdin>:1980:10, PMEM.scala:85:58
-  assign axi_lite_writeData_valid = io_EX_to_MEM_bus_bits_memWriteEn;	// <stdin>:1980:10
-  assign axi_lite_writeData_bits_data = io_EX_to_MEM_bus_bits_memWriteData;	// <stdin>:1980:10
+                axi_lite_readData_bits_data[7:0]} : 64'h0;	// <stdin>:1984:10, Bitwise.scala:77:12, Cat.scala:33:92, PMEM.scala:50:20, :58:17, :59:44, :60:30, :61:{30,65}, :62:{30,65}, :63:{30,65}, :64:{30,60}, :65:{30,60}, :66:{30,60}, tools.scala:9:34, :15:29
+  assign axi_lite_writeAddr_valid = io_EX_to_MEM_bus_bits_memWriteEn;	// <stdin>:1984:10
+  assign axi_lite_writeAddr_bits_addr = io_EX_to_MEM_bus_bits_ALU_result[31:0];	// <stdin>:1984:10, PMEM.scala:85:58
+  assign axi_lite_writeData_valid = io_EX_to_MEM_bus_bits_memWriteEn;	// <stdin>:1984:10
+  assign axi_lite_writeData_bits_data = io_EX_to_MEM_bus_bits_memWriteData;	// <stdin>:1984:10
   assign axi_lite_writeData_bits_strb = io_EX_to_MEM_bus_bits_lsutype == 5'h10 ? 8'hFF : io_EX_to_MEM_bus_bits_lsutype == 5'h8 ?
                 8'hF : io_EX_to_MEM_bus_bits_lsutype == 5'h4 ? 8'h3 : {7'h0, io_EX_to_MEM_bus_bits_lsutype
-                == 5'h2};	// <stdin>:1980:10, PMEM.scala:49:11, :50:20, :51:24, :52:24, :53:24, :54:24
-  assign axi_lite_writeResp_ready = io_EX_to_MEM_bus_bits_memWriteEn;	// <stdin>:1980:10
-  assign axi_lite_readAddr_valid = io_EX_to_MEM_bus_bits_memReadEn;	// <stdin>:1980:10
-  assign axi_lite_readAddr_bits_addr = io_EX_to_MEM_bus_bits_ALU_result[31:0];	// <stdin>:1980:10, PMEM.scala:85:58
-  assign axi_lite_readData_ready = io_EX_to_MEM_bus_bits_memReadEn;	// <stdin>:1980:10
-  assign axi_req_valid = (|io_EX_to_MEM_bus_bits_lsutype) | (|rhsReg_8);	// <stdin>:1980:10, PMEM.scala:47:{34,41,76}, tools.scala:15:29
+                == 5'h2};	// <stdin>:1984:10, PMEM.scala:49:11, :50:20, :51:24, :52:24, :53:24, :54:24
+  assign axi_lite_writeResp_ready = io_EX_to_MEM_bus_bits_memWriteEn;	// <stdin>:1984:10
+  assign axi_lite_readAddr_valid = io_EX_to_MEM_bus_bits_memReadEn;	// <stdin>:1984:10
+  assign axi_lite_readAddr_bits_addr = io_EX_to_MEM_bus_bits_ALU_result[31:0];	// <stdin>:1984:10, PMEM.scala:85:58
+  assign axi_lite_readData_ready = io_EX_to_MEM_bus_bits_memReadEn;	// <stdin>:1984:10
+  assign axi_req_valid = (|io_EX_to_MEM_bus_bits_lsutype) | (|rhsReg_8);	// <stdin>:1984:10, PMEM.scala:47:{34,41,76}, tools.scala:15:29
 endmodule
 
-module MEMU(	// <stdin>:2123:10
+module MEMU(	// <stdin>:2127:10
   input         clock,
                 reset,
                 io_PMEM_to_MEM_bus_valid,
@@ -4395,27 +4412,27 @@ module MEMU(	// <stdin>:2123:10
       rhsReg_5 <= io_PMEM_to_MEM_bus_valid;	// tools.scala:15:29
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:2123:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:2123:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:2123:10
+  `ifndef SYNTHESIS	// <stdin>:2127:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:2127:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:2127:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:2123:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:2123:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:2123:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:2123:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:2123:10
-      automatic logic [31:0] _RANDOM_4;	// <stdin>:2123:10
-      automatic logic [31:0] _RANDOM_5;	// <stdin>:2123:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:2123:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:2123:10
+    initial begin	// <stdin>:2127:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:2127:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:2127:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:2127:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:2127:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:2127:10
+      automatic logic [31:0] _RANDOM_5;	// <stdin>:2127:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:2127:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:2127:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:2123:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:2123:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:2123:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:2123:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:2123:10
-        _RANDOM_4 = `RANDOM;	// <stdin>:2123:10
-        _RANDOM_5 = `RANDOM;	// <stdin>:2123:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:2127:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:2127:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:2127:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:2127:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:2127:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:2127:10
+        _RANDOM_5 = `RANDOM;	// <stdin>:2127:10
         rhsReg = {_RANDOM_0, _RANDOM_1};	// tools.scala:15:29
         rhsReg_1 = _RANDOM_2;	// tools.scala:15:29
         rhsReg_2 = _RANDOM_3[0];	// tools.scala:15:29
@@ -4424,22 +4441,22 @@ module MEMU(	// <stdin>:2123:10
         rhsReg_5 = _RANDOM_5[6];	// tools.scala:15:29
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:2123:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:2123:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:2127:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:2127:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  assign io_MEM_to_WB_bus_valid = rhsReg_5;	// <stdin>:2123:10, tools.scala:15:29
-  assign io_MEM_to_WB_bus_bits_regWriteData = rhsReg_4;	// <stdin>:2123:10, tools.scala:15:29
-  assign io_MEM_to_WB_bus_bits_regWriteEn = rhsReg_2;	// <stdin>:2123:10, tools.scala:15:29
-  assign io_MEM_to_WB_bus_bits_regWriteID = rhsReg_3;	// <stdin>:2123:10, tools.scala:15:29
-  assign io_MEM_to_WB_bus_bits_PC = rhsReg;	// <stdin>:2123:10, tools.scala:15:29
-  assign io_MEM_to_WB_bus_bits_Inst = rhsReg_1;	// <stdin>:2123:10, tools.scala:15:29
-  assign io_MEM_to_ID_forward_bits_regWriteData = io_PMEM_to_MEM_bus_bits_memReadEn ? io_memReadData : io_PMEM_to_MEM_bus_bits_ALU_result;	// <stdin>:2123:10, MEMU.scala:59:24
-  assign io_MEM_to_ID_forward_bits_regWriteEn = io_PMEM_to_MEM_bus_bits_regWriteEn;	// <stdin>:2123:10
-  assign io_MEM_to_ID_forward_bits_regWriteID = io_PMEM_to_MEM_bus_bits_regWriteID;	// <stdin>:2123:10
+  assign io_MEM_to_WB_bus_valid = rhsReg_5;	// <stdin>:2127:10, tools.scala:15:29
+  assign io_MEM_to_WB_bus_bits_regWriteData = rhsReg_4;	// <stdin>:2127:10, tools.scala:15:29
+  assign io_MEM_to_WB_bus_bits_regWriteEn = rhsReg_2;	// <stdin>:2127:10, tools.scala:15:29
+  assign io_MEM_to_WB_bus_bits_regWriteID = rhsReg_3;	// <stdin>:2127:10, tools.scala:15:29
+  assign io_MEM_to_WB_bus_bits_PC = rhsReg;	// <stdin>:2127:10, tools.scala:15:29
+  assign io_MEM_to_WB_bus_bits_Inst = rhsReg_1;	// <stdin>:2127:10, tools.scala:15:29
+  assign io_MEM_to_ID_forward_bits_regWriteData = io_PMEM_to_MEM_bus_bits_memReadEn ? io_memReadData : io_PMEM_to_MEM_bus_bits_ALU_result;	// <stdin>:2127:10, MEMU.scala:59:24
+  assign io_MEM_to_ID_forward_bits_regWriteEn = io_PMEM_to_MEM_bus_bits_regWriteEn;	// <stdin>:2127:10
+  assign io_MEM_to_ID_forward_bits_regWriteID = io_PMEM_to_MEM_bus_bits_regWriteID;	// <stdin>:2127:10
 endmodule
 
-module WBU(	// <stdin>:2163:10
+module WBU(	// <stdin>:2167:10
   input         io_MEM_to_WB_bus_valid,
   input  [63:0] io_MEM_to_WB_bus_bits_regWriteData,
   input         io_MEM_to_WB_bus_bits_regWriteEn,
@@ -4453,19 +4470,19 @@ module WBU(	// <stdin>:2163:10
   output [63:0] io_WB_pc,
   output [31:0] io_WB_Inst);
 
-  assign io_WB_to_ID_forward_valid = io_MEM_to_WB_bus_valid;	// <stdin>:2163:10
-  assign io_WB_to_ID_forward_bits_regWriteData = io_MEM_to_WB_bus_bits_regWriteData;	// <stdin>:2163:10
-  assign io_WB_to_ID_forward_bits_regWriteEn = io_MEM_to_WB_bus_bits_regWriteEn;	// <stdin>:2163:10
-  assign io_WB_to_ID_forward_bits_regWriteID = io_MEM_to_WB_bus_bits_regWriteID;	// <stdin>:2163:10
-  assign io_WB_pc = io_MEM_to_WB_bus_bits_PC;	// <stdin>:2163:10
-  assign io_WB_Inst = io_MEM_to_WB_bus_bits_Inst;	// <stdin>:2163:10
+  assign io_WB_to_ID_forward_valid = io_MEM_to_WB_bus_valid;	// <stdin>:2167:10
+  assign io_WB_to_ID_forward_bits_regWriteData = io_MEM_to_WB_bus_bits_regWriteData;	// <stdin>:2167:10
+  assign io_WB_to_ID_forward_bits_regWriteEn = io_MEM_to_WB_bus_bits_regWriteEn;	// <stdin>:2167:10
+  assign io_WB_to_ID_forward_bits_regWriteID = io_MEM_to_WB_bus_bits_regWriteID;	// <stdin>:2167:10
+  assign io_WB_pc = io_MEM_to_WB_bus_bits_PC;	// <stdin>:2167:10
+  assign io_WB_Inst = io_MEM_to_WB_bus_bits_Inst;	// <stdin>:2167:10
 endmodule
 
 // external module sim_sram
 
 // external module sim
 
-module RAMU(	// <stdin>:2232:10
+module RAMU(	// <stdin>:2236:10
   input         clock,
                 reset,
                 axi_lite_writeAddr_valid,
@@ -4510,7 +4527,7 @@ module RAMU(	// <stdin>:2232:10
   );
 endmodule
 
-module AXI_Arbiter(	// <stdin>:2281:10
+module AXI_Arbiter(	// <stdin>:2285:10
   input         in_0_writeAddr_valid,
   input  [31:0] in_0_writeAddr_bits_addr,
   input         in_0_writeData_valid,
@@ -4543,24 +4560,24 @@ module AXI_Arbiter(	// <stdin>:2281:10
   output [31:0] out_readAddr_bits_addr,
   output        out_readData_ready);
 
-  assign in_0_readData_bits_data = req_0_valid ? out_readData_bits_data : 64'h77;	// <stdin>:2281:10, top.scala:168:37, :174:27, :175:17
-  assign in_1_readData_valid = out_readData_valid;	// <stdin>:2281:10
-  assign in_1_readData_bits_data = out_readData_bits_data;	// <stdin>:2281:10
-  assign in_1_readData_bits_resp = out_readData_bits_resp;	// <stdin>:2281:10
-  assign req_0_ready = req_0_valid;	// <stdin>:2281:10
-  assign req_1_ready = ~req_0_valid;	// <stdin>:2281:10, top.scala:174:27, :178:30
-  assign out_writeAddr_valid = req_0_valid & in_0_writeAddr_valid;	// <stdin>:2281:10, top.scala:174:27, :175:17
-  assign out_writeAddr_bits_addr = req_0_valid ? in_0_writeAddr_bits_addr : 32'h0;	// <stdin>:2281:10, top.scala:174:27, :175:17
-  assign out_writeData_valid = req_0_valid & in_0_writeData_valid;	// <stdin>:2281:10, top.scala:174:27, :175:17
-  assign out_writeData_bits_data = req_0_valid ? in_0_writeData_bits_data : 64'h0;	// <stdin>:2281:10, top.scala:174:27, :175:17
-  assign out_writeData_bits_strb = req_0_valid ? in_0_writeData_bits_strb : 8'h0;	// <stdin>:2281:10, top.scala:174:27, :175:17
-  assign out_writeResp_ready = req_0_valid & in_0_writeResp_ready;	// <stdin>:2281:10, top.scala:174:27, :175:17
-  assign out_readAddr_valid = req_0_valid ? in_0_readAddr_valid : in_1_readAddr_valid;	// <stdin>:2281:10, top.scala:174:27, :175:17
-  assign out_readAddr_bits_addr = req_0_valid ? in_0_readAddr_bits_addr : in_1_readAddr_bits_addr;	// <stdin>:2281:10, top.scala:174:27, :175:17
-  assign out_readData_ready = req_0_valid ? in_0_readData_ready : in_1_readData_ready;	// <stdin>:2281:10, top.scala:174:27, :175:17
+  assign in_0_readData_bits_data = req_0_valid ? out_readData_bits_data : 64'h77;	// <stdin>:2285:10, top.scala:168:37, :174:27, :175:17
+  assign in_1_readData_valid = out_readData_valid;	// <stdin>:2285:10
+  assign in_1_readData_bits_data = out_readData_bits_data;	// <stdin>:2285:10
+  assign in_1_readData_bits_resp = out_readData_bits_resp;	// <stdin>:2285:10
+  assign req_0_ready = req_0_valid;	// <stdin>:2285:10
+  assign req_1_ready = ~req_0_valid;	// <stdin>:2285:10, top.scala:174:27, :178:30
+  assign out_writeAddr_valid = req_0_valid & in_0_writeAddr_valid;	// <stdin>:2285:10, top.scala:174:27, :175:17
+  assign out_writeAddr_bits_addr = req_0_valid ? in_0_writeAddr_bits_addr : 32'h0;	// <stdin>:2285:10, top.scala:174:27, :175:17
+  assign out_writeData_valid = req_0_valid & in_0_writeData_valid;	// <stdin>:2285:10, top.scala:174:27, :175:17
+  assign out_writeData_bits_data = req_0_valid ? in_0_writeData_bits_data : 64'h0;	// <stdin>:2285:10, top.scala:174:27, :175:17
+  assign out_writeData_bits_strb = req_0_valid ? in_0_writeData_bits_strb : 8'h0;	// <stdin>:2285:10, top.scala:174:27, :175:17
+  assign out_writeResp_ready = req_0_valid & in_0_writeResp_ready;	// <stdin>:2285:10, top.scala:174:27, :175:17
+  assign out_readAddr_valid = req_0_valid ? in_0_readAddr_valid : in_1_readAddr_valid;	// <stdin>:2285:10, top.scala:174:27, :175:17
+  assign out_readAddr_bits_addr = req_0_valid ? in_0_readAddr_bits_addr : in_1_readAddr_bits_addr;	// <stdin>:2285:10, top.scala:174:27, :175:17
+  assign out_readData_ready = req_0_valid ? in_0_readData_ready : in_1_readData_ready;	// <stdin>:2285:10, top.scala:174:27, :175:17
 endmodule
 
-module top(	// <stdin>:2315:10
+module top(	// <stdin>:2319:10
   input         clock,
                 reset,
   output [63:0] io_ID_npc,
@@ -4725,6 +4742,7 @@ module top(	// <stdin>:2315:10
   wire [31:0] _inst_fetch_unit_io_IF_to_ID_bus_bits_Inst;	// top.scala:62:33
   wire [63:0] _inst_fetch_unit_io_PF_pc;	// top.scala:62:33
   wire        _inst_fetch_unit_io_PF_valid;	// top.scala:62:33
+  wire [63:0] _inst_fetch_unit_io_axidata;	// top.scala:62:33
   wire        _inst_fetch_unit_axi_lite_readAddr_valid;	// top.scala:62:33
   wire [31:0] _inst_fetch_unit_axi_lite_readAddr_bits_addr;	// top.scala:62:33
   wire        _inst_fetch_unit_axi_lite_readData_ready;	// top.scala:62:33
@@ -4735,6 +4753,7 @@ module top(	// <stdin>:2315:10
     .clock                           (clock),
     .reset                           (reset),
     .io_PF_pc                        (_inst_fetch_unit_io_PF_pc),	// top.scala:62:33
+    .io_PF_inst                      (_inst_fetch_unit_io_axidata[31:0]),	// top.scala:62:33, :118:45
     .io_PF_valid                     (_inst_fetch_unit_io_PF_valid),	// top.scala:62:33
     .io_ID_to_BPU_bus_valid          (_inst_decode_unit_io_ID_to_BPU_bus_valid),	// top.scala:63:34
     .io_ID_to_BPU_bus_bits_PC        (_inst_decode_unit_io_ID_to_BPU_bus_bits_PC),	// top.scala:63:34
@@ -4768,7 +4787,7 @@ module top(	// <stdin>:2315:10
     .io_PF_npc                   (io_PF_npc),
     .io_PF_pc                    (_inst_fetch_unit_io_PF_pc),
     .io_PF_valid                 (_inst_fetch_unit_io_PF_valid),
-    .io_axidata                  (io_PF_axidata),
+    .io_axidata                  (_inst_fetch_unit_io_axidata),
     .axi_lite_readAddr_valid     (_inst_fetch_unit_axi_lite_readAddr_valid),
     .axi_lite_readAddr_bits_addr (_inst_fetch_unit_axi_lite_readAddr_bits_addr),
     .axi_lite_readData_ready     (_inst_fetch_unit_axi_lite_readData_ready)
@@ -4985,7 +5004,6 @@ sim simulate (	// top.scala:24:26
    .GPR               (GPR),
    .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
 );
-
   RAMU ram_unit (	// top.scala:146:26
     .clock                        (clock),
     .reset                        (reset),
@@ -5035,26 +5053,27 @@ sim simulate (	// top.scala:24:26
     .out_readAddr_bits_addr   (_arb_out_readAddr_bits_addr),
     .out_readData_ready       (_arb_out_readData_ready)
   );
-  assign io_ID_npc = _inst_decode_unit_io_ID_to_BPU_bus_bits_br_target;	// <stdin>:2315:10, top.scala:63:34
-  assign io_PF_pc = _inst_fetch_unit_io_PF_pc;	// <stdin>:2315:10, top.scala:62:33
-  assign io_IF_pc = _inst_fetch_unit_io_IF_to_ID_bus_bits_PC;	// <stdin>:2315:10, top.scala:62:33
-  assign io_ID_pc = _inst_decode_unit_io_ID_to_EX_bus_bits_PC;	// <stdin>:2315:10, top.scala:63:34
-  assign io_EX_pc = _excute_unit_io_EX_to_MEM_bus_bits_PC;	// <stdin>:2315:10, top.scala:64:29
-  assign io_PMEM_pc = _pre_mem_unit_io_PMEM_to_MEM_bus_bits_PC;	// <stdin>:2315:10, top.scala:65:30
-  assign io_WB_Inst = _wb_unit_io_WB_Inst;	// <stdin>:2315:10, top.scala:67:25
-  assign io_WB_RegWriteData = _wb_unit_io_WB_to_ID_forward_bits_regWriteData;	// <stdin>:2315:10, top.scala:67:25
-  assign io_WB_RegWriteID = {59'h0, _wb_unit_io_WB_to_ID_forward_bits_regWriteID};	// <stdin>:2315:10, top.scala:67:25, :96:24
-  assign io_MEM_RegWriteData = _arb_in_0_readData_bits_data;	// <stdin>:2315:10, top.scala:147:21
-  assign io_bp_npc = _bp_unit_io_bp_npc;	// <stdin>:2315:10, top.scala:61:33
-  assign io_bp_taken = _bp_unit_io_bp_taken;	// <stdin>:2315:10, top.scala:61:33
-  assign io_bp_flush = _bp_unit_io_bp_flush;	// <stdin>:2315:10, top.scala:61:33
-  assign io_IF_Inst = _inst_fetch_unit_io_IF_to_ID_bus_bits_Inst;	// <stdin>:2315:10, top.scala:62:33
-  assign io_IF_valid = _inst_fetch_unit_io_IF_to_ID_bus_valid;	// <stdin>:2315:10, top.scala:62:33
-  assign io_IF_AXIREQ = _arb_req_1_ready;	// <stdin>:2315:10, top.scala:147:21
-  assign io_ID_ALU_Data1 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data1;	// <stdin>:2315:10, top.scala:63:34
-  assign io_ID_ALU_Data2 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data2;	// <stdin>:2315:10, top.scala:63:34
-  assign io_ID_Rs2Data = _inst_decode_unit_io_ID_to_EX_bus_bits_rs2_data;	// <stdin>:2315:10, top.scala:63:34
-  assign io_ALUResult = _excute_unit_io_EX_to_MEM_bus_bits_ALU_result;	// <stdin>:2315:10, top.scala:64:29
+  assign io_ID_npc = _inst_decode_unit_io_ID_to_BPU_bus_bits_br_target;	// <stdin>:2319:10, top.scala:63:34
+  assign io_PF_pc = _inst_fetch_unit_io_PF_pc;	// <stdin>:2319:10, top.scala:62:33
+  assign io_PF_axidata = _inst_fetch_unit_io_axidata;	// <stdin>:2319:10, top.scala:62:33
+  assign io_IF_pc = _inst_fetch_unit_io_IF_to_ID_bus_bits_PC;	// <stdin>:2319:10, top.scala:62:33
+  assign io_ID_pc = _inst_decode_unit_io_ID_to_EX_bus_bits_PC;	// <stdin>:2319:10, top.scala:63:34
+  assign io_EX_pc = _excute_unit_io_EX_to_MEM_bus_bits_PC;	// <stdin>:2319:10, top.scala:64:29
+  assign io_PMEM_pc = _pre_mem_unit_io_PMEM_to_MEM_bus_bits_PC;	// <stdin>:2319:10, top.scala:65:30
+  assign io_WB_Inst = _wb_unit_io_WB_Inst;	// <stdin>:2319:10, top.scala:67:25
+  assign io_WB_RegWriteData = _wb_unit_io_WB_to_ID_forward_bits_regWriteData;	// <stdin>:2319:10, top.scala:67:25
+  assign io_WB_RegWriteID = {59'h0, _wb_unit_io_WB_to_ID_forward_bits_regWriteID};	// <stdin>:2319:10, top.scala:67:25, :96:24
+  assign io_MEM_RegWriteData = _arb_in_0_readData_bits_data;	// <stdin>:2319:10, top.scala:147:21
+  assign io_bp_npc = _bp_unit_io_bp_npc;	// <stdin>:2319:10, top.scala:61:33
+  assign io_bp_taken = _bp_unit_io_bp_taken;	// <stdin>:2319:10, top.scala:61:33
+  assign io_bp_flush = _bp_unit_io_bp_flush;	// <stdin>:2319:10, top.scala:61:33
+  assign io_IF_Inst = _inst_fetch_unit_io_IF_to_ID_bus_bits_Inst;	// <stdin>:2319:10, top.scala:62:33
+  assign io_IF_valid = _inst_fetch_unit_io_IF_to_ID_bus_valid;	// <stdin>:2319:10, top.scala:62:33
+  assign io_IF_AXIREQ = _arb_req_1_ready;	// <stdin>:2319:10, top.scala:147:21
+  assign io_ID_ALU_Data1 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data1;	// <stdin>:2319:10, top.scala:63:34
+  assign io_ID_ALU_Data2 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data2;	// <stdin>:2319:10, top.scala:63:34
+  assign io_ID_Rs2Data = _inst_decode_unit_io_ID_to_EX_bus_bits_rs2_data;	// <stdin>:2319:10, top.scala:63:34
+  assign io_ALUResult = _excute_unit_io_EX_to_MEM_bus_bits_ALU_result;	// <stdin>:2319:10, top.scala:64:29
 endmodule
 
 
@@ -5197,6 +5216,7 @@ endmodule
 import "DPI-C" function void set_gpr_ptr(input logic [63:0] a []);
 import "DPI-C" function void unknown_inst();
 import "DPI-C" function void ebreak(input longint halt_ret);
+
 
 
 module sim(input[63:0] IF_pc, input [63:0] GPR [31:0], input unknown_inst_flag, input[31:0] WB_Inst);

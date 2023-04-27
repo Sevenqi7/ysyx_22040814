@@ -162,7 +162,7 @@ class BPU extends Module{
     io.BTB_wdata      := Mux(ID_br_taken, io.ID_to_BPU_bus.bits.br_target, 0.U)
 
     
-    io.bp_flush       := io.ID_to_BPU_bus.valid & (bp_target =/= ID_pc)
+    io.bp_flush       := io.ID_to_BPU_bus.valid & (bp_target =/= io.ID_to_BPU_bus.bits.br_target)
     io.bp_npc         := MuxCase(io.PF_pc + 4.U, Seq(
         (io.bp_flush, io.ID_to_BPU_bus.bits.br_target),
         (bp_taken   , BTB.io.readData                )
