@@ -9,6 +9,7 @@ class ID_BPU_Message extends Bundle{
     val PC    = UInt(64.W)
     val taken = Bool()
     val br_target = UInt(64.W)
+    val load_use_stall = Bool()
 }
 
 class ID_EX_Message extends Bundle{
@@ -257,6 +258,7 @@ class IDU extends Module{
 
     io.ID_to_BPU_bus.bits.taken := br_taken
     io.ID_to_BPU_bus.valid      := io.IF_to_ID_bus.valid & ((instType === TYPE_J) || (instType === TYPE_B) || (instType === TYPE_I  &&  src1 === NPC)) && !load_use_stall
+    io.ID_to_BPU_bus.bits.load_use_stall := load_use_stall
     io.ID_to_BPU_bus.bits.PC    := IF_pc
 }
             

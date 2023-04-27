@@ -137,7 +137,7 @@ class BPU extends Module{
     val bp_taken = Wire(Bool())
     val bp_target = RegInit(0.U(64.W))
 
-    when(B_type | J_type){
+    when((B_type | J_type) & !io.ID_to_BPU_bus.bits.load_use_stall){
         bp_target := io.bp_npc
     }    
 
