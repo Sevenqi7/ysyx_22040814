@@ -49,7 +49,7 @@ class IF_pre_fetch extends Module{
     val npc = Wire(UInt(64.W))
     npc := MuxCase(PF_npc, Seq(
         (io.bp_taken | io.bp_flush, io.bp_npc),
-        (io.stall    | !axo_req.ready, io.PF_pc)
+        (io.stall    | !axi_req.ready, io.PF_pc)
     ))
     regConnectWithResetAndStall(io.PF_pc, npc, reset.asBool, 0.U(64.W), io.stall | !axi_req.ready)
 
