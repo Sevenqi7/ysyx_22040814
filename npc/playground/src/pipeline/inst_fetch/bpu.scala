@@ -120,11 +120,16 @@ class BPU extends Module{
         val hit_cnt = Output(UInt(32.W))
     })
 
+    // def hash(x: UInt): UInt = {
+    //     val ret = Wire(UInt(8.W))
+    //     val x1 = x(31, 16) ^ x(15, 0)
+    //     ret := x1(15, 8) ^ x1(7, 0)
+    //     ret
+    // }
     def hash(x: UInt): UInt = {
         val ret = Wire(UInt(8.W))
-        val x1 = x(31, 16) ^ x(15, 0)
-        ret := x1(15, 8) ^ x1(7, 0)
-        ret
+        ret := x(31, 24) + x(23, 16) + (15, 8) + x(7, 0)
+        ret(7, 0)
     }
     
     //unpack bus from IDU
@@ -158,7 +163,7 @@ class BPU extends Module{
     //parameter end
     val BHT = RegInit(VecInit(Seq.fill(nrBHTs)(0.U(bhtWidth.W))))
     val PHT = RegInit(VecInit.fill(nrPHTs, scala.math.pow(2, bhtWidth).toInt)("b01".U(2.W)))
-    val BTB = Module(new BPU_Cache(20, 8, 8))
+    val BTB = Module(new BPU_Cache(16, 8, 8))
 
     //BTB
     BTB.io.raddr      := io.PF_pc

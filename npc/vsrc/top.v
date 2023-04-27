@@ -167,9 +167,9 @@ module BPU_Cache(	// <stdin>:65:10
   output [63:0] io_readData,
   output        io_hit,
   output [2:0]  io_wset,
-  output [15:0] io_wtag,
+  output [19:0] io_wtag,
   output [2:0]  io_rset,
-  output [15:0] io_rtag);
+  output [19:0] io_rtag);
 
   wire             _writeIDX_prng_io_out_0;	// PRNG.scala:91:22
   wire             _writeIDX_prng_io_out_1;	// PRNG.scala:91:22
@@ -460,13 +460,13 @@ module BPU_Cache(	// <stdin>:65:10
   wire             _GEN_40;	// bpu.scala:52:19
   /* synopsys infer_mux_override */
   assign _GEN_40 = _GEN_39[io_raddr[2:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
-  wire             _T_1 = io_raddr[18:3] == _GEN_0 & _GEN_4;	// bpu.scala:45:24, :52:{19,42}
-  wire             _T_3 = io_raddr[18:3] == _GEN_6 & _GEN_10;	// bpu.scala:45:24, :52:{19,42}
-  wire             _T_5 = io_raddr[18:3] == _GEN_12 & _GEN_16;	// bpu.scala:45:24, :52:{19,42}
-  wire             _T_7 = io_raddr[18:3] == _GEN_18 & _GEN_22;	// bpu.scala:45:24, :52:{19,42}
-  wire             _T_9 = io_raddr[18:3] == _GEN_24 & _GEN_28;	// bpu.scala:45:24, :52:{19,42}
-  wire             _T_11 = io_raddr[18:3] == _GEN_30 & _GEN_34;	// bpu.scala:45:24, :52:{19,42}
-  wire             _T_13 = io_raddr[18:3] == _GEN_36 & _GEN_40;	// bpu.scala:45:24, :52:{19,42}
+  wire             _T_1 = io_raddr[22:3] == {4'h0, _GEN_0} & _GEN_4;	// bpu.scala:45:24, :52:{19,42}
+  wire             _T_3 = io_raddr[22:3] == {4'h0, _GEN_6} & _GEN_10;	// bpu.scala:45:24, :52:{19,42}
+  wire             _T_5 = io_raddr[22:3] == {4'h0, _GEN_12} & _GEN_16;	// bpu.scala:45:24, :52:{19,42}
+  wire             _T_7 = io_raddr[22:3] == {4'h0, _GEN_18} & _GEN_22;	// bpu.scala:45:24, :52:{19,42}
+  wire             _T_9 = io_raddr[22:3] == {4'h0, _GEN_24} & _GEN_28;	// bpu.scala:45:24, :52:{19,42}
+  wire             _T_11 = io_raddr[22:3] == {4'h0, _GEN_30} & _GEN_34;	// bpu.scala:45:24, :52:{19,42}
+  wire             _T_13 = io_raddr[22:3] == {4'h0, _GEN_36} & _GEN_40;	// bpu.scala:45:24, :52:{19,42}
   wire [15:0]      _GEN_41;	// bpu.scala:66:14
   /* synopsys infer_mux_override */
   assign _GEN_41 = _GEN[io_waddr[2:0]] /* cadence map_to_mux */;	// bpu.scala:52:19, :60:24, :66:14
@@ -681,13 +681,13 @@ module BPU_Cache(	// <stdin>:65:10
       cache_7_6_valid <= 1'h0;	// bpu.scala:37:19, :40:24
     end
     else begin
-      automatic logic       _T_21 = io_waddr[18:3] == _GEN_41;	// bpu.scala:59:24, :66:14, :72:19
-      automatic logic       _T_22 = io_waddr[18:3] == _GEN_43;	// bpu.scala:59:24, :66:14, :72:19
-      automatic logic       _T_23 = io_waddr[18:3] == _GEN_45;	// bpu.scala:59:24, :66:14, :72:19
-      automatic logic       _T_24 = io_waddr[18:3] == _GEN_47;	// bpu.scala:59:24, :66:14, :72:19
-      automatic logic       _T_25 = io_waddr[18:3] == _GEN_49;	// bpu.scala:59:24, :66:14, :72:19
-      automatic logic       _T_26 = io_waddr[18:3] == _GEN_51;	// bpu.scala:59:24, :66:14, :72:19
-      automatic logic       _T_27 = io_waddr[18:3] == _GEN_53;	// bpu.scala:59:24, :66:14, :72:19
+      automatic logic       _T_21 = io_waddr[22:3] == {4'h0, _GEN_41};	// bpu.scala:52:19, :59:24, :66:14, :72:19
+      automatic logic       _T_22 = io_waddr[22:3] == {4'h0, _GEN_43};	// bpu.scala:52:19, :59:24, :66:14, :72:19
+      automatic logic       _T_23 = io_waddr[22:3] == {4'h0, _GEN_45};	// bpu.scala:52:19, :59:24, :66:14, :72:19
+      automatic logic       _T_24 = io_waddr[22:3] == {4'h0, _GEN_47};	// bpu.scala:52:19, :59:24, :66:14, :72:19
+      automatic logic       _T_25 = io_waddr[22:3] == {4'h0, _GEN_49};	// bpu.scala:52:19, :59:24, :66:14, :72:19
+      automatic logic       _T_26 = io_waddr[22:3] == {4'h0, _GEN_51};	// bpu.scala:52:19, :59:24, :66:14, :72:19
+      automatic logic       _T_27 = io_waddr[22:3] == {4'h0, _GEN_53};	// bpu.scala:52:19, :59:24, :66:14, :72:19
       automatic logic [2:0] _GEN_55 = ~io_writeEn | _T_27 | _T_26 | _T_25 | _T_24 | _T_23 | _T_22 | _T_21 | ~_GEN_54 | ~_GEN_52 |
                                                 ~_GEN_50 | ~_GEN_48 | ~_GEN_46 | ~_GEN_44 | ~_GEN_42 ? (_T_27 ? 3'h6 : _T_26 ? 3'h5 : _T_25
                                                 ? 3'h4 : _T_24 ? 3'h3 : _T_23 ? 3'h2 : _T_22 ? 3'h1 : _T_21 ? 3'h0 : _GEN_54 ? (_GEN_52 ?
@@ -764,282 +764,282 @@ module BPU_Cache(	// <stdin>:65:10
       automatic logic       _GEN_124 = io_writeEn & (&(io_waddr[2:0])) & _GEN_67;	// bpu.scala:40:24, :60:24, :77:21, :81:37
       automatic logic       _GEN_125 = io_writeEn & (&(io_waddr[2:0])) & _GEN_69;	// bpu.scala:40:24, :60:24, :77:21, :81:37
       if (_GEN_58) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_0_0_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_0_0_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_0_0_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_0_0_valid <= _GEN_58 | cache_0_0_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_60) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_0_1_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_0_1_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_0_1_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_0_1_valid <= _GEN_60 | cache_0_1_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_62) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_0_2_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_0_2_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_0_2_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_0_2_valid <= _GEN_62 | cache_0_2_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_64) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_0_3_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_0_3_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_0_3_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_0_3_valid <= _GEN_64 | cache_0_3_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_66) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_0_4_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_0_4_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_0_4_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_0_4_valid <= _GEN_66 | cache_0_4_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_68) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_0_5_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_0_5_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_0_5_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_0_5_valid <= _GEN_68 | cache_0_5_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_70) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_0_6_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_0_6_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_0_6_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_0_6_valid <= _GEN_70 | cache_0_6_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_72) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_1_0_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_1_0_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_1_0_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_1_0_valid <= _GEN_72 | cache_1_0_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_73) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_1_1_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_1_1_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_1_1_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_1_1_valid <= _GEN_73 | cache_1_1_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_74) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_1_2_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_1_2_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_1_2_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_1_2_valid <= _GEN_74 | cache_1_2_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_75) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_1_3_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_1_3_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_1_3_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_1_3_valid <= _GEN_75 | cache_1_3_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_76) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_1_4_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_1_4_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_1_4_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_1_4_valid <= _GEN_76 | cache_1_4_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_77) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_1_5_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_1_5_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_1_5_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_1_5_valid <= _GEN_77 | cache_1_5_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_78) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_1_6_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_1_6_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_1_6_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_1_6_valid <= _GEN_78 | cache_1_6_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_80) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_2_0_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_2_0_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_2_0_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_2_0_valid <= _GEN_80 | cache_2_0_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_81) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_2_1_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_2_1_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_2_1_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_2_1_valid <= _GEN_81 | cache_2_1_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_82) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_2_2_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_2_2_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_2_2_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_2_2_valid <= _GEN_82 | cache_2_2_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_83) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_2_3_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_2_3_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_2_3_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_2_3_valid <= _GEN_83 | cache_2_3_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_84) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_2_4_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_2_4_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_2_4_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_2_4_valid <= _GEN_84 | cache_2_4_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_85) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_2_5_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_2_5_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_2_5_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_2_5_valid <= _GEN_85 | cache_2_5_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_86) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_2_6_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_2_6_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_2_6_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_2_6_valid <= _GEN_86 | cache_2_6_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_88) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_3_0_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_3_0_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_3_0_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_3_0_valid <= _GEN_88 | cache_3_0_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_89) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_3_1_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_3_1_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_3_1_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_3_1_valid <= _GEN_89 | cache_3_1_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_90) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_3_2_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_3_2_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_3_2_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_3_2_valid <= _GEN_90 | cache_3_2_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_91) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_3_3_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_3_3_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_3_3_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_3_3_valid <= _GEN_91 | cache_3_3_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_92) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_3_4_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_3_4_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_3_4_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_3_4_valid <= _GEN_92 | cache_3_4_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_93) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_3_5_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_3_5_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_3_5_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_3_5_valid <= _GEN_93 | cache_3_5_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_94) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_3_6_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_3_6_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_3_6_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_3_6_valid <= _GEN_94 | cache_3_6_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_96) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_4_0_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_4_0_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_4_0_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_4_0_valid <= _GEN_96 | cache_4_0_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_97) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_4_1_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_4_1_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_4_1_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_4_1_valid <= _GEN_97 | cache_4_1_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_98) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_4_2_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_4_2_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_4_2_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_4_2_valid <= _GEN_98 | cache_4_2_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_99) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_4_3_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_4_3_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_4_3_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_4_3_valid <= _GEN_99 | cache_4_3_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_100) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_4_4_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_4_4_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_4_4_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_4_4_valid <= _GEN_100 | cache_4_4_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_101) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_4_5_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_4_5_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_4_5_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_4_5_valid <= _GEN_101 | cache_4_5_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_102) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_4_6_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_4_6_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_4_6_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_4_6_valid <= _GEN_102 | cache_4_6_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_104) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_5_0_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_5_0_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_5_0_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_5_0_valid <= _GEN_104 | cache_5_0_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_105) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_5_1_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_5_1_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_5_1_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_5_1_valid <= _GEN_105 | cache_5_1_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_106) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_5_2_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_5_2_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_5_2_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_5_2_valid <= _GEN_106 | cache_5_2_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_107) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_5_3_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_5_3_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_5_3_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_5_3_valid <= _GEN_107 | cache_5_3_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_108) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_5_4_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_5_4_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_5_4_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_5_4_valid <= _GEN_108 | cache_5_4_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_109) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_5_5_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_5_5_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_5_5_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_5_5_valid <= _GEN_109 | cache_5_5_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_110) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_5_6_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_5_6_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_5_6_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_5_6_valid <= _GEN_110 | cache_5_6_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_112) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_6_0_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_6_0_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_6_0_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_6_0_valid <= _GEN_112 | cache_6_0_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_113) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_6_1_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_6_1_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_6_1_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_6_1_valid <= _GEN_113 | cache_6_1_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_114) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_6_2_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_6_2_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_6_2_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_6_2_valid <= _GEN_114 | cache_6_2_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_115) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_6_3_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_6_3_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_6_3_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_6_3_valid <= _GEN_115 | cache_6_3_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_116) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_6_4_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_6_4_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_6_4_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_6_4_valid <= _GEN_116 | cache_6_4_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_117) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_6_5_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_6_5_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_6_5_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_6_5_valid <= _GEN_117 | cache_6_5_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_118) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_6_6_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_6_6_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_6_6_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_6_6_valid <= _GEN_118 | cache_6_6_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_119) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_7_0_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_7_0_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_7_0_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_7_0_valid <= _GEN_119 | cache_7_0_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_120) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_7_1_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_7_1_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_7_1_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_7_1_valid <= _GEN_120 | cache_7_1_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_121) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_7_2_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_7_2_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_7_2_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_7_2_valid <= _GEN_121 | cache_7_2_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_122) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_7_3_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_7_3_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_7_3_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_7_3_valid <= _GEN_122 | cache_7_3_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_123) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_7_4_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_7_4_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_7_4_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_7_4_valid <= _GEN_123 | cache_7_4_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_124) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_7_5_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_7_5_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_7_5_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_7_5_valid <= _GEN_124 | cache_7_5_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_125) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_7_6_tag <= io_waddr[18:3];	// bpu.scala:40:24, :59:24
+        cache_7_6_tag <= io_waddr[18:3];	// bpu.scala:40:24, :82:37
         cache_7_6_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_7_6_valid <= _GEN_125 | cache_7_6_valid;	// bpu.scala:40:24, :77:21, :81:37
@@ -1572,9 +1572,9 @@ module BPU_Cache(	// <stdin>:65:10
                 ? _GEN_8 : _T_1 ? _GEN_2 : 64'h7777;	// <stdin>:65:10, bpu.scala:49:17, :52:{19,42,66}, :54:25
   assign io_hit = _T_13 | _T_11 | _T_9 | _T_7 | _T_5 | _T_3 | _T_1;	// <stdin>:65:10, bpu.scala:52:{42,66}, :53:20
   assign io_wset = io_waddr[2:0];	// <stdin>:65:10, bpu.scala:60:24
-  assign io_wtag = io_waddr[18:3];	// <stdin>:65:10, bpu.scala:59:24
+  assign io_wtag = io_waddr[22:3];	// <stdin>:65:10, bpu.scala:59:24
   assign io_rset = io_raddr[2:0];	// <stdin>:65:10, bpu.scala:46:24
-  assign io_rtag = io_raddr[18:3];	// <stdin>:65:10, bpu.scala:45:24
+  assign io_rtag = io_raddr[22:3];	// <stdin>:65:10, bpu.scala:45:24
 endmodule
 
 module BPU(	// <stdin>:291:10
@@ -1610,6 +1610,8 @@ module BPU(	// <stdin>:291:10
   wire              _GEN;	// bpu.scala:193:18, :194:55, :195:18
   wire [63:0]       _BTB_io_readData;	// bpu.scala:161:21
   wire              _BTB_io_hit;	// bpu.scala:161:21
+  wire [19:0]       _BTB_io_wtag;	// bpu.scala:161:21
+  wire [19:0]       _BTB_io_rtag;	// bpu.scala:161:21
   wire              _B_type_T = io_PF_inst[6:0] == 7'h63;	// bpu.scala:136:28, :140:24
   wire              _T_8 = io_PF_inst[6:0] == 7'h6F;	// bpu.scala:136:28, :141:24
   wire              _T_12 = io_PF_inst[6:0] == 7'h67;	// bpu.scala:136:28, :141:53
@@ -7749,14 +7751,16 @@ module BPU(	// <stdin>:291:10
     .io_readData  (_BTB_io_readData),
     .io_hit       (_BTB_io_hit),
     .io_wset      (io_BTB_wset),
-    .io_wtag      (io_BTB_wtag),
+    .io_wtag      (_BTB_io_wtag),
     .io_rset      (io_BTB_rset),
-    .io_rtag      (io_BTB_rtag)
+    .io_rtag      (_BTB_io_rtag)
   );
   assign io_bp_taken = _GEN;	// <stdin>:291:10, bpu.scala:193:18, :194:55, :195:18
   assign io_bp_flush = _io_bp_flush_T_1;	// <stdin>:291:10, bpu.scala:179:49
   assign io_bp_npc = _io_bp_flush_T_1 ? io_ID_to_BPU_bus_bits_br_target : _GEN ? _BTB_io_readData :
                 _io_bp_npc_T_1;	// <stdin>:291:10, Mux.scala:101:16, bpu.scala:161:21, :179:49, :180:43, :193:18, :194:55, :195:18
+  assign io_BTB_wtag = _BTB_io_wtag[15:0];	// <stdin>:291:10, bpu.scala:161:21, :174:23
+  assign io_BTB_rtag = _BTB_io_rtag[15:0];	// <stdin>:291:10, bpu.scala:161:21, :170:23
   assign io_BTB_rdata = _BTB_io_readData;	// <stdin>:291:10, bpu.scala:161:21
   assign io_BTB_wdata = io_ID_to_BPU_bus_bits_taken ? io_ID_to_BPU_bus_bits_br_target : 64'h0;	// <stdin>:291:10, bpu.scala:145:28, :176:29
   assign io_BTB_hit = _BTB_io_hit;	// <stdin>:291:10, bpu.scala:161:21
