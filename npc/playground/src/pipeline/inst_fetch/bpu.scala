@@ -111,7 +111,9 @@ class BPU extends Module{
         val BTB_wdata = Output(UInt(64.W))
 
         val BTB_hit   = Output(Bool())
-        val br_cnt = Output(UInt(32.W))
+        val btype_cnt = Output(UInt(32.W))
+        val jal_cnt = Output(UInt(32.W))
+        val jalr_cnt = Output(UInt(32.W))
         val bp_fail = Output(UInt(32.W))
         val hit_cnt = Output(UInt(32.W))
     })
@@ -202,12 +204,20 @@ class BPU extends Module{
 
 
     //statistic
-    val br_cnt  = RegInit(0.U(32.W))
+    val jal_cnt  = RegInit(0.U(32.W))
+    val jalr_cnt = RegInit(0.U(32.W))
+    val btype_cnt  = RegInit(0.U(32.W))
     val bp_fail = RegInit(0.U(32.W))
     val hit_cnt = RegInit(0.U(32.W))
 
-    when(io.PF_valid & (B_type | J_type) & !io.ID_to_BPU_bus.bits.load_use_stall){
-        br_cnt := br_cnt + 1.U
+    when(io.PF_valid & (opcode === "b1101111".U) & !io.ID_to_BPU_bus.bits.load_use_stall){
+        jal_cnt := jal_cnt + 1.U
+    }
+    when(io.PF_valid & (opcode === "b1100111".U) & !io.ID_to_BPU_bus.bits.load_use_stall){
+        jalr_cnt := jalr_cnt + 1.U
+    }
+    when(io.PF_valid & B_type & !io.ID_to_BPU_bus.bits.load_use_stall){
+        btype_cnt := btype_cnt + 1.U
     }
     when(io.bp_flush & !io.ID_to_BPU_bus.bits.load_use_stall){
         bp_fail := bp_fail + 1.U
@@ -216,7 +226,9 @@ class BPU extends Module{
         hit_cnt := hit_cnt + 1.U
     }
     
-    io.br_cnt  := br_cnt
+    io.jal_cnt  := jal_cnt
+    io.jalr_cnt := jalr_cnt
+    io.btype_cnt := btype_cnt
     io.bp_fail := bp_fail
     io.hit_cnt := hit_cnt
 }
