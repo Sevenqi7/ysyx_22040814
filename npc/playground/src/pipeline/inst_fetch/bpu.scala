@@ -29,6 +29,8 @@ class BPU_Cache(tagWidth: Int, nrSets: Int, nrLines: Int) extends Module{
         val wtag = Output(UInt(tagWidth.W))
         val rset = Output(UInt(log2Ceil(nrSets).W))
         val rtag = Output(UInt(tagWidth.W))
+        val br_cnt = Output(UInt(32.W))
+        val bp_fail = Output(UInt(32.W))
     })
 
     // val cache = RegInit(Vec(nrSets, VecInit(Seq.fill(nrLines)(0.U.asTypeOf(new CacheLine)))))
@@ -197,4 +199,17 @@ class BPU extends Module{
         ))
     }
 
+
+    //statistic
+    val br_cnt  = RegInit(0.U(32.W))
+    val bp_fail = RegInit(0.U(32.W))
+
+    when((B_type | J_type) & !io.ID_to_BPU_bus.bits.load_use_stall){
+        br_cnt := br_cnt + 1.U
+    }
+    when(io.bp_flush){
+        bp_fail := bp_fail + 1.U
+    }
+    io.br_cnt  := br_cnt
+    io.bp_fail := bp_fail
 }
