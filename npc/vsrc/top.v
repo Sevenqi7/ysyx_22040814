@@ -1007,7 +1007,7 @@ module BPU(	// <stdin>:165:10
   reg  [1:0]        PHT_253;	// bpu.scala:146:22
   reg  [1:0]        PHT_254;	// bpu.scala:146:22
   reg  [1:0]        PHT_255;	// bpu.scala:146:22
-  wire              _io_bp_flush_T_1 = io_ID_to_BPU_bus_valid & bp_target != io_ID_to_BPU_bus_bits_PC;	// bpu.scala:138:28, :165:{49,62}
+  wire              _io_bp_flush_T_1 = io_ID_to_BPU_bus_valid & bp_target != io_ID_to_BPU_bus_bits_br_target;	// bpu.scala:138:28, :165:{49,62}
   wire [63:0]       _io_bp_npc_T_1 = io_PF_pc + 64'h4;	// bpu.scala:166:43
   wire [15:0]       bht_idx_x1 = io_PF_pc[31:16] ^ io_PF_pc[15:0];	// bpu.scala:118:{19,28,31}
   wire [255:0][3:0] _GEN_0 = {{BHT_255}, {BHT_254}, {BHT_253}, {BHT_252}, {BHT_251}, {BHT_250}, {BHT_249}, {BHT_248},
