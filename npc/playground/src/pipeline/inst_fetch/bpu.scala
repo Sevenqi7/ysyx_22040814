@@ -197,7 +197,7 @@ class BPU extends Module{
     val up_pht_idx = ID_pc(phtIdxWidth-1, 0)
     when(io.ID_to_BPU_bus.valid){
         
-        PHT(up_pht_idx)(BHT(up_bht_idx) ^ ID_pc(3, 0)) := MuxCase(PHT(up_pht_idx), Seq(
+        PHT(up_pht_idx)(BHT(up_bht_idx) ^ ID_pc(3, 0)) := MuxCase(PHT(up_pht_idx)(BHT(up_bht_idx) ^ ID_pc(3, 0)), Seq(
             (PHT(up_pht_idx)(BHT(up_bht_idx) ^ ID_pc(3, 0)) === PH_State.ST  && !ID_br_taken, PH_State.WT ),
             (PHT(up_pht_idx)(BHT(up_bht_idx) ^ ID_pc(3, 0)) === PH_State.WT  && !ID_br_taken, PH_State.WNT),
             (PHT(up_pht_idx)(BHT(up_bht_idx) ^ ID_pc(3, 0)) === PH_State.WT  &&  ID_br_taken, PH_State.ST ),
