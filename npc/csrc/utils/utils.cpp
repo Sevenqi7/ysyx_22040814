@@ -16,8 +16,6 @@ void clock_step()
     Log("bp_taken:%d", top->io_bp_taken);
     Log("bp_flush:%d", top->io_bp_flush);
     Log("BTB_hit:%d", top->io_BTB_hit);
-    Log("br_cnt:%ld", top->io_br_cnt);
-    Log("br_fail:%ld", top->io_bp_fail);
     // Log("BTB_rtag:0x%x", top->io_BTB_rtag);
     // Log("BTB_rset:0x%x", top->io_BTB_rset);
     // Log("BTB_rdata:0x%lx", top->io_BTB_rdata);
