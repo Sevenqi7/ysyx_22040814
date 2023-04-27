@@ -252,9 +252,9 @@ class IDU extends Module{
 
     val Type = Wire(UInt(2.W))
     switch(instType){
-        is (TYPE_J) {Type := 1.W                            }
-        is (TYPE_B) {Type := 2.W                            }
-        is (TYPE_I) {Type := Mux(src1 === NPC, 3.W, 0.W)    }       
+        is (TYPE_J) {Type := 1.U                            }
+        is (TYPE_B) {Type := 2.U                            }
+        is (TYPE_I) {Type := Mux(src1 === NPC, 3.U, 0.U)    }       
     }
 
     val pcplus4 = Wire(UInt(32.W))
