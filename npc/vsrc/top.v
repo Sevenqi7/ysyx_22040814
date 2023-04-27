@@ -1589,7 +1589,8 @@ module BPU(	// <stdin>:291:10
   input  [63:0] io_ID_to_BPU_bus_bits_br_target,
   input         io_ID_to_BPU_bus_bits_load_use_stall,
   input  [1:0]  io_ID_to_BPU_bus_bits_Type,
-  output        io_bp_flush,
+  output        io_bp_taken,
+                io_bp_flush,
   output [63:0] io_bp_npc,
   output [2:0]  io_BTB_wset,
   output [15:0] io_BTB_wtag,
@@ -1606,10 +1607,18 @@ module BPU(	// <stdin>:291:10
                 io_jalr_fail,
                 io_hit_cnt);
 
+  wire        _T_5;	// bpu.scala:195:35
+  wire [63:0] _BTB_io_readData;	// bpu.scala:162:21
   wire        _BTB_io_hit;	// bpu.scala:162:21
+  wire        _B_type_T = io_PF_inst[6:0] == 7'h63;	// bpu.scala:137:28, :141:24
+  wire        _T_8 = io_PF_inst[6:0] == 7'h6F;	// bpu.scala:137:28, :142:24
+  wire        _T_12 = io_PF_inst[6:0] == 7'h67;	// bpu.scala:137:28, :142:53
   reg  [63:0] bp_target;	// bpu.scala:146:28
+  wire        _T_32 = _B_type_T | _T_8 | _T_12;	// bpu.scala:141:24, :142:{24,53}, :148:18
   wire        _io_bp_flush_T_1 = io_ID_to_BPU_bus_valid & bp_target != io_ID_to_BPU_bus_bits_br_target;	// bpu.scala:146:28, :180:{49,62}
   wire [63:0] _io_bp_npc_T_1 = io_PF_pc + 64'h4;	// bpu.scala:181:43
+  wire        _T_31 = _BTB_io_hit & io_PF_valid;	// bpu.scala:162:21, :195:21
+  assign _T_5 = _T_31 & _T_32;	// bpu.scala:148:18, :195:{21,35}
   reg  [31:0] jal_cnt;	// bpu.scala:220:27
   reg  [31:0] jalr_cnt;	// bpu.scala:221:27
   reg  [31:0] btype_cnt;	// bpu.scala:222:29
@@ -1629,14 +1638,12 @@ module BPU(	// <stdin>:291:10
       hit_cnt <= 32'h0;	// bpu.scala:220:27, :226:26
     end
     else begin
-      automatic logic _B_type_T = io_PF_inst[6:0] == 7'h63;	// bpu.scala:137:28, :141:24
-      automatic logic _T_8 = io_PF_inst[6:0] == 7'h6F;	// bpu.scala:137:28, :142:24
-      automatic logic _T_12 = io_PF_inst[6:0] == 7'h67;	// bpu.scala:137:28, :142:53
-      automatic logic _T_32 = _B_type_T | _T_8 | _T_12;	// bpu.scala:141:24, :142:{24,53}, :148:18
       if (_T_32 & ~io_ID_to_BPU_bus_bits_load_use_stall) begin	// bpu.scala:148:{18,28,30}
         if (_io_bp_flush_T_1)	// bpu.scala:180:49
           bp_target <= io_ID_to_BPU_bus_bits_br_target;	// bpu.scala:146:28
-        else	// bpu.scala:180:49
+        else if (_T_5)	// bpu.scala:180:49, :195:35
+          bp_target <= _BTB_io_readData;	// bpu.scala:146:28, :162:21
+        else	// bpu.scala:180:49, :195:35
           bp_target <= _io_bp_npc_T_1;	// bpu.scala:146:28, :181:43
       end
       if (io_PF_valid & _T_8 & ~io_ID_to_BPU_bus_bits_load_use_stall)	// bpu.scala:142:24, :148:30, :228:50
@@ -1653,7 +1660,7 @@ module BPU(	// <stdin>:291:10
         jal_fail <= jal_fail + 32'h1;	// bpu.scala:224:27, :229:28, :238:30
       if (_io_bp_flush_T_1 & ~io_ID_to_BPU_bus_bits_load_use_stall & (&io_ID_to_BPU_bus_bits_Type))	// bpu.scala:148:30, :180:49, :243:{62,92}
         jalr_fail <= jalr_fail + 32'h1;	// bpu.scala:225:28, :229:28, :244:32
-      if (_BTB_io_hit & io_PF_valid & _T_32 & ~io_ID_to_BPU_bus_bits_load_use_stall)	// bpu.scala:148:{18,30}, :162:21, :246:55
+      if (_T_31 & _T_32 & ~io_ID_to_BPU_bus_bits_load_use_stall)	// bpu.scala:148:{18,30}, :195:21, :246:55
         hit_cnt <= hit_cnt + 32'h1;	// bpu.scala:226:26, :229:28, :247:28
     end
   end // always @(posedge)
@@ -1801,15 +1808,18 @@ module BPU(	// <stdin>:291:10
     .io_waddr     (io_ID_to_BPU_bus_bits_PC),
     .io_writeData (io_ID_to_BPU_bus_bits_br_target),
     .io_writeEn   (io_ID_to_BPU_bus_bits_taken & io_ID_to_BPU_bus_valid),	// bpu.scala:167:38
-    .io_readData  (io_BTB_rdata),
+    .io_readData  (_BTB_io_readData),
     .io_hit       (_BTB_io_hit),
     .io_wset      (io_BTB_wset),
     .io_wtag      (io_BTB_wtag),
     .io_rset      (io_BTB_rset),
     .io_rtag      (io_BTB_rtag)
   );
+  assign io_bp_taken = _T_5;	// <stdin>:291:10, bpu.scala:195:35
   assign io_bp_flush = _io_bp_flush_T_1;	// <stdin>:291:10, bpu.scala:180:49
-  assign io_bp_npc = _io_bp_flush_T_1 ? io_ID_to_BPU_bus_bits_br_target : _io_bp_npc_T_1;	// <stdin>:291:10, Mux.scala:101:16, bpu.scala:180:49, :181:43
+  assign io_bp_npc = _io_bp_flush_T_1 ? io_ID_to_BPU_bus_bits_br_target : _T_5 ? _BTB_io_readData :
+                _io_bp_npc_T_1;	// <stdin>:291:10, Mux.scala:101:16, bpu.scala:162:21, :180:49, :181:43, :195:35
+  assign io_BTB_rdata = _BTB_io_readData;	// <stdin>:291:10, bpu.scala:162:21
   assign io_BTB_wdata = io_ID_to_BPU_bus_bits_taken ? io_ID_to_BPU_bus_bits_br_target : 64'h0;	// <stdin>:291:10, bpu.scala:146:28, :177:29
   assign io_BTB_hit = _BTB_io_hit;	// <stdin>:291:10, bpu.scala:162:21
   assign io_btype_cnt = btype_cnt;	// <stdin>:291:10, bpu.scala:222:29
@@ -1826,7 +1836,8 @@ module IF_pre_fetch(	// <stdin>:1005:10
                 reset,
                 io_stall,
   input  [63:0] io_bp_npc,
-  input         io_bp_flush,
+  input         io_bp_taken,
+                io_bp_flush,
                 axi_lite_readData_valid,
   input  [63:0] axi_lite_readData_bits_data,
   input  [1:0]  axi_lite_readData_bits_resp,
@@ -1844,21 +1855,27 @@ module IF_pre_fetch(	// <stdin>:1005:10
   always @(posedge clock) begin
     if (reset) begin
       PF_npc <= 64'h80000000;	// pre_fetch.scala:24:27
-      axi_busy <= 1'h0;	// <stdin>:1005:10, pre_fetch.scala:26:27
+      axi_busy <= 1'h0;	// pre_fetch.scala:26:27
       rhsReg <= 64'h0;	// tools.scala:15:29
     end
     else begin
+      automatic logic [63:0] _PF_npc_T_3;	// pre_fetch.scala:40:33
+      _PF_npc_T_3 = io_bp_npc + 64'h4;	// pre_fetch.scala:37:33, :40:33
       if (io_bp_flush) begin
-        PF_npc <= io_bp_npc + 64'h4;	// pre_fetch.scala:24:27, :37:33, :40:33
+        PF_npc <= _PF_npc_T_3;	// pre_fetch.scala:24:27, :40:33
         rhsReg <= io_bp_npc;	// tools.scala:15:29
       end
       else begin
         if (io_stall | ~axi_req_ready | axi_busy) begin	// pre_fetch.scala:26:27, :27:17, :41:37
         end
+        else if (io_bp_taken)	// pre_fetch.scala:26:27, :27:17, :41:37
+          PF_npc <= _PF_npc_T_3;	// pre_fetch.scala:24:27, :40:33
         else	// pre_fetch.scala:26:27, :27:17, :41:37
           PF_npc <= PF_npc + 64'h4;	// pre_fetch.scala:24:27, :37:33
         if (io_stall | ~axi_req_ready | axi_busy) begin	// pre_fetch.scala:26:27, :27:17, :53:39
         end
+        else if (io_bp_taken)	// pre_fetch.scala:26:27, :27:17, :53:39
+          rhsReg <= io_bp_npc;	// tools.scala:15:29
         else	// pre_fetch.scala:26:27, :27:17, :53:39
           rhsReg <= PF_npc;	// pre_fetch.scala:24:27, tools.scala:15:29
       end
@@ -1898,7 +1915,7 @@ module IF_pre_fetch(	// <stdin>:1005:10
   assign io_PF_npc = PF_npc;	// <stdin>:1005:10, pre_fetch.scala:24:27
   assign axi_lite_readAddr_valid = ~io_stall;	// <stdin>:1005:10, pre_fetch.scala:70:40
   assign axi_lite_readAddr_bits_addr = io_bp_flush ? io_bp_npc[31:0] : io_stall | ~axi_req_ready | axi_busy ? rhsReg[31:0] :
-                PF_npc[31:0];	// <stdin>:1005:10, Mux.scala:101:16, pre_fetch.scala:24:27, :26:27, :27:17, :71:88, :74:72, tools.scala:15:29
+                io_bp_taken ? io_bp_npc[31:0] : PF_npc[31:0];	// <stdin>:1005:10, Mux.scala:101:16, pre_fetch.scala:24:27, :26:27, :27:17, :71:88, :74:72, tools.scala:15:29
   assign axi_lite_readData_ready = ~io_stall;	// <stdin>:1005:10, pre_fetch.scala:70:40
 endmodule
 
@@ -1907,6 +1924,7 @@ module IFU(	// <stdin>:1088:10
                 reset,
                 io_IF_to_ID_bus_ready,
                 io_bp_flush,
+                io_bp_taken,
   input  [63:0] io_bp_npc,
   input         axi_lite_readData_valid,
   input  [63:0] axi_lite_readData_bits_data,
@@ -1973,6 +1991,7 @@ module IFU(	// <stdin>:1088:10
     .reset                       (reset),
     .io_stall                    (~io_IF_to_ID_bus_ready),	// IFU.scala:75:48
     .io_bp_npc                   (io_bp_npc),
+    .io_bp_taken                 (io_bp_taken),
     .io_bp_flush                 (io_bp_flush),
     .axi_lite_readData_valid     (axi_lite_readData_valid),
     .axi_lite_readData_bits_data (axi_lite_readData_bits_data),
@@ -3559,6 +3578,7 @@ module top(	// <stdin>:2581:10
   wire        _inst_fetch_unit_axi_lite_readAddr_valid;	// top.scala:69:33
   wire [31:0] _inst_fetch_unit_axi_lite_readAddr_bits_addr;	// top.scala:69:33
   wire        _inst_fetch_unit_axi_lite_readData_ready;	// top.scala:69:33
+  wire        _bp_unit_io_bp_taken;	// top.scala:68:33
   wire        _bp_unit_io_bp_flush;	// top.scala:68:33
   wire [63:0] _bp_unit_io_bp_npc;	// top.scala:68:33
   BPU bp_unit (	// top.scala:68:33
@@ -3573,6 +3593,7 @@ module top(	// <stdin>:2581:10
     .io_ID_to_BPU_bus_bits_br_target      (_inst_decode_unit_io_ID_to_BPU_bus_bits_br_target),	// top.scala:70:34
     .io_ID_to_BPU_bus_bits_load_use_stall (_inst_decode_unit_io_ID_to_BPU_bus_bits_load_use_stall),	// top.scala:70:34
     .io_ID_to_BPU_bus_bits_Type           (_inst_decode_unit_io_ID_to_BPU_bus_bits_Type),	// top.scala:70:34
+    .io_bp_taken                          (_bp_unit_io_bp_taken),
     .io_bp_flush                          (_bp_unit_io_bp_flush),
     .io_bp_npc                            (_bp_unit_io_bp_npc),
     .io_BTB_wset                          (io_BTB_wset),
@@ -3595,6 +3616,7 @@ module top(	// <stdin>:2581:10
     .reset                       (reset),
     .io_IF_to_ID_bus_ready       (_inst_decode_unit_io_IF_to_ID_bus_ready),	// top.scala:70:34
     .io_bp_flush                 (_bp_unit_io_bp_flush),	// top.scala:68:33
+    .io_bp_taken                 (_bp_unit_io_bp_taken),	// top.scala:68:33
     .io_bp_npc                   (_bp_unit_io_bp_npc),	// top.scala:68:33
     .axi_lite_readData_valid     (_arb_in_1_readData_valid),	// top.scala:161:21
     .axi_lite_readData_bits_data (_arb_in_1_readData_bits_data),	// top.scala:161:21
@@ -3887,7 +3909,7 @@ sim simulate (	// top.scala:24:26
   assign io_WB_RegWriteID = {59'h0, _wb_unit_io_WB_to_ID_forward_bits_regWriteID};	// <stdin>:2581:10, top.scala:74:25, :110:24
   assign io_MEM_RegWriteData = _arb_in_0_readData_bits_data;	// <stdin>:2581:10, top.scala:161:21
   assign io_bp_npc = _bp_unit_io_bp_npc;	// <stdin>:2581:10, top.scala:68:33
-  assign io_bp_taken = 1'h0;	// <stdin>:2581:10, top.scala:161:21
+  assign io_bp_taken = _bp_unit_io_bp_taken;	// <stdin>:2581:10, top.scala:68:33
   assign io_bp_flush = _bp_unit_io_bp_flush;	// <stdin>:2581:10, top.scala:68:33
   assign io_IF_Inst = _inst_fetch_unit_io_IF_to_ID_bus_bits_Inst;	// <stdin>:2581:10, top.scala:69:33
   assign io_IF_valid = _inst_fetch_unit_io_IF_to_ID_bus_valid;	// <stdin>:2581:10, top.scala:69:33
