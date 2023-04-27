@@ -5228,6 +5228,7 @@ module top(	// <stdin>:2400:10
     .axi_lite_readData_bits_resp  (_ram_unit_axi_lite_readData_bits_resp)
   );
   AXI_Arbiter arb (	// top.scala:153:21
+\n
 wire [63:0] GPR [31:0];
 assign {GPR[31], GPR[30], GPR[29], GPR[28], GPR[27], GPR[26], GPR[25], GPR[24], GPR[23], GPR[22], GPR[21], GPR[20]
 , GPR[19], GPR[18], GPR[17], GPR[16], GPR[15], GPR[14], GPR[13], GPR[12], GPR[11], GPR[10], GPR[9], GPR[8], GPR[7]
