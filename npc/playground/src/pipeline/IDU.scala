@@ -10,6 +10,8 @@ class ID_BPU_Message extends Bundle{
     val taken = Bool()
     val br_target = UInt(64.W)
     val load_use_stall = Bool()
+    //debug
+    val Type  = UInt(2.W)
 }
 
 class ID_EX_Message extends Bundle{
@@ -248,6 +250,13 @@ class IDU extends Module{
         is (TYPE_I) {br_taken := src1 === NPC   }       //JALR
     }
 
+    val Type = Wire(UInt(2.W))
+    switch(instType){
+        is (TYPE_J) {Type := 1.W                            }
+        is (TYPE_B) {Type := 2.W                            }
+        is (TYPE_I) {Type := Mux(src1 === NPC, 3.W, 0.W)    }       
+    }
+
     val pcplus4 = Wire(UInt(32.W))
     pcplus4 := IF_pc + 4.U
     io.ID_to_BPU_bus.bits.br_target := MuxCase(pcplus4, Seq(
@@ -260,6 +269,7 @@ class IDU extends Module{
     io.ID_to_BPU_bus.valid      := io.IF_to_ID_bus.valid & ((instType === TYPE_J) || (instType === TYPE_B) || (instType === TYPE_I  &&  src1 === NPC)) && !load_use_stall
     io.ID_to_BPU_bus.bits.load_use_stall := load_use_stall
     io.ID_to_BPU_bus.bits.PC    := IF_pc
+    io.ID_to_BPU_bus.bits.Type  := Type
 }
             
             

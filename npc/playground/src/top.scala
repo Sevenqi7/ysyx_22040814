@@ -45,7 +45,9 @@ class top extends Module{
         val btype_cnt  = Output(UInt(32.W))
         val jal_cnt  = Output(UInt(32.W))
         val jalr_cnt  = Output(UInt(32.W))
-        val bp_fail = Output(UInt(32.W))
+        val btype_fail = Output(UInt(32.W))
+        val jal_fail = Output(UInt(32.W))
+        val jalr_fail = Output(UInt(32.W))
         val btb_hit_cnt = Output(UInt(32.W))
         val bp_npc  = Output(UInt(64.W))
         val bp_taken = Output(Bool())
@@ -84,10 +86,12 @@ class top extends Module{
     io.bp_npc    := bp_unit.io.bp_npc
     io.bp_taken  := bp_unit.io.bp_taken
     io.bp_flush  := bp_unit.io.bp_flush
-    io.btype_cnt    := bp_unit.io.btype_cnt
-    io.jal_cnt    := bp_unit.io.jal_cnt
-    io.jalr_cnt    := bp_unit.io.jalr_cnt
-    io.bp_fail   := bp_unit.io.bp_fail
+    io.btype_cnt := bp_unit.io.btype_cnt
+    io.btype_fail := bp_unit.io.btype_fail
+    io.jal_cnt   := bp_unit.io.jal_cnt
+    io.jal_fail   := bp_unit.io.jal_fail
+    io.jalr_cnt  := bp_unit.io.jalr_cnt
+    io.jalr_fail  := bp_unit.io.jalr_fail
     io.btb_hit_cnt := bp_unit.io.hit_cnt
 
     io.IF_Inst  := inst_fetch_unit.io.IF_to_ID_bus.bits.Inst
