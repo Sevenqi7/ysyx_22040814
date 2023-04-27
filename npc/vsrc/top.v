@@ -166,559 +166,244 @@ module BPU_Cache(	// <stdin>:65:10
   input         io_writeEn,
   output [63:0] io_readData,
   output        io_hit,
-  output [3:0]  io_wset,
+  output [1:0]  io_wset,
   output [15:0] io_wtag,
-  output [3:0]  io_rset,
+  output [1:0]  io_rset,
   output [15:0] io_rtag);
 
-  wire              _writeIDX_prng_io_out_0;	// PRNG.scala:91:22
-  wire              _writeIDX_prng_io_out_1;	// PRNG.scala:91:22
-  wire              _writeIDX_prng_io_out_2;	// PRNG.scala:91:22
-  wire              _writeIDX_prng_io_out_3;	// PRNG.scala:91:22
-  wire              _writeIDX_prng_io_out_4;	// PRNG.scala:91:22
-  wire              _writeIDX_prng_io_out_5;	// PRNG.scala:91:22
-  wire              _writeIDX_prng_io_out_6;	// PRNG.scala:91:22
-  wire              _writeIDX_prng_io_out_7;	// PRNG.scala:91:22
-  wire              _writeIDX_prng_io_out_8;	// PRNG.scala:91:22
-  wire              _writeIDX_prng_io_out_9;	// PRNG.scala:91:22
-  wire              _writeIDX_prng_io_out_10;	// PRNG.scala:91:22
-  wire              _writeIDX_prng_io_out_11;	// PRNG.scala:91:22
-  wire              _writeIDX_prng_io_out_12;	// PRNG.scala:91:22
-  wire              _writeIDX_prng_io_out_13;	// PRNG.scala:91:22
-  wire              _writeIDX_prng_io_out_14;	// PRNG.scala:91:22
-  wire              _writeIDX_prng_io_out_15;	// PRNG.scala:91:22
-  reg  [15:0]       cache_0_0_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_0_0_data;	// bpu.scala:40:24
-  reg               cache_0_0_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_0_1_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_0_1_data;	// bpu.scala:40:24
-  reg               cache_0_1_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_0_2_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_0_2_data;	// bpu.scala:40:24
-  reg               cache_0_2_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_0_3_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_0_3_data;	// bpu.scala:40:24
-  reg               cache_0_3_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_0_4_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_0_4_data;	// bpu.scala:40:24
-  reg               cache_0_4_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_0_5_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_0_5_data;	// bpu.scala:40:24
-  reg               cache_0_5_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_0_6_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_0_6_data;	// bpu.scala:40:24
-  reg               cache_0_6_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_1_0_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_1_0_data;	// bpu.scala:40:24
-  reg               cache_1_0_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_1_1_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_1_1_data;	// bpu.scala:40:24
-  reg               cache_1_1_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_1_2_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_1_2_data;	// bpu.scala:40:24
-  reg               cache_1_2_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_1_3_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_1_3_data;	// bpu.scala:40:24
-  reg               cache_1_3_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_1_4_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_1_4_data;	// bpu.scala:40:24
-  reg               cache_1_4_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_1_5_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_1_5_data;	// bpu.scala:40:24
-  reg               cache_1_5_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_1_6_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_1_6_data;	// bpu.scala:40:24
-  reg               cache_1_6_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_2_0_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_2_0_data;	// bpu.scala:40:24
-  reg               cache_2_0_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_2_1_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_2_1_data;	// bpu.scala:40:24
-  reg               cache_2_1_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_2_2_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_2_2_data;	// bpu.scala:40:24
-  reg               cache_2_2_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_2_3_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_2_3_data;	// bpu.scala:40:24
-  reg               cache_2_3_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_2_4_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_2_4_data;	// bpu.scala:40:24
-  reg               cache_2_4_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_2_5_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_2_5_data;	// bpu.scala:40:24
-  reg               cache_2_5_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_2_6_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_2_6_data;	// bpu.scala:40:24
-  reg               cache_2_6_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_3_0_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_3_0_data;	// bpu.scala:40:24
-  reg               cache_3_0_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_3_1_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_3_1_data;	// bpu.scala:40:24
-  reg               cache_3_1_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_3_2_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_3_2_data;	// bpu.scala:40:24
-  reg               cache_3_2_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_3_3_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_3_3_data;	// bpu.scala:40:24
-  reg               cache_3_3_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_3_4_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_3_4_data;	// bpu.scala:40:24
-  reg               cache_3_4_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_3_5_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_3_5_data;	// bpu.scala:40:24
-  reg               cache_3_5_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_3_6_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_3_6_data;	// bpu.scala:40:24
-  reg               cache_3_6_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_4_0_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_4_0_data;	// bpu.scala:40:24
-  reg               cache_4_0_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_4_1_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_4_1_data;	// bpu.scala:40:24
-  reg               cache_4_1_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_4_2_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_4_2_data;	// bpu.scala:40:24
-  reg               cache_4_2_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_4_3_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_4_3_data;	// bpu.scala:40:24
-  reg               cache_4_3_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_4_4_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_4_4_data;	// bpu.scala:40:24
-  reg               cache_4_4_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_4_5_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_4_5_data;	// bpu.scala:40:24
-  reg               cache_4_5_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_4_6_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_4_6_data;	// bpu.scala:40:24
-  reg               cache_4_6_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_5_0_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_5_0_data;	// bpu.scala:40:24
-  reg               cache_5_0_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_5_1_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_5_1_data;	// bpu.scala:40:24
-  reg               cache_5_1_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_5_2_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_5_2_data;	// bpu.scala:40:24
-  reg               cache_5_2_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_5_3_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_5_3_data;	// bpu.scala:40:24
-  reg               cache_5_3_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_5_4_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_5_4_data;	// bpu.scala:40:24
-  reg               cache_5_4_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_5_5_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_5_5_data;	// bpu.scala:40:24
-  reg               cache_5_5_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_5_6_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_5_6_data;	// bpu.scala:40:24
-  reg               cache_5_6_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_6_0_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_6_0_data;	// bpu.scala:40:24
-  reg               cache_6_0_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_6_1_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_6_1_data;	// bpu.scala:40:24
-  reg               cache_6_1_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_6_2_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_6_2_data;	// bpu.scala:40:24
-  reg               cache_6_2_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_6_3_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_6_3_data;	// bpu.scala:40:24
-  reg               cache_6_3_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_6_4_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_6_4_data;	// bpu.scala:40:24
-  reg               cache_6_4_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_6_5_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_6_5_data;	// bpu.scala:40:24
-  reg               cache_6_5_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_6_6_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_6_6_data;	// bpu.scala:40:24
-  reg               cache_6_6_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_7_0_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_7_0_data;	// bpu.scala:40:24
-  reg               cache_7_0_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_7_1_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_7_1_data;	// bpu.scala:40:24
-  reg               cache_7_1_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_7_2_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_7_2_data;	// bpu.scala:40:24
-  reg               cache_7_2_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_7_3_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_7_3_data;	// bpu.scala:40:24
-  reg               cache_7_3_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_7_4_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_7_4_data;	// bpu.scala:40:24
-  reg               cache_7_4_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_7_5_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_7_5_data;	// bpu.scala:40:24
-  reg               cache_7_5_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_7_6_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_7_6_data;	// bpu.scala:40:24
-  reg               cache_7_6_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_8_0_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_8_0_data;	// bpu.scala:40:24
-  reg               cache_8_0_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_8_1_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_8_1_data;	// bpu.scala:40:24
-  reg               cache_8_1_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_8_2_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_8_2_data;	// bpu.scala:40:24
-  reg               cache_8_2_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_8_3_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_8_3_data;	// bpu.scala:40:24
-  reg               cache_8_3_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_8_4_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_8_4_data;	// bpu.scala:40:24
-  reg               cache_8_4_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_8_5_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_8_5_data;	// bpu.scala:40:24
-  reg               cache_8_5_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_8_6_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_8_6_data;	// bpu.scala:40:24
-  reg               cache_8_6_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_9_0_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_9_0_data;	// bpu.scala:40:24
-  reg               cache_9_0_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_9_1_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_9_1_data;	// bpu.scala:40:24
-  reg               cache_9_1_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_9_2_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_9_2_data;	// bpu.scala:40:24
-  reg               cache_9_2_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_9_3_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_9_3_data;	// bpu.scala:40:24
-  reg               cache_9_3_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_9_4_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_9_4_data;	// bpu.scala:40:24
-  reg               cache_9_4_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_9_5_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_9_5_data;	// bpu.scala:40:24
-  reg               cache_9_5_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_9_6_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_9_6_data;	// bpu.scala:40:24
-  reg               cache_9_6_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_10_0_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_10_0_data;	// bpu.scala:40:24
-  reg               cache_10_0_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_10_1_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_10_1_data;	// bpu.scala:40:24
-  reg               cache_10_1_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_10_2_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_10_2_data;	// bpu.scala:40:24
-  reg               cache_10_2_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_10_3_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_10_3_data;	// bpu.scala:40:24
-  reg               cache_10_3_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_10_4_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_10_4_data;	// bpu.scala:40:24
-  reg               cache_10_4_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_10_5_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_10_5_data;	// bpu.scala:40:24
-  reg               cache_10_5_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_10_6_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_10_6_data;	// bpu.scala:40:24
-  reg               cache_10_6_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_11_0_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_11_0_data;	// bpu.scala:40:24
-  reg               cache_11_0_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_11_1_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_11_1_data;	// bpu.scala:40:24
-  reg               cache_11_1_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_11_2_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_11_2_data;	// bpu.scala:40:24
-  reg               cache_11_2_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_11_3_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_11_3_data;	// bpu.scala:40:24
-  reg               cache_11_3_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_11_4_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_11_4_data;	// bpu.scala:40:24
-  reg               cache_11_4_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_11_5_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_11_5_data;	// bpu.scala:40:24
-  reg               cache_11_5_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_11_6_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_11_6_data;	// bpu.scala:40:24
-  reg               cache_11_6_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_12_0_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_12_0_data;	// bpu.scala:40:24
-  reg               cache_12_0_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_12_1_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_12_1_data;	// bpu.scala:40:24
-  reg               cache_12_1_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_12_2_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_12_2_data;	// bpu.scala:40:24
-  reg               cache_12_2_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_12_3_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_12_3_data;	// bpu.scala:40:24
-  reg               cache_12_3_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_12_4_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_12_4_data;	// bpu.scala:40:24
-  reg               cache_12_4_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_12_5_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_12_5_data;	// bpu.scala:40:24
-  reg               cache_12_5_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_12_6_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_12_6_data;	// bpu.scala:40:24
-  reg               cache_12_6_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_13_0_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_13_0_data;	// bpu.scala:40:24
-  reg               cache_13_0_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_13_1_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_13_1_data;	// bpu.scala:40:24
-  reg               cache_13_1_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_13_2_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_13_2_data;	// bpu.scala:40:24
-  reg               cache_13_2_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_13_3_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_13_3_data;	// bpu.scala:40:24
-  reg               cache_13_3_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_13_4_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_13_4_data;	// bpu.scala:40:24
-  reg               cache_13_4_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_13_5_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_13_5_data;	// bpu.scala:40:24
-  reg               cache_13_5_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_13_6_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_13_6_data;	// bpu.scala:40:24
-  reg               cache_13_6_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_14_0_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_14_0_data;	// bpu.scala:40:24
-  reg               cache_14_0_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_14_1_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_14_1_data;	// bpu.scala:40:24
-  reg               cache_14_1_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_14_2_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_14_2_data;	// bpu.scala:40:24
-  reg               cache_14_2_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_14_3_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_14_3_data;	// bpu.scala:40:24
-  reg               cache_14_3_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_14_4_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_14_4_data;	// bpu.scala:40:24
-  reg               cache_14_4_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_14_5_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_14_5_data;	// bpu.scala:40:24
-  reg               cache_14_5_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_14_6_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_14_6_data;	// bpu.scala:40:24
-  reg               cache_14_6_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_15_0_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_15_0_data;	// bpu.scala:40:24
-  reg               cache_15_0_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_15_1_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_15_1_data;	// bpu.scala:40:24
-  reg               cache_15_1_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_15_2_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_15_2_data;	// bpu.scala:40:24
-  reg               cache_15_2_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_15_3_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_15_3_data;	// bpu.scala:40:24
-  reg               cache_15_3_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_15_4_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_15_4_data;	// bpu.scala:40:24
-  reg               cache_15_4_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_15_5_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_15_5_data;	// bpu.scala:40:24
-  reg               cache_15_5_valid;	// bpu.scala:40:24
-  reg  [15:0]       cache_15_6_tag;	// bpu.scala:40:24
-  reg  [63:0]       cache_15_6_data;	// bpu.scala:40:24
-  reg               cache_15_6_valid;	// bpu.scala:40:24
-  wire [15:0][15:0] _GEN = {{cache_15_0_tag}, {cache_14_0_tag}, {cache_13_0_tag}, {cache_12_0_tag}, {cache_11_0_tag},
-                {cache_10_0_tag}, {cache_9_0_tag}, {cache_8_0_tag}, {cache_7_0_tag}, {cache_6_0_tag},
-                {cache_5_0_tag}, {cache_4_0_tag}, {cache_3_0_tag}, {cache_2_0_tag}, {cache_1_0_tag},
-                {cache_0_0_tag}};	// bpu.scala:40:24, :52:19
-  wire [15:0]       _GEN_0;	// bpu.scala:52:19
+  wire             _writeIDX_prng_io_out_0;	// PRNG.scala:91:22
+  wire             _writeIDX_prng_io_out_1;	// PRNG.scala:91:22
+  wire             _writeIDX_prng_io_out_2;	// PRNG.scala:91:22
+  wire             _writeIDX_prng_io_out_3;	// PRNG.scala:91:22
+  wire             _writeIDX_prng_io_out_4;	// PRNG.scala:91:22
+  wire             _writeIDX_prng_io_out_5;	// PRNG.scala:91:22
+  wire             _writeIDX_prng_io_out_6;	// PRNG.scala:91:22
+  wire             _writeIDX_prng_io_out_7;	// PRNG.scala:91:22
+  wire             _writeIDX_prng_io_out_8;	// PRNG.scala:91:22
+  wire             _writeIDX_prng_io_out_9;	// PRNG.scala:91:22
+  wire             _writeIDX_prng_io_out_10;	// PRNG.scala:91:22
+  wire             _writeIDX_prng_io_out_11;	// PRNG.scala:91:22
+  wire             _writeIDX_prng_io_out_12;	// PRNG.scala:91:22
+  wire             _writeIDX_prng_io_out_13;	// PRNG.scala:91:22
+  wire             _writeIDX_prng_io_out_14;	// PRNG.scala:91:22
+  wire             _writeIDX_prng_io_out_15;	// PRNG.scala:91:22
+  reg  [15:0]      cache_0_0_tag;	// bpu.scala:40:24
+  reg  [63:0]      cache_0_0_data;	// bpu.scala:40:24
+  reg              cache_0_0_valid;	// bpu.scala:40:24
+  reg  [15:0]      cache_0_1_tag;	// bpu.scala:40:24
+  reg  [63:0]      cache_0_1_data;	// bpu.scala:40:24
+  reg              cache_0_1_valid;	// bpu.scala:40:24
+  reg  [15:0]      cache_0_2_tag;	// bpu.scala:40:24
+  reg  [63:0]      cache_0_2_data;	// bpu.scala:40:24
+  reg              cache_0_2_valid;	// bpu.scala:40:24
+  reg  [15:0]      cache_0_3_tag;	// bpu.scala:40:24
+  reg  [63:0]      cache_0_3_data;	// bpu.scala:40:24
+  reg              cache_0_3_valid;	// bpu.scala:40:24
+  reg  [15:0]      cache_0_4_tag;	// bpu.scala:40:24
+  reg  [63:0]      cache_0_4_data;	// bpu.scala:40:24
+  reg              cache_0_4_valid;	// bpu.scala:40:24
+  reg  [15:0]      cache_0_5_tag;	// bpu.scala:40:24
+  reg  [63:0]      cache_0_5_data;	// bpu.scala:40:24
+  reg              cache_0_5_valid;	// bpu.scala:40:24
+  reg  [15:0]      cache_0_6_tag;	// bpu.scala:40:24
+  reg  [63:0]      cache_0_6_data;	// bpu.scala:40:24
+  reg              cache_0_6_valid;	// bpu.scala:40:24
+  reg  [15:0]      cache_1_0_tag;	// bpu.scala:40:24
+  reg  [63:0]      cache_1_0_data;	// bpu.scala:40:24
+  reg              cache_1_0_valid;	// bpu.scala:40:24
+  reg  [15:0]      cache_1_1_tag;	// bpu.scala:40:24
+  reg  [63:0]      cache_1_1_data;	// bpu.scala:40:24
+  reg              cache_1_1_valid;	// bpu.scala:40:24
+  reg  [15:0]      cache_1_2_tag;	// bpu.scala:40:24
+  reg  [63:0]      cache_1_2_data;	// bpu.scala:40:24
+  reg              cache_1_2_valid;	// bpu.scala:40:24
+  reg  [15:0]      cache_1_3_tag;	// bpu.scala:40:24
+  reg  [63:0]      cache_1_3_data;	// bpu.scala:40:24
+  reg              cache_1_3_valid;	// bpu.scala:40:24
+  reg  [15:0]      cache_1_4_tag;	// bpu.scala:40:24
+  reg  [63:0]      cache_1_4_data;	// bpu.scala:40:24
+  reg              cache_1_4_valid;	// bpu.scala:40:24
+  reg  [15:0]      cache_1_5_tag;	// bpu.scala:40:24
+  reg  [63:0]      cache_1_5_data;	// bpu.scala:40:24
+  reg              cache_1_5_valid;	// bpu.scala:40:24
+  reg  [15:0]      cache_1_6_tag;	// bpu.scala:40:24
+  reg  [63:0]      cache_1_6_data;	// bpu.scala:40:24
+  reg              cache_1_6_valid;	// bpu.scala:40:24
+  reg  [15:0]      cache_2_0_tag;	// bpu.scala:40:24
+  reg  [63:0]      cache_2_0_data;	// bpu.scala:40:24
+  reg              cache_2_0_valid;	// bpu.scala:40:24
+  reg  [15:0]      cache_2_1_tag;	// bpu.scala:40:24
+  reg  [63:0]      cache_2_1_data;	// bpu.scala:40:24
+  reg              cache_2_1_valid;	// bpu.scala:40:24
+  reg  [15:0]      cache_2_2_tag;	// bpu.scala:40:24
+  reg  [63:0]      cache_2_2_data;	// bpu.scala:40:24
+  reg              cache_2_2_valid;	// bpu.scala:40:24
+  reg  [15:0]      cache_2_3_tag;	// bpu.scala:40:24
+  reg  [63:0]      cache_2_3_data;	// bpu.scala:40:24
+  reg              cache_2_3_valid;	// bpu.scala:40:24
+  reg  [15:0]      cache_2_4_tag;	// bpu.scala:40:24
+  reg  [63:0]      cache_2_4_data;	// bpu.scala:40:24
+  reg              cache_2_4_valid;	// bpu.scala:40:24
+  reg  [15:0]      cache_2_5_tag;	// bpu.scala:40:24
+  reg  [63:0]      cache_2_5_data;	// bpu.scala:40:24
+  reg              cache_2_5_valid;	// bpu.scala:40:24
+  reg  [15:0]      cache_2_6_tag;	// bpu.scala:40:24
+  reg  [63:0]      cache_2_6_data;	// bpu.scala:40:24
+  reg              cache_2_6_valid;	// bpu.scala:40:24
+  reg  [15:0]      cache_3_0_tag;	// bpu.scala:40:24
+  reg  [63:0]      cache_3_0_data;	// bpu.scala:40:24
+  reg              cache_3_0_valid;	// bpu.scala:40:24
+  reg  [15:0]      cache_3_1_tag;	// bpu.scala:40:24
+  reg  [63:0]      cache_3_1_data;	// bpu.scala:40:24
+  reg              cache_3_1_valid;	// bpu.scala:40:24
+  reg  [15:0]      cache_3_2_tag;	// bpu.scala:40:24
+  reg  [63:0]      cache_3_2_data;	// bpu.scala:40:24
+  reg              cache_3_2_valid;	// bpu.scala:40:24
+  reg  [15:0]      cache_3_3_tag;	// bpu.scala:40:24
+  reg  [63:0]      cache_3_3_data;	// bpu.scala:40:24
+  reg              cache_3_3_valid;	// bpu.scala:40:24
+  reg  [15:0]      cache_3_4_tag;	// bpu.scala:40:24
+  reg  [63:0]      cache_3_4_data;	// bpu.scala:40:24
+  reg              cache_3_4_valid;	// bpu.scala:40:24
+  reg  [15:0]      cache_3_5_tag;	// bpu.scala:40:24
+  reg  [63:0]      cache_3_5_data;	// bpu.scala:40:24
+  reg              cache_3_5_valid;	// bpu.scala:40:24
+  reg  [15:0]      cache_3_6_tag;	// bpu.scala:40:24
+  reg  [63:0]      cache_3_6_data;	// bpu.scala:40:24
+  reg              cache_3_6_valid;	// bpu.scala:40:24
+  wire [3:0][15:0] _GEN = {{cache_3_0_tag}, {cache_2_0_tag}, {cache_1_0_tag}, {cache_0_0_tag}};	// bpu.scala:40:24, :52:19
+  wire [15:0]      _GEN_0;	// bpu.scala:52:19
   /* synopsys infer_mux_override */
-  assign _GEN_0 = _GEN[io_raddr[3:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
-  wire [15:0][63:0] _GEN_1 = {{cache_15_0_data}, {cache_14_0_data}, {cache_13_0_data}, {cache_12_0_data},
-                {cache_11_0_data}, {cache_10_0_data}, {cache_9_0_data}, {cache_8_0_data}, {cache_7_0_data},
-                {cache_6_0_data}, {cache_5_0_data}, {cache_4_0_data}, {cache_3_0_data}, {cache_2_0_data},
-                {cache_1_0_data}, {cache_0_0_data}};	// bpu.scala:40:24, :52:19
-  wire [63:0]       _GEN_2;	// bpu.scala:52:19
+  assign _GEN_0 = _GEN[io_raddr[1:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
+  wire [3:0][63:0] _GEN_1 = {{cache_3_0_data}, {cache_2_0_data}, {cache_1_0_data}, {cache_0_0_data}};	// bpu.scala:40:24, :52:19
+  wire [63:0]      _GEN_2;	// bpu.scala:52:19
   /* synopsys infer_mux_override */
-  assign _GEN_2 = _GEN_1[io_raddr[3:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
-  wire [15:0]       _GEN_3 = {{cache_15_0_valid}, {cache_14_0_valid}, {cache_13_0_valid}, {cache_12_0_valid},
-                {cache_11_0_valid}, {cache_10_0_valid}, {cache_9_0_valid}, {cache_8_0_valid},
-                {cache_7_0_valid}, {cache_6_0_valid}, {cache_5_0_valid}, {cache_4_0_valid},
-                {cache_3_0_valid}, {cache_2_0_valid}, {cache_1_0_valid}, {cache_0_0_valid}};	// bpu.scala:40:24, :52:19
-  wire              _GEN_4;	// bpu.scala:52:19
+  assign _GEN_2 = _GEN_1[io_raddr[1:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
+  wire [3:0]       _GEN_3 = {{cache_3_0_valid}, {cache_2_0_valid}, {cache_1_0_valid}, {cache_0_0_valid}};	// bpu.scala:40:24, :52:19
+  wire             _GEN_4;	// bpu.scala:52:19
   /* synopsys infer_mux_override */
-  assign _GEN_4 = _GEN_3[io_raddr[3:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
-  wire [15:0][15:0] _GEN_5 = {{cache_15_1_tag}, {cache_14_1_tag}, {cache_13_1_tag}, {cache_12_1_tag}, {cache_11_1_tag},
-                {cache_10_1_tag}, {cache_9_1_tag}, {cache_8_1_tag}, {cache_7_1_tag}, {cache_6_1_tag},
-                {cache_5_1_tag}, {cache_4_1_tag}, {cache_3_1_tag}, {cache_2_1_tag}, {cache_1_1_tag},
-                {cache_0_1_tag}};	// bpu.scala:40:24, :52:19
-  wire [15:0]       _GEN_6;	// bpu.scala:52:19
+  assign _GEN_4 = _GEN_3[io_raddr[1:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
+  wire [3:0][15:0] _GEN_5 = {{cache_3_1_tag}, {cache_2_1_tag}, {cache_1_1_tag}, {cache_0_1_tag}};	// bpu.scala:40:24, :52:19
+  wire [15:0]      _GEN_6;	// bpu.scala:52:19
   /* synopsys infer_mux_override */
-  assign _GEN_6 = _GEN_5[io_raddr[3:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
-  wire [15:0][63:0] _GEN_7 = {{cache_15_1_data}, {cache_14_1_data}, {cache_13_1_data}, {cache_12_1_data},
-                {cache_11_1_data}, {cache_10_1_data}, {cache_9_1_data}, {cache_8_1_data}, {cache_7_1_data},
-                {cache_6_1_data}, {cache_5_1_data}, {cache_4_1_data}, {cache_3_1_data}, {cache_2_1_data},
-                {cache_1_1_data}, {cache_0_1_data}};	// bpu.scala:40:24, :52:19
-  wire [63:0]       _GEN_8;	// bpu.scala:52:19
+  assign _GEN_6 = _GEN_5[io_raddr[1:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
+  wire [3:0][63:0] _GEN_7 = {{cache_3_1_data}, {cache_2_1_data}, {cache_1_1_data}, {cache_0_1_data}};	// bpu.scala:40:24, :52:19
+  wire [63:0]      _GEN_8;	// bpu.scala:52:19
   /* synopsys infer_mux_override */
-  assign _GEN_8 = _GEN_7[io_raddr[3:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
-  wire [15:0]       _GEN_9 = {{cache_15_1_valid}, {cache_14_1_valid}, {cache_13_1_valid}, {cache_12_1_valid},
-                {cache_11_1_valid}, {cache_10_1_valid}, {cache_9_1_valid}, {cache_8_1_valid},
-                {cache_7_1_valid}, {cache_6_1_valid}, {cache_5_1_valid}, {cache_4_1_valid},
-                {cache_3_1_valid}, {cache_2_1_valid}, {cache_1_1_valid}, {cache_0_1_valid}};	// bpu.scala:40:24, :52:19
-  wire              _GEN_10;	// bpu.scala:52:19
+  assign _GEN_8 = _GEN_7[io_raddr[1:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
+  wire [3:0]       _GEN_9 = {{cache_3_1_valid}, {cache_2_1_valid}, {cache_1_1_valid}, {cache_0_1_valid}};	// bpu.scala:40:24, :52:19
+  wire             _GEN_10;	// bpu.scala:52:19
   /* synopsys infer_mux_override */
-  assign _GEN_10 = _GEN_9[io_raddr[3:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
-  wire [15:0][15:0] _GEN_11 = {{cache_15_2_tag}, {cache_14_2_tag}, {cache_13_2_tag}, {cache_12_2_tag}, {cache_11_2_tag},
-                {cache_10_2_tag}, {cache_9_2_tag}, {cache_8_2_tag}, {cache_7_2_tag}, {cache_6_2_tag},
-                {cache_5_2_tag}, {cache_4_2_tag}, {cache_3_2_tag}, {cache_2_2_tag}, {cache_1_2_tag},
-                {cache_0_2_tag}};	// bpu.scala:40:24, :52:19
-  wire [15:0]       _GEN_12;	// bpu.scala:52:19
+  assign _GEN_10 = _GEN_9[io_raddr[1:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
+  wire [3:0][15:0] _GEN_11 = {{cache_3_2_tag}, {cache_2_2_tag}, {cache_1_2_tag}, {cache_0_2_tag}};	// bpu.scala:40:24, :52:19
+  wire [15:0]      _GEN_12;	// bpu.scala:52:19
   /* synopsys infer_mux_override */
-  assign _GEN_12 = _GEN_11[io_raddr[3:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
-  wire [15:0][63:0] _GEN_13 = {{cache_15_2_data}, {cache_14_2_data}, {cache_13_2_data}, {cache_12_2_data},
-                {cache_11_2_data}, {cache_10_2_data}, {cache_9_2_data}, {cache_8_2_data}, {cache_7_2_data},
-                {cache_6_2_data}, {cache_5_2_data}, {cache_4_2_data}, {cache_3_2_data}, {cache_2_2_data},
-                {cache_1_2_data}, {cache_0_2_data}};	// bpu.scala:40:24, :52:19
-  wire [63:0]       _GEN_14;	// bpu.scala:52:19
+  assign _GEN_12 = _GEN_11[io_raddr[1:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
+  wire [3:0][63:0] _GEN_13 = {{cache_3_2_data}, {cache_2_2_data}, {cache_1_2_data}, {cache_0_2_data}};	// bpu.scala:40:24, :52:19
+  wire [63:0]      _GEN_14;	// bpu.scala:52:19
   /* synopsys infer_mux_override */
-  assign _GEN_14 = _GEN_13[io_raddr[3:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
-  wire [15:0]       _GEN_15 = {{cache_15_2_valid}, {cache_14_2_valid}, {cache_13_2_valid}, {cache_12_2_valid},
-                {cache_11_2_valid}, {cache_10_2_valid}, {cache_9_2_valid}, {cache_8_2_valid},
-                {cache_7_2_valid}, {cache_6_2_valid}, {cache_5_2_valid}, {cache_4_2_valid},
-                {cache_3_2_valid}, {cache_2_2_valid}, {cache_1_2_valid}, {cache_0_2_valid}};	// bpu.scala:40:24, :52:19
-  wire              _GEN_16;	// bpu.scala:52:19
+  assign _GEN_14 = _GEN_13[io_raddr[1:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
+  wire [3:0]       _GEN_15 = {{cache_3_2_valid}, {cache_2_2_valid}, {cache_1_2_valid}, {cache_0_2_valid}};	// bpu.scala:40:24, :52:19
+  wire             _GEN_16;	// bpu.scala:52:19
   /* synopsys infer_mux_override */
-  assign _GEN_16 = _GEN_15[io_raddr[3:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
-  wire [15:0][15:0] _GEN_17 = {{cache_15_3_tag}, {cache_14_3_tag}, {cache_13_3_tag}, {cache_12_3_tag}, {cache_11_3_tag},
-                {cache_10_3_tag}, {cache_9_3_tag}, {cache_8_3_tag}, {cache_7_3_tag}, {cache_6_3_tag},
-                {cache_5_3_tag}, {cache_4_3_tag}, {cache_3_3_tag}, {cache_2_3_tag}, {cache_1_3_tag},
-                {cache_0_3_tag}};	// bpu.scala:40:24, :52:19
-  wire [15:0]       _GEN_18;	// bpu.scala:52:19
+  assign _GEN_16 = _GEN_15[io_raddr[1:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
+  wire [3:0][15:0] _GEN_17 = {{cache_3_3_tag}, {cache_2_3_tag}, {cache_1_3_tag}, {cache_0_3_tag}};	// bpu.scala:40:24, :52:19
+  wire [15:0]      _GEN_18;	// bpu.scala:52:19
   /* synopsys infer_mux_override */
-  assign _GEN_18 = _GEN_17[io_raddr[3:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
-  wire [15:0][63:0] _GEN_19 = {{cache_15_3_data}, {cache_14_3_data}, {cache_13_3_data}, {cache_12_3_data},
-                {cache_11_3_data}, {cache_10_3_data}, {cache_9_3_data}, {cache_8_3_data}, {cache_7_3_data},
-                {cache_6_3_data}, {cache_5_3_data}, {cache_4_3_data}, {cache_3_3_data}, {cache_2_3_data},
-                {cache_1_3_data}, {cache_0_3_data}};	// bpu.scala:40:24, :52:19
-  wire [63:0]       _GEN_20;	// bpu.scala:52:19
+  assign _GEN_18 = _GEN_17[io_raddr[1:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
+  wire [3:0][63:0] _GEN_19 = {{cache_3_3_data}, {cache_2_3_data}, {cache_1_3_data}, {cache_0_3_data}};	// bpu.scala:40:24, :52:19
+  wire [63:0]      _GEN_20;	// bpu.scala:52:19
   /* synopsys infer_mux_override */
-  assign _GEN_20 = _GEN_19[io_raddr[3:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
-  wire [15:0]       _GEN_21 = {{cache_15_3_valid}, {cache_14_3_valid}, {cache_13_3_valid}, {cache_12_3_valid},
-                {cache_11_3_valid}, {cache_10_3_valid}, {cache_9_3_valid}, {cache_8_3_valid},
-                {cache_7_3_valid}, {cache_6_3_valid}, {cache_5_3_valid}, {cache_4_3_valid},
-                {cache_3_3_valid}, {cache_2_3_valid}, {cache_1_3_valid}, {cache_0_3_valid}};	// bpu.scala:40:24, :52:19
-  wire              _GEN_22;	// bpu.scala:52:19
+  assign _GEN_20 = _GEN_19[io_raddr[1:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
+  wire [3:0]       _GEN_21 = {{cache_3_3_valid}, {cache_2_3_valid}, {cache_1_3_valid}, {cache_0_3_valid}};	// bpu.scala:40:24, :52:19
+  wire             _GEN_22;	// bpu.scala:52:19
   /* synopsys infer_mux_override */
-  assign _GEN_22 = _GEN_21[io_raddr[3:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
-  wire [15:0][15:0] _GEN_23 = {{cache_15_4_tag}, {cache_14_4_tag}, {cache_13_4_tag}, {cache_12_4_tag}, {cache_11_4_tag},
-                {cache_10_4_tag}, {cache_9_4_tag}, {cache_8_4_tag}, {cache_7_4_tag}, {cache_6_4_tag},
-                {cache_5_4_tag}, {cache_4_4_tag}, {cache_3_4_tag}, {cache_2_4_tag}, {cache_1_4_tag},
-                {cache_0_4_tag}};	// bpu.scala:40:24, :52:19
-  wire [15:0]       _GEN_24;	// bpu.scala:52:19
+  assign _GEN_22 = _GEN_21[io_raddr[1:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
+  wire [3:0][15:0] _GEN_23 = {{cache_3_4_tag}, {cache_2_4_tag}, {cache_1_4_tag}, {cache_0_4_tag}};	// bpu.scala:40:24, :52:19
+  wire [15:0]      _GEN_24;	// bpu.scala:52:19
   /* synopsys infer_mux_override */
-  assign _GEN_24 = _GEN_23[io_raddr[3:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
-  wire [15:0][63:0] _GEN_25 = {{cache_15_4_data}, {cache_14_4_data}, {cache_13_4_data}, {cache_12_4_data},
-                {cache_11_4_data}, {cache_10_4_data}, {cache_9_4_data}, {cache_8_4_data}, {cache_7_4_data},
-                {cache_6_4_data}, {cache_5_4_data}, {cache_4_4_data}, {cache_3_4_data}, {cache_2_4_data},
-                {cache_1_4_data}, {cache_0_4_data}};	// bpu.scala:40:24, :52:19
-  wire [63:0]       _GEN_26;	// bpu.scala:52:19
+  assign _GEN_24 = _GEN_23[io_raddr[1:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
+  wire [3:0][63:0] _GEN_25 = {{cache_3_4_data}, {cache_2_4_data}, {cache_1_4_data}, {cache_0_4_data}};	// bpu.scala:40:24, :52:19
+  wire [63:0]      _GEN_26;	// bpu.scala:52:19
   /* synopsys infer_mux_override */
-  assign _GEN_26 = _GEN_25[io_raddr[3:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
-  wire [15:0]       _GEN_27 = {{cache_15_4_valid}, {cache_14_4_valid}, {cache_13_4_valid}, {cache_12_4_valid},
-                {cache_11_4_valid}, {cache_10_4_valid}, {cache_9_4_valid}, {cache_8_4_valid},
-                {cache_7_4_valid}, {cache_6_4_valid}, {cache_5_4_valid}, {cache_4_4_valid},
-                {cache_3_4_valid}, {cache_2_4_valid}, {cache_1_4_valid}, {cache_0_4_valid}};	// bpu.scala:40:24, :52:19
-  wire              _GEN_28;	// bpu.scala:52:19
+  assign _GEN_26 = _GEN_25[io_raddr[1:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
+  wire [3:0]       _GEN_27 = {{cache_3_4_valid}, {cache_2_4_valid}, {cache_1_4_valid}, {cache_0_4_valid}};	// bpu.scala:40:24, :52:19
+  wire             _GEN_28;	// bpu.scala:52:19
   /* synopsys infer_mux_override */
-  assign _GEN_28 = _GEN_27[io_raddr[3:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
-  wire [15:0][15:0] _GEN_29 = {{cache_15_5_tag}, {cache_14_5_tag}, {cache_13_5_tag}, {cache_12_5_tag}, {cache_11_5_tag},
-                {cache_10_5_tag}, {cache_9_5_tag}, {cache_8_5_tag}, {cache_7_5_tag}, {cache_6_5_tag},
-                {cache_5_5_tag}, {cache_4_5_tag}, {cache_3_5_tag}, {cache_2_5_tag}, {cache_1_5_tag},
-                {cache_0_5_tag}};	// bpu.scala:40:24, :52:19
-  wire [15:0]       _GEN_30;	// bpu.scala:52:19
+  assign _GEN_28 = _GEN_27[io_raddr[1:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
+  wire [3:0][15:0] _GEN_29 = {{cache_3_5_tag}, {cache_2_5_tag}, {cache_1_5_tag}, {cache_0_5_tag}};	// bpu.scala:40:24, :52:19
+  wire [15:0]      _GEN_30;	// bpu.scala:52:19
   /* synopsys infer_mux_override */
-  assign _GEN_30 = _GEN_29[io_raddr[3:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
-  wire [15:0][63:0] _GEN_31 = {{cache_15_5_data}, {cache_14_5_data}, {cache_13_5_data}, {cache_12_5_data},
-                {cache_11_5_data}, {cache_10_5_data}, {cache_9_5_data}, {cache_8_5_data}, {cache_7_5_data},
-                {cache_6_5_data}, {cache_5_5_data}, {cache_4_5_data}, {cache_3_5_data}, {cache_2_5_data},
-                {cache_1_5_data}, {cache_0_5_data}};	// bpu.scala:40:24, :52:19
-  wire [63:0]       _GEN_32;	// bpu.scala:52:19
+  assign _GEN_30 = _GEN_29[io_raddr[1:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
+  wire [3:0][63:0] _GEN_31 = {{cache_3_5_data}, {cache_2_5_data}, {cache_1_5_data}, {cache_0_5_data}};	// bpu.scala:40:24, :52:19
+  wire [63:0]      _GEN_32;	// bpu.scala:52:19
   /* synopsys infer_mux_override */
-  assign _GEN_32 = _GEN_31[io_raddr[3:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
-  wire [15:0]       _GEN_33 = {{cache_15_5_valid}, {cache_14_5_valid}, {cache_13_5_valid}, {cache_12_5_valid},
-                {cache_11_5_valid}, {cache_10_5_valid}, {cache_9_5_valid}, {cache_8_5_valid},
-                {cache_7_5_valid}, {cache_6_5_valid}, {cache_5_5_valid}, {cache_4_5_valid},
-                {cache_3_5_valid}, {cache_2_5_valid}, {cache_1_5_valid}, {cache_0_5_valid}};	// bpu.scala:40:24, :52:19
-  wire              _GEN_34;	// bpu.scala:52:19
+  assign _GEN_32 = _GEN_31[io_raddr[1:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
+  wire [3:0]       _GEN_33 = {{cache_3_5_valid}, {cache_2_5_valid}, {cache_1_5_valid}, {cache_0_5_valid}};	// bpu.scala:40:24, :52:19
+  wire             _GEN_34;	// bpu.scala:52:19
   /* synopsys infer_mux_override */
-  assign _GEN_34 = _GEN_33[io_raddr[3:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
-  wire [15:0][15:0] _GEN_35 = {{cache_15_6_tag}, {cache_14_6_tag}, {cache_13_6_tag}, {cache_12_6_tag}, {cache_11_6_tag},
-                {cache_10_6_tag}, {cache_9_6_tag}, {cache_8_6_tag}, {cache_7_6_tag}, {cache_6_6_tag},
-                {cache_5_6_tag}, {cache_4_6_tag}, {cache_3_6_tag}, {cache_2_6_tag}, {cache_1_6_tag},
-                {cache_0_6_tag}};	// bpu.scala:40:24, :52:19
-  wire [15:0]       _GEN_36;	// bpu.scala:52:19
+  assign _GEN_34 = _GEN_33[io_raddr[1:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
+  wire [3:0][15:0] _GEN_35 = {{cache_3_6_tag}, {cache_2_6_tag}, {cache_1_6_tag}, {cache_0_6_tag}};	// bpu.scala:40:24, :52:19
+  wire [15:0]      _GEN_36;	// bpu.scala:52:19
   /* synopsys infer_mux_override */
-  assign _GEN_36 = _GEN_35[io_raddr[3:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
-  wire [15:0][63:0] _GEN_37 = {{cache_15_6_data}, {cache_14_6_data}, {cache_13_6_data}, {cache_12_6_data},
-                {cache_11_6_data}, {cache_10_6_data}, {cache_9_6_data}, {cache_8_6_data}, {cache_7_6_data},
-                {cache_6_6_data}, {cache_5_6_data}, {cache_4_6_data}, {cache_3_6_data}, {cache_2_6_data},
-                {cache_1_6_data}, {cache_0_6_data}};	// bpu.scala:40:24, :52:19
-  wire [63:0]       _GEN_38;	// bpu.scala:52:19
+  assign _GEN_36 = _GEN_35[io_raddr[1:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
+  wire [3:0][63:0] _GEN_37 = {{cache_3_6_data}, {cache_2_6_data}, {cache_1_6_data}, {cache_0_6_data}};	// bpu.scala:40:24, :52:19
+  wire [63:0]      _GEN_38;	// bpu.scala:52:19
   /* synopsys infer_mux_override */
-  assign _GEN_38 = _GEN_37[io_raddr[3:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
-  wire [15:0]       _GEN_39 = {{cache_15_6_valid}, {cache_14_6_valid}, {cache_13_6_valid}, {cache_12_6_valid},
-                {cache_11_6_valid}, {cache_10_6_valid}, {cache_9_6_valid}, {cache_8_6_valid},
-                {cache_7_6_valid}, {cache_6_6_valid}, {cache_5_6_valid}, {cache_4_6_valid},
-                {cache_3_6_valid}, {cache_2_6_valid}, {cache_1_6_valid}, {cache_0_6_valid}};	// bpu.scala:40:24, :52:19
-  wire              _GEN_40;	// bpu.scala:52:19
+  assign _GEN_38 = _GEN_37[io_raddr[1:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
+  wire [3:0]       _GEN_39 = {{cache_3_6_valid}, {cache_2_6_valid}, {cache_1_6_valid}, {cache_0_6_valid}};	// bpu.scala:40:24, :52:19
+  wire             _GEN_40;	// bpu.scala:52:19
   /* synopsys infer_mux_override */
-  assign _GEN_40 = _GEN_39[io_raddr[3:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
-  wire              _T_1 = io_raddr[19:4] == _GEN_0 & _GEN_4;	// bpu.scala:45:24, :52:{19,42}
-  wire              _T_3 = io_raddr[19:4] == _GEN_6 & _GEN_10;	// bpu.scala:45:24, :52:{19,42}
-  wire              _T_5 = io_raddr[19:4] == _GEN_12 & _GEN_16;	// bpu.scala:45:24, :52:{19,42}
-  wire              _T_7 = io_raddr[19:4] == _GEN_18 & _GEN_22;	// bpu.scala:45:24, :52:{19,42}
-  wire              _T_9 = io_raddr[19:4] == _GEN_24 & _GEN_28;	// bpu.scala:45:24, :52:{19,42}
-  wire              _T_11 = io_raddr[19:4] == _GEN_30 & _GEN_34;	// bpu.scala:45:24, :52:{19,42}
-  wire              _T_13 = io_raddr[19:4] == _GEN_36 & _GEN_40;	// bpu.scala:45:24, :52:{19,42}
-  wire [15:0]       _GEN_41;	// bpu.scala:66:14
+  assign _GEN_40 = _GEN_39[io_raddr[1:0]] /* cadence map_to_mux */;	// bpu.scala:46:24, :52:19
+  wire             _T_1 = io_raddr[17:2] == _GEN_0 & _GEN_4;	// bpu.scala:45:24, :52:{19,42}
+  wire             _T_3 = io_raddr[17:2] == _GEN_6 & _GEN_10;	// bpu.scala:45:24, :52:{19,42}
+  wire             _T_5 = io_raddr[17:2] == _GEN_12 & _GEN_16;	// bpu.scala:45:24, :52:{19,42}
+  wire             _T_7 = io_raddr[17:2] == _GEN_18 & _GEN_22;	// bpu.scala:45:24, :52:{19,42}
+  wire             _T_9 = io_raddr[17:2] == _GEN_24 & _GEN_28;	// bpu.scala:45:24, :52:{19,42}
+  wire             _T_11 = io_raddr[17:2] == _GEN_30 & _GEN_34;	// bpu.scala:45:24, :52:{19,42}
+  wire             _T_13 = io_raddr[17:2] == _GEN_36 & _GEN_40;	// bpu.scala:45:24, :52:{19,42}
+  wire [15:0]      _GEN_41;	// bpu.scala:66:14
   /* synopsys infer_mux_override */
-  assign _GEN_41 = _GEN[io_waddr[3:0]] /* cadence map_to_mux */;	// bpu.scala:52:19, :60:24, :66:14
-  wire              _GEN_42;	// bpu.scala:66:14
+  assign _GEN_41 = _GEN[io_waddr[1:0]] /* cadence map_to_mux */;	// bpu.scala:52:19, :60:24, :66:14
+  wire             _GEN_42;	// bpu.scala:66:14
   /* synopsys infer_mux_override */
-  assign _GEN_42 = _GEN_3[io_waddr[3:0]] /* cadence map_to_mux */;	// bpu.scala:52:19, :60:24, :66:14
-  wire [15:0]       _GEN_43;	// bpu.scala:66:14
+  assign _GEN_42 = _GEN_3[io_waddr[1:0]] /* cadence map_to_mux */;	// bpu.scala:52:19, :60:24, :66:14
+  wire [15:0]      _GEN_43;	// bpu.scala:66:14
   /* synopsys infer_mux_override */
-  assign _GEN_43 = _GEN_5[io_waddr[3:0]] /* cadence map_to_mux */;	// bpu.scala:52:19, :60:24, :66:14
-  wire              _GEN_44;	// bpu.scala:66:14
+  assign _GEN_43 = _GEN_5[io_waddr[1:0]] /* cadence map_to_mux */;	// bpu.scala:52:19, :60:24, :66:14
+  wire             _GEN_44;	// bpu.scala:66:14
   /* synopsys infer_mux_override */
-  assign _GEN_44 = _GEN_9[io_waddr[3:0]] /* cadence map_to_mux */;	// bpu.scala:52:19, :60:24, :66:14
-  wire [15:0]       _GEN_45;	// bpu.scala:66:14
+  assign _GEN_44 = _GEN_9[io_waddr[1:0]] /* cadence map_to_mux */;	// bpu.scala:52:19, :60:24, :66:14
+  wire [15:0]      _GEN_45;	// bpu.scala:66:14
   /* synopsys infer_mux_override */
-  assign _GEN_45 = _GEN_11[io_waddr[3:0]] /* cadence map_to_mux */;	// bpu.scala:52:19, :60:24, :66:14
-  wire              _GEN_46;	// bpu.scala:66:14
+  assign _GEN_45 = _GEN_11[io_waddr[1:0]] /* cadence map_to_mux */;	// bpu.scala:52:19, :60:24, :66:14
+  wire             _GEN_46;	// bpu.scala:66:14
   /* synopsys infer_mux_override */
-  assign _GEN_46 = _GEN_15[io_waddr[3:0]] /* cadence map_to_mux */;	// bpu.scala:52:19, :60:24, :66:14
-  wire [15:0]       _GEN_47;	// bpu.scala:66:14
+  assign _GEN_46 = _GEN_15[io_waddr[1:0]] /* cadence map_to_mux */;	// bpu.scala:52:19, :60:24, :66:14
+  wire [15:0]      _GEN_47;	// bpu.scala:66:14
   /* synopsys infer_mux_override */
-  assign _GEN_47 = _GEN_17[io_waddr[3:0]] /* cadence map_to_mux */;	// bpu.scala:52:19, :60:24, :66:14
-  wire              _GEN_48;	// bpu.scala:66:14
+  assign _GEN_47 = _GEN_17[io_waddr[1:0]] /* cadence map_to_mux */;	// bpu.scala:52:19, :60:24, :66:14
+  wire             _GEN_48;	// bpu.scala:66:14
   /* synopsys infer_mux_override */
-  assign _GEN_48 = _GEN_21[io_waddr[3:0]] /* cadence map_to_mux */;	// bpu.scala:52:19, :60:24, :66:14
-  wire [15:0]       _GEN_49;	// bpu.scala:66:14
+  assign _GEN_48 = _GEN_21[io_waddr[1:0]] /* cadence map_to_mux */;	// bpu.scala:52:19, :60:24, :66:14
+  wire [15:0]      _GEN_49;	// bpu.scala:66:14
   /* synopsys infer_mux_override */
-  assign _GEN_49 = _GEN_23[io_waddr[3:0]] /* cadence map_to_mux */;	// bpu.scala:52:19, :60:24, :66:14
-  wire              _GEN_50;	// bpu.scala:66:14
+  assign _GEN_49 = _GEN_23[io_waddr[1:0]] /* cadence map_to_mux */;	// bpu.scala:52:19, :60:24, :66:14
+  wire             _GEN_50;	// bpu.scala:66:14
   /* synopsys infer_mux_override */
-  assign _GEN_50 = _GEN_27[io_waddr[3:0]] /* cadence map_to_mux */;	// bpu.scala:52:19, :60:24, :66:14
-  wire [15:0]       _GEN_51;	// bpu.scala:66:14
+  assign _GEN_50 = _GEN_27[io_waddr[1:0]] /* cadence map_to_mux */;	// bpu.scala:52:19, :60:24, :66:14
+  wire [15:0]      _GEN_51;	// bpu.scala:66:14
   /* synopsys infer_mux_override */
-  assign _GEN_51 = _GEN_29[io_waddr[3:0]] /* cadence map_to_mux */;	// bpu.scala:52:19, :60:24, :66:14
-  wire              _GEN_52;	// bpu.scala:66:14
+  assign _GEN_51 = _GEN_29[io_waddr[1:0]] /* cadence map_to_mux */;	// bpu.scala:52:19, :60:24, :66:14
+  wire             _GEN_52;	// bpu.scala:66:14
   /* synopsys infer_mux_override */
-  assign _GEN_52 = _GEN_33[io_waddr[3:0]] /* cadence map_to_mux */;	// bpu.scala:52:19, :60:24, :66:14
-  wire [15:0]       _GEN_53;	// bpu.scala:66:14
+  assign _GEN_52 = _GEN_33[io_waddr[1:0]] /* cadence map_to_mux */;	// bpu.scala:52:19, :60:24, :66:14
+  wire [15:0]      _GEN_53;	// bpu.scala:66:14
   /* synopsys infer_mux_override */
-  assign _GEN_53 = _GEN_35[io_waddr[3:0]] /* cadence map_to_mux */;	// bpu.scala:52:19, :60:24, :66:14
-  wire              _GEN_54;	// bpu.scala:66:14
+  assign _GEN_53 = _GEN_35[io_waddr[1:0]] /* cadence map_to_mux */;	// bpu.scala:52:19, :60:24, :66:14
+  wire             _GEN_54;	// bpu.scala:66:14
   /* synopsys infer_mux_override */
-  assign _GEN_54 = _GEN_39[io_waddr[3:0]] /* cadence map_to_mux */;	// bpu.scala:52:19, :60:24, :66:14
+  assign _GEN_54 = _GEN_39[io_waddr[1:0]] /* cadence map_to_mux */;	// bpu.scala:52:19, :60:24, :66:14
   always @(posedge clock) begin
     if (reset) begin
       cache_0_0_tag <= 16'h0;	// bpu.scala:37:19, :40:24
@@ -805,273 +490,21 @@ module BPU_Cache(	// <stdin>:65:10
       cache_3_6_tag <= 16'h0;	// bpu.scala:37:19, :40:24
       cache_3_6_data <= 64'h0;	// bpu.scala:38:20, :40:24
       cache_3_6_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_4_0_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_4_0_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_4_0_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_4_1_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_4_1_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_4_1_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_4_2_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_4_2_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_4_2_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_4_3_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_4_3_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_4_3_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_4_4_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_4_4_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_4_4_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_4_5_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_4_5_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_4_5_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_4_6_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_4_6_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_4_6_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_5_0_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_5_0_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_5_0_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_5_1_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_5_1_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_5_1_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_5_2_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_5_2_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_5_2_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_5_3_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_5_3_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_5_3_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_5_4_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_5_4_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_5_4_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_5_5_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_5_5_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_5_5_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_5_6_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_5_6_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_5_6_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_6_0_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_6_0_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_6_0_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_6_1_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_6_1_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_6_1_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_6_2_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_6_2_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_6_2_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_6_3_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_6_3_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_6_3_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_6_4_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_6_4_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_6_4_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_6_5_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_6_5_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_6_5_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_6_6_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_6_6_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_6_6_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_7_0_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_7_0_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_7_0_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_7_1_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_7_1_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_7_1_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_7_2_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_7_2_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_7_2_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_7_3_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_7_3_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_7_3_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_7_4_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_7_4_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_7_4_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_7_5_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_7_5_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_7_5_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_7_6_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_7_6_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_7_6_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_8_0_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_8_0_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_8_0_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_8_1_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_8_1_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_8_1_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_8_2_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_8_2_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_8_2_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_8_3_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_8_3_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_8_3_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_8_4_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_8_4_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_8_4_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_8_5_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_8_5_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_8_5_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_8_6_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_8_6_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_8_6_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_9_0_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_9_0_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_9_0_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_9_1_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_9_1_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_9_1_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_9_2_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_9_2_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_9_2_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_9_3_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_9_3_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_9_3_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_9_4_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_9_4_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_9_4_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_9_5_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_9_5_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_9_5_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_9_6_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_9_6_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_9_6_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_10_0_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_10_0_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_10_0_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_10_1_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_10_1_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_10_1_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_10_2_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_10_2_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_10_2_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_10_3_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_10_3_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_10_3_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_10_4_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_10_4_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_10_4_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_10_5_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_10_5_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_10_5_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_10_6_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_10_6_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_10_6_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_11_0_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_11_0_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_11_0_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_11_1_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_11_1_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_11_1_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_11_2_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_11_2_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_11_2_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_11_3_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_11_3_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_11_3_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_11_4_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_11_4_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_11_4_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_11_5_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_11_5_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_11_5_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_11_6_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_11_6_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_11_6_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_12_0_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_12_0_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_12_0_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_12_1_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_12_1_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_12_1_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_12_2_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_12_2_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_12_2_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_12_3_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_12_3_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_12_3_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_12_4_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_12_4_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_12_4_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_12_5_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_12_5_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_12_5_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_12_6_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_12_6_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_12_6_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_13_0_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_13_0_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_13_0_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_13_1_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_13_1_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_13_1_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_13_2_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_13_2_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_13_2_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_13_3_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_13_3_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_13_3_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_13_4_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_13_4_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_13_4_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_13_5_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_13_5_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_13_5_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_13_6_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_13_6_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_13_6_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_14_0_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_14_0_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_14_0_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_14_1_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_14_1_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_14_1_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_14_2_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_14_2_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_14_2_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_14_3_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_14_3_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_14_3_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_14_4_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_14_4_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_14_4_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_14_5_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_14_5_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_14_5_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_14_6_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_14_6_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_14_6_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_15_0_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_15_0_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_15_0_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_15_1_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_15_1_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_15_1_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_15_2_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_15_2_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_15_2_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_15_3_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_15_3_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_15_3_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_15_4_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_15_4_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_15_4_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_15_5_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_15_5_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_15_5_valid <= 1'h0;	// bpu.scala:37:19, :40:24
-      cache_15_6_tag <= 16'h0;	// bpu.scala:37:19, :40:24
-      cache_15_6_data <= 64'h0;	// bpu.scala:38:20, :40:24
-      cache_15_6_valid <= 1'h0;	// bpu.scala:37:19, :40:24
     end
     else begin
-      automatic logic       _T_21 = io_waddr[19:4] == _GEN_41;	// bpu.scala:59:24, :66:14, :72:19
-      automatic logic       _T_22 = io_waddr[19:4] == _GEN_43;	// bpu.scala:59:24, :66:14, :72:19
-      automatic logic       _T_23 = io_waddr[19:4] == _GEN_45;	// bpu.scala:59:24, :66:14, :72:19
-      automatic logic       _T_24 = io_waddr[19:4] == _GEN_47;	// bpu.scala:59:24, :66:14, :72:19
-      automatic logic       _T_25 = io_waddr[19:4] == _GEN_49;	// bpu.scala:59:24, :66:14, :72:19
-      automatic logic       _T_26 = io_waddr[19:4] == _GEN_51;	// bpu.scala:59:24, :66:14, :72:19
-      automatic logic       _T_27 = io_waddr[19:4] == _GEN_53;	// bpu.scala:59:24, :66:14, :72:19
+      automatic logic       _T_21 = io_waddr[17:2] == _GEN_41;	// bpu.scala:59:24, :66:14, :72:19
+      automatic logic       _T_22 = io_waddr[17:2] == _GEN_43;	// bpu.scala:59:24, :66:14, :72:19
+      automatic logic       _T_23 = io_waddr[17:2] == _GEN_45;	// bpu.scala:59:24, :66:14, :72:19
+      automatic logic       _T_24 = io_waddr[17:2] == _GEN_47;	// bpu.scala:59:24, :66:14, :72:19
+      automatic logic       _T_25 = io_waddr[17:2] == _GEN_49;	// bpu.scala:59:24, :66:14, :72:19
+      automatic logic       _T_26 = io_waddr[17:2] == _GEN_51;	// bpu.scala:59:24, :66:14, :72:19
+      automatic logic       _T_27 = io_waddr[17:2] == _GEN_53;	// bpu.scala:59:24, :66:14, :72:19
       automatic logic [2:0] _GEN_55 = ~io_writeEn | _T_27 | _T_26 | _T_25 | _T_24 | _T_23 | _T_22 | _T_21 | ~_GEN_54 | ~_GEN_52 |
                                                 ~_GEN_50 | ~_GEN_48 | ~_GEN_46 | ~_GEN_44 | ~_GEN_42 ? (_T_27 ? 3'h6 : _T_26 ? 3'h5 : _T_25
                                                 ? 3'h4 : _T_24 ? 3'h3 : _T_23 ? 3'h2 : _T_22 ? 3'h1 : _T_21 ? 3'h0 : _GEN_54 ? (_GEN_52 ?
                                                 (_GEN_50 ? (_GEN_48 ? (_GEN_46 ? {2'h0, ~_GEN_44} : 3'h2) : 3'h3) : 3'h4) : 3'h5) : 3'h6) :
                                                 {_writeIDX_prng_io_out_2, _writeIDX_prng_io_out_1, _writeIDX_prng_io_out_0};	// PRNG.scala:91:22, bpu.scala:66:{14,36}, :67:22, :72:{19,42}, :73:22, :77:21, :78:24, :79:22, :81:37
-      automatic logic       _GEN_56 = io_waddr[3:0] == 4'h0;	// bpu.scala:60:24, :81:37
+      automatic logic       _GEN_56 = io_waddr[1:0] == 2'h0;	// bpu.scala:60:24, :81:37
       automatic logic       _GEN_57 = _GEN_55 == 3'h0;	// bpu.scala:72:42, :77:21, :78:24, :81:37
       automatic logic       _GEN_58 = io_writeEn & _GEN_56 & _GEN_57;	// bpu.scala:40:24, :77:21, :81:37
       automatic logic       _GEN_59 = _GEN_55 == 3'h1;	// bpu.scala:72:42, :77:21, :78:24, :81:37
@@ -1086,7 +519,7 @@ module BPU_Cache(	// <stdin>:65:10
       automatic logic       _GEN_68 = io_writeEn & _GEN_56 & _GEN_67;	// bpu.scala:40:24, :77:21, :81:37
       automatic logic       _GEN_69 = _GEN_55 == 3'h6;	// bpu.scala:67:22, :72:42, :77:21, :78:24, :81:37
       automatic logic       _GEN_70 = io_writeEn & _GEN_56 & _GEN_69;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_71 = io_waddr[3:0] == 4'h1;	// bpu.scala:60:24, :81:37
+      automatic logic       _GEN_71 = io_waddr[1:0] == 2'h1;	// bpu.scala:60:24, :81:37
       automatic logic       _GEN_72 = io_writeEn & _GEN_71 & _GEN_57;	// bpu.scala:40:24, :77:21, :81:37
       automatic logic       _GEN_73 = io_writeEn & _GEN_71 & _GEN_59;	// bpu.scala:40:24, :77:21, :81:37
       automatic logic       _GEN_74 = io_writeEn & _GEN_71 & _GEN_61;	// bpu.scala:40:24, :77:21, :81:37
@@ -1094,7 +527,7 @@ module BPU_Cache(	// <stdin>:65:10
       automatic logic       _GEN_76 = io_writeEn & _GEN_71 & _GEN_65;	// bpu.scala:40:24, :77:21, :81:37
       automatic logic       _GEN_77 = io_writeEn & _GEN_71 & _GEN_67;	// bpu.scala:40:24, :77:21, :81:37
       automatic logic       _GEN_78 = io_writeEn & _GEN_71 & _GEN_69;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_79 = io_waddr[3:0] == 4'h2;	// bpu.scala:60:24, :81:37
+      automatic logic       _GEN_79 = io_waddr[1:0] == 2'h2;	// bpu.scala:60:24, :67:22, :81:37
       automatic logic       _GEN_80 = io_writeEn & _GEN_79 & _GEN_57;	// bpu.scala:40:24, :77:21, :81:37
       automatic logic       _GEN_81 = io_writeEn & _GEN_79 & _GEN_59;	// bpu.scala:40:24, :77:21, :81:37
       automatic logic       _GEN_82 = io_writeEn & _GEN_79 & _GEN_61;	// bpu.scala:40:24, :77:21, :81:37
@@ -1102,669 +535,153 @@ module BPU_Cache(	// <stdin>:65:10
       automatic logic       _GEN_84 = io_writeEn & _GEN_79 & _GEN_65;	// bpu.scala:40:24, :77:21, :81:37
       automatic logic       _GEN_85 = io_writeEn & _GEN_79 & _GEN_67;	// bpu.scala:40:24, :77:21, :81:37
       automatic logic       _GEN_86 = io_writeEn & _GEN_79 & _GEN_69;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_87 = io_waddr[3:0] == 4'h3;	// bpu.scala:60:24, :81:37
-      automatic logic       _GEN_88 = io_writeEn & _GEN_87 & _GEN_57;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_89 = io_writeEn & _GEN_87 & _GEN_59;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_90 = io_writeEn & _GEN_87 & _GEN_61;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_91 = io_writeEn & _GEN_87 & _GEN_63;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_92 = io_writeEn & _GEN_87 & _GEN_65;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_93 = io_writeEn & _GEN_87 & _GEN_67;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_94 = io_writeEn & _GEN_87 & _GEN_69;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_95 = io_waddr[3:0] == 4'h4;	// bpu.scala:60:24, :81:37
-      automatic logic       _GEN_96 = io_writeEn & _GEN_95 & _GEN_57;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_97 = io_writeEn & _GEN_95 & _GEN_59;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_98 = io_writeEn & _GEN_95 & _GEN_61;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_99 = io_writeEn & _GEN_95 & _GEN_63;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_100 = io_writeEn & _GEN_95 & _GEN_65;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_101 = io_writeEn & _GEN_95 & _GEN_67;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_102 = io_writeEn & _GEN_95 & _GEN_69;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_103 = io_waddr[3:0] == 4'h5;	// bpu.scala:60:24, :81:37
-      automatic logic       _GEN_104 = io_writeEn & _GEN_103 & _GEN_57;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_105 = io_writeEn & _GEN_103 & _GEN_59;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_106 = io_writeEn & _GEN_103 & _GEN_61;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_107 = io_writeEn & _GEN_103 & _GEN_63;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_108 = io_writeEn & _GEN_103 & _GEN_65;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_109 = io_writeEn & _GEN_103 & _GEN_67;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_110 = io_writeEn & _GEN_103 & _GEN_69;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_111 = io_waddr[3:0] == 4'h6;	// bpu.scala:60:24, :81:37
-      automatic logic       _GEN_112 = io_writeEn & _GEN_111 & _GEN_57;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_113 = io_writeEn & _GEN_111 & _GEN_59;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_114 = io_writeEn & _GEN_111 & _GEN_61;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_115 = io_writeEn & _GEN_111 & _GEN_63;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_116 = io_writeEn & _GEN_111 & _GEN_65;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_117 = io_writeEn & _GEN_111 & _GEN_67;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_118 = io_writeEn & _GEN_111 & _GEN_69;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_119 = io_waddr[3:0] == 4'h7;	// bpu.scala:60:24, :81:37
-      automatic logic       _GEN_120 = io_writeEn & _GEN_119 & _GEN_57;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_121 = io_writeEn & _GEN_119 & _GEN_59;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_122 = io_writeEn & _GEN_119 & _GEN_61;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_123 = io_writeEn & _GEN_119 & _GEN_63;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_124 = io_writeEn & _GEN_119 & _GEN_65;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_125 = io_writeEn & _GEN_119 & _GEN_67;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_126 = io_writeEn & _GEN_119 & _GEN_69;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_127 = io_waddr[3:0] == 4'h8;	// bpu.scala:60:24, :81:37
-      automatic logic       _GEN_128 = io_writeEn & _GEN_127 & _GEN_57;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_129 = io_writeEn & _GEN_127 & _GEN_59;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_130 = io_writeEn & _GEN_127 & _GEN_61;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_131 = io_writeEn & _GEN_127 & _GEN_63;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_132 = io_writeEn & _GEN_127 & _GEN_65;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_133 = io_writeEn & _GEN_127 & _GEN_67;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_134 = io_writeEn & _GEN_127 & _GEN_69;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_135 = io_waddr[3:0] == 4'h9;	// bpu.scala:60:24, :81:37
-      automatic logic       _GEN_136 = io_writeEn & _GEN_135 & _GEN_57;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_137 = io_writeEn & _GEN_135 & _GEN_59;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_138 = io_writeEn & _GEN_135 & _GEN_61;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_139 = io_writeEn & _GEN_135 & _GEN_63;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_140 = io_writeEn & _GEN_135 & _GEN_65;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_141 = io_writeEn & _GEN_135 & _GEN_67;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_142 = io_writeEn & _GEN_135 & _GEN_69;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_143 = io_waddr[3:0] == 4'hA;	// bpu.scala:60:24, :81:37
-      automatic logic       _GEN_144 = io_writeEn & _GEN_143 & _GEN_57;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_145 = io_writeEn & _GEN_143 & _GEN_59;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_146 = io_writeEn & _GEN_143 & _GEN_61;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_147 = io_writeEn & _GEN_143 & _GEN_63;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_148 = io_writeEn & _GEN_143 & _GEN_65;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_149 = io_writeEn & _GEN_143 & _GEN_67;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_150 = io_writeEn & _GEN_143 & _GEN_69;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_151 = io_waddr[3:0] == 4'hB;	// bpu.scala:60:24, :81:37
-      automatic logic       _GEN_152 = io_writeEn & _GEN_151 & _GEN_57;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_153 = io_writeEn & _GEN_151 & _GEN_59;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_154 = io_writeEn & _GEN_151 & _GEN_61;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_155 = io_writeEn & _GEN_151 & _GEN_63;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_156 = io_writeEn & _GEN_151 & _GEN_65;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_157 = io_writeEn & _GEN_151 & _GEN_67;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_158 = io_writeEn & _GEN_151 & _GEN_69;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_159 = io_waddr[3:0] == 4'hC;	// bpu.scala:60:24, :81:37
-      automatic logic       _GEN_160 = io_writeEn & _GEN_159 & _GEN_57;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_161 = io_writeEn & _GEN_159 & _GEN_59;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_162 = io_writeEn & _GEN_159 & _GEN_61;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_163 = io_writeEn & _GEN_159 & _GEN_63;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_164 = io_writeEn & _GEN_159 & _GEN_65;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_165 = io_writeEn & _GEN_159 & _GEN_67;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_166 = io_writeEn & _GEN_159 & _GEN_69;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_167 = io_waddr[3:0] == 4'hD;	// bpu.scala:60:24, :81:37
-      automatic logic       _GEN_168 = io_writeEn & _GEN_167 & _GEN_57;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_169 = io_writeEn & _GEN_167 & _GEN_59;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_170 = io_writeEn & _GEN_167 & _GEN_61;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_171 = io_writeEn & _GEN_167 & _GEN_63;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_172 = io_writeEn & _GEN_167 & _GEN_65;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_173 = io_writeEn & _GEN_167 & _GEN_67;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_174 = io_writeEn & _GEN_167 & _GEN_69;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_175 = io_waddr[3:0] == 4'hE;	// bpu.scala:60:24, :81:37
-      automatic logic       _GEN_176 = io_writeEn & _GEN_175 & _GEN_57;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_177 = io_writeEn & _GEN_175 & _GEN_59;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_178 = io_writeEn & _GEN_175 & _GEN_61;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_179 = io_writeEn & _GEN_175 & _GEN_63;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_180 = io_writeEn & _GEN_175 & _GEN_65;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_181 = io_writeEn & _GEN_175 & _GEN_67;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_182 = io_writeEn & _GEN_175 & _GEN_69;	// bpu.scala:40:24, :77:21, :81:37
-      automatic logic       _GEN_183 = io_writeEn & (&(io_waddr[3:0])) & _GEN_57;	// bpu.scala:40:24, :60:24, :77:21, :81:37
-      automatic logic       _GEN_184 = io_writeEn & (&(io_waddr[3:0])) & _GEN_59;	// bpu.scala:40:24, :60:24, :77:21, :81:37
-      automatic logic       _GEN_185 = io_writeEn & (&(io_waddr[3:0])) & _GEN_61;	// bpu.scala:40:24, :60:24, :77:21, :81:37
-      automatic logic       _GEN_186 = io_writeEn & (&(io_waddr[3:0])) & _GEN_63;	// bpu.scala:40:24, :60:24, :77:21, :81:37
-      automatic logic       _GEN_187 = io_writeEn & (&(io_waddr[3:0])) & _GEN_65;	// bpu.scala:40:24, :60:24, :77:21, :81:37
-      automatic logic       _GEN_188 = io_writeEn & (&(io_waddr[3:0])) & _GEN_67;	// bpu.scala:40:24, :60:24, :77:21, :81:37
-      automatic logic       _GEN_189 = io_writeEn & (&(io_waddr[3:0])) & _GEN_69;	// bpu.scala:40:24, :60:24, :77:21, :81:37
+      automatic logic       _GEN_87 = io_writeEn & (&(io_waddr[1:0])) & _GEN_57;	// bpu.scala:40:24, :60:24, :77:21, :81:37
+      automatic logic       _GEN_88 = io_writeEn & (&(io_waddr[1:0])) & _GEN_59;	// bpu.scala:40:24, :60:24, :77:21, :81:37
+      automatic logic       _GEN_89 = io_writeEn & (&(io_waddr[1:0])) & _GEN_61;	// bpu.scala:40:24, :60:24, :77:21, :81:37
+      automatic logic       _GEN_90 = io_writeEn & (&(io_waddr[1:0])) & _GEN_63;	// bpu.scala:40:24, :60:24, :77:21, :81:37
+      automatic logic       _GEN_91 = io_writeEn & (&(io_waddr[1:0])) & _GEN_65;	// bpu.scala:40:24, :60:24, :77:21, :81:37
+      automatic logic       _GEN_92 = io_writeEn & (&(io_waddr[1:0])) & _GEN_67;	// bpu.scala:40:24, :60:24, :77:21, :81:37
+      automatic logic       _GEN_93 = io_writeEn & (&(io_waddr[1:0])) & _GEN_69;	// bpu.scala:40:24, :60:24, :77:21, :81:37
       if (_GEN_58) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_0_0_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
+        cache_0_0_tag <= io_waddr[17:2];	// bpu.scala:40:24, :59:24
         cache_0_0_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_0_0_valid <= _GEN_58 | cache_0_0_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_60) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_0_1_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
+        cache_0_1_tag <= io_waddr[17:2];	// bpu.scala:40:24, :59:24
         cache_0_1_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_0_1_valid <= _GEN_60 | cache_0_1_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_62) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_0_2_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
+        cache_0_2_tag <= io_waddr[17:2];	// bpu.scala:40:24, :59:24
         cache_0_2_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_0_2_valid <= _GEN_62 | cache_0_2_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_64) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_0_3_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
+        cache_0_3_tag <= io_waddr[17:2];	// bpu.scala:40:24, :59:24
         cache_0_3_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_0_3_valid <= _GEN_64 | cache_0_3_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_66) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_0_4_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
+        cache_0_4_tag <= io_waddr[17:2];	// bpu.scala:40:24, :59:24
         cache_0_4_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_0_4_valid <= _GEN_66 | cache_0_4_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_68) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_0_5_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
+        cache_0_5_tag <= io_waddr[17:2];	// bpu.scala:40:24, :59:24
         cache_0_5_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_0_5_valid <= _GEN_68 | cache_0_5_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_70) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_0_6_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
+        cache_0_6_tag <= io_waddr[17:2];	// bpu.scala:40:24, :59:24
         cache_0_6_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_0_6_valid <= _GEN_70 | cache_0_6_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_72) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_1_0_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
+        cache_1_0_tag <= io_waddr[17:2];	// bpu.scala:40:24, :59:24
         cache_1_0_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_1_0_valid <= _GEN_72 | cache_1_0_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_73) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_1_1_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
+        cache_1_1_tag <= io_waddr[17:2];	// bpu.scala:40:24, :59:24
         cache_1_1_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_1_1_valid <= _GEN_73 | cache_1_1_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_74) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_1_2_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
+        cache_1_2_tag <= io_waddr[17:2];	// bpu.scala:40:24, :59:24
         cache_1_2_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_1_2_valid <= _GEN_74 | cache_1_2_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_75) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_1_3_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
+        cache_1_3_tag <= io_waddr[17:2];	// bpu.scala:40:24, :59:24
         cache_1_3_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_1_3_valid <= _GEN_75 | cache_1_3_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_76) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_1_4_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
+        cache_1_4_tag <= io_waddr[17:2];	// bpu.scala:40:24, :59:24
         cache_1_4_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_1_4_valid <= _GEN_76 | cache_1_4_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_77) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_1_5_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
+        cache_1_5_tag <= io_waddr[17:2];	// bpu.scala:40:24, :59:24
         cache_1_5_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_1_5_valid <= _GEN_77 | cache_1_5_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_78) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_1_6_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
+        cache_1_6_tag <= io_waddr[17:2];	// bpu.scala:40:24, :59:24
         cache_1_6_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_1_6_valid <= _GEN_78 | cache_1_6_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_80) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_2_0_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
+        cache_2_0_tag <= io_waddr[17:2];	// bpu.scala:40:24, :59:24
         cache_2_0_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_2_0_valid <= _GEN_80 | cache_2_0_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_81) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_2_1_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
+        cache_2_1_tag <= io_waddr[17:2];	// bpu.scala:40:24, :59:24
         cache_2_1_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_2_1_valid <= _GEN_81 | cache_2_1_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_82) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_2_2_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
+        cache_2_2_tag <= io_waddr[17:2];	// bpu.scala:40:24, :59:24
         cache_2_2_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_2_2_valid <= _GEN_82 | cache_2_2_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_83) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_2_3_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
+        cache_2_3_tag <= io_waddr[17:2];	// bpu.scala:40:24, :59:24
         cache_2_3_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_2_3_valid <= _GEN_83 | cache_2_3_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_84) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_2_4_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
+        cache_2_4_tag <= io_waddr[17:2];	// bpu.scala:40:24, :59:24
         cache_2_4_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_2_4_valid <= _GEN_84 | cache_2_4_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_85) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_2_5_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
+        cache_2_5_tag <= io_waddr[17:2];	// bpu.scala:40:24, :59:24
         cache_2_5_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_2_5_valid <= _GEN_85 | cache_2_5_valid;	// bpu.scala:40:24, :77:21, :81:37
       if (_GEN_86) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_2_6_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
+        cache_2_6_tag <= io_waddr[17:2];	// bpu.scala:40:24, :59:24
         cache_2_6_data <= io_writeData;	// bpu.scala:40:24
       end
       cache_2_6_valid <= _GEN_86 | cache_2_6_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_88) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_3_0_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
+      if (_GEN_87) begin	// bpu.scala:40:24, :77:21, :81:37
+        cache_3_0_tag <= io_waddr[17:2];	// bpu.scala:40:24, :59:24
         cache_3_0_data <= io_writeData;	// bpu.scala:40:24
       end
-      cache_3_0_valid <= _GEN_88 | cache_3_0_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_89) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_3_1_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
+      cache_3_0_valid <= _GEN_87 | cache_3_0_valid;	// bpu.scala:40:24, :77:21, :81:37
+      if (_GEN_88) begin	// bpu.scala:40:24, :77:21, :81:37
+        cache_3_1_tag <= io_waddr[17:2];	// bpu.scala:40:24, :59:24
         cache_3_1_data <= io_writeData;	// bpu.scala:40:24
       end
-      cache_3_1_valid <= _GEN_89 | cache_3_1_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_90) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_3_2_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
+      cache_3_1_valid <= _GEN_88 | cache_3_1_valid;	// bpu.scala:40:24, :77:21, :81:37
+      if (_GEN_89) begin	// bpu.scala:40:24, :77:21, :81:37
+        cache_3_2_tag <= io_waddr[17:2];	// bpu.scala:40:24, :59:24
         cache_3_2_data <= io_writeData;	// bpu.scala:40:24
       end
-      cache_3_2_valid <= _GEN_90 | cache_3_2_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_91) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_3_3_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
+      cache_3_2_valid <= _GEN_89 | cache_3_2_valid;	// bpu.scala:40:24, :77:21, :81:37
+      if (_GEN_90) begin	// bpu.scala:40:24, :77:21, :81:37
+        cache_3_3_tag <= io_waddr[17:2];	// bpu.scala:40:24, :59:24
         cache_3_3_data <= io_writeData;	// bpu.scala:40:24
       end
-      cache_3_3_valid <= _GEN_91 | cache_3_3_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_92) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_3_4_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
+      cache_3_3_valid <= _GEN_90 | cache_3_3_valid;	// bpu.scala:40:24, :77:21, :81:37
+      if (_GEN_91) begin	// bpu.scala:40:24, :77:21, :81:37
+        cache_3_4_tag <= io_waddr[17:2];	// bpu.scala:40:24, :59:24
         cache_3_4_data <= io_writeData;	// bpu.scala:40:24
       end
-      cache_3_4_valid <= _GEN_92 | cache_3_4_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_93) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_3_5_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
+      cache_3_4_valid <= _GEN_91 | cache_3_4_valid;	// bpu.scala:40:24, :77:21, :81:37
+      if (_GEN_92) begin	// bpu.scala:40:24, :77:21, :81:37
+        cache_3_5_tag <= io_waddr[17:2];	// bpu.scala:40:24, :59:24
         cache_3_5_data <= io_writeData;	// bpu.scala:40:24
       end
-      cache_3_5_valid <= _GEN_93 | cache_3_5_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_94) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_3_6_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
+      cache_3_5_valid <= _GEN_92 | cache_3_5_valid;	// bpu.scala:40:24, :77:21, :81:37
+      if (_GEN_93) begin	// bpu.scala:40:24, :77:21, :81:37
+        cache_3_6_tag <= io_waddr[17:2];	// bpu.scala:40:24, :59:24
         cache_3_6_data <= io_writeData;	// bpu.scala:40:24
       end
-      cache_3_6_valid <= _GEN_94 | cache_3_6_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_96) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_4_0_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_4_0_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_4_0_valid <= _GEN_96 | cache_4_0_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_97) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_4_1_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_4_1_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_4_1_valid <= _GEN_97 | cache_4_1_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_98) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_4_2_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_4_2_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_4_2_valid <= _GEN_98 | cache_4_2_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_99) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_4_3_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_4_3_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_4_3_valid <= _GEN_99 | cache_4_3_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_100) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_4_4_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_4_4_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_4_4_valid <= _GEN_100 | cache_4_4_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_101) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_4_5_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_4_5_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_4_5_valid <= _GEN_101 | cache_4_5_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_102) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_4_6_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_4_6_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_4_6_valid <= _GEN_102 | cache_4_6_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_104) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_5_0_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_5_0_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_5_0_valid <= _GEN_104 | cache_5_0_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_105) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_5_1_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_5_1_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_5_1_valid <= _GEN_105 | cache_5_1_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_106) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_5_2_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_5_2_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_5_2_valid <= _GEN_106 | cache_5_2_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_107) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_5_3_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_5_3_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_5_3_valid <= _GEN_107 | cache_5_3_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_108) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_5_4_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_5_4_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_5_4_valid <= _GEN_108 | cache_5_4_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_109) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_5_5_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_5_5_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_5_5_valid <= _GEN_109 | cache_5_5_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_110) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_5_6_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_5_6_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_5_6_valid <= _GEN_110 | cache_5_6_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_112) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_6_0_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_6_0_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_6_0_valid <= _GEN_112 | cache_6_0_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_113) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_6_1_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_6_1_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_6_1_valid <= _GEN_113 | cache_6_1_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_114) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_6_2_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_6_2_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_6_2_valid <= _GEN_114 | cache_6_2_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_115) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_6_3_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_6_3_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_6_3_valid <= _GEN_115 | cache_6_3_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_116) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_6_4_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_6_4_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_6_4_valid <= _GEN_116 | cache_6_4_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_117) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_6_5_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_6_5_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_6_5_valid <= _GEN_117 | cache_6_5_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_118) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_6_6_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_6_6_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_6_6_valid <= _GEN_118 | cache_6_6_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_120) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_7_0_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_7_0_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_7_0_valid <= _GEN_120 | cache_7_0_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_121) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_7_1_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_7_1_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_7_1_valid <= _GEN_121 | cache_7_1_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_122) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_7_2_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_7_2_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_7_2_valid <= _GEN_122 | cache_7_2_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_123) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_7_3_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_7_3_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_7_3_valid <= _GEN_123 | cache_7_3_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_124) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_7_4_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_7_4_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_7_4_valid <= _GEN_124 | cache_7_4_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_125) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_7_5_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_7_5_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_7_5_valid <= _GEN_125 | cache_7_5_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_126) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_7_6_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_7_6_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_7_6_valid <= _GEN_126 | cache_7_6_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_128) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_8_0_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_8_0_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_8_0_valid <= _GEN_128 | cache_8_0_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_129) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_8_1_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_8_1_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_8_1_valid <= _GEN_129 | cache_8_1_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_130) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_8_2_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_8_2_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_8_2_valid <= _GEN_130 | cache_8_2_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_131) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_8_3_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_8_3_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_8_3_valid <= _GEN_131 | cache_8_3_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_132) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_8_4_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_8_4_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_8_4_valid <= _GEN_132 | cache_8_4_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_133) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_8_5_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_8_5_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_8_5_valid <= _GEN_133 | cache_8_5_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_134) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_8_6_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_8_6_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_8_6_valid <= _GEN_134 | cache_8_6_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_136) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_9_0_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_9_0_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_9_0_valid <= _GEN_136 | cache_9_0_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_137) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_9_1_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_9_1_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_9_1_valid <= _GEN_137 | cache_9_1_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_138) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_9_2_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_9_2_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_9_2_valid <= _GEN_138 | cache_9_2_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_139) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_9_3_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_9_3_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_9_3_valid <= _GEN_139 | cache_9_3_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_140) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_9_4_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_9_4_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_9_4_valid <= _GEN_140 | cache_9_4_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_141) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_9_5_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_9_5_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_9_5_valid <= _GEN_141 | cache_9_5_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_142) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_9_6_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_9_6_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_9_6_valid <= _GEN_142 | cache_9_6_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_144) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_10_0_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_10_0_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_10_0_valid <= _GEN_144 | cache_10_0_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_145) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_10_1_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_10_1_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_10_1_valid <= _GEN_145 | cache_10_1_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_146) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_10_2_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_10_2_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_10_2_valid <= _GEN_146 | cache_10_2_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_147) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_10_3_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_10_3_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_10_3_valid <= _GEN_147 | cache_10_3_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_148) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_10_4_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_10_4_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_10_4_valid <= _GEN_148 | cache_10_4_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_149) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_10_5_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_10_5_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_10_5_valid <= _GEN_149 | cache_10_5_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_150) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_10_6_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_10_6_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_10_6_valid <= _GEN_150 | cache_10_6_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_152) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_11_0_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_11_0_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_11_0_valid <= _GEN_152 | cache_11_0_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_153) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_11_1_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_11_1_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_11_1_valid <= _GEN_153 | cache_11_1_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_154) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_11_2_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_11_2_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_11_2_valid <= _GEN_154 | cache_11_2_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_155) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_11_3_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_11_3_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_11_3_valid <= _GEN_155 | cache_11_3_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_156) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_11_4_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_11_4_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_11_4_valid <= _GEN_156 | cache_11_4_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_157) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_11_5_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_11_5_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_11_5_valid <= _GEN_157 | cache_11_5_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_158) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_11_6_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_11_6_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_11_6_valid <= _GEN_158 | cache_11_6_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_160) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_12_0_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_12_0_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_12_0_valid <= _GEN_160 | cache_12_0_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_161) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_12_1_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_12_1_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_12_1_valid <= _GEN_161 | cache_12_1_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_162) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_12_2_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_12_2_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_12_2_valid <= _GEN_162 | cache_12_2_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_163) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_12_3_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_12_3_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_12_3_valid <= _GEN_163 | cache_12_3_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_164) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_12_4_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_12_4_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_12_4_valid <= _GEN_164 | cache_12_4_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_165) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_12_5_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_12_5_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_12_5_valid <= _GEN_165 | cache_12_5_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_166) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_12_6_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_12_6_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_12_6_valid <= _GEN_166 | cache_12_6_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_168) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_13_0_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_13_0_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_13_0_valid <= _GEN_168 | cache_13_0_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_169) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_13_1_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_13_1_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_13_1_valid <= _GEN_169 | cache_13_1_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_170) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_13_2_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_13_2_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_13_2_valid <= _GEN_170 | cache_13_2_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_171) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_13_3_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_13_3_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_13_3_valid <= _GEN_171 | cache_13_3_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_172) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_13_4_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_13_4_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_13_4_valid <= _GEN_172 | cache_13_4_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_173) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_13_5_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_13_5_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_13_5_valid <= _GEN_173 | cache_13_5_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_174) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_13_6_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_13_6_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_13_6_valid <= _GEN_174 | cache_13_6_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_176) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_14_0_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_14_0_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_14_0_valid <= _GEN_176 | cache_14_0_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_177) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_14_1_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_14_1_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_14_1_valid <= _GEN_177 | cache_14_1_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_178) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_14_2_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_14_2_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_14_2_valid <= _GEN_178 | cache_14_2_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_179) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_14_3_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_14_3_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_14_3_valid <= _GEN_179 | cache_14_3_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_180) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_14_4_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_14_4_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_14_4_valid <= _GEN_180 | cache_14_4_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_181) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_14_5_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_14_5_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_14_5_valid <= _GEN_181 | cache_14_5_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_182) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_14_6_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_14_6_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_14_6_valid <= _GEN_182 | cache_14_6_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_183) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_15_0_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_15_0_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_15_0_valid <= _GEN_183 | cache_15_0_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_184) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_15_1_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_15_1_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_15_1_valid <= _GEN_184 | cache_15_1_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_185) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_15_2_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_15_2_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_15_2_valid <= _GEN_185 | cache_15_2_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_186) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_15_3_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_15_3_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_15_3_valid <= _GEN_186 | cache_15_3_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_187) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_15_4_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_15_4_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_15_4_valid <= _GEN_187 | cache_15_4_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_188) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_15_5_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_15_5_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_15_5_valid <= _GEN_188 | cache_15_5_valid;	// bpu.scala:40:24, :77:21, :81:37
-      if (_GEN_189) begin	// bpu.scala:40:24, :77:21, :81:37
-        cache_15_6_tag <= io_waddr[19:4];	// bpu.scala:40:24, :59:24
-        cache_15_6_data <= io_writeData;	// bpu.scala:40:24
-      end
-      cache_15_6_valid <= _GEN_189 | cache_15_6_valid;	// bpu.scala:40:24, :77:21, :81:37
+      cache_3_6_valid <= _GEN_93 | cache_3_6_valid;	// bpu.scala:40:24, :77:21, :81:37
     end
   end // always @(posedge)
   `ifndef SYNTHESIS	// <stdin>:65:10
@@ -1851,249 +768,6 @@ module BPU_Cache(	// <stdin>:65:10
       automatic logic [31:0] _RANDOM_76;	// <stdin>:65:10
       automatic logic [31:0] _RANDOM_77;	// <stdin>:65:10
       automatic logic [31:0] _RANDOM_78;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_79;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_80;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_81;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_82;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_83;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_84;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_85;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_86;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_87;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_88;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_89;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_90;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_91;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_92;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_93;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_94;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_95;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_96;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_97;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_98;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_99;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_100;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_101;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_102;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_103;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_104;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_105;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_106;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_107;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_108;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_109;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_110;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_111;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_112;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_113;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_114;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_115;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_116;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_117;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_118;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_119;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_120;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_121;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_122;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_123;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_124;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_125;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_126;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_127;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_128;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_129;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_130;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_131;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_132;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_133;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_134;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_135;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_136;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_137;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_138;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_139;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_140;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_141;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_142;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_143;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_144;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_145;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_146;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_147;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_148;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_149;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_150;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_151;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_152;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_153;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_154;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_155;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_156;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_157;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_158;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_159;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_160;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_161;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_162;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_163;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_164;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_165;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_166;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_167;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_168;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_169;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_170;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_171;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_172;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_173;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_174;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_175;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_176;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_177;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_178;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_179;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_180;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_181;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_182;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_183;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_184;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_185;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_186;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_187;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_188;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_189;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_190;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_191;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_192;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_193;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_194;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_195;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_196;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_197;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_198;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_199;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_200;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_201;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_202;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_203;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_204;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_205;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_206;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_207;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_208;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_209;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_210;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_211;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_212;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_213;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_214;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_215;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_216;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_217;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_218;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_219;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_220;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_221;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_222;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_223;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_224;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_225;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_226;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_227;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_228;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_229;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_230;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_231;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_232;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_233;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_234;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_235;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_236;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_237;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_238;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_239;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_240;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_241;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_242;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_243;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_244;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_245;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_246;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_247;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_248;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_249;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_250;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_251;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_252;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_253;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_254;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_255;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_256;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_257;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_258;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_259;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_260;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_261;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_262;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_263;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_264;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_265;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_266;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_267;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_268;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_269;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_270;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_271;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_272;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_273;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_274;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_275;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_276;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_277;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_278;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_279;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_280;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_281;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_282;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_283;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_284;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_285;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_286;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_287;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_288;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_289;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_290;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_291;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_292;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_293;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_294;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_295;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_296;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_297;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_298;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_299;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_300;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_301;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_302;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_303;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_304;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_305;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_306;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_307;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_308;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_309;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_310;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_311;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_312;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_313;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_314;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_315;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_316;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_317;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_318;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_319;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_320;	// <stdin>:65:10
-      automatic logic [31:0] _RANDOM_321;	// <stdin>:65:10
       `ifdef INIT_RANDOM_PROLOG_	// <stdin>:65:10
         `INIT_RANDOM_PROLOG_	// <stdin>:65:10
       `endif // INIT_RANDOM_PROLOG_
@@ -2177,249 +851,6 @@ module BPU_Cache(	// <stdin>:65:10
         _RANDOM_76 = `RANDOM;	// <stdin>:65:10
         _RANDOM_77 = `RANDOM;	// <stdin>:65:10
         _RANDOM_78 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_79 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_80 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_81 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_82 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_83 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_84 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_85 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_86 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_87 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_88 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_89 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_90 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_91 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_92 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_93 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_94 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_95 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_96 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_97 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_98 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_99 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_100 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_101 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_102 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_103 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_104 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_105 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_106 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_107 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_108 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_109 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_110 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_111 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_112 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_113 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_114 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_115 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_116 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_117 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_118 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_119 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_120 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_121 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_122 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_123 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_124 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_125 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_126 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_127 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_128 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_129 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_130 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_131 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_132 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_133 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_134 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_135 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_136 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_137 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_138 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_139 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_140 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_141 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_142 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_143 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_144 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_145 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_146 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_147 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_148 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_149 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_150 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_151 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_152 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_153 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_154 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_155 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_156 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_157 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_158 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_159 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_160 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_161 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_162 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_163 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_164 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_165 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_166 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_167 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_168 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_169 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_170 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_171 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_172 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_173 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_174 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_175 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_176 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_177 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_178 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_179 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_180 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_181 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_182 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_183 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_184 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_185 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_186 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_187 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_188 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_189 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_190 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_191 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_192 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_193 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_194 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_195 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_196 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_197 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_198 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_199 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_200 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_201 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_202 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_203 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_204 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_205 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_206 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_207 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_208 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_209 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_210 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_211 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_212 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_213 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_214 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_215 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_216 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_217 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_218 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_219 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_220 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_221 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_222 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_223 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_224 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_225 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_226 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_227 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_228 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_229 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_230 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_231 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_232 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_233 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_234 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_235 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_236 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_237 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_238 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_239 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_240 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_241 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_242 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_243 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_244 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_245 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_246 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_247 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_248 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_249 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_250 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_251 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_252 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_253 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_254 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_255 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_256 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_257 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_258 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_259 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_260 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_261 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_262 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_263 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_264 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_265 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_266 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_267 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_268 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_269 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_270 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_271 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_272 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_273 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_274 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_275 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_276 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_277 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_278 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_279 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_280 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_281 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_282 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_283 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_284 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_285 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_286 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_287 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_288 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_289 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_290 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_291 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_292 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_293 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_294 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_295 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_296 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_297 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_298 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_299 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_300 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_301 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_302 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_303 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_304 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_305 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_306 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_307 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_308 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_309 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_310 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_311 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_312 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_313 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_314 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_315 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_316 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_317 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_318 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_319 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_320 = `RANDOM;	// <stdin>:65:10
-        _RANDOM_321 = `RANDOM;	// <stdin>:65:10
         cache_0_0_tag = _RANDOM_0[15:0];	// bpu.scala:40:24
         cache_0_0_data = {_RANDOM_0[31:16], _RANDOM_1, _RANDOM_2[15:0]};	// bpu.scala:40:24
         cache_0_0_valid = _RANDOM_2[16];	// bpu.scala:40:24
@@ -2504,258 +935,6 @@ module BPU_Cache(	// <stdin>:65:10
         cache_3_6_tag = {_RANDOM_75[31:30], _RANDOM_76[13:0]};	// bpu.scala:40:24
         cache_3_6_data = {_RANDOM_76[31:14], _RANDOM_77, _RANDOM_78[13:0]};	// bpu.scala:40:24
         cache_3_6_valid = _RANDOM_78[14];	// bpu.scala:40:24
-        cache_4_0_tag = _RANDOM_81[15:0];	// bpu.scala:40:24
-        cache_4_0_data = {_RANDOM_81[31:16], _RANDOM_82, _RANDOM_83[15:0]};	// bpu.scala:40:24
-        cache_4_0_valid = _RANDOM_83[16];	// bpu.scala:40:24
-        cache_4_1_tag = {_RANDOM_83[31:17], _RANDOM_84[0]};	// bpu.scala:40:24
-        cache_4_1_data = {_RANDOM_84[31:1], _RANDOM_85, _RANDOM_86[0]};	// bpu.scala:40:24
-        cache_4_1_valid = _RANDOM_86[1];	// bpu.scala:40:24
-        cache_4_2_tag = _RANDOM_86[17:2];	// bpu.scala:40:24
-        cache_4_2_data = {_RANDOM_86[31:18], _RANDOM_87, _RANDOM_88[17:0]};	// bpu.scala:40:24
-        cache_4_2_valid = _RANDOM_88[18];	// bpu.scala:40:24
-        cache_4_3_tag = {_RANDOM_88[31:19], _RANDOM_89[2:0]};	// bpu.scala:40:24
-        cache_4_3_data = {_RANDOM_89[31:3], _RANDOM_90, _RANDOM_91[2:0]};	// bpu.scala:40:24
-        cache_4_3_valid = _RANDOM_91[3];	// bpu.scala:40:24
-        cache_4_4_tag = _RANDOM_91[19:4];	// bpu.scala:40:24
-        cache_4_4_data = {_RANDOM_91[31:20], _RANDOM_92, _RANDOM_93[19:0]};	// bpu.scala:40:24
-        cache_4_4_valid = _RANDOM_93[20];	// bpu.scala:40:24
-        cache_4_5_tag = {_RANDOM_93[31:21], _RANDOM_94[4:0]};	// bpu.scala:40:24
-        cache_4_5_data = {_RANDOM_94[31:5], _RANDOM_95, _RANDOM_96[4:0]};	// bpu.scala:40:24
-        cache_4_5_valid = _RANDOM_96[5];	// bpu.scala:40:24
-        cache_4_6_tag = _RANDOM_96[21:6];	// bpu.scala:40:24
-        cache_4_6_data = {_RANDOM_96[31:22], _RANDOM_97, _RANDOM_98[21:0]};	// bpu.scala:40:24
-        cache_4_6_valid = _RANDOM_98[22];	// bpu.scala:40:24
-        cache_5_0_tag = _RANDOM_101[23:8];	// bpu.scala:40:24
-        cache_5_0_data = {_RANDOM_101[31:24], _RANDOM_102, _RANDOM_103[23:0]};	// bpu.scala:40:24
-        cache_5_0_valid = _RANDOM_103[24];	// bpu.scala:40:24
-        cache_5_1_tag = {_RANDOM_103[31:25], _RANDOM_104[8:0]};	// bpu.scala:40:24
-        cache_5_1_data = {_RANDOM_104[31:9], _RANDOM_105, _RANDOM_106[8:0]};	// bpu.scala:40:24
-        cache_5_1_valid = _RANDOM_106[9];	// bpu.scala:40:24
-        cache_5_2_tag = _RANDOM_106[25:10];	// bpu.scala:40:24
-        cache_5_2_data = {_RANDOM_106[31:26], _RANDOM_107, _RANDOM_108[25:0]};	// bpu.scala:40:24
-        cache_5_2_valid = _RANDOM_108[26];	// bpu.scala:40:24
-        cache_5_3_tag = {_RANDOM_108[31:27], _RANDOM_109[10:0]};	// bpu.scala:40:24
-        cache_5_3_data = {_RANDOM_109[31:11], _RANDOM_110, _RANDOM_111[10:0]};	// bpu.scala:40:24
-        cache_5_3_valid = _RANDOM_111[11];	// bpu.scala:40:24
-        cache_5_4_tag = _RANDOM_111[27:12];	// bpu.scala:40:24
-        cache_5_4_data = {_RANDOM_111[31:28], _RANDOM_112, _RANDOM_113[27:0]};	// bpu.scala:40:24
-        cache_5_4_valid = _RANDOM_113[28];	// bpu.scala:40:24
-        cache_5_5_tag = {_RANDOM_113[31:29], _RANDOM_114[12:0]};	// bpu.scala:40:24
-        cache_5_5_data = {_RANDOM_114[31:13], _RANDOM_115, _RANDOM_116[12:0]};	// bpu.scala:40:24
-        cache_5_5_valid = _RANDOM_116[13];	// bpu.scala:40:24
-        cache_5_6_tag = _RANDOM_116[29:14];	// bpu.scala:40:24
-        cache_5_6_data = {_RANDOM_116[31:30], _RANDOM_117, _RANDOM_118[29:0]};	// bpu.scala:40:24
-        cache_5_6_valid = _RANDOM_118[30];	// bpu.scala:40:24
-        cache_6_0_tag = _RANDOM_121[31:16];	// bpu.scala:40:24
-        cache_6_0_data = {_RANDOM_122, _RANDOM_123};	// bpu.scala:40:24
-        cache_6_0_valid = _RANDOM_124[0];	// bpu.scala:40:24
-        cache_6_1_tag = _RANDOM_124[16:1];	// bpu.scala:40:24
-        cache_6_1_data = {_RANDOM_124[31:17], _RANDOM_125, _RANDOM_126[16:0]};	// bpu.scala:40:24
-        cache_6_1_valid = _RANDOM_126[17];	// bpu.scala:40:24
-        cache_6_2_tag = {_RANDOM_126[31:18], _RANDOM_127[1:0]};	// bpu.scala:40:24
-        cache_6_2_data = {_RANDOM_127[31:2], _RANDOM_128, _RANDOM_129[1:0]};	// bpu.scala:40:24
-        cache_6_2_valid = _RANDOM_129[2];	// bpu.scala:40:24
-        cache_6_3_tag = _RANDOM_129[18:3];	// bpu.scala:40:24
-        cache_6_3_data = {_RANDOM_129[31:19], _RANDOM_130, _RANDOM_131[18:0]};	// bpu.scala:40:24
-        cache_6_3_valid = _RANDOM_131[19];	// bpu.scala:40:24
-        cache_6_4_tag = {_RANDOM_131[31:20], _RANDOM_132[3:0]};	// bpu.scala:40:24
-        cache_6_4_data = {_RANDOM_132[31:4], _RANDOM_133, _RANDOM_134[3:0]};	// bpu.scala:40:24
-        cache_6_4_valid = _RANDOM_134[4];	// bpu.scala:40:24
-        cache_6_5_tag = _RANDOM_134[20:5];	// bpu.scala:40:24
-        cache_6_5_data = {_RANDOM_134[31:21], _RANDOM_135, _RANDOM_136[20:0]};	// bpu.scala:40:24
-        cache_6_5_valid = _RANDOM_136[21];	// bpu.scala:40:24
-        cache_6_6_tag = {_RANDOM_136[31:22], _RANDOM_137[5:0]};	// bpu.scala:40:24
-        cache_6_6_data = {_RANDOM_137[31:6], _RANDOM_138, _RANDOM_139[5:0]};	// bpu.scala:40:24
-        cache_6_6_valid = _RANDOM_139[6];	// bpu.scala:40:24
-        cache_7_0_tag = {_RANDOM_141[31:24], _RANDOM_142[7:0]};	// bpu.scala:40:24
-        cache_7_0_data = {_RANDOM_142[31:8], _RANDOM_143, _RANDOM_144[7:0]};	// bpu.scala:40:24
-        cache_7_0_valid = _RANDOM_144[8];	// bpu.scala:40:24
-        cache_7_1_tag = _RANDOM_144[24:9];	// bpu.scala:40:24
-        cache_7_1_data = {_RANDOM_144[31:25], _RANDOM_145, _RANDOM_146[24:0]};	// bpu.scala:40:24
-        cache_7_1_valid = _RANDOM_146[25];	// bpu.scala:40:24
-        cache_7_2_tag = {_RANDOM_146[31:26], _RANDOM_147[9:0]};	// bpu.scala:40:24
-        cache_7_2_data = {_RANDOM_147[31:10], _RANDOM_148, _RANDOM_149[9:0]};	// bpu.scala:40:24
-        cache_7_2_valid = _RANDOM_149[10];	// bpu.scala:40:24
-        cache_7_3_tag = _RANDOM_149[26:11];	// bpu.scala:40:24
-        cache_7_3_data = {_RANDOM_149[31:27], _RANDOM_150, _RANDOM_151[26:0]};	// bpu.scala:40:24
-        cache_7_3_valid = _RANDOM_151[27];	// bpu.scala:40:24
-        cache_7_4_tag = {_RANDOM_151[31:28], _RANDOM_152[11:0]};	// bpu.scala:40:24
-        cache_7_4_data = {_RANDOM_152[31:12], _RANDOM_153, _RANDOM_154[11:0]};	// bpu.scala:40:24
-        cache_7_4_valid = _RANDOM_154[12];	// bpu.scala:40:24
-        cache_7_5_tag = _RANDOM_154[28:13];	// bpu.scala:40:24
-        cache_7_5_data = {_RANDOM_154[31:29], _RANDOM_155, _RANDOM_156[28:0]};	// bpu.scala:40:24
-        cache_7_5_valid = _RANDOM_156[29];	// bpu.scala:40:24
-        cache_7_6_tag = {_RANDOM_156[31:30], _RANDOM_157[13:0]};	// bpu.scala:40:24
-        cache_7_6_data = {_RANDOM_157[31:14], _RANDOM_158, _RANDOM_159[13:0]};	// bpu.scala:40:24
-        cache_7_6_valid = _RANDOM_159[14];	// bpu.scala:40:24
-        cache_8_0_tag = _RANDOM_162[15:0];	// bpu.scala:40:24
-        cache_8_0_data = {_RANDOM_162[31:16], _RANDOM_163, _RANDOM_164[15:0]};	// bpu.scala:40:24
-        cache_8_0_valid = _RANDOM_164[16];	// bpu.scala:40:24
-        cache_8_1_tag = {_RANDOM_164[31:17], _RANDOM_165[0]};	// bpu.scala:40:24
-        cache_8_1_data = {_RANDOM_165[31:1], _RANDOM_166, _RANDOM_167[0]};	// bpu.scala:40:24
-        cache_8_1_valid = _RANDOM_167[1];	// bpu.scala:40:24
-        cache_8_2_tag = _RANDOM_167[17:2];	// bpu.scala:40:24
-        cache_8_2_data = {_RANDOM_167[31:18], _RANDOM_168, _RANDOM_169[17:0]};	// bpu.scala:40:24
-        cache_8_2_valid = _RANDOM_169[18];	// bpu.scala:40:24
-        cache_8_3_tag = {_RANDOM_169[31:19], _RANDOM_170[2:0]};	// bpu.scala:40:24
-        cache_8_3_data = {_RANDOM_170[31:3], _RANDOM_171, _RANDOM_172[2:0]};	// bpu.scala:40:24
-        cache_8_3_valid = _RANDOM_172[3];	// bpu.scala:40:24
-        cache_8_4_tag = _RANDOM_172[19:4];	// bpu.scala:40:24
-        cache_8_4_data = {_RANDOM_172[31:20], _RANDOM_173, _RANDOM_174[19:0]};	// bpu.scala:40:24
-        cache_8_4_valid = _RANDOM_174[20];	// bpu.scala:40:24
-        cache_8_5_tag = {_RANDOM_174[31:21], _RANDOM_175[4:0]};	// bpu.scala:40:24
-        cache_8_5_data = {_RANDOM_175[31:5], _RANDOM_176, _RANDOM_177[4:0]};	// bpu.scala:40:24
-        cache_8_5_valid = _RANDOM_177[5];	// bpu.scala:40:24
-        cache_8_6_tag = _RANDOM_177[21:6];	// bpu.scala:40:24
-        cache_8_6_data = {_RANDOM_177[31:22], _RANDOM_178, _RANDOM_179[21:0]};	// bpu.scala:40:24
-        cache_8_6_valid = _RANDOM_179[22];	// bpu.scala:40:24
-        cache_9_0_tag = _RANDOM_182[23:8];	// bpu.scala:40:24
-        cache_9_0_data = {_RANDOM_182[31:24], _RANDOM_183, _RANDOM_184[23:0]};	// bpu.scala:40:24
-        cache_9_0_valid = _RANDOM_184[24];	// bpu.scala:40:24
-        cache_9_1_tag = {_RANDOM_184[31:25], _RANDOM_185[8:0]};	// bpu.scala:40:24
-        cache_9_1_data = {_RANDOM_185[31:9], _RANDOM_186, _RANDOM_187[8:0]};	// bpu.scala:40:24
-        cache_9_1_valid = _RANDOM_187[9];	// bpu.scala:40:24
-        cache_9_2_tag = _RANDOM_187[25:10];	// bpu.scala:40:24
-        cache_9_2_data = {_RANDOM_187[31:26], _RANDOM_188, _RANDOM_189[25:0]};	// bpu.scala:40:24
-        cache_9_2_valid = _RANDOM_189[26];	// bpu.scala:40:24
-        cache_9_3_tag = {_RANDOM_189[31:27], _RANDOM_190[10:0]};	// bpu.scala:40:24
-        cache_9_3_data = {_RANDOM_190[31:11], _RANDOM_191, _RANDOM_192[10:0]};	// bpu.scala:40:24
-        cache_9_3_valid = _RANDOM_192[11];	// bpu.scala:40:24
-        cache_9_4_tag = _RANDOM_192[27:12];	// bpu.scala:40:24
-        cache_9_4_data = {_RANDOM_192[31:28], _RANDOM_193, _RANDOM_194[27:0]};	// bpu.scala:40:24
-        cache_9_4_valid = _RANDOM_194[28];	// bpu.scala:40:24
-        cache_9_5_tag = {_RANDOM_194[31:29], _RANDOM_195[12:0]};	// bpu.scala:40:24
-        cache_9_5_data = {_RANDOM_195[31:13], _RANDOM_196, _RANDOM_197[12:0]};	// bpu.scala:40:24
-        cache_9_5_valid = _RANDOM_197[13];	// bpu.scala:40:24
-        cache_9_6_tag = _RANDOM_197[29:14];	// bpu.scala:40:24
-        cache_9_6_data = {_RANDOM_197[31:30], _RANDOM_198, _RANDOM_199[29:0]};	// bpu.scala:40:24
-        cache_9_6_valid = _RANDOM_199[30];	// bpu.scala:40:24
-        cache_10_0_tag = _RANDOM_202[31:16];	// bpu.scala:40:24
-        cache_10_0_data = {_RANDOM_203, _RANDOM_204};	// bpu.scala:40:24
-        cache_10_0_valid = _RANDOM_205[0];	// bpu.scala:40:24
-        cache_10_1_tag = _RANDOM_205[16:1];	// bpu.scala:40:24
-        cache_10_1_data = {_RANDOM_205[31:17], _RANDOM_206, _RANDOM_207[16:0]};	// bpu.scala:40:24
-        cache_10_1_valid = _RANDOM_207[17];	// bpu.scala:40:24
-        cache_10_2_tag = {_RANDOM_207[31:18], _RANDOM_208[1:0]};	// bpu.scala:40:24
-        cache_10_2_data = {_RANDOM_208[31:2], _RANDOM_209, _RANDOM_210[1:0]};	// bpu.scala:40:24
-        cache_10_2_valid = _RANDOM_210[2];	// bpu.scala:40:24
-        cache_10_3_tag = _RANDOM_210[18:3];	// bpu.scala:40:24
-        cache_10_3_data = {_RANDOM_210[31:19], _RANDOM_211, _RANDOM_212[18:0]};	// bpu.scala:40:24
-        cache_10_3_valid = _RANDOM_212[19];	// bpu.scala:40:24
-        cache_10_4_tag = {_RANDOM_212[31:20], _RANDOM_213[3:0]};	// bpu.scala:40:24
-        cache_10_4_data = {_RANDOM_213[31:4], _RANDOM_214, _RANDOM_215[3:0]};	// bpu.scala:40:24
-        cache_10_4_valid = _RANDOM_215[4];	// bpu.scala:40:24
-        cache_10_5_tag = _RANDOM_215[20:5];	// bpu.scala:40:24
-        cache_10_5_data = {_RANDOM_215[31:21], _RANDOM_216, _RANDOM_217[20:0]};	// bpu.scala:40:24
-        cache_10_5_valid = _RANDOM_217[21];	// bpu.scala:40:24
-        cache_10_6_tag = {_RANDOM_217[31:22], _RANDOM_218[5:0]};	// bpu.scala:40:24
-        cache_10_6_data = {_RANDOM_218[31:6], _RANDOM_219, _RANDOM_220[5:0]};	// bpu.scala:40:24
-        cache_10_6_valid = _RANDOM_220[6];	// bpu.scala:40:24
-        cache_11_0_tag = {_RANDOM_222[31:24], _RANDOM_223[7:0]};	// bpu.scala:40:24
-        cache_11_0_data = {_RANDOM_223[31:8], _RANDOM_224, _RANDOM_225[7:0]};	// bpu.scala:40:24
-        cache_11_0_valid = _RANDOM_225[8];	// bpu.scala:40:24
-        cache_11_1_tag = _RANDOM_225[24:9];	// bpu.scala:40:24
-        cache_11_1_data = {_RANDOM_225[31:25], _RANDOM_226, _RANDOM_227[24:0]};	// bpu.scala:40:24
-        cache_11_1_valid = _RANDOM_227[25];	// bpu.scala:40:24
-        cache_11_2_tag = {_RANDOM_227[31:26], _RANDOM_228[9:0]};	// bpu.scala:40:24
-        cache_11_2_data = {_RANDOM_228[31:10], _RANDOM_229, _RANDOM_230[9:0]};	// bpu.scala:40:24
-        cache_11_2_valid = _RANDOM_230[10];	// bpu.scala:40:24
-        cache_11_3_tag = _RANDOM_230[26:11];	// bpu.scala:40:24
-        cache_11_3_data = {_RANDOM_230[31:27], _RANDOM_231, _RANDOM_232[26:0]};	// bpu.scala:40:24
-        cache_11_3_valid = _RANDOM_232[27];	// bpu.scala:40:24
-        cache_11_4_tag = {_RANDOM_232[31:28], _RANDOM_233[11:0]};	// bpu.scala:40:24
-        cache_11_4_data = {_RANDOM_233[31:12], _RANDOM_234, _RANDOM_235[11:0]};	// bpu.scala:40:24
-        cache_11_4_valid = _RANDOM_235[12];	// bpu.scala:40:24
-        cache_11_5_tag = _RANDOM_235[28:13];	// bpu.scala:40:24
-        cache_11_5_data = {_RANDOM_235[31:29], _RANDOM_236, _RANDOM_237[28:0]};	// bpu.scala:40:24
-        cache_11_5_valid = _RANDOM_237[29];	// bpu.scala:40:24
-        cache_11_6_tag = {_RANDOM_237[31:30], _RANDOM_238[13:0]};	// bpu.scala:40:24
-        cache_11_6_data = {_RANDOM_238[31:14], _RANDOM_239, _RANDOM_240[13:0]};	// bpu.scala:40:24
-        cache_11_6_valid = _RANDOM_240[14];	// bpu.scala:40:24
-        cache_12_0_tag = _RANDOM_243[15:0];	// bpu.scala:40:24
-        cache_12_0_data = {_RANDOM_243[31:16], _RANDOM_244, _RANDOM_245[15:0]};	// bpu.scala:40:24
-        cache_12_0_valid = _RANDOM_245[16];	// bpu.scala:40:24
-        cache_12_1_tag = {_RANDOM_245[31:17], _RANDOM_246[0]};	// bpu.scala:40:24
-        cache_12_1_data = {_RANDOM_246[31:1], _RANDOM_247, _RANDOM_248[0]};	// bpu.scala:40:24
-        cache_12_1_valid = _RANDOM_248[1];	// bpu.scala:40:24
-        cache_12_2_tag = _RANDOM_248[17:2];	// bpu.scala:40:24
-        cache_12_2_data = {_RANDOM_248[31:18], _RANDOM_249, _RANDOM_250[17:0]};	// bpu.scala:40:24
-        cache_12_2_valid = _RANDOM_250[18];	// bpu.scala:40:24
-        cache_12_3_tag = {_RANDOM_250[31:19], _RANDOM_251[2:0]};	// bpu.scala:40:24
-        cache_12_3_data = {_RANDOM_251[31:3], _RANDOM_252, _RANDOM_253[2:0]};	// bpu.scala:40:24
-        cache_12_3_valid = _RANDOM_253[3];	// bpu.scala:40:24
-        cache_12_4_tag = _RANDOM_253[19:4];	// bpu.scala:40:24
-        cache_12_4_data = {_RANDOM_253[31:20], _RANDOM_254, _RANDOM_255[19:0]};	// bpu.scala:40:24
-        cache_12_4_valid = _RANDOM_255[20];	// bpu.scala:40:24
-        cache_12_5_tag = {_RANDOM_255[31:21], _RANDOM_256[4:0]};	// bpu.scala:40:24
-        cache_12_5_data = {_RANDOM_256[31:5], _RANDOM_257, _RANDOM_258[4:0]};	// bpu.scala:40:24
-        cache_12_5_valid = _RANDOM_258[5];	// bpu.scala:40:24
-        cache_12_6_tag = _RANDOM_258[21:6];	// bpu.scala:40:24
-        cache_12_6_data = {_RANDOM_258[31:22], _RANDOM_259, _RANDOM_260[21:0]};	// bpu.scala:40:24
-        cache_12_6_valid = _RANDOM_260[22];	// bpu.scala:40:24
-        cache_13_0_tag = _RANDOM_263[23:8];	// bpu.scala:40:24
-        cache_13_0_data = {_RANDOM_263[31:24], _RANDOM_264, _RANDOM_265[23:0]};	// bpu.scala:40:24
-        cache_13_0_valid = _RANDOM_265[24];	// bpu.scala:40:24
-        cache_13_1_tag = {_RANDOM_265[31:25], _RANDOM_266[8:0]};	// bpu.scala:40:24
-        cache_13_1_data = {_RANDOM_266[31:9], _RANDOM_267, _RANDOM_268[8:0]};	// bpu.scala:40:24
-        cache_13_1_valid = _RANDOM_268[9];	// bpu.scala:40:24
-        cache_13_2_tag = _RANDOM_268[25:10];	// bpu.scala:40:24
-        cache_13_2_data = {_RANDOM_268[31:26], _RANDOM_269, _RANDOM_270[25:0]};	// bpu.scala:40:24
-        cache_13_2_valid = _RANDOM_270[26];	// bpu.scala:40:24
-        cache_13_3_tag = {_RANDOM_270[31:27], _RANDOM_271[10:0]};	// bpu.scala:40:24
-        cache_13_3_data = {_RANDOM_271[31:11], _RANDOM_272, _RANDOM_273[10:0]};	// bpu.scala:40:24
-        cache_13_3_valid = _RANDOM_273[11];	// bpu.scala:40:24
-        cache_13_4_tag = _RANDOM_273[27:12];	// bpu.scala:40:24
-        cache_13_4_data = {_RANDOM_273[31:28], _RANDOM_274, _RANDOM_275[27:0]};	// bpu.scala:40:24
-        cache_13_4_valid = _RANDOM_275[28];	// bpu.scala:40:24
-        cache_13_5_tag = {_RANDOM_275[31:29], _RANDOM_276[12:0]};	// bpu.scala:40:24
-        cache_13_5_data = {_RANDOM_276[31:13], _RANDOM_277, _RANDOM_278[12:0]};	// bpu.scala:40:24
-        cache_13_5_valid = _RANDOM_278[13];	// bpu.scala:40:24
-        cache_13_6_tag = _RANDOM_278[29:14];	// bpu.scala:40:24
-        cache_13_6_data = {_RANDOM_278[31:30], _RANDOM_279, _RANDOM_280[29:0]};	// bpu.scala:40:24
-        cache_13_6_valid = _RANDOM_280[30];	// bpu.scala:40:24
-        cache_14_0_tag = _RANDOM_283[31:16];	// bpu.scala:40:24
-        cache_14_0_data = {_RANDOM_284, _RANDOM_285};	// bpu.scala:40:24
-        cache_14_0_valid = _RANDOM_286[0];	// bpu.scala:40:24
-        cache_14_1_tag = _RANDOM_286[16:1];	// bpu.scala:40:24
-        cache_14_1_data = {_RANDOM_286[31:17], _RANDOM_287, _RANDOM_288[16:0]};	// bpu.scala:40:24
-        cache_14_1_valid = _RANDOM_288[17];	// bpu.scala:40:24
-        cache_14_2_tag = {_RANDOM_288[31:18], _RANDOM_289[1:0]};	// bpu.scala:40:24
-        cache_14_2_data = {_RANDOM_289[31:2], _RANDOM_290, _RANDOM_291[1:0]};	// bpu.scala:40:24
-        cache_14_2_valid = _RANDOM_291[2];	// bpu.scala:40:24
-        cache_14_3_tag = _RANDOM_291[18:3];	// bpu.scala:40:24
-        cache_14_3_data = {_RANDOM_291[31:19], _RANDOM_292, _RANDOM_293[18:0]};	// bpu.scala:40:24
-        cache_14_3_valid = _RANDOM_293[19];	// bpu.scala:40:24
-        cache_14_4_tag = {_RANDOM_293[31:20], _RANDOM_294[3:0]};	// bpu.scala:40:24
-        cache_14_4_data = {_RANDOM_294[31:4], _RANDOM_295, _RANDOM_296[3:0]};	// bpu.scala:40:24
-        cache_14_4_valid = _RANDOM_296[4];	// bpu.scala:40:24
-        cache_14_5_tag = _RANDOM_296[20:5];	// bpu.scala:40:24
-        cache_14_5_data = {_RANDOM_296[31:21], _RANDOM_297, _RANDOM_298[20:0]};	// bpu.scala:40:24
-        cache_14_5_valid = _RANDOM_298[21];	// bpu.scala:40:24
-        cache_14_6_tag = {_RANDOM_298[31:22], _RANDOM_299[5:0]};	// bpu.scala:40:24
-        cache_14_6_data = {_RANDOM_299[31:6], _RANDOM_300, _RANDOM_301[5:0]};	// bpu.scala:40:24
-        cache_14_6_valid = _RANDOM_301[6];	// bpu.scala:40:24
-        cache_15_0_tag = {_RANDOM_303[31:24], _RANDOM_304[7:0]};	// bpu.scala:40:24
-        cache_15_0_data = {_RANDOM_304[31:8], _RANDOM_305, _RANDOM_306[7:0]};	// bpu.scala:40:24
-        cache_15_0_valid = _RANDOM_306[8];	// bpu.scala:40:24
-        cache_15_1_tag = _RANDOM_306[24:9];	// bpu.scala:40:24
-        cache_15_1_data = {_RANDOM_306[31:25], _RANDOM_307, _RANDOM_308[24:0]};	// bpu.scala:40:24
-        cache_15_1_valid = _RANDOM_308[25];	// bpu.scala:40:24
-        cache_15_2_tag = {_RANDOM_308[31:26], _RANDOM_309[9:0]};	// bpu.scala:40:24
-        cache_15_2_data = {_RANDOM_309[31:10], _RANDOM_310, _RANDOM_311[9:0]};	// bpu.scala:40:24
-        cache_15_2_valid = _RANDOM_311[10];	// bpu.scala:40:24
-        cache_15_3_tag = _RANDOM_311[26:11];	// bpu.scala:40:24
-        cache_15_3_data = {_RANDOM_311[31:27], _RANDOM_312, _RANDOM_313[26:0]};	// bpu.scala:40:24
-        cache_15_3_valid = _RANDOM_313[27];	// bpu.scala:40:24
-        cache_15_4_tag = {_RANDOM_313[31:28], _RANDOM_314[11:0]};	// bpu.scala:40:24
-        cache_15_4_data = {_RANDOM_314[31:12], _RANDOM_315, _RANDOM_316[11:0]};	// bpu.scala:40:24
-        cache_15_4_valid = _RANDOM_316[12];	// bpu.scala:40:24
-        cache_15_5_tag = _RANDOM_316[28:13];	// bpu.scala:40:24
-        cache_15_5_data = {_RANDOM_316[31:29], _RANDOM_317, _RANDOM_318[28:0]};	// bpu.scala:40:24
-        cache_15_5_valid = _RANDOM_318[29];	// bpu.scala:40:24
-        cache_15_6_tag = {_RANDOM_318[31:30], _RANDOM_319[13:0]};	// bpu.scala:40:24
-        cache_15_6_data = {_RANDOM_319[31:14], _RANDOM_320, _RANDOM_321[13:0]};	// bpu.scala:40:24
-        cache_15_6_valid = _RANDOM_321[14];	// bpu.scala:40:24
       `endif // RANDOMIZE_REG_INIT
     end // initial
     `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:65:10
@@ -2785,13 +964,13 @@ module BPU_Cache(	// <stdin>:65:10
   assign io_readData = _T_13 ? _GEN_38 : _T_11 ? _GEN_32 : _T_9 ? _GEN_26 : _T_7 ? _GEN_20 : _T_5 ? _GEN_14 : _T_3
                 ? _GEN_8 : _T_1 ? _GEN_2 : 64'h7777;	// <stdin>:65:10, bpu.scala:49:17, :52:{19,42,66}, :54:25
   assign io_hit = _T_13 | _T_11 | _T_9 | _T_7 | _T_5 | _T_3 | _T_1;	// <stdin>:65:10, bpu.scala:52:{42,66}, :53:20
-  assign io_wset = io_waddr[3:0];	// <stdin>:65:10, bpu.scala:60:24
-  assign io_wtag = io_waddr[19:4];	// <stdin>:65:10, bpu.scala:59:24
-  assign io_rset = io_raddr[3:0];	// <stdin>:65:10, bpu.scala:46:24
-  assign io_rtag = io_raddr[19:4];	// <stdin>:65:10, bpu.scala:45:24
+  assign io_wset = io_waddr[1:0];	// <stdin>:65:10, bpu.scala:60:24
+  assign io_wtag = io_waddr[17:2];	// <stdin>:65:10, bpu.scala:59:24
+  assign io_rset = io_raddr[1:0];	// <stdin>:65:10, bpu.scala:46:24
+  assign io_rtag = io_raddr[17:2];	// <stdin>:65:10, bpu.scala:45:24
 endmodule
 
-module BPU(	// <stdin>:355:10
+module BPU(	// <stdin>:259:10
   input         clock,
                 reset,
   input  [63:0] io_PF_pc,
@@ -2824,8 +1003,8 @@ module BPU(	// <stdin>:355:10
   wire              _GEN;	// bpu.scala:193:18, :194:55, :195:18
   wire [63:0]       _BTB_io_readData;	// bpu.scala:161:21
   wire              _BTB_io_hit;	// bpu.scala:161:21
-  wire [3:0]        _BTB_io_wset;	// bpu.scala:161:21
-  wire [3:0]        _BTB_io_rset;	// bpu.scala:161:21
+  wire [1:0]        _BTB_io_wset;	// bpu.scala:161:21
+  wire [1:0]        _BTB_io_rset;	// bpu.scala:161:21
   wire              _B_type_T = io_PF_inst[6:0] == 7'h63;	// bpu.scala:136:28, :140:24
   wire              _T_8 = io_PF_inst[6:0] == 7'h6F;	// bpu.scala:136:28, :141:24
   wire              _T_12 = io_PF_inst[6:0] == 7'h67;	// bpu.scala:136:28, :141:53
@@ -3555,52 +1734,52 @@ module BPU(	// <stdin>:355:10
   assign _GEN_58 = _GEN_53[_GEN_36 ^ io_ID_to_BPU_bus_bits_PC[3:0]] /* cadence map_to_mux */;	// bpu.scala:202:27, :205:41, :206:61, :210:{46,61}
   wire [1:0]        _GEN_59;	// bpu.scala:211:61
   /* synopsys infer_mux_override */
-  assign _GEN_59 = _GEN_2[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:977:24, bpu.scala:126:26, :195:64, :211:61
+  assign _GEN_59 = _GEN_2[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:881:24, bpu.scala:126:26, :195:64, :211:61
   wire [1:0]        _GEN_60;	// bpu.scala:211:61
   /* synopsys infer_mux_override */
-  assign _GEN_60 = _GEN_4[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:977:24, bpu.scala:126:26, :195:64, :211:61
+  assign _GEN_60 = _GEN_4[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:881:24, bpu.scala:126:26, :195:64, :211:61
   wire [1:0]        _GEN_61;	// bpu.scala:211:61
   /* synopsys infer_mux_override */
-  assign _GEN_61 = _GEN_6[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:977:24, bpu.scala:126:26, :195:64, :211:61
+  assign _GEN_61 = _GEN_6[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:881:24, bpu.scala:126:26, :195:64, :211:61
   wire [1:0]        _GEN_62;	// bpu.scala:211:61
   /* synopsys infer_mux_override */
-  assign _GEN_62 = _GEN_8[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:977:24, bpu.scala:126:26, :195:64, :211:61
+  assign _GEN_62 = _GEN_8[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:881:24, bpu.scala:126:26, :195:64, :211:61
   wire [1:0]        _GEN_63;	// bpu.scala:211:61
   /* synopsys infer_mux_override */
-  assign _GEN_63 = _GEN_10[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:977:24, bpu.scala:126:26, :195:64, :211:61
+  assign _GEN_63 = _GEN_10[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:881:24, bpu.scala:126:26, :195:64, :211:61
   wire [1:0]        _GEN_64;	// bpu.scala:211:61
   /* synopsys infer_mux_override */
-  assign _GEN_64 = _GEN_12[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:977:24, bpu.scala:126:26, :195:64, :211:61
+  assign _GEN_64 = _GEN_12[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:881:24, bpu.scala:126:26, :195:64, :211:61
   wire [1:0]        _GEN_65;	// bpu.scala:211:61
   /* synopsys infer_mux_override */
-  assign _GEN_65 = _GEN_14[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:977:24, bpu.scala:126:26, :195:64, :211:61
+  assign _GEN_65 = _GEN_14[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:881:24, bpu.scala:126:26, :195:64, :211:61
   wire [1:0]        _GEN_66;	// bpu.scala:211:61
   /* synopsys infer_mux_override */
-  assign _GEN_66 = _GEN_16[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:977:24, bpu.scala:126:26, :195:64, :211:61
+  assign _GEN_66 = _GEN_16[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:881:24, bpu.scala:126:26, :195:64, :211:61
   wire [1:0]        _GEN_67;	// bpu.scala:211:61
   /* synopsys infer_mux_override */
-  assign _GEN_67 = _GEN_18[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:977:24, bpu.scala:126:26, :195:64, :211:61
+  assign _GEN_67 = _GEN_18[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:881:24, bpu.scala:126:26, :195:64, :211:61
   wire [1:0]        _GEN_68;	// bpu.scala:211:61
   /* synopsys infer_mux_override */
-  assign _GEN_68 = _GEN_20[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:977:24, bpu.scala:126:26, :195:64, :211:61
+  assign _GEN_68 = _GEN_20[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:881:24, bpu.scala:126:26, :195:64, :211:61
   wire [1:0]        _GEN_69;	// bpu.scala:211:61
   /* synopsys infer_mux_override */
-  assign _GEN_69 = _GEN_22[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:977:24, bpu.scala:126:26, :195:64, :211:61
+  assign _GEN_69 = _GEN_22[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:881:24, bpu.scala:126:26, :195:64, :211:61
   wire [1:0]        _GEN_70;	// bpu.scala:211:61
   /* synopsys infer_mux_override */
-  assign _GEN_70 = _GEN_24[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:977:24, bpu.scala:126:26, :195:64, :211:61
+  assign _GEN_70 = _GEN_24[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:881:24, bpu.scala:126:26, :195:64, :211:61
   wire [1:0]        _GEN_71;	// bpu.scala:211:61
   /* synopsys infer_mux_override */
-  assign _GEN_71 = _GEN_26[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:977:24, bpu.scala:126:26, :195:64, :211:61
+  assign _GEN_71 = _GEN_26[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:881:24, bpu.scala:126:26, :195:64, :211:61
   wire [1:0]        _GEN_72;	// bpu.scala:211:61
   /* synopsys infer_mux_override */
-  assign _GEN_72 = _GEN_28[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:977:24, bpu.scala:126:26, :195:64, :211:61
+  assign _GEN_72 = _GEN_28[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:881:24, bpu.scala:126:26, :195:64, :211:61
   wire [1:0]        _GEN_73;	// bpu.scala:211:61
   /* synopsys infer_mux_override */
-  assign _GEN_73 = _GEN_30[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:977:24, bpu.scala:126:26, :195:64, :211:61
+  assign _GEN_73 = _GEN_30[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:881:24, bpu.scala:126:26, :195:64, :211:61
   wire [1:0]        _GEN_74;	// bpu.scala:211:61
   /* synopsys infer_mux_override */
-  assign _GEN_74 = _GEN_32[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:977:24, bpu.scala:126:26, :195:64, :211:61
+  assign _GEN_74 = _GEN_32[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:881:24, bpu.scala:126:26, :195:64, :211:61
   wire [15:0][1:0]  _GEN_75 = {{_GEN_74}, {_GEN_73}, {_GEN_72}, {_GEN_71}, {_GEN_70}, {_GEN_69}, {_GEN_68}, {_GEN_67},
                 {_GEN_66}, {_GEN_65}, {_GEN_64}, {_GEN_63}, {_GEN_62}, {_GEN_61}, {_GEN_60}, {_GEN_59}};	// bpu.scala:211:61
   wire [1:0]        _GEN_76;	// bpu.scala:211:61
@@ -8306,129 +6485,129 @@ module BPU(	// <stdin>:355:10
         hit_cnt <= hit_cnt + 32'h1;	// bpu.scala:224:26, :227:28, :245:28
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:355:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:355:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:355:10
+  `ifndef SYNTHESIS	// <stdin>:259:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:259:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:259:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_4;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_5;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_6;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_7;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_8;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_9;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_10;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_11;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_12;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_13;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_14;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_15;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_16;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_17;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_18;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_19;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_20;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_21;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_22;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_23;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_24;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_25;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_26;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_27;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_28;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_29;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_30;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_31;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_32;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_33;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_34;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_35;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_36;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_37;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_38;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_39;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_40;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_41;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_42;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_43;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_44;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_45;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_46;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_47;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_48;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_49;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_50;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_51;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_52;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_53;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_54;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_55;	// <stdin>:355:10
-      automatic logic [31:0] _RANDOM_56;	// <stdin>:355:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:355:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:355:10
+    initial begin	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_5;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_6;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_7;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_8;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_9;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_10;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_11;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_12;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_13;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_14;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_15;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_16;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_17;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_18;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_19;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_20;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_21;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_22;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_23;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_24;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_25;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_26;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_27;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_28;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_29;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_30;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_31;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_32;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_33;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_34;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_35;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_36;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_37;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_38;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_39;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_40;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_41;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_42;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_43;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_44;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_45;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_46;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_47;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_48;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_49;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_50;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_51;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_52;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_53;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_54;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_55;	// <stdin>:259:10
+      automatic logic [31:0] _RANDOM_56;	// <stdin>:259:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:259:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:259:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:355:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_4 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_5 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_6 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_7 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_8 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_9 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_10 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_11 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_12 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_13 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_14 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_15 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_16 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_17 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_18 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_19 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_20 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_21 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_22 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_23 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_24 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_25 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_26 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_27 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_28 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_29 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_30 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_31 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_32 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_33 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_34 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_35 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_36 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_37 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_38 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_39 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_40 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_41 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_42 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_43 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_44 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_45 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_46 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_47 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_48 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_49 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_50 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_51 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_52 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_53 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_54 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_55 = `RANDOM;	// <stdin>:355:10
-        _RANDOM_56 = `RANDOM;	// <stdin>:355:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:259:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_5 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_6 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_7 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_8 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_9 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_10 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_11 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_12 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_13 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_14 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_15 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_16 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_17 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_18 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_19 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_20 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_21 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_22 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_23 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_24 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_25 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_26 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_27 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_28 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_29 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_30 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_31 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_32 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_33 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_34 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_35 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_36 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_37 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_38 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_39 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_40 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_41 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_42 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_43 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_44 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_45 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_46 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_47 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_48 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_49 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_50 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_51 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_52 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_53 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_54 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_55 = `RANDOM;	// <stdin>:259:10
+        _RANDOM_56 = `RANDOM;	// <stdin>:259:10
         bp_target = {_RANDOM_0, _RANDOM_1};	// bpu.scala:145:28
         BHT_0 = _RANDOM_2[3:0];	// bpu.scala:159:22
         BHT_1 = _RANDOM_2[7:4];	// bpu.scala:159:22
@@ -8951,8 +7130,8 @@ module BPU(	// <stdin>:355:10
         hit_cnt = _RANDOM_56;	// bpu.scala:224:26
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:355:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:355:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:259:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:259:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
   BPU_Cache BTB (	// bpu.scala:161:21
@@ -8969,25 +7148,25 @@ module BPU(	// <stdin>:355:10
     .io_rset      (_BTB_io_rset),
     .io_rtag      (io_BTB_rtag)
   );
-  assign io_bp_taken = _GEN;	// <stdin>:355:10, bpu.scala:193:18, :194:55, :195:18
-  assign io_bp_flush = _io_bp_flush_T_1;	// <stdin>:355:10, bpu.scala:179:49
+  assign io_bp_taken = _GEN;	// <stdin>:259:10, bpu.scala:193:18, :194:55, :195:18
+  assign io_bp_flush = _io_bp_flush_T_1;	// <stdin>:259:10, bpu.scala:179:49
   assign io_bp_npc = _io_bp_flush_T_1 ? io_ID_to_BPU_bus_bits_br_target : _GEN ? _BTB_io_readData :
-                _io_bp_npc_T_1;	// <stdin>:355:10, Mux.scala:101:16, bpu.scala:161:21, :179:49, :180:43, :193:18, :194:55, :195:18
-  assign io_BTB_wset = _BTB_io_wset[2:0];	// <stdin>:355:10, bpu.scala:161:21, :175:23
-  assign io_BTB_rset = _BTB_io_rset[2:0];	// <stdin>:355:10, bpu.scala:161:21, :171:23
-  assign io_BTB_rdata = _BTB_io_readData;	// <stdin>:355:10, bpu.scala:161:21
-  assign io_BTB_wdata = io_ID_to_BPU_bus_bits_taken ? io_ID_to_BPU_bus_bits_br_target : 64'h0;	// <stdin>:355:10, bpu.scala:145:28, :176:29
-  assign io_BTB_hit = _BTB_io_hit;	// <stdin>:355:10, bpu.scala:161:21
-  assign io_btype_cnt = btype_cnt;	// <stdin>:355:10, bpu.scala:220:29
-  assign io_jal_cnt = jal_cnt;	// <stdin>:355:10, bpu.scala:218:27
-  assign io_jalr_cnt = jalr_cnt;	// <stdin>:355:10, bpu.scala:219:27
-  assign io_btype_fail = btype_fail;	// <stdin>:355:10, bpu.scala:221:29
-  assign io_jal_fail = jal_fail;	// <stdin>:355:10, bpu.scala:222:27
-  assign io_jalr_fail = jalr_fail;	// <stdin>:355:10, bpu.scala:223:28
-  assign io_hit_cnt = hit_cnt;	// <stdin>:355:10, bpu.scala:224:26
+                _io_bp_npc_T_1;	// <stdin>:259:10, Mux.scala:101:16, bpu.scala:161:21, :179:49, :180:43, :193:18, :194:55, :195:18
+  assign io_BTB_wset = {1'h0, _BTB_io_wset};	// <stdin>:259:10, bpu.scala:147:30, :161:21, :175:23
+  assign io_BTB_rset = {1'h0, _BTB_io_rset};	// <stdin>:259:10, bpu.scala:147:30, :161:21, :171:23
+  assign io_BTB_rdata = _BTB_io_readData;	// <stdin>:259:10, bpu.scala:161:21
+  assign io_BTB_wdata = io_ID_to_BPU_bus_bits_taken ? io_ID_to_BPU_bus_bits_br_target : 64'h0;	// <stdin>:259:10, bpu.scala:145:28, :176:29
+  assign io_BTB_hit = _BTB_io_hit;	// <stdin>:259:10, bpu.scala:161:21
+  assign io_btype_cnt = btype_cnt;	// <stdin>:259:10, bpu.scala:220:29
+  assign io_jal_cnt = jal_cnt;	// <stdin>:259:10, bpu.scala:218:27
+  assign io_jalr_cnt = jalr_cnt;	// <stdin>:259:10, bpu.scala:219:27
+  assign io_btype_fail = btype_fail;	// <stdin>:259:10, bpu.scala:221:29
+  assign io_jal_fail = jal_fail;	// <stdin>:259:10, bpu.scala:222:27
+  assign io_jalr_fail = jalr_fail;	// <stdin>:259:10, bpu.scala:223:28
+  assign io_hit_cnt = hit_cnt;	// <stdin>:259:10, bpu.scala:224:26
 endmodule
 
-module IF_pre_fetch(	// <stdin>:1071:10
+module IF_pre_fetch(	// <stdin>:975:10
   input         clock,
                 reset,
                 io_stall,
@@ -9038,44 +7217,44 @@ module IF_pre_fetch(	// <stdin>:1071:10
       axi_busy <= ~axi_req_ready;	// pre_fetch.scala:26:27, :27:17
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:1071:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:1071:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:1071:10
+  `ifndef SYNTHESIS	// <stdin>:975:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:975:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:975:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:1071:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:1071:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:1071:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:1071:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:1071:10
-      automatic logic [31:0] _RANDOM_4;	// <stdin>:1071:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:1071:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:1071:10
+    initial begin	// <stdin>:975:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:975:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:975:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:975:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:975:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:975:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:975:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:975:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:1071:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:1071:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:1071:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:1071:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:1071:10
-        _RANDOM_4 = `RANDOM;	// <stdin>:1071:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:975:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:975:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:975:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:975:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:975:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:975:10
         PF_npc = {_RANDOM_0, _RANDOM_1};	// pre_fetch.scala:24:27
         axi_busy = _RANDOM_2[0];	// pre_fetch.scala:26:27
         rhsReg = {_RANDOM_2[31:2], _RANDOM_3, _RANDOM_4[1:0]};	// pre_fetch.scala:26:27, tools.scala:15:29
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:1071:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:1071:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:975:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:975:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  assign io_inst_valid = axi_lite_readData_valid & axi_lite_readData_bits_resp == 2'h0 & axi_req_ready & ~axi_busy;	// <stdin>:1071:10, pre_fetch.scala:26:27, :81:{96,121,123}
-  assign io_PF_pc = rhsReg;	// <stdin>:1071:10, tools.scala:15:29
-  assign io_PF_npc = PF_npc;	// <stdin>:1071:10, pre_fetch.scala:24:27
-  assign axi_lite_readAddr_valid = ~io_stall;	// <stdin>:1071:10, pre_fetch.scala:70:40
+  assign io_inst_valid = axi_lite_readData_valid & axi_lite_readData_bits_resp == 2'h0 & axi_req_ready & ~axi_busy;	// <stdin>:975:10, pre_fetch.scala:26:27, :81:{96,121,123}
+  assign io_PF_pc = rhsReg;	// <stdin>:975:10, tools.scala:15:29
+  assign io_PF_npc = PF_npc;	// <stdin>:975:10, pre_fetch.scala:24:27
+  assign axi_lite_readAddr_valid = ~io_stall;	// <stdin>:975:10, pre_fetch.scala:70:40
   assign axi_lite_readAddr_bits_addr = io_bp_flush ? io_bp_npc[31:0] : io_stall | ~axi_req_ready | axi_busy ? rhsReg[31:0] :
-                io_bp_taken ? io_bp_npc[31:0] : PF_npc[31:0];	// <stdin>:1071:10, Mux.scala:101:16, pre_fetch.scala:24:27, :26:27, :27:17, :71:88, :74:72, tools.scala:15:29
-  assign axi_lite_readData_ready = ~io_stall;	// <stdin>:1071:10, pre_fetch.scala:70:40
+                io_bp_taken ? io_bp_npc[31:0] : PF_npc[31:0];	// <stdin>:975:10, Mux.scala:101:16, pre_fetch.scala:24:27, :26:27, :27:17, :71:88, :74:72, tools.scala:15:29
+  assign axi_lite_readData_ready = ~io_stall;	// <stdin>:975:10, pre_fetch.scala:70:40
 endmodule
 
-module IFU(	// <stdin>:1154:10
+module IFU(	// <stdin>:1058:10
   input         clock,
                 reset,
                 io_IF_to_ID_bus_ready,
@@ -9105,7 +7284,7 @@ module IFU(	// <stdin>:1154:10
   always @(posedge clock) begin
     if (reset | io_bp_flush) begin	// IFU.scala:77:61
       rhsReg <= 64'h0;	// tools.scala:32:33
-      rhsReg_1 <= 1'h0;	// <stdin>:1154:10, tools.scala:32:33
+      rhsReg_1 <= 1'h0;	// <stdin>:1058:10, tools.scala:32:33
       rhsReg_2 <= 64'h0;	// tools.scala:32:33
     end
     else if (io_IF_to_ID_bus_ready) begin	// IFU.scala:77:61
@@ -9114,32 +7293,32 @@ module IFU(	// <stdin>:1154:10
       rhsReg_2 <= axi_lite_readData_bits_data;	// tools.scala:32:33
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:1154:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:1154:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:1154:10
+  `ifndef SYNTHESIS	// <stdin>:1058:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:1058:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:1058:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:1154:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:1154:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:1154:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:1154:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:1154:10
-      automatic logic [31:0] _RANDOM_4;	// <stdin>:1154:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:1154:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:1154:10
+    initial begin	// <stdin>:1058:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:1058:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:1058:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:1058:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:1058:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:1058:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:1058:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:1058:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:1154:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:1154:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:1154:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:1154:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:1154:10
-        _RANDOM_4 = `RANDOM;	// <stdin>:1154:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:1058:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:1058:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:1058:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:1058:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:1058:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:1058:10
         rhsReg = {_RANDOM_0, _RANDOM_1};	// tools.scala:32:33
         rhsReg_1 = _RANDOM_2[0];	// tools.scala:32:33
         rhsReg_2 = {_RANDOM_2[31:1], _RANDOM_3, _RANDOM_4[0]};	// tools.scala:32:33
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:1154:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:1154:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:1058:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:1058:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
   IF_pre_fetch pre_fetch (	// IFU.scala:59:27
@@ -9160,15 +7339,15 @@ module IFU(	// <stdin>:1154:10
     .axi_lite_readAddr_bits_addr (axi_lite_readAddr_bits_addr),
     .axi_lite_readData_ready     (axi_lite_readData_ready)
   );
-  assign io_IF_to_ID_bus_valid = rhsReg_1;	// <stdin>:1154:10, tools.scala:32:33
-  assign io_IF_to_ID_bus_bits_PC = rhsReg;	// <stdin>:1154:10, tools.scala:32:33
-  assign io_IF_to_ID_bus_bits_Inst = rhsReg_2[31:0];	// <stdin>:1154:10, tools.scala:32:33, :37:17
-  assign io_PF_pc = _pre_fetch_io_PF_pc;	// <stdin>:1154:10, IFU.scala:59:27
-  assign io_PF_valid = _pre_fetch_io_inst_valid;	// <stdin>:1154:10, IFU.scala:59:27
-  assign io_axidata = axi_lite_readData_bits_data;	// <stdin>:1154:10
+  assign io_IF_to_ID_bus_valid = rhsReg_1;	// <stdin>:1058:10, tools.scala:32:33
+  assign io_IF_to_ID_bus_bits_PC = rhsReg;	// <stdin>:1058:10, tools.scala:32:33
+  assign io_IF_to_ID_bus_bits_Inst = rhsReg_2[31:0];	// <stdin>:1058:10, tools.scala:32:33, :37:17
+  assign io_PF_pc = _pre_fetch_io_PF_pc;	// <stdin>:1058:10, IFU.scala:59:27
+  assign io_PF_valid = _pre_fetch_io_inst_valid;	// <stdin>:1058:10, IFU.scala:59:27
+  assign io_axidata = axi_lite_readData_bits_data;	// <stdin>:1058:10
 endmodule
 
-module IDU(	// <stdin>:1215:10
+module IDU(	// <stdin>:1119:10
   input         clock,
                 reset,
                 io_IF_to_ID_bus_valid,
@@ -9770,167 +7949,167 @@ module IDU(	// <stdin>:1215:10
       rhsReg_14 <= io_IF_to_ID_bus_valid & ~_load_use_stall_T_22;	// IDU.scala:211:{79,81}, :225:65, tools.scala:23:33
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:1215:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:1215:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:1215:10
+  `ifndef SYNTHESIS	// <stdin>:1119:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:1119:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:1119:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_4;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_5;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_6;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_7;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_8;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_9;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_10;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_11;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_12;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_13;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_14;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_15;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_16;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_17;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_18;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_19;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_20;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_21;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_22;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_23;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_24;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_25;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_26;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_27;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_28;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_29;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_30;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_31;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_32;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_33;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_34;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_35;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_36;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_37;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_38;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_39;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_40;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_41;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_42;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_43;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_44;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_45;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_46;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_47;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_48;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_49;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_50;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_51;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_52;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_53;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_54;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_55;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_56;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_57;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_58;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_59;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_60;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_61;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_62;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_63;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_64;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_65;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_66;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_67;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_68;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_69;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_70;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_71;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_72;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_73;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_74;	// <stdin>:1215:10
-      automatic logic [31:0] _RANDOM_75;	// <stdin>:1215:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:1215:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:1215:10
+    initial begin	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_5;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_6;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_7;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_8;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_9;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_10;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_11;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_12;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_13;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_14;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_15;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_16;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_17;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_18;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_19;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_20;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_21;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_22;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_23;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_24;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_25;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_26;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_27;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_28;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_29;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_30;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_31;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_32;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_33;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_34;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_35;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_36;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_37;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_38;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_39;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_40;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_41;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_42;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_43;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_44;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_45;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_46;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_47;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_48;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_49;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_50;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_51;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_52;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_53;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_54;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_55;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_56;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_57;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_58;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_59;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_60;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_61;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_62;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_63;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_64;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_65;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_66;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_67;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_68;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_69;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_70;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_71;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_72;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_73;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_74;	// <stdin>:1119:10
+      automatic logic [31:0] _RANDOM_75;	// <stdin>:1119:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:1119:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:1119:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:1215:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_4 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_5 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_6 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_7 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_8 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_9 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_10 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_11 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_12 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_13 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_14 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_15 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_16 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_17 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_18 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_19 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_20 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_21 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_22 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_23 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_24 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_25 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_26 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_27 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_28 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_29 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_30 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_31 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_32 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_33 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_34 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_35 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_36 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_37 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_38 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_39 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_40 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_41 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_42 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_43 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_44 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_45 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_46 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_47 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_48 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_49 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_50 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_51 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_52 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_53 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_54 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_55 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_56 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_57 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_58 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_59 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_60 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_61 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_62 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_63 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_64 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_65 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_66 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_67 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_68 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_69 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_70 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_71 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_72 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_73 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_74 = `RANDOM;	// <stdin>:1215:10
-        _RANDOM_75 = `RANDOM;	// <stdin>:1215:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:1119:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_5 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_6 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_7 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_8 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_9 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_10 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_11 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_12 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_13 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_14 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_15 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_16 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_17 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_18 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_19 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_20 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_21 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_22 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_23 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_24 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_25 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_26 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_27 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_28 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_29 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_30 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_31 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_32 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_33 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_34 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_35 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_36 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_37 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_38 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_39 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_40 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_41 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_42 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_43 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_44 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_45 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_46 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_47 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_48 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_49 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_50 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_51 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_52 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_53 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_54 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_55 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_56 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_57 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_58 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_59 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_60 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_61 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_62 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_63 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_64 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_65 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_66 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_67 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_68 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_69 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_70 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_71 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_72 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_73 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_74 = `RANDOM;	// <stdin>:1119:10
+        _RANDOM_75 = `RANDOM;	// <stdin>:1119:10
         GPR_0 = {_RANDOM_0, _RANDOM_1};	// IDU.scala:116:22
         GPR_1 = {_RANDOM_2, _RANDOM_3};	// IDU.scala:116:22
         GPR_2 = {_RANDOM_4, _RANDOM_5};	// IDU.scala:116:22
@@ -9978,29 +8157,29 @@ module IDU(	// <stdin>:1215:10
         rhsReg_14 = _RANDOM_75[25];	// tools.scala:23:33
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:1215:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:1215:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:1119:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:1119:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  assign io_IF_to_ID_bus_ready = ~_load_use_stall_T_22;	// <stdin>:1215:10, IDU.scala:211:81, :225:65
-  assign io_ID_to_EX_bus_valid = rhsReg_14;	// <stdin>:1215:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_ALU_Data1 = rhsReg_2;	// <stdin>:1215:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_ALU_Data2 = rhsReg_3;	// <stdin>:1215:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_futype = rhsReg_9[0];	// <stdin>:1215:10, tools.scala:23:33, :25:17
-  assign io_ID_to_EX_bus_bits_optype = rhsReg_8;	// <stdin>:1215:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_rs1_data = rhsReg_10;	// <stdin>:1215:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_rs2_data = rhsReg_12;	// <stdin>:1215:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_regWriteID = rhsReg_4;	// <stdin>:1215:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_regWriteEn = rhsReg_5;	// <stdin>:1215:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_memWriteEn = rhsReg_7;	// <stdin>:1215:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_memReadEn = rhsReg_6;	// <stdin>:1215:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_PC = rhsReg;	// <stdin>:1215:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_Inst = rhsReg_1;	// <stdin>:1215:10, tools.scala:23:33
+  assign io_IF_to_ID_bus_ready = ~_load_use_stall_T_22;	// <stdin>:1119:10, IDU.scala:211:81, :225:65
+  assign io_ID_to_EX_bus_valid = rhsReg_14;	// <stdin>:1119:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_ALU_Data1 = rhsReg_2;	// <stdin>:1119:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_ALU_Data2 = rhsReg_3;	// <stdin>:1119:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_futype = rhsReg_9[0];	// <stdin>:1119:10, tools.scala:23:33, :25:17
+  assign io_ID_to_EX_bus_bits_optype = rhsReg_8;	// <stdin>:1119:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_rs1_data = rhsReg_10;	// <stdin>:1119:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_rs2_data = rhsReg_12;	// <stdin>:1119:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_regWriteID = rhsReg_4;	// <stdin>:1119:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_regWriteEn = rhsReg_5;	// <stdin>:1119:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_memWriteEn = rhsReg_7;	// <stdin>:1119:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_memReadEn = rhsReg_6;	// <stdin>:1119:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_PC = rhsReg;	// <stdin>:1119:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_Inst = rhsReg_1;	// <stdin>:1119:10, tools.scala:23:33
   assign io_ID_to_BPU_bus_valid = io_IF_to_ID_bus_valid & (_io_ID_to_BPU_bus_valid_T | _io_ID_to_BPU_bus_valid_T_1 |
-                _io_ID_to_BPU_bus_valid_T_3 & _io_ID_to_BPU_bus_valid_T_4) & ~_load_use_stall_T_22;	// <stdin>:1215:10, IDU.scala:168:19, :169:19, :178:15, :189:104, :211:81, :225:65, :270:{108,133,152}
-  assign io_ID_to_BPU_bus_bits_PC = io_IF_to_ID_bus_bits_PC;	// <stdin>:1215:10
+                _io_ID_to_BPU_bus_valid_T_3 & _io_ID_to_BPU_bus_valid_T_4) & ~_load_use_stall_T_22;	// <stdin>:1119:10, IDU.scala:168:19, :169:19, :178:15, :189:104, :211:81, :225:65, :270:{108,133,152}
+  assign io_ID_to_BPU_bus_bits_PC = io_IF_to_ID_bus_bits_PC;	// <stdin>:1119:10
   assign io_ID_to_BPU_bus_bits_taken = _io_ID_to_BPU_bus_valid_T | (_io_ID_to_BPU_bus_valid_T_1 ? _GEN_10 :
-                _io_ID_to_BPU_bus_valid_T_3 & _io_ID_to_BPU_bus_valid_T_4);	// <stdin>:1215:10, IDU.scala:168:19, :169:19, :178:15, :189:104, :236:19, :237:34, :246:15, :247:21, :248:31, :249:31, :250:31
+                _io_ID_to_BPU_bus_valid_T_3 & _io_ID_to_BPU_bus_valid_T_4);	// <stdin>:1119:10, IDU.scala:168:19, :169:19, :178:15, :189:104, :236:19, :237:34, :246:15, :247:21, :248:31, :249:31, :250:31
   assign io_ID_to_BPU_bus_bits_br_target = _io_ID_to_BPU_bus_valid_T ? io_IF_to_ID_bus_bits_PC + {{44{io_IF_to_ID_bus_bits_Inst[31]}},
                 io_IF_to_ID_bus_bits_Inst[19:12], io_IF_to_ID_bus_bits_Inst[20],
                 io_IF_to_ID_bus_bits_Inst[30:21], 1'h0} : _io_ID_to_BPU_bus_valid_T_1 & _GEN_10 ?
@@ -10008,47 +8187,47 @@ module IDU(	// <stdin>:1215:10
                 io_IF_to_ID_bus_bits_Inst[7], io_IF_to_ID_bus_bits_Inst[30:25],
                 io_IF_to_ID_bus_bits_Inst[11:8], 1'h0} : _io_ID_to_BPU_bus_valid_T_3 &
                 _io_ID_to_BPU_bus_valid_T_4 ? _rs1_data_T_13 + {_immI_ret_T_2,
-                io_IF_to_ID_bus_bits_Inst[31:20]} : {32'h0, _ALU_Data1_T_5[31:0]};	// <stdin>:1215:10, Bitwise.scala:77:12, IDU.scala:106:25, :109:{25,44,66,92}, :110:{48,72,90}, :168:19, :169:19, :178:{15,30}, :189:104, :236:19, :237:34, :262:13, :264:37, :265:{31,50}, :266:{31,58}, Lookup.scala:34:39, Mux.scala:101:16
-  assign io_ID_to_BPU_bus_bits_load_use_stall = _load_use_stall_T_22;	// <stdin>:1215:10, IDU.scala:225:65
+                io_IF_to_ID_bus_bits_Inst[31:20]} : {32'h0, _ALU_Data1_T_5[31:0]};	// <stdin>:1119:10, Bitwise.scala:77:12, IDU.scala:106:25, :109:{25,44,66,92}, :110:{48,72,90}, :168:19, :169:19, :178:{15,30}, :189:104, :236:19, :237:34, :262:13, :264:37, :265:{31,50}, :266:{31,58}, Lookup.scala:34:39, Mux.scala:101:16
+  assign io_ID_to_BPU_bus_bits_load_use_stall = _load_use_stall_T_22;	// <stdin>:1119:10, IDU.scala:225:65
   assign io_ID_to_BPU_bus_bits_Type = _io_ID_to_BPU_bus_valid_T ? 2'h1 : _io_ID_to_BPU_bus_valid_T_1 ? 2'h2 :
-                _io_ID_to_BPU_bus_valid_T_3 ? {2{_io_ID_to_BPU_bus_valid_T_4}} : 2'h0;	// <stdin>:1215:10, IDU.scala:168:19, :169:19, :178:15, :189:104, :254:10, :255:21, :256:27, :257:27, :258:{27,33}, Lookup.scala:34:39
-  assign io_ID_stall = _load_use_stall_T_22;	// <stdin>:1215:10, IDU.scala:225:65
-  assign io_ID_GPR_0 = GPR_0;	// <stdin>:1215:10, IDU.scala:116:22
-  assign io_ID_GPR_1 = GPR_1;	// <stdin>:1215:10, IDU.scala:116:22
-  assign io_ID_GPR_2 = GPR_2;	// <stdin>:1215:10, IDU.scala:116:22
-  assign io_ID_GPR_3 = GPR_3;	// <stdin>:1215:10, IDU.scala:116:22
-  assign io_ID_GPR_4 = GPR_4;	// <stdin>:1215:10, IDU.scala:116:22
-  assign io_ID_GPR_5 = GPR_5;	// <stdin>:1215:10, IDU.scala:116:22
-  assign io_ID_GPR_6 = GPR_6;	// <stdin>:1215:10, IDU.scala:116:22
-  assign io_ID_GPR_7 = GPR_7;	// <stdin>:1215:10, IDU.scala:116:22
-  assign io_ID_GPR_8 = GPR_8;	// <stdin>:1215:10, IDU.scala:116:22
-  assign io_ID_GPR_9 = GPR_9;	// <stdin>:1215:10, IDU.scala:116:22
-  assign io_ID_GPR_10 = GPR_10;	// <stdin>:1215:10, IDU.scala:116:22
-  assign io_ID_GPR_11 = GPR_11;	// <stdin>:1215:10, IDU.scala:116:22
-  assign io_ID_GPR_12 = GPR_12;	// <stdin>:1215:10, IDU.scala:116:22
-  assign io_ID_GPR_13 = GPR_13;	// <stdin>:1215:10, IDU.scala:116:22
-  assign io_ID_GPR_14 = GPR_14;	// <stdin>:1215:10, IDU.scala:116:22
-  assign io_ID_GPR_15 = GPR_15;	// <stdin>:1215:10, IDU.scala:116:22
-  assign io_ID_GPR_16 = GPR_16;	// <stdin>:1215:10, IDU.scala:116:22
-  assign io_ID_GPR_17 = GPR_17;	// <stdin>:1215:10, IDU.scala:116:22
-  assign io_ID_GPR_18 = GPR_18;	// <stdin>:1215:10, IDU.scala:116:22
-  assign io_ID_GPR_19 = GPR_19;	// <stdin>:1215:10, IDU.scala:116:22
-  assign io_ID_GPR_20 = GPR_20;	// <stdin>:1215:10, IDU.scala:116:22
-  assign io_ID_GPR_21 = GPR_21;	// <stdin>:1215:10, IDU.scala:116:22
-  assign io_ID_GPR_22 = GPR_22;	// <stdin>:1215:10, IDU.scala:116:22
-  assign io_ID_GPR_23 = GPR_23;	// <stdin>:1215:10, IDU.scala:116:22
-  assign io_ID_GPR_24 = GPR_24;	// <stdin>:1215:10, IDU.scala:116:22
-  assign io_ID_GPR_25 = GPR_25;	// <stdin>:1215:10, IDU.scala:116:22
-  assign io_ID_GPR_26 = GPR_26;	// <stdin>:1215:10, IDU.scala:116:22
-  assign io_ID_GPR_27 = GPR_27;	// <stdin>:1215:10, IDU.scala:116:22
-  assign io_ID_GPR_28 = GPR_28;	// <stdin>:1215:10, IDU.scala:116:22
-  assign io_ID_GPR_29 = GPR_29;	// <stdin>:1215:10, IDU.scala:116:22
-  assign io_ID_GPR_30 = GPR_30;	// <stdin>:1215:10, IDU.scala:116:22
-  assign io_ID_GPR_31 = GPR_31;	// <stdin>:1215:10, IDU.scala:116:22
-  assign io_ID_unknown_inst = InstInfo_0 == 3'h0 & io_IF_to_ID_bus_valid;	// <stdin>:1215:10, IDU.scala:218:{39,47}, Lookup.scala:34:39
+                _io_ID_to_BPU_bus_valid_T_3 ? {2{_io_ID_to_BPU_bus_valid_T_4}} : 2'h0;	// <stdin>:1119:10, IDU.scala:168:19, :169:19, :178:15, :189:104, :254:10, :255:21, :256:27, :257:27, :258:{27,33}, Lookup.scala:34:39
+  assign io_ID_stall = _load_use_stall_T_22;	// <stdin>:1119:10, IDU.scala:225:65
+  assign io_ID_GPR_0 = GPR_0;	// <stdin>:1119:10, IDU.scala:116:22
+  assign io_ID_GPR_1 = GPR_1;	// <stdin>:1119:10, IDU.scala:116:22
+  assign io_ID_GPR_2 = GPR_2;	// <stdin>:1119:10, IDU.scala:116:22
+  assign io_ID_GPR_3 = GPR_3;	// <stdin>:1119:10, IDU.scala:116:22
+  assign io_ID_GPR_4 = GPR_4;	// <stdin>:1119:10, IDU.scala:116:22
+  assign io_ID_GPR_5 = GPR_5;	// <stdin>:1119:10, IDU.scala:116:22
+  assign io_ID_GPR_6 = GPR_6;	// <stdin>:1119:10, IDU.scala:116:22
+  assign io_ID_GPR_7 = GPR_7;	// <stdin>:1119:10, IDU.scala:116:22
+  assign io_ID_GPR_8 = GPR_8;	// <stdin>:1119:10, IDU.scala:116:22
+  assign io_ID_GPR_9 = GPR_9;	// <stdin>:1119:10, IDU.scala:116:22
+  assign io_ID_GPR_10 = GPR_10;	// <stdin>:1119:10, IDU.scala:116:22
+  assign io_ID_GPR_11 = GPR_11;	// <stdin>:1119:10, IDU.scala:116:22
+  assign io_ID_GPR_12 = GPR_12;	// <stdin>:1119:10, IDU.scala:116:22
+  assign io_ID_GPR_13 = GPR_13;	// <stdin>:1119:10, IDU.scala:116:22
+  assign io_ID_GPR_14 = GPR_14;	// <stdin>:1119:10, IDU.scala:116:22
+  assign io_ID_GPR_15 = GPR_15;	// <stdin>:1119:10, IDU.scala:116:22
+  assign io_ID_GPR_16 = GPR_16;	// <stdin>:1119:10, IDU.scala:116:22
+  assign io_ID_GPR_17 = GPR_17;	// <stdin>:1119:10, IDU.scala:116:22
+  assign io_ID_GPR_18 = GPR_18;	// <stdin>:1119:10, IDU.scala:116:22
+  assign io_ID_GPR_19 = GPR_19;	// <stdin>:1119:10, IDU.scala:116:22
+  assign io_ID_GPR_20 = GPR_20;	// <stdin>:1119:10, IDU.scala:116:22
+  assign io_ID_GPR_21 = GPR_21;	// <stdin>:1119:10, IDU.scala:116:22
+  assign io_ID_GPR_22 = GPR_22;	// <stdin>:1119:10, IDU.scala:116:22
+  assign io_ID_GPR_23 = GPR_23;	// <stdin>:1119:10, IDU.scala:116:22
+  assign io_ID_GPR_24 = GPR_24;	// <stdin>:1119:10, IDU.scala:116:22
+  assign io_ID_GPR_25 = GPR_25;	// <stdin>:1119:10, IDU.scala:116:22
+  assign io_ID_GPR_26 = GPR_26;	// <stdin>:1119:10, IDU.scala:116:22
+  assign io_ID_GPR_27 = GPR_27;	// <stdin>:1119:10, IDU.scala:116:22
+  assign io_ID_GPR_28 = GPR_28;	// <stdin>:1119:10, IDU.scala:116:22
+  assign io_ID_GPR_29 = GPR_29;	// <stdin>:1119:10, IDU.scala:116:22
+  assign io_ID_GPR_30 = GPR_30;	// <stdin>:1119:10, IDU.scala:116:22
+  assign io_ID_GPR_31 = GPR_31;	// <stdin>:1119:10, IDU.scala:116:22
+  assign io_ID_unknown_inst = InstInfo_0 == 3'h0 & io_IF_to_ID_bus_valid;	// <stdin>:1119:10, IDU.scala:218:{39,47}, Lookup.scala:34:39
 endmodule
 
-module EXU(	// <stdin>:2045:10
+module EXU(	// <stdin>:1949:10
   input         clock,
                 reset,
                 io_ID_to_EX_bus_valid,
@@ -10151,31 +8330,31 @@ module EXU(	// <stdin>:2045:10
       rhsReg_9 <= io_ID_to_EX_bus_valid;	// tools.scala:15:29
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:2045:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:2045:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:2045:10
+  `ifndef SYNTHESIS	// <stdin>:1949:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:1949:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:1949:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:2045:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:2045:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:2045:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:2045:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:2045:10
-      automatic logic [31:0] _RANDOM_4;	// <stdin>:2045:10
-      automatic logic [31:0] _RANDOM_5;	// <stdin>:2045:10
-      automatic logic [31:0] _RANDOM_6;	// <stdin>:2045:10
-      automatic logic [31:0] _RANDOM_7;	// <stdin>:2045:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:2045:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:2045:10
+    initial begin	// <stdin>:1949:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:1949:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:1949:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:1949:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:1949:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:1949:10
+      automatic logic [31:0] _RANDOM_5;	// <stdin>:1949:10
+      automatic logic [31:0] _RANDOM_6;	// <stdin>:1949:10
+      automatic logic [31:0] _RANDOM_7;	// <stdin>:1949:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:1949:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:1949:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:2045:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:2045:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:2045:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:2045:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:2045:10
-        _RANDOM_4 = `RANDOM;	// <stdin>:2045:10
-        _RANDOM_5 = `RANDOM;	// <stdin>:2045:10
-        _RANDOM_6 = `RANDOM;	// <stdin>:2045:10
-        _RANDOM_7 = `RANDOM;	// <stdin>:2045:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:1949:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:1949:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:1949:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:1949:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:1949:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:1949:10
+        _RANDOM_5 = `RANDOM;	// <stdin>:1949:10
+        _RANDOM_6 = `RANDOM;	// <stdin>:1949:10
+        _RANDOM_7 = `RANDOM;	// <stdin>:1949:10
         rhsReg = {_RANDOM_0, _RANDOM_1};	// tools.scala:15:29
         rhsReg_1 = _RANDOM_2;	// tools.scala:15:29
         rhsReg_2 = _RANDOM_3[0];	// tools.scala:15:29
@@ -10188,24 +8367,24 @@ module EXU(	// <stdin>:2045:10
         rhsReg_9 = _RANDOM_7[13];	// tools.scala:15:29
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:2045:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:2045:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:1949:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:1949:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  assign io_EX_to_MEM_bus_valid = rhsReg_9;	// <stdin>:2045:10, tools.scala:15:29
-  assign io_EX_to_MEM_bus_bits_Inst = rhsReg_1;	// <stdin>:2045:10, tools.scala:15:29
-  assign io_EX_to_MEM_bus_bits_PC = rhsReg;	// <stdin>:2045:10, tools.scala:15:29
-  assign io_EX_to_MEM_bus_bits_ALU_result = rhsReg_7;	// <stdin>:2045:10, tools.scala:15:29
-  assign io_EX_to_MEM_bus_bits_memWriteData = rhsReg_6;	// <stdin>:2045:10, tools.scala:15:29
-  assign io_EX_to_MEM_bus_bits_memWriteEn = rhsReg_4;	// <stdin>:2045:10, tools.scala:15:29
-  assign io_EX_to_MEM_bus_bits_memReadEn = rhsReg_5;	// <stdin>:2045:10, tools.scala:15:29
-  assign io_EX_to_MEM_bus_bits_lsutype = rhsReg_8;	// <stdin>:2045:10, tools.scala:15:29
-  assign io_EX_to_MEM_bus_bits_regWriteID = rhsReg_3;	// <stdin>:2045:10, tools.scala:15:29
-  assign io_EX_to_MEM_bus_bits_regWriteEn = rhsReg_2;	// <stdin>:2045:10, tools.scala:15:29
-  assign io_EX_ALUResult_Pass = _GEN_5;	// <stdin>:2045:10, Mux.scala:101:16
+  assign io_EX_to_MEM_bus_valid = rhsReg_9;	// <stdin>:1949:10, tools.scala:15:29
+  assign io_EX_to_MEM_bus_bits_Inst = rhsReg_1;	// <stdin>:1949:10, tools.scala:15:29
+  assign io_EX_to_MEM_bus_bits_PC = rhsReg;	// <stdin>:1949:10, tools.scala:15:29
+  assign io_EX_to_MEM_bus_bits_ALU_result = rhsReg_7;	// <stdin>:1949:10, tools.scala:15:29
+  assign io_EX_to_MEM_bus_bits_memWriteData = rhsReg_6;	// <stdin>:1949:10, tools.scala:15:29
+  assign io_EX_to_MEM_bus_bits_memWriteEn = rhsReg_4;	// <stdin>:1949:10, tools.scala:15:29
+  assign io_EX_to_MEM_bus_bits_memReadEn = rhsReg_5;	// <stdin>:1949:10, tools.scala:15:29
+  assign io_EX_to_MEM_bus_bits_lsutype = rhsReg_8;	// <stdin>:1949:10, tools.scala:15:29
+  assign io_EX_to_MEM_bus_bits_regWriteID = rhsReg_3;	// <stdin>:1949:10, tools.scala:15:29
+  assign io_EX_to_MEM_bus_bits_regWriteEn = rhsReg_2;	// <stdin>:1949:10, tools.scala:15:29
+  assign io_EX_ALUResult_Pass = _GEN_5;	// <stdin>:1949:10, Mux.scala:101:16
 endmodule
 
-module MEM_pre_stage(	// <stdin>:2312:10
+module MEM_pre_stage(	// <stdin>:2216:10
   input         clock,
                 reset,
                 io_EX_to_MEM_bus_valid,
@@ -10272,31 +8451,31 @@ module MEM_pre_stage(	// <stdin>:2312:10
       rhsReg_9 <= io_EX_to_MEM_bus_valid;	// tools.scala:15:29
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:2312:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:2312:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:2312:10
+  `ifndef SYNTHESIS	// <stdin>:2216:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:2216:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:2216:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:2312:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:2312:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:2312:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:2312:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:2312:10
-      automatic logic [31:0] _RANDOM_4;	// <stdin>:2312:10
-      automatic logic [31:0] _RANDOM_5;	// <stdin>:2312:10
-      automatic logic [31:0] _RANDOM_6;	// <stdin>:2312:10
-      automatic logic [31:0] _RANDOM_7;	// <stdin>:2312:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:2312:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:2312:10
+    initial begin	// <stdin>:2216:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:2216:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:2216:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:2216:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:2216:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:2216:10
+      automatic logic [31:0] _RANDOM_5;	// <stdin>:2216:10
+      automatic logic [31:0] _RANDOM_6;	// <stdin>:2216:10
+      automatic logic [31:0] _RANDOM_7;	// <stdin>:2216:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:2216:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:2216:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:2312:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:2312:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:2312:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:2312:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:2312:10
-        _RANDOM_4 = `RANDOM;	// <stdin>:2312:10
-        _RANDOM_5 = `RANDOM;	// <stdin>:2312:10
-        _RANDOM_6 = `RANDOM;	// <stdin>:2312:10
-        _RANDOM_7 = `RANDOM;	// <stdin>:2312:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:2216:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:2216:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:2216:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:2216:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:2216:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:2216:10
+        _RANDOM_5 = `RANDOM;	// <stdin>:2216:10
+        _RANDOM_6 = `RANDOM;	// <stdin>:2216:10
+        _RANDOM_7 = `RANDOM;	// <stdin>:2216:10
         rhsReg = {_RANDOM_0, _RANDOM_1};	// tools.scala:15:29
         rhsReg_1 = _RANDOM_2;	// tools.scala:15:29
         rhsReg_2 = {_RANDOM_3, _RANDOM_4};	// tools.scala:15:29
@@ -10307,43 +8486,43 @@ module MEM_pre_stage(	// <stdin>:2312:10
         rhsReg_9 = _RANDOM_7[13];	// tools.scala:15:29
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:2312:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:2312:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:2216:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:2216:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  assign io_PMEM_to_MEM_bus_valid = rhsReg_9;	// <stdin>:2312:10, tools.scala:15:29
-  assign io_PMEM_to_MEM_bus_bits_ALU_result = rhsReg_2;	// <stdin>:2312:10, tools.scala:15:29
-  assign io_PMEM_to_MEM_bus_bits_regWriteEn = rhsReg_3;	// <stdin>:2312:10, tools.scala:15:29
-  assign io_PMEM_to_MEM_bus_bits_regWriteID = rhsReg_4;	// <stdin>:2312:10, tools.scala:15:29
-  assign io_PMEM_to_MEM_bus_bits_memReadEn = rhsReg_5;	// <stdin>:2312:10, tools.scala:15:29
-  assign io_PMEM_to_MEM_bus_bits_PC = rhsReg;	// <stdin>:2312:10, tools.scala:15:29
-  assign io_PMEM_to_MEM_bus_bits_Inst = rhsReg_1;	// <stdin>:2312:10, tools.scala:15:29
-  assign io_PMEM_to_ID_forward_bits_ALU_result = io_EX_to_MEM_bus_bits_ALU_result;	// <stdin>:2312:10
-  assign io_PMEM_to_ID_forward_bits_regWriteEn = io_EX_to_MEM_bus_bits_regWriteEn;	// <stdin>:2312:10
-  assign io_PMEM_to_ID_forward_bits_regWriteID = io_EX_to_MEM_bus_bits_regWriteID;	// <stdin>:2312:10
-  assign io_PMEM_to_ID_forward_bits_memReadEn = io_EX_to_MEM_bus_bits_memReadEn;	// <stdin>:2312:10
+  assign io_PMEM_to_MEM_bus_valid = rhsReg_9;	// <stdin>:2216:10, tools.scala:15:29
+  assign io_PMEM_to_MEM_bus_bits_ALU_result = rhsReg_2;	// <stdin>:2216:10, tools.scala:15:29
+  assign io_PMEM_to_MEM_bus_bits_regWriteEn = rhsReg_3;	// <stdin>:2216:10, tools.scala:15:29
+  assign io_PMEM_to_MEM_bus_bits_regWriteID = rhsReg_4;	// <stdin>:2216:10, tools.scala:15:29
+  assign io_PMEM_to_MEM_bus_bits_memReadEn = rhsReg_5;	// <stdin>:2216:10, tools.scala:15:29
+  assign io_PMEM_to_MEM_bus_bits_PC = rhsReg;	// <stdin>:2216:10, tools.scala:15:29
+  assign io_PMEM_to_MEM_bus_bits_Inst = rhsReg_1;	// <stdin>:2216:10, tools.scala:15:29
+  assign io_PMEM_to_ID_forward_bits_ALU_result = io_EX_to_MEM_bus_bits_ALU_result;	// <stdin>:2216:10
+  assign io_PMEM_to_ID_forward_bits_regWriteEn = io_EX_to_MEM_bus_bits_regWriteEn;	// <stdin>:2216:10
+  assign io_PMEM_to_ID_forward_bits_regWriteID = io_EX_to_MEM_bus_bits_regWriteID;	// <stdin>:2216:10
+  assign io_PMEM_to_ID_forward_bits_memReadEn = io_EX_to_MEM_bus_bits_memReadEn;	// <stdin>:2216:10
   assign io_memReadData = rhsReg_8 == 5'h11 ? axi_lite_readData_bits_data : rhsReg_8 == 5'h9 ?
                 {{32{axi_lite_readData_bits_data[31]}}, axi_lite_readData_bits_data[31:0]} : rhsReg_8 ==
                 5'h5 ? {{48{axi_lite_readData_bits_data[15]}}, axi_lite_readData_bits_data[15:0]} :
                 rhsReg_8 == 5'h3 ? {{56{axi_lite_readData_bits_data[7]}}, axi_lite_readData_bits_data[7:0]}
                 : rhsReg_8 == 5'h8 ? {32'h0, axi_lite_readData_bits_data[31:0]} : rhsReg_8 == 5'h4 ?
                 {48'h0, axi_lite_readData_bits_data[15:0]} : rhsReg_8 == 5'h2 ? {56'h0,
-                axi_lite_readData_bits_data[7:0]} : 64'h0;	// <stdin>:2312:10, Bitwise.scala:77:12, Cat.scala:33:92, PMEM.scala:50:20, :58:17, :59:44, :60:30, :61:{30,65}, :62:{30,65}, :63:{30,65}, :64:{30,60}, :65:{30,60}, :66:{30,60}, tools.scala:9:34, :15:29
-  assign axi_lite_writeAddr_valid = io_EX_to_MEM_bus_bits_memWriteEn;	// <stdin>:2312:10
-  assign axi_lite_writeAddr_bits_addr = io_EX_to_MEM_bus_bits_ALU_result[31:0];	// <stdin>:2312:10, PMEM.scala:85:58
-  assign axi_lite_writeData_valid = io_EX_to_MEM_bus_bits_memWriteEn;	// <stdin>:2312:10
-  assign axi_lite_writeData_bits_data = io_EX_to_MEM_bus_bits_memWriteData;	// <stdin>:2312:10
+                axi_lite_readData_bits_data[7:0]} : 64'h0;	// <stdin>:2216:10, Bitwise.scala:77:12, Cat.scala:33:92, PMEM.scala:50:20, :58:17, :59:44, :60:30, :61:{30,65}, :62:{30,65}, :63:{30,65}, :64:{30,60}, :65:{30,60}, :66:{30,60}, tools.scala:9:34, :15:29
+  assign axi_lite_writeAddr_valid = io_EX_to_MEM_bus_bits_memWriteEn;	// <stdin>:2216:10
+  assign axi_lite_writeAddr_bits_addr = io_EX_to_MEM_bus_bits_ALU_result[31:0];	// <stdin>:2216:10, PMEM.scala:85:58
+  assign axi_lite_writeData_valid = io_EX_to_MEM_bus_bits_memWriteEn;	// <stdin>:2216:10
+  assign axi_lite_writeData_bits_data = io_EX_to_MEM_bus_bits_memWriteData;	// <stdin>:2216:10
   assign axi_lite_writeData_bits_strb = io_EX_to_MEM_bus_bits_lsutype == 5'h10 ? 8'hFF : io_EX_to_MEM_bus_bits_lsutype == 5'h8 ?
                 8'hF : io_EX_to_MEM_bus_bits_lsutype == 5'h4 ? 8'h3 : {7'h0, io_EX_to_MEM_bus_bits_lsutype
-                == 5'h2};	// <stdin>:2312:10, PMEM.scala:49:11, :50:20, :51:24, :52:24, :53:24, :54:24
-  assign axi_lite_writeResp_ready = io_EX_to_MEM_bus_bits_memWriteEn;	// <stdin>:2312:10
-  assign axi_lite_readAddr_valid = io_EX_to_MEM_bus_bits_memReadEn;	// <stdin>:2312:10
-  assign axi_lite_readAddr_bits_addr = io_EX_to_MEM_bus_bits_ALU_result[31:0];	// <stdin>:2312:10, PMEM.scala:85:58
-  assign axi_lite_readData_ready = io_EX_to_MEM_bus_bits_memReadEn;	// <stdin>:2312:10
-  assign axi_req_valid = (|io_EX_to_MEM_bus_bits_lsutype) | (|rhsReg_8);	// <stdin>:2312:10, PMEM.scala:47:{34,41,76}, tools.scala:15:29
+                == 5'h2};	// <stdin>:2216:10, PMEM.scala:49:11, :50:20, :51:24, :52:24, :53:24, :54:24
+  assign axi_lite_writeResp_ready = io_EX_to_MEM_bus_bits_memWriteEn;	// <stdin>:2216:10
+  assign axi_lite_readAddr_valid = io_EX_to_MEM_bus_bits_memReadEn;	// <stdin>:2216:10
+  assign axi_lite_readAddr_bits_addr = io_EX_to_MEM_bus_bits_ALU_result[31:0];	// <stdin>:2216:10, PMEM.scala:85:58
+  assign axi_lite_readData_ready = io_EX_to_MEM_bus_bits_memReadEn;	// <stdin>:2216:10
+  assign axi_req_valid = (|io_EX_to_MEM_bus_bits_lsutype) | (|rhsReg_8);	// <stdin>:2216:10, PMEM.scala:47:{34,41,76}, tools.scala:15:29
 endmodule
 
-module MEMU(	// <stdin>:2455:10
+module MEMU(	// <stdin>:2359:10
   input         clock,
                 reset,
                 io_PMEM_to_MEM_bus_valid,
@@ -10391,27 +8570,27 @@ module MEMU(	// <stdin>:2455:10
       rhsReg_5 <= io_PMEM_to_MEM_bus_valid;	// tools.scala:15:29
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:2455:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:2455:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:2455:10
+  `ifndef SYNTHESIS	// <stdin>:2359:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:2359:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:2359:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:2455:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:2455:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:2455:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:2455:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:2455:10
-      automatic logic [31:0] _RANDOM_4;	// <stdin>:2455:10
-      automatic logic [31:0] _RANDOM_5;	// <stdin>:2455:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:2455:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:2455:10
+    initial begin	// <stdin>:2359:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:2359:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:2359:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:2359:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:2359:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:2359:10
+      automatic logic [31:0] _RANDOM_5;	// <stdin>:2359:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:2359:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:2359:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:2455:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:2455:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:2455:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:2455:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:2455:10
-        _RANDOM_4 = `RANDOM;	// <stdin>:2455:10
-        _RANDOM_5 = `RANDOM;	// <stdin>:2455:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:2359:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:2359:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:2359:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:2359:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:2359:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:2359:10
+        _RANDOM_5 = `RANDOM;	// <stdin>:2359:10
         rhsReg = {_RANDOM_0, _RANDOM_1};	// tools.scala:15:29
         rhsReg_1 = _RANDOM_2;	// tools.scala:15:29
         rhsReg_2 = _RANDOM_3[0];	// tools.scala:15:29
@@ -10420,22 +8599,22 @@ module MEMU(	// <stdin>:2455:10
         rhsReg_5 = _RANDOM_5[6];	// tools.scala:15:29
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:2455:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:2455:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:2359:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:2359:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  assign io_MEM_to_WB_bus_valid = rhsReg_5;	// <stdin>:2455:10, tools.scala:15:29
-  assign io_MEM_to_WB_bus_bits_regWriteData = rhsReg_4;	// <stdin>:2455:10, tools.scala:15:29
-  assign io_MEM_to_WB_bus_bits_regWriteEn = rhsReg_2;	// <stdin>:2455:10, tools.scala:15:29
-  assign io_MEM_to_WB_bus_bits_regWriteID = rhsReg_3;	// <stdin>:2455:10, tools.scala:15:29
-  assign io_MEM_to_WB_bus_bits_PC = rhsReg;	// <stdin>:2455:10, tools.scala:15:29
-  assign io_MEM_to_WB_bus_bits_Inst = rhsReg_1;	// <stdin>:2455:10, tools.scala:15:29
-  assign io_MEM_to_ID_forward_bits_regWriteData = io_PMEM_to_MEM_bus_bits_memReadEn ? io_memReadData : io_PMEM_to_MEM_bus_bits_ALU_result;	// <stdin>:2455:10, MEMU.scala:59:24
-  assign io_MEM_to_ID_forward_bits_regWriteEn = io_PMEM_to_MEM_bus_bits_regWriteEn;	// <stdin>:2455:10
-  assign io_MEM_to_ID_forward_bits_regWriteID = io_PMEM_to_MEM_bus_bits_regWriteID;	// <stdin>:2455:10
+  assign io_MEM_to_WB_bus_valid = rhsReg_5;	// <stdin>:2359:10, tools.scala:15:29
+  assign io_MEM_to_WB_bus_bits_regWriteData = rhsReg_4;	// <stdin>:2359:10, tools.scala:15:29
+  assign io_MEM_to_WB_bus_bits_regWriteEn = rhsReg_2;	// <stdin>:2359:10, tools.scala:15:29
+  assign io_MEM_to_WB_bus_bits_regWriteID = rhsReg_3;	// <stdin>:2359:10, tools.scala:15:29
+  assign io_MEM_to_WB_bus_bits_PC = rhsReg;	// <stdin>:2359:10, tools.scala:15:29
+  assign io_MEM_to_WB_bus_bits_Inst = rhsReg_1;	// <stdin>:2359:10, tools.scala:15:29
+  assign io_MEM_to_ID_forward_bits_regWriteData = io_PMEM_to_MEM_bus_bits_memReadEn ? io_memReadData : io_PMEM_to_MEM_bus_bits_ALU_result;	// <stdin>:2359:10, MEMU.scala:59:24
+  assign io_MEM_to_ID_forward_bits_regWriteEn = io_PMEM_to_MEM_bus_bits_regWriteEn;	// <stdin>:2359:10
+  assign io_MEM_to_ID_forward_bits_regWriteID = io_PMEM_to_MEM_bus_bits_regWriteID;	// <stdin>:2359:10
 endmodule
 
-module WBU(	// <stdin>:2495:10
+module WBU(	// <stdin>:2399:10
   input         io_MEM_to_WB_bus_valid,
   input  [63:0] io_MEM_to_WB_bus_bits_regWriteData,
   input         io_MEM_to_WB_bus_bits_regWriteEn,
@@ -10449,19 +8628,19 @@ module WBU(	// <stdin>:2495:10
   output [63:0] io_WB_pc,
   output [31:0] io_WB_Inst);
 
-  assign io_WB_to_ID_forward_valid = io_MEM_to_WB_bus_valid;	// <stdin>:2495:10
-  assign io_WB_to_ID_forward_bits_regWriteData = io_MEM_to_WB_bus_bits_regWriteData;	// <stdin>:2495:10
-  assign io_WB_to_ID_forward_bits_regWriteEn = io_MEM_to_WB_bus_bits_regWriteEn;	// <stdin>:2495:10
-  assign io_WB_to_ID_forward_bits_regWriteID = io_MEM_to_WB_bus_bits_regWriteID;	// <stdin>:2495:10
-  assign io_WB_pc = io_MEM_to_WB_bus_bits_PC;	// <stdin>:2495:10
-  assign io_WB_Inst = io_MEM_to_WB_bus_bits_Inst;	// <stdin>:2495:10
+  assign io_WB_to_ID_forward_valid = io_MEM_to_WB_bus_valid;	// <stdin>:2399:10
+  assign io_WB_to_ID_forward_bits_regWriteData = io_MEM_to_WB_bus_bits_regWriteData;	// <stdin>:2399:10
+  assign io_WB_to_ID_forward_bits_regWriteEn = io_MEM_to_WB_bus_bits_regWriteEn;	// <stdin>:2399:10
+  assign io_WB_to_ID_forward_bits_regWriteID = io_MEM_to_WB_bus_bits_regWriteID;	// <stdin>:2399:10
+  assign io_WB_pc = io_MEM_to_WB_bus_bits_PC;	// <stdin>:2399:10
+  assign io_WB_Inst = io_MEM_to_WB_bus_bits_Inst;	// <stdin>:2399:10
 endmodule
 
 // external module sim_sram
 
 // external module sim
 
-module RAMU(	// <stdin>:2564:10
+module RAMU(	// <stdin>:2468:10
   input         clock,
                 reset,
                 axi_lite_writeAddr_valid,
@@ -10506,7 +8685,7 @@ module RAMU(	// <stdin>:2564:10
   );
 endmodule
 
-module AXI_Arbiter(	// <stdin>:2613:10
+module AXI_Arbiter(	// <stdin>:2517:10
   input         in_0_writeAddr_valid,
   input  [31:0] in_0_writeAddr_bits_addr,
   input         in_0_writeData_valid,
@@ -10539,24 +8718,24 @@ module AXI_Arbiter(	// <stdin>:2613:10
   output [31:0] out_readAddr_bits_addr,
   output        out_readData_ready);
 
-  assign in_0_readData_bits_data = req_0_valid ? out_readData_bits_data : 64'h77;	// <stdin>:2613:10, RAM.scala:16:37, :22:27, :23:17
-  assign in_1_readData_valid = out_readData_valid;	// <stdin>:2613:10
-  assign in_1_readData_bits_data = out_readData_bits_data;	// <stdin>:2613:10
-  assign in_1_readData_bits_resp = out_readData_bits_resp;	// <stdin>:2613:10
-  assign req_0_ready = req_0_valid;	// <stdin>:2613:10
-  assign req_1_ready = ~req_0_valid;	// <stdin>:2613:10, RAM.scala:22:27, :26:30
-  assign out_writeAddr_valid = req_0_valid & in_0_writeAddr_valid;	// <stdin>:2613:10, RAM.scala:22:27, :23:17
-  assign out_writeAddr_bits_addr = req_0_valid ? in_0_writeAddr_bits_addr : 32'h0;	// <stdin>:2613:10, RAM.scala:22:27, :23:17
-  assign out_writeData_valid = req_0_valid & in_0_writeData_valid;	// <stdin>:2613:10, RAM.scala:22:27, :23:17
-  assign out_writeData_bits_data = req_0_valid ? in_0_writeData_bits_data : 64'h0;	// <stdin>:2613:10, RAM.scala:22:27, :23:17
-  assign out_writeData_bits_strb = req_0_valid ? in_0_writeData_bits_strb : 8'h0;	// <stdin>:2613:10, RAM.scala:22:27, :23:17
-  assign out_writeResp_ready = req_0_valid & in_0_writeResp_ready;	// <stdin>:2613:10, RAM.scala:22:27, :23:17
-  assign out_readAddr_valid = req_0_valid ? in_0_readAddr_valid : in_1_readAddr_valid;	// <stdin>:2613:10, RAM.scala:22:27, :23:17
-  assign out_readAddr_bits_addr = req_0_valid ? in_0_readAddr_bits_addr : in_1_readAddr_bits_addr;	// <stdin>:2613:10, RAM.scala:22:27, :23:17
-  assign out_readData_ready = req_0_valid ? in_0_readData_ready : in_1_readData_ready;	// <stdin>:2613:10, RAM.scala:22:27, :23:17
+  assign in_0_readData_bits_data = req_0_valid ? out_readData_bits_data : 64'h77;	// <stdin>:2517:10, RAM.scala:16:37, :22:27, :23:17
+  assign in_1_readData_valid = out_readData_valid;	// <stdin>:2517:10
+  assign in_1_readData_bits_data = out_readData_bits_data;	// <stdin>:2517:10
+  assign in_1_readData_bits_resp = out_readData_bits_resp;	// <stdin>:2517:10
+  assign req_0_ready = req_0_valid;	// <stdin>:2517:10
+  assign req_1_ready = ~req_0_valid;	// <stdin>:2517:10, RAM.scala:22:27, :26:30
+  assign out_writeAddr_valid = req_0_valid & in_0_writeAddr_valid;	// <stdin>:2517:10, RAM.scala:22:27, :23:17
+  assign out_writeAddr_bits_addr = req_0_valid ? in_0_writeAddr_bits_addr : 32'h0;	// <stdin>:2517:10, RAM.scala:22:27, :23:17
+  assign out_writeData_valid = req_0_valid & in_0_writeData_valid;	// <stdin>:2517:10, RAM.scala:22:27, :23:17
+  assign out_writeData_bits_data = req_0_valid ? in_0_writeData_bits_data : 64'h0;	// <stdin>:2517:10, RAM.scala:22:27, :23:17
+  assign out_writeData_bits_strb = req_0_valid ? in_0_writeData_bits_strb : 8'h0;	// <stdin>:2517:10, RAM.scala:22:27, :23:17
+  assign out_writeResp_ready = req_0_valid & in_0_writeResp_ready;	// <stdin>:2517:10, RAM.scala:22:27, :23:17
+  assign out_readAddr_valid = req_0_valid ? in_0_readAddr_valid : in_1_readAddr_valid;	// <stdin>:2517:10, RAM.scala:22:27, :23:17
+  assign out_readAddr_bits_addr = req_0_valid ? in_0_readAddr_bits_addr : in_1_readAddr_bits_addr;	// <stdin>:2517:10, RAM.scala:22:27, :23:17
+  assign out_readData_ready = req_0_valid ? in_0_readData_ready : in_1_readData_ready;	// <stdin>:2517:10, RAM.scala:22:27, :23:17
 endmodule
 
-module top(	// <stdin>:2647:10
+module top(	// <stdin>:2551:10
   input         clock,
                 reset,
   output [63:0] io_ID_npc,
@@ -11053,27 +9232,27 @@ sim simulate (	// top.scala:24:26
     .out_readAddr_bits_addr   (_arb_out_readAddr_bits_addr),
     .out_readData_ready       (_arb_out_readData_ready)
   );
-  assign io_ID_npc = _inst_decode_unit_io_ID_to_BPU_bus_bits_br_target;	// <stdin>:2647:10, top.scala:70:34
-  assign io_PF_pc = _inst_fetch_unit_io_PF_pc;	// <stdin>:2647:10, top.scala:69:33
-  assign io_PF_axidata = _inst_fetch_unit_io_axidata;	// <stdin>:2647:10, top.scala:69:33
-  assign io_IF_pc = _inst_fetch_unit_io_IF_to_ID_bus_bits_PC;	// <stdin>:2647:10, top.scala:69:33
-  assign io_ID_pc = _inst_decode_unit_io_ID_to_EX_bus_bits_PC;	// <stdin>:2647:10, top.scala:70:34
-  assign io_EX_pc = _excute_unit_io_EX_to_MEM_bus_bits_PC;	// <stdin>:2647:10, top.scala:71:29
-  assign io_PMEM_pc = _pre_mem_unit_io_PMEM_to_MEM_bus_bits_PC;	// <stdin>:2647:10, top.scala:72:30
-  assign io_WB_Inst = _wb_unit_io_WB_Inst;	// <stdin>:2647:10, top.scala:74:25
-  assign io_WB_RegWriteData = _wb_unit_io_WB_to_ID_forward_bits_regWriteData;	// <stdin>:2647:10, top.scala:74:25
-  assign io_WB_RegWriteID = {59'h0, _wb_unit_io_WB_to_ID_forward_bits_regWriteID};	// <stdin>:2647:10, top.scala:74:25, :110:24
-  assign io_MEM_RegWriteData = _arb_in_0_readData_bits_data;	// <stdin>:2647:10, top.scala:161:21
-  assign io_bp_npc = _bp_unit_io_bp_npc;	// <stdin>:2647:10, top.scala:68:33
-  assign io_bp_taken = _bp_unit_io_bp_taken;	// <stdin>:2647:10, top.scala:68:33
-  assign io_bp_flush = _bp_unit_io_bp_flush;	// <stdin>:2647:10, top.scala:68:33
-  assign io_IF_Inst = _inst_fetch_unit_io_IF_to_ID_bus_bits_Inst;	// <stdin>:2647:10, top.scala:69:33
-  assign io_IF_valid = _inst_fetch_unit_io_IF_to_ID_bus_valid;	// <stdin>:2647:10, top.scala:69:33
-  assign io_IF_AXIREQ = _arb_req_1_ready;	// <stdin>:2647:10, top.scala:161:21
-  assign io_ID_ALU_Data1 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data1;	// <stdin>:2647:10, top.scala:70:34
-  assign io_ID_ALU_Data2 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data2;	// <stdin>:2647:10, top.scala:70:34
-  assign io_ID_Rs2Data = _inst_decode_unit_io_ID_to_EX_bus_bits_rs2_data;	// <stdin>:2647:10, top.scala:70:34
-  assign io_ALUResult = _excute_unit_io_EX_to_MEM_bus_bits_ALU_result;	// <stdin>:2647:10, top.scala:71:29
+  assign io_ID_npc = _inst_decode_unit_io_ID_to_BPU_bus_bits_br_target;	// <stdin>:2551:10, top.scala:70:34
+  assign io_PF_pc = _inst_fetch_unit_io_PF_pc;	// <stdin>:2551:10, top.scala:69:33
+  assign io_PF_axidata = _inst_fetch_unit_io_axidata;	// <stdin>:2551:10, top.scala:69:33
+  assign io_IF_pc = _inst_fetch_unit_io_IF_to_ID_bus_bits_PC;	// <stdin>:2551:10, top.scala:69:33
+  assign io_ID_pc = _inst_decode_unit_io_ID_to_EX_bus_bits_PC;	// <stdin>:2551:10, top.scala:70:34
+  assign io_EX_pc = _excute_unit_io_EX_to_MEM_bus_bits_PC;	// <stdin>:2551:10, top.scala:71:29
+  assign io_PMEM_pc = _pre_mem_unit_io_PMEM_to_MEM_bus_bits_PC;	// <stdin>:2551:10, top.scala:72:30
+  assign io_WB_Inst = _wb_unit_io_WB_Inst;	// <stdin>:2551:10, top.scala:74:25
+  assign io_WB_RegWriteData = _wb_unit_io_WB_to_ID_forward_bits_regWriteData;	// <stdin>:2551:10, top.scala:74:25
+  assign io_WB_RegWriteID = {59'h0, _wb_unit_io_WB_to_ID_forward_bits_regWriteID};	// <stdin>:2551:10, top.scala:74:25, :110:24
+  assign io_MEM_RegWriteData = _arb_in_0_readData_bits_data;	// <stdin>:2551:10, top.scala:161:21
+  assign io_bp_npc = _bp_unit_io_bp_npc;	// <stdin>:2551:10, top.scala:68:33
+  assign io_bp_taken = _bp_unit_io_bp_taken;	// <stdin>:2551:10, top.scala:68:33
+  assign io_bp_flush = _bp_unit_io_bp_flush;	// <stdin>:2551:10, top.scala:68:33
+  assign io_IF_Inst = _inst_fetch_unit_io_IF_to_ID_bus_bits_Inst;	// <stdin>:2551:10, top.scala:69:33
+  assign io_IF_valid = _inst_fetch_unit_io_IF_to_ID_bus_valid;	// <stdin>:2551:10, top.scala:69:33
+  assign io_IF_AXIREQ = _arb_req_1_ready;	// <stdin>:2551:10, top.scala:161:21
+  assign io_ID_ALU_Data1 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data1;	// <stdin>:2551:10, top.scala:70:34
+  assign io_ID_ALU_Data2 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data2;	// <stdin>:2551:10, top.scala:70:34
+  assign io_ID_Rs2Data = _inst_decode_unit_io_ID_to_EX_bus_bits_rs2_data;	// <stdin>:2551:10, top.scala:70:34
+  assign io_ALUResult = _excute_unit_io_EX_to_MEM_bus_bits_ALU_result;	// <stdin>:2551:10, top.scala:71:29
 endmodule
 
 
