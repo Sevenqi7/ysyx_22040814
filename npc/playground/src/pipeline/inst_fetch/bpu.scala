@@ -148,7 +148,7 @@ class BPU extends Module{
 
 
     val BHT = RegInit(VecInit(Seq.fill(256)(0.U(4.W))))
-    val PHT = RegInit(VecInit(Seq.fill(256)("b11".U(2.W))))
+    val PHT = RegInit(VecInit(Seq.fill(256)("b10".U(2.W))))
     val BTB = Module(new BPU_Cache(16, 8, 3))
 
     //BTB
