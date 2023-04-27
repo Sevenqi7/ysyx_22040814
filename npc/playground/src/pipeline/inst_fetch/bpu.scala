@@ -103,9 +103,9 @@ class BPU extends Module{
         val bp_npc     = Output(UInt(64.W))
 
         //for debug
-        val BTB_wset = Output(UInt(3.W))
+        val BTB_wset = Output(UInt(4.W))
         val BTB_wtag = Output(UInt(16.W))
-        val BTB_rset = Output(UInt(3.W))
+        val BTB_rset = Output(UInt(4.W))
         val BTB_rtag = Output(UInt(16.W))
         val BTB_rdata = Output(UInt(64.W))
         val BTB_wdata = Output(UInt(64.W))
@@ -147,7 +147,7 @@ class BPU extends Module{
 
     val BHT = RegInit(VecInit(Seq.fill(256)(0.U(4.W))))
     val PHT = RegInit(VecInit(Seq.fill(256)("b01".U(2.W))))
-    val BTB = Module(new BPU_Cache(16, 8, 4))
+    val BTB = Module(new BPU_Cache(16, 16, 3))
 
     //BTB
     BTB.io.raddr      := io.PF_pc
