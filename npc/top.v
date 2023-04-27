@@ -5844,3 +5844,9 @@ module sim(input[63:0] IF_pc, input [63:0] GPR [31:0], input unknown_inst_flag, 
       reg [63:0] i = GPR[10][63:0];
       if(unknown_inst_flag) unknown_inst();
       if(WB_Inst[31:0] == 32'h00100073) begin
+        ebreak(i);
+        $finish();
+      end
+  end
+
+endmodule
