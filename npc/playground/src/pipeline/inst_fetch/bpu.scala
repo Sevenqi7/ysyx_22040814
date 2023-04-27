@@ -194,7 +194,7 @@ class BPU extends Module{
     bp_taken     := 0.U
     when(BTB.io.hit & io.PF_valid & (B_type | J_type)){
         // bp_taken := PHT(pht_idx)(BHT(bht_idx) ^ io.PF_pc(3, 0))(1)
-        bp_taken := 0.U
+        bp_taken := 1.U
     }
 
     
