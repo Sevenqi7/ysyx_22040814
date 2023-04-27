@@ -126,10 +126,17 @@ class BPU extends Module{
     //     ret := x1(15, 8) ^ x1(7, 0)
     //     ret
     // }
-    def hash(pc: UInt): UInt = {
-        val hashValue = (pc >> 2) ^ (pc >> 10) ^ (pc >> 18) ^ (pc >> 24)
-        hashValue(7, 0)
-    }
+    // def hash(pc: UInt): UInt = {
+    //     val hashValue = (pc >> 2) ^ (pc >> 10) ^ (pc >> 18) ^ (pc >> 24)
+    //     hashValue(7, 0)
+    // }
+def hash(pc: UInt): UInt = {
+  val P = 2147483647L // 2^31-1, a large prime number
+  val M = 256 // 2^8, the size of BHT
+  val h = (pc.asUInt * P).asUInt >> 32
+  h % M
+}
+
     
     //unpack bus from IDU
     val ID_pc = io.ID_to_BPU_bus.bits.PC
