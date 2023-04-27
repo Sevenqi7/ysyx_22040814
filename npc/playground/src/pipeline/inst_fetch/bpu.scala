@@ -176,7 +176,7 @@ class BPU extends Module{
     val pht_idx = BHT(bht_idx) ^ io.PF_pc(3, 0)
 
     bp_taken     := 0.U
-    when(BTB.io.hit & io.PF_valid){
+    when(BTB.io.hit & io.PF_valid & (B_type | J_type)){
         bp_taken := PHT(pht_idx) & 1.U
     }
 
