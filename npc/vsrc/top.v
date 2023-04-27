@@ -1203,6 +1203,7 @@ module BPU(	// <stdin>:186:10
   reg  [1:0]        PHT_15_15;	// bpu.scala:160:22
   wire              _io_bp_flush_T_1 = io_ID_to_BPU_bus_valid & bp_target != io_ID_to_BPU_bus_bits_br_target;	// bpu.scala:145:28, :179:{49,62}
   wire [63:0]       _io_bp_npc_T_1 = io_PF_pc + 64'h4;	// bpu.scala:180:43
+  wire [15:0]       bht_idx_x1 = io_PF_pc[31:16] ^ io_PF_pc[15:0];	// bpu.scala:125:{19,28,31}
   wire              _T_31 = _BTB_io_hit & io_PF_valid;	// bpu.scala:161:21, :194:21
   wire [255:0][3:0] _GEN_0 = {{BHT_255}, {BHT_254}, {BHT_253}, {BHT_252}, {BHT_251}, {BHT_250}, {BHT_249}, {BHT_248},
                 {BHT_247}, {BHT_246}, {BHT_245}, {BHT_244}, {BHT_243}, {BHT_242}, {BHT_241}, {BHT_240},
@@ -1237,7 +1238,7 @@ module BPU(	// <stdin>:186:10
                 {BHT_5}, {BHT_4}, {BHT_3}, {BHT_2}, {BHT_1}, {BHT_0}};	// bpu.scala:159:22, :195:47
   wire [3:0]        _GEN_1;	// bpu.scala:195:47
   /* synopsys infer_mux_override */
-  assign _GEN_1 = _GEN_0[io_PF_pc[11:4]] /* cadence map_to_mux */;	// bpu.scala:190:27, :195:47
+  assign _GEN_1 = _GEN_0[bht_idx_x1[15:8] ^ bht_idx_x1[7:0]] /* cadence map_to_mux */;	// bpu.scala:125:28, :126:{18,26,30}, :195:47
   wire [15:0][1:0]  _GEN_2 = {{PHT_15_0}, {PHT_14_0}, {PHT_13_0}, {PHT_12_0}, {PHT_11_0}, {PHT_10_0}, {PHT_9_0},
                 {PHT_8_0}, {PHT_7_0}, {PHT_6_0}, {PHT_5_0}, {PHT_4_0}, {PHT_3_0}, {PHT_2_0}, {PHT_1_0},
                 {PHT_0_0}};	// bpu.scala:160:22, :195:64
@@ -1340,9 +1341,11 @@ module BPU(	// <stdin>:186:10
   /* synopsys infer_mux_override */
   assign _GEN_35 = _GEN_34[_GEN_1 ^ io_PF_pc[3:0]] /* cadence map_to_mux */;	// bpu.scala:191:27, :195:{47,64}
   assign _GEN = _T_31 & _T_32 & _GEN_35[0];	// bpu.scala:147:18, :193:18, :194:{21,55}, :195:{18,64}
+  wire [15:0]       up_bht_idx_x1 = io_ID_to_BPU_bus_bits_PC[31:16] ^ io_ID_to_BPU_bus_bits_PC[15:0];	// bpu.scala:125:{19,28,31}
+  wire [7:0]        _up_bht_idx_ret_T_2 = up_bht_idx_x1[15:8] ^ up_bht_idx_x1[7:0];	// bpu.scala:125:28, :126:{18,26,30}
   wire [3:0]        _GEN_36;	// bpu.scala:205:41
   /* synopsys infer_mux_override */
-  assign _GEN_36 = _GEN_0[io_ID_to_BPU_bus_bits_PC[11:4]] /* cadence map_to_mux */;	// bpu.scala:195:47, :201:27, :205:41
+  assign _GEN_36 = _GEN_0[_up_bht_idx_ret_T_2] /* cadence map_to_mux */;	// bpu.scala:126:26, :195:47, :205:41
   wire [1:0]        _GEN_37;	// bpu.scala:206:61
   /* synopsys infer_mux_override */
   assign _GEN_37 = _GEN_2[io_ID_to_BPU_bus_bits_PC[3:0]] /* cadence map_to_mux */;	// bpu.scala:195:64, :202:27, :206:61
@@ -1410,52 +1413,52 @@ module BPU(	// <stdin>:186:10
   assign _GEN_58 = _GEN_53[_GEN_36 ^ io_ID_to_BPU_bus_bits_PC[3:0]] /* cadence map_to_mux */;	// bpu.scala:202:27, :205:41, :206:61, :210:{46,61}
   wire [1:0]        _GEN_59;	// bpu.scala:211:61
   /* synopsys infer_mux_override */
-  assign _GEN_59 = _GEN_2[io_ID_to_BPU_bus_bits_PC[7:4]] /* cadence map_to_mux */;	// <stdin>:794:24, bpu.scala:195:64, :211:61
+  assign _GEN_59 = _GEN_2[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:808:24, bpu.scala:126:26, :195:64, :211:61
   wire [1:0]        _GEN_60;	// bpu.scala:211:61
   /* synopsys infer_mux_override */
-  assign _GEN_60 = _GEN_4[io_ID_to_BPU_bus_bits_PC[7:4]] /* cadence map_to_mux */;	// <stdin>:794:24, bpu.scala:195:64, :211:61
+  assign _GEN_60 = _GEN_4[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:808:24, bpu.scala:126:26, :195:64, :211:61
   wire [1:0]        _GEN_61;	// bpu.scala:211:61
   /* synopsys infer_mux_override */
-  assign _GEN_61 = _GEN_6[io_ID_to_BPU_bus_bits_PC[7:4]] /* cadence map_to_mux */;	// <stdin>:794:24, bpu.scala:195:64, :211:61
+  assign _GEN_61 = _GEN_6[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:808:24, bpu.scala:126:26, :195:64, :211:61
   wire [1:0]        _GEN_62;	// bpu.scala:211:61
   /* synopsys infer_mux_override */
-  assign _GEN_62 = _GEN_8[io_ID_to_BPU_bus_bits_PC[7:4]] /* cadence map_to_mux */;	// <stdin>:794:24, bpu.scala:195:64, :211:61
+  assign _GEN_62 = _GEN_8[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:808:24, bpu.scala:126:26, :195:64, :211:61
   wire [1:0]        _GEN_63;	// bpu.scala:211:61
   /* synopsys infer_mux_override */
-  assign _GEN_63 = _GEN_10[io_ID_to_BPU_bus_bits_PC[7:4]] /* cadence map_to_mux */;	// <stdin>:794:24, bpu.scala:195:64, :211:61
+  assign _GEN_63 = _GEN_10[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:808:24, bpu.scala:126:26, :195:64, :211:61
   wire [1:0]        _GEN_64;	// bpu.scala:211:61
   /* synopsys infer_mux_override */
-  assign _GEN_64 = _GEN_12[io_ID_to_BPU_bus_bits_PC[7:4]] /* cadence map_to_mux */;	// <stdin>:794:24, bpu.scala:195:64, :211:61
+  assign _GEN_64 = _GEN_12[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:808:24, bpu.scala:126:26, :195:64, :211:61
   wire [1:0]        _GEN_65;	// bpu.scala:211:61
   /* synopsys infer_mux_override */
-  assign _GEN_65 = _GEN_14[io_ID_to_BPU_bus_bits_PC[7:4]] /* cadence map_to_mux */;	// <stdin>:794:24, bpu.scala:195:64, :211:61
+  assign _GEN_65 = _GEN_14[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:808:24, bpu.scala:126:26, :195:64, :211:61
   wire [1:0]        _GEN_66;	// bpu.scala:211:61
   /* synopsys infer_mux_override */
-  assign _GEN_66 = _GEN_16[io_ID_to_BPU_bus_bits_PC[7:4]] /* cadence map_to_mux */;	// <stdin>:794:24, bpu.scala:195:64, :211:61
+  assign _GEN_66 = _GEN_16[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:808:24, bpu.scala:126:26, :195:64, :211:61
   wire [1:0]        _GEN_67;	// bpu.scala:211:61
   /* synopsys infer_mux_override */
-  assign _GEN_67 = _GEN_18[io_ID_to_BPU_bus_bits_PC[7:4]] /* cadence map_to_mux */;	// <stdin>:794:24, bpu.scala:195:64, :211:61
+  assign _GEN_67 = _GEN_18[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:808:24, bpu.scala:126:26, :195:64, :211:61
   wire [1:0]        _GEN_68;	// bpu.scala:211:61
   /* synopsys infer_mux_override */
-  assign _GEN_68 = _GEN_20[io_ID_to_BPU_bus_bits_PC[7:4]] /* cadence map_to_mux */;	// <stdin>:794:24, bpu.scala:195:64, :211:61
+  assign _GEN_68 = _GEN_20[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:808:24, bpu.scala:126:26, :195:64, :211:61
   wire [1:0]        _GEN_69;	// bpu.scala:211:61
   /* synopsys infer_mux_override */
-  assign _GEN_69 = _GEN_22[io_ID_to_BPU_bus_bits_PC[7:4]] /* cadence map_to_mux */;	// <stdin>:794:24, bpu.scala:195:64, :211:61
+  assign _GEN_69 = _GEN_22[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:808:24, bpu.scala:126:26, :195:64, :211:61
   wire [1:0]        _GEN_70;	// bpu.scala:211:61
   /* synopsys infer_mux_override */
-  assign _GEN_70 = _GEN_24[io_ID_to_BPU_bus_bits_PC[7:4]] /* cadence map_to_mux */;	// <stdin>:794:24, bpu.scala:195:64, :211:61
+  assign _GEN_70 = _GEN_24[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:808:24, bpu.scala:126:26, :195:64, :211:61
   wire [1:0]        _GEN_71;	// bpu.scala:211:61
   /* synopsys infer_mux_override */
-  assign _GEN_71 = _GEN_26[io_ID_to_BPU_bus_bits_PC[7:4]] /* cadence map_to_mux */;	// <stdin>:794:24, bpu.scala:195:64, :211:61
+  assign _GEN_71 = _GEN_26[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:808:24, bpu.scala:126:26, :195:64, :211:61
   wire [1:0]        _GEN_72;	// bpu.scala:211:61
   /* synopsys infer_mux_override */
-  assign _GEN_72 = _GEN_28[io_ID_to_BPU_bus_bits_PC[7:4]] /* cadence map_to_mux */;	// <stdin>:794:24, bpu.scala:195:64, :211:61
+  assign _GEN_72 = _GEN_28[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:808:24, bpu.scala:126:26, :195:64, :211:61
   wire [1:0]        _GEN_73;	// bpu.scala:211:61
   /* synopsys infer_mux_override */
-  assign _GEN_73 = _GEN_30[io_ID_to_BPU_bus_bits_PC[7:4]] /* cadence map_to_mux */;	// <stdin>:794:24, bpu.scala:195:64, :211:61
+  assign _GEN_73 = _GEN_30[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:808:24, bpu.scala:126:26, :195:64, :211:61
   wire [1:0]        _GEN_74;	// bpu.scala:211:61
   /* synopsys infer_mux_override */
-  assign _GEN_74 = _GEN_32[io_ID_to_BPU_bus_bits_PC[7:4]] /* cadence map_to_mux */;	// <stdin>:794:24, bpu.scala:195:64, :211:61
+  assign _GEN_74 = _GEN_32[_up_bht_idx_ret_T_2[3:0]] /* cadence map_to_mux */;	// <stdin>:808:24, bpu.scala:126:26, :195:64, :211:61
   wire [15:0][1:0]  _GEN_75 = {{_GEN_74}, {_GEN_73}, {_GEN_72}, {_GEN_71}, {_GEN_70}, {_GEN_69}, {_GEN_68}, {_GEN_67},
                 {_GEN_66}, {_GEN_65}, {_GEN_64}, {_GEN_63}, {_GEN_62}, {_GEN_61}, {_GEN_60}, {_GEN_59}};	// bpu.scala:211:61
   wire [1:0]        _GEN_76;	// bpu.scala:211:61
@@ -2047,517 +2050,517 @@ module BPU(	// <stdin>:186:10
         else	// bpu.scala:179:49, :193:18, :194:55, :195:18
           bp_target <= _io_bp_npc_T_1;	// bpu.scala:145:28, :180:43
       end
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h0)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h0)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_0 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h1)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h1)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_1 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h2)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h2)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_2 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h3)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h3)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_3 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h4)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h4)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_4 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h5)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h5)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_5 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h6)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h6)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_6 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h7)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h7)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_7 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h8)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h8)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_8 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h9)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h9)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_9 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hA)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hA)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_10 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hB)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hB)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_11 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hC)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hC)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_12 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hD)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hD)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_13 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hE)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hE)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_14 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hF)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hF)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_15 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h10)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h10)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_16 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h11)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h11)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_17 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h12)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h12)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_18 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h13)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h13)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_19 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h14)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h14)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_20 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h15)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h15)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_21 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h16)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h16)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_22 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h17)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h17)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_23 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h18)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h18)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_24 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h19)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h19)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_25 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h1A)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h1A)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_26 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h1B)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h1B)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_27 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h1C)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h1C)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_28 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h1D)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h1D)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_29 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h1E)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h1E)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_30 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h1F)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h1F)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_31 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h20)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h20)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_32 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h21)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h21)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_33 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h22)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h22)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_34 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h23)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h23)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_35 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h24)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h24)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_36 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h25)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h25)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_37 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h26)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h26)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_38 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h27)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h27)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_39 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h28)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h28)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_40 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h29)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h29)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_41 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h2A)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h2A)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_42 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h2B)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h2B)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_43 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h2C)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h2C)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_44 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h2D)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h2D)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_45 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h2E)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h2E)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_46 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h2F)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h2F)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_47 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h30)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h30)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_48 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h31)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h31)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_49 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h32)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h32)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_50 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h33)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h33)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_51 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h34)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h34)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_52 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h35)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h35)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_53 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h36)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h36)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_54 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h37)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h37)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_55 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h38)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h38)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_56 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h39)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h39)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_57 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h3A)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h3A)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_58 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h3B)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h3B)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_59 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h3C)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h3C)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_60 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h3D)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h3D)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_61 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h3E)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h3E)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_62 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h3F)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h3F)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_63 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h40)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h40)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_64 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h41)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h41)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_65 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h42)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h42)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_66 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h43)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h43)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_67 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h44)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h44)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_68 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h45)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h45)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_69 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h46)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h46)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_70 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h47)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h47)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_71 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h48)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h48)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_72 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h49)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h49)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_73 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h4A)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h4A)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_74 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h4B)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h4B)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_75 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h4C)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h4C)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_76 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h4D)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h4D)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_77 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h4E)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h4E)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_78 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h4F)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h4F)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_79 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h50)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h50)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_80 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h51)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h51)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_81 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h52)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h52)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_82 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h53)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h53)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_83 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h54)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h54)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_84 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h55)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h55)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_85 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h56)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h56)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_86 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h57)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h57)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_87 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h58)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h58)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_88 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h59)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h59)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_89 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h5A)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h5A)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_90 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h5B)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h5B)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_91 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h5C)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h5C)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_92 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h5D)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h5D)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_93 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h5E)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h5E)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_94 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h5F)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h5F)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_95 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h60)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h60)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_96 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h61)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h61)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_97 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h62)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h62)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_98 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h63)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h63)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_99 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h64)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h64)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_100 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h65)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h65)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_101 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h66)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h66)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_102 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h67)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h67)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_103 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h68)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h68)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_104 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h69)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h69)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_105 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h6A)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h6A)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_106 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h6B)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h6B)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_107 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h6C)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h6C)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_108 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h6D)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h6D)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_109 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h6E)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h6E)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_110 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h6F)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h6F)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_111 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h70)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h70)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_112 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h71)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h71)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_113 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h72)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h72)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_114 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h73)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h73)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_115 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h74)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h74)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_116 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h75)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h75)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_117 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h76)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h76)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_118 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h77)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h77)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_119 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h78)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h78)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_120 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h79)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h79)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_121 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h7A)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h7A)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_122 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h7B)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h7B)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_123 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h7C)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h7C)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_124 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h7D)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h7D)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_125 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h7E)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h7E)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_126 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h7F)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h7F)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_127 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h80)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h80)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_128 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h81)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h81)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_129 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h82)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h82)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_130 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h83)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h83)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_131 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h84)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h84)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_132 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h85)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h85)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_133 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h86)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h86)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_134 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h87)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h87)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_135 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h88)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h88)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_136 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h89)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h89)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_137 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h8A)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h8A)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_138 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h8B)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h8B)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_139 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h8C)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h8C)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_140 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h8D)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h8D)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_141 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h8E)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h8E)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_142 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h8F)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h8F)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_143 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h90)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h90)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_144 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h91)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h91)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_145 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h92)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h92)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_146 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h93)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h93)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_147 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h94)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h94)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_148 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h95)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h95)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_149 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h96)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h96)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_150 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h97)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h97)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_151 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h98)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h98)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_152 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h99)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h99)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_153 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h9A)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h9A)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_154 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h9B)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h9B)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_155 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h9C)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h9C)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_156 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h9D)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h9D)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_157 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h9E)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h9E)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_158 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'h9F)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'h9F)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_159 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hA0)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hA0)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_160 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hA1)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hA1)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_161 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hA2)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hA2)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_162 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hA3)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hA3)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_163 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hA4)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hA4)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_164 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hA5)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hA5)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_165 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hA6)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hA6)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_166 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hA7)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hA7)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_167 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hA8)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hA8)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_168 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hA9)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hA9)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_169 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hAA)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hAA)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_170 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hAB)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hAB)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_171 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hAC)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hAC)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_172 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hAD)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hAD)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_173 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hAE)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hAE)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_174 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hAF)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hAF)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_175 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hB0)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hB0)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_176 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hB1)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hB1)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_177 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hB2)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hB2)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_178 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hB3)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hB3)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_179 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hB4)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hB4)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_180 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hB5)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hB5)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_181 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hB6)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hB6)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_182 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hB7)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hB7)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_183 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hB8)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hB8)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_184 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hB9)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hB9)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_185 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hBA)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hBA)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_186 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hBB)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hBB)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_187 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hBC)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hBC)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_188 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hBD)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hBD)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_189 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hBE)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hBE)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_190 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hBF)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hBF)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_191 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hC0)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hC0)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_192 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hC1)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hC1)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_193 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hC2)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hC2)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_194 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hC3)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hC3)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_195 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hC4)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hC4)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_196 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hC5)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hC5)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_197 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hC6)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hC6)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_198 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hC7)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hC7)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_199 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hC8)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hC8)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_200 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hC9)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hC9)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_201 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hCA)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hCA)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_202 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hCB)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hCB)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_203 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hCC)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hCC)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_204 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hCD)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hCD)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_205 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hCE)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hCE)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_206 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hCF)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hCF)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_207 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hD0)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hD0)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_208 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hD1)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hD1)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_209 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hD2)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hD2)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_210 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hD3)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hD3)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_211 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hD4)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hD4)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_212 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hD5)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hD5)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_213 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hD6)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hD6)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_214 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hD7)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hD7)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_215 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hD8)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hD8)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_216 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hD9)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hD9)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_217 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hDA)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hDA)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_218 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hDB)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hDB)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_219 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hDC)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hDC)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_220 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hDD)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hDD)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_221 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hDE)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hDE)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_222 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hDF)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hDF)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_223 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hE0)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hE0)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_224 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hE1)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hE1)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_225 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hE2)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hE2)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_226 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hE3)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hE3)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_227 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hE4)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hE4)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_228 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hE5)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hE5)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_229 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hE6)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hE6)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_230 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hE7)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hE7)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_231 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hE8)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hE8)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_232 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hE9)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hE9)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_233 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hEA)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hEA)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_234 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hEB)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hEB)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_235 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hEC)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hEC)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_236 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hED)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hED)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_237 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hEE)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hEE)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_238 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hEF)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hEF)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_239 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hF0)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hF0)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_240 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hF1)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hF1)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_241 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hF2)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hF2)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_242 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hF3)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hF3)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_243 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hF4)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hF4)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_244 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hF5)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hF5)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_245 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hF6)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hF6)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_246 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hF7)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hF7)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_247 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hF8)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hF8)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_248 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hF9)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hF9)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_249 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hFA)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hFA)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_250 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hFB)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hFB)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_251 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hFC)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hFC)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_252 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hFD)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hFD)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_253 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & io_ID_to_BPU_bus_bits_PC[11:4] == 8'hFE)	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & _up_bht_idx_ret_T_2 == 8'hFE)	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_254 <= _GEN_109;	// bpu.scala:159:22, :213:51
-      if (io_ID_to_BPU_bus_valid & (&(io_ID_to_BPU_bus_bits_PC[11:4])))	// bpu.scala:159:22, :201:27, :203:33, :213:25
+      if (io_ID_to_BPU_bus_valid & (&_up_bht_idx_ret_T_2))	// bpu.scala:126:26, :159:22, :203:33, :213:25
         BHT_255 <= _GEN_109;	// bpu.scala:159:22, :213:51
       if (io_ID_to_BPU_bus_valid & _GEN_79 & _GEN_80) begin	// bpu.scala:160:22, :203:33, :205:56
         if (_PHT_T_6)	// bpu.scala:206:78
@@ -6840,7 +6843,7 @@ module BPU(	// <stdin>:186:10
   assign io_hit_cnt = hit_cnt;	// <stdin>:186:10, bpu.scala:224:26
 endmodule
 
-module IF_pre_fetch(	// <stdin>:888:10
+module IF_pre_fetch(	// <stdin>:902:10
   input         clock,
                 reset,
                 io_stall,
@@ -6891,44 +6894,44 @@ module IF_pre_fetch(	// <stdin>:888:10
       axi_busy <= ~axi_req_ready;	// pre_fetch.scala:26:27, :27:17
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:888:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:888:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:888:10
+  `ifndef SYNTHESIS	// <stdin>:902:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:902:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:902:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:888:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:888:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:888:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:888:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:888:10
-      automatic logic [31:0] _RANDOM_4;	// <stdin>:888:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:888:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:888:10
+    initial begin	// <stdin>:902:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:902:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:902:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:902:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:902:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:902:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:902:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:902:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:888:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:888:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:888:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:888:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:888:10
-        _RANDOM_4 = `RANDOM;	// <stdin>:888:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:902:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:902:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:902:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:902:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:902:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:902:10
         PF_npc = {_RANDOM_0, _RANDOM_1};	// pre_fetch.scala:24:27
         axi_busy = _RANDOM_2[0];	// pre_fetch.scala:26:27
         rhsReg = {_RANDOM_2[31:2], _RANDOM_3, _RANDOM_4[1:0]};	// pre_fetch.scala:26:27, tools.scala:15:29
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:888:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:888:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:902:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:902:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  assign io_inst_valid = axi_lite_readData_valid & axi_lite_readData_bits_resp == 2'h0 & axi_req_ready & ~axi_busy;	// <stdin>:888:10, pre_fetch.scala:26:27, :81:{96,121,123}
-  assign io_PF_pc = rhsReg;	// <stdin>:888:10, tools.scala:15:29
-  assign io_PF_npc = PF_npc;	// <stdin>:888:10, pre_fetch.scala:24:27
-  assign axi_lite_readAddr_valid = ~io_stall;	// <stdin>:888:10, pre_fetch.scala:70:40
+  assign io_inst_valid = axi_lite_readData_valid & axi_lite_readData_bits_resp == 2'h0 & axi_req_ready & ~axi_busy;	// <stdin>:902:10, pre_fetch.scala:26:27, :81:{96,121,123}
+  assign io_PF_pc = rhsReg;	// <stdin>:902:10, tools.scala:15:29
+  assign io_PF_npc = PF_npc;	// <stdin>:902:10, pre_fetch.scala:24:27
+  assign axi_lite_readAddr_valid = ~io_stall;	// <stdin>:902:10, pre_fetch.scala:70:40
   assign axi_lite_readAddr_bits_addr = io_bp_flush ? io_bp_npc[31:0] : io_stall | ~axi_req_ready | axi_busy ? rhsReg[31:0] :
-                io_bp_taken ? io_bp_npc[31:0] : PF_npc[31:0];	// <stdin>:888:10, Mux.scala:101:16, pre_fetch.scala:24:27, :26:27, :27:17, :71:88, :74:72, tools.scala:15:29
-  assign axi_lite_readData_ready = ~io_stall;	// <stdin>:888:10, pre_fetch.scala:70:40
+                io_bp_taken ? io_bp_npc[31:0] : PF_npc[31:0];	// <stdin>:902:10, Mux.scala:101:16, pre_fetch.scala:24:27, :26:27, :27:17, :71:88, :74:72, tools.scala:15:29
+  assign axi_lite_readData_ready = ~io_stall;	// <stdin>:902:10, pre_fetch.scala:70:40
 endmodule
 
-module IFU(	// <stdin>:971:10
+module IFU(	// <stdin>:985:10
   input         clock,
                 reset,
                 io_IF_to_ID_bus_ready,
@@ -6958,7 +6961,7 @@ module IFU(	// <stdin>:971:10
   always @(posedge clock) begin
     if (reset | io_bp_flush) begin	// IFU.scala:77:61
       rhsReg <= 64'h0;	// tools.scala:32:33
-      rhsReg_1 <= 1'h0;	// <stdin>:971:10, tools.scala:32:33
+      rhsReg_1 <= 1'h0;	// <stdin>:985:10, tools.scala:32:33
       rhsReg_2 <= 64'h0;	// tools.scala:32:33
     end
     else if (io_IF_to_ID_bus_ready) begin	// IFU.scala:77:61
@@ -6967,32 +6970,32 @@ module IFU(	// <stdin>:971:10
       rhsReg_2 <= axi_lite_readData_bits_data;	// tools.scala:32:33
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:971:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:971:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:971:10
+  `ifndef SYNTHESIS	// <stdin>:985:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:985:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:985:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:971:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:971:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:971:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:971:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:971:10
-      automatic logic [31:0] _RANDOM_4;	// <stdin>:971:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:971:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:971:10
+    initial begin	// <stdin>:985:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:985:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:985:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:985:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:985:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:985:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:985:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:985:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:971:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:971:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:971:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:971:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:971:10
-        _RANDOM_4 = `RANDOM;	// <stdin>:971:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:985:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:985:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:985:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:985:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:985:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:985:10
         rhsReg = {_RANDOM_0, _RANDOM_1};	// tools.scala:32:33
         rhsReg_1 = _RANDOM_2[0];	// tools.scala:32:33
         rhsReg_2 = {_RANDOM_2[31:1], _RANDOM_3, _RANDOM_4[0]};	// tools.scala:32:33
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:971:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:971:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:985:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:985:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
   IF_pre_fetch pre_fetch (	// IFU.scala:59:27
@@ -7013,15 +7016,15 @@ module IFU(	// <stdin>:971:10
     .axi_lite_readAddr_bits_addr (axi_lite_readAddr_bits_addr),
     .axi_lite_readData_ready     (axi_lite_readData_ready)
   );
-  assign io_IF_to_ID_bus_valid = rhsReg_1;	// <stdin>:971:10, tools.scala:32:33
-  assign io_IF_to_ID_bus_bits_PC = rhsReg;	// <stdin>:971:10, tools.scala:32:33
-  assign io_IF_to_ID_bus_bits_Inst = rhsReg_2[31:0];	// <stdin>:971:10, tools.scala:32:33, :37:17
-  assign io_PF_pc = _pre_fetch_io_PF_pc;	// <stdin>:971:10, IFU.scala:59:27
-  assign io_PF_valid = _pre_fetch_io_inst_valid;	// <stdin>:971:10, IFU.scala:59:27
-  assign io_axidata = axi_lite_readData_bits_data;	// <stdin>:971:10
+  assign io_IF_to_ID_bus_valid = rhsReg_1;	// <stdin>:985:10, tools.scala:32:33
+  assign io_IF_to_ID_bus_bits_PC = rhsReg;	// <stdin>:985:10, tools.scala:32:33
+  assign io_IF_to_ID_bus_bits_Inst = rhsReg_2[31:0];	// <stdin>:985:10, tools.scala:32:33, :37:17
+  assign io_PF_pc = _pre_fetch_io_PF_pc;	// <stdin>:985:10, IFU.scala:59:27
+  assign io_PF_valid = _pre_fetch_io_inst_valid;	// <stdin>:985:10, IFU.scala:59:27
+  assign io_axidata = axi_lite_readData_bits_data;	// <stdin>:985:10
 endmodule
 
-module IDU(	// <stdin>:1032:10
+module IDU(	// <stdin>:1046:10
   input         clock,
                 reset,
                 io_IF_to_ID_bus_valid,
@@ -7623,167 +7626,167 @@ module IDU(	// <stdin>:1032:10
       rhsReg_14 <= io_IF_to_ID_bus_valid & ~_load_use_stall_T_22;	// IDU.scala:211:{79,81}, :225:65, tools.scala:23:33
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:1032:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:1032:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:1032:10
+  `ifndef SYNTHESIS	// <stdin>:1046:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:1046:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:1046:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_4;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_5;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_6;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_7;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_8;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_9;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_10;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_11;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_12;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_13;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_14;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_15;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_16;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_17;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_18;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_19;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_20;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_21;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_22;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_23;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_24;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_25;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_26;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_27;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_28;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_29;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_30;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_31;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_32;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_33;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_34;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_35;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_36;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_37;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_38;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_39;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_40;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_41;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_42;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_43;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_44;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_45;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_46;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_47;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_48;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_49;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_50;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_51;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_52;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_53;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_54;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_55;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_56;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_57;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_58;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_59;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_60;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_61;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_62;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_63;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_64;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_65;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_66;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_67;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_68;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_69;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_70;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_71;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_72;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_73;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_74;	// <stdin>:1032:10
-      automatic logic [31:0] _RANDOM_75;	// <stdin>:1032:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:1032:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:1032:10
+    initial begin	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_5;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_6;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_7;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_8;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_9;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_10;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_11;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_12;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_13;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_14;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_15;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_16;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_17;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_18;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_19;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_20;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_21;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_22;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_23;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_24;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_25;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_26;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_27;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_28;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_29;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_30;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_31;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_32;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_33;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_34;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_35;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_36;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_37;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_38;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_39;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_40;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_41;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_42;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_43;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_44;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_45;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_46;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_47;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_48;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_49;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_50;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_51;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_52;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_53;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_54;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_55;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_56;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_57;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_58;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_59;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_60;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_61;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_62;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_63;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_64;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_65;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_66;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_67;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_68;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_69;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_70;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_71;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_72;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_73;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_74;	// <stdin>:1046:10
+      automatic logic [31:0] _RANDOM_75;	// <stdin>:1046:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:1046:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:1046:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:1032:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_4 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_5 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_6 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_7 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_8 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_9 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_10 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_11 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_12 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_13 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_14 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_15 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_16 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_17 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_18 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_19 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_20 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_21 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_22 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_23 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_24 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_25 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_26 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_27 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_28 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_29 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_30 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_31 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_32 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_33 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_34 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_35 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_36 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_37 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_38 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_39 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_40 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_41 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_42 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_43 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_44 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_45 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_46 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_47 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_48 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_49 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_50 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_51 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_52 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_53 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_54 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_55 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_56 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_57 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_58 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_59 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_60 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_61 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_62 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_63 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_64 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_65 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_66 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_67 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_68 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_69 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_70 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_71 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_72 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_73 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_74 = `RANDOM;	// <stdin>:1032:10
-        _RANDOM_75 = `RANDOM;	// <stdin>:1032:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:1046:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_5 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_6 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_7 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_8 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_9 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_10 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_11 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_12 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_13 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_14 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_15 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_16 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_17 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_18 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_19 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_20 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_21 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_22 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_23 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_24 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_25 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_26 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_27 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_28 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_29 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_30 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_31 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_32 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_33 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_34 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_35 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_36 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_37 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_38 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_39 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_40 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_41 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_42 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_43 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_44 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_45 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_46 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_47 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_48 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_49 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_50 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_51 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_52 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_53 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_54 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_55 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_56 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_57 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_58 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_59 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_60 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_61 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_62 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_63 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_64 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_65 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_66 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_67 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_68 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_69 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_70 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_71 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_72 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_73 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_74 = `RANDOM;	// <stdin>:1046:10
+        _RANDOM_75 = `RANDOM;	// <stdin>:1046:10
         GPR_0 = {_RANDOM_0, _RANDOM_1};	// IDU.scala:116:22
         GPR_1 = {_RANDOM_2, _RANDOM_3};	// IDU.scala:116:22
         GPR_2 = {_RANDOM_4, _RANDOM_5};	// IDU.scala:116:22
@@ -7831,29 +7834,29 @@ module IDU(	// <stdin>:1032:10
         rhsReg_14 = _RANDOM_75[25];	// tools.scala:23:33
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:1032:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:1032:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:1046:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:1046:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  assign io_IF_to_ID_bus_ready = ~_load_use_stall_T_22;	// <stdin>:1032:10, IDU.scala:211:81, :225:65
-  assign io_ID_to_EX_bus_valid = rhsReg_14;	// <stdin>:1032:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_ALU_Data1 = rhsReg_2;	// <stdin>:1032:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_ALU_Data2 = rhsReg_3;	// <stdin>:1032:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_futype = rhsReg_9[0];	// <stdin>:1032:10, tools.scala:23:33, :25:17
-  assign io_ID_to_EX_bus_bits_optype = rhsReg_8;	// <stdin>:1032:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_rs1_data = rhsReg_10;	// <stdin>:1032:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_rs2_data = rhsReg_12;	// <stdin>:1032:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_regWriteID = rhsReg_4;	// <stdin>:1032:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_regWriteEn = rhsReg_5;	// <stdin>:1032:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_memWriteEn = rhsReg_7;	// <stdin>:1032:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_memReadEn = rhsReg_6;	// <stdin>:1032:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_PC = rhsReg;	// <stdin>:1032:10, tools.scala:23:33
-  assign io_ID_to_EX_bus_bits_Inst = rhsReg_1;	// <stdin>:1032:10, tools.scala:23:33
+  assign io_IF_to_ID_bus_ready = ~_load_use_stall_T_22;	// <stdin>:1046:10, IDU.scala:211:81, :225:65
+  assign io_ID_to_EX_bus_valid = rhsReg_14;	// <stdin>:1046:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_ALU_Data1 = rhsReg_2;	// <stdin>:1046:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_ALU_Data2 = rhsReg_3;	// <stdin>:1046:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_futype = rhsReg_9[0];	// <stdin>:1046:10, tools.scala:23:33, :25:17
+  assign io_ID_to_EX_bus_bits_optype = rhsReg_8;	// <stdin>:1046:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_rs1_data = rhsReg_10;	// <stdin>:1046:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_rs2_data = rhsReg_12;	// <stdin>:1046:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_regWriteID = rhsReg_4;	// <stdin>:1046:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_regWriteEn = rhsReg_5;	// <stdin>:1046:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_memWriteEn = rhsReg_7;	// <stdin>:1046:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_memReadEn = rhsReg_6;	// <stdin>:1046:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_PC = rhsReg;	// <stdin>:1046:10, tools.scala:23:33
+  assign io_ID_to_EX_bus_bits_Inst = rhsReg_1;	// <stdin>:1046:10, tools.scala:23:33
   assign io_ID_to_BPU_bus_valid = io_IF_to_ID_bus_valid & (_io_ID_to_BPU_bus_valid_T | _io_ID_to_BPU_bus_valid_T_1 |
-                _io_ID_to_BPU_bus_valid_T_3 & _io_ID_to_BPU_bus_valid_T_4) & ~_load_use_stall_T_22;	// <stdin>:1032:10, IDU.scala:168:19, :169:19, :178:15, :189:104, :211:81, :225:65, :270:{108,133,152}
-  assign io_ID_to_BPU_bus_bits_PC = io_IF_to_ID_bus_bits_PC;	// <stdin>:1032:10
+                _io_ID_to_BPU_bus_valid_T_3 & _io_ID_to_BPU_bus_valid_T_4) & ~_load_use_stall_T_22;	// <stdin>:1046:10, IDU.scala:168:19, :169:19, :178:15, :189:104, :211:81, :225:65, :270:{108,133,152}
+  assign io_ID_to_BPU_bus_bits_PC = io_IF_to_ID_bus_bits_PC;	// <stdin>:1046:10
   assign io_ID_to_BPU_bus_bits_taken = _io_ID_to_BPU_bus_valid_T | (_io_ID_to_BPU_bus_valid_T_1 ? _GEN_10 :
-                _io_ID_to_BPU_bus_valid_T_3 & _io_ID_to_BPU_bus_valid_T_4);	// <stdin>:1032:10, IDU.scala:168:19, :169:19, :178:15, :189:104, :236:19, :237:34, :246:15, :247:21, :248:31, :249:31, :250:31
+                _io_ID_to_BPU_bus_valid_T_3 & _io_ID_to_BPU_bus_valid_T_4);	// <stdin>:1046:10, IDU.scala:168:19, :169:19, :178:15, :189:104, :236:19, :237:34, :246:15, :247:21, :248:31, :249:31, :250:31
   assign io_ID_to_BPU_bus_bits_br_target = _io_ID_to_BPU_bus_valid_T ? io_IF_to_ID_bus_bits_PC + {{44{io_IF_to_ID_bus_bits_Inst[31]}},
                 io_IF_to_ID_bus_bits_Inst[19:12], io_IF_to_ID_bus_bits_Inst[20],
                 io_IF_to_ID_bus_bits_Inst[30:21], 1'h0} : _io_ID_to_BPU_bus_valid_T_1 & _GEN_10 ?
@@ -7861,47 +7864,47 @@ module IDU(	// <stdin>:1032:10
                 io_IF_to_ID_bus_bits_Inst[7], io_IF_to_ID_bus_bits_Inst[30:25],
                 io_IF_to_ID_bus_bits_Inst[11:8], 1'h0} : _io_ID_to_BPU_bus_valid_T_3 &
                 _io_ID_to_BPU_bus_valid_T_4 ? _rs1_data_T_13 + {_immI_ret_T_2,
-                io_IF_to_ID_bus_bits_Inst[31:20]} : {32'h0, _ALU_Data1_T_5[31:0]};	// <stdin>:1032:10, Bitwise.scala:77:12, IDU.scala:106:25, :109:{25,44,66,92}, :110:{48,72,90}, :168:19, :169:19, :178:{15,30}, :189:104, :236:19, :237:34, :262:13, :264:37, :265:{31,50}, :266:{31,58}, Lookup.scala:34:39, Mux.scala:101:16
-  assign io_ID_to_BPU_bus_bits_load_use_stall = _load_use_stall_T_22;	// <stdin>:1032:10, IDU.scala:225:65
+                io_IF_to_ID_bus_bits_Inst[31:20]} : {32'h0, _ALU_Data1_T_5[31:0]};	// <stdin>:1046:10, Bitwise.scala:77:12, IDU.scala:106:25, :109:{25,44,66,92}, :110:{48,72,90}, :168:19, :169:19, :178:{15,30}, :189:104, :236:19, :237:34, :262:13, :264:37, :265:{31,50}, :266:{31,58}, Lookup.scala:34:39, Mux.scala:101:16
+  assign io_ID_to_BPU_bus_bits_load_use_stall = _load_use_stall_T_22;	// <stdin>:1046:10, IDU.scala:225:65
   assign io_ID_to_BPU_bus_bits_Type = _io_ID_to_BPU_bus_valid_T ? 2'h1 : _io_ID_to_BPU_bus_valid_T_1 ? 2'h2 :
-                _io_ID_to_BPU_bus_valid_T_3 ? {2{_io_ID_to_BPU_bus_valid_T_4}} : 2'h0;	// <stdin>:1032:10, IDU.scala:168:19, :169:19, :178:15, :189:104, :254:10, :255:21, :256:27, :257:27, :258:{27,33}, Lookup.scala:34:39
-  assign io_ID_stall = _load_use_stall_T_22;	// <stdin>:1032:10, IDU.scala:225:65
-  assign io_ID_GPR_0 = GPR_0;	// <stdin>:1032:10, IDU.scala:116:22
-  assign io_ID_GPR_1 = GPR_1;	// <stdin>:1032:10, IDU.scala:116:22
-  assign io_ID_GPR_2 = GPR_2;	// <stdin>:1032:10, IDU.scala:116:22
-  assign io_ID_GPR_3 = GPR_3;	// <stdin>:1032:10, IDU.scala:116:22
-  assign io_ID_GPR_4 = GPR_4;	// <stdin>:1032:10, IDU.scala:116:22
-  assign io_ID_GPR_5 = GPR_5;	// <stdin>:1032:10, IDU.scala:116:22
-  assign io_ID_GPR_6 = GPR_6;	// <stdin>:1032:10, IDU.scala:116:22
-  assign io_ID_GPR_7 = GPR_7;	// <stdin>:1032:10, IDU.scala:116:22
-  assign io_ID_GPR_8 = GPR_8;	// <stdin>:1032:10, IDU.scala:116:22
-  assign io_ID_GPR_9 = GPR_9;	// <stdin>:1032:10, IDU.scala:116:22
-  assign io_ID_GPR_10 = GPR_10;	// <stdin>:1032:10, IDU.scala:116:22
-  assign io_ID_GPR_11 = GPR_11;	// <stdin>:1032:10, IDU.scala:116:22
-  assign io_ID_GPR_12 = GPR_12;	// <stdin>:1032:10, IDU.scala:116:22
-  assign io_ID_GPR_13 = GPR_13;	// <stdin>:1032:10, IDU.scala:116:22
-  assign io_ID_GPR_14 = GPR_14;	// <stdin>:1032:10, IDU.scala:116:22
-  assign io_ID_GPR_15 = GPR_15;	// <stdin>:1032:10, IDU.scala:116:22
-  assign io_ID_GPR_16 = GPR_16;	// <stdin>:1032:10, IDU.scala:116:22
-  assign io_ID_GPR_17 = GPR_17;	// <stdin>:1032:10, IDU.scala:116:22
-  assign io_ID_GPR_18 = GPR_18;	// <stdin>:1032:10, IDU.scala:116:22
-  assign io_ID_GPR_19 = GPR_19;	// <stdin>:1032:10, IDU.scala:116:22
-  assign io_ID_GPR_20 = GPR_20;	// <stdin>:1032:10, IDU.scala:116:22
-  assign io_ID_GPR_21 = GPR_21;	// <stdin>:1032:10, IDU.scala:116:22
-  assign io_ID_GPR_22 = GPR_22;	// <stdin>:1032:10, IDU.scala:116:22
-  assign io_ID_GPR_23 = GPR_23;	// <stdin>:1032:10, IDU.scala:116:22
-  assign io_ID_GPR_24 = GPR_24;	// <stdin>:1032:10, IDU.scala:116:22
-  assign io_ID_GPR_25 = GPR_25;	// <stdin>:1032:10, IDU.scala:116:22
-  assign io_ID_GPR_26 = GPR_26;	// <stdin>:1032:10, IDU.scala:116:22
-  assign io_ID_GPR_27 = GPR_27;	// <stdin>:1032:10, IDU.scala:116:22
-  assign io_ID_GPR_28 = GPR_28;	// <stdin>:1032:10, IDU.scala:116:22
-  assign io_ID_GPR_29 = GPR_29;	// <stdin>:1032:10, IDU.scala:116:22
-  assign io_ID_GPR_30 = GPR_30;	// <stdin>:1032:10, IDU.scala:116:22
-  assign io_ID_GPR_31 = GPR_31;	// <stdin>:1032:10, IDU.scala:116:22
-  assign io_ID_unknown_inst = InstInfo_0 == 3'h0 & io_IF_to_ID_bus_valid;	// <stdin>:1032:10, IDU.scala:218:{39,47}, Lookup.scala:34:39
+                _io_ID_to_BPU_bus_valid_T_3 ? {2{_io_ID_to_BPU_bus_valid_T_4}} : 2'h0;	// <stdin>:1046:10, IDU.scala:168:19, :169:19, :178:15, :189:104, :254:10, :255:21, :256:27, :257:27, :258:{27,33}, Lookup.scala:34:39
+  assign io_ID_stall = _load_use_stall_T_22;	// <stdin>:1046:10, IDU.scala:225:65
+  assign io_ID_GPR_0 = GPR_0;	// <stdin>:1046:10, IDU.scala:116:22
+  assign io_ID_GPR_1 = GPR_1;	// <stdin>:1046:10, IDU.scala:116:22
+  assign io_ID_GPR_2 = GPR_2;	// <stdin>:1046:10, IDU.scala:116:22
+  assign io_ID_GPR_3 = GPR_3;	// <stdin>:1046:10, IDU.scala:116:22
+  assign io_ID_GPR_4 = GPR_4;	// <stdin>:1046:10, IDU.scala:116:22
+  assign io_ID_GPR_5 = GPR_5;	// <stdin>:1046:10, IDU.scala:116:22
+  assign io_ID_GPR_6 = GPR_6;	// <stdin>:1046:10, IDU.scala:116:22
+  assign io_ID_GPR_7 = GPR_7;	// <stdin>:1046:10, IDU.scala:116:22
+  assign io_ID_GPR_8 = GPR_8;	// <stdin>:1046:10, IDU.scala:116:22
+  assign io_ID_GPR_9 = GPR_9;	// <stdin>:1046:10, IDU.scala:116:22
+  assign io_ID_GPR_10 = GPR_10;	// <stdin>:1046:10, IDU.scala:116:22
+  assign io_ID_GPR_11 = GPR_11;	// <stdin>:1046:10, IDU.scala:116:22
+  assign io_ID_GPR_12 = GPR_12;	// <stdin>:1046:10, IDU.scala:116:22
+  assign io_ID_GPR_13 = GPR_13;	// <stdin>:1046:10, IDU.scala:116:22
+  assign io_ID_GPR_14 = GPR_14;	// <stdin>:1046:10, IDU.scala:116:22
+  assign io_ID_GPR_15 = GPR_15;	// <stdin>:1046:10, IDU.scala:116:22
+  assign io_ID_GPR_16 = GPR_16;	// <stdin>:1046:10, IDU.scala:116:22
+  assign io_ID_GPR_17 = GPR_17;	// <stdin>:1046:10, IDU.scala:116:22
+  assign io_ID_GPR_18 = GPR_18;	// <stdin>:1046:10, IDU.scala:116:22
+  assign io_ID_GPR_19 = GPR_19;	// <stdin>:1046:10, IDU.scala:116:22
+  assign io_ID_GPR_20 = GPR_20;	// <stdin>:1046:10, IDU.scala:116:22
+  assign io_ID_GPR_21 = GPR_21;	// <stdin>:1046:10, IDU.scala:116:22
+  assign io_ID_GPR_22 = GPR_22;	// <stdin>:1046:10, IDU.scala:116:22
+  assign io_ID_GPR_23 = GPR_23;	// <stdin>:1046:10, IDU.scala:116:22
+  assign io_ID_GPR_24 = GPR_24;	// <stdin>:1046:10, IDU.scala:116:22
+  assign io_ID_GPR_25 = GPR_25;	// <stdin>:1046:10, IDU.scala:116:22
+  assign io_ID_GPR_26 = GPR_26;	// <stdin>:1046:10, IDU.scala:116:22
+  assign io_ID_GPR_27 = GPR_27;	// <stdin>:1046:10, IDU.scala:116:22
+  assign io_ID_GPR_28 = GPR_28;	// <stdin>:1046:10, IDU.scala:116:22
+  assign io_ID_GPR_29 = GPR_29;	// <stdin>:1046:10, IDU.scala:116:22
+  assign io_ID_GPR_30 = GPR_30;	// <stdin>:1046:10, IDU.scala:116:22
+  assign io_ID_GPR_31 = GPR_31;	// <stdin>:1046:10, IDU.scala:116:22
+  assign io_ID_unknown_inst = InstInfo_0 == 3'h0 & io_IF_to_ID_bus_valid;	// <stdin>:1046:10, IDU.scala:218:{39,47}, Lookup.scala:34:39
 endmodule
 
-module EXU(	// <stdin>:1862:10
+module EXU(	// <stdin>:1876:10
   input         clock,
                 reset,
                 io_ID_to_EX_bus_valid,
@@ -8004,31 +8007,31 @@ module EXU(	// <stdin>:1862:10
       rhsReg_9 <= io_ID_to_EX_bus_valid;	// tools.scala:15:29
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:1862:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:1862:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:1862:10
+  `ifndef SYNTHESIS	// <stdin>:1876:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:1876:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:1876:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:1862:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:1862:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:1862:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:1862:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:1862:10
-      automatic logic [31:0] _RANDOM_4;	// <stdin>:1862:10
-      automatic logic [31:0] _RANDOM_5;	// <stdin>:1862:10
-      automatic logic [31:0] _RANDOM_6;	// <stdin>:1862:10
-      automatic logic [31:0] _RANDOM_7;	// <stdin>:1862:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:1862:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:1862:10
+    initial begin	// <stdin>:1876:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:1876:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:1876:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:1876:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:1876:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:1876:10
+      automatic logic [31:0] _RANDOM_5;	// <stdin>:1876:10
+      automatic logic [31:0] _RANDOM_6;	// <stdin>:1876:10
+      automatic logic [31:0] _RANDOM_7;	// <stdin>:1876:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:1876:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:1876:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:1862:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:1862:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:1862:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:1862:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:1862:10
-        _RANDOM_4 = `RANDOM;	// <stdin>:1862:10
-        _RANDOM_5 = `RANDOM;	// <stdin>:1862:10
-        _RANDOM_6 = `RANDOM;	// <stdin>:1862:10
-        _RANDOM_7 = `RANDOM;	// <stdin>:1862:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:1876:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:1876:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:1876:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:1876:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:1876:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:1876:10
+        _RANDOM_5 = `RANDOM;	// <stdin>:1876:10
+        _RANDOM_6 = `RANDOM;	// <stdin>:1876:10
+        _RANDOM_7 = `RANDOM;	// <stdin>:1876:10
         rhsReg = {_RANDOM_0, _RANDOM_1};	// tools.scala:15:29
         rhsReg_1 = _RANDOM_2;	// tools.scala:15:29
         rhsReg_2 = _RANDOM_3[0];	// tools.scala:15:29
@@ -8041,24 +8044,24 @@ module EXU(	// <stdin>:1862:10
         rhsReg_9 = _RANDOM_7[13];	// tools.scala:15:29
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:1862:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:1862:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:1876:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:1876:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  assign io_EX_to_MEM_bus_valid = rhsReg_9;	// <stdin>:1862:10, tools.scala:15:29
-  assign io_EX_to_MEM_bus_bits_Inst = rhsReg_1;	// <stdin>:1862:10, tools.scala:15:29
-  assign io_EX_to_MEM_bus_bits_PC = rhsReg;	// <stdin>:1862:10, tools.scala:15:29
-  assign io_EX_to_MEM_bus_bits_ALU_result = rhsReg_7;	// <stdin>:1862:10, tools.scala:15:29
-  assign io_EX_to_MEM_bus_bits_memWriteData = rhsReg_6;	// <stdin>:1862:10, tools.scala:15:29
-  assign io_EX_to_MEM_bus_bits_memWriteEn = rhsReg_4;	// <stdin>:1862:10, tools.scala:15:29
-  assign io_EX_to_MEM_bus_bits_memReadEn = rhsReg_5;	// <stdin>:1862:10, tools.scala:15:29
-  assign io_EX_to_MEM_bus_bits_lsutype = rhsReg_8;	// <stdin>:1862:10, tools.scala:15:29
-  assign io_EX_to_MEM_bus_bits_regWriteID = rhsReg_3;	// <stdin>:1862:10, tools.scala:15:29
-  assign io_EX_to_MEM_bus_bits_regWriteEn = rhsReg_2;	// <stdin>:1862:10, tools.scala:15:29
-  assign io_EX_ALUResult_Pass = _GEN_5;	// <stdin>:1862:10, Mux.scala:101:16
+  assign io_EX_to_MEM_bus_valid = rhsReg_9;	// <stdin>:1876:10, tools.scala:15:29
+  assign io_EX_to_MEM_bus_bits_Inst = rhsReg_1;	// <stdin>:1876:10, tools.scala:15:29
+  assign io_EX_to_MEM_bus_bits_PC = rhsReg;	// <stdin>:1876:10, tools.scala:15:29
+  assign io_EX_to_MEM_bus_bits_ALU_result = rhsReg_7;	// <stdin>:1876:10, tools.scala:15:29
+  assign io_EX_to_MEM_bus_bits_memWriteData = rhsReg_6;	// <stdin>:1876:10, tools.scala:15:29
+  assign io_EX_to_MEM_bus_bits_memWriteEn = rhsReg_4;	// <stdin>:1876:10, tools.scala:15:29
+  assign io_EX_to_MEM_bus_bits_memReadEn = rhsReg_5;	// <stdin>:1876:10, tools.scala:15:29
+  assign io_EX_to_MEM_bus_bits_lsutype = rhsReg_8;	// <stdin>:1876:10, tools.scala:15:29
+  assign io_EX_to_MEM_bus_bits_regWriteID = rhsReg_3;	// <stdin>:1876:10, tools.scala:15:29
+  assign io_EX_to_MEM_bus_bits_regWriteEn = rhsReg_2;	// <stdin>:1876:10, tools.scala:15:29
+  assign io_EX_ALUResult_Pass = _GEN_5;	// <stdin>:1876:10, Mux.scala:101:16
 endmodule
 
-module MEM_pre_stage(	// <stdin>:2129:10
+module MEM_pre_stage(	// <stdin>:2143:10
   input         clock,
                 reset,
                 io_EX_to_MEM_bus_valid,
@@ -8125,31 +8128,31 @@ module MEM_pre_stage(	// <stdin>:2129:10
       rhsReg_9 <= io_EX_to_MEM_bus_valid;	// tools.scala:15:29
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:2129:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:2129:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:2129:10
+  `ifndef SYNTHESIS	// <stdin>:2143:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:2143:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:2143:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:2129:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:2129:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:2129:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:2129:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:2129:10
-      automatic logic [31:0] _RANDOM_4;	// <stdin>:2129:10
-      automatic logic [31:0] _RANDOM_5;	// <stdin>:2129:10
-      automatic logic [31:0] _RANDOM_6;	// <stdin>:2129:10
-      automatic logic [31:0] _RANDOM_7;	// <stdin>:2129:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:2129:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:2129:10
+    initial begin	// <stdin>:2143:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:2143:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:2143:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:2143:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:2143:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:2143:10
+      automatic logic [31:0] _RANDOM_5;	// <stdin>:2143:10
+      automatic logic [31:0] _RANDOM_6;	// <stdin>:2143:10
+      automatic logic [31:0] _RANDOM_7;	// <stdin>:2143:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:2143:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:2143:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:2129:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:2129:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:2129:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:2129:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:2129:10
-        _RANDOM_4 = `RANDOM;	// <stdin>:2129:10
-        _RANDOM_5 = `RANDOM;	// <stdin>:2129:10
-        _RANDOM_6 = `RANDOM;	// <stdin>:2129:10
-        _RANDOM_7 = `RANDOM;	// <stdin>:2129:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:2143:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:2143:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:2143:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:2143:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:2143:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:2143:10
+        _RANDOM_5 = `RANDOM;	// <stdin>:2143:10
+        _RANDOM_6 = `RANDOM;	// <stdin>:2143:10
+        _RANDOM_7 = `RANDOM;	// <stdin>:2143:10
         rhsReg = {_RANDOM_0, _RANDOM_1};	// tools.scala:15:29
         rhsReg_1 = _RANDOM_2;	// tools.scala:15:29
         rhsReg_2 = {_RANDOM_3, _RANDOM_4};	// tools.scala:15:29
@@ -8160,43 +8163,43 @@ module MEM_pre_stage(	// <stdin>:2129:10
         rhsReg_9 = _RANDOM_7[13];	// tools.scala:15:29
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:2129:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:2129:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:2143:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:2143:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  assign io_PMEM_to_MEM_bus_valid = rhsReg_9;	// <stdin>:2129:10, tools.scala:15:29
-  assign io_PMEM_to_MEM_bus_bits_ALU_result = rhsReg_2;	// <stdin>:2129:10, tools.scala:15:29
-  assign io_PMEM_to_MEM_bus_bits_regWriteEn = rhsReg_3;	// <stdin>:2129:10, tools.scala:15:29
-  assign io_PMEM_to_MEM_bus_bits_regWriteID = rhsReg_4;	// <stdin>:2129:10, tools.scala:15:29
-  assign io_PMEM_to_MEM_bus_bits_memReadEn = rhsReg_5;	// <stdin>:2129:10, tools.scala:15:29
-  assign io_PMEM_to_MEM_bus_bits_PC = rhsReg;	// <stdin>:2129:10, tools.scala:15:29
-  assign io_PMEM_to_MEM_bus_bits_Inst = rhsReg_1;	// <stdin>:2129:10, tools.scala:15:29
-  assign io_PMEM_to_ID_forward_bits_ALU_result = io_EX_to_MEM_bus_bits_ALU_result;	// <stdin>:2129:10
-  assign io_PMEM_to_ID_forward_bits_regWriteEn = io_EX_to_MEM_bus_bits_regWriteEn;	// <stdin>:2129:10
-  assign io_PMEM_to_ID_forward_bits_regWriteID = io_EX_to_MEM_bus_bits_regWriteID;	// <stdin>:2129:10
-  assign io_PMEM_to_ID_forward_bits_memReadEn = io_EX_to_MEM_bus_bits_memReadEn;	// <stdin>:2129:10
+  assign io_PMEM_to_MEM_bus_valid = rhsReg_9;	// <stdin>:2143:10, tools.scala:15:29
+  assign io_PMEM_to_MEM_bus_bits_ALU_result = rhsReg_2;	// <stdin>:2143:10, tools.scala:15:29
+  assign io_PMEM_to_MEM_bus_bits_regWriteEn = rhsReg_3;	// <stdin>:2143:10, tools.scala:15:29
+  assign io_PMEM_to_MEM_bus_bits_regWriteID = rhsReg_4;	// <stdin>:2143:10, tools.scala:15:29
+  assign io_PMEM_to_MEM_bus_bits_memReadEn = rhsReg_5;	// <stdin>:2143:10, tools.scala:15:29
+  assign io_PMEM_to_MEM_bus_bits_PC = rhsReg;	// <stdin>:2143:10, tools.scala:15:29
+  assign io_PMEM_to_MEM_bus_bits_Inst = rhsReg_1;	// <stdin>:2143:10, tools.scala:15:29
+  assign io_PMEM_to_ID_forward_bits_ALU_result = io_EX_to_MEM_bus_bits_ALU_result;	// <stdin>:2143:10
+  assign io_PMEM_to_ID_forward_bits_regWriteEn = io_EX_to_MEM_bus_bits_regWriteEn;	// <stdin>:2143:10
+  assign io_PMEM_to_ID_forward_bits_regWriteID = io_EX_to_MEM_bus_bits_regWriteID;	// <stdin>:2143:10
+  assign io_PMEM_to_ID_forward_bits_memReadEn = io_EX_to_MEM_bus_bits_memReadEn;	// <stdin>:2143:10
   assign io_memReadData = rhsReg_8 == 5'h11 ? axi_lite_readData_bits_data : rhsReg_8 == 5'h9 ?
                 {{32{axi_lite_readData_bits_data[31]}}, axi_lite_readData_bits_data[31:0]} : rhsReg_8 ==
                 5'h5 ? {{48{axi_lite_readData_bits_data[15]}}, axi_lite_readData_bits_data[15:0]} :
                 rhsReg_8 == 5'h3 ? {{56{axi_lite_readData_bits_data[7]}}, axi_lite_readData_bits_data[7:0]}
                 : rhsReg_8 == 5'h8 ? {32'h0, axi_lite_readData_bits_data[31:0]} : rhsReg_8 == 5'h4 ?
                 {48'h0, axi_lite_readData_bits_data[15:0]} : rhsReg_8 == 5'h2 ? {56'h0,
-                axi_lite_readData_bits_data[7:0]} : 64'h0;	// <stdin>:2129:10, Bitwise.scala:77:12, Cat.scala:33:92, PMEM.scala:50:20, :58:17, :59:44, :60:30, :61:{30,65}, :62:{30,65}, :63:{30,65}, :64:{30,60}, :65:{30,60}, :66:{30,60}, tools.scala:9:34, :15:29
-  assign axi_lite_writeAddr_valid = io_EX_to_MEM_bus_bits_memWriteEn;	// <stdin>:2129:10
-  assign axi_lite_writeAddr_bits_addr = io_EX_to_MEM_bus_bits_ALU_result[31:0];	// <stdin>:2129:10, PMEM.scala:85:58
-  assign axi_lite_writeData_valid = io_EX_to_MEM_bus_bits_memWriteEn;	// <stdin>:2129:10
-  assign axi_lite_writeData_bits_data = io_EX_to_MEM_bus_bits_memWriteData;	// <stdin>:2129:10
+                axi_lite_readData_bits_data[7:0]} : 64'h0;	// <stdin>:2143:10, Bitwise.scala:77:12, Cat.scala:33:92, PMEM.scala:50:20, :58:17, :59:44, :60:30, :61:{30,65}, :62:{30,65}, :63:{30,65}, :64:{30,60}, :65:{30,60}, :66:{30,60}, tools.scala:9:34, :15:29
+  assign axi_lite_writeAddr_valid = io_EX_to_MEM_bus_bits_memWriteEn;	// <stdin>:2143:10
+  assign axi_lite_writeAddr_bits_addr = io_EX_to_MEM_bus_bits_ALU_result[31:0];	// <stdin>:2143:10, PMEM.scala:85:58
+  assign axi_lite_writeData_valid = io_EX_to_MEM_bus_bits_memWriteEn;	// <stdin>:2143:10
+  assign axi_lite_writeData_bits_data = io_EX_to_MEM_bus_bits_memWriteData;	// <stdin>:2143:10
   assign axi_lite_writeData_bits_strb = io_EX_to_MEM_bus_bits_lsutype == 5'h10 ? 8'hFF : io_EX_to_MEM_bus_bits_lsutype == 5'h8 ?
                 8'hF : io_EX_to_MEM_bus_bits_lsutype == 5'h4 ? 8'h3 : {7'h0, io_EX_to_MEM_bus_bits_lsutype
-                == 5'h2};	// <stdin>:2129:10, PMEM.scala:49:11, :50:20, :51:24, :52:24, :53:24, :54:24
-  assign axi_lite_writeResp_ready = io_EX_to_MEM_bus_bits_memWriteEn;	// <stdin>:2129:10
-  assign axi_lite_readAddr_valid = io_EX_to_MEM_bus_bits_memReadEn;	// <stdin>:2129:10
-  assign axi_lite_readAddr_bits_addr = io_EX_to_MEM_bus_bits_ALU_result[31:0];	// <stdin>:2129:10, PMEM.scala:85:58
-  assign axi_lite_readData_ready = io_EX_to_MEM_bus_bits_memReadEn;	// <stdin>:2129:10
-  assign axi_req_valid = (|io_EX_to_MEM_bus_bits_lsutype) | (|rhsReg_8);	// <stdin>:2129:10, PMEM.scala:47:{34,41,76}, tools.scala:15:29
+                == 5'h2};	// <stdin>:2143:10, PMEM.scala:49:11, :50:20, :51:24, :52:24, :53:24, :54:24
+  assign axi_lite_writeResp_ready = io_EX_to_MEM_bus_bits_memWriteEn;	// <stdin>:2143:10
+  assign axi_lite_readAddr_valid = io_EX_to_MEM_bus_bits_memReadEn;	// <stdin>:2143:10
+  assign axi_lite_readAddr_bits_addr = io_EX_to_MEM_bus_bits_ALU_result[31:0];	// <stdin>:2143:10, PMEM.scala:85:58
+  assign axi_lite_readData_ready = io_EX_to_MEM_bus_bits_memReadEn;	// <stdin>:2143:10
+  assign axi_req_valid = (|io_EX_to_MEM_bus_bits_lsutype) | (|rhsReg_8);	// <stdin>:2143:10, PMEM.scala:47:{34,41,76}, tools.scala:15:29
 endmodule
 
-module MEMU(	// <stdin>:2272:10
+module MEMU(	// <stdin>:2286:10
   input         clock,
                 reset,
                 io_PMEM_to_MEM_bus_valid,
@@ -8244,27 +8247,27 @@ module MEMU(	// <stdin>:2272:10
       rhsReg_5 <= io_PMEM_to_MEM_bus_valid;	// tools.scala:15:29
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:2272:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:2272:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:2272:10
+  `ifndef SYNTHESIS	// <stdin>:2286:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:2286:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:2286:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:2272:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:2272:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:2272:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:2272:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:2272:10
-      automatic logic [31:0] _RANDOM_4;	// <stdin>:2272:10
-      automatic logic [31:0] _RANDOM_5;	// <stdin>:2272:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:2272:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:2272:10
+    initial begin	// <stdin>:2286:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:2286:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:2286:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:2286:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:2286:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:2286:10
+      automatic logic [31:0] _RANDOM_5;	// <stdin>:2286:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:2286:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:2286:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:2272:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:2272:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:2272:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:2272:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:2272:10
-        _RANDOM_4 = `RANDOM;	// <stdin>:2272:10
-        _RANDOM_5 = `RANDOM;	// <stdin>:2272:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:2286:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:2286:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:2286:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:2286:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:2286:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:2286:10
+        _RANDOM_5 = `RANDOM;	// <stdin>:2286:10
         rhsReg = {_RANDOM_0, _RANDOM_1};	// tools.scala:15:29
         rhsReg_1 = _RANDOM_2;	// tools.scala:15:29
         rhsReg_2 = _RANDOM_3[0];	// tools.scala:15:29
@@ -8273,22 +8276,22 @@ module MEMU(	// <stdin>:2272:10
         rhsReg_5 = _RANDOM_5[6];	// tools.scala:15:29
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:2272:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:2272:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:2286:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:2286:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  assign io_MEM_to_WB_bus_valid = rhsReg_5;	// <stdin>:2272:10, tools.scala:15:29
-  assign io_MEM_to_WB_bus_bits_regWriteData = rhsReg_4;	// <stdin>:2272:10, tools.scala:15:29
-  assign io_MEM_to_WB_bus_bits_regWriteEn = rhsReg_2;	// <stdin>:2272:10, tools.scala:15:29
-  assign io_MEM_to_WB_bus_bits_regWriteID = rhsReg_3;	// <stdin>:2272:10, tools.scala:15:29
-  assign io_MEM_to_WB_bus_bits_PC = rhsReg;	// <stdin>:2272:10, tools.scala:15:29
-  assign io_MEM_to_WB_bus_bits_Inst = rhsReg_1;	// <stdin>:2272:10, tools.scala:15:29
-  assign io_MEM_to_ID_forward_bits_regWriteData = io_PMEM_to_MEM_bus_bits_memReadEn ? io_memReadData : io_PMEM_to_MEM_bus_bits_ALU_result;	// <stdin>:2272:10, MEMU.scala:59:24
-  assign io_MEM_to_ID_forward_bits_regWriteEn = io_PMEM_to_MEM_bus_bits_regWriteEn;	// <stdin>:2272:10
-  assign io_MEM_to_ID_forward_bits_regWriteID = io_PMEM_to_MEM_bus_bits_regWriteID;	// <stdin>:2272:10
+  assign io_MEM_to_WB_bus_valid = rhsReg_5;	// <stdin>:2286:10, tools.scala:15:29
+  assign io_MEM_to_WB_bus_bits_regWriteData = rhsReg_4;	// <stdin>:2286:10, tools.scala:15:29
+  assign io_MEM_to_WB_bus_bits_regWriteEn = rhsReg_2;	// <stdin>:2286:10, tools.scala:15:29
+  assign io_MEM_to_WB_bus_bits_regWriteID = rhsReg_3;	// <stdin>:2286:10, tools.scala:15:29
+  assign io_MEM_to_WB_bus_bits_PC = rhsReg;	// <stdin>:2286:10, tools.scala:15:29
+  assign io_MEM_to_WB_bus_bits_Inst = rhsReg_1;	// <stdin>:2286:10, tools.scala:15:29
+  assign io_MEM_to_ID_forward_bits_regWriteData = io_PMEM_to_MEM_bus_bits_memReadEn ? io_memReadData : io_PMEM_to_MEM_bus_bits_ALU_result;	// <stdin>:2286:10, MEMU.scala:59:24
+  assign io_MEM_to_ID_forward_bits_regWriteEn = io_PMEM_to_MEM_bus_bits_regWriteEn;	// <stdin>:2286:10
+  assign io_MEM_to_ID_forward_bits_regWriteID = io_PMEM_to_MEM_bus_bits_regWriteID;	// <stdin>:2286:10
 endmodule
 
-module WBU(	// <stdin>:2312:10
+module WBU(	// <stdin>:2326:10
   input         io_MEM_to_WB_bus_valid,
   input  [63:0] io_MEM_to_WB_bus_bits_regWriteData,
   input         io_MEM_to_WB_bus_bits_regWriteEn,
@@ -8302,19 +8305,19 @@ module WBU(	// <stdin>:2312:10
   output [63:0] io_WB_pc,
   output [31:0] io_WB_Inst);
 
-  assign io_WB_to_ID_forward_valid = io_MEM_to_WB_bus_valid;	// <stdin>:2312:10
-  assign io_WB_to_ID_forward_bits_regWriteData = io_MEM_to_WB_bus_bits_regWriteData;	// <stdin>:2312:10
-  assign io_WB_to_ID_forward_bits_regWriteEn = io_MEM_to_WB_bus_bits_regWriteEn;	// <stdin>:2312:10
-  assign io_WB_to_ID_forward_bits_regWriteID = io_MEM_to_WB_bus_bits_regWriteID;	// <stdin>:2312:10
-  assign io_WB_pc = io_MEM_to_WB_bus_bits_PC;	// <stdin>:2312:10
-  assign io_WB_Inst = io_MEM_to_WB_bus_bits_Inst;	// <stdin>:2312:10
+  assign io_WB_to_ID_forward_valid = io_MEM_to_WB_bus_valid;	// <stdin>:2326:10
+  assign io_WB_to_ID_forward_bits_regWriteData = io_MEM_to_WB_bus_bits_regWriteData;	// <stdin>:2326:10
+  assign io_WB_to_ID_forward_bits_regWriteEn = io_MEM_to_WB_bus_bits_regWriteEn;	// <stdin>:2326:10
+  assign io_WB_to_ID_forward_bits_regWriteID = io_MEM_to_WB_bus_bits_regWriteID;	// <stdin>:2326:10
+  assign io_WB_pc = io_MEM_to_WB_bus_bits_PC;	// <stdin>:2326:10
+  assign io_WB_Inst = io_MEM_to_WB_bus_bits_Inst;	// <stdin>:2326:10
 endmodule
 
 // external module sim_sram
 
 // external module sim
 
-module RAMU(	// <stdin>:2381:10
+module RAMU(	// <stdin>:2395:10
   input         clock,
                 reset,
                 axi_lite_writeAddr_valid,
@@ -8359,7 +8362,7 @@ module RAMU(	// <stdin>:2381:10
   );
 endmodule
 
-module AXI_Arbiter(	// <stdin>:2430:10
+module AXI_Arbiter(	// <stdin>:2444:10
   input         in_0_writeAddr_valid,
   input  [31:0] in_0_writeAddr_bits_addr,
   input         in_0_writeData_valid,
@@ -8392,24 +8395,24 @@ module AXI_Arbiter(	// <stdin>:2430:10
   output [31:0] out_readAddr_bits_addr,
   output        out_readData_ready);
 
-  assign in_0_readData_bits_data = req_0_valid ? out_readData_bits_data : 64'h77;	// <stdin>:2430:10, RAM.scala:16:37, :22:27, :23:17
-  assign in_1_readData_valid = out_readData_valid;	// <stdin>:2430:10
-  assign in_1_readData_bits_data = out_readData_bits_data;	// <stdin>:2430:10
-  assign in_1_readData_bits_resp = out_readData_bits_resp;	// <stdin>:2430:10
-  assign req_0_ready = req_0_valid;	// <stdin>:2430:10
-  assign req_1_ready = ~req_0_valid;	// <stdin>:2430:10, RAM.scala:22:27, :26:30
-  assign out_writeAddr_valid = req_0_valid & in_0_writeAddr_valid;	// <stdin>:2430:10, RAM.scala:22:27, :23:17
-  assign out_writeAddr_bits_addr = req_0_valid ? in_0_writeAddr_bits_addr : 32'h0;	// <stdin>:2430:10, RAM.scala:22:27, :23:17
-  assign out_writeData_valid = req_0_valid & in_0_writeData_valid;	// <stdin>:2430:10, RAM.scala:22:27, :23:17
-  assign out_writeData_bits_data = req_0_valid ? in_0_writeData_bits_data : 64'h0;	// <stdin>:2430:10, RAM.scala:22:27, :23:17
-  assign out_writeData_bits_strb = req_0_valid ? in_0_writeData_bits_strb : 8'h0;	// <stdin>:2430:10, RAM.scala:22:27, :23:17
-  assign out_writeResp_ready = req_0_valid & in_0_writeResp_ready;	// <stdin>:2430:10, RAM.scala:22:27, :23:17
-  assign out_readAddr_valid = req_0_valid ? in_0_readAddr_valid : in_1_readAddr_valid;	// <stdin>:2430:10, RAM.scala:22:27, :23:17
-  assign out_readAddr_bits_addr = req_0_valid ? in_0_readAddr_bits_addr : in_1_readAddr_bits_addr;	// <stdin>:2430:10, RAM.scala:22:27, :23:17
-  assign out_readData_ready = req_0_valid ? in_0_readData_ready : in_1_readData_ready;	// <stdin>:2430:10, RAM.scala:22:27, :23:17
+  assign in_0_readData_bits_data = req_0_valid ? out_readData_bits_data : 64'h77;	// <stdin>:2444:10, RAM.scala:16:37, :22:27, :23:17
+  assign in_1_readData_valid = out_readData_valid;	// <stdin>:2444:10
+  assign in_1_readData_bits_data = out_readData_bits_data;	// <stdin>:2444:10
+  assign in_1_readData_bits_resp = out_readData_bits_resp;	// <stdin>:2444:10
+  assign req_0_ready = req_0_valid;	// <stdin>:2444:10
+  assign req_1_ready = ~req_0_valid;	// <stdin>:2444:10, RAM.scala:22:27, :26:30
+  assign out_writeAddr_valid = req_0_valid & in_0_writeAddr_valid;	// <stdin>:2444:10, RAM.scala:22:27, :23:17
+  assign out_writeAddr_bits_addr = req_0_valid ? in_0_writeAddr_bits_addr : 32'h0;	// <stdin>:2444:10, RAM.scala:22:27, :23:17
+  assign out_writeData_valid = req_0_valid & in_0_writeData_valid;	// <stdin>:2444:10, RAM.scala:22:27, :23:17
+  assign out_writeData_bits_data = req_0_valid ? in_0_writeData_bits_data : 64'h0;	// <stdin>:2444:10, RAM.scala:22:27, :23:17
+  assign out_writeData_bits_strb = req_0_valid ? in_0_writeData_bits_strb : 8'h0;	// <stdin>:2444:10, RAM.scala:22:27, :23:17
+  assign out_writeResp_ready = req_0_valid & in_0_writeResp_ready;	// <stdin>:2444:10, RAM.scala:22:27, :23:17
+  assign out_readAddr_valid = req_0_valid ? in_0_readAddr_valid : in_1_readAddr_valid;	// <stdin>:2444:10, RAM.scala:22:27, :23:17
+  assign out_readAddr_bits_addr = req_0_valid ? in_0_readAddr_bits_addr : in_1_readAddr_bits_addr;	// <stdin>:2444:10, RAM.scala:22:27, :23:17
+  assign out_readData_ready = req_0_valid ? in_0_readData_ready : in_1_readData_ready;	// <stdin>:2444:10, RAM.scala:22:27, :23:17
 endmodule
 
-module top(	// <stdin>:2464:10
+module top(	// <stdin>:2478:10
   input         clock,
                 reset,
   output [63:0] io_ID_npc,
@@ -8906,27 +8909,27 @@ sim simulate (	// top.scala:24:26
     .out_readAddr_bits_addr   (_arb_out_readAddr_bits_addr),
     .out_readData_ready       (_arb_out_readData_ready)
   );
-  assign io_ID_npc = _inst_decode_unit_io_ID_to_BPU_bus_bits_br_target;	// <stdin>:2464:10, top.scala:70:34
-  assign io_PF_pc = _inst_fetch_unit_io_PF_pc;	// <stdin>:2464:10, top.scala:69:33
-  assign io_PF_axidata = _inst_fetch_unit_io_axidata;	// <stdin>:2464:10, top.scala:69:33
-  assign io_IF_pc = _inst_fetch_unit_io_IF_to_ID_bus_bits_PC;	// <stdin>:2464:10, top.scala:69:33
-  assign io_ID_pc = _inst_decode_unit_io_ID_to_EX_bus_bits_PC;	// <stdin>:2464:10, top.scala:70:34
-  assign io_EX_pc = _excute_unit_io_EX_to_MEM_bus_bits_PC;	// <stdin>:2464:10, top.scala:71:29
-  assign io_PMEM_pc = _pre_mem_unit_io_PMEM_to_MEM_bus_bits_PC;	// <stdin>:2464:10, top.scala:72:30
-  assign io_WB_Inst = _wb_unit_io_WB_Inst;	// <stdin>:2464:10, top.scala:74:25
-  assign io_WB_RegWriteData = _wb_unit_io_WB_to_ID_forward_bits_regWriteData;	// <stdin>:2464:10, top.scala:74:25
-  assign io_WB_RegWriteID = {59'h0, _wb_unit_io_WB_to_ID_forward_bits_regWriteID};	// <stdin>:2464:10, top.scala:74:25, :110:24
-  assign io_MEM_RegWriteData = _arb_in_0_readData_bits_data;	// <stdin>:2464:10, top.scala:161:21
-  assign io_bp_npc = _bp_unit_io_bp_npc;	// <stdin>:2464:10, top.scala:68:33
-  assign io_bp_taken = _bp_unit_io_bp_taken;	// <stdin>:2464:10, top.scala:68:33
-  assign io_bp_flush = _bp_unit_io_bp_flush;	// <stdin>:2464:10, top.scala:68:33
-  assign io_IF_Inst = _inst_fetch_unit_io_IF_to_ID_bus_bits_Inst;	// <stdin>:2464:10, top.scala:69:33
-  assign io_IF_valid = _inst_fetch_unit_io_IF_to_ID_bus_valid;	// <stdin>:2464:10, top.scala:69:33
-  assign io_IF_AXIREQ = _arb_req_1_ready;	// <stdin>:2464:10, top.scala:161:21
-  assign io_ID_ALU_Data1 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data1;	// <stdin>:2464:10, top.scala:70:34
-  assign io_ID_ALU_Data2 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data2;	// <stdin>:2464:10, top.scala:70:34
-  assign io_ID_Rs2Data = _inst_decode_unit_io_ID_to_EX_bus_bits_rs2_data;	// <stdin>:2464:10, top.scala:70:34
-  assign io_ALUResult = _excute_unit_io_EX_to_MEM_bus_bits_ALU_result;	// <stdin>:2464:10, top.scala:71:29
+  assign io_ID_npc = _inst_decode_unit_io_ID_to_BPU_bus_bits_br_target;	// <stdin>:2478:10, top.scala:70:34
+  assign io_PF_pc = _inst_fetch_unit_io_PF_pc;	// <stdin>:2478:10, top.scala:69:33
+  assign io_PF_axidata = _inst_fetch_unit_io_axidata;	// <stdin>:2478:10, top.scala:69:33
+  assign io_IF_pc = _inst_fetch_unit_io_IF_to_ID_bus_bits_PC;	// <stdin>:2478:10, top.scala:69:33
+  assign io_ID_pc = _inst_decode_unit_io_ID_to_EX_bus_bits_PC;	// <stdin>:2478:10, top.scala:70:34
+  assign io_EX_pc = _excute_unit_io_EX_to_MEM_bus_bits_PC;	// <stdin>:2478:10, top.scala:71:29
+  assign io_PMEM_pc = _pre_mem_unit_io_PMEM_to_MEM_bus_bits_PC;	// <stdin>:2478:10, top.scala:72:30
+  assign io_WB_Inst = _wb_unit_io_WB_Inst;	// <stdin>:2478:10, top.scala:74:25
+  assign io_WB_RegWriteData = _wb_unit_io_WB_to_ID_forward_bits_regWriteData;	// <stdin>:2478:10, top.scala:74:25
+  assign io_WB_RegWriteID = {59'h0, _wb_unit_io_WB_to_ID_forward_bits_regWriteID};	// <stdin>:2478:10, top.scala:74:25, :110:24
+  assign io_MEM_RegWriteData = _arb_in_0_readData_bits_data;	// <stdin>:2478:10, top.scala:161:21
+  assign io_bp_npc = _bp_unit_io_bp_npc;	// <stdin>:2478:10, top.scala:68:33
+  assign io_bp_taken = _bp_unit_io_bp_taken;	// <stdin>:2478:10, top.scala:68:33
+  assign io_bp_flush = _bp_unit_io_bp_flush;	// <stdin>:2478:10, top.scala:68:33
+  assign io_IF_Inst = _inst_fetch_unit_io_IF_to_ID_bus_bits_Inst;	// <stdin>:2478:10, top.scala:69:33
+  assign io_IF_valid = _inst_fetch_unit_io_IF_to_ID_bus_valid;	// <stdin>:2478:10, top.scala:69:33
+  assign io_IF_AXIREQ = _arb_req_1_ready;	// <stdin>:2478:10, top.scala:161:21
+  assign io_ID_ALU_Data1 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data1;	// <stdin>:2478:10, top.scala:70:34
+  assign io_ID_ALU_Data2 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data2;	// <stdin>:2478:10, top.scala:70:34
+  assign io_ID_Rs2Data = _inst_decode_unit_io_ID_to_EX_bus_bits_rs2_data;	// <stdin>:2478:10, top.scala:70:34
+  assign io_ALUResult = _excute_unit_io_EX_to_MEM_bus_bits_ALU_result;	// <stdin>:2478:10, top.scala:71:29
 endmodule
 
 
