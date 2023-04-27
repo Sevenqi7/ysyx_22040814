@@ -37,9 +37,9 @@ class top extends Module{
 
         val BTB_hit = Output(Bool())
         val BTB_wset = Output(UInt(3.W))
-        val BTB_wtag = Output(UInt(16.W))
+        val BTB_wtag = Output(UInt(20.W))
         val BTB_rset = Output(UInt(3.W))
-        val BTB_rtag = Output(UInt(16.W))
+        val BTB_rtag = Output(UInt(20.W))
         val BTB_rdata = Output(UInt(64.W))
         val BTB_wdata = Output(UInt(64.W))
         val br_cnt  = Output(UInt(32.W))
