@@ -29,8 +29,6 @@ class BPU_Cache(tagWidth: Int, nrSets: Int, nrLines: Int) extends Module{
         val wtag = Output(UInt(tagWidth.W))
         val rset = Output(UInt(log2Ceil(nrSets).W))
         val rtag = Output(UInt(tagWidth.W))
-        val br_cnt = Output(UInt(32.W))
-        val bp_fail = Output(UInt(32.W))
     })
 
     // val cache = RegInit(Vec(nrSets, VecInit(Seq.fill(nrLines)(0.U.asTypeOf(new CacheLine)))))
@@ -113,6 +111,8 @@ class BPU extends Module{
         val BTB_wdata = Output(UInt(64.W))
 
         val BTB_hit   = Output(Bool())
+        val br_cnt = Output(UInt(32.W))
+        val bp_fail = Output(UInt(32.W))
     })
 
     def hash(x: UInt): UInt = {
