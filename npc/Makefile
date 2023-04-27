@@ -12,7 +12,7 @@ verilog:
 	mkdir -p $(BUILD_DIR)
 	mill -i __.test.runMain Elaborate -td $(BUILD_DIR)
 	cp $(shell find $(abspath $(BUILD_DIR)) -name "*.v") $(VSRC)
-	fish $NPC_HOME/handle.fish
+	fish $(NPC_HOME)/handle.fish
 help:
 	mill -i __.test.runMain Elaborate --help
 
