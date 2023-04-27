@@ -1266,11 +1266,11 @@ module BPU(	// <stdin>:186:10
                 {PHT_32}, {PHT_31}, {PHT_30}, {PHT_29}, {PHT_28}, {PHT_27}, {PHT_26}, {PHT_25}, {PHT_24},
                 {PHT_23}, {PHT_22}, {PHT_21}, {PHT_20}, {PHT_19}, {PHT_18}, {PHT_17}, {PHT_16}, {PHT_15},
                 {PHT_14}, {PHT_13}, {PHT_12}, {PHT_11}, {PHT_10}, {PHT_9}, {PHT_8}, {PHT_7}, {PHT_6},
-                {PHT_5}, {PHT_4}, {PHT_3}, {PHT_2}, {PHT_1}, {PHT_0}};	// bpu.scala:151:22, :185:34
-  wire [1:0]        _GEN_3;	// bpu.scala:185:34
+                {PHT_5}, {PHT_4}, {PHT_3}, {PHT_2}, {PHT_1}, {PHT_0}};	// bpu.scala:151:22, :185:33
+  wire [1:0]        _GEN_3;	// bpu.scala:185:33
   /* synopsys infer_mux_override */
-  assign _GEN_3 = _GEN_2[{4'h0, _GEN_1 ^ io_PF_pc[3:0]}] /* cadence map_to_mux */;	// bpu.scala:150:30, :181:{32,42}, :185:34
-  assign _GEN = _T_19 & _T_20 & _GEN_3[0];	// bpu.scala:145:18, :183:18, :184:{21,55}, :185:{18,34}
+  assign _GEN_3 = _GEN_2[{4'h0, _GEN_1 ^ io_PF_pc[3:0]}] /* cadence map_to_mux */;	// bpu.scala:150:30, :181:{32,42}, :185:33
+  assign _GEN = _T_19 & _T_20 & _GEN_3[0];	// bpu.scala:145:18, :183:18, :184:{21,55}, :185:{18,33}
   wire [15:0]       up_bht_idx_x1 = io_ID_to_BPU_bus_bits_PC[31:16] ^ io_ID_to_BPU_bus_bits_PC[15:0];	// bpu.scala:123:{19,28,31}
   wire [7:0]        _up_bht_idx_ret_T_2 = up_bht_idx_x1[15:8] ^ up_bht_idx_x1[7:0];	// bpu.scala:123:28, :124:{18,26,30}
   wire [3:0]        _GEN_4;	// bpu.scala:191:38
@@ -1279,10 +1279,10 @@ module BPU(	// <stdin>:186:10
   wire [3:0]        up_pht_idx = _GEN_4 ^ io_ID_to_BPU_bus_bits_PC[3:0];	// bpu.scala:191:{38,45}
   wire [1:0]        _GEN_5;	// bpu.scala:196:30
   /* synopsys infer_mux_override */
-  assign _GEN_5 = _GEN_2[{4'h0, up_pht_idx}] /* cadence map_to_mux */;	// bpu.scala:150:30, :185:34, :191:38, :196:30
+  assign _GEN_5 = _GEN_2[{4'h0, up_pht_idx}] /* cadence map_to_mux */;	// bpu.scala:150:30, :185:33, :191:38, :196:30
   wire [1:0]        _GEN_6;	// bpu.scala:201:30
   /* synopsys infer_mux_override */
-  assign _GEN_6 = _GEN_2[_up_bht_idx_ret_T_2] /* cadence map_to_mux */;	// bpu.scala:124:26, :185:34, :201:30
+  assign _GEN_6 = _GEN_2[_up_bht_idx_ret_T_2] /* cadence map_to_mux */;	// bpu.scala:124:26, :185:33, :201:30
   reg  [31:0]       jal_cnt;	// bpu.scala:207:27
   reg  [31:0]       jalr_cnt;	// bpu.scala:208:27
   reg  [31:0]       btype_cnt;	// bpu.scala:209:29
