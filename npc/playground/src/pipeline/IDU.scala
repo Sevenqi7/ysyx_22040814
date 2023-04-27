@@ -251,6 +251,7 @@ class IDU extends Module{
     }
 
     val Type = Wire(UInt(2.W))
+    Type := 0.U
     switch(instType){
         is (TYPE_J) {Type := 1.U                            }
         is (TYPE_B) {Type := 2.U                            }
