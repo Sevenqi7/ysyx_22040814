@@ -1,6 +1,7 @@
 import chisel3._
 import chisel3.util._
 import chisel3.experimental._
+import AXILiteDefs._
 
 class AXI_Arbiter(val n: Int) extends Module{
     val in = IO(Flipped(Vec(n, new AXILiteMasterIF(32, 64))))
