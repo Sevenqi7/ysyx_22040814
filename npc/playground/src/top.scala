@@ -44,6 +44,7 @@ class top extends Module{
         val BTB_wdata = Output(UInt(64.W))
         val br_cnt  = Output(UInt(32.W))
         val bp_fail = Output(UInt(32.W))
+        val btb_hit_cnt = Output(UInt(32.W))
         val bp_npc  = Output(UInt(64.W))
         val bp_taken = Output(Bool())
         val bp_flush = Output(Bool())
@@ -83,6 +84,7 @@ class top extends Module{
     io.bp_flush  := bp_unit.io.bp_flush
     io.br_cnt    := bp_unit.io.br_cnt
     io.bp_fail   := bp_unit.io.bp_fail
+    io.btb_hit_cnt := bp_unit.io.hit_cnt
 
     io.IF_Inst  := inst_fetch_unit.io.IF_to_ID_bus.bits.Inst
     io.IF_valid := inst_fetch_unit.io.IF_to_ID_bus.valid

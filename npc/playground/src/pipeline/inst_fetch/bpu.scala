@@ -113,6 +113,7 @@ class BPU extends Module{
         val BTB_hit   = Output(Bool())
         val br_cnt = Output(UInt(32.W))
         val bp_fail = Output(UInt(32.W))
+        val hit_cnt = Output(UInt(32.W))
     })
 
     def hash(x: UInt): UInt = {
@@ -203,6 +204,7 @@ class BPU extends Module{
     //statistic
     val br_cnt  = RegInit(0.U(32.W))
     val bp_fail = RegInit(0.U(32.W))
+    val hit_cnt = RegInit(0.U(32.W))
 
     when((B_type | J_type) & !io.ID_to_BPU_bus.bits.load_use_stall){
         br_cnt := br_cnt + 1.U
@@ -210,6 +212,8 @@ class BPU extends Module{
     when(io.bp_flush){
         bp_fail := bp_fail + 1.U
     }
+    
     io.br_cnt  := br_cnt
     io.bp_fail := bp_fail
+    io.hit_cnt := hit_cnt
 }
