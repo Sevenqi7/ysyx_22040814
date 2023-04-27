@@ -27,7 +27,7 @@ class IF_pre_fetch extends Module{
     axi_busy := !axi_req.ready
 
     val bp_fail_r = RegInit(0.U(1.W))
-    when(io.bp_flush | bp_taken){
+    when(io.bp_flush | io.bp_taken){
         bp_fail_r := 1.U
     }.elsewhen(axi_req.ready){
         bp_fail_r := 0.U
