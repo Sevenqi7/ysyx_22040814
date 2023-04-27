@@ -211,7 +211,7 @@ class BPU extends Module{
             (PHT(up_pht_idx)(BHT(up_bht_idx) ^ ID_pc(3, 0)) === PH_State.WNT && !ID_br_taken, PH_State.SNT),
             (PHT(up_bht_idx)(BHT(up_bht_idx) ^ ID_pc(3, 0)) === PH_State.SNT &&  ID_br_taken, PH_State.SNT)
         ))
-        BHT(up_bht_idx) := (BHT(up_bht_idx) << 1) + ID_br_taken
+        BHT(up_bht_idx) := ((BHT(up_bht_idx) << 1) + ID_br_taken)(bhtWidth-1, 0)
     }
 
 
