@@ -186,8 +186,8 @@ class BPU extends Module{
         
     //BHT & PHT
     //1.prediction
-    // val bht_idx = hash(io.PF_pc)
-    val bht_idx = io.PF_pc(phtIdxWidth + bhtIdxWidth -1, phtIdxWidth)
+    val bht_idx = hash(io.PF_pc)
+    // val bht_idx = io.PF_pc(phtIdxWidth + bhtIdxWidth -1, phtIdxWidth)
     val pht_idx = io.PF_pc(phtIdxWidth-1, 0)
 
     bp_taken     := 0.U
@@ -197,8 +197,8 @@ class BPU extends Module{
 
     
     //2.update
-    // val up_bht_idx = hash(ID_pc)
-    val up_bht_idx = ID_pc(phtIdxWidth + bhtIdxWidth -1, phtIdxWidth)
+    val up_bht_idx = hash(ID_pc)
+    // val up_bht_idx = ID_pc(phtIdxWidth + bhtIdxWidth -1, phtIdxWidth)
     val up_pht_idx = ID_pc(phtIdxWidth-1, 0)
     when(io.ID_to_BPU_bus.valid){
         
