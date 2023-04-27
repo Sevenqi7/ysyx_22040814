@@ -198,7 +198,7 @@ class BPU extends Module{
     
     //2.update
     // val up_bht_idx = hash(ID_pc)
-    val up_bht_idx = hash(phtIdxWidth + bhtIdxWidth -1, phtIdxWidth)
+    val up_bht_idx = ID_pc(phtIdxWidth + bhtIdxWidth -1, phtIdxWidth)
     val up_pht_idx = ID_pc(phtIdxWidth-1, 0)
     when(io.ID_to_BPU_bus.valid){
         
