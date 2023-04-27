@@ -206,11 +206,14 @@ class BPU extends Module{
     val bp_fail = RegInit(0.U(32.W))
     val hit_cnt = RegInit(0.U(32.W))
 
-    when((B_type | J_type) & !io.ID_to_BPU_bus.bits.load_use_stall){
+    when(io.PF_valid & (B_type | J_type) & !io.ID_to_BPU_bus.bits.load_use_stall){
         br_cnt := br_cnt + 1.U
     }
     when(io.bp_flush){
         bp_fail := bp_fail + 1.U
+    }
+    when(BTB.io.hit & io.PF_valid & (B_type | J_type) & !io.ID_to_BPU_bus.bits.load_use_stall){
+        hit_cnt := hit_cnt + 1.U
     }
     
     io.br_cnt  := br_cnt

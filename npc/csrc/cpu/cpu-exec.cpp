@@ -120,6 +120,7 @@ void execute(uint64_t n)
             Log("Recieve %ld bubbles in pipeline running", nr_bubble);
             Log("total branch inst: %ld",top->io_br_cnt);
             Log("total fail prediction: %ld", top->io_bp_fail);
+            Log("total BTB hit num: %d", top->io_btb_hit_cnt);
             break;
         }
     }
