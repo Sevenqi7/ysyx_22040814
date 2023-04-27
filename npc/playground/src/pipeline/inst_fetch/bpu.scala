@@ -113,6 +113,13 @@ class BPU extends Module{
         val BTB_hit   = Output(Bool())
     })
 
+    def hash(x: UInt): UInt = {
+        val ret = Wire(UInt(8.W))
+        val x1 = x(31, 16) ^ x(15, 0)
+        ret := x1(15, 8) ^ x1(7, 0)
+        ret
+    }
+    
     //unpack bus from IDU
     val ID_pc = io.ID_to_BPU_bus.bits.PC
     val ID_br_taken = io.ID_to_BPU_bus.bits.taken
@@ -128,13 +135,12 @@ class BPU extends Module{
 
 
     val bp_taken = Wire(Bool())
+    val bp_target = RegInit(0.U(64.W))
 
-    def hash(x: UInt): UInt = {
-        val ret = Wire(UInt(8.W))
-        val x1 = x(31, 16) ^ x(15, 0)
-        ret := x1(15, 8) ^ x1(7, 0)
-        ret
-    }
+    when(B_type | J_type){
+        bp_target := io.bp_npc
+    }    
+
 
     val BHT = RegInit(VecInit(Seq.fill(256)(0.U(4.W))))
     val PHT = RegInit(VecInit(Seq.fill(256)("b01".U(2.W))))
@@ -156,7 +162,7 @@ class BPU extends Module{
     io.BTB_wdata      := Mux(ID_br_taken, io.ID_to_BPU_bus.bits.br_target, 0.U)
 
     
-    io.bp_flush       := io.ID_to_BPU_bus.valid & io.PF_valid & (io.ID_to_BPU_bus.bits.PC =/= io.PF_pc)
+    io.bp_flush       := io.ID_to_BPU_bus.valid & (bp_target =/= ID_pc)
     io.bp_npc         := MuxCase(io.PF_pc + 4.U, Seq(
         (io.bp_flush, io.ID_to_BPU_bus.bits.br_target),
         (bp_taken   , BTB.io.readData                )
