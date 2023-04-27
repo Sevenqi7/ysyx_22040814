@@ -209,7 +209,7 @@ class BPU extends Module{
     when(io.PF_valid & (B_type | J_type) & !io.ID_to_BPU_bus.bits.load_use_stall){
         br_cnt := br_cnt + 1.U
     }
-    when(io.bp_flush){
+    when(io.bp_flush & !io.ID_to_BPU_bus.bits.load_use_stall){
         bp_fail := bp_fail + 1.U
     }
     when(BTB.io.hit & io.PF_valid & (B_type | J_type) & !io.ID_to_BPU_bus.bits.load_use_stall){
