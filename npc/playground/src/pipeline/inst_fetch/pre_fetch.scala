@@ -51,7 +51,8 @@ class IF_pre_fetch extends Module{
         (io.bp_taken | io.bp_flush, io.bp_npc),
         (io.stall    | !axi_req.ready, io.PF_pc)
     ))
-    regConnectWithResetAndStall(io.PF_pc, npc, reset.asBool, 0.U(64.W), io.stall | !axi_req.ready)
+    // regConnectWithResetAndStall(io.PF_pc, npc, reset.asBool, 0.U(64.W), io.stall | !axi_req.ready)
+    regConnect(io.PF_pc, npc)
 
     
 
