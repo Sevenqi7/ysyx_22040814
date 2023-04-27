@@ -126,10 +126,9 @@ class BPU extends Module{
     //     ret := x1(15, 8) ^ x1(7, 0)
     //     ret
     // }
-    def hash(x: UInt): UInt = {
-        val ret = Wire(UInt(8.W))
-        ret := x(31, 24) + x(23, 16) + x(15, 8) + x(7, 0)
-        ret(7, 0)
+    def hash(pc: UInt): UInt = {
+        val hashValue = (pc >> 2) ^ (pc >> 10) ^ (pc >> 18) ^ (pc >> 24)
+        hashValue(7, 0)
     }
     
     //unpack bus from IDU
