@@ -5450,5 +5450,3 @@ endmodule
 
 // ----- 8< ----- FILE "firrtl_black_box_resource_files.f" ----- 8< -----
 
-build/build/sim.v
-build/build/sim_sram.v
