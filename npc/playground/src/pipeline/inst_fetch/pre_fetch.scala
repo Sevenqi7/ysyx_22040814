@@ -69,7 +69,7 @@ class IF_pre_fetch extends Module{
     axi_lite.readAddr.bits.addr     := Mux(io.bp_taken | io.bp_flush, io.bp_npc, PF_npc(31, 0))
     axi_lite.readAddr.bits.addr     := MuxCase(PF_npc(31, 0), Seq(
                                             (io.bp_taken | io.bp_flush, io.bp_npc),
-                                            (io.stall | !axi_req.ready, io.PF_pc )
+                                            (io.stall | !axi_req.ready | axi_busy.asBool, io.PF_pc )
                                         ))
     
     axi_lite.readData.ready         := !io.stall
