@@ -3,10 +3,10 @@ import chisel3.util._
 import BType._
 
 object PH_State{
-    val ST  = "b01".U          //strongly taken
-    val WT  = "b11".U          //weakly taken
-    val WNT = "b10".U          //weakly not taken
-    val SNT = "b00".U          //strongly not taken
+    val ST  = "b11".U          //strongly taken
+    val WT  = "b01".U          //weakly taken
+    val WNT = "b00".U          //weakly not taken
+    val SNT = "b10".U          //strongly not taken
 }
 
 class CacheLine extends Bundle{
