@@ -38,7 +38,7 @@ class IF_pre_fetch extends Module{
         // (io.bp_flush              , io.bp_npc      ),
         // ((io.bp_taken | io.bp_flush) & !axi_req.ready   , io.bp_npc),
         (io.bp_taken | io.bp_flush, io.bp_npc + 4.U),
-        ((io.stall | !axi_req.ready), io.PF_npc)
+        ((io.stall | !axi_req.ready | axi_busy.asBool), io.PF_npc)
     ))
     // PF_npc      := MuxCase(io.PF_npc+4.U, Seq(
     //     (io.bp_fail, io.ID_npc),
@@ -49,7 +49,7 @@ class IF_pre_fetch extends Module{
     val npc = Wire(UInt(64.W))
     npc := MuxCase(PF_npc, Seq(
         (io.bp_taken | io.bp_flush, io.bp_npc),
-        (io.stall    | !axi_req.ready, io.PF_pc)
+        (io.stall    | !axi_req.ready | axi_busy.asBool, io.PF_pc)
     ))
     // regConnectWithResetAndStall(io.PF_pc, npc, reset.asBool, 0.U(64.W), io.stall | !axi_req.ready)
     regConnect(io.PF_pc, npc)
@@ -75,6 +75,6 @@ class IF_pre_fetch extends Module{
     axi_lite.readData.ready         := !io.stall
 
     io.inst                         := axi_lite.readData.bits.data(31, 0)
-    io.inst_valid                   := (axi_lite.readData.valid && axi_lite.readData.bits.resp === 0.U) & axi_req.ready
+    io.inst_valid                   := (axi_lite.readData.valid && axi_lite.readData.bits.resp === 0.U) & axi_req.ready & !axi_busy.asBool
 
 }
