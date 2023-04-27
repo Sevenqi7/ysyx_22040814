@@ -3057,12 +3057,12 @@ module IF_pre_fetch(	// <stdin>:782:10
       else	// pre_fetch.scala:27:17, :39:{23,38}, :41:19
         PF_npc <= PF_npc + 64'h4;	// pre_fetch.scala:24:27, :37:33
       axi_busy <= ~axi_req_ready;	// pre_fetch.scala:26:27, :27:17
-      if (io_stall) begin
+      if (~(io_stall | ~axi_req_ready)) begin	// pre_fetch.scala:27:17, :50:128
+        if (_axi_lite_readAddr_bits_addr_T)	// pre_fetch.scala:39:23
+          rhsReg <= io_bp_npc;	// tools.scala:32:33
+        else	// pre_fetch.scala:39:23
+          rhsReg <= PF_npc;	// pre_fetch.scala:24:27, tools.scala:32:33
       end
-      else if (_axi_lite_readAddr_bits_addr_T & ~axi_req_ready)	// pre_fetch.scala:27:17, :39:23, :50:75
-        rhsReg <= io_bp_npc;	// tools.scala:32:33
-      else	// pre_fetch.scala:27:17, :39:23, :50:75
-        rhsReg <= PF_npc;	// pre_fetch.scala:24:27, tools.scala:32:33
     end
   end // always @(posedge)
   `ifndef SYNTHESIS	// <stdin>:782:10
@@ -3096,9 +3096,9 @@ module IF_pre_fetch(	// <stdin>:782:10
   assign io_inst_valid = axi_lite_readData_valid & axi_lite_readData_bits_resp == 2'h0 & ~axi_busy & axi_req_ready;	// <stdin>:782:10, pre_fetch.scala:26:27, :66:{96,107,117}
   assign io_PF_pc = rhsReg;	// <stdin>:782:10, tools.scala:32:33
   assign io_PF_npc = PF_npc;	// <stdin>:782:10, pre_fetch.scala:24:27
-  assign axi_lite_readAddr_valid = ~io_stall;	// <stdin>:782:10, tools.scala:33:18
+  assign axi_lite_readAddr_valid = ~io_stall;	// <stdin>:782:10, pre_fetch.scala:61:40
   assign axi_lite_readAddr_bits_addr = _axi_lite_readAddr_bits_addr_T ? io_bp_npc[31:0] : PF_npc[31:0];	// <stdin>:782:10, pre_fetch.scala:24:27, :39:23, :62:{43,88}
-  assign axi_lite_readData_ready = ~io_stall;	// <stdin>:782:10, tools.scala:33:18
+  assign axi_lite_readData_ready = ~io_stall;	// <stdin>:782:10, pre_fetch.scala:61:40
 endmodule
 
 module IFU(	// <stdin>:845:10
@@ -4983,7 +4983,6 @@ module top(	// <stdin>:2319:10
     .bresp   (_inst_ram_bresp),
     .bvalid  (_inst_ram_bvalid)
   );
-
 wire [63:0] GPR [31:0];
 assign {GPR[31], GPR[30], GPR[29], GPR[28], GPR[27], GPR[26], GPR[25], GPR[24], GPR[23], GPR[22], GPR[21], GPR[20]
 , GPR[19], GPR[18], GPR[17], GPR[16], GPR[15], GPR[14], GPR[13], GPR[12], GPR[11], GPR[10], GPR[9], GPR[8], GPR[7]
@@ -5004,6 +5003,7 @@ sim simulate (	// top.scala:24:26
    .GPR               (GPR),
    .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
 );
+
   RAMU ram_unit (	// top.scala:146:26
     .clock                        (clock),
     .reset                        (reset),
@@ -5244,4 +5244,3 @@ module sim(input[63:0] IF_pc, input [63:0] GPR [31:0], input unknown_inst_flag, 
 endmodule
 
 // ----- 8< ----- FILE "firrtl_black_box_resource_files.f" ----- 8< -----
-
