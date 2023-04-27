@@ -128,7 +128,7 @@ class BPU extends Module{
     // }
     def hash(x: UInt): UInt = {
         val ret = Wire(UInt(8.W))
-        ret := x(31, 24) + x(23, 16) + (15, 8) + x(7, 0)
+        ret := x(31, 24) + x(23, 16) + x(15, 8) + x(7, 0)
         ret(7, 0)
     }
     
