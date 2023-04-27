@@ -149,7 +149,7 @@ class BPU extends Module{
     //BTB
     BTB.io.raddr      := io.PF_pc
     BTB.io.waddr      := ID_pc
-    BTB.io.writeEn    := ID_br_taken
+    BTB.io.writeEn    := ID_br_taken & io.ID_to_BPU_bus.valid
     BTB.io.writeData  := io.ID_to_BPU_bus.bits.br_target 
 
     //debug
