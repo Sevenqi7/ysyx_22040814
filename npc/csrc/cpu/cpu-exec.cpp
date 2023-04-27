@@ -118,7 +118,10 @@ void execute(uint64_t n)
         device_update();
         if(npc_state.state != NPC_RUNNING){
             Log("Recieve %ld bubbles in pipeline running", nr_bubble);
-            Log("total branch inst: %ld",top->io_br_cnt);
+            Log("nr of jal:%d", top->io_jal_cnt);
+            Log("nr_of_jalr:%d", top->io_jalr_cnt);
+            Log("nr_of_btype:%d", top->io_btype_cnt);
+            Log("total branch inst: %ld",top->io_jal_cnt + top->io_jalr_cnt + top->io_btype_cnt);
             Log("total fail prediction: %ld", top->io_bp_fail);
             Log("total BTB hit num: %d", top->io_btb_hit_cnt);
             break;
