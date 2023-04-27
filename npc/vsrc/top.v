@@ -2659,262 +2659,262 @@ module BPU(	// <stdin>:291:10
       BHT_253 <= 4'h0;	// bpu.scala:160:{22,30}
       BHT_254 <= 4'h0;	// bpu.scala:160:{22,30}
       BHT_255 <= 4'h0;	// bpu.scala:160:{22,30}
-      PHT_0_0 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_0_1 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_0_2 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_0_3 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_0_4 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_0_5 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_0_6 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_0_7 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_0_8 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_0_9 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_0_10 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_0_11 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_0_12 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_0_13 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_0_14 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_0_15 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_1_0 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_1_1 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_1_2 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_1_3 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_1_4 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_1_5 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_1_6 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_1_7 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_1_8 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_1_9 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_1_10 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_1_11 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_1_12 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_1_13 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_1_14 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_1_15 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_2_0 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_2_1 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_2_2 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_2_3 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_2_4 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_2_5 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_2_6 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_2_7 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_2_8 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_2_9 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_2_10 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_2_11 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_2_12 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_2_13 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_2_14 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_2_15 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_3_0 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_3_1 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_3_2 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_3_3 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_3_4 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_3_5 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_3_6 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_3_7 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_3_8 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_3_9 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_3_10 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_3_11 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_3_12 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_3_13 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_3_14 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_3_15 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_4_0 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_4_1 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_4_2 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_4_3 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_4_4 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_4_5 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_4_6 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_4_7 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_4_8 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_4_9 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_4_10 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_4_11 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_4_12 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_4_13 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_4_14 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_4_15 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_5_0 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_5_1 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_5_2 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_5_3 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_5_4 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_5_5 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_5_6 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_5_7 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_5_8 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_5_9 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_5_10 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_5_11 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_5_12 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_5_13 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_5_14 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_5_15 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_6_0 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_6_1 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_6_2 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_6_3 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_6_4 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_6_5 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_6_6 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_6_7 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_6_8 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_6_9 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_6_10 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_6_11 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_6_12 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_6_13 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_6_14 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_6_15 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_7_0 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_7_1 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_7_2 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_7_3 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_7_4 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_7_5 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_7_6 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_7_7 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_7_8 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_7_9 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_7_10 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_7_11 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_7_12 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_7_13 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_7_14 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_7_15 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_8_0 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_8_1 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_8_2 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_8_3 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_8_4 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_8_5 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_8_6 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_8_7 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_8_8 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_8_9 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_8_10 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_8_11 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_8_12 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_8_13 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_8_14 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_8_15 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_9_0 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_9_1 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_9_2 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_9_3 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_9_4 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_9_5 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_9_6 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_9_7 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_9_8 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_9_9 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_9_10 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_9_11 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_9_12 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_9_13 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_9_14 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_9_15 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_10_0 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_10_1 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_10_2 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_10_3 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_10_4 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_10_5 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_10_6 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_10_7 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_10_8 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_10_9 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_10_10 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_10_11 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_10_12 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_10_13 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_10_14 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_10_15 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_11_0 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_11_1 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_11_2 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_11_3 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_11_4 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_11_5 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_11_6 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_11_7 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_11_8 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_11_9 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_11_10 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_11_11 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_11_12 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_11_13 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_11_14 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_11_15 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_12_0 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_12_1 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_12_2 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_12_3 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_12_4 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_12_5 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_12_6 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_12_7 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_12_8 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_12_9 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_12_10 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_12_11 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_12_12 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_12_13 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_12_14 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_12_15 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_13_0 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_13_1 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_13_2 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_13_3 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_13_4 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_13_5 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_13_6 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_13_7 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_13_8 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_13_9 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_13_10 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_13_11 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_13_12 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_13_13 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_13_14 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_13_15 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_14_0 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_14_1 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_14_2 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_14_3 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_14_4 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_14_5 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_14_6 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_14_7 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_14_8 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_14_9 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_14_10 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_14_11 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_14_12 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_14_13 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_14_14 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_14_15 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_15_0 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_15_1 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_15_2 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_15_3 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_15_4 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_15_5 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_15_6 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_15_7 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_15_8 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_15_9 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_15_10 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_15_11 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_15_12 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_15_13 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_15_14 <= 2'h0;	// bpu.scala:161:{22,78}
-      PHT_15_15 <= 2'h0;	// bpu.scala:161:{22,78}
+      PHT_0_0 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_0_1 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_0_2 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_0_3 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_0_4 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_0_5 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_0_6 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_0_7 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_0_8 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_0_9 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_0_10 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_0_11 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_0_12 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_0_13 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_0_14 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_0_15 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_1_0 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_1_1 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_1_2 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_1_3 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_1_4 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_1_5 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_1_6 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_1_7 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_1_8 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_1_9 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_1_10 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_1_11 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_1_12 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_1_13 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_1_14 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_1_15 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_2_0 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_2_1 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_2_2 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_2_3 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_2_4 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_2_5 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_2_6 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_2_7 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_2_8 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_2_9 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_2_10 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_2_11 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_2_12 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_2_13 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_2_14 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_2_15 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_3_0 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_3_1 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_3_2 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_3_3 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_3_4 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_3_5 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_3_6 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_3_7 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_3_8 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_3_9 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_3_10 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_3_11 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_3_12 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_3_13 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_3_14 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_3_15 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_4_0 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_4_1 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_4_2 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_4_3 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_4_4 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_4_5 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_4_6 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_4_7 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_4_8 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_4_9 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_4_10 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_4_11 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_4_12 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_4_13 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_4_14 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_4_15 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_5_0 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_5_1 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_5_2 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_5_3 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_5_4 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_5_5 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_5_6 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_5_7 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_5_8 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_5_9 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_5_10 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_5_11 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_5_12 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_5_13 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_5_14 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_5_15 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_6_0 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_6_1 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_6_2 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_6_3 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_6_4 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_6_5 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_6_6 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_6_7 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_6_8 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_6_9 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_6_10 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_6_11 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_6_12 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_6_13 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_6_14 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_6_15 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_7_0 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_7_1 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_7_2 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_7_3 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_7_4 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_7_5 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_7_6 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_7_7 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_7_8 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_7_9 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_7_10 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_7_11 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_7_12 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_7_13 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_7_14 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_7_15 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_8_0 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_8_1 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_8_2 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_8_3 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_8_4 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_8_5 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_8_6 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_8_7 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_8_8 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_8_9 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_8_10 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_8_11 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_8_12 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_8_13 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_8_14 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_8_15 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_9_0 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_9_1 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_9_2 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_9_3 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_9_4 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_9_5 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_9_6 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_9_7 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_9_8 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_9_9 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_9_10 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_9_11 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_9_12 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_9_13 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_9_14 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_9_15 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_10_0 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_10_1 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_10_2 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_10_3 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_10_4 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_10_5 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_10_6 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_10_7 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_10_8 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_10_9 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_10_10 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_10_11 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_10_12 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_10_13 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_10_14 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_10_15 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_11_0 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_11_1 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_11_2 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_11_3 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_11_4 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_11_5 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_11_6 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_11_7 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_11_8 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_11_9 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_11_10 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_11_11 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_11_12 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_11_13 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_11_14 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_11_15 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_12_0 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_12_1 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_12_2 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_12_3 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_12_4 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_12_5 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_12_6 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_12_7 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_12_8 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_12_9 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_12_10 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_12_11 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_12_12 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_12_13 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_12_14 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_12_15 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_13_0 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_13_1 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_13_2 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_13_3 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_13_4 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_13_5 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_13_6 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_13_7 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_13_8 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_13_9 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_13_10 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_13_11 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_13_12 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_13_13 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_13_14 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_13_15 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_14_0 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_14_1 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_14_2 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_14_3 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_14_4 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_14_5 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_14_6 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_14_7 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_14_8 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_14_9 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_14_10 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_14_11 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_14_12 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_14_13 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_14_14 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_14_15 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_15_0 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_15_1 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_15_2 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_15_3 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_15_4 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_15_5 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_15_6 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_15_7 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_15_8 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_15_9 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_15_10 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_15_11 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_15_12 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_15_13 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_15_14 <= 2'h3;	// bpu.scala:161:{22,78}
+      PHT_15_15 <= 2'h3;	// bpu.scala:161:{22,78}
       jal_cnt <= 32'h0;	// bpu.scala:219:27
       jalr_cnt <= 32'h0;	// bpu.scala:219:27, :220:27
       btype_cnt <= 32'h0;	// bpu.scala:219:27, :221:29
@@ -2964,9 +2964,9 @@ module BPU(	// <stdin>:291:10
       _PHT_T_6 = (&_GEN_54) & ~io_ID_to_BPU_bus_bits_taken;	// bpu.scala:207:{61,78,81}
       _PHT_T_11 = _GEN_55 == 2'h1 & ~io_ID_to_BPU_bus_bits_taken;	// Mux.scala:101:16, bpu.scala:207:81, :208:{61,78}
       _PHT_T_15 = _GEN_56 == 2'h1 & io_ID_to_BPU_bus_bits_taken;	// Mux.scala:101:16, bpu.scala:209:{61,78}
-      _PHT_T_19 = _GEN_57 == 2'h0 & io_ID_to_BPU_bus_bits_taken;	// bpu.scala:161:78, :210:{61,78}
+      _PHT_T_19 = _GEN_57 == 2'h0 & io_ID_to_BPU_bus_bits_taken;	// Mux.scala:101:16, bpu.scala:210:{61,78}
       _GEN_78 = _GEN_58 == 2'h0 & ~io_ID_to_BPU_bus_bits_taken | _GEN_76 == 2'h2 &
-                                                io_ID_to_BPU_bus_bits_taken;	// Mux.scala:101:16, bpu.scala:161:78, :207:81, :211:{61,78}, :212:{61,78}
+                                                io_ID_to_BPU_bus_bits_taken;	// Mux.scala:101:16, bpu.scala:207:81, :211:{61,78}, :212:{61,78}
       _GEN_109 = {_GEN_36[2:0], 1'h0} + {3'h0, io_ID_to_BPU_bus_bits_taken};	// bpu.scala:148:30, :206:41, :214:51
       if (_T_32 & ~io_ID_to_BPU_bus_bits_load_use_stall) begin	// bpu.scala:148:{18,28,30}
         if (_io_bp_flush_T_1)	// bpu.scala:180:49
@@ -3492,9 +3492,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_0_0 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_0_0 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_0_0 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_0_0 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_0_0 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_0_0 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -3506,9 +3506,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_0_1 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_0_1 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_0_1 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_0_1 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_0_1 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_0_1 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -3520,9 +3520,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_0_2 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_0_2 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_0_2 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_0_2 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_0_2 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_0_2 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -3534,9 +3534,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_0_3 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_0_3 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_0_3 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_0_3 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_0_3 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_0_3 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -3548,9 +3548,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_0_4 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_0_4 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_0_4 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_0_4 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_0_4 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_0_4 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -3562,9 +3562,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_0_5 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_0_5 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_0_5 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_0_5 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_0_5 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_0_5 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -3576,9 +3576,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_0_6 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_0_6 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_0_6 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_0_6 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_0_6 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_0_6 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -3590,9 +3590,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_0_7 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_0_7 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_0_7 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_0_7 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_0_7 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_0_7 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -3604,9 +3604,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_0_8 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_0_8 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_0_8 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_0_8 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_0_8 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_0_8 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -3618,9 +3618,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_0_9 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_0_9 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_0_9 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_0_9 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_0_9 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_0_9 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -3632,9 +3632,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_0_10 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_0_10 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_0_10 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_0_10 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_0_10 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_0_10 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -3646,9 +3646,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_0_11 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_0_11 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_0_11 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_0_11 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_0_11 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_0_11 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -3660,9 +3660,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_0_12 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_0_12 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_0_12 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_0_12 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_0_12 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_0_12 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -3674,9 +3674,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_0_13 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_0_13 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_0_13 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_0_13 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_0_13 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_0_13 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -3688,9 +3688,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_0_14 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_0_14 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_0_14 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_0_14 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_0_14 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_0_14 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -3702,9 +3702,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_0_15 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_0_15 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_0_15 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_0_15 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_0_15 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_0_15 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -3716,9 +3716,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_1_0 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_1_0 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_1_0 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_1_0 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_1_0 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_1_0 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -3730,9 +3730,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_1_1 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_1_1 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_1_1 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_1_1 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_1_1 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_1_1 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -3744,9 +3744,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_1_2 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_1_2 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_1_2 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_1_2 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_1_2 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_1_2 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -3758,9 +3758,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_1_3 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_1_3 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_1_3 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_1_3 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_1_3 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_1_3 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -3772,9 +3772,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_1_4 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_1_4 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_1_4 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_1_4 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_1_4 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_1_4 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -3786,9 +3786,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_1_5 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_1_5 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_1_5 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_1_5 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_1_5 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_1_5 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -3800,9 +3800,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_1_6 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_1_6 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_1_6 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_1_6 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_1_6 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_1_6 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -3814,9 +3814,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_1_7 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_1_7 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_1_7 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_1_7 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_1_7 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_1_7 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -3828,9 +3828,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_1_8 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_1_8 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_1_8 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_1_8 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_1_8 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_1_8 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -3842,9 +3842,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_1_9 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_1_9 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_1_9 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_1_9 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_1_9 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_1_9 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -3856,9 +3856,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_1_10 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_1_10 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_1_10 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_1_10 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_1_10 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_1_10 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -3870,9 +3870,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_1_11 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_1_11 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_1_11 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_1_11 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_1_11 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_1_11 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -3884,9 +3884,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_1_12 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_1_12 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_1_12 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_1_12 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_1_12 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_1_12 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -3898,9 +3898,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_1_13 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_1_13 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_1_13 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_1_13 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_1_13 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_1_13 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -3912,9 +3912,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_1_14 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_1_14 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_1_14 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_1_14 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_1_14 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_1_14 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -3926,9 +3926,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_1_15 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_1_15 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_1_15 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_1_15 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_1_15 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_1_15 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -3940,9 +3940,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_2_0 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_2_0 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_2_0 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_2_0 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_2_0 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_2_0 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -3954,9 +3954,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_2_1 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_2_1 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_2_1 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_2_1 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_2_1 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_2_1 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -3968,9 +3968,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_2_2 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_2_2 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_2_2 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_2_2 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_2_2 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_2_2 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -3982,9 +3982,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_2_3 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_2_3 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_2_3 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_2_3 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_2_3 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_2_3 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -3996,9 +3996,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_2_4 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_2_4 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_2_4 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_2_4 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_2_4 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_2_4 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4010,9 +4010,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_2_5 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_2_5 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_2_5 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_2_5 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_2_5 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_2_5 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4024,9 +4024,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_2_6 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_2_6 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_2_6 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_2_6 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_2_6 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_2_6 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4038,9 +4038,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_2_7 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_2_7 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_2_7 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_2_7 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_2_7 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_2_7 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4052,9 +4052,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_2_8 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_2_8 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_2_8 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_2_8 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_2_8 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_2_8 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4066,9 +4066,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_2_9 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_2_9 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_2_9 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_2_9 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_2_9 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_2_9 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4080,9 +4080,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_2_10 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_2_10 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_2_10 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_2_10 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_2_10 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_2_10 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4094,9 +4094,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_2_11 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_2_11 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_2_11 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_2_11 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_2_11 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_2_11 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4108,9 +4108,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_2_12 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_2_12 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_2_12 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_2_12 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_2_12 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_2_12 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4122,9 +4122,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_2_13 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_2_13 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_2_13 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_2_13 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_2_13 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_2_13 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4136,9 +4136,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_2_14 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_2_14 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_2_14 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_2_14 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_2_14 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_2_14 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4150,9 +4150,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_2_15 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_2_15 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_2_15 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_2_15 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_2_15 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_2_15 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4164,9 +4164,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_3_0 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_3_0 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_3_0 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_3_0 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_3_0 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_3_0 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4178,9 +4178,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_3_1 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_3_1 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_3_1 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_3_1 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_3_1 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_3_1 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4192,9 +4192,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_3_2 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_3_2 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_3_2 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_3_2 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_3_2 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_3_2 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4206,9 +4206,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_3_3 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_3_3 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_3_3 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_3_3 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_3_3 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_3_3 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4220,9 +4220,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_3_4 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_3_4 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_3_4 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_3_4 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_3_4 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_3_4 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4234,9 +4234,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_3_5 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_3_5 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_3_5 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_3_5 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_3_5 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_3_5 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4248,9 +4248,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_3_6 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_3_6 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_3_6 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_3_6 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_3_6 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_3_6 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4262,9 +4262,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_3_7 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_3_7 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_3_7 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_3_7 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_3_7 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_3_7 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4276,9 +4276,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_3_8 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_3_8 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_3_8 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_3_8 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_3_8 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_3_8 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4290,9 +4290,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_3_9 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_3_9 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_3_9 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_3_9 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_3_9 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_3_9 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4304,9 +4304,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_3_10 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_3_10 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_3_10 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_3_10 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_3_10 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_3_10 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4318,9 +4318,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_3_11 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_3_11 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_3_11 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_3_11 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_3_11 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_3_11 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4332,9 +4332,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_3_12 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_3_12 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_3_12 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_3_12 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_3_12 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_3_12 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4346,9 +4346,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_3_13 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_3_13 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_3_13 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_3_13 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_3_13 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_3_13 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4360,9 +4360,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_3_14 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_3_14 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_3_14 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_3_14 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_3_14 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_3_14 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4374,9 +4374,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_3_15 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_3_15 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_3_15 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_3_15 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_3_15 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_3_15 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4388,9 +4388,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_4_0 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_4_0 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_4_0 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_4_0 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_4_0 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_4_0 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4402,9 +4402,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_4_1 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_4_1 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_4_1 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_4_1 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_4_1 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_4_1 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4416,9 +4416,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_4_2 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_4_2 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_4_2 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_4_2 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_4_2 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_4_2 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4430,9 +4430,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_4_3 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_4_3 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_4_3 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_4_3 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_4_3 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_4_3 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4444,9 +4444,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_4_4 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_4_4 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_4_4 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_4_4 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_4_4 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_4_4 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4458,9 +4458,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_4_5 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_4_5 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_4_5 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_4_5 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_4_5 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_4_5 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4472,9 +4472,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_4_6 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_4_6 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_4_6 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_4_6 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_4_6 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_4_6 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4486,9 +4486,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_4_7 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_4_7 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_4_7 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_4_7 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_4_7 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_4_7 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4500,9 +4500,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_4_8 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_4_8 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_4_8 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_4_8 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_4_8 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_4_8 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4514,9 +4514,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_4_9 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_4_9 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_4_9 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_4_9 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_4_9 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_4_9 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4528,9 +4528,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_4_10 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_4_10 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_4_10 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_4_10 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_4_10 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_4_10 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4542,9 +4542,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_4_11 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_4_11 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_4_11 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_4_11 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_4_11 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_4_11 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4556,9 +4556,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_4_12 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_4_12 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_4_12 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_4_12 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_4_12 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_4_12 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4570,9 +4570,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_4_13 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_4_13 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_4_13 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_4_13 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_4_13 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_4_13 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4584,9 +4584,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_4_14 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_4_14 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_4_14 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_4_14 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_4_14 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_4_14 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4598,9 +4598,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_4_15 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_4_15 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_4_15 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_4_15 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_4_15 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_4_15 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4612,9 +4612,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_5_0 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_5_0 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_5_0 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_5_0 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_5_0 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_5_0 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4626,9 +4626,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_5_1 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_5_1 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_5_1 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_5_1 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_5_1 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_5_1 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4640,9 +4640,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_5_2 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_5_2 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_5_2 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_5_2 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_5_2 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_5_2 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4654,9 +4654,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_5_3 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_5_3 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_5_3 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_5_3 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_5_3 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_5_3 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4668,9 +4668,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_5_4 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_5_4 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_5_4 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_5_4 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_5_4 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_5_4 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4682,9 +4682,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_5_5 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_5_5 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_5_5 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_5_5 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_5_5 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_5_5 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4696,9 +4696,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_5_6 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_5_6 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_5_6 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_5_6 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_5_6 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_5_6 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4710,9 +4710,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_5_7 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_5_7 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_5_7 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_5_7 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_5_7 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_5_7 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4724,9 +4724,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_5_8 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_5_8 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_5_8 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_5_8 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_5_8 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_5_8 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4738,9 +4738,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_5_9 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_5_9 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_5_9 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_5_9 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_5_9 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_5_9 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4752,9 +4752,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_5_10 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_5_10 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_5_10 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_5_10 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_5_10 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_5_10 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4766,9 +4766,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_5_11 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_5_11 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_5_11 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_5_11 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_5_11 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_5_11 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4780,9 +4780,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_5_12 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_5_12 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_5_12 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_5_12 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_5_12 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_5_12 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4794,9 +4794,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_5_13 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_5_13 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_5_13 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_5_13 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_5_13 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_5_13 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4808,9 +4808,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_5_14 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_5_14 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_5_14 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_5_14 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_5_14 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_5_14 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4822,9 +4822,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_5_15 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_5_15 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_5_15 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_5_15 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_5_15 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_5_15 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4836,9 +4836,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_6_0 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_6_0 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_6_0 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_6_0 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_6_0 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_6_0 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4850,9 +4850,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_6_1 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_6_1 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_6_1 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_6_1 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_6_1 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_6_1 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4864,9 +4864,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_6_2 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_6_2 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_6_2 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_6_2 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_6_2 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_6_2 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4878,9 +4878,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_6_3 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_6_3 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_6_3 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_6_3 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_6_3 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_6_3 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4892,9 +4892,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_6_4 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_6_4 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_6_4 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_6_4 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_6_4 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_6_4 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4906,9 +4906,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_6_5 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_6_5 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_6_5 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_6_5 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_6_5 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_6_5 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4920,9 +4920,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_6_6 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_6_6 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_6_6 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_6_6 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_6_6 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_6_6 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4934,9 +4934,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_6_7 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_6_7 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_6_7 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_6_7 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_6_7 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_6_7 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4948,9 +4948,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_6_8 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_6_8 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_6_8 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_6_8 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_6_8 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_6_8 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4962,9 +4962,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_6_9 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_6_9 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_6_9 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_6_9 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_6_9 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_6_9 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4976,9 +4976,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_6_10 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_6_10 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_6_10 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_6_10 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_6_10 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_6_10 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -4990,9 +4990,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_6_11 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_6_11 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_6_11 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_6_11 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_6_11 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_6_11 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5004,9 +5004,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_6_12 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_6_12 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_6_12 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_6_12 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_6_12 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_6_12 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5018,9 +5018,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_6_13 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_6_13 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_6_13 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_6_13 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_6_13 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_6_13 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5032,9 +5032,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_6_14 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_6_14 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_6_14 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_6_14 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_6_14 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_6_14 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5046,9 +5046,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_6_15 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_6_15 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_6_15 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_6_15 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_6_15 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_6_15 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5060,9 +5060,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_7_0 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_7_0 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_7_0 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_7_0 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_7_0 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_7_0 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5074,9 +5074,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_7_1 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_7_1 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_7_1 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_7_1 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_7_1 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_7_1 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5088,9 +5088,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_7_2 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_7_2 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_7_2 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_7_2 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_7_2 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_7_2 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5102,9 +5102,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_7_3 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_7_3 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_7_3 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_7_3 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_7_3 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_7_3 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5116,9 +5116,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_7_4 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_7_4 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_7_4 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_7_4 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_7_4 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_7_4 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5130,9 +5130,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_7_5 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_7_5 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_7_5 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_7_5 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_7_5 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_7_5 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5144,9 +5144,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_7_6 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_7_6 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_7_6 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_7_6 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_7_6 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_7_6 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5158,9 +5158,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_7_7 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_7_7 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_7_7 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_7_7 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_7_7 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_7_7 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5172,9 +5172,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_7_8 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_7_8 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_7_8 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_7_8 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_7_8 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_7_8 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5186,9 +5186,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_7_9 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_7_9 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_7_9 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_7_9 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_7_9 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_7_9 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5200,9 +5200,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_7_10 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_7_10 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_7_10 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_7_10 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_7_10 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_7_10 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5214,9 +5214,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_7_11 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_7_11 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_7_11 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_7_11 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_7_11 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_7_11 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5228,9 +5228,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_7_12 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_7_12 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_7_12 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_7_12 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_7_12 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_7_12 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5242,9 +5242,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_7_13 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_7_13 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_7_13 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_7_13 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_7_13 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_7_13 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5256,9 +5256,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_7_14 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_7_14 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_7_14 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_7_14 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_7_14 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_7_14 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5270,9 +5270,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_7_15 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_7_15 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_7_15 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_7_15 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_7_15 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_7_15 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5284,9 +5284,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_8_0 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_8_0 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_8_0 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_8_0 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_8_0 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_8_0 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5298,9 +5298,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_8_1 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_8_1 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_8_1 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_8_1 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_8_1 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_8_1 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5312,9 +5312,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_8_2 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_8_2 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_8_2 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_8_2 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_8_2 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_8_2 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5326,9 +5326,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_8_3 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_8_3 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_8_3 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_8_3 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_8_3 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_8_3 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5340,9 +5340,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_8_4 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_8_4 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_8_4 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_8_4 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_8_4 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_8_4 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5354,9 +5354,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_8_5 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_8_5 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_8_5 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_8_5 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_8_5 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_8_5 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5368,9 +5368,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_8_6 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_8_6 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_8_6 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_8_6 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_8_6 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_8_6 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5382,9 +5382,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_8_7 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_8_7 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_8_7 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_8_7 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_8_7 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_8_7 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5396,9 +5396,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_8_8 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_8_8 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_8_8 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_8_8 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_8_8 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_8_8 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5410,9 +5410,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_8_9 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_8_9 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_8_9 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_8_9 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_8_9 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_8_9 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5424,9 +5424,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_8_10 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_8_10 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_8_10 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_8_10 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_8_10 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_8_10 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5438,9 +5438,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_8_11 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_8_11 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_8_11 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_8_11 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_8_11 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_8_11 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5452,9 +5452,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_8_12 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_8_12 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_8_12 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_8_12 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_8_12 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_8_12 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5466,9 +5466,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_8_13 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_8_13 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_8_13 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_8_13 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_8_13 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_8_13 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5480,9 +5480,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_8_14 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_8_14 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_8_14 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_8_14 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_8_14 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_8_14 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5494,9 +5494,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_8_15 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_8_15 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_8_15 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_8_15 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_8_15 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_8_15 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5508,9 +5508,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_9_0 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_9_0 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_9_0 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_9_0 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_9_0 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_9_0 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5522,9 +5522,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_9_1 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_9_1 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_9_1 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_9_1 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_9_1 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_9_1 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5536,9 +5536,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_9_2 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_9_2 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_9_2 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_9_2 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_9_2 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_9_2 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5550,9 +5550,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_9_3 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_9_3 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_9_3 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_9_3 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_9_3 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_9_3 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5564,9 +5564,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_9_4 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_9_4 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_9_4 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_9_4 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_9_4 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_9_4 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5578,9 +5578,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_9_5 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_9_5 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_9_5 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_9_5 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_9_5 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_9_5 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5592,9 +5592,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_9_6 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_9_6 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_9_6 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_9_6 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_9_6 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_9_6 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5606,9 +5606,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_9_7 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_9_7 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_9_7 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_9_7 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_9_7 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_9_7 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5620,9 +5620,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_9_8 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_9_8 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_9_8 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_9_8 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_9_8 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_9_8 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5634,9 +5634,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_9_9 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_9_9 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_9_9 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_9_9 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_9_9 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_9_9 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5648,9 +5648,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_9_10 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_9_10 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_9_10 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_9_10 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_9_10 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_9_10 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5662,9 +5662,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_9_11 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_9_11 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_9_11 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_9_11 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_9_11 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_9_11 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5676,9 +5676,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_9_12 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_9_12 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_9_12 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_9_12 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_9_12 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_9_12 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5690,9 +5690,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_9_13 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_9_13 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_9_13 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_9_13 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_9_13 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_9_13 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5704,9 +5704,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_9_14 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_9_14 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_9_14 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_9_14 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_9_14 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_9_14 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5718,9 +5718,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_9_15 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_9_15 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_9_15 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_9_15 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_9_15 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_9_15 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5732,9 +5732,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_10_0 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_10_0 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_10_0 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_10_0 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_10_0 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_10_0 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5746,9 +5746,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_10_1 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_10_1 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_10_1 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_10_1 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_10_1 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_10_1 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5760,9 +5760,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_10_2 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_10_2 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_10_2 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_10_2 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_10_2 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_10_2 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5774,9 +5774,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_10_3 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_10_3 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_10_3 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_10_3 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_10_3 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_10_3 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5788,9 +5788,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_10_4 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_10_4 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_10_4 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_10_4 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_10_4 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_10_4 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5802,9 +5802,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_10_5 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_10_5 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_10_5 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_10_5 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_10_5 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_10_5 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5816,9 +5816,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_10_6 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_10_6 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_10_6 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_10_6 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_10_6 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_10_6 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5830,9 +5830,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_10_7 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_10_7 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_10_7 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_10_7 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_10_7 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_10_7 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5844,9 +5844,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_10_8 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_10_8 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_10_8 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_10_8 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_10_8 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_10_8 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5858,9 +5858,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_10_9 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_10_9 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_10_9 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_10_9 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_10_9 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_10_9 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5872,9 +5872,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_10_10 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_10_10 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_10_10 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_10_10 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_10_10 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_10_10 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5886,9 +5886,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_10_11 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_10_11 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_10_11 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_10_11 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_10_11 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_10_11 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5900,9 +5900,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_10_12 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_10_12 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_10_12 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_10_12 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_10_12 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_10_12 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5914,9 +5914,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_10_13 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_10_13 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_10_13 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_10_13 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_10_13 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_10_13 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5928,9 +5928,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_10_14 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_10_14 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_10_14 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_10_14 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_10_14 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_10_14 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5942,9 +5942,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_10_15 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_10_15 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_10_15 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_10_15 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_10_15 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_10_15 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5956,9 +5956,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_11_0 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_11_0 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_11_0 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_11_0 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_11_0 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_11_0 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5970,9 +5970,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_11_1 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_11_1 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_11_1 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_11_1 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_11_1 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_11_1 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5984,9 +5984,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_11_2 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_11_2 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_11_2 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_11_2 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_11_2 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_11_2 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -5998,9 +5998,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_11_3 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_11_3 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_11_3 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_11_3 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_11_3 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_11_3 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6012,9 +6012,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_11_4 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_11_4 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_11_4 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_11_4 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_11_4 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_11_4 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6026,9 +6026,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_11_5 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_11_5 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_11_5 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_11_5 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_11_5 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_11_5 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6040,9 +6040,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_11_6 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_11_6 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_11_6 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_11_6 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_11_6 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_11_6 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6054,9 +6054,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_11_7 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_11_7 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_11_7 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_11_7 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_11_7 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_11_7 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6068,9 +6068,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_11_8 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_11_8 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_11_8 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_11_8 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_11_8 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_11_8 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6082,9 +6082,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_11_9 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_11_9 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_11_9 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_11_9 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_11_9 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_11_9 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6096,9 +6096,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_11_10 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_11_10 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_11_10 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_11_10 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_11_10 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_11_10 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6110,9 +6110,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_11_11 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_11_11 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_11_11 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_11_11 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_11_11 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_11_11 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6124,9 +6124,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_11_12 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_11_12 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_11_12 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_11_12 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_11_12 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_11_12 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6138,9 +6138,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_11_13 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_11_13 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_11_13 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_11_13 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_11_13 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_11_13 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6152,9 +6152,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_11_14 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_11_14 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_11_14 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_11_14 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_11_14 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_11_14 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6166,9 +6166,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_11_15 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_11_15 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_11_15 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_11_15 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_11_15 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_11_15 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6180,9 +6180,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_12_0 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_12_0 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_12_0 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_12_0 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_12_0 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_12_0 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6194,9 +6194,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_12_1 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_12_1 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_12_1 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_12_1 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_12_1 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_12_1 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6208,9 +6208,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_12_2 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_12_2 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_12_2 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_12_2 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_12_2 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_12_2 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6222,9 +6222,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_12_3 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_12_3 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_12_3 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_12_3 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_12_3 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_12_3 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6236,9 +6236,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_12_4 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_12_4 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_12_4 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_12_4 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_12_4 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_12_4 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6250,9 +6250,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_12_5 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_12_5 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_12_5 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_12_5 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_12_5 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_12_5 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6264,9 +6264,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_12_6 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_12_6 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_12_6 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_12_6 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_12_6 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_12_6 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6278,9 +6278,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_12_7 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_12_7 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_12_7 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_12_7 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_12_7 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_12_7 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6292,9 +6292,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_12_8 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_12_8 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_12_8 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_12_8 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_12_8 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_12_8 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6306,9 +6306,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_12_9 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_12_9 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_12_9 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_12_9 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_12_9 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_12_9 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6320,9 +6320,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_12_10 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_12_10 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_12_10 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_12_10 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_12_10 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_12_10 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6334,9 +6334,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_12_11 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_12_11 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_12_11 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_12_11 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_12_11 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_12_11 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6348,9 +6348,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_12_12 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_12_12 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_12_12 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_12_12 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_12_12 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_12_12 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6362,9 +6362,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_12_13 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_12_13 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_12_13 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_12_13 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_12_13 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_12_13 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6376,9 +6376,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_12_14 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_12_14 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_12_14 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_12_14 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_12_14 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_12_14 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6390,9 +6390,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_12_15 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_12_15 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_12_15 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_12_15 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_12_15 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_12_15 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6404,9 +6404,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_13_0 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_13_0 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_13_0 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_13_0 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_13_0 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_13_0 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6418,9 +6418,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_13_1 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_13_1 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_13_1 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_13_1 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_13_1 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_13_1 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6432,9 +6432,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_13_2 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_13_2 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_13_2 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_13_2 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_13_2 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_13_2 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6446,9 +6446,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_13_3 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_13_3 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_13_3 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_13_3 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_13_3 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_13_3 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6460,9 +6460,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_13_4 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_13_4 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_13_4 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_13_4 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_13_4 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_13_4 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6474,9 +6474,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_13_5 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_13_5 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_13_5 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_13_5 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_13_5 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_13_5 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6488,9 +6488,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_13_6 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_13_6 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_13_6 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_13_6 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_13_6 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_13_6 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6502,9 +6502,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_13_7 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_13_7 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_13_7 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_13_7 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_13_7 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_13_7 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6516,9 +6516,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_13_8 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_13_8 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_13_8 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_13_8 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_13_8 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_13_8 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6530,9 +6530,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_13_9 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_13_9 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_13_9 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_13_9 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_13_9 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_13_9 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6544,9 +6544,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_13_10 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_13_10 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_13_10 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_13_10 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_13_10 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_13_10 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6558,9 +6558,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_13_11 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_13_11 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_13_11 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_13_11 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_13_11 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_13_11 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6572,9 +6572,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_13_12 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_13_12 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_13_12 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_13_12 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_13_12 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_13_12 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6586,9 +6586,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_13_13 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_13_13 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_13_13 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_13_13 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_13_13 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_13_13 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6600,9 +6600,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_13_14 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_13_14 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_13_14 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_13_14 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_13_14 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_13_14 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6614,9 +6614,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_13_15 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_13_15 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_13_15 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_13_15 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_13_15 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_13_15 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6628,9 +6628,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_14_0 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_14_0 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_14_0 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_14_0 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_14_0 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_14_0 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6642,9 +6642,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_14_1 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_14_1 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_14_1 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_14_1 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_14_1 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_14_1 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6656,9 +6656,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_14_2 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_14_2 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_14_2 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_14_2 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_14_2 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_14_2 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6670,9 +6670,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_14_3 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_14_3 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_14_3 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_14_3 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_14_3 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_14_3 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6684,9 +6684,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_14_4 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_14_4 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_14_4 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_14_4 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_14_4 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_14_4 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6698,9 +6698,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_14_5 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_14_5 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_14_5 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_14_5 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_14_5 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_14_5 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6712,9 +6712,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_14_6 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_14_6 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_14_6 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_14_6 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_14_6 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_14_6 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6726,9 +6726,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_14_7 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_14_7 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_14_7 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_14_7 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_14_7 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_14_7 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6740,9 +6740,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_14_8 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_14_8 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_14_8 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_14_8 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_14_8 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_14_8 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6754,9 +6754,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_14_9 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_14_9 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_14_9 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_14_9 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_14_9 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_14_9 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6768,9 +6768,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_14_10 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_14_10 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_14_10 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_14_10 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_14_10 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_14_10 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6782,9 +6782,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_14_11 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_14_11 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_14_11 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_14_11 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_14_11 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_14_11 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6796,9 +6796,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_14_12 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_14_12 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_14_12 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_14_12 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_14_12 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_14_12 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6810,9 +6810,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_14_13 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_14_13 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_14_13 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_14_13 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_14_13 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_14_13 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6824,9 +6824,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_14_14 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_14_14 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_14_14 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_14_14 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_14_14 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_14_14 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6838,9 +6838,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_14_15 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_14_15 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_14_15 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_14_15 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_14_15 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_14_15 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6852,9 +6852,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_15_0 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_15_0 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_15_0 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_15_0 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_15_0 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_15_0 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6866,9 +6866,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_15_1 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_15_1 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_15_1 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_15_1 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_15_1 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_15_1 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6880,9 +6880,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_15_2 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_15_2 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_15_2 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_15_2 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_15_2 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_15_2 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6894,9 +6894,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_15_3 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_15_3 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_15_3 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_15_3 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_15_3 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_15_3 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6908,9 +6908,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_15_4 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_15_4 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_15_4 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_15_4 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_15_4 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_15_4 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6922,9 +6922,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_15_5 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_15_5 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_15_5 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_15_5 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_15_5 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_15_5 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6936,9 +6936,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_15_6 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_15_6 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_15_6 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_15_6 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_15_6 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_15_6 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6950,9 +6950,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_15_7 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_15_7 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_15_7 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_15_7 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_15_7 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_15_7 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6964,9 +6964,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_15_8 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_15_8 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_15_8 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_15_8 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_15_8 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_15_8 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6978,9 +6978,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_15_9 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_15_9 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_15_9 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_15_9 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_15_9 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_15_9 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -6992,9 +6992,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_15_10 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_15_10 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_15_10 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_15_10 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_15_10 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_15_10 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -7006,9 +7006,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_15_11 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_15_11 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_15_11 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_15_11 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_15_11 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_15_11 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -7020,9 +7020,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_15_12 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_15_12 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_15_12 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_15_12 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_15_12 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_15_12 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -7034,9 +7034,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_15_13 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_15_13 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_15_13 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_15_13 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_15_13 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_15_13 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -7048,9 +7048,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_15_14 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_15_14 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_15_14 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_15_14 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_15_14 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_15_14 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
@@ -7062,9 +7062,9 @@ module BPU(	// <stdin>:291:10
         if (_PHT_T_6)	// bpu.scala:207:78
           PHT_15_15 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_11)	// bpu.scala:207:78, :208:78
-          PHT_15_15 <= 2'h0;	// bpu.scala:161:{22,78}
+          PHT_15_15 <= 2'h0;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_PHT_T_15)	// bpu.scala:207:78, :208:78, :209:78
-          PHT_15_15 <= 2'h3;	// bpu.scala:161:22, :207:61
+          PHT_15_15 <= 2'h3;	// bpu.scala:161:{22,78}
         else if (_PHT_T_19)	// bpu.scala:207:78, :208:78, :209:78, :210:78
           PHT_15_15 <= 2'h1;	// Mux.scala:101:16, bpu.scala:161:22
         else if (_GEN_78)	// Mux.scala:101:16, bpu.scala:207:78, :208:78, :209:78, :210:78
