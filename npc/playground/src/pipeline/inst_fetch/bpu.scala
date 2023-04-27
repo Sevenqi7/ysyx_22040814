@@ -132,7 +132,7 @@ class BPU extends Module{
     // }
 def hash(pc: UInt): UInt = {
   val P = 2147483647L.U // 2^31-1, a large prime number
-  val M = 256 // 2^8, the size of BHT
+  val M = 256.U // 2^8, the size of BHT
   val h = (pc * P).asUInt >> 32
   h % M
 }
