@@ -193,7 +193,8 @@ class BPU extends Module{
 
     bp_taken     := 0.U
     when(BTB.io.hit & io.PF_valid & (B_type | J_type)){
-        bp_taken := PHT(pht_idx)(BHT(bht_idx) ^ io.PF_pc(3, 0))(1)
+        // bp_taken := PHT(pht_idx)(BHT(bht_idx) ^ io.PF_pc(3, 0))(1)
+        bp_taken := 0.U
     }
 
     
@@ -202,7 +203,6 @@ class BPU extends Module{
     // val up_bht_idx = ID_pc(phtIdxWidth + bhtIdxWidth -1, phtIdxWidth)
     val up_pht_idx = ID_pc(phtIdxWidth-1, 0)
     when(io.ID_to_BPU_bus.valid){
-        BHT(up_bht_idx) := ((BHT(up_bht_idx) << 1) + ID_br_taken)(bhtWidth-1, 0)
         
         PHT(up_pht_idx)(BHT(up_bht_idx) ^ ID_pc(3, 0)) := MuxCase(PHT(up_pht_idx)(BHT(up_bht_idx) ^ ID_pc(3, 0)), Seq(
             (PHT(up_pht_idx)(BHT(up_bht_idx) ^ ID_pc(3, 0)) === PH_State.ST  && !ID_br_taken, PH_State.WT ),
@@ -211,7 +211,8 @@ class BPU extends Module{
             (PHT(up_pht_idx)(BHT(up_bht_idx) ^ ID_pc(3, 0)) === PH_State.WNT &&  ID_br_taken, PH_State.WT ),
             (PHT(up_pht_idx)(BHT(up_bht_idx) ^ ID_pc(3, 0)) === PH_State.WNT && !ID_br_taken, PH_State.SNT),
             (PHT(up_bht_idx)(BHT(up_bht_idx) ^ ID_pc(3, 0)) === PH_State.SNT &&  ID_br_taken, PH_State.SNT)
-        ))
+            ))
+        BHT(up_bht_idx) := ((BHT(up_bht_idx) << 1) + ID_br_taken)(bhtWidth-1, 0)
     }
 
 
