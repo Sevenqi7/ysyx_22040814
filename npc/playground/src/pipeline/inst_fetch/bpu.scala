@@ -120,13 +120,17 @@ class BPU extends Module{
         val hit_cnt = Output(UInt(32.W))
     })
 
-    def hash(x: UInt): UInt = {
-        val ret = Wire(UInt(8.W))
-        val x1 = x(31, 16) ^ x(15, 0)
-        ret := x1(15, 8) ^ x1(7, 0)
-        ret
-    }
-
+    // def hash(x: UInt): UInt = {
+    //     val ret = Wire(UInt(8.W))
+    //     val x1 = x(31, 16) ^ x(15, 0)
+    //     ret := x1(15, 8) ^ x1(7, 0)
+    //     ret
+    // }
+def hash(pc: UInt): UInt = {
+  val offset = 42.U(8.W)
+  val prime = 223.U(8.W)
+  (pc >> 2.U)(7, 0) + offset % prime
+}
 
     
     //unpack bus from IDU
