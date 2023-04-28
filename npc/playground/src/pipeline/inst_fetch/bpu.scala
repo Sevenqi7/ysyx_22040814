@@ -152,19 +152,20 @@ class BPU extends Module{
     when((B_type | J_type) & !io.ID_to_BPU_bus.bits.load_use_stall){
         bp_target := io.bp_npc
     }    
-
+    
     //parameter
     val nrPHTs = 16
     val nrBHTs = 256
     val bhtWidth = 4
     val bhtIdxWidth = log2Ceil(nrBHTs)
     val phtIdxWidth = log2Ceil(nrPHTs)
-
+    
     //parameter end
     val BHT = RegInit(VecInit(Seq.fill(nrBHTs)(0.U(bhtWidth.W))))
     val PHT = RegInit(VecInit.fill(nrPHTs, scala.math.pow(2, bhtWidth).toInt)("b01".U(2.W)))
     val BTB = Module(new BPU_Cache(16, 8, 8))
-
+    val RAS = Module(new LIFO(UInt(64.W), 16))
+    
     //BTB
     BTB.io.raddr      := io.PF_pc
     BTB.io.waddr      := ID_pc
@@ -181,26 +182,19 @@ class BPU extends Module{
     io.BTB_wdata      := Mux(ID_br_taken, io.ID_to_BPU_bus.bits.br_target, 0.U)
 
     
-    io.bp_flush       := io.ID_to_BPU_bus.valid & (bp_target =/= io.ID_to_BPU_bus.bits.br_target)
-    io.bp_npc         := MuxCase(io.PF_pc + 4.U, Seq(
-        (io.bp_flush, io.ID_to_BPU_bus.bits.br_target),
-        (bp_taken   , BTB.io.readData                )
-        ))
-    io.bp_taken       := bp_taken
-    io.bp_stall       := 0.U
-        
+    
     //BHT & PHT
     //1.prediction
     val bht_idx = hash(io.PF_pc)
     // val bht_idx = io.PF_pc(phtIdxWidth + bhtIdxWidth -1, phtIdxWidth)
     val pht_idx = io.PF_pc(phtIdxWidth-1, 0)
     val pht_sel = BHT(bht_idx) ^ io.PF_pc(3, 0)
-
+    
     bp_taken     := 0.U
     when(BTB.io.hit & io.PF_valid & (B_type | J_type)){
         bp_taken := PHT(pht_idx)(pht_sel)(0)
     }
-
+    
     
     //2.update
     val up_bht_idx = hash(ID_pc)
@@ -217,8 +211,8 @@ class BPU extends Module{
             (PHT(up_pht_idx)(up_pht_sel) === PH_State.WNT && !ID_br_taken, PH_State.SNT),
             (PHT(up_bht_idx)(up_pht_sel) === PH_State.SNT &&  ID_br_taken, PH_State.SNT)
             ))
-            BHT(up_bht_idx) := ((BHT(up_bht_idx) << 1) + ID_br_taken)(bhtWidth-1, 0)
-        }
+        BHT(up_bht_idx) := ((BHT(up_bht_idx) << 1) + ID_br_taken)(bhtWidth-1, 0)
+    }
     io.bht_update := ((BHT(up_bht_idx) << 1) + ID_br_taken)(bhtWidth-1, 0)
     io.pht_update := MuxCase(PHT(up_pht_idx)(up_pht_sel), Seq(
         (PHT(up_pht_idx)(up_pht_sel) === PH_State.ST  && !ID_br_taken, PH_State.WT ),
@@ -227,11 +221,31 @@ class BPU extends Module{
         (PHT(up_pht_idx)(up_pht_sel) === PH_State.WNT &&  ID_br_taken, PH_State.WT ),
         (PHT(up_pht_idx)(up_pht_sel) === PH_State.WNT && !ID_br_taken, PH_State.SNT),
         (PHT(up_bht_idx)(up_pht_sel) === PH_State.SNT &&  ID_br_taken, PH_State.SNT)
-        ))
+    ))
     io.pht_idx := Mux(io.ID_to_BPU_bus.valid, up_pht_idx, 0.U)
     io.pht_sel := Mux(io.ID_to_BPU_bus.valid, up_pht_sel, 0.U)
+            
+            
+    //RAS
+    val call =  (opcode === "b1101111".U) & (io.PF_inst(11, 7) === 1.U)
+    val ret  =  (opcode === "b1100111".U) & (io.PF_inst(19, 5) === 1.U) & (io.PF_inst(11, 7) === 0.U)
+    RAS.io.pushEn := call & io.PF_valid
+    RAS.io.push   := io.PF_pc + 4.U
+    RAS.io.popEn  := ret  & io.PF_valid
+            
+            
+    io.bp_flush       := io.ID_to_BPU_bus.valid & (bp_target =/= io.ID_to_BPU_bus.bits.br_target)
+    io.bp_npc         := MuxCase(io.PF_pc + 4.U, Seq(
+        (io.bp_flush, io.ID_to_BPU_bus.bits.br_target),
+        (bp_taken   , BTB.io.readData                ),
+        (ret        , RAS.io.pop                     )
+        ))
+    io.bp_taken       := bp_taken
+    io.bp_stall       := 0.U
 
 
+
+            
     //statistic
     val jal_cnt  = RegInit(0.U(32.W))
     val jalr_cnt = RegInit(0.U(32.W))
@@ -240,7 +254,7 @@ class BPU extends Module{
     val jal_fail = RegInit(0.U(32.W))
     val jalr_fail = RegInit(0.U(32.W))
     val hit_cnt = RegInit(0.U(32.W))
-
+    
     when(io.PF_valid & (opcode === "b1101111".U) & !io.ID_to_BPU_bus.bits.load_use_stall){
         jal_cnt := jal_cnt + 1.U
     }

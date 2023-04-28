@@ -43,3 +43,24 @@ class MyReadyValidIO extends Bundle{
     val ready = Input(Bool())
     val valid = Output(Bool())
 }
+
+class LIFO[T <: Data](gen: T, depth: Int) extends Module{
+    val io = IO(new Bundle{
+        val push = Input(gen)
+        val pushEn = Input(Bool())
+        val pop = Output(gen)
+        val popEn = Output(Bool())
+    })
+
+    val stack = RegInit(VecInit.fill(depth)(gen))
+    val sptr  = RegInit(0.U(log2Ceil(depth).W))
+
+    when(pushEn & !popEn){
+        stack(sprtr) := io.push
+        sptr         := sptr + 1.U
+    }.elsewhen(!pushEn && popEn){
+        sptr         := sptr - 1.U
+    }      
+    
+    io.pop := Mux(io.popEn, stack(sptr), 0.U)
+}
