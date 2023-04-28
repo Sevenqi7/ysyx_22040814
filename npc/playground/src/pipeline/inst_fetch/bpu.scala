@@ -163,7 +163,6 @@ class BPU extends Module{
     //parameter end
     val BHT = RegInit(VecInit(Seq.fill(nrBHTs)(0.U(bhtWidth.W))))
     val PHT = RegInit(VecInit.fill(nrPHTs, scala.math.pow(2, bhtWidth).toInt)("b01".U(2.W)))
-    val PHT_pc = RegInit(VecInit.fill(nrPHTs, scala.math.pow(2, bhtWidth).toInt(0.U(64.W))))
     val BTB = Module(new BPU_Cache(16, 8, 8))
 
     //BTB
