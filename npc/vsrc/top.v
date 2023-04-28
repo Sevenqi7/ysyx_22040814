@@ -2269,14 +2269,14 @@ module BPU(	// <stdin>:291:10
                 {_GEN_17}, {_GEN_15}, {_GEN_13}, {_GEN_11}, {_GEN_9}, {_GEN_7}, {_GEN_5}, {_GEN_3}};	// bpu.scala:201:42
   wire [1:0]        _GEN_35;	// bpu.scala:201:42
   /* synopsys infer_mux_override */
-  assign _GEN_35 = _GEN_34[_GEN_1 ^ io_PF_pc[3:0]] /* cadence map_to_mux */;	// bpu.scala:196:27, :197:32, :201:42
+  assign _GEN_35 = _GEN_34[_GEN_1 ^ io_PF_pc[7:4]] /* cadence map_to_mux */;	// bpu.scala:197:{32,42}, :201:42
   assign _GEN = _T_29 & _T_30 & _GEN_35[0];	// bpu.scala:152:18, :199:18, :200:{21,55}, :201:{18,42}
   wire [15:0]       up_bht_idx_x1 = io_ID_to_BPU_bus_bits_PC[31:16] ^ io_ID_to_BPU_bus_bits_PC[15:0];	// bpu.scala:129:{19,28,31}
   wire [7:0]        _up_bht_idx_ret_T_2 = up_bht_idx_x1[15:8] ^ up_bht_idx_x1[7:0];	// bpu.scala:129:28, :130:{18,26,30}
   wire [3:0]        _GEN_36;	// bpu.scala:209:38
   /* synopsys infer_mux_override */
   assign _GEN_36 = _GEN_0[_up_bht_idx_ret_T_2] /* cadence map_to_mux */;	// bpu.scala:130:26, :197:32, :209:38
-  wire [3:0]        up_pht_sel = _GEN_36 ^ io_ID_to_BPU_bus_bits_PC[3:0];	// bpu.scala:208:27, :209:38
+  wire [3:0]        up_pht_sel = _GEN_36 ^ io_ID_to_BPU_bus_bits_PC[7:4];	// bpu.scala:209:{38,45}
   wire [1:0]        _GEN_37;	// bpu.scala:213:42
   wire [1:0]        _GEN_38 = _GEN_2[io_ID_to_BPU_bus_bits_PC[3:0]] /* cadence map_to_mux */;	// bpu.scala:201:42, :208:27, :213:42
   /* synopsys infer_mux_override */
