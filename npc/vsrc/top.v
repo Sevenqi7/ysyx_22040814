@@ -1607,7 +1607,7 @@ module LIFO(	// <stdin>:291:10
                 {stack_0}};	// tools.scala:57:24, :67:18
   wire [63:0]       _GEN_0;	// tools.scala:67:18
   /* synopsys infer_mux_override */
-  assign _GEN_0 = _GEN[sptr - 4'h1] /* cadence map_to_mux */;	// tools.scala:58:24, :67:{18,39}
+  assign _GEN_0 = _GEN[sptr - 4'h1] /* cadence map_to_mux */;	// tools.scala:58:24, :66:20, :67:18
   always @(posedge clock) begin
     if (reset) begin
       stack_0 <= 64'h0;	// tools.scala:56:24, :57:24
