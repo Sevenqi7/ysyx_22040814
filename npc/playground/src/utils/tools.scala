@@ -55,10 +55,10 @@ class LIFO[T <: Data](gen: T, depth: Int) extends Module{
     val stack = RegInit(VecInit.fill(depth)(gen))
     val sptr  = RegInit(0.U(log2Ceil(depth).W))
 
-    when(pushEn & !popEn){
+    when(io.pushEn & !io.popEn){
         stack(sprtr) := io.push
         sptr         := sptr + 1.U
-    }.elsewhen(!pushEn && popEn){
+    }.elsewhen(!io.pushEn && io.popEn){
         sptr         := sptr - 1.U
     }      
     
