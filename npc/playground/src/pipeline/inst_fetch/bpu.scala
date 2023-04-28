@@ -149,7 +149,7 @@ class BPU extends Module{
     B_type  := (opcode === "b1100011".U)
     J_type  := (opcode === "b1101111".U) || (opcode === "b1100111".U)
     call :=  (opcode === "b1101111".U) & (io.PF_inst(11, 7) === 1.U)
-    ret  :=  (opcode === "b1100111".U) & (io.PF_inst(19, 5) === 1.U) & (io.PF_inst(11, 7) === 0.U)
+    ret  :=  (opcode === "b1100111".U) & (io.PF_inst(19, 15) === 1.U) & (io.PF_inst(11, 7) === 0.U)
 
     val bp_taken = Wire(Bool())
     val bp_target = RegInit(0.U(64.W))

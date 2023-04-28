@@ -16,8 +16,8 @@ void clock_step()
     Log("bp_taken:%d", top->io_bp_taken);
     Log("bp_flush:%d", top->io_bp_flush);
     Log("BTB_hit:%d", top->io_BTB_hit);
-    Log("ras_push:%ld", top->io_ras_push);
-    Log("ras_pop:%ld", top->io_ras_pop);
+    Log("ras_push:0x%lx", top->io_ras_push);
+    Log("ras_pop:0x%lx", top->io_ras_pop);
     // Log("bht_update:%d", top->io_bht_update);
     // Log("pht_update:%d", top->io_pht_update);
     // Log("pht_idx:%d", top->io_pht_idx);
