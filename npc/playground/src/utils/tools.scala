@@ -56,13 +56,16 @@ class LIFO[T <: Data](gen: T, depth: Int) extends Module{
     foo := 0.U.asTypeOf(gen)
     val stack = RegInit(VecInit.fill(depth)(foo))
     val sptr  = RegInit(0.U(log2Ceil(depth).W))
+    val sb    = RegInit(0.U(log2Ceil(depth).W))
 
     when(io.pushEn & !io.popEn){
         stack(sptr) := io.push
         sptr         := Mux(sptr === (depth-1).U, 0.U, sptr+1.U)
+        sb          := sptr
     }.elsewhen(!io.pushEn && io.popEn){
         sptr         := Mux(sptr === 0.U, (depth-1).U, sptr-1.U)
+        sb          := sptr
     }      
 
-    io.pop := Mux(io.popEn, stack(sptr-1.U), 0.U)
+    io.pop := Mux(io.popEn, stack(sb), 0.U)
 }
