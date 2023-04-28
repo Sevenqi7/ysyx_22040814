@@ -263,14 +263,14 @@ class BPU extends Module{
     val jalr_fail = RegInit(0.U(32.W))
     val hit_cnt = RegInit(0.U(32.W))
     
-    when(io.PF_valid & (opcode === "b1101111".U) & !io.ID_to_BPU_bus.bits.load_use_stall){
+    when(io.ID_to_BPU_bus.valid & io.ID_to_BPU_bus.bits.Type === 1.U){
         jal_cnt := jal_cnt + 1.U
     }
-    when(io.PF_valid & (opcode === "b1100111".U) & !io.ID_to_BPU_bus.bits.load_use_stall){
-        jalr_cnt := jalr_cnt + 1.U
-    }
-    when(io.PF_valid & B_type & !io.ID_to_BPU_bus.bits.load_use_stall){
+    when(io.ID_to_BPU_bus.valid & io.ID_to_BPU_bus.bits.Type === 2.U){
         btype_cnt := btype_cnt + 1.U
+    }
+    when(io.ID_to_BPU_bus.valid & io.ID_to_BPU_bus.bits.Type === 3.U){
+        jalr_cnt := jalr_cnt + 1.U
     }
     when(io.bp_flush & !io.ID_to_BPU_bus.bits.load_use_stall && io.ID_to_BPU_bus.bits.Type === 1.U){
         jal_fail := jal_fail + 1.U
