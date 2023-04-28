@@ -118,6 +118,10 @@ class BPU extends Module{
         val jal_fail = Output(UInt(32.W))
         val jalr_fail = Output(UInt(32.W))
         val hit_cnt = Output(UInt(32.W))
+        val bht_update = Output(UInt(4.W))
+        val pht_idx  = Output(UInt(4.W))
+        val pht_sel  = Output(UInt(4.W))
+        val pht_update = Output(UInt(2.W))
     })
 
     def hash(x: UInt): UInt = {
@@ -159,6 +163,7 @@ class BPU extends Module{
     //parameter end
     val BHT = RegInit(VecInit(Seq.fill(nrBHTs)(0.U(bhtWidth.W))))
     val PHT = RegInit(VecInit.fill(nrPHTs, scala.math.pow(2, bhtWidth).toInt)("b01".U(2.W)))
+    val PHT_pc = RegInit(VecInit.fill(nrPHTs, scala.math.pow(2, bhtWidth).toInt(0.U(64.W))))
     val BTB = Module(new BPU_Cache(16, 8, 8))
 
     //BTB
@@ -190,7 +195,7 @@ class BPU extends Module{
     val bht_idx = hash(io.PF_pc)
     // val bht_idx = io.PF_pc(phtIdxWidth + bhtIdxWidth -1, phtIdxWidth)
     val pht_idx = io.PF_pc(phtIdxWidth-1, 0)
-    val pht_sel = BHT(bht_idx) ^ io.PF_pc(3, 0) ^ io.PF_pc(7, 4)
+    val pht_sel = BHT(bht_idx) ^ io.PF_pc(3, 0)
 
     bp_taken     := 0.U
     when(BTB.io.hit & io.PF_valid & (B_type | J_type)){
@@ -202,7 +207,7 @@ class BPU extends Module{
     val up_bht_idx = hash(ID_pc)
     // val up_bht_idx = ID_pc(phtIdxWidth + bhtIdxWidth -1, phtIdxWidth)
     val up_pht_idx = ID_pc(phtIdxWidth-1, 0)
-    val up_pht_sel = BHT(up_bht_idx) ^ ID_pc(3, 0) ^ ID_pc(7, 4)
+    val up_pht_sel = BHT(up_bht_idx) ^ ID_pc(3, 0)
     when(io.ID_to_BPU_bus.valid){
         
         PHT(up_pht_idx)(up_pht_sel) := MuxCase(PHT(up_pht_idx)(up_pht_sel), Seq(
@@ -213,6 +218,17 @@ class BPU extends Module{
             (PHT(up_pht_idx)(up_pht_sel) === PH_State.WNT && !ID_br_taken, PH_State.SNT),
             (PHT(up_bht_idx)(up_pht_sel) === PH_State.SNT &&  ID_br_taken, PH_State.SNT)
             ))
+        io.bht_update := ((BHT(up_bht_idx) << 1) + ID_br_taken)(bhtWidth-1, 0)
+        io.pht_update := MuxCase(PHT(up_pht_idx)(up_pht_sel), Seq(
+            (PHT(up_pht_idx)(up_pht_sel) === PH_State.ST  && !ID_br_taken, PH_State.WT ),
+            (PHT(up_pht_idx)(up_pht_sel) === PH_State.WT  && !ID_br_taken, PH_State.WNT),
+            (PHT(up_pht_idx)(up_pht_sel) === PH_State.WT  &&  ID_br_taken, PH_State.ST ),
+            (PHT(up_pht_idx)(up_pht_sel) === PH_State.WNT &&  ID_br_taken, PH_State.WT ),
+            (PHT(up_pht_idx)(up_pht_sel) === PH_State.WNT && !ID_br_taken, PH_State.SNT),
+            (PHT(up_bht_idx)(up_pht_sel) === PH_State.SNT &&  ID_br_taken, PH_State.SNT)
+            ))
+        io.pht_idx := up_pht_idx
+        io.pht_sel := up_pht_sel
         BHT(up_bht_idx) := ((BHT(up_bht_idx) << 1) + ID_br_taken)(bhtWidth-1, 0)
     }
 

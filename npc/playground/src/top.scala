@@ -52,6 +52,10 @@ class top extends Module{
         val bp_npc  = Output(UInt(64.W))
         val bp_taken = Output(Bool())
         val bp_flush = Output(Bool())
+        val bht_update = Output(UInt(4.W))
+        val pht_idx  = Output(UInt(4.W))
+        val pht_sel  = Output(UInt(4.W))
+        val pht_update = Output(UInt(2.W))
 
         val IF_Inst = Output(UInt(32.W))
         val IF_valid = Output(Bool())
@@ -93,6 +97,10 @@ class top extends Module{
     io.jalr_cnt  := bp_unit.io.jalr_cnt
     io.jalr_fail  := bp_unit.io.jalr_fail
     io.btb_hit_cnt := bp_unit.io.hit_cnt
+    io.bht_update := bp_unit.io.bht_update 
+    io.pht_idx    := bp_unit.io.pht_idx
+    io.pht_sel    := bp_unit.io.pht_sel
+    io.pht_update := bp_unit.io.pht_update
 
     io.IF_Inst  := inst_fetch_unit.io.IF_to_ID_bus.bits.Inst
     io.IF_valid := inst_fetch_unit.io.IF_to_ID_bus.valid
