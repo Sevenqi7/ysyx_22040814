@@ -52,7 +52,7 @@ class LIFO[T <: Data](gen: T, depth: Int) extends Module{
         val popEn = Output(Bool())
     })
 
-    val stack = RegInit(VecInit.fill(depth)(gen))
+    val stack = RegInit(VecInit.fill(depth)(Wire(gen)))
     val sptr  = RegInit(0.U(log2Ceil(depth).W))
 
     when(io.pushEn & !io.popEn){
