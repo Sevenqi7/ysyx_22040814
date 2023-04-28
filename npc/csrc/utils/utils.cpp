@@ -16,11 +16,13 @@ void clock_step()
     Log("bp_taken:%d", top->io_bp_taken);
     Log("bp_flush:%d", top->io_bp_flush);
     Log("BTB_hit:%d", top->io_BTB_hit);
-    Log("bht_update:%d", top->io_bht_update);
-    Log("pht_update:%d", top->io_pht_update);
-    Log("pht_idx:%d", top->io_pht_idx);
-    Log("pht_sel:%d", top->io_pht_sel);
-    Log("total fail prediction: %ld", top->io_jal_fail + top->io_jalr_fail + top->io_btype_fail);
+    Log("ras_push:%ld", top->io_ras_push);
+    Log("ras_pop:%ld", top->io_ras_pop);
+    // Log("bht_update:%d", top->io_bht_update);
+    // Log("pht_update:%d", top->io_pht_update);
+    // Log("pht_idx:%d", top->io_pht_idx);
+    // Log("pht_sel:%d", top->io_pht_sel);
+    // Log("total fail prediction: %ld", top->io_jal_fail + top->io_jalr_fail + top->io_btype_fail);
 
     // Log("BTB_rtag:0x%x", top->io_BTB_rtag);
     // Log("BTB_rset:0x%x", top->io_BTB_rset);
