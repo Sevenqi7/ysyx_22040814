@@ -141,10 +141,13 @@ class BPU extends Module{
     val opcode = io.PF_inst(6, 0)
     val B_type = Wire(Bool())
     val J_type = Wire(Bool())
+    val call   = Wire(Bool())
+    val ret    = Wire(Bool())
  
     B_type  := (opcode === "b1100011".U)
     J_type  := (opcode === "b1101111".U) || (opcode === "b1100111".U)
-
+    call :=  (opcode === "b1101111".U) & (io.PF_inst(11, 7) === 1.U)
+    ret  :=  (opcode === "b1100111".U) & (io.PF_inst(19, 5) === 1.U) & (io.PF_inst(11, 7) === 0.U)
 
     val bp_taken = Wire(Bool())
     val bp_target = RegInit(0.U(64.W))
@@ -191,8 +194,12 @@ class BPU extends Module{
     val pht_sel = BHT(bht_idx) ^ io.PF_pc(3, 0)
     
     bp_taken     := 0.U
-    when(BTB.io.hit & io.PF_valid & (B_type | J_type)){
-        bp_taken := PHT(pht_idx)(pht_sel)(0)
+    when(io.PF_valid & (B_type | J_type)){
+        when(BTB.io.hit){
+            bp_taken := PHT(pht_idx)(pht_sel)(0)
+        }.elsewhen(ret){
+            bp_taken := 1.U
+        }
     }
     
     
@@ -227,8 +234,7 @@ class BPU extends Module{
             
             
     //RAS
-    val call =  (opcode === "b1101111".U) & (io.PF_inst(11, 7) === 1.U)
-    val ret  =  (opcode === "b1100111".U) & (io.PF_inst(19, 5) === 1.U) & (io.PF_inst(11, 7) === 0.U)
+
     RAS.io.pushEn := call & io.PF_valid
     RAS.io.push   := io.PF_pc + 4.U
     RAS.io.popEn  := ret  & io.PF_valid
@@ -236,16 +242,14 @@ class BPU extends Module{
             
     io.bp_flush       := io.ID_to_BPU_bus.valid & (bp_target =/= io.ID_to_BPU_bus.bits.br_target)
     io.bp_npc         := MuxCase(io.PF_pc + 4.U, Seq(
-        (io.bp_flush, io.ID_to_BPU_bus.bits.br_target),
-        (bp_taken   , BTB.io.readData                ),
-        (ret        , RAS.io.pop                     )
+        (io.bp_flush    , io.ID_to_BPU_bus.bits.br_target),
+        (bp_taken & ret , RAS.io.pop                     ),
+        (bp_taken       , BTB.io.readData                )
         ))
     io.bp_taken       := bp_taken
     io.bp_stall       := 0.U
 
 
-
-            
     //statistic
     val jal_cnt  = RegInit(0.U(32.W))
     val jalr_cnt = RegInit(0.U(32.W))

@@ -25,27 +25,14 @@ class IF_pre_fetch extends Module{
     io.PF_npc    := PF_npc
     val axi_busy = RegInit(0.U(1.W))
     axi_busy := !axi_req.ready
-
-    val bp_fail_r = RegInit(0.U(1.W))
-    when(io.bp_flush | io.bp_taken){
-        bp_fail_r := 1.U
-    }.elsewhen(axi_req.ready){
-        bp_fail_r := 0.U
-    }
-
     axi_req.valid   := 1.U
+
     PF_npc := MuxCase(io.PF_npc + 4.U, Seq(
-        // (io.bp_flush              , io.bp_npc      ),
-        // ((io.bp_taken | io.bp_flush) & !axi_req.ready   , io.bp_npc),
         (io.bp_flush, io.bp_npc + 4.U),
         ((io.stall | !axi_req.ready | axi_busy.asBool), io.PF_npc),
         (io.bp_taken, io.bp_npc + 4.U)
     ))
-    // PF_npc      := MuxCase(io.PF_npc+4.U, Seq(
-    //     (io.bp_fail, io.ID_npc),
-    //     (bp_fail_r.asBool, io.PF_npc),
-    //     (io.stall | !axi_req.ready, io.PF_pc)
-    // ))
+
 
     val npc = Wire(UInt(64.W))
     npc := MuxCase(PF_npc, Seq(
@@ -53,11 +40,10 @@ class IF_pre_fetch extends Module{
         (io.stall    | !axi_req.ready | axi_busy.asBool, io.PF_pc),
         (io.bp_taken  , io.bp_npc)
     ))
-    // regConnectWithResetAndStall(io.PF_pc, npc, reset.asBool, 0.U(64.W), io.stall | !axi_req.ready)
+    
     regConnect(io.PF_pc, npc)
 
     
-
     //IFU doesn't write mem
     axi_lite.writeAddr.valid        := 0.U
     axi_lite.writeAddr.bits.addr    := 0.U 
