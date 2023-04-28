@@ -16,6 +16,10 @@ void clock_step()
     Log("bp_taken:%d", top->io_bp_taken);
     Log("bp_flush:%d", top->io_bp_flush);
     Log("BTB_hit:%d", top->io_BTB_hit);
+    Log("bht_update:%d", top->io_bht_update);
+    Log("pht_update:%d", top->io_pht_update);
+    Log("pht_idx:%d", top->io_pht_idx);
+    Log("pht_sel:%d", top->io_pht_sel);
     // Log("BTB_rtag:0x%x", top->io_BTB_rtag);
     // Log("BTB_rset:0x%x", top->io_BTB_rset);
     // Log("BTB_rdata:0x%lx", top->io_BTB_rdata);
@@ -36,7 +40,7 @@ void clock_step()
     Log("MEM_req:%d", top->io_MEM_AXIREQ);
     Log("WB_pc:0x%lx ", top->io_WB_pc);
     Log("ID_ALUData1:0x%lx ID_ALUData2:0x%lx", top->io_ID_ALU_Data1, top->io_ID_ALU_Data2);
-    Log("ID_Rs1Data:0x%lx ID_Rs2Data:0x%lx", top->io_ID_Rs1Data, top->io_ID_Rs2Data);
+    // Log("ID_Rs1Data:0x%lx ID_Rs2Data:0x%lx", top->io_ID_Rs1Data, top->io_ID_Rs2Data);
     Log("ALUResult:0x%lx", top->io_ALUResult);
     Log("MemRegWriteData_Pass:0x%lx", top->io_MEM_RegWriteData);
     Log("WB_RegWriteData:0x%lx", top->io_WB_RegWriteData);
