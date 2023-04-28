@@ -272,13 +272,13 @@ class BPU extends Module{
     when(io.ID_to_BPU_bus.valid & io.ID_to_BPU_bus.bits.Type === 3.U){
         jalr_cnt := jalr_cnt + 1.U
     }
-    when(io.bp_flush & !io.ID_to_BPU_bus.bits.load_use_stall && io.ID_to_BPU_bus.bits.Type === 1.U){
+    when(io.bp_flush & io.ID_to_BPU_bus.valid && io.ID_to_BPU_bus.bits.Type === 1.U){
         jal_fail := jal_fail + 1.U
     }
-    when(io.bp_flush & !io.ID_to_BPU_bus.bits.load_use_stall && io.ID_to_BPU_bus.bits.Type === 2.U){
+    when(io.bp_flush & io.ID_to_BPU_bus.valid && io.ID_to_BPU_bus.bits.Type === 2.U){
         btype_fail := btype_fail + 1.U
     }
-    when(io.bp_flush & !io.ID_to_BPU_bus.bits.load_use_stall && io.ID_to_BPU_bus.bits.Type === 3.U){
+    when(io.bp_flush & io.ID_to_BPU_bus.valid && io.ID_to_BPU_bus.bits.Type === 3.U){
         jalr_fail := jalr_fail + 1.U
     }
     when(BTB.io.hit & io.PF_valid & (B_type | J_type) & !io.ID_to_BPU_bus.bits.load_use_stall){
