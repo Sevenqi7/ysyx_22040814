@@ -169,7 +169,7 @@ class BPU extends Module{
     val BHT = RegInit(VecInit(Seq.fill(nrBHTs)(0.U(bhtWidth.W))))
     val PHT = RegInit(VecInit.fill(nrPHTs, scala.math.pow(2, bhtWidth).toInt)("b01".U(2.W)))
     val BTB = Module(new BPU_Cache(16, 8, 8))
-    val RAS = Module(new LIFO(UInt(64.W), 16))
+    val RAS = Module(new LIFO(UInt(64.W), 256))
     
     //BTB
     BTB.io.raddr      := io.PF_pc
