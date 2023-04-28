@@ -217,19 +217,19 @@ class BPU extends Module{
             (PHT(up_pht_idx)(up_pht_sel) === PH_State.WNT && !ID_br_taken, PH_State.SNT),
             (PHT(up_bht_idx)(up_pht_sel) === PH_State.SNT &&  ID_br_taken, PH_State.SNT)
             ))
-        io.bht_update := ((BHT(up_bht_idx) << 1) + ID_br_taken)(bhtWidth-1, 0)
-        io.pht_update := MuxCase(PHT(up_pht_idx)(up_pht_sel), Seq(
-            (PHT(up_pht_idx)(up_pht_sel) === PH_State.ST  && !ID_br_taken, PH_State.WT ),
-            (PHT(up_pht_idx)(up_pht_sel) === PH_State.WT  && !ID_br_taken, PH_State.WNT),
-            (PHT(up_pht_idx)(up_pht_sel) === PH_State.WT  &&  ID_br_taken, PH_State.ST ),
-            (PHT(up_pht_idx)(up_pht_sel) === PH_State.WNT &&  ID_br_taken, PH_State.WT ),
-            (PHT(up_pht_idx)(up_pht_sel) === PH_State.WNT && !ID_br_taken, PH_State.SNT),
-            (PHT(up_bht_idx)(up_pht_sel) === PH_State.SNT &&  ID_br_taken, PH_State.SNT)
-            ))
-        io.pht_idx := up_pht_idx
-        io.pht_sel := up_pht_sel
-        BHT(up_bht_idx) := ((BHT(up_bht_idx) << 1) + ID_br_taken)(bhtWidth-1, 0)
-    }
+            BHT(up_bht_idx) := ((BHT(up_bht_idx) << 1) + ID_br_taken)(bhtWidth-1, 0)
+        }
+    io.bht_update := ((BHT(up_bht_idx) << 1) + ID_br_taken)(bhtWidth-1, 0)
+    io.pht_update := MuxCase(PHT(up_pht_idx)(up_pht_sel), Seq(
+        (PHT(up_pht_idx)(up_pht_sel) === PH_State.ST  && !ID_br_taken, PH_State.WT ),
+        (PHT(up_pht_idx)(up_pht_sel) === PH_State.WT  && !ID_br_taken, PH_State.WNT),
+        (PHT(up_pht_idx)(up_pht_sel) === PH_State.WT  &&  ID_br_taken, PH_State.ST ),
+        (PHT(up_pht_idx)(up_pht_sel) === PH_State.WNT &&  ID_br_taken, PH_State.WT ),
+        (PHT(up_pht_idx)(up_pht_sel) === PH_State.WNT && !ID_br_taken, PH_State.SNT),
+        (PHT(up_bht_idx)(up_pht_sel) === PH_State.SNT &&  ID_br_taken, PH_State.SNT)
+        ))
+    io.pht_idx := up_pht_idx
+    io.pht_sel := up_pht_sel
 
 
     //statistic
