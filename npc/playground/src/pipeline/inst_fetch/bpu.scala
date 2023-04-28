@@ -198,6 +198,8 @@ class BPU extends Module{
     when(io.PF_valid & (B_type | J_type)){
         when(BTB.io.hit){
             bp_taken := Mux(J_type, 1.U, PHT(pht_idx)(pht_sel))
+        }.elsewhen(ret){
+            bp_taken := 1.U
         }
     }
     
@@ -207,7 +209,7 @@ class BPU extends Module{
     // val up_bht_idx = ID_pc(phtIdxWidth + bhtIdxWidth -1, phtIdxWidth)
     val up_pht_idx = ID_pc(phtIdxWidth-1, 0)
     val up_pht_sel = BHT(up_bht_idx) ^ ID_pc(3, 0)
-    when(io.ID_to_BPU_bus.valid){
+    when(io.ID_to_BPU_bus.valid & io.ID_to_BPU_bus.bits.Type === 2.U){
         
         PHT(up_pht_idx)(up_pht_sel) := MuxCase(PHT(up_pht_idx)(up_pht_sel), Seq(
             (PHT(up_pht_idx)(up_pht_sel) === PH_State.ST  && !ID_br_taken, PH_State.WT ),
