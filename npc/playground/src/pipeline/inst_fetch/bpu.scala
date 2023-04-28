@@ -197,12 +197,11 @@ class BPU extends Module{
     bp_taken     := 0.U
     when(io.PF_valid & (B_type | J_type)){
         when(BTB.io.hit){
-            // bp_taken := PHT(pht_idx)(pht_sel)(0)
+            bp_taken := PHT(pht_idx)(pht_sel)(0)
+        }
+        .elsewhen(ret){
             bp_taken := 1.U
         }
-        // .elsewhen(ret){
-        //     bp_taken := 1.U
-        // }
     }
     
     
@@ -248,7 +247,7 @@ class BPU extends Module{
     io.bp_flush       := io.ID_to_BPU_bus.valid & (bp_target =/= io.ID_to_BPU_bus.bits.br_target)
     io.bp_npc         := MuxCase(io.PF_pc + 4.U, Seq(
         (io.bp_flush    , io.ID_to_BPU_bus.bits.br_target),
-        // (bp_taken & ret , RAS.io.pop                     ),
+        (bp_taken & ret , RAS.io.pop                     ),
         (bp_taken       , BTB.io.readData                )
         ))
     io.bp_taken       := bp_taken
