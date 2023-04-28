@@ -228,8 +228,8 @@ class BPU extends Module{
         (PHT(up_pht_idx)(up_pht_sel) === PH_State.WNT && !ID_br_taken, PH_State.SNT),
         (PHT(up_bht_idx)(up_pht_sel) === PH_State.SNT &&  ID_br_taken, PH_State.SNT)
         ))
-    io.pht_idx := Mux(io.ID_to_BPU_bits.valid, up_pht_idx, 0.U)
-    io.pht_sel := Mux(io.ID_to_BPU_bits.valid, up_pht_sel, 0.U)
+    io.pht_idx := Mux(io.ID_to_BPU_bus.valid, up_pht_idx, 0.U)
+    io.pht_sel := Mux(io.ID_to_BPU_bus.valid, up_pht_sel, 0.U)
 
 
     //statistic
