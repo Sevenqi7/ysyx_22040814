@@ -56,6 +56,8 @@ class top extends Module{
         val pht_idx  = Output(UInt(4.W))
         val pht_sel  = Output(UInt(4.W))
         val pht_update = Output(UInt(2.W))
+        val ras_push = Output(UInt(64.W))
+        val ras_pop  = Output(UInt(64.W))
 
         val IF_Inst = Output(UInt(32.W))
         val IF_valid = Output(Bool())
@@ -101,6 +103,8 @@ class top extends Module{
     io.pht_idx    := bp_unit.io.pht_idx
     io.pht_sel    := bp_unit.io.pht_sel
     io.pht_update := bp_unit.io.pht_update
+    io.ras_push   := bp_unit.io.ras_push    
+    io.ras_pop    := bp_unit.io.ras_pop
 
     io.IF_Inst  := inst_fetch_unit.io.IF_to_ID_bus.bits.Inst
     io.IF_valid := inst_fetch_unit.io.IF_to_ID_bus.valid

@@ -122,6 +122,8 @@ class BPU extends Module{
         val pht_idx  = Output(UInt(4.W))
         val pht_sel  = Output(UInt(4.W))
         val pht_update = Output(UInt(2.W))
+        val ras_pop  = Output(UInt(64.W))
+        val ras_push = Output(UInt(64.W))
     })
 
     def hash(x: UInt): UInt = {
@@ -238,7 +240,9 @@ class BPU extends Module{
     RAS.io.pushEn := call & io.PF_valid
     RAS.io.push   := io.PF_pc + 4.U
     RAS.io.popEn  := ret  & io.PF_valid
-            
+    
+    io.ras_pop    := RAS.io.pop
+    io.ras_push   := Mux(RAS.io.pushEn, RAS.io.push, 0.U)
             
     io.bp_flush       := io.ID_to_BPU_bus.valid & (bp_target =/= io.ID_to_BPU_bus.bits.br_target)
     io.bp_npc         := MuxCase(io.PF_pc + 4.U, Seq(
