@@ -1811,7 +1811,7 @@ module BPU(	// <stdin>:338:10
   wire              _B_type_T = io_PF_inst[6:0] == 7'h63;	// bpu.scala:143:28, :149:24
   wire              _T_5 = io_PF_inst[6:0] == 7'h6F;	// bpu.scala:143:28, :150:24
   wire              _T_9 = io_PF_inst[6:0] == 7'h67;	// bpu.scala:143:28, :150:53
-  wire              _ret_T_6 = _T_9 & io_PF_inst[19:5] == 15'h1 & io_PF_inst[11:7] == 5'h0;	// bpu.scala:150:53, :151:53, :152:{53,61,70,91}
+  wire              _ret_T_6 = _T_9 & io_PF_inst[19:15] == 5'h1 & io_PF_inst[11:7] == 5'h0;	// bpu.scala:150:53, :151:{53,61}, :152:{53,62,71,92}
   reg  [63:0]       bp_target;	// bpu.scala:155:28
   wire              _T_29 = _B_type_T | _T_5 | _T_9;	// bpu.scala:149:24, :150:{24,53}, :157:18
   reg  [3:0]        BHT_0;	// bpu.scala:169:22
@@ -2462,7 +2462,7 @@ module BPU(	// <stdin>:338:10
   wire [1:0]        _GEN_34;	// bpu.scala:201:46
   /* synopsys infer_mux_override */
   assign _GEN_34 = _GEN_33[_GEN_0 ^ io_PF_pc[3:0]] /* cadence map_to_mux */;	// bpu.scala:195:27, :196:32, :201:46
-  wire              _GEN_35 = io_PF_valid & _T_29 & (_BTB_io_hit ? _GEN_34[0] : _ret_T_6);	// bpu.scala:152:70, :157:18, :171:21, :198:18, :199:42, :200:25, :201:{22,46}, :202:24
+  wire              _GEN_35 = io_PF_valid & _T_29 & (_BTB_io_hit ? _GEN_34[0] : _ret_T_6);	// bpu.scala:152:71, :157:18, :171:21, :198:18, :199:42, :200:25, :201:{22,46}, :202:24
   wire [15:0]       up_bht_idx_x1 = io_ID_to_BPU_bus_bits_PC[31:16] ^ io_ID_to_BPU_bus_bits_PC[15:0];	// bpu.scala:131:{19,28,31}
   wire [7:0]        _up_bht_idx_ret_T_2 = up_bht_idx_x1[15:8] ^ up_bht_idx_x1[7:0];	// bpu.scala:131:28, :132:{18,26,30}
   wire [3:0]        _GEN_36;	// bpu.scala:212:38
@@ -2591,7 +2591,7 @@ module BPU(	// <stdin>:338:10
   wire [1:0]        _GEN_88;	// bpu.scala:221:42
   /* synopsys infer_mux_override */
   assign _GEN_88 = _GEN_87[up_pht_sel] /* cadence map_to_mux */;	// bpu.scala:212:38, :221:42
-  wire [3:0]        _GEN_89 = {_GEN_36[2:0], 1'h0};	// bpu.scala:152:91, :212:38, :223:52
+  wire [3:0]        _GEN_89 = {_GEN_36[2:0], 1'h0};	// bpu.scala:152:92, :212:38, :223:52
   wire [3:0]        _GEN_90 = {3'h0, io_ID_to_BPU_bus_bits_taken};	// bpu.scala:223:52
   wire [1:0]        _GEN_91;	// bpu.scala:227:38
   /* synopsys infer_mux_override */
@@ -2706,7 +2706,7 @@ module BPU(	// <stdin>:338:10
   wire              _RAS_io_pushEn_T = _T_5 & io_PF_inst[11:7] == 5'h1 & io_PF_valid;	// bpu.scala:150:24, :151:{53,61}, :240:27
   wire [63:0]       _RAS_io_push_T_1 = io_PF_pc + 64'h4;	// bpu.scala:241:31
   wire              _io_bp_flush_T_1 = io_ID_to_BPU_bus_valid & bp_target != io_ID_to_BPU_bus_bits_br_target;	// bpu.scala:155:28, :247:{49,62}
-  wire              _io_bp_npc_T_2 = _GEN_35 & _ret_T_6;	// bpu.scala:152:70, :198:18, :199:42, :200:25, :250:19
+  wire              _io_bp_npc_T_2 = _GEN_35 & _ret_T_6;	// bpu.scala:152:71, :198:18, :199:42, :200:25, :250:19
   reg  [31:0]       jal_cnt;	// bpu.scala:258:27
   reg  [31:0]       jalr_cnt;	// bpu.scala:259:27
   reg  [31:0]       btype_cnt;	// bpu.scala:260:29
@@ -8074,7 +8074,7 @@ module BPU(	// <stdin>:338:10
     .reset     (reset),
     .io_push   (_RAS_io_push_T_1),	// bpu.scala:241:31
     .io_pushEn (_RAS_io_pushEn_T),	// bpu.scala:240:27
-    .io_popEn  (_ret_T_6 & io_PF_valid),	// bpu.scala:152:70, :242:27
+    .io_popEn  (_ret_T_6 & io_PF_valid),	// bpu.scala:152:71, :242:27
     .io_pop    (_RAS_io_pop)
   );
   assign io_bp_taken = _GEN_35;	// <stdin>:338:10, bpu.scala:198:18, :199:42, :200:25

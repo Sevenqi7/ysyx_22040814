@@ -64,5 +64,5 @@ class LIFO[T <: Data](gen: T, depth: Int) extends Module{
         sptr         := sptr - 1.U
     }      
     
-    io.pop := Mux(io.popEn, stack(sptr), 0.U)
+    io.pop := Mux(io.popEn, stack(sptr-1), 0.U)
 }
