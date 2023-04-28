@@ -197,11 +197,12 @@ class BPU extends Module{
     bp_taken     := 0.U
     when(io.PF_valid & (B_type | J_type)){
         when(BTB.io.hit){
-            bp_taken := PHT(pht_idx)(pht_sel)(0)
-        }
-        .elsewhen(ret){
+            // bp_taken := PHT(pht_idx)(pht_sel)(0)
             bp_taken := 1.U
         }
+        // .elsewhen(ret){
+        //     bp_taken := 1.U
+        // }
     }
     
     
