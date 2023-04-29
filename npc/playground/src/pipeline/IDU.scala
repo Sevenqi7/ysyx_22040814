@@ -277,7 +277,6 @@ class IDU extends Module{
 object RV64IInstr{
     // Special insts
     def EBREAK  = BitPat("b0000000 00001 00000 000 00000 11100 11")
-    def ECALL   = BitPat("b0000000 00000 00000 000 00000 11100 11")
 
     //U Type
     def AUIPC   = BitPat("b??????? ????? ????? ??? ????? 00101 11")
@@ -352,7 +351,6 @@ object RV64IInstr{
 
         // Special insts
         EBREAK         -> List(TYPE_N, FuType.alu, ZERO, ZERO, OpType.OP_PLUS),
-        ECALL          -> List(TYPE_E, FuType.alu, NPC , ZERO, OpType.OP_PLUS),
 
         //U Type
         AUIPC          -> List(TYPE_U, FuType.alu, PC  , IMM , OpType.OP_PLUS),
