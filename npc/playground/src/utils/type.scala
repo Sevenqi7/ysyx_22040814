@@ -71,7 +71,7 @@ object FuSource{
     val IMM  = 4.U
     val SHAMT = 5.U
     val NPC  = 6.U
-    val S_ADDR = 7.U
+    val CSR  = 7.U
 }
 
 object BType

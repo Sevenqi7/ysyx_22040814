@@ -42,9 +42,22 @@ class top extends Module{
         val BTB_rtag = Output(UInt(16.W))
         val BTB_rdata = Output(UInt(64.W))
         val BTB_wdata = Output(UInt(64.W))
+        val btype_cnt  = Output(UInt(32.W))
+        val jal_cnt  = Output(UInt(32.W))
+        val jalr_cnt  = Output(UInt(32.W))
+        val btype_fail = Output(UInt(32.W))
+        val jal_fail = Output(UInt(32.W))
+        val jalr_fail = Output(UInt(32.W))
+        val btb_hit_cnt = Output(UInt(32.W))
         val bp_npc  = Output(UInt(64.W))
         val bp_taken = Output(Bool())
         val bp_flush = Output(Bool())
+        val bht_update = Output(UInt(4.W))
+        val pht_idx  = Output(UInt(4.W))
+        val pht_sel  = Output(UInt(4.W))
+        val pht_update = Output(UInt(2.W))
+        val ras_push = Output(UInt(64.W))
+        val ras_pop  = Output(UInt(64.W))
 
         val IF_Inst = Output(UInt(32.W))
         val IF_valid = Output(Bool())
@@ -79,6 +92,19 @@ class top extends Module{
     io.bp_npc    := bp_unit.io.bp_npc
     io.bp_taken  := bp_unit.io.bp_taken
     io.bp_flush  := bp_unit.io.bp_flush
+    io.btype_cnt := bp_unit.io.btype_cnt
+    io.btype_fail := bp_unit.io.btype_fail
+    io.jal_cnt   := bp_unit.io.jal_cnt
+    io.jal_fail   := bp_unit.io.jal_fail
+    io.jalr_cnt  := bp_unit.io.jalr_cnt
+    io.jalr_fail  := bp_unit.io.jalr_fail
+    io.btb_hit_cnt := bp_unit.io.hit_cnt
+    io.bht_update := bp_unit.io.bht_update 
+    io.pht_idx    := bp_unit.io.pht_idx
+    io.pht_sel    := bp_unit.io.pht_sel
+    io.pht_update := bp_unit.io.pht_update
+    io.ras_push   := bp_unit.io.ras_push    
+    io.ras_pop    := bp_unit.io.ras_pop
 
     io.IF_Inst  := inst_fetch_unit.io.IF_to_ID_bus.bits.Inst
     io.IF_valid := inst_fetch_unit.io.IF_to_ID_bus.valid
@@ -151,66 +177,8 @@ class top extends Module{
     arb.in(1) <> inst_fetch_unit.axi_lite
     arb.req(1) <> inst_fetch_unit.axi_req
 
+    //debug
     io.IF_AXIREQ := arb.req(1).ready
     io.MEM_AXIREQ:= arb.req(0).ready
 }
 
-class AXI_Arbiter(val n: Int) extends Module{
-    val in = IO(Flipped(Vec(n, new AXILiteMasterIF(32, 64))))
-    val req = IO(Flipped(Vec(n, new MyReadyValidIO)))
-    val out = IO(new AXILiteMasterIF(32, 64))
-
-    out <> in(n-1)
-    for(i <- n - 1 to 0 by -1){
-        req(i).ready                := 0.U
-        in(i).readAddr.ready        := 0.U
-        in(i).readData.valid        := 0.U
-        in(i).readData.bits.data    := 0x77.U       //MAGIC NUMBER FOR DEBUG
-        in(i).readData.bits.resp    := 0.U
-        in(i).writeAddr.ready       := 0.U
-        in(i).writeData.ready       := 0.U
-        in(i).writeResp.valid       := 0.U
-        in(i).writeResp.bits.resp   := 0.U
-        when(req(i).valid){
-            out <> in(i)
-            req(i).ready := 1.U
-            for(j <- i+1 to n-1){
-                req(j).ready := 0.U
-            }
-        }
-    }
-}
-
-class RAMU extends Module{
-    val axi_lite = IO(Flipped(new AXILiteMasterIF(32, 64)))
-    val data_ram = Module(new sim_sram)
-
-    //data ram
-    data_ram.io.pc                          := 0.U
-
-    data_ram.io.aclk                        := clock
-    data_ram.io.aresetn                     := !reset.asBool
-    //ar
-    data_ram.io.araddr                      := axi_lite.readAddr.bits.addr
-    data_ram.io.arvalid                     := axi_lite.readAddr.valid
-    axi_lite.readAddr.ready                 := data_ram.io.arready
-    //r
-    axi_lite.readData.bits.data             := data_ram.io.rdata
-    axi_lite.readData.bits.resp             := data_ram.io.rresp
-    axi_lite.readData.valid                 := data_ram.io.rvalid
-    data_ram.io.rready                      := axi_lite.readData.ready
-    //aw
-    data_ram.io.awaddr                      := axi_lite.writeAddr.bits.addr
-    data_ram.io.awvalid                     := axi_lite.writeAddr.valid
-    axi_lite.writeAddr.ready                := data_ram.io.awready
-    //w
-    data_ram.io.wdata                       := axi_lite.writeData.bits.data
-    data_ram.io.wstrb                       := axi_lite.writeData.bits.strb
-    data_ram.io.wvalid                      := axi_lite.writeData.valid
-    axi_lite.writeData.ready                := data_ram.io.wready
-    //b
-    axi_lite.writeResp.bits.resp            := data_ram.io.bresp
-    axi_lite.writeResp.valid                := data_ram.io.bvalid
-    data_ram.io.bready                      := axi_lite.writeResp.ready
-
-}

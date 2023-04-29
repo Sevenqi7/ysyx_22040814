@@ -10,6 +10,8 @@ class ID_BPU_Message extends Bundle{
     val taken = Bool()
     val br_target = UInt(64.W)
     val load_use_stall = Bool()
+    //debug
+    val Type  = UInt(2.W)
 }
 
 class ID_EX_Message extends Bundle{
@@ -192,20 +194,20 @@ class IDU extends Module{
     val flush = reset.asBool | load_use_stall  | !io.IF_to_ID_bus.valid
     io.ID_stall := load_use_stall
 
-    regConnectWithReset(io.ID_to_EX_bus.bits.PC        , IF_pc     , flush, 0.U    )
-    regConnectWithReset(io.ID_to_EX_bus.bits.Inst      , IF_Inst   , flush, 0.U    )
-    regConnectWithReset(io.ID_to_EX_bus.bits.ALU_Data1 , ALU_Data1 , flush, 0.U    )
-    regConnectWithReset(io.ID_to_EX_bus.bits.ALU_Data2 , ALU_Data2 , flush, 0.U    )
-    regConnectWithReset(io.ID_to_EX_bus.bits.regWriteID, rd        , flush, 0.U    )
-    regConnectWithReset(io.ID_to_EX_bus.bits.regWriteEn, regWriteEn, flush, 0.U    )
-    regConnectWithReset(io.ID_to_EX_bus.bits.memReadEn , memReadEn , flush, 0.U    )
-    regConnectWithReset(io.ID_to_EX_bus.bits.memWriteEn, memWriteEn, flush, 0.U    )
-    regConnectWithReset(io.ID_to_EX_bus.bits.optype    , opType    , flush, 0.U    )
-    regConnectWithReset(io.ID_to_EX_bus.bits.futype    , futype    , flush, 0.U    )
-    regConnectWithReset(io.ID_to_EX_bus.bits.rs1_data  , rs1_data , flush, 0.U     )
-    regConnectWithReset(io.ID_to_EX_bus.bits.rs1_id    , rs1      , flush, 0.U     )
-    regConnectWithReset(io.ID_to_EX_bus.bits.rs2_data  , rs2_data , flush, 0.U     )
-    regConnectWithReset(io.ID_to_EX_bus.bits.rs2_id    , rs2      , flush, 0.U     )
+    regConnectWithReset(io.ID_to_EX_bus.bits.PC        , IF_pc     , flush, 0.U     )
+    regConnectWithReset(io.ID_to_EX_bus.bits.Inst      , IF_Inst   , flush, 0.U     )
+    regConnectWithReset(io.ID_to_EX_bus.bits.ALU_Data1 , ALU_Data1 , flush, 0.U     )
+    regConnectWithReset(io.ID_to_EX_bus.bits.ALU_Data2 , ALU_Data2 , flush, 0.U     )
+    regConnectWithReset(io.ID_to_EX_bus.bits.regWriteID, rd        , flush, 0.U     )
+    regConnectWithReset(io.ID_to_EX_bus.bits.regWriteEn, regWriteEn, flush, 0.U     )
+    regConnectWithReset(io.ID_to_EX_bus.bits.memReadEn , memReadEn , flush, 0.U     )
+    regConnectWithReset(io.ID_to_EX_bus.bits.memWriteEn, memWriteEn, flush, 0.U     )
+    regConnectWithReset(io.ID_to_EX_bus.bits.optype    , opType    , flush, 0.U     )
+    regConnectWithReset(io.ID_to_EX_bus.bits.futype    , futype    , flush, 0.U     )
+    regConnectWithReset(io.ID_to_EX_bus.bits.rs1_data  , rs1_data  , flush, 0.U     )
+    regConnectWithReset(io.ID_to_EX_bus.bits.rs1_id    , rs1       , flush, 0.U     )
+    regConnectWithReset(io.ID_to_EX_bus.bits.rs2_data  , rs2_data  , flush, 0.U     )
+    regConnectWithReset(io.ID_to_EX_bus.bits.rs2_id    , rs2       , flush, 0.U     )
     regConnectWithReset(io.ID_to_EX_bus.valid          ,io.IF_to_ID_bus.valid & !load_use_stall, flush, 0.U   )
     io.IF_to_ID_bus.ready := !load_use_stall
     io.MEM_to_ID_forward.ready := 1.U
@@ -248,6 +250,14 @@ class IDU extends Module{
         is (TYPE_I) {br_taken := src1 === NPC   }       //JALR
     }
 
+    val Type = Wire(UInt(2.W))
+    Type := 0.U
+    switch(instType){
+        is (TYPE_J) {Type := 1.U                            }
+        is (TYPE_B) {Type := 2.U                            }
+        is (TYPE_I) {Type := Mux(src1 === NPC, 3.U, 0.U)    }       
+    }
+
     val pcplus4 = Wire(UInt(32.W))
     pcplus4 := IF_pc + 4.U
     io.ID_to_BPU_bus.bits.br_target := MuxCase(pcplus4, Seq(
@@ -260,6 +270,7 @@ class IDU extends Module{
     io.ID_to_BPU_bus.valid      := io.IF_to_ID_bus.valid & ((instType === TYPE_J) || (instType === TYPE_B) || (instType === TYPE_I  &&  src1 === NPC)) && !load_use_stall
     io.ID_to_BPU_bus.bits.load_use_stall := load_use_stall
     io.ID_to_BPU_bus.bits.PC    := IF_pc
+    io.ID_to_BPU_bus.bits.Type  := Type
 }
             
             
