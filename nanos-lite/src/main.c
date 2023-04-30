@@ -22,6 +22,7 @@ int main() {
 #ifdef HAS_CTE
   init_irq();
 #endif
+  yield();
 
   init_fs();
 
