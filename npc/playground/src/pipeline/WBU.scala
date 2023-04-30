@@ -27,8 +27,8 @@ class WBU extends Module{
     io.WB_to_ID_forward.bits.regWriteData := io.MEM_to_WB_bus.bits.regWriteData    
     io.WB_to_ID_forward.bits.regWriteEn   := io.MEM_to_WB_bus.bits.regWriteEn
     io.WB_to_ID_forward.bits.regWriteID   := io.MEM_to_WB_bus.bits.regWriteID 
-    io.WB_to_ID_forward.bits.csrWriteEn   := io.WB_to_ID_forward.bits.csrWriteEn
-    io.WB_to_ID_forward.bits.csrWriteAddr := io.WB_to_ID_forward.bits.csrWriteAddr
+    io.WB_to_ID_forward.bits.csrWriteEn   := io.MEM_to_WB_bus.bits.csrWriteEn
+    io.WB_to_ID_forward.bits.csrWriteAddr := io.MEM_to_WB_bus.bits.csrWriteAddr
     io.WB_to_ID_forward.valid             := io.MEM_to_WB_bus.valid
 
     io.WB_pc           := io.MEM_to_WB_bus.bits.PC
