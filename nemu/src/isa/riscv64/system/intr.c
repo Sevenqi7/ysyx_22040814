@@ -31,6 +31,7 @@ word_t isa_read_csr(word_t NO)
 void isa_write_csr(word_t NO, word_t data)
 {
   Log("data:0x%lx", data);  
+  Log("NO:0x%lx", NO);
   switch(NO)
   {
     case 0x300: cpu.csr.mstatus = data; break;
