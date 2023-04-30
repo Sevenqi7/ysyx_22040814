@@ -115,7 +115,7 @@ class EXU extends Module{
         (optype === OP_DIVW,  SEXT(((ALU_Data1.asSInt / ALU_Data2.asSInt).asUInt), 32)),
         (optype === OP_DIVUW, SEXT((ALU_Data1 / ALU_Data2), 32)),
         (optype === OP_REMW,  SEXT(((ALU_Data1.asSInt % ALU_Data2.asSInt).asUInt), 32)),
-        (optype === OP_REMUW, SEXT((ALU_Data1 % ALU_Data2), 32))
+        (optype === OP_REMUW, SEXT((ALU_Data1 % ALU_Data2), 32)),
         (optype === OP_NONE,  ALU_Data1)
     ))
 
