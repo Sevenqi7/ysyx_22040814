@@ -73,11 +73,11 @@ class EXU extends Module{
     regConnect(io.EX_to_MEM_bus.bits.memReadEn      ,   memReadEn                               )
     regConnect(io.EX_to_MEM_bus.bits.memWriteData   ,   memWriteData                            )
     regConnect(io.EX_to_MEM_bus.bits.lsutype        ,   lsutype                                 )
+    regConnect(io.EX_to_MEM_bus.bits.ALU_result     ,   Mux(csrWriteEn, ALU_Data1, ALU_result)  )
     regConnect(io.EX_to_MEM_bus.bits.csrWriteEn     ,   csrWriteEn                              )
     regConnect(io.EX_to_MEM_bus.bits.csrWriteAddr   ,   csrWriteAddr                            )
     regConnect(io.EX_to_MEM_bus.bits.csrWriteData   ,   ALU_result                              )
     regConnect(io.EX_to_MEM_bus.valid               ,   io.ID_to_EX_bus.valid                   )
-    regConnect(io.EX_to_MEM_bus.bits.ALU_result     ,   Mux(csrWriteEn, ALU_Data1, ALU_result)  )
     io.ID_to_EX_bus.ready := 1.U
 
     io.EX_ALUResult_Pass := ALU_result
@@ -85,7 +85,7 @@ class EXU extends Module{
     ALU_Data1 := io.ID_to_EX_bus.bits.ALU_Data1
     ALU_Data2 := io.ID_to_EX_bus.bits.ALU_Data2 
     
-    ALU_result := MuxCase(0x7777.U, Seq(
+    ALU_result := MuxCase(0.U, Seq(
         ((optype === OP_PLUS) || (futype === FuType.lsu), ALU_Data1 + ALU_Data2),
         (optype === OP_SUB ,  ALU_Data1  -  ALU_Data2),
         (optype === OP_AND ,  ALU_Data1  &  ALU_Data2),

@@ -9280,7 +9280,7 @@ module EXU(	// <stdin>:2140:10
   wire [31:0]       _ALU_result_T_62 = $signed($signed(io_ID_to_EX_bus_bits_ALU_Data1[31:0]) >>> _GEN_3);	// EXU.scala:106:46, :107:54, :108:62
   wire [64:0]       _ALU_result_T_75 = $signed(_GEN_1) / $signed(_GEN_2);	// EXU.scala:100:49, :113:55
   wire [63:0]       _ALU_result_T_82 = $signed(io_ID_to_EX_bus_bits_ALU_Data1) % $signed(io_ID_to_EX_bus_bits_ALU_Data2);	// EXU.scala:115:55
-  wire [31:0][63:0] _GEN_4 = {{io_ID_to_EX_bus_bits_ALU_Data2}, {64'h0}, {{{32{_ALU_result_T_85[31]}},
+  wire [31:0][63:0] _GEN_4 = {{io_ID_to_EX_bus_bits_ALU_Data2}, {64'h7777}, {{{32{_ALU_result_T_85[31]}},
                 _ALU_result_T_85[31:0]}}, {{{32{_ALU_result_T_82[31]}}, _ALU_result_T_82[31:0]}},
                 {{{32{_ALU_result_T_78[31]}}, _ALU_result_T_78[31:0]}}, {{{32{_ALU_result_T_75[31]}},
                 _ALU_result_T_75[31:0]}}, {{{32{_GEN_0[31]}}, _GEN_0[31:0]}}, {{{32{_ALU_result_T_69[31]}},
@@ -9295,25 +9295,25 @@ module EXU(	// <stdin>:2140:10
                 {{63'h0, $signed(io_ID_to_EX_bus_bits_ALU_Data1) <
                 $signed(io_ID_to_EX_bus_bits_ALU_Data2)}}, {$signed($signed(io_ID_to_EX_bus_bits_ALU_Data1)
                 >>> _GEN)}, {io_ID_to_EX_bus_bits_ALU_Data1 >> _GEN}, {_ALU_result_T_15[63:0]},
-                {_ALU_result_T_65}, {_ALU_result_T_67}, {_ALU_result_T_69}, {64'h0}, {_ALU_result_T_7},
-                {64'h0}, {64'h0}};	// Bitwise.scala:77:12, Cat.scala:33:92, EXU.scala:89:69, :90:{17,42}, :91:{17,42}, :92:{17,42}, :93:{17,42}, :94:{17,41}, :95:{17,41}, :96:{17,49}, :97:{17,42}, :98:{17,49}, :99:{17,41}, :100:{17,49}, :101:{17,41}, :102:{17,49}, :103:{17,41}, :104:17, :105:17, :106:{17,54}, :107:{17,54}, :108:{17,62}, :109:17, :110:17, :111:17, :112:17, :113:{17,55}, :114:17, :115:{17,55}, :116:17, :117:17, Mux.scala:101:16, tools.scala:9:{34,45}, :15:29
+                {_ALU_result_T_65}, {_ALU_result_T_67}, {_ALU_result_T_69}, {64'h7777}, {_ALU_result_T_7},
+                {64'h7777}, {64'h7777}};	// Bitwise.scala:77:12, Cat.scala:33:92, EXU.scala:89:69, :90:{17,42}, :91:{17,42}, :92:{17,42}, :93:{17,42}, :94:{17,41}, :95:{17,41}, :96:{17,49}, :97:{17,42}, :98:{17,49}, :99:{17,41}, :100:{17,49}, :101:{17,41}, :102:{17,49}, :103:{17,41}, :104:17, :105:17, :106:{17,54}, :107:{17,54}, :108:{17,62}, :109:17, :110:17, :111:17, :112:17, :113:{17,55}, :114:17, :115:{17,55}, :116:17, :117:17, Mux.scala:101:16, tools.scala:9:{34,45}, :15:29
   wire [63:0]       _GEN_5 = io_ID_to_EX_bus_bits_optype == 5'h1 | io_ID_to_EX_bus_bits_futype ? _ALU_result_T_4 :
                 _GEN_4[io_ID_to_EX_bus_bits_optype];	// EXU.scala:89:{18,31,69}, :90:17, :91:17, :92:17, :93:17, :94:17, :95:17, :96:17, :97:17, :98:17, :99:17, :100:17, :101:17, :102:17, :103:17, :104:17, :105:17, :106:17, :107:17, :108:17, :109:17, :110:17, :111:17, :112:17, :113:17, :114:17, :115:17, :116:17, :117:17, Mux.scala:101:16
   always @(posedge clock) begin
     if (reset) begin
-      rhsReg <= 64'h0;	// Mux.scala:101:16, tools.scala:15:29
+      rhsReg <= 64'h0;	// EXU.scala:99:41, tools.scala:15:29
       rhsReg_1 <= 32'h0;	// Bitwise.scala:77:12, tools.scala:15:29
       rhsReg_2 <= 1'h0;	// EXU.scala:60:22, tools.scala:15:29
       rhsReg_3 <= 5'h0;	// EXU.scala:60:22, tools.scala:15:29
       rhsReg_4 <= 1'h0;	// EXU.scala:60:22, tools.scala:15:29
       rhsReg_5 <= 1'h0;	// EXU.scala:60:22, tools.scala:15:29
-      rhsReg_6 <= 64'h0;	// Mux.scala:101:16, tools.scala:15:29
+      rhsReg_6 <= 64'h0;	// EXU.scala:99:41, tools.scala:15:29
       rhsReg_7 <= 5'h0;	// EXU.scala:60:22, tools.scala:15:29
       rhsReg_8 <= 1'h0;	// EXU.scala:60:22, tools.scala:15:29
       rhsReg_9 <= 12'h0;	// tools.scala:15:29
-      rhsReg_10 <= 64'h0;	// Mux.scala:101:16, tools.scala:15:29
+      rhsReg_10 <= 64'h0;	// EXU.scala:99:41, tools.scala:15:29
       rhsReg_11 <= 1'h0;	// EXU.scala:60:22, tools.scala:15:29
-      rhsReg_12 <= 64'h0;	// Mux.scala:101:16, tools.scala:15:29
+      rhsReg_12 <= 64'h0;	// EXU.scala:99:41, tools.scala:15:29
     end
     else begin
       rhsReg <= io_ID_to_EX_bus_bits_PC;	// tools.scala:15:29
