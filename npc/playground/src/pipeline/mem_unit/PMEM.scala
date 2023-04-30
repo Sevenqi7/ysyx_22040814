@@ -109,5 +109,7 @@ class MEM_pre_stage extends Module{
     io.PMEM_to_ID_forward.bits.regWriteEn   := regWriteEn
     io.PMEM_to_ID_forward.bits.regWriteID   := regWriteID
     io.PMEM_to_ID_forward.bits.memReadEn    := memReadEn
+    io.PMEM_to_ID_forward.bits.csrWriteEn   := csrWriteEn
+    io.PMEM_to_ID_forward.bits.csrWriteAddr := csrWriteAddr
     io.PMEM_to_ID_forward.valid             := 1.U
 }
