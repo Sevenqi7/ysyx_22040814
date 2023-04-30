@@ -34,7 +34,7 @@ void isa_write_csr(word_t NO, word_t data)
   {
     case 0x300: cpu.csr.mstatus = data; break;
     case 0x305: cpu.csr.mtvec   = data; break;
-    case 0x341: cpu.csr.mepc    = data; Log("reach");break;
+    case 0x341: cpu.csr.mepc    = data; Log("reach\n");break;
     case 0x342: cpu.csr.mcause  = data; break;
     default: assert(0);
   }
