@@ -62,7 +62,7 @@ class top extends Module{
         val csrWriteEn = Output(Bool())
         val csrWriteAddr = Output(UInt(12.W))
         val csrWriteData = Output(UInt(64.W))
-        val MEM_csrWriteData = Output(UInt(64.W))
+        val EX_csrWriteData = Output(UInt(64.W))
 
         val IF_Inst = Output(UInt(32.W))
         val IF_valid = Output(Bool())
@@ -115,7 +115,7 @@ class top extends Module{
     io.csrWriteEn   := csr.io.writeEn
     io.csrWriteAddr := csr.io.writeAddr
     io.csrWriteData := csr.io.writeData
-    io.MEM_csrWriteData := mem_unit.io.MEM_to_WB_bus.bits.csrWriteData
+    io.EX_csrWriteData := excute_unit.io.EX_to_MEM_bus.bits.csrWriteData
 
     io.IF_Inst  := inst_fetch_unit.io.IF_to_ID_bus.bits.Inst
     io.IF_valid := inst_fetch_unit.io.IF_to_ID_bus.valid
