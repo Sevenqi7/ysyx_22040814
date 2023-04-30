@@ -14,7 +14,7 @@ void clock_step()
     Log("ID_pc:0x%lx", top->io_ID_pc);
     Log("ID_ALUData1:0x%lx ID_ALUData2:0x%lx", top->io_ID_ALU_Data1, top->io_ID_ALU_Data2);
     Log("ID_Rs1Data:0x%lx ID_Rs2Data:0x%lx", top->io_ID_Rs1Data, top->io_ID_Rs2Data);
-    Log("ALUResult:0x%lx", top->io_ALUResult);
+    Log("EX_ALUResult_Pass:0x%lx", top->io_EX_ALU_result_pass);
     Log("EX_csrWriteData:0x%lx", top->io_EX_csrWriteData);
     if(top->io_csrWriteEn){
         Log("csrWriteAddr:0x%x", top->io_csrWriteAddr);
