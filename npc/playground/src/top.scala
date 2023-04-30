@@ -111,9 +111,9 @@ class top extends Module{
     io.pht_update := bp_unit.io.pht_update
     io.ras_push   := bp_unit.io.ras_push    
     io.ras_pop    := bp_unit.io.ras_pop
-    io.csrWriteEn   := wb_unit.io.csrWriteEn
-    io.csrWriteAddr := wb_unit.io.csrWriteAddr
-    io.csrWriteData := wb_unit.io.csrWriteData
+    io.csrWriteEn   := wb_unit.io.WB_csrWriteEn
+    io.csrWriteAddr := wb_unit.io.WB_csrWriteAddr
+    io.csrWriteData := wb_unit.io.WB_csrWriteData
 
     io.IF_Inst  := inst_fetch_unit.io.IF_to_ID_bus.bits.Inst
     io.IF_valid := inst_fetch_unit.io.IF_to_ID_bus.valid
