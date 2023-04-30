@@ -31,7 +31,7 @@ object OpType{
     val OP_REMW  = 28.U
     val OP_REMUW = 29.U
     val OP_ECALL = 30.U
-    val OP_NONE = 31.U
+    val OP_NONE  = 31.U
 }
 
 
