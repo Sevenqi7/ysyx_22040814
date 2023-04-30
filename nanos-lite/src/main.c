@@ -23,6 +23,7 @@ int main() {
   init_irq();
 #endif
   yield();
+  while(1);
 
   init_fs();
 
