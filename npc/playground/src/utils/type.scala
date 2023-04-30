@@ -30,7 +30,7 @@ object OpType{
     val OP_DIVUW = 27.U
     val OP_REMW = 28.U
     val OP_REMUW = 29.U
-    val NONE = 31.U
+    val OP_NONE = 31.U
 }
 
 
@@ -60,7 +60,8 @@ object InstType{
     val TYPE_S = 4.U(3.W)
     val TYPE_J = 5.U(3.W)
     val TYPE_B = 6.U(3.W)
-    val TYPE_N = 7.U(3.W)
+    val TYPE_E = 7.U(3.W)
+    // val TYPE_N = 8.U(3.W)
 }
 
 object FuSource{

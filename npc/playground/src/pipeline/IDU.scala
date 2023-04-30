@@ -27,7 +27,8 @@ class ID_EX_Message extends Bundle{
     val regWriteEn = Output(Bool())
     val memWriteEn = Output(Bool())
     val memReadEn  = Output(Bool())
-
+    val csrWriteAddr    = Output(UInt(12.W))
+    val csrWriteEn = Output(Bool())
     //For npc trace
     val PC         = Output(UInt(64.W))
     val Inst       = Output(UInt(32.W))
@@ -52,8 +53,13 @@ class IDU extends Module{
         //later one is not immediate
         val EX_ALUResult  = Input(UInt(64.W))
 
-        //For branch prediction
+        //4. check result of branch prediction
         val ID_to_BPU_bus = Decoupled(new ID_BPU_Message)
+
+        //5. Read from CSR
+        val ID_csrReadAddr = Output(UInt(12.W))
+        val CSR_csrReadData = Input(UInt(64.W))
+
         //For NPCTRAP
         val ID_stall = Output(Bool())
         val ID_GPR =Output(Vec(32, UInt(64.W)))
@@ -162,6 +168,7 @@ class IDU extends Module{
     
     val ALU_Data1 = Wire(UInt(64.W))
     val ALU_Data2 = Wire(UInt(64.W))
+    val csr_data  = io.CSR_csrReadData
     
     
     imm := MuxCase(0.U, Seq(
@@ -183,39 +190,46 @@ class IDU extends Module{
         (src2 === PC    , IF_pc    ),
         (src2 === RS2   , rs2_data ),
         (src2 === IMM   , imm      ),
-        (src2 === SHAMT , shamt    )
+        (src2 === SHAMT , shamt    ),
+        (src2 === CSR   , csr_data )
     ))
         
     regWriteEn := (instType === TYPE_R) || (instType === TYPE_I) || (instType === TYPE_U) || (instType === TYPE_J)
     memWriteEn := (instType === TYPE_S)
     memReadEn  := (instType === TYPE_I  && futype === FuType.lsu)
+    io.ID_csrReadAddr   := immI
+
 
     val load_use_stall = Wire(Bool())
-    val flush = reset.asBool | load_use_stall  | !io.IF_to_ID_bus.valid
+    val csr_stall      = Wire(Bool())
+    val csrWriteEn     = instType === TYPE_E
+    val flush = reset.asBool | load_use_stall  | !io.IF_to_ID_bus.valid | csr_stall
     io.ID_stall := load_use_stall
 
-    regConnectWithReset(io.ID_to_EX_bus.bits.PC        , IF_pc     , flush, 0.U     )
-    regConnectWithReset(io.ID_to_EX_bus.bits.Inst      , IF_Inst   , flush, 0.U     )
-    regConnectWithReset(io.ID_to_EX_bus.bits.ALU_Data1 , ALU_Data1 , flush, 0.U     )
-    regConnectWithReset(io.ID_to_EX_bus.bits.ALU_Data2 , ALU_Data2 , flush, 0.U     )
-    regConnectWithReset(io.ID_to_EX_bus.bits.regWriteID, rd        , flush, 0.U     )
-    regConnectWithReset(io.ID_to_EX_bus.bits.regWriteEn, regWriteEn, flush, 0.U     )
-    regConnectWithReset(io.ID_to_EX_bus.bits.memReadEn , memReadEn , flush, 0.U     )
-    regConnectWithReset(io.ID_to_EX_bus.bits.memWriteEn, memWriteEn, flush, 0.U     )
-    regConnectWithReset(io.ID_to_EX_bus.bits.optype    , opType    , flush, 0.U     )
-    regConnectWithReset(io.ID_to_EX_bus.bits.futype    , futype    , flush, 0.U     )
-    regConnectWithReset(io.ID_to_EX_bus.bits.rs1_data  , rs1_data  , flush, 0.U     )
-    regConnectWithReset(io.ID_to_EX_bus.bits.rs1_id    , rs1       , flush, 0.U     )
-    regConnectWithReset(io.ID_to_EX_bus.bits.rs2_data  , rs2_data  , flush, 0.U     )
-    regConnectWithReset(io.ID_to_EX_bus.bits.rs2_id    , rs2       , flush, 0.U     )
-    regConnectWithReset(io.ID_to_EX_bus.valid          ,io.IF_to_ID_bus.valid & !load_use_stall, flush, 0.U   )
+    regConnectWithReset(io.ID_to_EX_bus.bits.PC             , IF_pc     , flush, 0.U     )
+    regConnectWithReset(io.ID_to_EX_bus.bits.Inst           , IF_Inst   , flush, 0.U     )
+    regConnectWithReset(io.ID_to_EX_bus.bits.ALU_Data1      , ALU_Data1 , flush, 0.U     )
+    regConnectWithReset(io.ID_to_EX_bus.bits.ALU_Data2      , ALU_Data2 , flush, 0.U     )
+    regConnectWithReset(io.ID_to_EX_bus.bits.regWriteID     , rd        , flush, 0.U     )
+    regConnectWithReset(io.ID_to_EX_bus.bits.regWriteEn     , regWriteEn, flush, 0.U     )
+    regConnectWithReset(io.ID_to_EX_bus.bits.memReadEn      , memReadEn , flush, 0.U     )
+    regConnectWithReset(io.ID_to_EX_bus.bits.memWriteEn     , memWriteEn, flush, 0.U     )
+    regConnectWithReset(io.ID_to_EX_bus.bits.optype         , opType    , flush, 0.U     )
+    regConnectWithReset(io.ID_to_EX_bus.bits.futype         , futype    , flush, 0.U     )
+    regConnectWithReset(io.ID_to_EX_bus.bits.rs1_data       , rs1_data  , flush, 0.U     )
+    regConnectWithReset(io.ID_to_EX_bus.bits.rs1_id         , rs1       , flush, 0.U     )
+    regConnectWithReset(io.ID_to_EX_bus.bits.rs2_data       , rs2_data  , flush, 0.U     )
+    regConnectWithReset(io.ID_to_EX_bus.bits.rs2_id         , rs2       , flush, 0.U     )
+    regConnectWithReset(io.ID_to_EX_bus.bits.csrWriteEn     , csrWriteEn, flush, 0.U     )
+    regConnectWithReset(io.ID_to_EX_bus.bits.csrWriteAddr   , immI      , flush, 0.U     )
+    regConnectWithReset(io.ID_to_EX_bus.valid          ,io.IF_to_ID_bus.valid & !load_use_stall & !csr_stall, flush, 0.U   )
     io.IF_to_ID_bus.ready := !load_use_stall
     io.MEM_to_ID_forward.ready := 1.U
     io.PMEM_to_ID_forward.ready := 1.U
     io.WB_to_ID_forward.ready := 1.U
 
 
-    io.ID_unknown_inst := InstInfo(0) === 0.U && io.IF_to_ID_bus.valid
+    io.ID_unknown_inst := instType === 0.U && io.IF_to_ID_bus.valid
 
     load_use_stall := (
         (
@@ -228,6 +242,17 @@ class IDU extends Module{
             ((io.ID_to_EX_bus.bits.memReadEn && io.ID_to_EX_bus.bits.regWriteID === rs2) || 
             (PMEM_memReadEn && PMEM_regWriteID === rs2))
                                                             )
+    )
+
+    csr_stall   :=  (
+        (
+            (src2 === CSR) && (
+                (io.ID_to_EX_bus.bits.csrWriteEn && (io.ID_to_EX_bus.bits.csrWriteAddr === io.ID_csrReadAddr)) ||
+                (io.PMEM_to_ID_forward.bits.csrWriteEn && (io.PMEM_to_ID_forward.bits.csrWriteAddr === io.ID_csrReadAddr)) ||
+                (io.MEM_to_ID_forward.bits.csrWriteEn && (io.MEM_to_ID_forward.bits.csrWriteAddr === io.ID_csrReadAddr)) || 
+                (io.WB_to_ID_forward.bits.csrWriteEn && (io.WB_to_ID_forward.bits.csrWriteAddr === io.ID_csrReadAddr))
+            )
+        )
     )
 
     // Check branch
@@ -268,7 +293,7 @@ class IDU extends Module{
 
     io.ID_to_BPU_bus.bits.taken := br_taken
     io.ID_to_BPU_bus.valid      := io.IF_to_ID_bus.valid & ((instType === TYPE_J) || (instType === TYPE_B) || (instType === TYPE_I  &&  src1 === NPC)) && !load_use_stall
-    io.ID_to_BPU_bus.bits.load_use_stall := load_use_stall
+    io.ID_to_BPU_bus.bits.load_use_stall := load_use_stall | csr_stall
     io.ID_to_BPU_bus.bits.PC    := IF_pc
     io.ID_to_BPU_bus.bits.Type  := Type
 }
@@ -277,6 +302,8 @@ class IDU extends Module{
 object RV64IInstr{
     // Special insts
     def EBREAK  = BitPat("b0000000 00001 00000 000 00000 11100 11")
+    def CSRRW   = BitPat("b??????? ????? ????? 001 ????? 11100 11")
+    def CSRRS   = BitPat("b??????? ????? ????? 010 ????? 11100 11")
 
     //U Type
     def AUIPC   = BitPat("b??????? ????? ????? ??? ????? 00101 11")
@@ -350,7 +377,9 @@ object RV64IInstr{
     val table = Array(
 
         // Special insts
-        EBREAK         -> List(TYPE_N, FuType.alu, ZERO, ZERO, OpType.OP_PLUS),
+        EBREAK         -> List(TYPE_E, FuType.alu, ZERO, ZERO, OpType.OP_PLUS),
+        CSRRS          -> List(TYPE_E, FuType.alu, RS1 , CSR , OpType.OP_OR  ),
+        CSRRW          -> List(TYPE_E, FuType.alu, RS1 , CSR , OpType.OP_NONE),
 
         //U Type
         AUIPC          -> List(TYPE_U, FuType.alu, PC  , IMM , OpType.OP_PLUS),
