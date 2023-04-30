@@ -9,12 +9,23 @@ class CSR extends Module{
         val writeData = Input(UInt(64.W))
         val readAddr  = Input(UInt(12.W))
         val readData  = Output(UInt(32.W))
+
+        //debug
+        val mstatus   = Output(UInt(64.W))
+        val mtvec     = Output(UInt(64.W))
+        val mepc      = Output(UInt(64.W))
+        val mcause    = Output(UInt(64.W))      
     })
 
     val mstatus = RegInit(0.U(64.W))
     val mtvec   = RegInit(0.U(64.W))
     val mepc    = RegInit(0.U(64.W))
     val mcause  = RegInit(0.U(64.W))
+
+    io.mstatus := mstatus
+    io.mtvec   := mtvec
+    io.mepc    := mepc
+    io.mcause  := mcause
 
     io.readData := 0.U
     switch(io.readAddr){

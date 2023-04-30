@@ -63,6 +63,11 @@ class top extends Module{
         val csrWriteAddr = Output(UInt(12.W))
         val csrWriteData = Output(UInt(64.W))
         val EX_csrWriteData = Output(UInt(64.W))
+        val mstatus   = Output(UInt(64.W))
+        val mtvec     = Output(UInt(64.W))
+        val mepc      = Output(UInt(64.W))
+        val mcause    = Output(UInt(64.W))      
+
 
         val IF_Inst = Output(UInt(32.W))
         val IF_valid = Output(Bool())
@@ -143,6 +148,10 @@ class top extends Module{
     io.ALUResult  := excute_unit.io.EX_to_MEM_bus.bits.ALU_result
     io.stall := inst_decode_unit.io.ID_stall
     
+    io.mstatus := csr.io.mstatus
+    io.mtvec   := csr.io.mtvec
+    io.mepc    := csr.io.mepc
+    io.mcause  := csr.io.mcause
 
 
     val simulate = Module(new sim)
