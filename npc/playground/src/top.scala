@@ -78,6 +78,7 @@ class top extends Module{
     val pre_mem_unit = Module(new MEM_pre_stage)
     val mem_unit = Module(new MEMU)
     val wb_unit = Module(new WBU)
+    val csr     = Module(new CSR)
 
     val inst_ram     = Module(new sim_sram)
 
@@ -131,6 +132,7 @@ class top extends Module{
     io.stall := inst_decode_unit.io.ID_stall
     
 
+
     val simulate = Module(new sim)
     
     simulate.io.IF_pc                       := inst_fetch_unit.io.IF_to_ID_bus.bits.PC
@@ -153,6 +155,7 @@ class top extends Module{
     inst_decode_unit.io.PMEM_to_ID_forward  <> pre_mem_unit.io.PMEM_to_ID_forward
     inst_decode_unit.io.MEM_to_ID_forward   <> mem_unit.io.MEM_to_ID_forward
     inst_decode_unit.io.EX_ALUResult        := excute_unit.io.EX_ALUResult_Pass
+    inst_decode_unit.io.CSR_csrReadData     := csr.io.readData
 
     excute_unit.io.ID_to_EX_bus             <> inst_decode_unit.io.ID_to_EX_bus
     excute_unit.io.MEM_regWriteData         := mem_unit.io.MEM_to_ID_forward.bits.regWriteData
@@ -160,12 +163,16 @@ class top extends Module{
     //PMEM
     pre_mem_unit.io.EX_to_MEM_bus           <> excute_unit.io.EX_to_MEM_bus
 
-    //PMEM END
-
     mem_unit.io.PMEM_to_MEM_bus             <> pre_mem_unit.io.PMEM_to_MEM_bus
     mem_unit.io.memReadData                 := pre_mem_unit.io.memReadData
 
     wb_unit.io.MEM_to_WB_bus                <> mem_unit.io.MEM_to_WB_bus
+
+    //CSR
+    csr.io.readAddr                         := inst_decode_unit.io.ID_csrReadAddr
+    csr.io.writeEn                          := wb_unit.io.WB_csrWriteEn
+    csr.io.writeAddr                        := wb_unit.io.WB_csrWriteAddr
+    csr.io.writeData                        := wb_unit.io.WB_csrWriteData
 
 
     val ram_unit = Module(new RAMU)
