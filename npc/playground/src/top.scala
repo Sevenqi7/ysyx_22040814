@@ -139,7 +139,7 @@ class top extends Module{
     io.ID_ALU_Data2 := inst_decode_unit.io.ID_to_EX_bus.bits.ALU_Data2
     io.ID_Rs1Data := inst_decode_unit.io.ID_to_EX_bus.bits.rs1_data
     io.ID_Rs2Data := inst_decode_unit.io.ID_to_EX_bus.bits.rs2_data
-    io.EX_ALU_result_pass := excute_unit.io.EX_ALUResult_pass
+    io.EX_ALU_result_pass := excute_unit.io.EX_ALUResult_Pass
     io.ALUResult  := excute_unit.io.EX_to_MEM_bus.bits.ALU_result
     io.stall := inst_decode_unit.io.ID_stall
     
