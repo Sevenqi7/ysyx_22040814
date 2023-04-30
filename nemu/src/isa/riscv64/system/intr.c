@@ -46,7 +46,7 @@ word_t isa_raise_intr(word_t NO, vaddr_t epc) {
    */
   cpu.csr.mepc = epc;
   cpu.csr.mcause = NO;
-  IFDEF(CONFIG_ETRACE, Log("Exception occurs: code:%lu pc:0x%lx", NO, epc));
+  IFDEF(CONFIG_ETRACE, Log("Exception occurs: code:%lu pc:0x%lx ret_addr:0x%lx", NO, epc, cpu.csr.mtvec));
   return cpu.csr.mtvec;
 }
 
