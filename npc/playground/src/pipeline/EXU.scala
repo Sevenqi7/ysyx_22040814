@@ -85,7 +85,7 @@ class EXU extends Module{
     ALU_Data1 := io.ID_to_EX_bus.bits.ALU_Data1
     ALU_Data2 := io.ID_to_EX_bus.bits.ALU_Data2 
     
-    ALU_result := MuxCase(0.U, Seq(
+    ALU_result := MuxCase(0x7777.U, Seq(
         ((optype === OP_PLUS) || (futype === FuType.lsu), ALU_Data1 + ALU_Data2),
         (optype === OP_SUB ,  ALU_Data1  -  ALU_Data2),
         (optype === OP_AND ,  ALU_Data1  &  ALU_Data2),
