@@ -204,7 +204,7 @@ class IDU extends Module{
     val csr_stall      = Wire(Bool())
     val csrWriteEn     = instType === TYPE_E
     val flush = reset.asBool | load_use_stall  | !io.IF_to_ID_bus.valid | csr_stall
-    io.ID_stall := load_use_stall
+    io.ID_stall := load_use_stall | csr_stall
 
     regConnectWithReset(io.ID_to_EX_bus.bits.PC             , IF_pc     , flush, 0.U     )
     regConnectWithReset(io.ID_to_EX_bus.bits.Inst           , IF_Inst   , flush, 0.U     )
