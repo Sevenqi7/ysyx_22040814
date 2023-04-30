@@ -64,7 +64,7 @@ class EXU extends Module{
     shamt := ALU_Data2(5, 0)
     memWriteData := rs2_data
     val EX_ALUResult = Mux(csrWriteEn, ALU_Data1, ALU_result)
-    val csrWriteData = ALU_result
+    val csrWriteData = Mux(csrWriteEn, ALU_result, 0x7777.U)
     
     regConnect(io.EX_to_MEM_bus.bits.PC             ,   pc                                      )
     regConnect(io.EX_to_MEM_bus.bits.Inst           ,   inst                                    )
