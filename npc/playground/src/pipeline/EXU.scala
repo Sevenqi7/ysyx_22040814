@@ -77,7 +77,7 @@ class EXU extends Module{
     regConnect(io.EX_to_MEM_bus.bits.csrWriteAddr   ,   csrWriteAddr                            )
     regConnect(io.EX_to_MEM_bus.bits.csrWriteData   ,   ALU_result                              )
     regConnect(io.EX_to_MEM_bus.valid               ,   io.ID_to_EX_bus.valid                   )
-    regConnect(io.EX_to_MEM_bus.bits.ALU_result     ,   Mux(csrWriteEn, rs1_data, ALU_result)   )
+    regConnect(io.EX_to_MEM_bus.bits.ALU_result     ,   Mux(csrWriteEn, ALU_Data1, ALU_result)  )
     io.ID_to_EX_bus.ready := 1.U
 
     io.EX_ALUResult_Pass := ALU_result
@@ -114,7 +114,7 @@ class EXU extends Module{
         (optype === OP_DIVUW, SEXT((ALU_Data1 / ALU_Data2), 32)),
         (optype === OP_REMW,  SEXT(((ALU_Data1.asSInt % ALU_Data2.asSInt).asUInt), 32)),
         (optype === OP_REMUW, SEXT((ALU_Data1 % ALU_Data2), 32)),
-        (optype === OP_NONE, ALU_Data2)
+        (optype === OP_NONE,  ALU_Data2)
     ))
 
 }

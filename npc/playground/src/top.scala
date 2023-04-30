@@ -169,6 +169,8 @@ class top extends Module{
     wb_unit.io.MEM_to_WB_bus                <> mem_unit.io.MEM_to_WB_bus
 
     //CSR
+    csr.io.ID_pc                            := inst_decode_unit.io.ID_pc
+    csr.io.ID_ecall                         := inst_decode_unit.io.ID_ecall
     csr.io.readAddr                         := inst_decode_unit.io.ID_csrReadAddr
     csr.io.writeEn                          := wb_unit.io.WB_csrWriteEn
     csr.io.writeAddr                        := wb_unit.io.WB_csrWriteAddr

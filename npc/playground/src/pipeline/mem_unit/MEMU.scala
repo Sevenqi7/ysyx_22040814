@@ -58,9 +58,9 @@ class MEMU extends Module{
     regConnect(io.MEM_to_WB_bus.bits.regWriteEn        , regWriteEn     )
     regConnect(io.MEM_to_WB_bus.bits.regWriteID        , regWriteID     )
     regConnect(io.MEM_to_WB_bus.bits.regWriteData      , regWriteData   )
-    regConnect(io.MEM_to_WB_bus.bits.csrWriteEn        , csrWriteEn    )
-    regConnect(io.MEM_to_WB_bus.bits.csrWriteAddr      , csrWriteAddr  )
-    regConnect(io.MEM_to_WB_bus.bits.csrWriteData      , csrWriteData  )
+    regConnect(io.MEM_to_WB_bus.bits.csrWriteEn        , csrWriteEn     )
+    regConnect(io.MEM_to_WB_bus.bits.csrWriteAddr      , csrWriteAddr   )
+    regConnect(io.MEM_to_WB_bus.bits.csrWriteData      , csrWriteData   )
 
 
     regConnect(io.MEM_to_WB_bus.valid                  , io.PMEM_to_MEM_bus.valid)

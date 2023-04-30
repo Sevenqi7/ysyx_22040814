@@ -3,6 +3,7 @@ import chisel3.util._
 
 class CSR extends Module{
     val io = IO(new Bundle{
+        val ID_ecall  = Input(Bool())
         val writeEn   = Input(Bool())
         val writeAddr = Input(UInt(12.W))
         val writeData = Input(UInt(64.W))
@@ -21,6 +22,10 @@ class CSR extends Module{
         is (0x305.U){   io.readData :=  mtvec   }
         is (0x341.U){   io.readData :=  mepc    }
         is (0x342.U){   io.readData :=  mcause  }
+    }
+
+    when(io.ID_ecall){
+        mcause := 11.U
     }
 
     when(io.writeEn){

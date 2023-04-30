@@ -154,7 +154,7 @@ class BPU extends Module{
     val bp_taken = Wire(Bool())
     val bp_target = RegInit(0.U(64.W))
 
-    when((B_type | J_type) & !io.ID_to_BPU_bus.bits.load_use_stall){
+    when((B_type | J_type) & !io.ID_to_BPU_bus.bits.stall){
         bp_target := io.bp_npc
     }    
     
@@ -281,7 +281,7 @@ class BPU extends Module{
     when(io.bp_flush & io.ID_to_BPU_bus.valid && io.ID_to_BPU_bus.bits.Type === 3.U){
         jalr_fail := jalr_fail + 1.U
     }
-    when(BTB.io.hit & io.PF_valid & (B_type | J_type) & !io.ID_to_BPU_bus.bits.load_use_stall){
+    when(BTB.io.hit & io.PF_valid & (B_type | J_type) & !io.ID_to_BPU_bus.bits.stall){
         hit_cnt := hit_cnt + 1.U
     }
     
