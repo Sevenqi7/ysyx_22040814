@@ -30,13 +30,11 @@ word_t isa_read_csr(word_t NO)
 
 void isa_write_csr(word_t NO, word_t data)
 {
-  Log("data:0x%lx", data);  
-  Log("NO:0x%lx", NO);
   switch(NO)
   {
     case 0x300: cpu.csr.mstatus = data; break;
-    case 0x305: cpu.csr.mtvec   = data; break;
-    case 0x341: cpu.csr.mepc    = data; Log("reach\n");break;
+    case 0x305: cpu.csr.mtvec   = data; Log("reach\n");break;
+    case 0x341: cpu.csr.mepc    = data; break;
     case 0x342: cpu.csr.mcause  = data; break;
     default: assert(0);
   }
