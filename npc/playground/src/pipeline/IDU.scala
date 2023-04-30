@@ -199,7 +199,7 @@ class IDU extends Module{
     memWriteEn := (instType === TYPE_S)
     memReadEn  := (instType === TYPE_I  && futype === FuType.lsu)
 
-    io.ID_ecall         := opType === OP_ECALL
+    io.ID_ecall         := opType === OpType.OP_ECALL
     io.ID_csrReadAddr   := Mux(io.ID_ecall, 0x305.U, immI)
     
 
@@ -293,12 +293,12 @@ class IDU extends Module{
         (instType === TYPE_J, IF_pc + immJ * 2.U),
         (instType === TYPE_B  &&  BJ_flag, IF_pc + immB * 2.U),
         (instType === TYPE_I  &&  src1 === NPC, rs1_data + immI),
-        (opType   === OP_ECALL, io.CSR_csrReadData)
+        (opType   === OpType.OP_ECALL, io.CSR_csrReadData)
     ))
 
     io.ID_to_BPU_bus.bits.taken := br_taken
     io.ID_to_BPU_bus.valid      := io.IF_to_ID_bus.valid & ((instType === TYPE_J) || (instType === TYPE_B) 
-                                    || (instType === TYPE_I  &&  src1 === NPC) || (opType === OP_ECALL)) && !load_use_stall
+                                    || (instType === TYPE_I  &&  src1 === NPC) || (opType === OpType.OP_ECALL)) && !load_use_stall
     io.ID_to_BPU_bus.bits.stall := load_use_stall | csr_stall
     io.ID_to_BPU_bus.bits.PC    := IF_pc
     io.ID_to_BPU_bus.bits.Type  := Type
