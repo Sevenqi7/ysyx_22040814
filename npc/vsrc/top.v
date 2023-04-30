@@ -9949,7 +9949,7 @@ module top(	// <stdin>:2835:10
   output        io_csrWriteEn,
   output [11:0] io_csrWriteAddr,
   output [63:0] io_csrWriteData,
-                io_PMEM_csrWriteData,
+                io_MEM_csrWriteData,
   output [31:0] io_IF_Inst,
   output        io_IF_valid,
                 io_IF_AXIREQ,
@@ -10508,7 +10508,7 @@ sim simulate (	// top.scala:24:26
   assign io_csrWriteEn = _wb_unit_io_WB_csrWriteEn;	// <stdin>:2835:10, top.scala:85:25
   assign io_csrWriteAddr = _wb_unit_io_WB_csrWriteAddr;	// <stdin>:2835:10, top.scala:85:25
   assign io_csrWriteData = _wb_unit_io_WB_csrWriteData;	// <stdin>:2835:10, top.scala:85:25
-  assign io_PMEM_csrWriteData = _pre_mem_unit_io_PMEM_to_MEM_bus_bits_csrWriteData;	// <stdin>:2835:10, top.scala:83:30
+  assign io_MEM_csrWriteData = _mem_unit_io_MEM_to_WB_bus_bits_csrWriteData;	// <stdin>:2835:10, top.scala:84:26
   assign io_IF_Inst = _inst_fetch_unit_io_IF_to_ID_bus_bits_Inst;	// <stdin>:2835:10, top.scala:80:33
   assign io_IF_valid = _inst_fetch_unit_io_IF_to_ID_bus_valid;	// <stdin>:2835:10, top.scala:80:33
   assign io_IF_AXIREQ = _arb_req_1_ready;	// <stdin>:2835:10, top.scala:190:21

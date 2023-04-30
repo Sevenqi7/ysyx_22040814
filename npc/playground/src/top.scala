@@ -112,9 +112,9 @@ class top extends Module{
     io.pht_update := bp_unit.io.pht_update
     io.ras_push   := bp_unit.io.ras_push    
     io.ras_pop    := bp_unit.io.ras_pop
-    io.csrWriteEn   := wb_unit.io.WB_csrWriteEn
-    io.csrWriteAddr := wb_unit.io.WB_csrWriteAddr
-    io.csrWriteData := wb_unit.io.WB_csrWriteData
+    io.csrWriteEn   := csr.io.writeEn
+    io.csrWriteAddr := csr.io.writeAddr
+    io.csrWriteData := csr.io.writeData
     io.MEM_csrWriteData := mem_unit.io.MEM_to_WB_bus.bits.csrWriteData
 
     io.IF_Inst  := inst_fetch_unit.io.IF_to_ID_bus.bits.Inst
@@ -181,9 +181,9 @@ class top extends Module{
     //CSR
     csr.io.ID_ecall                         := inst_decode_unit.io.ID_ecall
     csr.io.readAddr                         := inst_decode_unit.io.ID_csrReadAddr
-    csr.io.writeEn                          := wb_unit.io.WB_csrWriteEn
-    csr.io.writeAddr                        := wb_unit.io.WB_csrWriteAddr
-    csr.io.writeData                        := wb_unit.io.WB_csrWriteData
+    csr.io.writeEn                          := mem_unit.io.MEM_to_WB_bus.bits.csrWriteEn
+    csr.io.writeAddr                        := mem_unit.io.MEM_to_WB_bus.bits.csrWriteAddr
+    csr.io.writeData                        := mem_unit.io.MEM_to_WB_bus.bits.csrWriteData
 
 
     val ram_unit = Module(new RAMU)

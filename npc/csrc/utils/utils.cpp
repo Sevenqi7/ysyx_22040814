@@ -12,7 +12,7 @@ void clock_step()
     }
     Log("IF_pc:0x%lx", top->io_IF_pc); 
     // Log("ALUResult:0x%lx", top->io_ALUResult);
-    Log("PMEM_csrWriteData:0x%lx", top->io_PMEM_csrWriteData);
+    Log("MEM_csrWriteData:0x%lx", top->io_MEM_csrWriteData);
     if(top->io_csrWriteEn){
         Log("csrWriteAddr:0x%x", top->io_csrWriteAddr);
         Log("csrWriteData:0x%lx", top->io_csrWriteData);

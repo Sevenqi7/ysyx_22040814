@@ -13,9 +13,6 @@ class WBU extends Module{
     val io = IO(new Bundle{
         val MEM_to_WB_bus    = Flipped(Decoupled(new MEM_to_WB_Message))
         val WB_to_ID_forward = Decoupled(new WB_to_ID_Message)
-        val WB_csrWriteEn    = Output(Bool())
-        val WB_csrWriteAddr  = Output(UInt(12.W))
-        val WB_csrWriteData  = Output(UInt(64.W))
         
         //for NPC to trace
         val WB_pc            = Output(UInt(64.W))
@@ -33,9 +30,6 @@ class WBU extends Module{
 
     io.WB_pc           := io.MEM_to_WB_bus.bits.PC
     io.WB_Inst         := io.MEM_to_WB_bus.bits.Inst
-    io.WB_csrWriteEn   := io.MEM_to_WB_bus.bits.csrWriteEn 
-    io.WB_csrWriteAddr := io.MEM_to_WB_bus.bits.csrWriteAddr
-    io.WB_csrWriteData := io.MEM_to_WB_bus.bits.csrWriteData
 
     io.MEM_to_WB_bus.ready := 1.U
 }
