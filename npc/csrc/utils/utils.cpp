@@ -11,6 +11,11 @@ void clock_step()
         top->eval();    
     }
     Log("IF_pc:0x%lx", top->io_IF_pc); 
+    Log("ALUResult:0x%lx", top->io_ALUResult);
+    if(top->io_csrWriteEn){
+        Log("csrWriteAddr:0x%x", top->io_csrWriteAddr);
+        Log("csrWriteData:0x%lx", top->io_csrWriteData);
+    }
 
 #ifdef CONFIG_DEBUGMSG
     printf("\n");

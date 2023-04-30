@@ -86,6 +86,7 @@ class top extends Module{
 
     val inst_ram     = Module(new sim_sram)
 
+
     //for npc to trace
     io.BTB_hit   := bp_unit.io.BTB_hit
     io.BTB_rset  := bp_unit.io.BTB_rset
@@ -110,9 +111,9 @@ class top extends Module{
     io.pht_update := bp_unit.io.pht_update
     io.ras_push   := bp_unit.io.ras_push    
     io.ras_pop    := bp_unit.io.ras_pop
-    io.csrWriteEn   := csr.io.writeEn
-    io.csrWriteAddr := csr.io.writeAddr
-    io.csrWriteData := csr.io.writeData
+    io.csrWriteEn   := wb_unit.io.csrWriteEn
+    io.csrWriteAddr := wb_unit.io.csrWriteAddr
+    io.csrWriteData := wb_unit.io.csrWriteData
 
     io.IF_Inst  := inst_fetch_unit.io.IF_to_ID_bus.bits.Inst
     io.IF_valid := inst_fetch_unit.io.IF_to_ID_bus.valid
