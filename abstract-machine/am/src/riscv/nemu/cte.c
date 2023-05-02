@@ -15,7 +15,8 @@ Context* __am_irq_handle(Context *c) {
 
     c = user_handler(ev, c);
     assert(c != NULL);
-    c->mepc = c->mepc + 4;
+    if(c->mcause == 0xb)
+        c->mepc = c->mepc + 4;
   }
   return c;
 }
