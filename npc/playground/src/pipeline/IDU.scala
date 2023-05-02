@@ -3,6 +3,7 @@ import chisel3.util._
 import InstType._
 import FuSource._
 import utils._
+import java.awt.font.OpenType
 
 
 class ID_BPU_Message extends Bundle{
@@ -200,8 +201,10 @@ class IDU extends Module{
     memReadEn  := (instType === TYPE_I  && futype === FuType.lsu)
 
     io.ID_ecall         := opType === OpType.OP_ECALL
-    io.ID_csrReadAddr   := Mux(io.ID_ecall, 0x305.U, immI)
-    
+    io.ID_csrReadAddr   := MuxCase(immI, Seq(
+                            (opType === OP_ECALL, 0x305.U),
+                            (opType === OP_MRET , 0x341.U)
+                        ))
 
     val load_use_stall = Wire(Bool())
     val csr_stall      = Wire(Bool())
@@ -293,7 +296,7 @@ class IDU extends Module{
         (instType === TYPE_J, IF_pc + immJ * 2.U),
         (instType === TYPE_B  &&  BJ_flag, IF_pc + immB * 2.U),
         (instType === TYPE_I  &&  src1 === NPC, rs1_data + immI),
-        (opType   === OpType.OP_ECALL, io.CSR_csrReadData)
+        (opType   === OpType.OP_ECALL || opType === OpType.OP_MRET, io.CSR_csrReadData),
     ))
 
     io.ID_to_BPU_bus.bits.taken := br_taken
@@ -309,6 +312,7 @@ object RV64IInstr{
     // Special insts
     def EBREAK    = BitPat("b0000000 00001 00000 000 00000 11100 11")
     def ECALL     = BitPat("b0000000 00000 00000 000 00000 11100 11")
+    def MRET      = BitPat("b0011000 00010 00000 000 00000 11100 11")
     def CSRRS     = BitPat("b??????? ????? ????? 010 ????? 11100 11")
     def CSRRW     = BitPat("b??????? ????? ????? 001 ????? 11100 11")
 
@@ -388,6 +392,7 @@ object RV64IInstr{
         ECALL          -> List(TYPE_N, FuType.alu, PC  , CSR , OpType.OP_ECALL  ),
         CSRRS          -> List(TYPE_E, FuType.alu, RS1 , CSR , OpType.OP_OR     ),
         CSRRW          -> List(TYPE_E, FuType.alu, RS1 , CSR , OpType.OP_NONE   ),
+        MRET           -> List(TYPE_N, FuType.alu, ZERO, CSR , OpType.OP_MRET   ),
 
         //U Type
         AUIPC          -> List(TYPE_U, FuType.alu, PC  , IMM , OpType.OP_PLUS   ),

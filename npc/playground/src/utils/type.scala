@@ -1,36 +1,37 @@
 import chisel3._
 
 object OpType{
-    val OP_PLUS  = 1.U
-    val OP_SUB   = 2.U
-    val OP_JAL   = 3.U
-    val OP_AND   = 4.U
-    val OP_OR    = 5.U
-    val OP_XOR   = 6.U
-    val OP_SLL   = 7.U
-    val OP_SRL   = 8.U
-    val OP_SRA   = 9.U
-    val OP_SLT   = 10.U
-    val OP_SLTU  = 11.U
-    val OP_MUL   = 12.U
-    val OP_DIV   = 13.U
-    val OP_DIVU  = 14.U
-    val OP_REM   = 15.U
-    val OP_REMU  = 16.U
-    val OP_ADDW  = 17.U
-    val OP_SUBW  = 18.U
-    val OP_SLLW  = 19.U
-    val OP_SRAW  = 20.U
-    val OP_SRLW  = 21.U
-    val OP_XORW  = 22.U
-    val OP_ORW   = 23.U
-    val OP_ANDW  = 24.U
-    val OP_MULW  = 25.U
-    val OP_DIVW  = 26.U
-    val OP_DIVUW = 27.U
-    val OP_REMW  = 28.U
-    val OP_REMUW = 29.U
-    val OP_ECALL = 30.U
+    val OP_PLUS  = 0.U
+    val OP_SUB   = 1.U
+    val OP_JAL   = 2.U
+    val OP_AND   = 3.U
+    val OP_OR    = 4.U
+    val OP_XOR   = 5.U
+    val OP_SLL   = 6.U
+    val OP_SRL   = 7.U
+    val OP_SRA   = 8.U
+    val OP_SLT   = 9.U
+    val OP_SLTU  = 10.U
+    val OP_MUL   = 11.U
+    val OP_DIV   = 12.U
+    val OP_DIVU  = 13.U
+    val OP_REM   = 14.U
+    val OP_REMU  = 15.U
+    val OP_ADDW  = 16.U
+    val OP_SUBW  = 17.U
+    val OP_SLLW  = 18.U
+    val OP_SRAW  = 19.U
+    val OP_SRLW  = 20.U
+    val OP_XORW  = 21.U
+    val OP_ORW   = 22.U
+    val OP_ANDW  = 23.U
+    val OP_MULW  = 24.U
+    val OP_DIVW  = 25.U
+    val OP_DIVUW = 26.U
+    val OP_REMW  = 27.U
+    val OP_REMUW = 28.U
+    val OP_ECALL = 29.U
+    val OP_MRET  = 30.U
     val OP_NONE  = 31.U
 }
 

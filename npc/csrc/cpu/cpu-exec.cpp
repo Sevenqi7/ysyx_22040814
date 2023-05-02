@@ -70,9 +70,9 @@ void exec_once()            //disassemble实质上是反汇编的上一个已执
     if(inst_fault)                           //if an unimplemented inst found, directly record inst trace without excuting next inst
     {                                                       
         npc_state.state = NPC_ABORT;
-        uint32_t abort_inst = pmem_read(top->io_ID_pc, 4);
+        uint32_t abort_inst = pmem_read(top->io_PF_pc, 4);
         printf("\033[0m\033[1;31m%s\033[0m\n", "UNKNOWN INST RECEIVED in IDU:");
-        printf("\033[0m\033[1;31mPC:0x%016lx inst:0x%08x\033[0m\n", top->io_IF_pc, abort_inst);
+        printf("\033[0m\033[1;31mPC:0x%016lx inst:0x%08x\033[0m\n", top->io_PF_pc, abort_inst);
     }
     clock_step();
     
