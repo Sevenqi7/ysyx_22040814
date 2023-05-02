@@ -202,8 +202,8 @@ class IDU extends Module{
 
     io.ID_ecall         := opType === OpType.OP_ECALL
     io.ID_csrReadAddr   := MuxCase(immI, Seq(
-                            (opType === OP_ECALL, 0x305.U),
-                            (opType === OP_MRET , 0x341.U)
+                            (opType === OpType.OP_ECALL, 0x305.U),
+                            (opType === OpType.OP_MRET , 0x341.U)
                         ))
 
     val load_use_stall = Wire(Bool())
