@@ -8,7 +8,7 @@ class CSR extends Module{
         val writeAddr = Input(UInt(12.W))
         val writeData = Input(UInt(64.W))
         val readAddr  = Input(UInt(12.W))
-        val readData  = Output(UInt(32.W))
+        val readData  = Output(UInt(64.W))
 
         //debug
         val mstatus   = Output(UInt(64.W))

@@ -9740,10 +9740,10 @@ module CSR(	// <stdin>:2648:10
   reg [63:0] mcause;	// CSR.scala:23:26
   always @(posedge clock) begin
     if (reset) begin
-      mstatus <= 64'h0;	// CSR.scala:20:26
-      mtvec <= 64'h0;	// CSR.scala:20:26, :21:26
-      mepc <= 64'h0;	// CSR.scala:20:26, :22:26
-      mcause <= 64'h0;	// CSR.scala:20:26, :23:26
+      mstatus <= 64'hA00001800;	// CSR.scala:20:26
+      mtvec <= 64'h0;	// CSR.scala:21:26
+      mepc <= 64'h0;	// CSR.scala:21:26, :22:26
+      mcause <= 64'h0;	// CSR.scala:21:26, :23:26
     end
     else begin
       automatic logic _T_4 = io_writeAddr == 12'h300;	// CSR.scala:31:24, :43:29

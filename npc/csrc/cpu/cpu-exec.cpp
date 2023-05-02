@@ -103,7 +103,6 @@ trace:
 
 void execute(uint64_t n)
 {
-    g_print_step = (n < MAX_INST_TO_PRINT);
     switch(npc_state.state)
     {
         case NPC_END: case NPC_ABORT:
@@ -111,10 +110,10 @@ void execute(uint64_t n)
             return ;
         default: npc_state.state = NPC_RUNNING;
     }
-
     for(int i=0;i<n;i++)
     {
         exec_once();
+        g_print_step = (n < MAX_INST_TO_PRINT);
         device_update();
         if(npc_state.state != NPC_RUNNING){
             Log("Recieve %ld bubbles in pipeline running", nr_bubble);
