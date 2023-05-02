@@ -110,7 +110,7 @@ static void execute(uint64_t n) {
     exec_once(&s, cpu.pc);
     g_nr_guest_inst ++;
     trace_and_difftest(&s, cpu.pc);
-    Log("nemu mtvec:0x%lx", cpu.csr.mtvec);
+    if(n % 5000 == 0)Log("nemu mtvec:0x%lx", cpu.csr.mtvec);
     if (nemu_state.state != NEMU_RUNNING) break;
     IFDEF(CONFIG_DEVICE, device_update());
   }
