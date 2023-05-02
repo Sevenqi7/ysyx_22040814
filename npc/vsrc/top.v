@@ -9728,8 +9728,8 @@ module CSR(	// <stdin>:2648:10
   input  [11:0] io_writeAddr,
   input  [63:0] io_writeData,
   input  [11:0] io_readAddr,
-  output [31:0] io_readData,
-  output [63:0] io_mstatus,
+  output [63:0] io_readData,
+                io_mstatus,
                 io_mtvec,
                 io_mepc,
                 io_mcause);
@@ -9802,8 +9802,8 @@ module CSR(	// <stdin>:2648:10
       `FIRRTL_AFTER_INITIAL	// <stdin>:2648:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  assign io_readData = io_readAddr == 12'h300 ? mstatus[31:0] : io_readAddr == 12'h305 ? mtvec[31:0] : io_readAddr
-                == 12'h341 ? mepc[31:0] : io_readAddr == 12'h342 ? mcause[31:0] : 32'h0;	// <stdin>:2648:10, CSR.scala:20:26, :21:26, :22:26, :23:26, :30:17, :31:24, :32:37, :33:37, :34:37, :35:37
+  assign io_readData = io_readAddr == 12'h300 ? mstatus : io_readAddr == 12'h305 ? mtvec : io_readAddr == 12'h341
+                ? mepc : io_readAddr == 12'h342 ? mcause : 64'h0;	// <stdin>:2648:10, CSR.scala:20:26, :21:26, :22:26, :23:26, :30:17, :31:24, :32:37, :33:37, :34:37, :35:37
   assign io_mstatus = mstatus;	// <stdin>:2648:10, CSR.scala:20:26
   assign io_mtvec = mtvec;	// <stdin>:2648:10, CSR.scala:21:26
   assign io_mepc = mepc;	// <stdin>:2648:10, CSR.scala:22:26
@@ -9995,7 +9995,7 @@ module top(	// <stdin>:2839:10
   wire        _inst_ram_wready;	// top.scala:94:30
   wire [1:0]  _inst_ram_bresp;	// top.scala:94:30
   wire        _inst_ram_bvalid;	// top.scala:94:30
-  wire [31:0] _csr_io_readData;	// top.scala:92:25
+  wire [63:0] _csr_io_readData;	// top.scala:92:25
   wire [63:0] _wb_unit_io_WB_to_ID_forward_bits_regWriteData;	// top.scala:91:25
   wire        _wb_unit_io_WB_to_ID_forward_bits_regWriteEn;	// top.scala:91:25
   wire [4:0]  _wb_unit_io_WB_to_ID_forward_bits_regWriteID;	// top.scala:91:25
@@ -10206,7 +10206,7 @@ module top(	// <stdin>:2839:10
     .io_MEM_to_ID_forward_bits_csrWriteEn    (_mem_unit_io_MEM_to_ID_forward_bits_csrWriteEn),	// top.scala:90:26
     .io_MEM_to_ID_forward_bits_csrWriteAddr  (_mem_unit_io_MEM_to_ID_forward_bits_csrWriteAddr),	// top.scala:90:26
     .io_EX_ALUResult                         (_excute_unit_io_EX_ALUResult_Pass),	// top.scala:88:29
-    .io_CSR_csrReadData                      ({32'h0, _csr_io_readData}),	// top.scala:92:25, :179:45, :201:21
+    .io_CSR_csrReadData                      (_csr_io_readData),	// top.scala:92:25
     .io_IF_to_ID_bus_ready                   (_inst_decode_unit_io_IF_to_ID_bus_ready),
     .io_ID_to_EX_bus_valid                   (_inst_decode_unit_io_ID_to_EX_bus_valid),
     .io_ID_to_EX_bus_bits_ALU_Data1          (_inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data1),
