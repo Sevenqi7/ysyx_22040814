@@ -106,11 +106,12 @@ static void exec_once(Decode *s, vaddr_t pc) {
 
 static void execute(uint64_t n) {
   Decode s;
+  uint64_t temp = cpu.csr.mtvec;
   for (;n > 0; n --) {
     exec_once(&s, cpu.pc);
     g_nr_guest_inst ++;
     trace_and_difftest(&s, cpu.pc);
-    if(((n % 49) / 24 == 2))Log("nemu mtvec:0x%lx", cpu.csr.mtvec);
+    if(cpu.csr.mtvec != temp) Log("pc:0x%lx", cpu.pc);
     if (nemu_state.state != NEMU_RUNNING) break;
     IFDEF(CONFIG_DEVICE, device_update());
   }
