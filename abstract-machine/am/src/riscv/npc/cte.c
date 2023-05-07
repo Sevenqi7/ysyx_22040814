@@ -6,12 +6,16 @@ static Context* (*user_handler)(Event, Context*) = NULL;
 Context* __am_irq_handle(Context *c) {
   if (user_handler) {
     Event ev = {0};
+    uint64_t syscall_num = c->gpr[17];
     switch (c->mcause) {
+      case 0xb: ev.event = (syscall_num == 0ULL-1) ? EVENT_YIELD : EVENT_SYSCALL; break;
       default: ev.event = EVENT_ERROR; break;
     }
 
     c = user_handler(ev, c);
     assert(c != NULL);
+    if(c->mcause == 0xb)
+        c->mepc = c->mepc + 4;
   }
 
   return c;

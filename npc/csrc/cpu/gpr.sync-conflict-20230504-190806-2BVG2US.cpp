@@ -43,12 +43,6 @@ void reg_display() {
   for (i = 0; i < 32; i++) {
     printf("%s = 0x%016lx\n", regs[i], cpu_gpr[i]);
   }
-  printf("CSRs:\n");
-  printf("mstatus = 0x%016lx\n", top->io_mstatus);
-  printf("mepc    = 0x%016lx\n", top->io_mepc);
-  printf("mtvec   = 0x%016lx\n", top->io_mtvec);
-  printf("mcause  = 0x%016lx\n", top->io_mcause);
-
 }
 
 uint64_t reg_str2val(const char *s, bool *success) {

@@ -29,11 +29,11 @@ word_t isa_read_csr(word_t NO)
 }
 
 void isa_write_csr(word_t NO, word_t data)
-{  
+{
   switch(NO)
   {
     case 0x300: cpu.csr.mstatus = data; break;
-    case 0x305: cpu.csr.mtvec   = data; break;
+    case 0x305: cpu.csr.mtvec   = data; Log("reach:0x%lx\n", data);break;
     case 0x341: cpu.csr.mepc    = data; break;
     case 0x342: cpu.csr.mcause  = data; break;
     default: assert(0);
@@ -46,7 +46,7 @@ word_t isa_raise_intr(word_t NO, vaddr_t epc) {
    */
   cpu.csr.mepc = epc;
   cpu.csr.mcause = NO;
-  IFDEF(CONFIG_ETRACE, Log("Exception occurs: code:%lu pc:0x%lx", NO, epc));
+  IFDEF(CONFIG_ETRACE, Log("Exception occurs: code:%lu pc:0x%lx ret_addr:0x%lx", NO, epc, cpu.csr.mtvec));
   return cpu.csr.mtvec;
 }
 

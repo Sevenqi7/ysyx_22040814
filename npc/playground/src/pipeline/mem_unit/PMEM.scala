@@ -5,15 +5,19 @@ import utils._
 import LSUOpType._
 
 class PMEM_MEM_Message extends Bundle{
-    val ALU_result      = UInt(64.W)
-    val regWriteEn      = Bool()
-    val regWriteID      = UInt(5.W)
-    val memWriteData    = UInt(64.W)
-    val memWriteEn      = Bool()
-    val memReadEn       = Bool()
-    val lsutype         = UInt(5.W)
-    val PC              = UInt(64.W)
-    val Inst            = UInt(32.W)
+    val ALU_result      =   UInt(64.W)
+    val regWriteEn      =   Bool()
+    val regWriteID      =   UInt(5.W)
+    val memWriteData    =   UInt(64.W)
+    val memWriteEn      =   Bool()
+    val memReadEn       =   Bool()
+    val lsutype         =   UInt(5.W)
+    val csrWriteAddr    =   UInt(12.W)
+    val csrWriteEn      =   Bool()
+    val csrWriteData    =   UInt(64.W)
+
+    val PC              =   UInt(64.W)
+    val Inst            =   UInt(32.W)
 }
 
 class PMEM_to_ID_Message extends Bundle{
@@ -21,6 +25,8 @@ class PMEM_to_ID_Message extends Bundle{
     val regWriteEn      = Bool()
     val regWriteID      = UInt(5.W)
     val memReadEn       = Bool()
+    val csrWriteAddr    =   UInt(12.W)
+    val csrWriteEn      =   Bool()
 }
 
 class MEM_pre_stage extends Module{
@@ -43,6 +49,9 @@ class MEM_pre_stage extends Module{
     val lsutype      =  io.EX_to_MEM_bus.bits.lsutype
     val regWriteID   =  io.EX_to_MEM_bus.bits.regWriteID
     val regWriteEn   =  io.EX_to_MEM_bus.bits.regWriteEn
+    val csrWriteEn   =  io.EX_to_MEM_bus.bits.csrWriteEn
+    val csrWriteAddr =  io.EX_to_MEM_bus.bits.csrWriteAddr
+    val csrWriteData =  io.EX_to_MEM_bus.bits.csrWriteData
     
     axi_req.valid   :=  (lsutype > 0.U) | (io.PMEM_to_MEM_bus.bits.lsutype > 0.U)
     val wstrb = Wire(UInt(8.W))
@@ -75,6 +84,9 @@ class MEM_pre_stage extends Module{
     regConnect(io.PMEM_to_MEM_bus.bits.memWriteEn   , memWriteEn    )
     regConnect(io.PMEM_to_MEM_bus.bits.memWriteData , memWriteData  )
     regConnect(io.PMEM_to_MEM_bus.bits.lsutype      , lsutype       )
+    regConnect(io.PMEM_to_MEM_bus.bits.csrWriteEn   , csrWriteEn    )
+    regConnect(io.PMEM_to_MEM_bus.bits.csrWriteAddr , csrWriteAddr  )
+    regConnect(io.PMEM_to_MEM_bus.bits.csrWriteData , csrWriteData  )
     regConnect(io.PMEM_to_MEM_bus.valid             , io.EX_to_MEM_bus.valid)
     io.memReadData                          := memReadData
     io.EX_to_MEM_bus.ready                  := 1.U
@@ -97,5 +109,7 @@ class MEM_pre_stage extends Module{
     io.PMEM_to_ID_forward.bits.regWriteEn   := regWriteEn
     io.PMEM_to_ID_forward.bits.regWriteID   := regWriteID
     io.PMEM_to_ID_forward.bits.memReadEn    := memReadEn
+    io.PMEM_to_ID_forward.bits.csrWriteEn   := csrWriteEn
+    io.PMEM_to_ID_forward.bits.csrWriteAddr := csrWriteAddr
     io.PMEM_to_ID_forward.valid             := 1.U
 }

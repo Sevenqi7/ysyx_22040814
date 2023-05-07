@@ -35,9 +35,9 @@ void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction) {
 
 void difftest_regcpy(void *dut, bool direction) {
   if(direction == DIFFTEST_TO_DUT)
-      memcpy(dut, &cpu, sizeof(cpu));
+      memcpy(dut, &cpu, sizeof(cpu.gpr)+sizeof(cpu.pc));     //only copy pc and gpr
   else if(direction == DIFFTEST_TO_REF)
-      memcpy(&cpu, dut, sizeof(cpu)); 
+      memcpy(&cpu, dut, sizeof(cpu.gpr)+sizeof(cpu.pc)); 
 }
 
 void difftest_exec(uint64_t n) {

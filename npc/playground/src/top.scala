@@ -58,6 +58,16 @@ class top extends Module{
         val pht_update = Output(UInt(2.W))
         val ras_push = Output(UInt(64.W))
         val ras_pop  = Output(UInt(64.W))
+        
+        val csrWriteEn = Output(Bool())
+        val csrWriteAddr = Output(UInt(12.W))
+        val csrWriteData = Output(UInt(64.W))
+        val EX_csrWriteData = Output(UInt(64.W))
+        val mstatus   = Output(UInt(64.W))
+        val mtvec     = Output(UInt(64.W))
+        val mepc      = Output(UInt(64.W))
+        val mcause    = Output(UInt(64.W))      
+
 
         val IF_Inst = Output(UInt(32.W))
         val IF_valid = Output(Bool())
@@ -66,6 +76,7 @@ class top extends Module{
 
         val ID_ALU_Data1 = Output(UInt(64.W))
         val ID_ALU_Data2 = Output(UInt(64.W))
+        val EX_ALU_result_pass = Output(UInt(64.W))
         val ID_Rs1Data = Output(UInt(64.W))
         val ID_Rs2Data = Output(UInt(64.W))
         val ALUResult = Output(UInt(64.W))
@@ -78,8 +89,10 @@ class top extends Module{
     val pre_mem_unit = Module(new MEM_pre_stage)
     val mem_unit = Module(new MEMU)
     val wb_unit = Module(new WBU)
+    val csr     = Module(new CSR)
 
     val inst_ram     = Module(new sim_sram)
+
 
     //for npc to trace
     io.BTB_hit   := bp_unit.io.BTB_hit
@@ -105,6 +118,10 @@ class top extends Module{
     io.pht_update := bp_unit.io.pht_update
     io.ras_push   := bp_unit.io.ras_push    
     io.ras_pop    := bp_unit.io.ras_pop
+    io.csrWriteEn   := csr.io.writeEn
+    io.csrWriteAddr := csr.io.writeAddr
+    io.csrWriteData := csr.io.writeData
+    io.EX_csrWriteData := excute_unit.io.EX_to_MEM_bus.bits.csrWriteData
 
     io.IF_Inst  := inst_fetch_unit.io.IF_to_ID_bus.bits.Inst
     io.IF_valid := inst_fetch_unit.io.IF_to_ID_bus.valid
@@ -127,9 +144,15 @@ class top extends Module{
     io.ID_ALU_Data2 := inst_decode_unit.io.ID_to_EX_bus.bits.ALU_Data2
     io.ID_Rs1Data := inst_decode_unit.io.ID_to_EX_bus.bits.rs1_data
     io.ID_Rs2Data := inst_decode_unit.io.ID_to_EX_bus.bits.rs2_data
+    io.EX_ALU_result_pass := excute_unit.io.EX_ALUResult_Pass
     io.ALUResult  := excute_unit.io.EX_to_MEM_bus.bits.ALU_result
     io.stall := inst_decode_unit.io.ID_stall
     
+    io.mstatus := csr.io.mstatus
+    io.mtvec   := csr.io.mtvec
+    io.mepc    := csr.io.mepc
+    io.mcause  := csr.io.mcause
+
 
     val simulate = Module(new sim)
     
@@ -153,20 +176,25 @@ class top extends Module{
     inst_decode_unit.io.PMEM_to_ID_forward  <> pre_mem_unit.io.PMEM_to_ID_forward
     inst_decode_unit.io.MEM_to_ID_forward   <> mem_unit.io.MEM_to_ID_forward
     inst_decode_unit.io.EX_ALUResult        := excute_unit.io.EX_ALUResult_Pass
+    inst_decode_unit.io.CSR_csrReadData     := csr.io.readData
 
     excute_unit.io.ID_to_EX_bus             <> inst_decode_unit.io.ID_to_EX_bus
     excute_unit.io.MEM_regWriteData         := mem_unit.io.MEM_to_ID_forward.bits.regWriteData
-    excute_unit.io.WB_to_EX_forward         <> wb_unit.io.WB_to_ID_forward
 
     //PMEM
     pre_mem_unit.io.EX_to_MEM_bus           <> excute_unit.io.EX_to_MEM_bus
-
-    //PMEM END
 
     mem_unit.io.PMEM_to_MEM_bus             <> pre_mem_unit.io.PMEM_to_MEM_bus
     mem_unit.io.memReadData                 := pre_mem_unit.io.memReadData
 
     wb_unit.io.MEM_to_WB_bus                <> mem_unit.io.MEM_to_WB_bus
+
+    //CSR
+    csr.io.ID_ecall                         := inst_decode_unit.io.ID_ecall
+    csr.io.readAddr                         := inst_decode_unit.io.ID_csrReadAddr
+    csr.io.writeEn                          := mem_unit.io.MEM_to_WB_bus.bits.csrWriteEn
+    csr.io.writeAddr                        := mem_unit.io.MEM_to_WB_bus.bits.csrWriteAddr
+    csr.io.writeData                        := mem_unit.io.MEM_to_WB_bus.bits.csrWriteData
 
 
     val ram_unit = Module(new RAMU)
