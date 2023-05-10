@@ -143,13 +143,15 @@ class BPU extends Module{
     val opcode = io.PF_inst(6, 0)
     val B_type = Wire(Bool())
     val J_type = Wire(Bool())
-    val call   = Wire(Bool())
-    val ret    = Wire(Bool())
+    val JAL    = Wire(Bool())
+    val JALR   = Wire(Bool())
  
+    JAL     := (opcode === "b1100111".U)
+    JALR    := (opcode === "b1101111".U)
+
     B_type  := (opcode === "b1100011".U)
-    J_type  := (opcode === "b1101111".U) || (opcode === "b1100111".U)
-    call :=  (opcode === "b1101111".U) & (io.PF_inst(11, 7) === 1.U)
-    ret  :=  (opcode === "b1100111".U) & (io.PF_inst(19, 15) === 1.U) & (io.PF_inst(11, 7) === 0.U)
+    J_type  :=  JAL | JALR
+
 
     val bp_taken = Wire(Bool())
     val bp_target = RegInit(0.U(64.W))
@@ -236,11 +238,19 @@ class BPU extends Module{
     
             
     //RAS
+    val rs1 = io.PF_inst(19, 15)
+    val rs2 = io.PF_inst(24, 20)
+    val rd  = io.PF_inst(11, 7)
 
-    RAS.io.pushEn := call & io.PF_valid
+    val pushEn = (J_type & (rd === 1.U || rd === 5.U)) | (JALR & (rd === 1.U || rd === 5.U) & (rs1 === rd))
+    val popEn  = J_type & (rs1 === 1.U || rs1 === 5.U)
+    RAS.io.pushEn := pushEn & io.PF_valid
+    RAS.io.popEn  := popEn & io.PF_valid
+
+    // RAS.io.pushEn := call & io.PF_valid
     RAS.io.push   := io.PF_pc + 4.U
-    RAS.io.popEn  := ret  & io.PF_valid
-    
+    // RAS.io.popEn  := ret  & io.PF_valid
+
     io.ras_pop    := RAS.io.pop
     io.ras_push   := Mux(RAS.io.pushEn, RAS.io.push, 0.U)
             
