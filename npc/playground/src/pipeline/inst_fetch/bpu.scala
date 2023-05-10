@@ -239,8 +239,8 @@ class BPU extends Module{
     val rs2 = io.PF_inst(24, 20)
     val rd  = io.PF_inst(11, 7)
 
-    val pushEn = (J_type & (rd === 1.U || rd === 5.U)) | (JALR & (rd === 1.U || rd === 5.U) & (rs1 === rd))
-    val popEn  = J_type & (rs1 === 1.U || rs1 === 5.U)
+    val pushEn = (J_type & (rd === 1.U || rd === 5.U) & (rs1 =/= 1.U && rs1 =/= 5.U)) | (JALR & (rd === 1.U || rd === 5.U) & (rs1 === rd))
+    val popEn  = J_type & (rs1 === 1.U || rs1 === 5.U) & (rd =/= 1.U && rd =/= 5.U)
     RAS.io.pushEn := pushEn & io.PF_valid
     RAS.io.popEn  := popEn & io.PF_valid
 
