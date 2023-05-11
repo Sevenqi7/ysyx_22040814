@@ -49,7 +49,7 @@ class AXIWriteResponse(idBits: Int) extends Bundle {
 class AXIReadData(dataWidthBits: Int, idBits: Int) extends Bundle {
   val data    = UInt(dataWidthBits.W)
   val id      = UInt(idBits.W)
-  val last    = 
+  val last    = Bool()
   val resp    = UInt(2.W)
   override def clone = { new AXIReadData(dataWidthBits, idBits).asInstanceOf[this.type] }
 }
