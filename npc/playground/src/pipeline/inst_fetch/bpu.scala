@@ -9,12 +9,6 @@ object PH_State{
     val SNT = "b10".U          //strongly not taken
 }
 
-class CacheLine extends Bundle{
-    val tag  = UInt(16.W)
-    val data = UInt(64.W)
-    val valid = Bool()
-}
-
 class BPU_Cache(tagWidth: Int, nrSets: Int, nrLines: Int) extends Module{
     val io = IO(new Bundle{
         val raddr = Input(UInt(64.W))
