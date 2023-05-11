@@ -1,9 +1,8 @@
 package AXIDefs
 {
 
-import Chisel._
-import Literal._
-import Node._
+import chisel3._
+import chisel3.util._
 
 // Part I: Definitions for the actual data carried over AXI channels
 // in part II we will provide definitions for the actual AXI interfaces
