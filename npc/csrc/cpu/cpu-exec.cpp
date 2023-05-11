@@ -116,12 +116,12 @@ void execute(uint64_t n)
         g_print_step = (n < MAX_INST_TO_PRINT);
         device_update();
         if(npc_state.state != NPC_RUNNING){
-            Log("Recieve %ld bubbles in pipeline running", nr_bubble);
+            Log("Recieve %ld bubbles when pipelines running", nr_bubble);
             Log("nr of jal:%d", top->io_jal_cnt);
             Log("failure of jal:%d", top->io_jal_fail);
-            Log("nr_of_jalr:%d", top->io_jalr_cnt);
+            Log("nr of jalr:%d", top->io_jalr_cnt);
             Log("failure of jalr:%d", top->io_jalr_fail);
-            Log("nr_of_btype:%d", top->io_btype_cnt);
+            Log("nr of btype:%d", top->io_btype_cnt);
             Log("failure of btype:%d", top->io_btype_fail);
             Log("total branch inst: %ld",top->io_jal_cnt + top->io_jalr_cnt + top->io_btype_cnt);
             Log("total fail prediction: %ld", top->io_jal_fail + top->io_jalr_fail + top->io_btype_fail);

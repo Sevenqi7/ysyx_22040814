@@ -9,12 +9,6 @@ object PH_State{
     val SNT = "b10".U          //strongly not taken
 }
 
-class CacheLine extends Bundle{
-    val tag  = UInt(16.W)
-    val data = UInt(64.W)
-    val valid = Bool()
-}
-
 class BPU_Cache(tagWidth: Int, nrSets: Int, nrLines: Int) extends Module{
     val io = IO(new Bundle{
         val raddr = Input(UInt(64.W))
@@ -143,13 +137,15 @@ class BPU extends Module{
     val opcode = io.PF_inst(6, 0)
     val B_type = Wire(Bool())
     val J_type = Wire(Bool())
-    val call   = Wire(Bool())
-    val ret    = Wire(Bool())
+    val JAL    = Wire(Bool())
+    val JALR   = Wire(Bool())
  
+    JAL     := (opcode === "b1100111".U)
+    JALR    := (opcode === "b1101111".U)
+
     B_type  := (opcode === "b1100011".U)
-    J_type  := (opcode === "b1101111".U) || (opcode === "b1100111".U)
-    call :=  (opcode === "b1101111".U) & (io.PF_inst(11, 7) === 1.U)
-    ret  :=  (opcode === "b1100111".U) & (io.PF_inst(19, 15) === 1.U) & (io.PF_inst(11, 7) === 0.U)
+    J_type  :=  JAL | JALR
+
 
     val bp_taken = Wire(Bool())
     val bp_target = RegInit(0.U(64.W))
@@ -199,7 +195,7 @@ class BPU extends Module{
         when(BTB.io.hit){
             bp_taken := Mux(J_type, 1.U, PHT(pht_idx)(pht_sel))
         }
-        .elsewhen(ret){
+        .elsewhen(J_type){
             bp_taken := 1.U
         }
     }
@@ -236,19 +232,30 @@ class BPU extends Module{
     
             
     //RAS
+    val rs1 = io.PF_inst(19, 15)
+    val rs2 = io.PF_inst(24, 20)
+    val rd  = io.PF_inst(11, 7)
 
-    RAS.io.pushEn := call & io.PF_valid
+    val pushEn = (JAL & (rd === 1.U || rd === 5.U)) | (JALR & (rd === 1.U || rd === 5.U) & (rs1 === rd))
+    val popEn  = JALR & (
+                            (rs1 === 1.U || rs1 === 5.U) & (rd =/= 1.U && rd =/= 5.U)
+                        
+                        )
+    RAS.io.pushEn := pushEn & io.PF_valid
+    RAS.io.popEn  := popEn & io.PF_valid
+
+    // RAS.io.pushEn := call & io.PF_valid
     RAS.io.push   := io.PF_pc + 4.U
-    RAS.io.popEn  := ret  & io.PF_valid
-    
+    // RAS.io.popEn  := ret  & io.PF_valid
+
     io.ras_pop    := RAS.io.pop
     io.ras_push   := Mux(RAS.io.pushEn, RAS.io.push, 0.U)
             
     io.bp_flush       := io.ID_to_BPU_bus.valid & (bp_target =/= io.ID_to_BPU_bus.bits.br_target)
     io.bp_npc         := MuxCase(io.PF_pc + 4.U, Seq(
-        (io.bp_flush    , io.ID_to_BPU_bus.bits.br_target),
-        (bp_taken & ret , RAS.io.pop                     ),
-        (bp_taken       , BTB.io.readData                )
+        (io.bp_flush             , io.ID_to_BPU_bus.bits.br_target),
+        (bp_taken & RAS.io.popEn , RAS.io.pop                     ),
+        (bp_taken                , BTB.io.readData                )
         ))
     io.bp_taken       := bp_taken
     io.bp_stall       := 0.U

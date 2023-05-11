@@ -39,6 +39,12 @@ object utils {
     }
 }
 
+class CacheLine extends Bundle{
+    val tag  = UInt(16.W)
+    val data = UInt(64.W)
+    val valid = Bool()
+}
+
 class MyReadyValidIO extends Bundle{
     val ready = Input(Bool())
     val valid = Output(Bool())
