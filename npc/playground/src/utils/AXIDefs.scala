@@ -66,12 +66,12 @@ class AXIMasterIF(addrWidthBits: Int, dataWidthBits: Int, idBits: Int) extends B
   // write data channel
   val writeData   = Decoupled(new AXIWriteData(dataWidthBits))
   // write response channel (for memory consistency)
-  val writeResp   = Decoupled(new AXIWriteResponse(idBits)).flip
+  val writeResp   = Flipped(Decoupled(new AXIWriteResponse(idBits)))
   
   // read address channel
   val readAddr    = Decoupled(new AXIAddress(addrWidthBits, idBits))
   // read data channel
-  val readData    = Decoupled(new AXIReadData(dataWidthBits, idBits)).flip
+  val readData    = Flipped(Decoupled(new AXIReadData(dataWidthBits, idBits)))
   
   
   override def clone = { new AXIMasterIF(addrWidthBits, dataWidthBits, idBits).asInstanceOf[this.type] }
