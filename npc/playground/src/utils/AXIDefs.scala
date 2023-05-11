@@ -12,45 +12,45 @@ import chisel3.util._
 
 class AXIAddress(addrWidthBits: Int, idBits: Int) extends Bundle {
   // address for the transaction, should be burst aligned if bursts are used
-  val addr    = UInt(width = addrWidthBits)
+  val addr    = UInt(addrWidthBits.W)
   // size of data beat in bytes
   // set to UInt(log2Up((dataBits/8)-1)) for full-width bursts
-  val size    = UInt(width = 3) 
+  val size    = UInt(3.W) 
   // number of data beats -1 in burst: max 255 for incrementing, 15 for wrapping
-  val len     = UInt(width = 8)
+  val len     = UInt(8.W)
   // burst mode: 0 for fixed, 1 for incrementing, 2 for wrapping
-  val burst   = UInt(width = 2)
+  val burst   = UInt(2.W)
   // transaction ID for multiple outstanding requests
-  val id      = UInt(width = idBits)
+  val id      = UInt(idBits.W)
   // set to 1 for exclusive access
   val lock    = Bool()
   // cachability, set to 0010 or 0011
-  val cache   = UInt(width = 4)
+  val cache   = UInt(4.W)
   // generally ignored, set to to all zeroes
-  val prot    = UInt(width = 3)
+  val prot    = UInt(3.W)
   // not implemented, set to zeroes
-  val qos     = UInt(width = 4)
+  val qos     = UInt(4.W)
   override def clone = { new AXIAddress(addrWidthBits, idBits).asInstanceOf[this.type] }
 }
 
 class AXIWriteData(dataWidthBits: Int) extends Bundle {
-  val data    = UInt(width = dataWidthBits)
-  val strb    = UInt(width = dataWidthBits/8)
+  val data    = UInt((dataWidthBits).W)
+  val strb    = UInt((dataWidthBits / 8).W)
   val last    = Bool()
   override def clone = { new AXIWriteData(dataWidthBits).asInstanceOf[this.type] }
 }
 
 class AXIWriteResponse(idBits: Int) extends Bundle {
-  val id      = UInt(width = idBits)
-  val resp    = UInt(width = 2)
+  val id      = UInt(idBits.W)
+  val resp    = UInt(2.W)
   override def clone = { new AXIWriteResponse(idBits).asInstanceOf[this.type] }
 }
 
 class AXIReadData(dataWidthBits: Int, idBits: Int) extends Bundle {
-  val data    = UInt(width = dataWidthBits)
-  val id      = UInt(width = idBits)
-  val last    = Bool()
-  val resp    = UInt(width = 2)
+  val data    = UInt(dataWidthBits.W)
+  val id      = UInt(idBits.W)
+  val last    = 
+  val resp    = UInt(2.W)
   override def clone = { new AXIReadData(dataWidthBits, idBits).asInstanceOf[this.type] }
 }
 
