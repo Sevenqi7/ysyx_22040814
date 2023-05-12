@@ -55,7 +55,7 @@ class sim_sram extends BlackBox with HasBlackBoxPath{
 class AXI_Arbiter(val n: Int) extends Module{
     val in = IO(Flipped(Vec(n, new AXIMasterIF(32, 64, 4))))
     val req = IO(Flipped(Vec(n, new MyReadyValidIO)))
-    val out = IO(new AXILiteMasterIF(32, 64))
+    val out = IO(new AXIMasterIF(32, 64, 4))
 
     out <> in(n-1)
     for(i <- n - 1 to 0 by -1){
