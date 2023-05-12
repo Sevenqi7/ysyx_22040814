@@ -88,24 +88,37 @@ class RAMU extends Module{
     data_ram.io.aclk                        := clock
     data_ram.io.aresetn                     := !reset.asBool
     //ar
+    data_ram.io.arid                        := axi.readAddr.bits.id
     data_ram.io.araddr                      := axi.readAddr.bits.addr
     data_ram.io.arvalid                     := axi.readAddr.valid
     axi.readAddr.ready                      := data_ram.io.arready
     //r
+    axi.readData.bits.id                    := data_ram.io.id
     axi.readData.bits.data                  := data_ram.io.rdata
     axi.readData.bits.resp                  := data_ram.io.rresp
+    axi.readData.bits.last                  := data_ram.io.rlast
     axi.readData.valid                      := data_ram.io.rvalid
     data_ram.io.rready                      := axi.readData.ready
     //aw
+    data_ram.io.awid                        := axi.writeAddr.bits.id
     data_ram.io.awaddr                      := axi.writeAddr.bits.addr
+    data_ram.io.awlen                       := axi.writeAddr.bits.len                      
+    data_ram.io.awsize                      := axi.writeAddr.bits.size
+    data_ram.io.awburst                     := axi.writeAddr.bits.burst
+    data_ram.io.awlock                      := axi.writeAddr.bits.lock 
+    data_ram.io.awcache                     := axi.writeAddr.bits.cache
+    data_ram.io.awprot                      := axi.writeAddr.bits.prot
     data_ram.io.awvalid                     := axi.writeAddr.valid
     axi.writeAddr.ready                     := data_ram.io.awready
     //w
+    data_ram.io.wid                         := axi.writeData.bits.id
     data_ram.io.wdata                       := axi.writeData.bits.data
     data_ram.io.wstrb                       := axi.writeData.bits.strb
+    data_ram.io.wlast                       := axi.writeData.bits.last
     data_ram.io.wvalid                      := axi.writeData.valid
     axi.writeData.ready                     := data_ram.io.wready
     //b
+    axi.writeResp.bits.id                   := data_ram.io.bid
     axi.writeResp.bits.resp                 := data_ram.io.bresp
     axi.writeResp.valid                     := data_ram.io.bvalid
     data_ram.io.bready                      := axi.writeResp.ready
