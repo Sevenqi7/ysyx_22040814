@@ -65,10 +65,12 @@ class AXI_Arbiter(val n: Int) extends Module{
         in(i).readData.valid        := 0.U
         in(i).readData.bits.data    := 0x77.U       //MAGIC NUMBER FOR DEBUG
         in(i).readData.bits.resp    := 0.U
+        in(i).readData.bits.last    := 0.U
         in(i).writeAddr.ready       := 0.U
         in(i).writeData.ready       := 0.U
-        in(i).writeResp.valid       := 0.U
+        in(i).writeResp.bits.id     := 0.U
         in(i).writeResp.bits.resp   := 0.U
+        in(i).writeResp.valid       := 0.U
         when(req(i).valid){
             out <> in(i)
             req(i).ready := 1.U
