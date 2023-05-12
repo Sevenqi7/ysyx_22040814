@@ -35,7 +35,7 @@ class IFU extends Module{
     io.PF_npc                               := pre_fetch.io.PF_npc
     io.PF_pc                                := pre_fetch.io.PF_pc
     io.PF_valid                             := pre_fetch.io.inst_valid
-    io.axidata                              := pre_fetch.axi_lite.readData.bits.data
+    io.axidata                              := pre_fetch.axi.readData.bits.data
 
     pre_fetch.io.IF_pc                      := io.IF_to_ID_bus.bits.PC
     pre_fetch.io.IF_valid                   := io.IF_to_ID_bus.valid
@@ -48,7 +48,7 @@ class IFU extends Module{
     //pipeline
     regConnectWithResetAndStall(io.IF_to_ID_bus.bits.PC, pre_fetch.io.PF_pc   , flush, 0.U, !io.IF_to_ID_bus.ready)
     regConnectWithResetAndStall(io.IF_to_ID_bus.valid, pre_fetch.io.inst_valid, flush, 0.U, !io.IF_to_ID_bus.ready)
-    regConnectWithResetAndStall(io.IF_to_ID_bus.bits.Inst, pre_fetch.axi_lite.readData.bits.data  , flush, 0.U, !io.IF_to_ID_bus.ready)
+    regConnectWithResetAndStall(io.IF_to_ID_bus.bits.Inst, pre_fetch.axi.readData.bits.data  , flush, 0.U, !io.IF_to_ID_bus.ready)
     // regConnectWithResetAndStall(io.IF_to_ID_bus.bits.Inst, pre_fetch.io.inst  , flush, 0.U, !io.IF_to_ID_bus.ready)
 
 }
