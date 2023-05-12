@@ -94,7 +94,7 @@ class RAMU extends Module{
     data_ram.io.arvalid                     := axi.readAddr.valid
     axi.readAddr.ready                      := data_ram.io.arready
     //r
-    axi.readData.bits.id                    := data_ram.io.id
+    axi.readData.bits.id                    := data_ram.io.rid
     axi.readData.bits.data                  := data_ram.io.rdata
     axi.readData.bits.resp                  := data_ram.io.rresp
     axi.readData.bits.last                  := data_ram.io.rlast
