@@ -138,7 +138,7 @@ class top extends Module{
     io.WB_RegWriteData := wb_unit.io.WB_to_ID_forward.bits.regWriteData
     io.WB_RegWriteID   := wb_unit.io.WB_to_ID_forward.bits.regWriteID
     io.WB_valid     := wb_unit.io.WB_to_ID_forward.valid
-    io.MEM_RegWriteData := pre_mem_unit.axi_lite.readData.bits.data
+    io.MEM_RegWriteData := pre_mem_unit.axi.readData.bits.data
     
     io.ID_ALU_Data1 := inst_decode_unit.io.ID_to_EX_bus.bits.ALU_Data1
     io.ID_ALU_Data2 := inst_decode_unit.io.ID_to_EX_bus.bits.ALU_Data2
@@ -199,14 +199,14 @@ class top extends Module{
 
     val ram_unit = Module(new RAMU)
     val arb = Module(new AXI_Arbiter(2))
-    ram_unit.axi_lite <> arb.out
-    arb.in(0) <> pre_mem_unit.axi_lite
-    arb.req(0) <> pre_mem_unit.axi_req
-    arb.in(1) <> inst_fetch_unit.axi_lite
-    arb.req(1) <> inst_fetch_unit.axi_req
+    ram_unit.axi    <> arb.out
+    arb.in(0)       <> pre_mem_unit.axi
+    arb.in(1)       <> inst_fetch_unit.axi
+    arb.req(0)      <> pre_mem_unit.axi_req
+    arb.req(1)      <> inst_fetch_unit.axi_req
 
     //debug
-    io.IF_AXIREQ := arb.req(1).ready
     io.MEM_AXIREQ:= arb.req(0).ready
+    io.IF_AXIREQ := arb.req(1).ready
 }
 

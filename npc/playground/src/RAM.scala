@@ -1,24 +1,77 @@
 import chisel3._
 import chisel3.util._
 import chisel3.experimental._
-import AXILiteDefs._
+import AXIDefs._
+
+class sim_sram extends BlackBox with HasBlackBoxPath{
+    val io = IO(new Bundle{
+        val pc = Input(UInt(64.W))
+        val aclk = Input(Clock())
+        val aresetn = Input(Reset())
+        //ar
+        val arid    = Input(UInt(4.W))
+        val araddr  = Input(UInt(32.W))
+        val arlen   = Input(UInt(8.W))
+        val arsize  = Input(UInt(3.W))
+        val arburst = Input(UInt(2.W))
+        val arlock  = Input(UInt(2.W))
+        val arcache = Input(UInt(4.W))
+        val arprot  = Input(UInt(3.W))
+        val arvalid = Input(Bool())
+        val arready = Output(Bool())
+        //r
+        val rid     = Output(UInt(4.W))
+        val rdata   = Output(UInt(64.W))
+        val rresp   = Output(UInt(2.W))
+        val rlast   = Output(Bool())
+        val rvalid  = Output(Bool())
+        val rready  = Input(Bool())
+        //aw
+        val awid    = Input(UInt(4.W))
+        val awaddr  = Input(UInt(32.W))
+        val awlen   = Input(UInt(8.W))
+        val awsize  = Input(UInt(3.W))
+        val awburst = Input(UInt(2.W))
+        val awlock  = Input(UInt(2.W))
+        val awcache = Input(UInt(4.W))
+        val awprot  = Input(UInt(3.W))
+        val awvalid = Input(Bool())
+        val awready = Output(Bool())
+        //w
+        val wid     = Input(UInt(4.W))
+        val wdata   = Input(UInt(64.W)) 
+        val wstrb   = Input(UInt(8.W))
+        val wlast   = Input(Bool())
+        val wvalid  = Input(Bool())
+        val wready  = Output(Bool())
+        //b
+        val bid     = Output(UInt(4.W))
+        val bresp   = Output(UInt(2.W))
+        val bvalid  = Output(Bool())
+        val bready  = Input(Bool())
+    })
+    addPath("/home/seven7/Documents/学业/一生一芯/ysyx-workbench/npc/playground/verilog/sim_sram.v")
+}
 
 class AXI_Arbiter(val n: Int) extends Module{
-    val in = IO(Flipped(Vec(n, new AXILiteMasterIF(32, 64))))
+    val in = IO(Flipped(Vec(n, new AXIMasterIF(32, 64, 4))))
     val req = IO(Flipped(Vec(n, new MyReadyValidIO)))
-    val out = IO(new AXILiteMasterIF(32, 64))
+    val out = IO(new AXIMasterIF(32, 64, 4))
 
     out <> in(n-1)
     for(i <- n - 1 to 0 by -1){
         req(i).ready                := 0.U
         in(i).readAddr.ready        := 0.U
-        in(i).readData.valid        := 0.U
+        in(i).readData.bits.id      := 0.U
         in(i).readData.bits.data    := 0x77.U       //MAGIC NUMBER FOR DEBUG
         in(i).readData.bits.resp    := 0.U
+        in(i).readData.bits.last    := 0.U
+        in(i).readData.valid        := 0.U
         in(i).writeAddr.ready       := 0.U
         in(i).writeData.ready       := 0.U
-        in(i).writeResp.valid       := 0.U
+        in(i).writeResp.bits.id     := 0.U
         in(i).writeResp.bits.resp   := 0.U
+        in(i).writeResp.valid       := 0.U
         when(req(i).valid){
             out <> in(i)
             req(i).ready := 1.U
@@ -30,7 +83,7 @@ class AXI_Arbiter(val n: Int) extends Module{
 }
 
 class RAMU extends Module{
-    val axi_lite = IO(Flipped(new AXILiteMasterIF(32, 64)))
+    val axi      = IO(Flipped(new AXIMasterIF(32, 64, 4)))
     val data_ram = Module(new sim_sram)
 
     //data ram
@@ -39,26 +92,39 @@ class RAMU extends Module{
     data_ram.io.aclk                        := clock
     data_ram.io.aresetn                     := !reset.asBool
     //ar
-    data_ram.io.araddr                      := axi_lite.readAddr.bits.addr
-    data_ram.io.arvalid                     := axi_lite.readAddr.valid
-    axi_lite.readAddr.ready                 := data_ram.io.arready
+    data_ram.io.arid                        := axi.readAddr.bits.id
+    data_ram.io.araddr                      := axi.readAddr.bits.addr
+    data_ram.io.arvalid                     := axi.readAddr.valid
+    axi.readAddr.ready                      := data_ram.io.arready
     //r
-    axi_lite.readData.bits.data             := data_ram.io.rdata
-    axi_lite.readData.bits.resp             := data_ram.io.rresp
-    axi_lite.readData.valid                 := data_ram.io.rvalid
-    data_ram.io.rready                      := axi_lite.readData.ready
+    axi.readData.bits.id                    := data_ram.io.rid
+    axi.readData.bits.data                  := data_ram.io.rdata
+    axi.readData.bits.resp                  := data_ram.io.rresp
+    axi.readData.bits.last                  := data_ram.io.rlast
+    axi.readData.valid                      := data_ram.io.rvalid
+    data_ram.io.rready                      := axi.readData.ready
     //aw
-    data_ram.io.awaddr                      := axi_lite.writeAddr.bits.addr
-    data_ram.io.awvalid                     := axi_lite.writeAddr.valid
-    axi_lite.writeAddr.ready                := data_ram.io.awready
+    data_ram.io.awid                        := axi.writeAddr.bits.id
+    data_ram.io.awaddr                      := axi.writeAddr.bits.addr
+    data_ram.io.awlen                       := axi.writeAddr.bits.len                      
+    data_ram.io.awsize                      := axi.writeAddr.bits.size
+    data_ram.io.awburst                     := axi.writeAddr.bits.burst
+    data_ram.io.awlock                      := axi.writeAddr.bits.lock 
+    data_ram.io.awcache                     := axi.writeAddr.bits.cache
+    data_ram.io.awprot                      := axi.writeAddr.bits.prot
+    data_ram.io.awvalid                     := axi.writeAddr.valid
+    axi.writeAddr.ready                     := data_ram.io.awready
     //w
-    data_ram.io.wdata                       := axi_lite.writeData.bits.data
-    data_ram.io.wstrb                       := axi_lite.writeData.bits.strb
-    data_ram.io.wvalid                      := axi_lite.writeData.valid
-    axi_lite.writeData.ready                := data_ram.io.wready
+    data_ram.io.wid                         := axi.writeData.bits.id
+    data_ram.io.wdata                       := axi.writeData.bits.data
+    data_ram.io.wstrb                       := axi.writeData.bits.strb
+    data_ram.io.wlast                       := axi.writeData.bits.last
+    data_ram.io.wvalid                      := axi.writeData.valid
+    axi.writeData.ready                     := data_ram.io.wready
     //b
-    axi_lite.writeResp.bits.resp            := data_ram.io.bresp
-    axi_lite.writeResp.valid                := data_ram.io.bvalid
-    data_ram.io.bready                      := axi_lite.writeResp.ready
+    axi.writeResp.bits.id                   := data_ram.io.bid
+    axi.writeResp.bits.resp                 := data_ram.io.bresp
+    axi.writeResp.valid                     := data_ram.io.bvalid
+    data_ram.io.bready                      := axi.writeResp.ready
 
 }

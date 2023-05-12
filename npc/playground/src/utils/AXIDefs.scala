@@ -29,12 +29,13 @@ class AXIAddress(addrWidthBits: Int, idBits: Int) extends Bundle {
   // generally ignored, set to to all zeroes
   val prot    = UInt(3.W)
   // not implemented, set to zeroes
-  val qos     = UInt(4.W)
+  // val qos     = UInt(4.W)
   override def clone = { new AXIAddress(addrWidthBits, idBits).asInstanceOf[this.type] }
 }
 
 class AXIWriteData(dataWidthBits: Int) extends Bundle {
   val data    = UInt((dataWidthBits).W)
+  val id      = Bool()
   val strb    = UInt((dataWidthBits / 8).W)
   val last    = Bool()
   override def clone = { new AXIWriteData(dataWidthBits).asInstanceOf[this.type] }
