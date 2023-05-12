@@ -62,10 +62,11 @@ class AXI_Arbiter(val n: Int) extends Module{
     for(i <- n - 1 to 0 by -1){
         req(i).ready                := 0.U
         in(i).readAddr.ready        := 0.U
-        in(i).readData.valid        := 0.U
+        in(i).readData.bits.id      := 0.U
         in(i).readData.bits.data    := 0x77.U       //MAGIC NUMBER FOR DEBUG
         in(i).readData.bits.resp    := 0.U
         in(i).readData.bits.last    := 0.U
+        in(i).readData.valid        := 0.U
         in(i).writeAddr.ready       := 0.U
         in(i).writeData.ready       := 0.U
         in(i).writeResp.bits.id     := 0.U
