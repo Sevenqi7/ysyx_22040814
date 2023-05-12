@@ -35,6 +35,7 @@ class AXIAddress(addrWidthBits: Int, idBits: Int) extends Bundle {
 
 class AXIWriteData(dataWidthBits: Int) extends Bundle {
   val data    = UInt((dataWidthBits).W)
+  val id      = Bool()
   val strb    = UInt((dataWidthBits / 8).W)
   val last    = Bool()
   override def clone = { new AXIWriteData(dataWidthBits).asInstanceOf[this.type] }
