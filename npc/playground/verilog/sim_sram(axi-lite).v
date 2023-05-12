@@ -7,50 +7,30 @@ module sim_sram(
     input                   aclk        ,
     //ar
     input       [31:0]      araddr      ,
-    input       [3: 0]      arid        ,
-    input       [7: 0]      arlen       ,
-    input       [2: 0]      arsize      ,
-    input       [1: 0]      arlock      ,
-    input       [1: 0]      arburst     ,
-    input       [3: 0]      arcache     ,
-    input       [2: 0]      arprot      ,
     input                   arvalid     ,
     output                  arready     ,
     //r
-    output      [3: 0]      rid         ,
     output      [63:0]      rdata       ,
     output      [1: 0]      rresp       ,
-    output                  rlast       ,
     output                  rvalid      ,
     input                   rready      ,
     //aw
-    input       [3: 0]      awid        ,
     input       [31:0]      awaddr      ,
-    input       [7: 0]      awlen       ,
-    input       [2: 0]      awsize      ,
-    input       [1: 0]      awburst     ,
-    input       [1: 0]      awlock      ,
-    input       [3: 0]      awcache     ,
-    input       [2: 0]      awprot      ,
     input                   awvalid     ,
     output                  awready     , 
     //w
-    input       [3: 0]      wid         ,
     input       [63:0]      wdata       , 
     input       [7: 0]      wstrb       ,
-    input                   wlast       ,
     input                   wvalid      ,
     output                  wready      ,
     //b
-    output      [3: 0]      bid         ,
     output      [1: 0]      bresp       ,
     output                  bvalid      ,
     input                   bready
 );
 
-    reg arready_r, rvalid_r, awready_r, wready_r, bvalid_r, rlast_r;
+    reg arready_r, rvalid_r, awready_r, wready_r, bvalid_r;
     reg [1:0] rresp_r, bresp_r;
-    reg [3:0] rid_r, bid_r;
     reg [63:0] rdata_r;
     reg [31:0] awaddr_r;
  

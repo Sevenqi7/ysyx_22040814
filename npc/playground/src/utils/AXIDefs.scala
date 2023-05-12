@@ -29,7 +29,7 @@ class AXIAddress(addrWidthBits: Int, idBits: Int) extends Bundle {
   // generally ignored, set to to all zeroes
   val prot    = UInt(3.W)
   // not implemented, set to zeroes
-  val qos     = UInt(4.W)
+  // val qos     = UInt(4.W)
   override def clone = { new AXIAddress(addrWidthBits, idBits).asInstanceOf[this.type] }
 }
 

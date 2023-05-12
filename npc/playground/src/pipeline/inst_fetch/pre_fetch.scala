@@ -18,7 +18,7 @@ class IF_pre_fetch extends Module{
 
         val PF_npc       = Output(UInt(64.W))
     })
-    val axi_lite = IO(new AXILiteMasterIF(32, 64))
+    val axi      = IO(new AXIMasterIF(32, 64, 4))
     val axi_req  = IO(new MyReadyValidIO)
 
     val PF_npc   = RegInit(0x80000000L.U(64.W))
@@ -45,25 +45,39 @@ class IF_pre_fetch extends Module{
 
     
     //IFU doesn't write mem
-    axi_lite.writeAddr.valid        := 0.U
-    axi_lite.writeAddr.bits.addr    := 0.U 
-    axi_lite.writeData.valid        := 0.U
-    axi_lite.writeData.bits.data    := 0.U
-    axi_lite.writeData.bits.strb    := 0.U
-    axi_lite.writeResp.ready        := 0.U
+    axi.writeAddr.bits.id      := 0.U
+    axi.writeAddr.bits.addr    := 0.U 
+    axi.writeAddr.bits.len     := 0.U
+    axi.writeAddr.bits.size    := 0.U
+    axi.writeAddr.bits.burst   := 0.U
+    axi.writeAddr.bits.lock    := 0.U
+    axi.writeAddr.bits.cache   := 0.U
+    axi.writeAddr.bits.prot    := 0.U
+    axi.writeAddr.valid        := 0.U
+    axi.writeData.bits.id      := 0.U
+    axi.writeData.bits.data    := 0.U
+    axi.writeData.bits.strb    := 0.U
+    axi.writeData.bits.last    := 1.U
+    axi.writeData.valid        := 0.U
+    axi.writeResp.ready        := 0.U
 
     //Fetch inst from sram
-    axi_lite.readAddr.valid         := !io.stall
-    axi_lite.readAddr.bits.addr     := Mux(io.bp_taken | io.bp_flush, io.bp_npc, PF_npc(31, 0))
-    axi_lite.readAddr.bits.addr     := MuxCase(PF_npc(31, 0), Seq(
+    axi.readAddr.bits.id       := 0.U
+    axi.readAddr.bits.len      := 0.U
+    axi.readAddr.bits.size     := 6.U       //64 bits
+    axi.readAddr.bits.burst    := "b01".U
+    axi.readAddr.bits.lock     := 0.U
+    axi.readAddr.bits.cache    := 0.U
+    axi.readAddr.bits.prot     := 0.U
+    axi.readAddr.valid         := !io.stall
+    axi.readAddr.bits.addr     := MuxCase(PF_npc(31, 0), Seq(
                                             (io.bp_flush, io.bp_npc),
                                             (io.stall | !axi_req.ready | axi_busy.asBool, io.PF_pc ),
                                             (io.bp_taken, io.bp_npc)
-                                        ))
-    
-    axi_lite.readData.ready         := !io.stall
+                                    ))
+    axi.readData.ready         := !io.stall
 
-    io.inst                         := axi_lite.readData.bits.data(31, 0)
-    io.inst_valid                   := (axi_lite.readData.valid && axi_lite.readData.bits.resp === 0.U) & axi_req.ready & !axi_busy.asBool
+    io.inst                         := axi.readData.bits.data(31, 0)
+    io.inst_valid                   := (axi.readData.valid && axi.readData.bits.resp === 0.U) & axi_req.ready & !axi_busy.asBool
 
 }
