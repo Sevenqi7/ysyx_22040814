@@ -20,7 +20,7 @@ class sim_sram extends BlackBox with HasBlackBoxPath{
         val arvalid = Input(Bool())
         val arready = Output(Bool())
         //r
-        val rid     = Output(UInt(4,W))
+        val rid     = Output(UInt(4.W))
         val rdata   = Output(UInt(64.W))
         val rresp   = Output(UInt(2.W))
         val rlast   = Output(Bool())
