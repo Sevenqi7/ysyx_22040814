@@ -38,6 +38,7 @@ class sim_sram extends BlackBox with HasBlackBoxPath{
         val awvalid = Input(Bool())
         val awready = Output(Bool())
         //w
+        val wid     = Input(UInt(4.W))
         val wdata   = Input(UInt(64.W)) 
         val wstrb   = Input(UInt(8.W))
         val wlast   = Input(Bool())
