@@ -27,7 +27,7 @@ class BPU_Cache(tagWidth: Int, nrSets: Int, nrLines: Int) extends Module{
 
     // val cache = RegInit(Vec(nrSets, VecInit(Seq.fill(nrLines)(0.U.asTypeOf(new CacheLine)))))
     // val cache = RegInit(VecInit.fill(2, 3)(0.U.asTypeOf(new CacheLine)))
-    val cacheline = Wire(new CacheLine)
+    val cacheline = Wire(new CacheLine(tagWidth, 64))
     cacheline.tag := 0.U
     cacheline.data := 0.U
     cacheline.valid := 0.U

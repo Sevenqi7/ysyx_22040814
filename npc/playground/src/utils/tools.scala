@@ -39,9 +39,9 @@ object utils {
     }
 }
 
-class CacheLine extends Bundle{
-    val tag  = UInt(16.W)
-    val data = UInt(64.W)
+class CacheLine(tagWidth: Int, dataWidth: Int) extends Bundle{
+    val tag  = UInt(tagWidth.W)
+    val data = UInt(dataWidth.W)
     val valid = Bool()
 }
 
