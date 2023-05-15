@@ -38,7 +38,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
     val dataWidth = (Math.pow(2, offsetWidth) * 8).toInt
 
     //buffer of req
-    val req_addr  = RegInit(0.U(UInt(64.W)))
+    val req_addr  = RegInit(0.U(64.W))
     val req_valid = RegInit(0.U(Bool()))
 
     val offset    = req_addr(offsetWidth - 1, 0)
