@@ -44,10 +44,10 @@ class IF_pre_fetch extends Module{
     axi.readAddr.bits.lock     := 0.U
     axi.readAddr.bits.cache    := 0.U
     axi.readAddr.bits.prot     := 0.U
-    axi.readAddr.bits.addr     := inst_cache.axi_raddr
-    axi.readAddr.valid         := inst_cache.axi_rreq
+    axi.readAddr.bits.addr     := inst_cache.io.axi_raddr
+    axi.readAddr.valid         := inst_cache.io.axi_rreq
     axi.readData.ready         := !io.stall
-    inst_cache.addr            := MuxCase(PF_npc(31, 0), Seq(
+    inst_cache.io.addr         := MuxCase(PF_npc(31, 0), Seq(
                                     (io.bp_flush, io.bp_npc),
                                     (io.stall | , io.PF_pc ),
                                     (io.bp_taken, io.bp_npc)
