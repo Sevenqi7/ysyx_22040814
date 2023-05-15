@@ -48,17 +48,19 @@ class IF_pre_fetch extends Module{
     axi.readAddr.valid         := inst_cache.io.axi_rreq
     axi.readData.ready         := !io.stall
     inst_cache.io.addr         := MuxCase(PF_npc(31, 0), Seq(
-                                    (io.bp_flush, io.bp_npc),
-                                    (io.stall   , io.PF_pc ),
-                                    (io.bp_taken, io.bp_npc)
-                                ))
+        (io.bp_flush, io.bp_npc),
+        (io.stall   , io.PF_pc ),
+        (io.bp_taken, io.bp_npc)
+        ))
     inst_cache.io.valid        := 1.U
     inst_cache.io.axi_arready  := axi.readAddr.ready
     inst_cache.io.axi_rvalid   := axi.readData.valid
     inst_cache.io.axi_rlast    := axi.readData.bits.last
     inst_cache.io.axi_rdata    := axi.readData.bits.data
     /*****************ICache******************/
-
+    
+    io.inst                         := inst_cache.io.rdata
+    io.inst_valid                   := inst_cache.io.rvalid
 
     PF_npc := MuxCase(io.PF_npc + 4.U, Seq(
         (io.bp_flush, io.bp_npc + 4.U),
@@ -97,7 +99,5 @@ class IF_pre_fetch extends Module{
     //Fetch inst from sram
 
 
-    io.inst                         := axi.readData.bits.data(31, 0)
-    io.inst_valid                   := axi.readData.valid & axi_req.ready & !axi_busy.asBool
 
 }
