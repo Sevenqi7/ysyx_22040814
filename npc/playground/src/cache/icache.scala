@@ -44,7 +44,6 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
     val offset    = req_addr(offsetWidth - 1, 0)
     val set       = req_addr(offsetWidth + setWidth - 1, offsetWidth)
     val tag       = req_addr(offsetWidth + setWidth + tagWidth - 1, offsetWidth + setWidth)
-    val rdata     = Wire(UInt(dataWidth.W))
     
     val state           = RegInit(sIdle)
     val lineBuf         = RegInit(0.U(dataWidth.W))
