@@ -6,7 +6,7 @@ module sim_sram(
     input                   aresetn     ,
     input                   aclk        ,
     //ar
-    input       [31:0]      araddr      ,
+    input       [31:0]      araddr      , 
     input       [3: 0]      arid        ,
     input       [7: 0]      arlen       ,
     input       [2: 0]      arsize      ,
