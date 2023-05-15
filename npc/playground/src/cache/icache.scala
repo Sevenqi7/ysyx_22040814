@@ -44,6 +44,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
     val offset    = req_addr(offsetWidth - 1, 0)
     val set       = req_addr(offsetWidth + setWidth - 1, offsetWidth)
     val tag       = req_addr(offsetWidth + setWidth + tagWidth - 1, offsetWidth + setWidth)
+    val index     = dataWidth - 1.U - offset * 8.U
     
     val state           = RegInit(sIdle)
     val lineBuf         = RegInit(0.U(dataWidth.W))
@@ -71,10 +72,10 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
         }
         is (sLookup){
             for(i <- 0 until nrLines-1){
-                    when(cache(set)(i).tag === tag && cache(set)(i).valid){
+                when(cache(set)(i).tag === tag && cache(set)(i).valid){
                     io.hit      := 1.U
                     io.rvalid   := 1.U
-                    io.rdata    := cache(set)(i).data(31, 0)
+                    io.rdata    := cache(set)(i).data(index, index-32.U)
                 }
             }    
             when(!io.hit){
