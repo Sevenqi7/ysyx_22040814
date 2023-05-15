@@ -3,7 +3,7 @@ import chisel3.util._
 import utils._
 
 
-//read only
+
 //axi return 64bits data within single read transaction
 class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends Module{
     val io = IO(new Bundle{
