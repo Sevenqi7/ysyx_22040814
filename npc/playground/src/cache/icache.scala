@@ -25,7 +25,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
         val axi_rdata       = Input(UInt(64.W))
     })
 
-    val IDLE1 :: LOOKUP :: MISS :: REFILL = Enum(4)
+    val IDLE :: LOOKUP :: MISS :: REFILL = Enum(3)
 
     val cacheline = Wire(new CacheLine(tagWidth, (Math.pow(2, offsetWidth) * 8).toInt))
     cacheline.tag   := 0.U
