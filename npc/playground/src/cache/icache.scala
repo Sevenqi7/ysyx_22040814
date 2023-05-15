@@ -25,7 +25,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
         val axi_rdata       = Input(UInt(64.W))
     })
 
-    val IDLE :: LOOKUP :: MISS :: REFILL = Enum(3)
+    val ssIdle :: ssLookup :: ssMiss :: ssRefill = Enum(3)
 
     val cacheline = Wire(new CacheLine(tagWidth, (Math.pow(2, offsetWidth) * 8).toInt))
     cacheline.tag   := 0.U
@@ -46,7 +46,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
     val tag       = req_addr(offsetWidth + setWidth + tagWidth - 1, offsetWidth + setWidth)
     val rdata     = Wire(UInt(dataWidth.W))
     
-    val state           = RegInit(IDLE)
+    val state           = RegInit(sIdle)
     val lineBuf         = RegInit(0.U(dataWidth.W))
     last_req_valid      := io.valid
 
@@ -60,15 +60,15 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
     val rcnt            = RegInit(0.U(3.W))
     refillIDX           := 0.U
     switch(state){
-        is (IDLE){
+        is (sIdle){
             when(io.valid){
-                state       := LOOKUP
+                state       := sLookup
                 io.arvalid  := 1.U
                 req_valid   := io.valid
                 req_addr    := io.addr
             }
         }
-        is (LOOKUP){
+        is (sLookup){
             for(i <- 0 until nrLines-1){
                     when(cache(set)(i).tag === tag && cache(set)(i).valid){
                     io.hit      := 1.U
@@ -77,34 +77,34 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
                 }
             }    
             when(!io.hit){
-                state           := MISS
+                state           := sMiss
                 io.axi_req      := 1.U
                 io.axi_raddr    := req_addr & (0xFFFFFFFFL.U << offsetWidth)
             }
             .elsewhen(io.valid){
-                state           := LOOKUP
+                state           := sLookup
                 io.arvalid      := 1.U
                 req_valid       := io.valid
                 req_addr        := io.addr
             }
             .otherwise{
-                state           := IDLE
+                state           := sIdle
                 io.arvalid      := 0.U
             }
         }
-        is (MISS){
+        is (sMiss){
             when(!io.axi_arready){
-                state           := MISS
+                state           := sMiss
             }       
             .otherwise{
-                state           := REFILL
+                state           := sRefill
                 lineBuf(63, 0)  := io.axi_rdata
                 rcnt            := rcnt + 1.U
             }
         }
-        is (REFILL){
+        is (sRefill){
             when(io.axi_rlast){
-                state                       := IDLE
+                state                       := sIdle
                 refillIDX                   := random.LFSR(16)(lineWidth, 0)
                 cache(set)(refillIDX).valid := 1.U
                 cache(set)(refillIDX).tag   := tag
