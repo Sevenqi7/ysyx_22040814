@@ -72,7 +72,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
                     when(cache(set)(i).tag === tag && cache(set)(i).valid){
                     io.hit      := 1.U
                     io.rvalid   := 1.U
-                    io.rdata    := cache(set)(i).data((dataWidth - 1).U - offset * 8.U, (dataWidth - 32).U - offset * 8.U)
+                    io.rdata    := cache(set)(i).data(31.U, 0.U)
                 }
             }    
             when(!io.hit){
