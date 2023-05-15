@@ -72,12 +72,12 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
                     when(cache(set)(i).tag === tag && cache(set)(i).valid){
                     io.hit      := 1.U
                     io.rvalid   := 1.U
-                    io.rdata    := cache(set)(i).data(dataWidth - 1 - offset.toInt * 8, dataWidth - 32 - offset.toInt * 8)
+                    io.rdata    := cache(set)(i).data(dataWidth - 1 - offset.asInt * 8, dataWidth - 32 - offset.asInt * 8)
                 }
             }    
             when(!io.hit){
                 state           := sMiss
-                io.axi_req      := 1.U
+                io.axi_rreq     := 1.U
                 io.axi_raddr    := req_addr & (0xFFFFFFFFL.U << offsetWidth)
             }
             .elsewhen(io.valid){
