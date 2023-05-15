@@ -52,6 +52,7 @@ class IF_pre_fetch extends Module{
                                     (io.stall   , io.PF_pc ),
                                     (io.bp_taken, io.bp_npc)
                                 ))
+    inst_cache.io.valid        := 1.U
     inst_cache.io.axi_arready  := axi.readAddr.ready
     inst_cache.io.axi_rvalid   := axi.readData.valid
     inst_cache.io.axi_rlast    := axi.readData.bits.last
