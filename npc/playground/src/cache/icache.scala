@@ -12,7 +12,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
         // val uncache = Input(Bool())
         val addr    = Input(UInt(64.W))
         val rdata   = Output(UInt(32.W))
-        val hit     = OUtput(Bool()) 
+        val hit     = Output(Bool()) 
         val arvalid = Output(Bool())
         val rvalid  = Output(Bool())
 
@@ -27,7 +27,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
 
     val IDLE :: LOOKUP :: MISS :: REFILL = Enum(3)
 
-    val cacheline = Wire(new CacheLine(tagWidth, (Math.pow(2, offsetWidth) * 8).asInt))
+    val cacheline = Wire(new CacheLine(tagWidth, (Math.pow(2, offsetWidth) * 8).toInt))
     cacheline.tag   := 0.U
     cacheline.data  := 0.U
     cacheline.valid := 0.U
