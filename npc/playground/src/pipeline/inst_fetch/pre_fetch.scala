@@ -55,7 +55,7 @@ class IF_pre_fetch extends Module{
     inst_cache.io.axi_arready  := axi.readAddr.ready
     inst_cache.io.axi_rvalid   := axi.readData.valid
     inst_cache.io.axi_rlast    := axi.readData.bits.last
-    inst_cache.io.axi_rdata    := axi.readData.bits.rdata
+    inst_cache.io.axi_rdata    := axi.readData.bits.data
     /*****************ICache******************/
 
 
