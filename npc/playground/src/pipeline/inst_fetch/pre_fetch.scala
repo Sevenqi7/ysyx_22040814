@@ -52,10 +52,10 @@ class IF_pre_fetch extends Module{
                                     (io.stall | , io.PF_pc ),
                                     (io.bp_taken, io.bp_npc)
                                 ))
-    inst_cache.axi_arready     := axi.readAddr.ready
-    inst_cache.axi_rvalid      := axi.readData.valid
-    inst_cache.axi_rlast       := axi.readData.last
-    inst_cache.axi_rdata       := axi.readData.rdata
+    inst_cache.io.axi_arready  := axi.readAddr.ready
+    inst_cache.io.axi_rvalid   := axi.readData.valid
+    inst_cache.io.axi_rlast    := axi.readData.last
+    inst_cache.io.axi_rdata    := axi.readData.rdata
     /*****************ICache******************/
 
 
