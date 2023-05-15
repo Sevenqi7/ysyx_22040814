@@ -35,7 +35,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
 
     val setWidth = log2Ceil(nrSets)
     val lineWidth = log2Ceil(nrLines)
-    val dataWidth = (Math.pow(2, offsetWidth) * 8).toInt.U
+    val dataWidth = (Math.pow(2, offsetWidth) * 8).toInt
 
     //buffer of req
     val req_addr  = RegInit(0.U(64.W))
@@ -44,7 +44,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
     val offset    = req_addr(offsetWidth - 1, 0)
     val set       = req_addr(offsetWidth + setWidth - 1, offsetWidth)
     val tag       = req_addr(offsetWidth + setWidth + tagWidth - 1, offsetWidth + setWidth)
-    val index     = dataWidth - 1.U - offset * 8.U
+    val index     = dataWidth.U - 1.U - offset * 8.U
     
     val state           = RegInit(sIdle)
     val lineBuf         = RegInit(0.U(dataWidth.W))
