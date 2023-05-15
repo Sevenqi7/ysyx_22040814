@@ -38,7 +38,7 @@ class IF_pre_fetch extends Module{
     val inst_cache  = Module(new ICache(tagWidth, nrSets, nrLines, offsetWidth))
     
     axi.readAddr.bits.id       := 0.U
-    axi.readAddr.bits.len      := 0.U
+    axi.readAddr.bits.len      := 2.U
     axi.readAddr.bits.size     := 6.U       //64 bits
     axi.readAddr.bits.burst    := "b01".U
     axi.readAddr.bits.lock     := 0.U
