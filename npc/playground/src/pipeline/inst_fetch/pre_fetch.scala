@@ -27,9 +27,41 @@ class IF_pre_fetch extends Module{
     axi_busy := !axi_req.ready
     axi_req.valid   := 1.U
 
+
+    /*****************ICache******************/
+    
+    //parameter
+    val offsetWidth = 4
+    val tagWidth    = 20
+    val nrSets      = 256
+    val nrLines     = 2
+    val inst_cache  = Module(new ICache(tagWidth, nrSets, nrLines, offsetWidth))
+    
+    axi.readAddr.bits.id       := 0.U
+    axi.readAddr.bits.len      := 0.U
+    axi.readAddr.bits.size     := 6.U       //64 bits
+    axi.readAddr.bits.burst    := "b01".U
+    axi.readAddr.bits.lock     := 0.U
+    axi.readAddr.bits.cache    := 0.U
+    axi.readAddr.bits.prot     := 0.U
+    axi.readAddr.bits.addr     := inst_cache.axi_raddr
+    axi.readAddr.valid         := inst_cache.axi_rreq
+    axi.readData.ready         := !io.stall
+    inst_cache.addr            := MuxCase(PF_npc(31, 0), Seq(
+                                    (io.bp_flush, io.bp_npc),
+                                    (io.stall | , io.PF_pc ),
+                                    (io.bp_taken, io.bp_npc)
+                                ))
+    inst_cache.axi_arready     := axi.readAddr.ready
+    inst_cache.axi_rvalid      := axi.readData.valid
+    inst_cache.axi_rlast       := axi.readData.last
+    inst_cache.axi_rdata       := axi.readData.rdata
+    /*****************ICache******************/
+
+
     PF_npc := MuxCase(io.PF_npc + 4.U, Seq(
         (io.bp_flush, io.bp_npc + 4.U),
-        ((io.stall | !axi_req.ready | axi_busy.asBool), io.PF_npc),
+        (io.stall   , io.PF_npc      ),
         (io.bp_taken, io.bp_npc + 4.U)
     ))
 
@@ -43,7 +75,7 @@ class IF_pre_fetch extends Module{
     
     regConnect(io.PF_pc, npc)
 
-    
+
     //IFU doesn't write mem
     axi.writeAddr.bits.id      := 0.U
     axi.writeAddr.bits.addr    := 0.U 
@@ -62,22 +94,9 @@ class IF_pre_fetch extends Module{
     axi.writeResp.ready        := 0.U
 
     //Fetch inst from sram
-    axi.readAddr.bits.id       := 0.U
-    axi.readAddr.bits.len      := 0.U
-    axi.readAddr.bits.size     := 6.U       //64 bits
-    axi.readAddr.bits.burst    := "b01".U
-    axi.readAddr.bits.lock     := 0.U
-    axi.readAddr.bits.cache    := 0.U
-    axi.readAddr.bits.prot     := 0.U
-    axi.readAddr.valid         := !io.stall
-    axi.readAddr.bits.addr     := MuxCase(PF_npc(31, 0), Seq(
-                                            (io.bp_flush, io.bp_npc),
-                                            (io.stall | !axi_req.ready | axi_busy.asBool, io.PF_pc ),
-                                            (io.bp_taken, io.bp_npc)
-                                    ))
-    axi.readData.ready         := !io.stall
+
 
     io.inst                         := axi.readData.bits.data(31, 0)
-    io.inst_valid                   := (axi.readData.valid && axi.readData.bits.resp === 0.U) & axi_req.ready & !axi_busy.asBool
+    io.inst_valid                   := axi.readData.valid & axi_req.ready & !axi_busy.asBool
 
 }
