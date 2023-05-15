@@ -35,7 +35,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
 
     val setWidth = log2Ceil(nrSets)
     val lineWidth = log2Ceil(nrLines)
-    val dataWidth = (Math.pow(2, offsetWidth) * 8).toUInt
+    val dataWidth = (Math.pow(2, offsetWidth) * 8).toInt
 
     //buffer of req
     val req_addr  = RegInit(0.U(UInt(64.W)))
@@ -72,7 +72,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
                     when(cache(set)(i).tag === tag && cache(set)(i).valid){
                     io.hit      := 1.U
                     io.rvalid   := 1.U
-                    io.rdata    := cache(set)(i).data(dataWidth - 1 - offset * 8, dataWidth - 32 - offset * 8)
+                    io.rdata    := cache(set)(i).data(dataWidth - 1 - offset.toInt * 8, dataWidth - 32 - offset.toInt * 8)
                 }
             }    
             when(!io.hit){
