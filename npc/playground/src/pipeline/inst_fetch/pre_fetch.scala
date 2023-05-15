@@ -70,7 +70,7 @@ class IF_pre_fetch extends Module{
     val npc = Wire(UInt(64.W))
     npc := MuxCase(PF_npc, Seq(
         (io.bp_flush  , io.bp_npc),
-        (io.stall        io.PF_pc),
+        (io.stall     ,  io.PF_pc),
         (io.bp_taken  , io.bp_npc)
     ))
     
