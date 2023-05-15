@@ -9,7 +9,6 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
     val io = IO(new Bundle{
         //cache-pipeline
         val valid   = Input(Bool())
-        // val uncache = Input(Bool())
         val addr    = Input(UInt(64.W))
         val rdata   = Output(UInt(32.W))
         val hit     = Output(Bool()) 
