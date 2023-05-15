@@ -59,6 +59,9 @@ module sim_sram(
     assign awready = awready_r;
     assign wready = wready_r;
     assign bvalid = bvalid_r;
+    assign bid   = bid_r;
+    assign rid   = rid_r;
+    assign rlast = rlast_r;
     assign rresp = rresp_r;
     assign bresp = bresp_r;
     assign rdata = rdata_r;
@@ -66,11 +69,11 @@ module sim_sram(
     //ar      
     always@(posedge aclk) begin
         if(!aresetn) begin
-            arready_r <= 1'b1;
+            arready_r <= 1'b0;
         end
-        else if(arvalid) begin
-            arready_r <= 1'b1;
-        end
+        // else if(arvalid) begin
+        //     arready_r <= 1'b1;
+        // end
         else 
             arready_r <= 1'b1;
     end
@@ -93,14 +96,30 @@ module sim_sram(
     end
 
     //r
+    reg [7:0] rcnt;
+    reg [7:0] roffset;
     always@(posedge aclk) begin
         if(!aresetn) begin
             rdata_r = 64'b0;
+            rcnt    = 8'b0;
+            roffset = 8'b0;
+            rlast_r = 1'b0;
         end
         else begin
             if(arready_r & arvalid) begin
-                dci_pmem_read({32'H0000, araddr}, rdata_r, 8'HFF);
+                dci_pmem_read({32'H0000, araddr+{24'b0, roffset}}, rdata_r, 8'HFF);
+                rcnt = rcnt + 1'b1;
+                if(rcnt >= arlen) begin
+                    rcnt    = 8'b0;
+                    roffset = 8'b0;
+                    rlast_r = 1'b1;
+                end
                 // $display("raddr:0x%x rdata:0x%x", araddr, rdata);
+            end
+            else begin
+                roffset = 8'b0;
+                rlast_r = 1'b1;
+                rcnt    = 8'b0;
             end
         end
         // $display("addr:0x%x, rdata:0x%x", araddr_r, rdata_r);

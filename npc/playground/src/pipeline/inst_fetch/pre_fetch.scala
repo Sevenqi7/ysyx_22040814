@@ -39,7 +39,7 @@ class IF_pre_fetch extends Module{
     
     axi.readAddr.bits.id       := 0.U
     axi.readAddr.bits.len      := 2.U
-    axi.readAddr.bits.size     := 6.U       //64 bits
+    axi.readAddr.bits.size     := "b011".U       //8 bytes
     axi.readAddr.bits.burst    := "b01".U
     axi.readAddr.bits.lock     := 0.U
     axi.readAddr.bits.cache    := 0.U
