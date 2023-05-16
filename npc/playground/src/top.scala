@@ -69,6 +69,7 @@ class top extends Module{
         val mcause    = Output(UInt(64.W))      
 
         val cache_hit = Output(Bool())
+        val cache_state = Output(UInt(3.W))
 
         val IF_Inst = Output(UInt(32.W))
         val IF_valid = Output(Bool())

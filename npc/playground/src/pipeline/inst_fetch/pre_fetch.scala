@@ -19,6 +19,8 @@ class IF_pre_fetch extends Module{
         val PF_npc       = Output(UInt(64.W))
         //debug
         val cache_hit    = Output(Bool())
+        val cache_state  = Output(UInt(3.W))
+
     })
     val axi      = IO(new AXIMasterIF(32, 64, 4))
     val axi_req  = IO(new MyReadyValidIO)
@@ -40,6 +42,7 @@ class IF_pre_fetch extends Module{
     val inst_cache  = Module(new ICache(tagWidth, nrSets, nrLines, offsetWidth))
     
     io.cache_hit               := inst_cache.io.hit
+    io.cache_state             := inst_cache.io.state
 
     axi.readAddr.bits.id       := 0.U
     axi.readAddr.bits.len      := 2.U

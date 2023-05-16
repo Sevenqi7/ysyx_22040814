@@ -14,6 +14,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
         val hit     = Output(Bool()) 
         val arvalid = Output(Bool())
         val rvalid  = Output(Bool())
+        val state   = Output(UInt(3.W))
 
         //cache-axi
         val axi_rreq        = Output(Bool())

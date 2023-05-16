@@ -37,6 +37,7 @@ void clock_step()
     // Log("PF_axidata:0x%lx", top->io_PF_axidata);
     Log("IF_pc:0x%lx", top->io_IF_pc); 
     Log("IF_valid:%d", top->io_IF_valid);
+    Log("cache_hit:%d", top->io_cache_hit);
     Log("IF_req:%d", top->io_IF_AXIREQ);
     Log("IF_Inst:0x%x", top->io_IF_Inst);
     Log("ID_pc:0x%lx", top->io_ID_pc);
