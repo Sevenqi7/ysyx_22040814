@@ -28,7 +28,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
 
     val sIdle :: sLookup :: sMiss :: sRefill :: Nil = Enum(4)
 
-    val cacheline = Wire(new CacheLine(tagWidth, Math.pow(2, offsetWidth).toInt * 8))
+    val cacheline = Wire(new CacheLine(tagWidth, 128))
     cacheline.tag   := 0.U
     cacheline.data  := 0.U
     cacheline.valid := 0.U
@@ -36,7 +36,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
 
     val setWidth = log2Ceil(nrSets)
     val lineWidth = log2Ceil(nrLines)
-    val dataWidth = (Math.pow(2, offsetWidth) * 8).toInt
+    val dataWidth = 128
 
     //buffer of req
     val req_addr  = RegInit(0.U(64.W))
