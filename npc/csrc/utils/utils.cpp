@@ -40,7 +40,7 @@ void clock_step()
     Log("cache_hit:%d", top->io_cache_hit);
     Log("cache_state:%d", top->io_cache_state);
     Log("cache_axi_req:%d", top->io_cache_axi_req);
-    Log("cache_rvalid:%d", top->io_cache_valid);
+    Log("cache_rvalid:%d", top->io_cache_rvalid);
     Log("IF_req:%d", top->io_IF_AXIREQ);
     Log("IF_Inst:0x%x", top->io_IF_Inst);
     Log("ID_pc:0x%lx", top->io_ID_pc);
