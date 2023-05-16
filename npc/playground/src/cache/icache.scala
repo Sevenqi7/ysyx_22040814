@@ -17,6 +17,12 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
         val state   = Output(UInt(3.W))
         val miss    = Output(Bool())
 
+        //debug
+        val cache_tag = Output(UInt(20.W))
+        val cache_set = Output(UInt(2.W))
+        val cache_offset = Output(UInt(4.W))
+
+
         //cache-axi
         val axi_rreq        = Output(Bool())
         val axi_raddr       = Output(UInt(32.W))
@@ -52,6 +58,10 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
     
     val state           = RegInit(sIdle)
     val lineBuf         = RegInit(0.U(dataWidth.W))
+
+    io.cache_offset     := offset
+    io.cache_set        := set
+    io.cache_tag        := tag
 
     io.state        := state
 
@@ -146,7 +156,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
             .otherwise{
                 lineBuf                     := (lineBuf << 64) | io.axi_rdata
             }
-        }
+        }   
     }
 
 }
