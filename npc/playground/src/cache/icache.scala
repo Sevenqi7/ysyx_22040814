@@ -67,7 +67,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
         is (sIdle){
             when(io.valid){
                 state       := sLookup
-                io.arvalid  := 1.U
+                io.arvalid  := !reset
                 req_valid   := io.valid
                 req_addr    := io.addr
             }

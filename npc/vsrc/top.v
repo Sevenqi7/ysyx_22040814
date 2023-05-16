@@ -16491,13 +16491,13 @@ module IF_pre_fetch(	// <stdin>:1857:10
         rhsReg <= io_bp_npc;	// tools.scala:15:29
       end
       else begin
-        if (~(io_stall | _inst_cache_io_arvalid & ~_inst_cache_io_hit)) begin	// pre_fetch.scala:42:29, :59:45, :74:{19,43}
+        if (~(io_stall | _inst_cache_io_arvalid & ~_inst_cache_io_hit)) begin	// pre_fetch.scala:42:29, :59:46, :74:{19,44}
           if (io_bp_taken)
             PF_npc <= _PF_npc_T_3;	// pre_fetch.scala:28:27, :73:33
           else
             PF_npc <= PF_npc + 64'h4;	// pre_fetch.scala:28:27, :72:33
         end
-        if (~(io_stall | _inst_cache_io_arvalid & ~_inst_cache_io_hit)) begin	// pre_fetch.scala:42:29, :59:45, :82:{19,43}
+        if (~(io_stall | _inst_cache_io_arvalid & ~_inst_cache_io_hit)) begin	// pre_fetch.scala:42:29, :59:46, :82:{19,44}
           if (io_bp_taken)
             rhsReg <= io_bp_npc;	// tools.scala:15:29
           else
@@ -16537,7 +16537,7 @@ module IF_pre_fetch(	// <stdin>:1857:10
     .clock          (clock),
     .reset          (reset),
     .io_addr        (io_bp_flush ? io_bp_npc : io_stall | _inst_cache_io_arvalid & ~_inst_cache_io_hit ? rhsReg
-                : io_bp_taken ? io_bp_npc : {32'h0, PF_npc[31:0]}),	// Mux.scala:101:16, pre_fetch.scala:28:27, :42:29, :57:49, :59:{19,43,45}, tools.scala:15:29
+                : io_bp_taken ? io_bp_npc : {32'h0, PF_npc[31:0]}),	// Mux.scala:101:16, pre_fetch.scala:28:27, :42:29, :57:49, :59:{19,44,46}, tools.scala:15:29
     .io_axi_arready (axi_readAddr_ready),
     .io_axi_rlast   (axi_readData_bits_last),
     .io_hit         (_inst_cache_io_hit),
