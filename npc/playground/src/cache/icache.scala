@@ -130,7 +130,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
                     }
                 }
                 for(i  <- 0 until nrLines-1){
-                    when(cache(set)(i).valid & tag === cache(wset)(i).tag){
+                    when(cache(set)(i).valid & tag === cache(set)(i).tag){
                         refillHit           := 1.U
                         refillIDX           := i.U
                     }
