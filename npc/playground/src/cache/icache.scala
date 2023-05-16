@@ -66,8 +66,10 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
     
     //FSM
     val refillIDX       = Wire(UInt(lineWidth.W))
-    val rcnt            = RegInit(0.U(3.W))
+    val refillHit       = Wire(Bool())
     refillIDX           := 0.U
+    refillHit           := 0.U
+
     switch(state){
         is (sIdle){
             when(io.valid){
@@ -122,7 +124,15 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
             io.axi_raddr    := req_addr & (0xFFFFFFFFL.U << offsetWidth)
             when(io.axi_rlast){
                 state                       := sIdle
-                refillIDX                   := random.LFSR(16)(lineWidth, 0)
+                for(i <- 0 until nrLines-1){
+                    when(!cache(set)(i).valid & !refillHit){
+                        refillHit           := 1.U
+                        refillIDX           := i.U
+                    }
+                }
+                when(!refillHit){
+                    refillIDX               := random.LFSR(16)(lineWidth-1, 0)
+                }
                 cache(set)(refillIDX).valid := 1.U
                 cache(set)(refillIDX).tag   := tag
                 cache(set)(refillIDX).data  := (lineBuf << 64) | io.axi_rdata
