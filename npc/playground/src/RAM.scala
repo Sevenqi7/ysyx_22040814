@@ -1,4 +1,4 @@
-import chisel3._
+    import chisel3._
 import chisel3.util._
 import chisel3.experimental._
 import AXIDefs._
@@ -94,6 +94,12 @@ class RAMU extends Module{
     //ar
     data_ram.io.arid                        := axi.readAddr.bits.id
     data_ram.io.araddr                      := axi.readAddr.bits.addr
+    data_ram.io.arlen                       := axi.readAddr.bits.len
+    data_ram.io.arsize                      := axi_readAddr.bits.size
+    data_ram.io.arburst                     := axi_readAddr.bits.burst
+    data_ram.io.arlock                      := axi_readAddr.bits.lock
+    data_ram.io.arcache                     := axi_readAddr.bits.cache
+    data_ram.io.arprot                      := axi_readAddr.bits.prot
     data_ram.io.arvalid                     := axi.readAddr.valid
     axi.readAddr.ready                      := data_ram.io.arready
     //r

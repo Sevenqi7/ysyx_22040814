@@ -28,7 +28,7 @@ class IF_pre_fetch extends Module{
     val PF_npc   = RegInit(0x80000000L.U(64.W))
     io.PF_npc    := PF_npc
     val axi_busy = RegInit(0.U(1.W))
-    axi_busy := !axi_req.ready
+    axi_busy        := !axi_req.ready
     axi_req.valid   := 1.U
 
 
