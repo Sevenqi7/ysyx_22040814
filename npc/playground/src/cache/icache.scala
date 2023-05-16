@@ -48,7 +48,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
     val offset    = req_addr(offsetWidth - 1, 0)
     val set       = req_addr(offsetWidth + setWidth - 1, offsetWidth)
     val tag       = req_addr(offsetWidth + setWidth + tagWidth - 1, offsetWidth + setWidth)
-    val index     = dataWidth.U - 1.U - offset * 8.U
+    val index     = 127 - offset * 8
     
     val state           = RegInit(sIdle)
     val lineBuf         = RegInit(0.U(dataWidth.W))
@@ -144,7 +144,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
                 io.axi_rreq                 := 0.U
             }
             .otherwise{
-                lineBuf                         := (lineBuf << 64) | io.axi_rdata
+                lineBuf                     := (lineBuf << 64) | io.axi_rdata
             }
         }
     }
