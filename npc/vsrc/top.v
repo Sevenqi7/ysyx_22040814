@@ -19079,7 +19079,7 @@ module sim_sram(
             if(arready_r & arvalid) begin
                 dci_pmem_read({32'H0000, araddr+{24'b0, roffset}}, rdata_r, 8'HFF);
                 rcnt = rcnt + 1'b1;
-                $display("addr:0x%x, rdata:0x%x, rlast:%d, roffset:%d", araddr+{24'b0, roffset}, rdata_r, rlast_r, roffset);
+                $display("addr:0x%x, rdata:0x%x, rlast:%d, roffset:%d, rcnt:%d", araddr+{24'b0, roffset}, rdata_r, rlast_r, roffset, rcnt);
                 roffset = roffset + (1 << arsize);
                 if(rcnt >= arlen) begin
                     rcnt    = 8'b0;
