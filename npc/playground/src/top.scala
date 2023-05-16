@@ -68,6 +68,7 @@ class top extends Module{
         val mepc      = Output(UInt(64.W))
         val mcause    = Output(UInt(64.W))      
 
+        val cache_hit = Output(Bool())
 
         val IF_Inst = Output(UInt(32.W))
         val IF_valid = Output(Bool())
@@ -125,6 +126,7 @@ class top extends Module{
 
     io.IF_Inst  := inst_fetch_unit.io.IF_to_ID_bus.bits.Inst
     io.IF_valid := inst_fetch_unit.io.IF_to_ID_bus.valid
+    io.cache_hit := inst_fetch_unit.io.cache_hit
     io.PF_axidata := inst_fetch_unit.io.axidata
     io.ID_npc   := inst_decode_unit.io.ID_to_BPU_bus.bits.br_target
     io.PF_npc   := inst_fetch_unit.io.PF_npc
