@@ -49,6 +49,8 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
     val state           = RegInit(sIdle)
     val lineBuf         = RegInit(0.U(dataWidth.W))
 
+    io.state        := state
+
     //initialise
     io.hit          := 0.U
     io.arvalid      := 0.U
