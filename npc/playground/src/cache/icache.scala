@@ -102,7 +102,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
         is (sMiss){
             io.axi_rreq     := 1.U
             io.axi_raddr    := req_addr & (0xFFFFFFFFL.U << offsetWidth)
-            when(!io.axi_arready){
+            when(!io.axi_arready){ 
                 state           := sMiss
             }       
             .otherwise{
