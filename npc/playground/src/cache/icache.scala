@@ -15,6 +15,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
         val arready = Output(Bool())
         val rvalid  = Output(Bool())
         val state   = Output(UInt(3.W))
+        val miss    = Output(Bool())
 
         //cache-axi
         val axi_rreq        = Output(Bool())
@@ -58,6 +59,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
     io.rvalid       := 0.U
     io.axi_rreq     := 0.U
     io.axi_raddr    := 0.U
+    io.miss         := !io.rvalid & req_valid
     
     //FSM
     val refillIDX       = Wire(UInt(lineWidth.W))

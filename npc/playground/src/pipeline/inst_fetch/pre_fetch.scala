@@ -58,7 +58,7 @@ class IF_pre_fetch extends Module{
     axi.readData.ready         := !io.stall
     inst_cache.io.addr         := MuxCase(PF_npc(31, 0), Seq(
         (io.bp_flush, io.bp_npc),
-        (io.stall | !inst_cache.io.rvalid, io.PF_pc ),
+        (io.stall | !inst_cache.io.miss, io.PF_pc ),
         (io.bp_taken, io.bp_npc)
         ))
     inst_cache.io.valid        := !reset.asBool
@@ -73,7 +73,7 @@ class IF_pre_fetch extends Module{
 
     PF_npc := MuxCase(io.PF_npc + 4.U, Seq(
         (io.bp_flush, io.bp_npc + 4.U),
-        (io.stall | !inst_cache.io.rvalid, io.PF_npc      ),
+        (io.stall | !inst_cache.io.miss, io.PF_npc      ),
         (io.bp_taken, io.bp_npc + 4.U)
     ))
 
@@ -81,7 +81,7 @@ class IF_pre_fetch extends Module{
     val npc = Wire(UInt(64.W))
     npc := MuxCase(PF_npc, Seq(
         (io.bp_flush  , io.bp_npc),
-        (io.stall | !inst_cache.io.rvalid,  io.PF_pc),
+        (io.stall | !inst_cache.io.miss,  io.PF_pc),
         (io.bp_taken  , io.bp_npc)
     ))
     
@@ -106,7 +106,5 @@ class IF_pre_fetch extends Module{
     axi.writeResp.ready        := 0.U
 
     //Fetch inst from sram
-
-
 
 }
