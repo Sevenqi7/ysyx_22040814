@@ -44,7 +44,7 @@ class IF_pre_fetch extends Module{
     axi.readAddr.bits.lock     := 0.U
     axi.readAddr.bits.cache    := 0.U
     axi.readAddr.bits.prot     := 0.U
-    axi.readAddr.bits.addr     := inst_cache.io.axi_raddr
+    axi.readAddr.bits.addr     := inst_cache.io.axi_raddr(31, 0)
     axi.readAddr.valid         := inst_cache.io.axi_rreq
     axi.readData.ready         := !io.stall
     inst_cache.io.addr         := MuxCase(PF_npc(31, 0), Seq(
