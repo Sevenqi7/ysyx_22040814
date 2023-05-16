@@ -124,7 +124,13 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
             when(io.axi_rlast){
                 state                       := sIdle
                 for(i <- 0 until nrLines-1){
-                    when(!cache(set)(i).valid & !refillHit){
+                    when(!cache(set)(i).valid){
+                        refillHit           := 1.U
+                        refillIDX           := i.U
+                    }
+                }
+                for(i  <- 0 until nrLines-1){
+                    when(cache(set)(i).valid & tag === cache(wset)(i).tag){
                         refillHit           := 1.U
                         refillIDX           := i.U
                     }
