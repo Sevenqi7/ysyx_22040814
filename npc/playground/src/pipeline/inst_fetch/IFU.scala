@@ -23,6 +23,7 @@ class IFU extends Module{
         val cache_hit = Output(Bool())
         val cache_state = Output(UInt(3.W))
         val cache_rvalid = Output(Bool())
+        val cache_rdata = Output(UInt(32.W))
 
         val axidata = Output(UInt(64.W))
     })
@@ -42,6 +43,7 @@ class IFU extends Module{
     io.cache_hit                            := pre_fetch.io.cache_hit
     io.cache_state                          := pre_fetch.io.cache_state
     io.cache_rvalid                         := pre_fetch.io.cache_rvalid
+    io.cache_rdata                          := pre_fetch.io.cache_rdata
 
     pre_fetch.io.IF_pc                      := io.IF_to_ID_bus.bits.PC
     pre_fetch.io.IF_valid                   := io.IF_to_ID_bus.valid

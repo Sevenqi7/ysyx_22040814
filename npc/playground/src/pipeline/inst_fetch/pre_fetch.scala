@@ -21,6 +21,7 @@ class IF_pre_fetch extends Module{
         val cache_hit    = Output(Bool())
         val cache_state  = Output(UInt(3.W))
         val cache_rvalid = Output(Bool())
+        val cache_rdata  = Output(UInt(32.W))
 
     })
     val axi      = IO(new AXIMasterIF(32, 64, 4))
@@ -45,6 +46,7 @@ class IF_pre_fetch extends Module{
     io.cache_hit               := inst_cache.io.hit
     io.cache_state             := inst_cache.io.state
     io.cache_rvalid            := inst_cache.io.rvalid
+    io.cache_rdata             := inst_cache.io.rdata
 
     axi.readAddr.bits.id       := 0.U
     axi.readAddr.bits.len      := 2.U
