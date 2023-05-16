@@ -70,6 +70,7 @@ class top extends Module{
 
         val cache_hit = Output(Bool())
         val cache_state = Output(UInt(3.W))
+        val cache_axi_req = Output(Bool())
 
         val IF_Inst = Output(UInt(32.W))
         val IF_valid = Output(Bool())
@@ -129,6 +130,7 @@ class top extends Module{
     io.IF_valid := inst_fetch_unit.io.IF_to_ID_bus.valid
     io.cache_hit := inst_fetch_unit.io.cache_hit
     io.cache_state := inst_fetch_unit.io.cache_state
+    io.cache_axi_req := inst_fetch_unit.axi.readAddr.valid
     io.PF_axidata := inst_fetch_unit.io.axidata
     io.ID_npc   := inst_decode_unit.io.ID_to_BPU_bus.bits.br_target
     io.PF_npc   := inst_fetch_unit.io.PF_npc
