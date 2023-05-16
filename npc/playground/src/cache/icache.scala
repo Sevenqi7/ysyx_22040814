@@ -87,8 +87,6 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
             }    
             when(!io.hit){
                 state           := sMiss
-                io.axi_rreq     := 1.U
-                io.axi_raddr    := req_addr & (0xFFFFFFFFL.U << offsetWidth)
             }
             .elsewhen(io.valid){
                 state           := sLookup
