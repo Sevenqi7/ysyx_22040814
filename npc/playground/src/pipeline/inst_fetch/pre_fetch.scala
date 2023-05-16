@@ -48,9 +48,9 @@ class IF_pre_fetch extends Module{
     io.cache_hit               := inst_cache.io.hit
     io.cache_state             := inst_cache.io.state
     io.cache_rvalid            := inst_cache.io.rvalid
-    io.cache_tag               := inst_cache.io.tag 
-    io.cache_set               := inst_cache.io.set
-    io.cache_offset            := inst_cache.io.offset
+    io.cache_tag               := inst_cache.io.cache_tag 
+    io.cache_set               := inst_cache.io.cache_set
+    io.cache_offset            := inst_cache.io.cache_offset
 
 
     axi.readAddr.bits.id       := 0.U
