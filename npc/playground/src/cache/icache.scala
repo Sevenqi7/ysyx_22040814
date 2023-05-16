@@ -102,6 +102,8 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
             }
         }
         is (sMiss){
+            io.axi_rreq     := 1.U
+            io.axi_raddr    := req_addr & (0xFFFFFFFFL.U << offsetWidth)
             when(!io.axi_arready){
                 state           := sMiss
             }       
@@ -112,6 +114,8 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
             }
         }
         is (sRefill){
+            io.axi_rreq     := 1.U
+            io.axi_raddr    := req_addr & (0xFFFFFFFFL.U << offsetWidth)
             when(io.axi_rlast){
                 state                       := sIdle
                 refillIDX                   := random.LFSR(16)(lineWidth, 0)
