@@ -12,7 +12,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
         val addr    = Input(UInt(64.W))
         val rdata   = Output(UInt(32.W))
         val hit     = Output(Bool()) 
-        val arvalid = Output(Bool())
+        val arready = Output(Bool())
         val rvalid  = Output(Bool())
         val state   = Output(UInt(3.W))
 
@@ -53,7 +53,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
 
     //initialise
     io.hit          := 0.U
-    io.arvalid      := 0.U
+    io.arready      := 0.U
     io.rdata        := 0x7777.U
     io.rvalid       := 0.U
     io.axi_rreq     := 0.U
@@ -67,7 +67,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
         is (sIdle){
             when(io.valid){
                 state       := sLookup
-                io.arvalid  := !reset
+                io.arready  := 1.U
                 req_valid   := io.valid
                 req_addr    := io.addr
             }
@@ -92,13 +92,13 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
             }
             .elsewhen(io.valid){
                 state           := sLookup
-                io.arvalid      := 1.U
+                io.arready      := 1.U
                 req_valid       := io.valid
                 req_addr        := io.addr
             }
             .otherwise{
                 state           := sIdle
-                io.arvalid      := 0.U
+                io.arready      := 0.U
             }
         }
         is (sMiss){

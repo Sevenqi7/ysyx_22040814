@@ -59,7 +59,7 @@ class IF_pre_fetch extends Module{
         (io.stall | (inst_cache.io.arvalid & !inst_cache.io.hit), io.PF_pc ),
         (io.bp_taken, io.bp_npc)
         ))
-    inst_cache.io.valid        := 1.U
+    inst_cache.io.valid        := !reset.asBool
     inst_cache.io.axi_arready  := axi.readAddr.ready
     inst_cache.io.axi_rvalid   := axi.readData.valid
     inst_cache.io.axi_rlast    := axi.readData.bits.last
@@ -71,7 +71,7 @@ class IF_pre_fetch extends Module{
 
     PF_npc := MuxCase(io.PF_npc + 4.U, Seq(
         (io.bp_flush, io.bp_npc + 4.U),
-        (io.stall | (inst_cache.io.arvalid & !inst_cache.io.hit), io.PF_npc      ),
+        (io.stall | (inst_cache.io.arready & !inst_cache.io.hit), io.PF_npc      ),
         (io.bp_taken, io.bp_npc + 4.U)
     ))
 
