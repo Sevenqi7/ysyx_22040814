@@ -115,7 +115,6 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
             .otherwise{
                 state           := sRefill
                 lineBuf         := io.axi_rdata
-                rcnt            := rcnt + 1.U
             }
         }
         is (sRefill){
