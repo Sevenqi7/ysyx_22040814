@@ -8134,7 +8134,6 @@ module ICache(	// <stdin>:1182:10
   input         io_axi_arready,
                 io_axi_rlast,
   output        io_hit,
-                io_arready,
                 io_rvalid,
   output [2:0]  io_state,
   output        io_axi_rreq,
@@ -16452,7 +16451,6 @@ module ICache(	// <stdin>:1182:10
     .io_out_15 (_refillIDX_prng_io_out_15)
   );
   assign io_hit = _GEN_3;	// <stdin>:1182:10, icache.scala:55:21, :66:18
-  assign io_arready = (_T | _T_1 & _GEN_3) & io_valid;	// <stdin>:1182:10, icache.scala:55:21, :56:21, :66:18, :68:27, :88:26
   assign io_rvalid = _GEN_3;	// <stdin>:1182:10, icache.scala:55:21, :66:18
   assign io_state = {1'h0, state};	// <stdin>:1182:10, icache.scala:31:21, :49:34, :52:21
   assign io_axi_rreq = ~_T & (_T_1 ? ~_GEN_3 : _T_9 | (&state) & ~io_axi_rlast);	// <stdin>:1182:10, icache.scala:34:24, :49:34, :55:21, :59:21, :66:18, :88:{18,26}, :105:29, :119:31, :123:45
@@ -16480,7 +16478,7 @@ module IF_pre_fetch(	// <stdin>:1857:10
 
   reg  [63:0] rhsReg;	// tools.scala:15:29
   wire        _inst_cache_io_hit;	// pre_fetch.scala:42:29
-  wire        _inst_cache_io_arready;	// pre_fetch.scala:42:29
+  wire        _inst_cache_io_axi_rreq;	// pre_fetch.scala:42:29
   reg  [63:0] PF_npc;	// pre_fetch.scala:28:27
   always @(posedge clock) begin
     if (reset) begin
@@ -16495,13 +16493,13 @@ module IF_pre_fetch(	// <stdin>:1857:10
         rhsReg <= io_bp_npc;	// tools.scala:15:29
       end
       else begin
-        if (~(io_stall | _inst_cache_io_arready & ~_inst_cache_io_hit)) begin	// pre_fetch.scala:42:29, :59:46, :74:{19,44}
+        if (~(io_stall | ~_inst_cache_io_hit & _inst_cache_io_axi_rreq)) begin	// pre_fetch.scala:42:29, :59:22, :74:{19,41}
           if (io_bp_taken)
             PF_npc <= _PF_npc_T_3;	// pre_fetch.scala:28:27, :73:33
           else
             PF_npc <= PF_npc + 64'h4;	// pre_fetch.scala:28:27, :72:33
         end
-        if (~(io_stall | _inst_cache_io_arready & ~_inst_cache_io_hit)) begin	// pre_fetch.scala:42:29, :59:46, :82:{19,44}
+        if (~(io_stall | ~_inst_cache_io_hit & _inst_cache_io_axi_rreq)) begin	// pre_fetch.scala:42:29, :59:22, :82:{19,41}
           if (io_bp_taken)
             rhsReg <= io_bp_npc;	// tools.scala:15:29
           else
@@ -16541,20 +16539,20 @@ module IF_pre_fetch(	// <stdin>:1857:10
     .clock          (clock),
     .reset          (reset),
     .io_valid       (~reset),	// pre_fetch.scala:62:35
-    .io_addr        (io_bp_flush ? io_bp_npc : io_stall | _inst_cache_io_arready & ~_inst_cache_io_hit ? rhsReg
-                : io_bp_taken ? io_bp_npc : {32'h0, PF_npc[31:0]}),	// Mux.scala:101:16, pre_fetch.scala:28:27, :42:29, :57:49, :59:{19,44,46}, tools.scala:15:29
+    .io_addr        (io_bp_flush ? io_bp_npc : io_stall | ~_inst_cache_io_hit & _inst_cache_io_axi_rreq ? rhsReg
+                : io_bp_taken ? io_bp_npc : {32'h0, PF_npc[31:0]}),	// Mux.scala:101:16, pre_fetch.scala:28:27, :42:29, :57:49, :59:{19,22,41}, tools.scala:15:29
     .io_axi_arready (axi_readAddr_ready),
     .io_axi_rlast   (axi_readData_bits_last),
     .io_hit         (_inst_cache_io_hit),
-    .io_arready     (_inst_cache_io_arready),
     .io_rvalid      (io_inst_valid),
     .io_state       (io_cache_state),
-    .io_axi_rreq    (axi_readAddr_valid),
+    .io_axi_rreq    (_inst_cache_io_axi_rreq),
     .io_axi_raddr   (axi_readAddr_bits_addr)
   );
   assign io_PF_pc = rhsReg;	// <stdin>:1857:10, tools.scala:15:29
   assign io_PF_npc = PF_npc;	// <stdin>:1857:10, pre_fetch.scala:28:27
   assign io_cache_hit = _inst_cache_io_hit;	// <stdin>:1857:10, pre_fetch.scala:42:29
+  assign axi_readAddr_valid = _inst_cache_io_axi_rreq;	// <stdin>:1857:10, pre_fetch.scala:42:29
   assign axi_readData_ready = ~io_stall;	// <stdin>:1857:10, pre_fetch.scala:56:35
 endmodule
 
