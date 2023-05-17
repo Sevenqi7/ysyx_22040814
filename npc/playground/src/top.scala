@@ -179,7 +179,7 @@ class top extends Module{
     bp_unit.io.PF_npc                       := inst_fetch_unit.io.PF_npc
     bp_unit.io.PF_pc                        := inst_fetch_unit.io.PF_pc
     bp_unit.io.PF_valid                     := inst_fetch_unit.io.PF_valid
-    bp_unit.io.PF_inst                      := inst_fetch_unit.io.axidata
+    bp_unit.io.PF_inst                      := inst_fetch_unit.io.IF_to_ID_bus.bits.Inst
     inst_fetch_unit.io.bp_npc               := bp_unit.io.bp_npc
     inst_fetch_unit.io.bp_taken             := bp_unit.io.bp_taken
     inst_fetch_unit.io.bp_stall             := bp_unit.io.bp_stall
