@@ -15679,7 +15679,7 @@ module sim_sram(
     assign rlast = rlast_r;
     assign rresp = rresp_r;
     assign bresp = bresp_r;
-    assign rdata = rdata_r;
+    // assign rdata = rdata_r;
 
     //ar      
     always@(posedge aclk) begin
