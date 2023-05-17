@@ -97,10 +97,10 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
                     io.hit      := 1.U
                     io.rvalid   := 1.U
                     switch(offset){
-                        is ("b0100".U){ io.rdata := cache(set)(i).data(dataWidth-1 , dataWidth-32 )}
                         is ("b0000".U){ io.rdata := cache(set)(i).data(dataWidth-33, dataWidth-64 )}
-                        is ("b1000".U){ io.rdata := cache(set)(i).data(dataWidth-65, dataWidth-96 )}
-                        is ("b1100".U){ io.rdata := cache(set)(i).data(31, 0)}
+                        is ("b0100".U){ io.rdata := cache(set)(i).data(dataWidth-1 , dataWidth-32 )}
+                        is ("b1000".U){ io.rdata := cache(set)(i).data(31, 0)}
+                        is ("b1100".U){ io.rdata := cache(set)(i).data(dataWidth-65, dataWidth-96 )}
                     }
                 }
             }    
