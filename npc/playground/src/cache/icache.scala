@@ -154,7 +154,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
             }
             cache(set)(refillIDX).valid := 1.U
             cache(set)(refillIDX).tag   := tag
-            cache(set)(refillIDX).data  := lineBuf
+            cache(set)(refillIDX).data  := (lineBuf << 64) | io.axi_rdata
             io.axi_rreq                 := 0.U
         }
     }
