@@ -133,6 +133,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
             state           := sRefill
             io.axi_rreq     := 1.U
             io.axi_raddr    := req_addr & (0xFFFFFFFFL.U << offsetWidth)
+            lineBuf         := (lineBuf << 64) | io.axi_rdata
             when(io.axi_rlast){
                 state                       := sIdle
                 for(i <- 0 until nrLines-1){
@@ -154,9 +155,6 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
                 cache(set)(refillIDX).tag   := tag
                 cache(set)(refillIDX).data  := (lineBuf << 64) | io.axi_rdata
                 io.axi_rreq                 := 0.U
-            }
-            .otherwise{
-                lineBuf                     := (lineBuf << 64) | io.axi_rdata
             }
         }   
     }
