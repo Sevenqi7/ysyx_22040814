@@ -13556,8 +13556,6 @@ module ICache(	// <stdin>:1182:10
         req_addr = {_RANDOM_1200, _RANDOM_1201};	// icache.scala:50:28
         req_valid = _RANDOM_1202[0];	// icache.scala:51:28
         state = _RANDOM_1202[2:1];	// icache.scala:51:28, :58:34
-        $display("req_addr:0x%x, req_tag:0x%x", req_addr, io_cache_tag);
-
         lineBuf = {_RANDOM_1202[31:3], _RANDOM_1203, _RANDOM_1204, _RANDOM_1205, _RANDOM_1206[2:0]};	// icache.scala:51:28, :59:34
       `endif // RANDOMIZE_REG_INIT
     end // initial
