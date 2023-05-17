@@ -24,6 +24,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
         val lineBuf   = Output(UInt(128.W)) 
 
         //cache-axi
+        val axi_busy        = Input(Bool())
         val axi_rreq        = Output(Bool())
         val axi_raddr       = Output(UInt(32.W))
         val axi_arready     = Input(Bool())
@@ -119,7 +120,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
             }
         }
         is (sMiss){
-            when(!io.axi_arready){ 
+            when(!io.axi_arready | io.axi_busy){ 
                 state           := sMiss
             }       
             .otherwise{
@@ -135,6 +136,9 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
             lineBuf         := (lineBuf << 64) | io.axi_rdata
             when(io.axi_rlast){
                 state       := sReplace
+            }
+            .elsewhen(io.axi_busy){
+                state       := sMiss
             }
         }   
         is (sReplace){

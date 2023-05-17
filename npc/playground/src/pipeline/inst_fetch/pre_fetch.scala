@@ -70,7 +70,8 @@ class IF_pre_fetch extends Module{
         (io.bp_taken, io.bp_npc)
         ))
     inst_cache.io.valid        := !reset.asBool
-    inst_cache.io.axi_arready  := axi.readAddr.ready & !axi_busy
+    inst_cache.io.axi_busy     := !axi_req.ready
+    inst_cache.io.axi_arready  := axi.readAddr.ready
     inst_cache.io.axi_rvalid   := axi.readData.valid
     inst_cache.io.axi_rlast    := axi.readData.bits.last
     inst_cache.io.axi_rdata    := axi.readData.bits.data
