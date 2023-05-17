@@ -154,6 +154,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
             }
             .otherwise{
                 lineBuf                     := (lineBuf << 64) | io.axi_rdata
+                printf(p"linebuf: $linebuf")
             }
         }   
     }
