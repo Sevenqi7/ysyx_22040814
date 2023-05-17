@@ -32,7 +32,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
         val axi_rdata       = Input(UInt(64.W))
     })
 
-    val sIdle :: sLookup :: sMiss :: sRefill :: Nil = Enum(4)
+    val sIdle :: sLookup :: sMiss :: sRefill :: sReplace :: Nil = Enum(5)
 
     // val cacheline = Wire(new CacheLine(tagWidth, (Math.pow(2, offsetWidth) * 8).toInt))
     val cacheline = Wire(new CacheLine(tagWidth, 128))
@@ -134,28 +134,31 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
             io.axi_raddr    := req_addr & (0xFFFFFFFFL.U << offsetWidth)
             lineBuf         := (lineBuf << 64) | io.axi_rdata
             when(io.axi_rlast){
-                state                       := sIdle
-                for(i <- 0 until nrLines-1){
-                    when(!cache(set)(i).valid){
-                        refillHit           := 1.U
-                        refillIDX           := i.U
-                    }
-                }
-                for(i  <- 0 until nrLines-1){
-                    when(cache(set)(i).valid & tag === cache(set)(i).tag){
-                        refillHit           := 1.U
-                        refillIDX           := i.U
-                    }
-                }
-                when(!refillHit){
-                    refillIDX               := random.LFSR(16)(lineWidth-1, 0)
-                }
-                cache(set)(refillIDX).valid := 1.U
-                cache(set)(refillIDX).tag   := tag
-                cache(set)(refillIDX).data  := (lineBuf << 64) | io.axi_rdata
-                io.axi_rreq                 := 0.U
+                state       := sReplace
             }
         }   
+        is (sReplace){
+            state                       := sIdle
+            for(i <- 0 until nrLines-1){
+                when(!cache(set)(i).valid){
+                    refillHit           := 1.U
+                    refillIDX           := i.U
+                }
+            }
+            for(i  <- 0 until nrLines-1){
+                when(cache(set)(i).valid & tag === cache(set)(i).tag){
+                    refillHit           := 1.U
+                    refillIDX           := i.U
+                }
+            }
+            when(!refillHit){
+                refillIDX               := random.LFSR(16)(lineWidth-1, 0)
+            }
+            cache(set)(refillIDX).valid := 1.U
+            cache(set)(refillIDX).tag   := tag
+            cache(set)(refillIDX).data  := lineBuf
+            io.axi_rreq                 := 0.U
+        }
     }
 
 }
