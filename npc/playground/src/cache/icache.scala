@@ -123,7 +123,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
                 state           := sMiss
             }       
             .otherwise{
-                io.axi_req      := 1.U
+                io.axi_rreq     := 1.U
                 io.axi_raddr    := req_addr & (0xFFFFFFFFL.U << offsetWidth)
                 state           := sRefill
             }
