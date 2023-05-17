@@ -24,6 +24,7 @@ class IF_pre_fetch extends Module{
         val cache_tag    = Output(UInt(21.W))
         val cache_set    = Output(UInt(2.W))
         val cache_offset = Output(UInt(4.W))
+        val lineBuf   = Output(UInt(128.W))
 
     })
     val axi      = IO(new AXIMasterIF(32, 64, 4))
@@ -51,7 +52,7 @@ class IF_pre_fetch extends Module{
     io.cache_tag               := inst_cache.io.cache_tag 
     io.cache_set               := inst_cache.io.cache_set
     io.cache_offset            := inst_cache.io.cache_offset
-
+    io.lineBuf                 := inst_cache.io.lineBuf
 
     axi.readAddr.bits.id       := 0.U
     axi.readAddr.bits.len      := 2.U

@@ -75,6 +75,7 @@ class top extends Module{
         val cache_tag    = Output(UInt(21.W))
         val cache_set    = Output(UInt(2.W))
         val cache_offset = Output(UInt(4.W))
+        val lineBuf      = Output(UInt(128.W))
 
         val IF_Inst = Output(UInt(32.W))
         val IF_valid = Output(Bool())
@@ -139,6 +140,7 @@ class top extends Module{
     io.cache_tag        := inst_fetch_unit.io.cache_tag
     io.cache_set        := inst_fetch_unit.io.cache_set
     io.cache_offset     := inst_fetch_unit.io.cache_offset
+    io.lineBuf          := inst_fetch_unit.io.lineBuf
 
     io.PF_axidata := inst_fetch_unit.io.axidata
     io.ID_npc   := inst_decode_unit.io.ID_to_BPU_bus.bits.br_target
