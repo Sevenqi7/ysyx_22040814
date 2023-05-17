@@ -10738,6 +10738,7 @@ module ICache(	// <stdin>:1182:10
         req_addr <= io_addr;	// icache.scala:50:28
         req_valid <= io_valid;	// icache.scala:51:28
       end
+      $display("req_addr:0x%x, tag:0x%x, set:0x%x", req_addr, io_cache_tag, io_cache_set);
       _GEN_525 = {{io_axi_rlast ? 2'h0 : 2'h3}, {{1'h1, io_axi_arready}}, {_GEN ? {1'h0, io_valid} : 2'h2},
                                                 {io_valid ? 2'h1 : state}};	// icache.scala:39:21, :58:34, :68:21, :82:18, :84:27, :85:29, :86:29, :104:26, :105:33, :107:32, :108:33, :114:33, :121:34, :122:33, :125:33, :130:29, :133:31, :134:45
       state <= _GEN_525[state];	// icache.scala:58:34, :82:18, :84:27, :104:26, :121:34, :133:31
@@ -13567,8 +13568,8 @@ module ICache(	// <stdin>:1182:10
     .io_out_14 (_refillIDX_prng_io_out_14),
     .io_out_15 (_refillIDX_prng_io_out_15)
   );
-  assign io_rdata = _T | ~(_T_1 & _T_3) ? 32'h7777 : req_addr[3:0] == 4'h0 ? _GEN_4[127:96] : req_addr[3:0] ==
-                4'h4 ? _GEN_4[95:64] : req_addr[3:0] == 4'h8 ? _GEN_4[63:32] : req_addr[3:0] == 4'hC ?
+  assign io_rdata = _T | ~(_T_1 & _T_3) ? 32'h7777 : req_addr[3:0] == 4'h4 ? _GEN_4[127:96] : req_addr[3:0] ==
+                4'h0 ? _GEN_4[95:64] : req_addr[3:0] == 4'h8 ? _GEN_4[63:32] : req_addr[3:0] == 4'hC ?
                 _GEN_4[31:0] : 32'h7777;	// <stdin>:1182:10, icache.scala:50:28, :53:29, :56:36, :70:21, :82:18, :93:{40,48,71}, :96:35, :97:{50,71}, :98:{50,71}, :99:{50,71}, :100:{50,71}
   assign io_hit = _GEN;	// <stdin>:1182:10, icache.scala:68:21, :82:18
   assign io_rvalid = _GEN;	// <stdin>:1182:10, icache.scala:68:21, :82:18
