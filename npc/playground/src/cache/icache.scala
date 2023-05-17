@@ -18,7 +18,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
         val miss    = Output(Bool())
 
         //debug
-        val cache_tag = Output(UInt(20.W))
+        val cache_tag = Output(UInt(tagWidth.W))
         val cache_set = Output(UInt(2.W))
         val cache_offset = Output(UInt(4.W))
 
@@ -52,7 +52,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
 
     val offset    = req_addr(offsetWidth - 1, 0)
     val set       = req_addr(offsetWidth + setWidth - 1, offsetWidth)
-    val tag       = req_addr(offsetWidth + setWidth + tagWidth , offsetWidth + setWidth)
+    val tag       = req_addr(offsetWidth + setWidth + tagWidth -1 , offsetWidth + setWidth)
     val index     = 127.U - offset * 8.U
     
     val state           = RegInit(sIdle)

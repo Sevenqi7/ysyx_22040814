@@ -72,7 +72,7 @@ class top extends Module{
         val cache_state = Output(UInt(3.W))
         val cache_rvalid = Output(Bool())
         val cache_axi_req = Output(Bool())
-        val cache_tag    = Output(UInt(20.W))
+        val cache_tag    = Output(UInt(21.W))
         val cache_set    = Output(UInt(2.W))
         val cache_offset = Output(UInt(4.W))
 
