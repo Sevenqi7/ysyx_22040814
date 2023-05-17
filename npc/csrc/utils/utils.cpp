@@ -44,6 +44,7 @@ void clock_step()
     Log("cache_tag:0x%x", top->io_cache_tag);
     Log("cache_set:0x%x", top->io_cache_set);
     Log("cache_offset:0x%x", top->io_cache_offset);
+    Log("cache_lineBuf:0x%lx", top->io_lineBuf);
 
     Log("IF_req:%d", top->io_IF_AXIREQ);
     Log("IF_Inst:0x%x", top->io_IF_Inst);
