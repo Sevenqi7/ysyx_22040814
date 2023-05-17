@@ -142,7 +142,6 @@ class top extends Module{
     io.cache_offset     := inst_fetch_unit.io.cache_offset
     io.lineBuf          := inst_fetch_unit.io.lineBuf
 
-    io.PF_axidata := inst_fetch_unit.io.axidata
     io.ID_npc   := inst_decode_unit.io.ID_to_BPU_bus.bits.br_target
     io.PF_npc   := inst_fetch_unit.io.PF_npc
     io.PF_pc := inst_fetch_unit.io.PF_pc
@@ -221,6 +220,9 @@ class top extends Module{
     arb.in(1)       <> inst_fetch_unit.axi
     arb.req(0)      <> pre_mem_unit.axi_req
     arb.req(1)      <> inst_fetch_unit.axi_req
+    io.PF_axidata := inst_fetch_unit.io.readData.bits.data
+
+
 
     //debug
     io.MEM_AXIREQ:= arb.req(0).ready

@@ -34,7 +34,7 @@ void clock_step()
     // Log("ID_npc:0x%lx", top->io_ID_npc);
     // Log("PF_npc:0x%lx", top->io_PF_npc);
     Log("PF_pc:0x%lx", top->io_PF_pc);
-    // Log("PF_axidata:0x%lx", top->io_PF_axidata);
+    Log("PF_axidata:0x%lx", top->io_PF_axidata);
     Log("IF_pc:0x%lx", top->io_IF_pc); 
     Log("IF_valid:%d", top->io_IF_valid);
     Log("cache_hit:%d", top->io_cache_hit);
@@ -44,7 +44,7 @@ void clock_step()
     Log("cache_tag:0x%x", top->io_cache_tag);
     Log("cache_set:0x%x", top->io_cache_set);
     Log("cache_offset:0x%x", top->io_cache_offset);
-    Log("cache_lineBuf:0x%llx", top->io_lineBuf);
+    Log("cache_lineBuf:0x%lx", top->io_lineBuf);
 
     Log("IF_req:%d", top->io_IF_AXIREQ);
     Log("IF_Inst:0x%x", top->io_IF_Inst);
