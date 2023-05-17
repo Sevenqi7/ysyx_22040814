@@ -126,7 +126,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
             }       
             .otherwise{
                 state           := sRefill
-                lineBuf         := io.axi_rdata
+                lineBuf         := (lineBuf << 64) | io.axi_rdata
             }
         }
         is (sRefill){
