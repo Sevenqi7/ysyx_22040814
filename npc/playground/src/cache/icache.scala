@@ -59,7 +59,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
     val state           = RegInit(sIdle)
     val lineBuf         = RegInit(0.U(dataWidth.W))
 
-    io.lineBuf          := lineBuf
+    io.lineBuf          := lineBuf(127, 64)
 
     io.cache_offset     := offset
     io.cache_set        := set
