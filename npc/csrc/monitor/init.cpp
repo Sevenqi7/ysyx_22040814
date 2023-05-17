@@ -50,7 +50,7 @@ void init_npc(int argc, char **argv)
     init_sdb();
     init_vga();
 
-    for(int i=0;i<10;i++)
+    for(int i=0;i<12;i++)
     {
         // contextp->timeInc(1);
         // top->clock = !top->clock;

@@ -13070,9 +13070,9 @@ module ICache(	// <stdin>:1182:10
     .io_out_14 (_refillIDX_prng_io_out_14),
     .io_out_15 (_refillIDX_prng_io_out_15)
   );
-  assign io_rdata = _T | ~(_T_1 & _T_3) ? 32'h7777 : req_addr[3:0] == 4'h4 ? _GEN_4[127:96] : req_addr[3:0] ==
-                4'h0 ? _GEN_4[95:64] : req_addr[3:0] == 4'h8 ? _GEN_4[63:32] : req_addr[3:0] == 4'hC ?
-                _GEN_4[31:0] : 32'h7777;	// <stdin>:1182:10, icache.scala:51:28, :54:29, :57:36, :73:21, :85:18, :96:{40,48,71}, :99:35, :100:{50,71}, :101:{50,71}, :102:{50,71}, :103:{50,71}
+  assign io_rdata = _T | ~(_T_1 & _T_3) ? 32'h7777 : req_addr[3:0] == 4'h0 ? _GEN_4[95:64] : req_addr[3:0] ==
+                4'h4 ? _GEN_4[127:96] : req_addr[3:0] == 4'h8 ? _GEN_4[31:0] : req_addr[3:0] == 4'hC ?
+                _GEN_4[63:32] : 32'h7777;	// <stdin>:1182:10, icache.scala:51:28, :54:29, :57:36, :73:21, :85:18, :96:{40,48,71}, :99:35, :100:{50,71}, :101:{50,71}, :102:{50,71}, :103:{50,71}
   assign io_hit = _GEN;	// <stdin>:1182:10, icache.scala:71:21, :85:18
   assign io_rvalid = _GEN;	// <stdin>:1182:10, icache.scala:71:21, :85:18
   assign io_state = state;	// <stdin>:1182:10, icache.scala:59:34
