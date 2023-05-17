@@ -10229,10 +10229,8 @@ module ICache(	// <stdin>:1182:10
       state <= _GEN_139[state];	// icache.scala:59:34, :85:18, :87:27, :107:26, :122:34, :136:31, :141:41
       if (_T | _T_1 | _T_9 | ~_T_11) begin	// icache.scala:60:34, :85:18
       end
-      else	begin// icache.scala:60:34, :85:18 
+      else	// icache.scala:60:34, :85:18
         lineBuf <= {lineBuf[63:0], io_axi_rdata};	// icache.scala:60:34, :135:29
-        $display("io_axi_data:0x%x", io_axi_rdata);
-      end
     end
   end // always @(posedge)
   `ifndef SYNTHESIS	// <stdin>:1182:10
@@ -15728,7 +15726,7 @@ module sim_sram(
             if(arready_r & arvalid) begin
                 dci_pmem_read({32'H0000, araddr+{24'b0, roffset}}, rdata_r, 8'HFF);
                 rcnt = rcnt + 1'b1;
-                $display("addr:0x%x, rdata:0x%x, roffset:%d, rcnt:%d", araddr+{24'b0, roffset}, rdata_r, roffset, rcnt);
+                $display("addr:0x%x, rdata:0x%x, roffset:%d, rcnt:%d", araddr+{24'b0, roffset}, rdata, roffset, rcnt);
                 roffset = roffset + (1 << arsize);
                 if(rcnt >= arlen) begin
                     rcnt    = 8'b0;
