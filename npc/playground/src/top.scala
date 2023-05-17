@@ -75,6 +75,7 @@ class top extends Module{
         val cache_tag    = Output(UInt(21.W))
         val cache_set    = Output(UInt(2.W))
         val cache_offset = Output(UInt(4.W))
+        val cache_rlast  = Output(Bool())
         val lineBuf      = Output(UInt(128.W))
 
         val IF_Inst = Output(UInt(32.W))
@@ -221,6 +222,7 @@ class top extends Module{
     arb.req(0)      <> pre_mem_unit.axi_req
     arb.req(1)      <> inst_fetch_unit.axi_req
     io.PF_axidata := inst_fetch_unit.axi.readData.bits.data
+    io.cache_rlast := inst_fetch_unit.axi.readData.bits.last
 
 
 
