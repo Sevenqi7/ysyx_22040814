@@ -67,7 +67,7 @@ class IFU extends Module{
     IF_pc := MuxCase(pre_fetch.io.PF_pc, Seq(
                 (!IF_Inst              , 0.U),
                 (!io.IF_to_ID_bus.ready, io.IF_to_ID_bus.bits.PC),
-                (io.bp_flush |         , 0.U)
+                (io.bp_flush           , 0.U)
             ))
 
     IF_Inst := MuxCase(pre_fetch.io.inst, Seq(
