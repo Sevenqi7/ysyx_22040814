@@ -60,21 +60,21 @@ class IFU extends Module{
 
     flush                                   := (reset.asBool | io.bp_flush)
     //pipeline
-    when(io.bp_flush){
-        when(io.IF_to_ID_bus.ready){
-            regConnect(io.IF_to_ID_bus.valid            , 0.U                       )
-            regConnect(io.IF_to_ID_bus.bits.PC          , 0.U                       )
-            regConnect(io.IF_to_ID_bus.bits.Inst        , 0.U                       )
-        }.otherwise{
-            regConnect(io.IF_to_ID_bus.valid            , io.IF_to_ID_bus.valid     )
-            regConnect(io.IF_to_ID_bus.bits.PC          , io.IF_to_ID_bus.bits.PC   )
-            regConnect(io.IF_to_ID_bus.bits.Inst        , io.IF_to_ID_bus.bits.Inst )
-        }
-    }.otherwise{
-        regConnect(io.IF_to_ID_bus.valid            , pre_fetch.io.inst_valid   )
-        regConnect(io.IF_to_ID_bus.bits.PC          , pre_fetch.io.PF_pc        )
-        regConnect(io.IF_to_ID_bus.bits.Inst        , pre_fetch.io.inst         )
-    }
+
+    val IF_pc = MuxCase(pre_fetch.io.PF_pc, Seq(
+                !io.IF_to_ID_bus.ready, io.IF_to_ID_bus.bits.PC,
+                io.bp_flush           , 0.U
+            ))
+
+    val IF_Inst = MuxCase(pre_fetch.io.Inst, Seq(
+                !io.IF_to_ID_bus.ready, io.IF_to_ID_bus.bits.Inst,
+                io.bp_flush           , 0.U
+            ))
+    val IF_valid = MuxCase(pre_fetch.io.inst_valid, Seq(
+                !io.IF_to_ID_bus.ready, io.IF_to_ID_bus.bits.valid,
+                io.bp_flush           , 0.U
+            ))
+
     // regConnectWithResetAndStall(io.IF_to_ID_bus.bits.PC, pre_fetch.io.PF_pc   , flush, 0.U, !io.IF_to_ID_bus.ready)
     // regConnectWithResetAndStall(io.IF_to_ID_bus.valid, pre_fetch.io.inst_valid, flush, 0.U, !io.IF_to_ID_bus.ready)
     // regConnectWithResetAndStall(io.IF_to_ID_bus.bits.Inst, pre_fetch.io.inst  , flush, 0.U, !io.IF_to_ID_bus.ready)
