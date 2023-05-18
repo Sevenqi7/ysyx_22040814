@@ -28,7 +28,7 @@ class WBU extends Module{
     io.WB_to_ID_forward.bits.csrWriteAddr := io.MEM_to_WB_bus.bits.csrWriteAddr
     io.WB_to_ID_forward.valid             := io.MEM_to_WB_bus.valid
 
-    io.WB_pc           := io.MEM_to_WB_bus.bits.PC
+    io.WB_pc           := Mux(io.MEM_to_WB_bus.valid, io.MEM_to_WB_bus.bits.PC, 0.U)
     io.WB_Inst         := io.MEM_to_WB_bus.bits.Inst
 
     io.MEM_to_WB_bus.ready := 1.U
