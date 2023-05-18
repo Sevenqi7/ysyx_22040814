@@ -15680,6 +15680,7 @@ module sim_sram(
         end
         else 
             arready_r <= 1'b1;
+        $display("addr:0x%x, rdata:0x%x, roffset:%d, rcnt:%d", araddr+{24'b0, roffset}, rdata, roffset, rcnt);
     end
 
     //rresp
