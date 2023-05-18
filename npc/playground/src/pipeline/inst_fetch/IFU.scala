@@ -60,6 +60,9 @@ class IFU extends Module{
 
     flush                                   := (reset.asBool | io.bp_flush)
     //pipeline
+    val IF_pc    = Wire(UInt(64.W))
+    val IF_Inst  = Wire(UInt(32.W))
+    val IF_valid = Wire(Bool())
 
     val IF_pc = MuxCase(pre_fetch.io.PF_pc, Seq(
                 (!io.IF_to_ID_bus.ready, io.IF_to_ID_bus.bits.PC),
