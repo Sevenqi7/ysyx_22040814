@@ -13762,8 +13762,8 @@ module IDU(	// <stdin>:1782:10
         GPR_30 <= io_WB_to_ID_forward_bits_regWriteData;	// IDU.scala:119:22
       if (_T_1 & (&io_WB_to_ID_forward_bits_regWriteID))	// IDU.scala:119:22, :151:24, :152:5, :153:28
         GPR_31 <= io_WB_to_ID_forward_bits_regWriteData;	// IDU.scala:119:22
-      if (_io_ID_stall_T_2) begin	// IDU.scala:209:47
-      end
+      if (_io_ID_stall_T_2)	// IDU.scala:209:47
+        rhsReg_16 <= ~_io_ID_stall_T_2 & io_IF_to_ID_bus_valid;	// IDU.scala:209:47, :211:{20,33}, tools.scala:23:29
       else begin	// IDU.scala:209:47
         automatic logic [63:0]      _immI_ret_T_4;	// Cat.scala:33:92
         automatic logic             _regWriteEn_T_3 = InstInfo_0 == 4'h3;	// IDU.scala:174:19, Lookup.scala:34:39
@@ -13953,7 +13953,6 @@ module IDU(	// <stdin>:1782:10
           rhsReg_15 <= 64'h341;	// Mux.scala:101:16, tools.scala:23:29
         else	// IDU.scala:198:35
           rhsReg_15 <= _immI_ret_T_4;	// Cat.scala:33:92, tools.scala:23:29
-        rhsReg_16 <= ~_io_ID_stall_T_2 & io_IF_to_ID_bus_valid;	// IDU.scala:209:47, :211:{20,33}, tools.scala:23:29
       end
     end
   end // always @(posedge)
