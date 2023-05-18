@@ -58,11 +58,20 @@ class IFU extends Module{
     pre_fetch.io.bp_taken                   := io.bp_taken
     pre_fetch.io.stall                      := !io.IF_to_ID_bus.ready | io.bp_stall
 
-    flush                                   := (reset.asBool | io.bp_flush | !pre_fetch.io.inst_valid)
+    flush                                   := (reset.asBool | io.bp_flush)
     //pipeline
-    regConnectWithResetAndStall(io.IF_to_ID_bus.bits.PC, pre_fetch.io.PF_pc   , flush, 0.U, !io.IF_to_ID_bus.ready)
-    regConnectWithResetAndStall(io.IF_to_ID_bus.valid, pre_fetch.io.inst_valid, flush, 0.U, !io.IF_to_ID_bus.ready)
-    regConnectWithResetAndStall(io.IF_to_ID_bus.bits.Inst, pre_fetch.io.inst, flush, 0.U, !io.IF_to_ID_bus.ready)
+    when(io.bp_flush & io.IF_to_ID_bus.ready){
+        regConnect(io.IF_to_ID_bus.bits.valid       , pre_fetch.io.inst_valid   )
+        regConnect(io.IF_to_ID_bus.bits.PC          , pre_fetch.io.PF_pc        )
+        regConnect(io.IF_to_ID_bus.bits.Inst        , pre_fetch.io.inst         )
+    }.otherwise{
+        regConnect(io.IF_to_ID_bus.valid        , pre_fetch.io.PF_pc            )
+        regConnect(io.IF_to_ID_bus.bits.PC      , pre_fetch.io.PF_pc            )
+        regConnect(io.IF_to_ID_bus.bits.Inst    , pre_fetch.io.PF_pc            )
+    }
+    // regConnectWithResetAndStall(io.IF_to_ID_bus.bits.PC, pre_fetch.io.PF_pc   , flush, 0.U, !io.IF_to_ID_bus.ready)
+    // regConnectWithResetAndStall(io.IF_to_ID_bus.valid, pre_fetch.io.inst_valid, flush, 0.U, !io.IF_to_ID_bus.ready)
+    // regConnectWithResetAndStall(io.IF_to_ID_bus.bits.Inst, pre_fetch.io.inst  , flush, 0.U, !io.IF_to_ID_bus.ready)
     // regConnectWithResetAndStall(io.IF_to_ID_bus.bits.Inst, pre_fetch.io.inst  , flush, 0.U, !io.IF_to_ID_bus.ready)
 
 }
