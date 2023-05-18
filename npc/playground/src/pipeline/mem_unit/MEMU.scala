@@ -69,8 +69,8 @@ class MEMU extends Module{
     io.MEM_to_ID_forward.bits.regWriteData := regWriteData
     io.MEM_to_ID_forward.bits.regWriteEn   := regWriteEn
     io.MEM_to_ID_forward.bits.regWriteID   := regWriteID
-    io.MEM_to_ID_forward.valid             := regWriteEn & (regWriteID > 0.U)
     io.MEM_to_ID_forward.bits.csrWriteEn   := csrWriteEn
     io.MEM_to_ID_forward.bits.csrWriteAddr := csrWriteAddr
+    io.MEM_to_ID_forward.valid             := regWriteEn & (regWriteID > 0.U)
 
 }  

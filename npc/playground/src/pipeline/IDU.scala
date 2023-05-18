@@ -48,29 +48,30 @@ class IDU extends Module{
         //2. Data from MEM (from ex_unit in top)
         val PMEM_to_ID_forward = Flipped(Decoupled(new PMEM_to_ID_Message))
         val MEM_to_ID_forward = Flipped(Decoupled(new MEM_to_ID_Message))
-
+        
         //3. ALUResult from EX
         //this signal is connected to  "ALU_Result" in EXU, not "EX_ALUResult" because the
         //later one is not immediate
         val EX_ALUResult  = Input(UInt(64.W))
-
+        
         //4. check result of branch prediction
         val ID_to_BPU_bus = Decoupled(new ID_BPU_Message)
-
+        
         //5. Read from CSR
         val ID_csrReadAddr  = Output(UInt(12.W))
         val ID_ecall        = Output(Bool())
         val CSR_csrReadData = Input(UInt(64.W))
-
+        
         //For NPCTRAP
         val ID_stall = Output(Bool())
         val ID_GPR =Output(Vec(32, UInt(64.W)))
         val ID_unknown_inst = Output(Bool())
     })
-
+    
+    val ID_valid = !io.ID_stall & io.IF_to_ID_bus.valid
 
     //unpack bus from IFU/MEMU/WBU
-    val IF_pc = Mux(io.IF_to_ID_bus.valid, io.IF_to_ID_bus.bits.PC, 0.U)
+    val IF_pc = Mux(ID_valid, io.IF_to_ID_bus.bits.PC, 0.U)
     val IF_Inst = io.IF_to_ID_bus.bits.Inst
 
     val PMEM_ALUresult   = io.PMEM_to_ID_forward.bits.ALU_result
@@ -208,7 +209,6 @@ class IDU extends Module{
     val flush = reset.asBool | load_use_stall  | !io.IF_to_ID_bus.valid | csr_stall
     io.ID_stall := load_use_stall | csr_stall
 
-    val ID_valid = !io.ID_stall & io.IF_to_ID_bus.valid
 
     regConnectWithStall(io.ID_to_EX_bus.bits.PC             , IF_pc                     , !io.ID_to_EX_bus.ready)
     regConnectWithStall(io.ID_to_EX_bus.bits.Inst           , IF_Inst                   , !io.ID_to_EX_bus.ready)
