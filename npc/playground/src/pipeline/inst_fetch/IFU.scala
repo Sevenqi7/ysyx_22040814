@@ -65,6 +65,10 @@ class IFU extends Module{
             regConnect(io.IF_to_ID_bus.valid            , 0.U                       )
             regConnect(io.IF_to_ID_bus.bits.PC          , 0.U                       )
             regConnect(io.IF_to_ID_bus.bits.Inst        , 0.U                       )
+        }.otherwise{
+            regConnect(io.IF_to_ID_bus.valid            , io.IF_to_ID_bus.valid     )
+            regConnect(io.IF_to_ID_bus.bits.PC          , io.IF_to_ID_bus.bits.PC   )
+            regConnect(io.IF_to_ID_bus.bits.Inst        , io.IF_to_ID_bus.bits.Inst )
         }
     }.otherwise{
         regConnect(io.IF_to_ID_bus.valid            , pre_fetch.io.inst_valid   )
