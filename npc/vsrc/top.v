@@ -13324,6 +13324,7 @@ module IDU(	// <stdin>:1782:10
                 io_IF_to_ID_bus_valid,
   input  [63:0] io_IF_to_ID_bus_bits_PC,
   input  [31:0] io_IF_to_ID_bus_bits_Inst,
+  input         io_ID_to_EX_bus_ready,
   input  [63:0] io_WB_to_ID_forward_bits_regWriteData,
   input         io_WB_to_ID_forward_bits_regWriteEn,
   input  [4:0]  io_WB_to_ID_forward_bits_regWriteID,
@@ -13761,9 +13762,7 @@ module IDU(	// <stdin>:1782:10
         GPR_30 <= io_WB_to_ID_forward_bits_regWriteData;	// IDU.scala:119:22
       if (_T_1 & (&io_WB_to_ID_forward_bits_regWriteID))	// IDU.scala:119:22, :151:24, :152:5, :153:28
         GPR_31 <= io_WB_to_ID_forward_bits_regWriteData;	// IDU.scala:119:22
-      if (_io_ID_stall_T) begin	// IDU.scala:209:35
-      end
-      else begin	// IDU.scala:209:35
+      if (io_ID_to_EX_bus_ready) begin
         automatic logic [63:0]      _immI_ret_T_4;	// Cat.scala:33:92
         automatic logic             _regWriteEn_T_3 = InstInfo_0 == 4'h3;	// IDU.scala:174:19, Lookup.scala:34:39
         automatic logic             _memWriteEn_T = InstInfo_0 == 4'h4;	// IDU.scala:175:19, Lookup.scala:34:39
@@ -14263,7 +14262,8 @@ module EXU(	// <stdin>:2739:10
   input  [63:0] io_ID_to_EX_bus_bits_PC,
   input  [31:0] io_ID_to_EX_bus_bits_Inst,
   input         io_EX_to_MEM_bus_ready,
-  output        io_EX_to_MEM_bus_valid,
+  output        io_ID_to_EX_bus_ready,
+                io_EX_to_MEM_bus_valid,
   output [31:0] io_EX_to_MEM_bus_bits_Inst,
   output [63:0] io_EX_to_MEM_bus_bits_PC,
                 io_EX_to_MEM_bus_bits_ALU_result,
@@ -14421,6 +14421,7 @@ module EXU(	// <stdin>:2739:10
       `FIRRTL_AFTER_INITIAL	// <stdin>:2739:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
+  assign io_ID_to_EX_bus_ready = io_EX_to_MEM_bus_ready;	// <stdin>:2739:10
   assign io_EX_to_MEM_bus_valid = rhsReg_12;	// <stdin>:2739:10, tools.scala:23:29
   assign io_EX_to_MEM_bus_bits_Inst = rhsReg_1;	// <stdin>:2739:10, tools.scala:23:29
   assign io_EX_to_MEM_bus_bits_PC = rhsReg;	// <stdin>:2739:10, tools.scala:23:29
@@ -15132,6 +15133,7 @@ module top(	// <stdin>:3541:10
   wire [31:0] _pre_mem_unit_axi_readAddr_bits_addr;	// top.scala:98:30
   wire        _pre_mem_unit_axi_readData_ready;	// top.scala:98:30
   wire        _pre_mem_unit_axi_req_valid;	// top.scala:98:30
+  wire        _excute_unit_io_ID_to_EX_bus_ready;	// top.scala:97:29
   wire        _excute_unit_io_EX_to_MEM_bus_valid;	// top.scala:97:29
   wire [31:0] _excute_unit_io_EX_to_MEM_bus_bits_Inst;	// top.scala:97:29
   wire [63:0] _excute_unit_io_EX_to_MEM_bus_bits_PC;	// top.scala:97:29
@@ -15283,6 +15285,7 @@ module top(	// <stdin>:3541:10
     .io_IF_to_ID_bus_valid                   (_inst_fetch_unit_io_IF_to_ID_bus_valid),	// top.scala:95:33
     .io_IF_to_ID_bus_bits_PC                 (_inst_fetch_unit_io_IF_to_ID_bus_bits_PC),	// top.scala:95:33
     .io_IF_to_ID_bus_bits_Inst               (_inst_fetch_unit_io_IF_to_ID_bus_bits_Inst),	// top.scala:95:33
+    .io_ID_to_EX_bus_ready                   (_excute_unit_io_ID_to_EX_bus_ready),	// top.scala:97:29
     .io_WB_to_ID_forward_bits_regWriteData   (_wb_unit_io_WB_to_ID_forward_bits_regWriteData),	// top.scala:100:25
     .io_WB_to_ID_forward_bits_regWriteEn     (_wb_unit_io_WB_to_ID_forward_bits_regWriteEn),	// top.scala:100:25
     .io_WB_to_ID_forward_bits_regWriteID     (_wb_unit_io_WB_to_ID_forward_bits_regWriteID),	// top.scala:100:25
@@ -15378,6 +15381,7 @@ module top(	// <stdin>:3541:10
     .io_ID_to_EX_bus_bits_PC            (_inst_decode_unit_io_ID_to_EX_bus_bits_PC),	// top.scala:96:34
     .io_ID_to_EX_bus_bits_Inst          (_inst_decode_unit_io_ID_to_EX_bus_bits_Inst),	// top.scala:96:34
     .io_EX_to_MEM_bus_ready             (_pre_mem_unit_io_EX_to_MEM_bus_ready),	// top.scala:98:30
+    .io_ID_to_EX_bus_ready              (_excute_unit_io_ID_to_EX_bus_ready),
     .io_EX_to_MEM_bus_valid             (_excute_unit_io_EX_to_MEM_bus_valid),
     .io_EX_to_MEM_bus_bits_Inst         (_excute_unit_io_EX_to_MEM_bus_bits_Inst),
     .io_EX_to_MEM_bus_bits_PC           (_excute_unit_io_EX_to_MEM_bus_bits_PC),
