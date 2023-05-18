@@ -208,7 +208,7 @@ class IDU extends Module{
     val flush = reset.asBool | load_use_stall  | !io.IF_to_ID_bus.valid | csr_stall
     io.ID_stall := load_use_stall | csr_stall | !io.ID_to_EX_bus.ready
 
-    val ID_valid = !ID_stall & io.IF_to_ID_bus.valid
+    val ID_valid = !io.ID_stall & io.IF_to_ID_bus.valid
 
     regConnectWithStall(io.ID_to_EX_bus.bits.PC             , IF_pc                     , io.ID_stall)
     regConnectWithStall(io.ID_to_EX_bus.bits.Inst           , IF_Inst                   , io.ID_stall)
