@@ -100,9 +100,6 @@ class top extends Module{
     val wb_unit = Module(new WBU)
     val csr     = Module(new CSR)
 
-    val inst_ram     = Module(new sim_sram)
-
-
     //for npc to trace
     io.BTB_hit   := bp_unit.io.BTB_hit
     io.BTB_rset  := bp_unit.io.BTB_rset
