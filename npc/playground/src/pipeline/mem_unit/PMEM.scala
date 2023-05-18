@@ -40,7 +40,7 @@ class MEM_pre_stage extends Module{
     val axi_req  = IO(new MyReadyValidIO)
 
     //unpack bus from EXU
-    val EX_pc        =  io.EX_to_MEM_bus.bits.PC
+    val EX_pc        =  Mux(io.EX_to_MEM_bus.valid, io.EX_to_MEM_bus.bits.PC, 0.U)
     val EX_Inst      =  io.EX_to_MEM_bus.bits.Inst
     val ALU_result   =  io.EX_to_MEM_bus.bits.ALU_result  
     val memWriteData =  io.EX_to_MEM_bus.bits.memWriteData
