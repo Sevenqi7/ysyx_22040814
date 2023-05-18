@@ -62,16 +62,16 @@ class IFU extends Module{
     //pipeline
 
     val IF_pc = MuxCase(pre_fetch.io.PF_pc, Seq(
-                !io.IF_to_ID_bus.ready, io.IF_to_ID_bus.bits.PC,
+                !io.IF_to_ID_bus.ready, io.IF_to_ID_bus.bits.PC
                 io.bp_flush           , 0.U
             ))
 
     val IF_Inst = MuxCase(pre_fetch.io.inst, Seq(
-                !io.IF_to_ID_bus.ready, io.IF_to_ID_bus.bits.Inst,
+                !io.IF_to_ID_bus.ready, io.IF_to_ID_bus.bits.Inst
                 io.bp_flush           , 0.U
             ))
     val IF_valid = MuxCase(pre_fetch.io.inst_valid, Seq(
-                !io.IF_to_ID_bus.ready, io.IF_to_ID_bus.valid,
+                !io.IF_to_ID_bus.ready, io.IF_to_ID_bus.valid
                 io.bp_flush           , 0.U
             ))
     regConnect(io.IF_to_ID_bus.bits     , IF_pc         )
