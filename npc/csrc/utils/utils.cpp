@@ -49,6 +49,7 @@ void clock_step()
 
     Log("IF_req:%d", top->io_IF_AXIREQ);
     Log("IF_Inst:0x%x", top->io_IF_Inst);
+    Log("ID_stall:%d", top->io_stall);
     Log("ID_pc:0x%lx", top->io_ID_pc);
     Log("EX_pc:0x%lx", top->io_EX_pc);
     Log("MEM_pc:0x%lx", top->io_PMEM_pc);
