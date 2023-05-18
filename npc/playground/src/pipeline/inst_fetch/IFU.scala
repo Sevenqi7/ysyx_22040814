@@ -61,7 +61,7 @@ class IFU extends Module{
     flush                                   := (reset.asBool | io.bp_flush)
     //pipeline
     when(io.bp_flush & io.IF_to_ID_bus.ready){
-        regConnect(io.IF_to_ID_bus.bits.valid       , pre_fetch.io.inst_valid   )
+        regConnect(io.IF_to_ID_bus.valid            , pre_fetch.io.inst_valid   )
         regConnect(io.IF_to_ID_bus.bits.PC          , pre_fetch.io.PF_pc        )
         regConnect(io.IF_to_ID_bus.bits.Inst        , pre_fetch.io.inst         )
     }.otherwise{
