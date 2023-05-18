@@ -13225,29 +13225,34 @@ module IFU(	// <stdin>:1706:10
   output [31:0]  axi_readAddr_bits_addr,
   output         axi_readData_ready);
 
-  reg         rhsReg_2;	// tools.scala:15:29
+  reg  [31:0] rhsReg_1;	// tools.scala:15:29
   wire [31:0] _pre_fetch_io_inst;	// IFU.scala:36:27
   wire        _pre_fetch_io_inst_valid;	// IFU.scala:36:27
   wire [63:0] _pre_fetch_io_PF_pc;	// IFU.scala:36:27
-  wire        _IF_valid_T_1 = ~io_bp_flush & _pre_fetch_io_inst_valid;	// IFU.scala:36:27, Mux.scala:101:16
   reg  [63:0] rhsReg;	// tools.scala:15:29
-  reg  [31:0] rhsReg_1;	// tools.scala:15:29
+  reg         rhsReg_2;	// tools.scala:15:29
   always @(posedge clock) begin
     if (reset) begin
       rhsReg <= 64'h0;	// <stdin>:1706:10, tools.scala:15:29
       rhsReg_1 <= 32'h0;	// <stdin>:1706:10, tools.scala:15:29
       rhsReg_2 <= 1'h0;	// <stdin>:1706:10, tools.scala:15:29
     end
-    else if (io_IF_to_ID_bus_ready) begin
-      if (io_bp_flush | ~(io_IF_to_ID_bus_ready ? _IF_valid_T_1 : rhsReg_2))	// IFU.scala:69:{30,32}, Mux.scala:101:16, tools.scala:15:29
+    else begin
+      if ((io_IF_to_ID_bus_ready ? (io_bp_flush ? 32'h0 : _pre_fetch_io_inst) : rhsReg_1) == 32'h0)	// <stdin>:1706:10, IFU.scala:36:27, :68:18, Mux.scala:101:16, tools.scala:15:29
         rhsReg <= 64'h0;	// <stdin>:1706:10, tools.scala:15:29
-      else	// IFU.scala:69:{30,32}, Mux.scala:101:16, tools.scala:15:29
-        rhsReg <= _pre_fetch_io_PF_pc;	// IFU.scala:36:27, tools.scala:15:29
-      if (io_bp_flush)
-        rhsReg_1 <= 32'h0;	// <stdin>:1706:10, tools.scala:15:29
-      else
-        rhsReg_1 <= _pre_fetch_io_inst;	// IFU.scala:36:27, tools.scala:15:29
-      rhsReg_2 <= _IF_valid_T_1;	// Mux.scala:101:16, tools.scala:15:29
+      else if (io_IF_to_ID_bus_ready) begin	// <stdin>:1706:10, IFU.scala:36:27, :68:18, Mux.scala:101:16, tools.scala:15:29
+        if (io_bp_flush)
+          rhsReg <= 64'h0;	// <stdin>:1706:10, tools.scala:15:29
+        else
+          rhsReg <= _pre_fetch_io_PF_pc;	// IFU.scala:36:27, tools.scala:15:29
+      end
+      if (io_IF_to_ID_bus_ready) begin
+        if (io_bp_flush)
+          rhsReg_1 <= 32'h0;	// <stdin>:1706:10, tools.scala:15:29
+        else
+          rhsReg_1 <= _pre_fetch_io_inst;	// IFU.scala:36:27, tools.scala:15:29
+        rhsReg_2 <= ~io_bp_flush & _pre_fetch_io_inst_valid;	// IFU.scala:36:27, Mux.scala:101:16, tools.scala:15:29
+      end
     end
   end // always @(posedge)
   `ifndef SYNTHESIS	// <stdin>:1706:10

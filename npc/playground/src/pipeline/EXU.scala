@@ -36,7 +36,7 @@ class EXU extends Module{
     })
     
     //unpack bus from IDU/WBU
-    val pc     = io.ID_to_EX_bus.bits.PC
+    val pc     = Mux(io.IF_to_ID_bus.valid, io.ID_to_EX_bus.bits.PC, 0.U)
     val inst   = io.ID_to_EX_bus.bits.Inst
 
     val futype = io.ID_to_EX_bus.bits.futype
