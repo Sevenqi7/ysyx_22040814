@@ -20,7 +20,7 @@ object utils {
 
     //connect lhs to rhs through registers with a given reset and stall in Module
     def regConnectWithStall(lhs :Data, rhs: Data, stall: Bool): Unit = {
-        val rhsReg = RegInit(chiselTypeOf(rhs), resetVal)
+        val rhsReg = RegInit(chiselTypeOf(rhs), 0.U)
             when(!stall){
                 rhsReg := rhs
             }
