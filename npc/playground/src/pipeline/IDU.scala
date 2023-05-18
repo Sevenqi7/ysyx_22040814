@@ -148,7 +148,7 @@ class IDU extends Module{
         ((WB_regWriteID  === rs2) && WB_regWriteEn , WB_regWriteData ),
     ))
             
-    when(WB_regWriteEn && WB_regWriteID =/= 0.U && WB_to_ID_forward.valid)
+    when(WB_regWriteEn && WB_regWriteID =/= 0.U && io.WB_to_ID_forward.valid)
     {
         GPR(WB_regWriteID) := WB_regWriteData
     }
