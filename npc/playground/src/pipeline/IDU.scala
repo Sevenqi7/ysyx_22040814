@@ -70,7 +70,7 @@ class IDU extends Module{
 
 
     //unpack bus from IFU/MEMU/WBU
-    val IF_pc = io.IF_to_ID_bus.bits.PC
+    val IF_pc = Mux(io.IF_to_ID_bus.valid, io.IF_to_ID_bus.bits.PC, 0.U)
     val IF_Inst = io.IF_to_ID_bus.bits.Inst
 
     val PMEM_ALUresult   = io.PMEM_to_ID_forward.bits.ALU_result
