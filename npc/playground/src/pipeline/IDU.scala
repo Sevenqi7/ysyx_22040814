@@ -206,7 +206,9 @@ class IDU extends Module{
     val csrWriteEn     = instType === TYPE_E | io.ID_ecall
     val csrWriteAddr   = Mux(io.ID_ecall, 0x341.U, immI)
     val flush = reset.asBool | load_use_stall  | !io.IF_to_ID_bus.valid | csr_stall
-    io.ID_stall := load_use_stall | csr_stall
+    io.ID_stall := load_use_stall | csr_stall | !io.ID_to_EX_bus.ready
+
+    val ID_valid = !ID_stall & io.IF_to_ID_bus.valid
 
     regConnectWithStall(io.ID_to_EX_bus.bits.PC             , IF_pc                     , io.ID_stall)
     regConnectWithStall(io.ID_to_EX_bus.bits.Inst           , IF_Inst                   , io.ID_stall)
@@ -224,7 +226,7 @@ class IDU extends Module{
     regConnectWithStall(io.ID_to_EX_bus.bits.rs2_id         , rs2                       , io.ID_stall)
     regConnectWithStall(io.ID_to_EX_bus.bits.csrWriteEn     , csrWriteEn                , io.ID_stall)
     regConnectWithStall(io.ID_to_EX_bus.bits.csrWriteAddr   , csrWriteAddr              , io.ID_stall)
-    regConnectWithStall(io.ID_to_EX_bus.valid               , io.IF_to_ID_bus.valid     , io.ID_stall)
+    regConnectWithStall(io.ID_to_EX_bus.valid               , ID_valid                  , io.ID_stall)
     io.IF_to_ID_bus.ready := !io.ID_stall
     io.MEM_to_ID_forward.ready := 1.U
     io.PMEM_to_ID_forward.ready := 1.U
