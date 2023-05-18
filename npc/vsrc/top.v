@@ -15676,7 +15676,7 @@ module sim_sram(
             arready_r <= 1'b0;
         end
         else if(arvalid) begin
-            arready_r <= !rlast_r;
+            arready_r <= !rlast;
         end
         else 
             arready_r <= 1'b1;
