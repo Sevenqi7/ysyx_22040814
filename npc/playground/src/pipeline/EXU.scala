@@ -66,21 +66,20 @@ class EXU extends Module{
     val EX_ALUResult = Mux(csrWriteEn, ALU_Data2, ALU_result)
     val csrWriteData = Mux(csrWriteEn, ALU_result, 0x7777.U)
     
-    regConnect(io.EX_to_MEM_bus.bits.PC             ,   pc                                      )
-    regConnect(io.EX_to_MEM_bus.bits.Inst           ,   inst                                    )
-   
-    regConnect(io.EX_to_MEM_bus.bits.regWriteEn     ,   regWriteEn                              )
-    regConnect(io.EX_to_MEM_bus.bits.regWriteID     ,   regWriteID                              )
-    regConnect(io.EX_to_MEM_bus.bits.memWriteEn     ,   memWriteEn                              )
-    regConnect(io.EX_to_MEM_bus.bits.memReadEn      ,   memReadEn                               )
-    regConnect(io.EX_to_MEM_bus.bits.memWriteData   ,   memWriteData                            )
-    regConnect(io.EX_to_MEM_bus.bits.lsutype        ,   lsutype                                 )
-    regConnect(io.EX_to_MEM_bus.bits.ALU_result     ,   EX_ALUResult                            )
-    regConnect(io.EX_to_MEM_bus.bits.csrWriteEn     ,   csrWriteEn                              )
-    regConnect(io.EX_to_MEM_bus.bits.csrWriteAddr   ,   csrWriteAddr                            )
-    regConnect(io.EX_to_MEM_bus.bits.csrWriteData   ,   csrWriteData                            )
-    regConnect(io.EX_to_MEM_bus.valid               ,   io.ID_to_EX_bus.valid                   )
-    io.ID_to_EX_bus.ready := 1.U
+    regConnectWithStall(io.EX_to_MEM_bus.bits.PC             ,   pc                   , !io.EX_to_MEM_bus.ready)
+    regConnectWithStall(io.EX_to_MEM_bus.bits.Inst           ,   inst                 , !io.EX_to_MEM_bus.ready)
+    regConnectWithStall(io.EX_to_MEM_bus.bits.regWriteEn     ,   regWriteEn           , !io.EX_to_MEM_bus.ready)
+    regConnectWithStall(io.EX_to_MEM_bus.bits.regWriteID     ,   regWriteID           , !io.EX_to_MEM_bus.ready)
+    regConnectWithStall(io.EX_to_MEM_bus.bits.memWriteEn     ,   memWriteEn           , !io.EX_to_MEM_bus.ready)
+    regConnectWithStall(io.EX_to_MEM_bus.bits.memReadEn      ,   memReadEn            , !io.EX_to_MEM_bus.ready)
+    regConnectWithStall(io.EX_to_MEM_bus.bits.memWriteData   ,   memWriteData         , !io.EX_to_MEM_bus.ready)
+    regConnectWithStall(io.EX_to_MEM_bus.bits.lsutype        ,   lsutype              , !io.EX_to_MEM_bus.ready)
+    regConnectWithStall(io.EX_to_MEM_bus.bits.ALU_result     ,   EX_ALUResult         , !io.EX_to_MEM_bus.ready)
+    regConnectWithStall(io.EX_to_MEM_bus.bits.csrWriteEn     ,   csrWriteEn           , !io.EX_to_MEM_bus.ready)
+    regConnectWithStall(io.EX_to_MEM_bus.bits.csrWriteAddr   ,   csrWriteAddr         , !io.EX_to_MEM_bus.ready)
+    regConnectWithStall(io.EX_to_MEM_bus.bits.csrWriteData   ,   csrWriteData         , !io.EX_to_MEM_bus.ready)
+    regConnectWithStall(io.EX_to_MEM_bus.valid               ,   io.ID_to_EX_bus.valid, !io.EX_to_MEM_bus.ready)
+    io.ID_to_EX_bus.ready := io.EX_to_MEM_bus.ready
 
     io.EX_ALUResult_Pass := ALU_result
     

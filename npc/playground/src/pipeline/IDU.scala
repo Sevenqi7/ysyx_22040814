@@ -208,24 +208,24 @@ class IDU extends Module{
     val flush = reset.asBool | load_use_stall  | !io.IF_to_ID_bus.valid | csr_stall
     io.ID_stall := load_use_stall | csr_stall
 
-    regConnectWithReset(io.ID_to_EX_bus.bits.PC             , IF_pc         , flush, 0.U     )
-    regConnectWithReset(io.ID_to_EX_bus.bits.Inst           , IF_Inst       , flush, 0.U     )
-    regConnectWithReset(io.ID_to_EX_bus.bits.ALU_Data1      , ALU_Data1     , flush, 0.U     )
-    regConnectWithReset(io.ID_to_EX_bus.bits.ALU_Data2      , ALU_Data2     , flush, 0.U     )
-    regConnectWithReset(io.ID_to_EX_bus.bits.regWriteID     , rd            , flush, 0.U     )
-    regConnectWithReset(io.ID_to_EX_bus.bits.regWriteEn     , regWriteEn    , flush, 0.U     )
-    regConnectWithReset(io.ID_to_EX_bus.bits.memReadEn      , memReadEn     , flush, 0.U     )
-    regConnectWithReset(io.ID_to_EX_bus.bits.memWriteEn     , memWriteEn    , flush, 0.U     )
-    regConnectWithReset(io.ID_to_EX_bus.bits.optype         , opType        , flush, 0.U     )
-    regConnectWithReset(io.ID_to_EX_bus.bits.futype         , futype        , flush, 0.U     )
-    regConnectWithReset(io.ID_to_EX_bus.bits.rs1_data       , rs1_data      , flush, 0.U     )
-    regConnectWithReset(io.ID_to_EX_bus.bits.rs1_id         , rs1           , flush, 0.U     )
-    regConnectWithReset(io.ID_to_EX_bus.bits.rs2_data       , rs2_data      , flush, 0.U     )
-    regConnectWithReset(io.ID_to_EX_bus.bits.rs2_id         , rs2           , flush, 0.U     )
-    regConnectWithReset(io.ID_to_EX_bus.bits.csrWriteEn     , csrWriteEn    , flush, 0.U     )
-    regConnectWithReset(io.ID_to_EX_bus.bits.csrWriteAddr   , csrWriteAddr  , flush, 0.U     )
-    regConnectWithReset(io.ID_to_EX_bus.valid          ,io.IF_to_ID_bus.valid & !load_use_stall & !csr_stall, flush, 0.U   )
-    io.IF_to_ID_bus.ready := !load_use_stall
+    regConnectWithStall(io.ID_to_EX_bus.bits.PC             , IF_pc                     , io.ID_stall)
+    regConnectWithStall(io.ID_to_EX_bus.bits.Inst           , IF_Inst                   , io.ID_stall)
+    regConnectWithStall(io.ID_to_EX_bus.bits.ALU_Data1      , ALU_Data1                 , io.ID_stall)
+    regConnectWithStall(io.ID_to_EX_bus.bits.ALU_Data2      , ALU_Data2                 , io.ID_stall)
+    regConnectWithStall(io.ID_to_EX_bus.bits.regWriteID     , rd                        , io.ID_stall)
+    regConnectWithStall(io.ID_to_EX_bus.bits.regWriteEn     , regWriteEn                , io.ID_stall)
+    regConnectWithStall(io.ID_to_EX_bus.bits.memReadEn      , memReadEn                 , io.ID_stall)
+    regConnectWithStall(io.ID_to_EX_bus.bits.memWriteEn     , memWriteEn                , io.ID_stall)
+    regConnectWithStall(io.ID_to_EX_bus.bits.optype         , opType                    , io.ID_stall)
+    regConnectWithStall(io.ID_to_EX_bus.bits.futype         , futype                    , io.ID_stall)
+    regConnectWithStall(io.ID_to_EX_bus.bits.rs1_data       , rs1_data                  , io.ID_stall)
+    regConnectWithStall(io.ID_to_EX_bus.bits.rs1_id         , rs1                       , io.ID_stall)
+    regConnectWithStall(io.ID_to_EX_bus.bits.rs2_data       , rs2_data                  , io.ID_stall)
+    regConnectWithStall(io.ID_to_EX_bus.bits.rs2_id         , rs2                       , io.ID_stall)
+    regConnectWithStall(io.ID_to_EX_bus.bits.csrWriteEn     , csrWriteEn                , io.ID_stall)
+    regConnectWithStall(io.ID_to_EX_bus.bits.csrWriteAddr   , csrWriteAddr              , io.ID_stall)
+    regConnectWithStall(io.ID_to_EX_bus.valid               , io.IF_to_ID_bus.valid     , io.ID_stall)
+    io.IF_to_ID_bus.ready := !io.ID_stall
     io.MEM_to_ID_forward.ready := 1.U
     io.PMEM_to_ID_forward.ready := 1.U
     io.WB_to_ID_forward.ready := 1.U

@@ -74,22 +74,23 @@ class MEM_pre_stage extends Module{
         is (lhu){memReadData := axi.readData.bits.data(15, 0)}
         is (lbu){memReadData := axi.readData.bits.data( 7 ,0)}
     }
-
-    regConnect(io.PMEM_to_MEM_bus.bits.PC           , EX_pc         )
-    regConnect(io.PMEM_to_MEM_bus.bits.Inst         , EX_Inst       )
-    regConnect(io.PMEM_to_MEM_bus.bits.ALU_result   , ALU_result    )
-    regConnect(io.PMEM_to_MEM_bus.bits.regWriteEn   , regWriteEn    )
-    regConnect(io.PMEM_to_MEM_bus.bits.regWriteID   , regWriteID    )
-    regConnect(io.PMEM_to_MEM_bus.bits.memReadEn    , memReadEn     )
-    regConnect(io.PMEM_to_MEM_bus.bits.memWriteEn   , memWriteEn    )
-    regConnect(io.PMEM_to_MEM_bus.bits.memWriteData , memWriteData  )
-    regConnect(io.PMEM_to_MEM_bus.bits.lsutype      , lsutype       )
-    regConnect(io.PMEM_to_MEM_bus.bits.csrWriteEn   , csrWriteEn    )
-    regConnect(io.PMEM_to_MEM_bus.bits.csrWriteAddr , csrWriteAddr  )
-    regConnect(io.PMEM_to_MEM_bus.bits.csrWriteData , csrWriteData  )
-    regConnect(io.PMEM_to_MEM_bus.valid             , io.EX_to_MEM_bus.valid)
+    
+    regConnectWithStall(io.PMEM_to_MEM_bus.bits.PC           , EX_pc                 )
+    regConnectWithStall(io.PMEM_to_MEM_bus.bits.Inst         , EX_Inst               )
+    regConnectWithStall(io.PMEM_to_MEM_bus.bits.ALU_result   , ALU_result            )
+    regConnectWithStall(io.PMEM_to_MEM_bus.bits.regWriteEn   , regWriteEn            )
+    regConnectWithStall(io.PMEM_to_MEM_bus.bits.regWriteID   , regWriteID            )
+    regConnectWithStall(io.PMEM_to_MEM_bus.bits.memReadEn    , memReadEn             )
+    regConnectWithStall(io.PMEM_to_MEM_bus.bits.memWriteEn   , memWriteEn            )
+    regConnectWithStall(io.PMEM_to_MEM_bus.bits.memWriteData , memWriteData          )
+    regConnectWithStall(io.PMEM_to_MEM_bus.bits.lsutype      , lsutype               )
+    regConnectWithStall(io.PMEM_to_MEM_bus.bits.csrWriteEn   , csrWriteEn            )
+    regConnectWithStall(io.PMEM_to_MEM_bus.bits.csrWriteAddr , csrWriteAddr          )
+    regConnectWithStall(io.PMEM_to_MEM_bus.bits.csrWriteData , csrWriteData          )
+    regConnectWithStall(io.PMEM_to_MEM_bus.valid             , io.EX_to_MEM_bus.valid)
+    
     io.memReadData                          := memReadData
-    io.EX_to_MEM_bus.ready                  := 1.U
+    io.EX_to_MEM_bus.ready                  := memReadEn & axi.readAddr.ready 
 
     //r
     

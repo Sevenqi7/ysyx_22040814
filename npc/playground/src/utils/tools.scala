@@ -17,26 +17,16 @@ object utils {
         lhs := rhsReg
     }
 
-    //connect lhs to rhs through registers with a given reset in Module    
-    def regConnectWithReset(lhs: Data, rhs: Data, reset: Reset, resetVal: UInt =0.U): Unit = {
-        withReset(reset){
-            val rhsReg = RegInit(chiselTypeOf(rhs), resetVal)
-            rhsReg := rhs
-            lhs := rhsReg
-        }
-    }
 
     //connect lhs to rhs through registers with a given reset and stall in Module
-    def regConnectWithResetAndStall(lhs :Data, rhs: Data, reset: Reset, resetVal: UInt=0.U, stall: Bool): Unit = {
-        withReset(reset){
-            val rhsReg = RegInit(chiselTypeOf(rhs), resetVal)
-            when(!stall)
-            {
+    def regConnectWithStall(lhs :Data, rhs: Data, stall: Bool): Unit = {
+        val rhsReg = RegInit(chiselTypeOf(rhs), resetVal)
+            when(!stall){
                 rhsReg := rhs
             }
-            lhs := rhsReg
-        }
+            lhs := rhsReg        
     }
+
 }
 
 class CacheLine(tagWidth: Int, dataWidth: Int) extends Bundle{
