@@ -90,7 +90,7 @@ class MEM_pre_stage extends Module{
     regConnect(io.PMEM_to_MEM_bus.valid             , io.EX_to_MEM_bus.valid)
     
     io.memReadData                          := memReadData
-    io.EX_to_MEM_bus.ready                  := 1.U
+    io.EX_to_MEM_bus.ready                  := Mux(io.EX_to_MEM_bus.valid & memReadEn, axi.readAddr.ready, 1.U)
 
     //r
     
