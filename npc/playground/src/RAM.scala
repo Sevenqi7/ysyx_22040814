@@ -57,6 +57,7 @@ class AXI_Arbiter(val n: Int) extends Module{
     val in = IO(Flipped(Vec(n, new AXIMasterIF(32, 64, 4))))
     val req = IO(Flipped(Vec(n, new MyReadyValidIO)))
     val out = IO(new AXIMasterIF(32, 64, 4))
+    val axi_rready = IO(Bool())
 
     out <> in(n-1)
     for(i <- n - 1 to 0 by -1){
@@ -72,7 +73,7 @@ class AXI_Arbiter(val n: Int) extends Module{
         in(i).writeResp.bits.id     := 0.U
         in(i).writeResp.bits.resp   := 0.U
         in(i).writeResp.valid       := 0.U
-        when(req(i).valid){
+        when(req(i).valid){             
             out <> in(i)
             req(i).ready := 1.U
             for(j <- i+1 to n-1){
@@ -84,7 +85,10 @@ class AXI_Arbiter(val n: Int) extends Module{
 
 class RAMU extends Module{
     val axi      = IO(Flipped(new AXIMasterIF(32, 64, 4)))
+    val axi_rready = IO(Bool())
     val data_ram = Module(new sim_sram)
+
+    axi_rready                              := data_ram.io.arready
 
     //data ram
     data_ram.io.pc                          := 0.U
