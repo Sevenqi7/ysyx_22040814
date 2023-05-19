@@ -16,7 +16,7 @@ void clock_step()
     Log("bp_npc:0x%lx", top->io_bp_npc);
     Log("bp_taken:%d", top->io_bp_taken);
     Log("bp_flush:%d", top->io_bp_flush);
-    // Log("BTB_hit:%d", top->io_BTB_hit);
+    Log("BTB_hit:%d", top->io_BTB_hit);
     // Log("ras_push:0x%lx", top->io_ras_push);
     // Log("ras_pop:0x%lx", top->io_ras_pop);
     // Log("bht_update:%d", top->io_bht_update);
@@ -25,12 +25,12 @@ void clock_step()
     // Log("pht_sel:%d", top->io_pht_sel);
     // Log("total fail prediction: %ld", top->io_jal_fail + top->io_jalr_fail + top->io_btype_fail);
 
-    // Log("BTB_rtag:0x%x", top->io_BTB_rtag);
-    // Log("BTB_rset:0x%x", top->io_BTB_rset);
-    // Log("BTB_rdata:0x%lx", top->io_BTB_rdata);
-    // Log("BTB_wtag:0x%x", top->io_BTB_wtag);
-    // Log("BTB_wset:0x%x", top->io_BTB_wset);
-    // Log("BTB_wdata:0x%lx", top->io_BTB_wdata);
+    Log("BTB_rtag:0x%x", top->io_BTB_rtag);
+    Log("BTB_rset:0x%x", top->io_BTB_rset);
+    Log("BTB_rdata:0x%lx", top->io_BTB_rdata);
+    Log("BTB_wtag:0x%x", top->io_BTB_wtag);
+    Log("BTB_wset:0x%x", top->io_BTB_wset);
+    Log("BTB_wdata:0x%lx", top->io_BTB_wdata);
     // Log("ID_npc:0x%lx", top->io_ID_npc);
     // Log("PF_npc:0x%lx", top->io_PF_npc);
     Log("PF_pc:0x%lx", top->io_PF_pc);
@@ -39,13 +39,13 @@ void clock_step()
     Log("IF_valid:%d", top->io_IF_valid);
     Log("cache_hit:%d", top->io_cache_hit);
     Log("cache_state:%d", top->io_cache_state);
-    Log("cache_axi_req:%d", top->io_cache_axi_req);
-    Log("cache_rvalid:%d", top->io_cache_rvalid);
-    Log("cache_tag:0x%x", top->io_cache_tag);
-    Log("cache_set:0x%x", top->io_cache_set);
-    Log("cache_offset:0x%x", top->io_cache_offset);
-    Log("cache_rlast:%d", top->io_cache_rlast);
-    Log("cache_lineBuf:0x%llx", top->io_lineBuf);
+    // Log("cache_axi_req:%d", top->io_cache_axi_req);
+    // Log("cache_rvalid:%d", top->io_cache_rvalid);
+    // Log("cache_tag:0x%x", top->io_cache_tag);
+    // Log("cache_set:0x%x", top->io_cache_set);
+    // Log("cache_offset:0x%x", top->io_cache_offset);
+    // Log("cache_rlast:%d", top->io_cache_rlast);
+    // Log("cache_lineBuf:0x%llx", top->io_lineBuf);
 
     Log("IF_req:%d", top->io_IF_AXIREQ);
     Log("IF_Inst:0x%x", top->io_IF_Inst);

@@ -298,7 +298,8 @@ class IDU extends Module{
 
     io.ID_to_BPU_bus.bits.taken := br_taken
     io.ID_to_BPU_bus.valid      := io.IF_to_ID_bus.valid & ((instType === TYPE_J) || (instType === TYPE_B) 
-                                    || (instType === TYPE_I  &&  src1 === NPC) || (opType === OpType.OP_ECALL || opType === OpType.OP_MRET)) & !io.ID_stall
+                                    || (instType === TYPE_I  &&  src1 === NPC) || (opType === OpType.OP_ECALL || opType === OpType.OP_MRET)) 
+                                    & !io.ID_stall
     io.ID_to_BPU_bus.bits.stall := io.ID_stall
     io.ID_to_BPU_bus.bits.PC    := IF_pc
     io.ID_to_BPU_bus.bits.Type  := Type

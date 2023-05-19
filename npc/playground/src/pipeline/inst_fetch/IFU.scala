@@ -19,6 +19,7 @@ class IFU extends Module{
         //for npc to trap
         val PF_npc  = Output(UInt(64.W))
         val PF_pc   = Output(UInt(64.W))
+        val PF_Inst = Output(UInt(32.W))
         val PF_valid = Output(Bool())
         val cache_hit = Output(Bool())
         val cache_state = Output(UInt(3.W))
@@ -41,6 +42,7 @@ class IFU extends Module{
 
     io.PF_npc                               := pre_fetch.io.PF_npc
     io.PF_pc                                := pre_fetch.io.PF_pc
+    io.PF_Inst                              := pre_fetch.io.inst
     io.PF_valid                             := pre_fetch.io.inst_valid
     io.axidata                              := pre_fetch.axi.readData.bits.data
     io.cache_hit                            := pre_fetch.io.cache_hit
