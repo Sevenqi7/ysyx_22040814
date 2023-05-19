@@ -136,17 +136,17 @@ class IDU extends Module{
     rs1_data := MuxCase(GPR(rs1), Seq(
         ((rs1 === 0.U)                                          ,                 0.U),
         ((io.ID_to_EX_bus.bits.regWriteID  === rs1) && io.ID_to_EX_bus.bits.regWriteEn , io.EX_ALUResult),
-        ((PMEM_regWriteID === rs1) && PMEM_regWriteEn, PMEM_ALUresult),
-        ((MEM_regWriteID === rs1) && MEM_regWriteEn, MEM_regWriteData),
-        ((WB_regWriteID  === rs1) && WB_regWriteEn , WB_regWriteData )
+        (io.PMEM_to_ID_bus.valid && (PMEM_regWriteID === rs1) && PMEM_regWriteEn, PMEM_ALUresult),
+        (io.MEM_to_ID_bus.valid && (MEM_regWriteID === rs1) && MEM_regWriteEn, MEM_regWriteData),
+        (io.WB_to_ID_bus.valid && (WB_regWriteID  === rs1) && WB_regWriteEn , WB_regWriteData )
     ))
         
     rs2_data := MuxCase(GPR(rs2), Seq(
         ((rs2 === 0.U)                                          ,                 0.U),
         ((io.ID_to_EX_bus.bits.regWriteID  === rs2) && io.ID_to_EX_bus.bits.regWriteEn , io.EX_ALUResult    ),
-        ((PMEM_regWriteID === rs2) && PMEM_regWriteEn, PMEM_ALUresult),
-        ((MEM_regWriteID === rs2) && MEM_regWriteEn, MEM_regWriteData),
-        ((WB_regWriteID  === rs2) && WB_regWriteEn , WB_regWriteData ),
+        (PMEM_to_ID_bus.valid && (PMEM_regWriteID === rs2) && PMEM_regWriteEn, PMEM_ALUresult),
+        (MEM_to_ID_bus.valid && (MEM_regWriteID === rs2) && MEM_regWriteEn, MEM_regWriteData),
+        (WB_to_ID_bus.valid && (WB_regWriteID  === rs2) && WB_regWriteEn , WB_regWriteData ),
     ))
             
     when(WB_regWriteEn && WB_regWriteID =/= 0.U && io.WB_to_ID_forward.valid)
@@ -238,13 +238,13 @@ class IDU extends Module{
     load_use_stall := (
         (
             (src1 === RS1 || src1 === NPC || instType === TYPE_B) && 
-            ((io.ID_to_EX_bus.bits.memReadEn && io.ID_to_EX_bus.bits.regWriteID === rs1) || 
-            (PMEM_memReadEn && PMEM_regWriteID === rs1))
+            ((io.ID_to_EX_bus.bits.memReadEn && io.ID_to_EX_bus.bits.regWriteID === rs1 && io.ID_to_EX_bus.ready) || 
+            (PMEM_memReadEn && PMEM_regWriteID === rs1 && io.PMEM_to_ID_forward.valid))
                                                             )   ||
         (
             (src2 === RS2 || futype === FuType.lsu || instType === TYPE_B) && 
-            ((io.ID_to_EX_bus.bits.memReadEn && io.ID_to_EX_bus.bits.regWriteID === rs2) || 
-            (PMEM_memReadEn && PMEM_regWriteID === rs2))
+            ((io.ID_to_EX_bus.bits.memReadEn && io.ID_to_EX_bus.bits.regWriteID === rs2 && io.ID_to_EX_bus.ready) || 
+            (PMEM_memReadEn && PMEM_regWriteID === rs2 && io.PMEM_to_ID_forward.valid))
                                                             )
     )
 
