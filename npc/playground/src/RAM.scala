@@ -62,48 +62,49 @@ class AXI_Arbiter(val n: Int) extends Module{
     val last_sel = RegInit((n-1).U(log2Ceil(n).W))
 
     out <> in(n-1)
-    for(i <- n - 1 to 0 by -1){
-        when(req(i).valid){             
-            out <> in(i)
-            req(i).ready := 1.U
-            for(j <- i+1 to n-1){
-                req(j).ready := 0.U
+    when(axi_busy === "b11".U){
+        for(i <- n - 1 to 0 by -1){
+            when(req(i).valid){             
+                out <> in(i)
+                req(i).ready := 1.U
+                for(j <- i+1 to n-1){
+                    req(j).ready := 0.U
+                }
+            }.otherwise{
+                req(i).ready                := 0.U
+                in(i).readAddr.ready        := 0.U
+                in(i).readData.bits.id      := 0.U
+                in(i).readData.bits.data    := 0x77.U       //MAGIC NUMBER FOR DEBUG
+                in(i).readData.bits.resp    := 0.U
+                in(i).readData.bits.last    := 0.U
+                in(i).readData.valid        := 0.U
+                in(i).writeAddr.ready       := 0.U
+                in(i).writeData.ready       := 0.U
+                in(i).writeResp.bits.id     := 0.U
+                in(i).writeResp.bits.resp   := 0.U
+                in(i).writeResp.valid       := 0.U
             }
-        }.otherwise{
-            req(i).ready                := 0.U
-            in(i).readAddr.ready        := 0.U
-            in(i).readData.bits.id      := 0.U
-            in(i).readData.bits.data    := 0x77.U       //MAGIC NUMBER FOR DEBUG
-            in(i).readData.bits.resp    := 0.U
-            in(i).readData.bits.last    := 0.U
-            in(i).readData.valid        := 0.U
-            in(i).writeAddr.ready       := 0.U
-            in(i).writeData.ready       := 0.U
-            in(i).writeResp.bits.id     := 0.U
-            in(i).writeResp.bits.resp   := 0.U
-            in(i).writeResp.valid       := 0.U
         }
-        when(axi_busy =/= "b11".U){
-            out <> in(last_sel)
-            req(last_sel).ready := 1.U
-            req(i).ready                := 0.U
-            in(i).readAddr.ready        := 0.U
-            in(i).readData.bits.id      := 0.U
-            in(i).readData.bits.data    := 0x77.U       //MAGIC NUMBER FOR DEBUG
-            in(i).readData.bits.resp    := 0.U
-            in(i).readData.bits.last    := 0.U
-            in(i).readData.valid        := 0.U
-            in(i).writeAddr.ready       := 0.U
-            in(i).writeData.ready       := 0.U
-            in(i).writeResp.bits.id     := 0.U
-            in(i).writeResp.bits.resp   := 0.U
-            in(i).writeResp.valid       := 0.U
-        }
-        .elsewhen(req(i).valid){
-            last_sel     := i.U
+    }.otherwise{
+        out <> in(last_sel)
+        req(last_seq)   := 1.U
+        for(i <- n-1 to 0 by -1){
+            when(i.U =/= last_sel){
+                req(i).ready                := 0.U
+                in(i).readAddr.ready        := 0.U
+                in(i).readData.bits.id      := 0.U
+                in(i).readData.bits.data    := 0x77.U       //MAGIC NUMBER FOR DEBUG
+                in(i).readData.bits.resp    := 0.U
+                in(i).readData.bits.last    := 0.U
+                in(i).readData.valid        := 0.U
+                in(i).writeAddr.ready       := 0.U
+                in(i).writeData.ready       := 0.U
+                in(i).writeResp.bits.id     := 0.U
+                in(i).writeResp.bits.resp   := 0.U
+                in(i).writeResp.valid       := 0.U
+            }
         }
     }
-
 }
 
 class RAMU extends Module{
