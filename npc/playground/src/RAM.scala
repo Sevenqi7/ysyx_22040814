@@ -63,7 +63,7 @@ class AXI_Arbiter(val n: Int) extends Module{
 
     out <> in(n-1)
     for(i <- n - 1 to 0 by -1){
-        when(req(i).valid & in(last_sel).arready & in(last_sel).awready){             
+        when(req(i).valid & in(last_sel).readAddr.ready & in(last_sel).writeAddr.ready){             
             out <> in(i)
             req(i).ready := 1.U
             last_sel     := i.U
