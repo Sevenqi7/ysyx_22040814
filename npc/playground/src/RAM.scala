@@ -88,8 +88,7 @@ class RAMU extends Module{
     val axi_busy = IO(Output(UInt(2.W)))
     val data_ram = Module(new sim_sram)
 
-    axi_busy(0)                             := data_ram.io.arready
-    axi_busy(1)                             := data_ram.io.awready
+    axi_busy                                := (data_ram.io.arready << 1) | data_ram.io.awready 
 
     //data ram
     data_ram.io.pc                          := 0.U
