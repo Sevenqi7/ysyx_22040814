@@ -85,7 +85,7 @@ class AXI_Arbiter(val n: Int) extends Module{
 
 class RAMU extends Module{
     val axi      = IO(Flipped(new AXIMasterIF(32, 64, 4)))
-    val axi_busy = IO(UInt(2.W))
+    val axi_busy = IO(Output(UInt(2.W)))
     val data_ram = Module(new sim_sram)
 
     axi_busy(0)                             := data_ram.io.arready
