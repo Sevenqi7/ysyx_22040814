@@ -60,8 +60,7 @@ class AXI_Arbiter(val n: Int) extends Module{
     val axi_busy = IO(Input(UInt(2.W)))
 
     val last_sel = RegInit((n-1).U(log2Ceil(n).W))
-
-
+    
     for(i <- n - 1 to 0 by -1){
         req(i).ready                := 0.U
         in(i).readAddr.ready        := 0.U
@@ -75,16 +74,13 @@ class AXI_Arbiter(val n: Int) extends Module{
         in(i).writeResp.bits.id     := 0.U
         in(i).writeResp.bits.resp   := 0.U
         in(i).writeResp.valid       := 0.U
-        when(req(i).valid && (axi_busy === "b11".U)){             
+        when(req(i).valid){             
             out <> in(i)
             req(i).ready := 1.U
             last_sel     := i.U
             for(j <- i+1 to n-1){
                 req(j).ready := 0.U
             }
-        }.otherwise{
-            out <> in(last_sel)
-            req(last_sel).ready             := 1.U
         }
     }
 

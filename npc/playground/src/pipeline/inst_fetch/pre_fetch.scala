@@ -110,7 +110,7 @@ class IF_pre_fetch extends Module{
     axi.writeData.bits.id      := 0.U
     axi.writeData.bits.data    := 0.U
     axi.writeData.bits.strb    := 0.U
-    axi.writeData.bits.last    := 1.U
+    axi.writeData.bits.last    := 0.U
     axi.writeData.valid        := 0.U
     axi.writeResp.ready        := 0.U
 
