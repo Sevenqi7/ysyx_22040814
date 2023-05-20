@@ -87,6 +87,7 @@ class AXI_Arbiter(val n: Int) extends Module{
             }
         }
     }.otherwise{
+        out <> in(last_sel)
         for(i <- n-1 to 0 by -1){
             when(last_sel =/= last_sel){
                 req(i).ready                := 0.U
