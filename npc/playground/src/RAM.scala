@@ -75,8 +75,8 @@ class AXI_Arbiter(val n: Int) extends Module{
         in(i).writeResp.bits.resp   := 0.U
         in(i).writeResp.valid       := 0.U
     }
-    out <> in(last_sel)
-    req(last_sel).ready := 1.U
+    // out <> in(last_sel)
+    // req(last_sel).ready := 1.U
     when(axi_busy === "b11".U)
     {
         out <> in(n-1)
