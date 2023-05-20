@@ -99,7 +99,7 @@ class AXI_Arbiter(val n: Int) extends Module{
             in(i).writeResp.bits.resp   := 0.U
             in(i).writeResp.valid       := 0.U
         }
-        .otherwise{
+        .elsewhen(req(i).valid){
             last_sel     := i.U
         }
     }
