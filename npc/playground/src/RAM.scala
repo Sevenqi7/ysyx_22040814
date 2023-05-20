@@ -75,7 +75,7 @@ class AXI_Arbiter(val n: Int) extends Module{
         in(i).writeResp.bits.resp   := 0.U
         in(i).writeResp.valid       := 0.U
     }
-    when(axi_busy === "b11.U")
+    when(axi_busy === "b11".U)
     {
         out <> in(n-1)
         for(i <- n - 1 to 0 by -1){
