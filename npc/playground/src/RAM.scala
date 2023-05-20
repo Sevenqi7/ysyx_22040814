@@ -61,7 +61,7 @@ class AXI_Arbiter(val n: Int) extends Module{
 
     out <> in(n-1)
     for(i <- n - 1 to 0 by -1){
-        when(req(i).valid){             
+        when(req(i).valid && (axi_busy =/= "b11".U)){             
             out <> in(i)
             req(i).ready := 1.U
             for(j <- i+1 to n-1){
