@@ -128,7 +128,7 @@ module sim_sram(
         end
         // $display("addr:0x%x, rdata:0x%x, rlast:%d, roffset:%d", araddr+{24'b0, roffset}, rdata_r, rlast_r, roffset);
     end
-
+    //TODO IF取指时被MEM抢占，此时offset不为0
     //aw
     always@(posedge aclk) begin
         if(!aresetn) begin

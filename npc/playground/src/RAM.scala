@@ -58,6 +58,8 @@ class AXI_Arbiter(val n: Int) extends Module{
     val req = IO(Flipped(Vec(n, new MyReadyValidIO)))
     val out = IO(new AXIMasterIF(32, 64, 4))
 
+
+
     out <> in(n-1)
     for(i <- n - 1 to 0 by -1){
         req(i).ready                := 0.U
@@ -72,7 +74,7 @@ class AXI_Arbiter(val n: Int) extends Module{
         in(i).writeResp.bits.id     := 0.U
         in(i).writeResp.bits.resp   := 0.U
         in(i).writeResp.valid       := 0.U
-        when(req(i).valid){             
+        when(req(i).valid & out.readAddr.ready & out.writeAddr.ready){             
             out <> in(i)
             req(i).ready := 1.U
             for(j <- i+1 to n-1){
