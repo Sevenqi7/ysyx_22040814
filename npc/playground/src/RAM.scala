@@ -66,7 +66,6 @@ class AXI_Arbiter(val n: Int) extends Module{
         when(req(i).valid){             
             out <> in(i)
             req(i).ready := 1.U
-            last_sel     := i.U
             for(j <- i+1 to n-1){
                 req(j).ready := 0.U
             }
@@ -99,6 +98,9 @@ class AXI_Arbiter(val n: Int) extends Module{
             in(i).writeResp.bits.id     := 0.U
             in(i).writeResp.bits.resp   := 0.U
             in(i).writeResp.valid       := 0.U
+        }
+        .otherwise{
+            last_sel     := i.U
         }
     }
 
