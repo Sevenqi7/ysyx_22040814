@@ -14883,7 +14883,8 @@ module RAMU(	// <stdin>:3434:10
   input  [63:0] axi_writeData_bits_data,
   input         axi_writeData_bits_id,
   input  [7:0]  axi_writeData_bits_strb,
-  input         axi_writeResp_ready,
+  input         axi_writeData_bits_last,
+                axi_writeResp_ready,
                 axi_readAddr_valid,
   input  [31:0] axi_readAddr_bits_addr,
   input  [2:0]  axi_readAddr_bits_size,
@@ -14928,7 +14929,7 @@ module RAMU(	// <stdin>:3434:10
     .wid     ({3'h0, axi_writeData_bits_id}),	// <stdin>:3434:10, RAM.scala:132:45
     .wdata   (axi_writeData_bits_data),
     .wstrb   (axi_writeData_bits_strb),
-    .wlast   (1'h1),	// <stdin>:3434:10
+    .wlast   (axi_writeData_bits_last),
     .wvalid  (axi_writeData_valid),
     .bready  (axi_writeResp_ready),
     .arready (axi_readAddr_ready),
@@ -14975,7 +14976,8 @@ module AXI_Arbiter(	// <stdin>:3525:10
   output [63:0] out_writeData_bits_data,
   output        out_writeData_bits_id,
   output [7:0]  out_writeData_bits_strb,
-  output        out_writeResp_ready,
+  output        out_writeData_bits_last,
+                out_writeResp_ready,
                 out_readAddr_valid,
   output [31:0] out_readAddr_bits_addr,
   output [2:0]  out_readAddr_bits_size,
@@ -14983,30 +14985,31 @@ module AXI_Arbiter(	// <stdin>:3525:10
   output [3:0]  out_readAddr_bits_id,
   output        out_readData_ready);
 
-  wire [3:0] _GEN = {3'h0, req_0_valid};	// RAM.scala:66:27, :67:17
-  assign in_0_readData_bits_data = req_0_valid ? out_readData_bits_data : 64'h77;	// <stdin>:3525:10, RAM.scala:66:27, :67:17, :77:41
+  wire [3:0] _GEN = {3'h0, req_0_valid};	// RAM.scala:78:27, :79:17
+  assign in_0_readData_bits_data = req_0_valid ? out_readData_bits_data : 64'h77;	// <stdin>:3525:10, RAM.scala:69:37, :78:27, :79:17
   assign in_1_readAddr_ready = out_readAddr_ready;	// <stdin>:3525:10
   assign in_1_readData_bits_data = out_readData_bits_data;	// <stdin>:3525:10
   assign in_1_readData_bits_last = out_readData_bits_last;	// <stdin>:3525:10
   assign req_0_ready = req_0_valid;	// <stdin>:3525:10
-  assign req_1_ready = ~req_0_valid;	// <stdin>:3525:10, RAM.scala:66:27, :67:17
-  assign out_writeAddr_valid = req_0_valid & in_0_writeAddr_valid;	// <stdin>:3525:10, RAM.scala:66:27, :67:17
-  assign out_writeAddr_bits_addr = req_0_valid ? in_0_writeAddr_bits_addr : 32'h0;	// <stdin>:3525:10, RAM.scala:66:27, :67:17
-  assign out_writeAddr_bits_id = _GEN;	// <stdin>:3525:10, RAM.scala:66:27, :67:17
-  assign out_writeData_valid = req_0_valid & in_0_writeData_valid;	// <stdin>:3525:10, RAM.scala:66:27, :67:17
-  assign out_writeData_bits_data = req_0_valid ? in_0_writeData_bits_data : 64'h0;	// <stdin>:3525:10, RAM.scala:66:27, :67:17
+  assign req_1_ready = ~req_0_valid;	// <stdin>:3525:10, RAM.scala:78:27, :79:17
+  assign out_writeAddr_valid = req_0_valid & in_0_writeAddr_valid;	// <stdin>:3525:10, RAM.scala:78:27, :79:17
+  assign out_writeAddr_bits_addr = req_0_valid ? in_0_writeAddr_bits_addr : 32'h0;	// <stdin>:3525:10, RAM.scala:78:27, :79:17
+  assign out_writeAddr_bits_id = _GEN;	// <stdin>:3525:10, RAM.scala:78:27, :79:17
+  assign out_writeData_valid = req_0_valid & in_0_writeData_valid;	// <stdin>:3525:10, RAM.scala:78:27, :79:17
+  assign out_writeData_bits_data = req_0_valid ? in_0_writeData_bits_data : 64'h0;	// <stdin>:3525:10, RAM.scala:78:27, :79:17
   assign out_writeData_bits_id = req_0_valid;	// <stdin>:3525:10
-  assign out_writeData_bits_strb = req_0_valid ? in_0_writeData_bits_strb : 8'h0;	// <stdin>:3525:10, RAM.scala:66:27, :67:17
-  assign out_writeResp_ready = req_0_valid & in_0_writeResp_ready;	// <stdin>:3525:10, RAM.scala:66:27, :67:17
-  assign out_readAddr_valid = req_0_valid ? in_0_readAddr_valid : in_1_readAddr_valid;	// <stdin>:3525:10, RAM.scala:66:27, :67:17
-  assign out_readAddr_bits_addr = req_0_valid ? in_0_readAddr_bits_addr : in_1_readAddr_bits_addr;	// <stdin>:3525:10, RAM.scala:66:27, :67:17
-  assign out_readAddr_bits_size = req_0_valid ? 3'h6 : 3'h3;	// <stdin>:3525:10, RAM.scala:66:27, :67:17
-  assign out_readAddr_bits_len = {6'h0, ~req_0_valid, 1'h0};	// <stdin>:3525:10, RAM.scala:66:27, :67:17
-  assign out_readAddr_bits_id = _GEN;	// <stdin>:3525:10, RAM.scala:66:27, :67:17
-  assign out_readData_ready = req_0_valid ? in_0_readData_ready : in_1_readData_ready;	// <stdin>:3525:10, RAM.scala:66:27, :67:17
+  assign out_writeData_bits_strb = req_0_valid ? in_0_writeData_bits_strb : 8'h0;	// <stdin>:3525:10, RAM.scala:78:27, :79:17
+  assign out_writeData_bits_last = req_0_valid;	// <stdin>:3525:10
+  assign out_writeResp_ready = req_0_valid & in_0_writeResp_ready;	// <stdin>:3525:10, RAM.scala:78:27, :79:17
+  assign out_readAddr_valid = req_0_valid ? in_0_readAddr_valid : in_1_readAddr_valid;	// <stdin>:3525:10, RAM.scala:78:27, :79:17
+  assign out_readAddr_bits_addr = req_0_valid ? in_0_readAddr_bits_addr : in_1_readAddr_bits_addr;	// <stdin>:3525:10, RAM.scala:78:27, :79:17
+  assign out_readAddr_bits_size = req_0_valid ? 3'h6 : 3'h3;	// <stdin>:3525:10, RAM.scala:78:27, :79:17
+  assign out_readAddr_bits_len = {6'h0, ~req_0_valid, 1'h0};	// <stdin>:3525:10, RAM.scala:78:27, :79:17
+  assign out_readAddr_bits_id = _GEN;	// <stdin>:3525:10, RAM.scala:78:27, :79:17
+  assign out_readData_ready = req_0_valid ? in_0_readData_ready : in_1_readData_ready;	// <stdin>:3525:10, RAM.scala:78:27, :79:17
 endmodule
 
-module top(	// <stdin>:3572:10
+module top(	// <stdin>:3570:10
   input          clock,
                  reset,
   output [63:0]  io_ID_npc,
@@ -15088,6 +15091,7 @@ module top(	// <stdin>:3572:10
   wire [63:0] _arb_out_writeData_bits_data;	// top.scala:215:21
   wire        _arb_out_writeData_bits_id;	// top.scala:215:21
   wire [7:0]  _arb_out_writeData_bits_strb;	// top.scala:215:21
+  wire        _arb_out_writeData_bits_last;	// top.scala:215:21
   wire        _arb_out_writeResp_ready;	// top.scala:215:21
   wire        _arb_out_readAddr_valid;	// top.scala:215:21
   wire [31:0] _arb_out_readAddr_bits_addr;	// top.scala:215:21
@@ -15540,6 +15544,7 @@ module top(	// <stdin>:3572:10
     .axi_writeData_bits_data (_arb_out_writeData_bits_data),	// top.scala:215:21
     .axi_writeData_bits_id   (_arb_out_writeData_bits_id),	// top.scala:215:21
     .axi_writeData_bits_strb (_arb_out_writeData_bits_strb),	// top.scala:215:21
+    .axi_writeData_bits_last (_arb_out_writeData_bits_last),	// top.scala:215:21
     .axi_writeResp_ready     (_arb_out_writeResp_ready),	// top.scala:215:21
     .axi_readAddr_valid      (_arb_out_readAddr_valid),	// top.scala:215:21
     .axi_readAddr_bits_addr  (_arb_out_readAddr_bits_addr),	// top.scala:215:21
@@ -15603,6 +15608,7 @@ sim simulate (	// top.scala:24:26
     .out_writeData_bits_data  (_arb_out_writeData_bits_data),
     .out_writeData_bits_id    (_arb_out_writeData_bits_id),
     .out_writeData_bits_strb  (_arb_out_writeData_bits_strb),
+    .out_writeData_bits_last  (_arb_out_writeData_bits_last),
     .out_writeResp_ready      (_arb_out_writeResp_ready),
     .out_readAddr_valid       (_arb_out_readAddr_valid),
     .out_readAddr_bits_addr   (_arb_out_readAddr_bits_addr),
@@ -15611,36 +15617,36 @@ sim simulate (	// top.scala:24:26
     .out_readAddr_bits_id     (_arb_out_readAddr_bits_id),
     .out_readData_ready       (_arb_out_readData_ready)
   );
-  assign io_ID_npc = _inst_decode_unit_io_ID_to_BPU_bus_bits_br_target;	// <stdin>:3572:10, top.scala:96:34
-  assign io_PF_pc = _inst_fetch_unit_io_PF_pc;	// <stdin>:3572:10, top.scala:95:33
-  assign io_PF_axidata = _arb_in_1_readData_bits_data;	// <stdin>:3572:10, top.scala:215:21
-  assign io_IF_pc = _inst_fetch_unit_io_IF_to_ID_bus_bits_PC;	// <stdin>:3572:10, top.scala:95:33
-  assign io_ID_pc = _inst_decode_unit_io_ID_to_EX_bus_bits_PC;	// <stdin>:3572:10, top.scala:96:34
-  assign io_EX_pc = _excute_unit_io_EX_to_MEM_bus_bits_PC;	// <stdin>:3572:10, top.scala:97:29
-  assign io_PMEM_pc = _pre_mem_unit_io_PMEM_to_MEM_bus_bits_PC;	// <stdin>:3572:10, top.scala:98:30
-  assign io_WB_Inst = _wb_unit_io_WB_Inst;	// <stdin>:3572:10, top.scala:100:25
-  assign io_WB_RegWriteData = _wb_unit_io_WB_to_ID_forward_bits_regWriteData;	// <stdin>:3572:10, top.scala:100:25
-  assign io_WB_RegWriteID = {59'h0, _wb_unit_io_WB_to_ID_forward_bits_regWriteID};	// <stdin>:3572:10, top.scala:100:25, :153:24
-  assign io_WB_valid = _wb_unit_io_WB_to_ID_forward_valid;	// <stdin>:3572:10, top.scala:100:25
-  assign io_MEM_RegWriteData = _arb_in_0_readData_bits_data;	// <stdin>:3572:10, top.scala:215:21
-  assign io_bp_npc = _bp_unit_io_bp_npc;	// <stdin>:3572:10, top.scala:94:33
-  assign io_bp_taken = _bp_unit_io_bp_taken;	// <stdin>:3572:10, top.scala:94:33
-  assign io_bp_flush = _bp_unit_io_bp_flush;	// <stdin>:3572:10, top.scala:94:33
-  assign io_csrWriteEn = _mem_unit_io_MEM_to_WB_bus_bits_csrWriteEn;	// <stdin>:3572:10, top.scala:99:26
-  assign io_csrWriteAddr = _mem_unit_io_MEM_to_WB_bus_bits_csrWriteAddr;	// <stdin>:3572:10, top.scala:99:26
-  assign io_csrWriteData = _mem_unit_io_MEM_to_WB_bus_bits_csrWriteData;	// <stdin>:3572:10, top.scala:99:26
-  assign io_EX_csrWriteData = _excute_unit_io_EX_to_MEM_bus_bits_csrWriteData;	// <stdin>:3572:10, top.scala:97:29
-  assign io_cache_axi_req = _inst_fetch_unit_axi_readAddr_valid;	// <stdin>:3572:10, top.scala:95:33
-  assign io_cache_rlast = _arb_in_1_readData_bits_last;	// <stdin>:3572:10, top.scala:215:21
-  assign io_IF_Inst = _inst_fetch_unit_io_IF_to_ID_bus_bits_Inst;	// <stdin>:3572:10, top.scala:95:33
-  assign io_IF_valid = _inst_fetch_unit_io_IF_to_ID_bus_valid;	// <stdin>:3572:10, top.scala:95:33
-  assign io_IF_AXIREQ = _arb_req_1_ready;	// <stdin>:3572:10, top.scala:215:21
-  assign io_MEM_AXIREQ = _arb_req_0_ready;	// <stdin>:3572:10, top.scala:215:21
-  assign io_ID_ALU_Data1 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data1;	// <stdin>:3572:10, top.scala:96:34
-  assign io_ID_ALU_Data2 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data2;	// <stdin>:3572:10, top.scala:96:34
-  assign io_EX_ALU_result_pass = _excute_unit_io_EX_ALUResult_Pass;	// <stdin>:3572:10, top.scala:97:29
-  assign io_ID_Rs2Data = _inst_decode_unit_io_ID_to_EX_bus_bits_rs2_data;	// <stdin>:3572:10, top.scala:96:34
-  assign io_ALUResult = _excute_unit_io_EX_to_MEM_bus_bits_ALU_result;	// <stdin>:3572:10, top.scala:97:29
+  assign io_ID_npc = _inst_decode_unit_io_ID_to_BPU_bus_bits_br_target;	// <stdin>:3570:10, top.scala:96:34
+  assign io_PF_pc = _inst_fetch_unit_io_PF_pc;	// <stdin>:3570:10, top.scala:95:33
+  assign io_PF_axidata = _arb_in_1_readData_bits_data;	// <stdin>:3570:10, top.scala:215:21
+  assign io_IF_pc = _inst_fetch_unit_io_IF_to_ID_bus_bits_PC;	// <stdin>:3570:10, top.scala:95:33
+  assign io_ID_pc = _inst_decode_unit_io_ID_to_EX_bus_bits_PC;	// <stdin>:3570:10, top.scala:96:34
+  assign io_EX_pc = _excute_unit_io_EX_to_MEM_bus_bits_PC;	// <stdin>:3570:10, top.scala:97:29
+  assign io_PMEM_pc = _pre_mem_unit_io_PMEM_to_MEM_bus_bits_PC;	// <stdin>:3570:10, top.scala:98:30
+  assign io_WB_Inst = _wb_unit_io_WB_Inst;	// <stdin>:3570:10, top.scala:100:25
+  assign io_WB_RegWriteData = _wb_unit_io_WB_to_ID_forward_bits_regWriteData;	// <stdin>:3570:10, top.scala:100:25
+  assign io_WB_RegWriteID = {59'h0, _wb_unit_io_WB_to_ID_forward_bits_regWriteID};	// <stdin>:3570:10, top.scala:100:25, :153:24
+  assign io_WB_valid = _wb_unit_io_WB_to_ID_forward_valid;	// <stdin>:3570:10, top.scala:100:25
+  assign io_MEM_RegWriteData = _arb_in_0_readData_bits_data;	// <stdin>:3570:10, top.scala:215:21
+  assign io_bp_npc = _bp_unit_io_bp_npc;	// <stdin>:3570:10, top.scala:94:33
+  assign io_bp_taken = _bp_unit_io_bp_taken;	// <stdin>:3570:10, top.scala:94:33
+  assign io_bp_flush = _bp_unit_io_bp_flush;	// <stdin>:3570:10, top.scala:94:33
+  assign io_csrWriteEn = _mem_unit_io_MEM_to_WB_bus_bits_csrWriteEn;	// <stdin>:3570:10, top.scala:99:26
+  assign io_csrWriteAddr = _mem_unit_io_MEM_to_WB_bus_bits_csrWriteAddr;	// <stdin>:3570:10, top.scala:99:26
+  assign io_csrWriteData = _mem_unit_io_MEM_to_WB_bus_bits_csrWriteData;	// <stdin>:3570:10, top.scala:99:26
+  assign io_EX_csrWriteData = _excute_unit_io_EX_to_MEM_bus_bits_csrWriteData;	// <stdin>:3570:10, top.scala:97:29
+  assign io_cache_axi_req = _inst_fetch_unit_axi_readAddr_valid;	// <stdin>:3570:10, top.scala:95:33
+  assign io_cache_rlast = _arb_in_1_readData_bits_last;	// <stdin>:3570:10, top.scala:215:21
+  assign io_IF_Inst = _inst_fetch_unit_io_IF_to_ID_bus_bits_Inst;	// <stdin>:3570:10, top.scala:95:33
+  assign io_IF_valid = _inst_fetch_unit_io_IF_to_ID_bus_valid;	// <stdin>:3570:10, top.scala:95:33
+  assign io_IF_AXIREQ = _arb_req_1_ready;	// <stdin>:3570:10, top.scala:215:21
+  assign io_MEM_AXIREQ = _arb_req_0_ready;	// <stdin>:3570:10, top.scala:215:21
+  assign io_ID_ALU_Data1 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data1;	// <stdin>:3570:10, top.scala:96:34
+  assign io_ID_ALU_Data2 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data2;	// <stdin>:3570:10, top.scala:96:34
+  assign io_EX_ALU_result_pass = _excute_unit_io_EX_ALUResult_Pass;	// <stdin>:3570:10, top.scala:97:29
+  assign io_ID_Rs2Data = _inst_decode_unit_io_ID_to_EX_bus_bits_rs2_data;	// <stdin>:3570:10, top.scala:96:34
+  assign io_ALUResult = _excute_unit_io_EX_to_MEM_bus_bits_ALU_result;	// <stdin>:3570:10, top.scala:97:29
 endmodule
 
 
