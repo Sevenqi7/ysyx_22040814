@@ -63,14 +63,17 @@ class AXI_Arbiter(val n: Int) extends Module{
 
     out <> in(n-1)
     for(i <- n - 1 to 0 by -1){
-        when(req(i).valid & in(last_sel).readAddr.ready & in(last_sel).writeAddr.ready){             
+        when(req(i).valid && (axi_busy === "b11".U)){             
             out <> in(i)
             req(i).ready := 1.U
             last_sel     := i.U
             for(j <- i+1 to n-1){
                 req(j).ready := 0.U
             }
-        }.otherwise{
+        }.elsewhen(req(i).valid){
+            out <> in(last_sel)
+        }
+        .otherwise{
             req(i).ready                := 0.U
             in(i).readAddr.ready        := 0.U
             in(i).readData.bits.id      := 0.U
