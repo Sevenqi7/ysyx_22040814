@@ -59,9 +59,10 @@ class AXI_Arbiter(val n: Int) extends Module{
     val out = IO(new AXIMasterIF(32, 64, 4))
     val axi_busy = IO(Input(UInt(2.W)))
 
-    val last_sel = RegInit((n-1).U(log2Ceil(n).W))
+    val flag = Wire(Bool())
+    flag    := 0.U
 
-    out <> in(n-1)
+    // out <> in(n-1)
     for(i <- n - 1 to 0 by -1){
         req(i).ready                := 0.U
         in(i).readAddr.ready        := 0.U
@@ -78,12 +79,15 @@ class AXI_Arbiter(val n: Int) extends Module{
         when(req(i).valid){             
             out <> in(i)
             req(i).ready := 1.U
+            flag := 1.U
             for(j <- i+1 to n-1){
                 req(j).ready := 0.U
             }
         }
     }
-
+    when(!flag){
+        out <> in(n-1)
+    }
 }
 
 class RAMU extends Module{
