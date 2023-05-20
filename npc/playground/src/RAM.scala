@@ -61,7 +61,7 @@ class AXI_Arbiter(val n: Int) extends Module{
 
     val last_sel = RegInit((n-1).U(log2Ceil(n).W))
 
-    out <> in(1)
+    out <> in(last_sel)
     for(i <- n - 1 to 0 by -1){
         req(i).ready                := 0.U
         in(i).readAddr.ready        := 0.U
