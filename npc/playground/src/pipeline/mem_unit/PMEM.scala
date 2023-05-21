@@ -75,7 +75,7 @@ class MEM_pre_stage extends Module{
         is (lbu){memReadData := axi.readData.bits.data( 7 ,0)}
     }
     
-    val stall = (memReadEn | memWriteEn) & io.EX_to_MEM_bus.valid & !axi_req.ready
+    val stall = (memReadEn | memWriteEn) & (axi.readData.bits.id =/= 1.U && axi.readData.valid === 1.U)
 
     regConnect(io.PMEM_to_MEM_bus.bits.PC           , EX_pc                 )
     regConnect(io.PMEM_to_MEM_bus.bits.Inst         , EX_Inst               )

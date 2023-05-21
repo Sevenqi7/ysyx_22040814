@@ -15004,7 +15004,7 @@ module AXI_Arbiter(	// <stdin>:3525:10
   assign out_readAddr_valid = req_0_valid ? in_0_readAddr_valid : in_1_readAddr_valid;	// <stdin>:3525:10, RAM.scala:64:27, :65:17
   assign out_readAddr_bits_addr = req_0_valid ? in_0_readAddr_bits_addr : in_1_readAddr_bits_addr;	// <stdin>:3525:10, RAM.scala:64:27, :65:17
   assign out_readAddr_bits_size = req_0_valid ? 3'h6 : 3'h3;	// <stdin>:3525:10, RAM.scala:64:27, :65:17
-  assign out_readAddr_bits_len = {6'h0, ~req_0_valid, 1'h0};	// <stdin>:3525:10, RAM.scala:64:27, :65:17
+  assign out_readAddr_bits_len = {7'h0, ~req_0_valid};	// <stdin>:3525:10, RAM.scala:64:27, :65:17
   assign out_readAddr_bits_id = _GEN;	// <stdin>:3525:10, RAM.scala:64:27, :65:17
   assign out_readData_ready = req_0_valid ? in_0_readData_ready : in_1_readData_ready;	// <stdin>:3525:10, RAM.scala:64:27, :65:17
 endmodule
