@@ -68,6 +68,15 @@ class top extends Module{
         val mepc      = Output(UInt(64.W))
         val mcause    = Output(UInt(64.W))      
 
+        val cache_hit = Output(Bool())
+        val cache_state = Output(UInt(3.W))
+        val cache_rvalid = Output(Bool())
+        val cache_axi_req = Output(Bool())
+        val cache_tag    = Output(UInt(21.W))
+        val cache_set    = Output(UInt(2.W))
+        val cache_offset = Output(UInt(4.W))
+        val cache_rlast  = Output(Bool())
+        val lineBuf      = Output(UInt(128.W))
 
         val IF_Inst = Output(UInt(32.W))
         val IF_valid = Output(Bool())
@@ -90,9 +99,6 @@ class top extends Module{
     val mem_unit = Module(new MEMU)
     val wb_unit = Module(new WBU)
     val csr     = Module(new CSR)
-
-    val inst_ram     = Module(new sim_sram)
-
 
     //for npc to trace
     io.BTB_hit   := bp_unit.io.BTB_hit
@@ -125,7 +131,15 @@ class top extends Module{
 
     io.IF_Inst  := inst_fetch_unit.io.IF_to_ID_bus.bits.Inst
     io.IF_valid := inst_fetch_unit.io.IF_to_ID_bus.valid
-    io.PF_axidata := inst_fetch_unit.io.axidata
+    io.cache_hit := inst_fetch_unit.io.cache_hit
+    io.cache_state := inst_fetch_unit.io.cache_state
+    io.cache_axi_req := inst_fetch_unit.axi.readAddr.valid
+    io.cache_rvalid := inst_fetch_unit.io.cache_rvalid
+    io.cache_tag        := inst_fetch_unit.io.cache_tag
+    io.cache_set        := inst_fetch_unit.io.cache_set
+    io.cache_offset     := inst_fetch_unit.io.cache_offset
+    io.lineBuf          := inst_fetch_unit.io.lineBuf
+
     io.ID_npc   := inst_decode_unit.io.ID_to_BPU_bus.bits.br_target
     io.PF_npc   := inst_fetch_unit.io.PF_npc
     io.PF_pc := inst_fetch_unit.io.PF_pc
@@ -164,7 +178,7 @@ class top extends Module{
     bp_unit.io.PF_npc                       := inst_fetch_unit.io.PF_npc
     bp_unit.io.PF_pc                        := inst_fetch_unit.io.PF_pc
     bp_unit.io.PF_valid                     := inst_fetch_unit.io.PF_valid
-    bp_unit.io.PF_inst                      := inst_fetch_unit.io.axidata
+    bp_unit.io.PF_inst                      := inst_fetch_unit.io.PF_Inst
     inst_fetch_unit.io.bp_npc               := bp_unit.io.bp_npc
     inst_fetch_unit.io.bp_taken             := bp_unit.io.bp_taken
     inst_fetch_unit.io.bp_stall             := bp_unit.io.bp_stall
@@ -204,6 +218,11 @@ class top extends Module{
     arb.in(1)       <> inst_fetch_unit.axi
     arb.req(0)      <> pre_mem_unit.axi_req
     arb.req(1)      <> inst_fetch_unit.axi_req
+    arb.axi_busy    := ram_unit.axi_busy
+    io.PF_axidata := inst_fetch_unit.axi.readData.bits.data
+    io.cache_rlast := inst_fetch_unit.axi.readData.bits.last
+
+
 
     //debug
     io.MEM_AXIREQ:= arb.req(0).ready

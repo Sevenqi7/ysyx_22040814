@@ -38,7 +38,7 @@ class MEMU extends Module{
     })
 
     //unpack bus from PMEMU
-    val PMEM_pc         = io.PMEM_to_MEM_bus.bits.PC
+    val PMEM_pc         = Mux(io.PMEM_to_MEM_bus.valid, io.PMEM_to_MEM_bus.bits.PC, 0.U)
     val PMEM_Inst       = io.PMEM_to_MEM_bus.bits.Inst
     val ALU_result      = io.PMEM_to_MEM_bus.bits.ALU_result
     val regWriteEn      = io.PMEM_to_MEM_bus.bits.regWriteEn
@@ -69,8 +69,8 @@ class MEMU extends Module{
     io.MEM_to_ID_forward.bits.regWriteData := regWriteData
     io.MEM_to_ID_forward.bits.regWriteEn   := regWriteEn
     io.MEM_to_ID_forward.bits.regWriteID   := regWriteID
-    io.MEM_to_ID_forward.valid             := regWriteEn & (regWriteID > 0.U)
     io.MEM_to_ID_forward.bits.csrWriteEn   := csrWriteEn
     io.MEM_to_ID_forward.bits.csrWriteAddr := csrWriteAddr
+    io.MEM_to_ID_forward.valid             := regWriteEn & (regWriteID > 0.U) & io.PMEM_to_MEM_bus.valid
 
 }  

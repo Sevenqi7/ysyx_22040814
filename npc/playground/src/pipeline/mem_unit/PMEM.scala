@@ -40,7 +40,7 @@ class MEM_pre_stage extends Module{
     val axi_req  = IO(new MyReadyValidIO)
 
     //unpack bus from EXU
-    val EX_pc        =  io.EX_to_MEM_bus.bits.PC
+    val EX_pc        =  Mux(io.EX_to_MEM_bus.valid, io.EX_to_MEM_bus.bits.PC, 0.U)
     val EX_Inst      =  io.EX_to_MEM_bus.bits.Inst
     val ALU_result   =  io.EX_to_MEM_bus.bits.ALU_result  
     val memWriteData =  io.EX_to_MEM_bus.bits.memWriteData
@@ -74,35 +74,40 @@ class MEM_pre_stage extends Module{
         is (lhu){memReadData := axi.readData.bits.data(15, 0)}
         is (lbu){memReadData := axi.readData.bits.data( 7 ,0)}
     }
+    
+    val stall = (memReadEn | memWriteEn) & io.EX_to_MEM_bus.valid & (!axi.readAddr.ready | !axi.writeAddr.ready)
 
-    regConnect(io.PMEM_to_MEM_bus.bits.PC           , EX_pc         )
-    regConnect(io.PMEM_to_MEM_bus.bits.Inst         , EX_Inst       )
-    regConnect(io.PMEM_to_MEM_bus.bits.ALU_result   , ALU_result    )
-    regConnect(io.PMEM_to_MEM_bus.bits.regWriteEn   , regWriteEn    )
-    regConnect(io.PMEM_to_MEM_bus.bits.regWriteID   , regWriteID    )
-    regConnect(io.PMEM_to_MEM_bus.bits.memReadEn    , memReadEn     )
-    regConnect(io.PMEM_to_MEM_bus.bits.memWriteEn   , memWriteEn    )
-    regConnect(io.PMEM_to_MEM_bus.bits.memWriteData , memWriteData  )
-    regConnect(io.PMEM_to_MEM_bus.bits.lsutype      , lsutype       )
-    regConnect(io.PMEM_to_MEM_bus.bits.csrWriteEn   , csrWriteEn    )
-    regConnect(io.PMEM_to_MEM_bus.bits.csrWriteAddr , csrWriteAddr  )
-    regConnect(io.PMEM_to_MEM_bus.bits.csrWriteData , csrWriteData  )
-    regConnect(io.PMEM_to_MEM_bus.valid             , io.EX_to_MEM_bus.valid)
-    io.memReadData                          := memReadData
-    io.EX_to_MEM_bus.ready                  := 1.U
+    val PMEM_valid = Mux(stall, 0.U, io.EX_to_MEM_bus.valid)
+
+    regConnect(io.PMEM_to_MEM_bus.bits.PC           , EX_pc                 )
+    regConnect(io.PMEM_to_MEM_bus.bits.Inst         , EX_Inst               )
+    regConnect(io.PMEM_to_MEM_bus.bits.ALU_result   , ALU_result            )
+    regConnect(io.PMEM_to_MEM_bus.bits.regWriteEn   , regWriteEn            )
+    regConnect(io.PMEM_to_MEM_bus.bits.regWriteID   , regWriteID            )
+    regConnect(io.PMEM_to_MEM_bus.bits.memReadEn    , memReadEn             )
+    regConnect(io.PMEM_to_MEM_bus.bits.memWriteEn   , memWriteEn            )
+    regConnect(io.PMEM_to_MEM_bus.bits.memWriteData , memWriteData          )
+    regConnect(io.PMEM_to_MEM_bus.bits.lsutype      , lsutype               )
+    regConnect(io.PMEM_to_MEM_bus.bits.csrWriteEn   , csrWriteEn            )
+    regConnect(io.PMEM_to_MEM_bus.bits.csrWriteAddr , csrWriteAddr          )
+    regConnect(io.PMEM_to_MEM_bus.bits.csrWriteData , csrWriteData          )
+    regConnect(io.PMEM_to_MEM_bus.valid             , PMEM_valid)
+    
+    io.memReadData             := memReadData
+    io.EX_to_MEM_bus.ready     := Mux(stall, 0.U, 1.U)
 
     //r
     
-    axi.readAddr.bits.id               := 1.U
-    axi.readAddr.bits.addr             := ALU_result(31, 0)
+    axi.readAddr.bits.id       := 1.U
+    axi.readAddr.bits.addr     := ALU_result(31, 0)
     axi.readAddr.bits.len      := 0.U
     axi.readAddr.bits.size     := 6.U       //64 bits
     axi.readAddr.bits.burst    := "b01".U
     axi.readAddr.bits.lock     := 0.U
     axi.readAddr.bits.cache    := 0.U
     axi.readAddr.bits.prot     := 0.U
-    axi.readAddr.valid                 := memReadEn
-    axi.readData.ready                 := memReadEn
+    axi.readAddr.valid         := memReadEn & io.EX_to_MEM_bus.valid
+    axi.readData.ready         := memReadEn & io.EX_to_MEM_bus.valid
 
     //w
     axi.writeAddr.bits.id      := 1.U
@@ -113,14 +118,14 @@ class MEM_pre_stage extends Module{
     axi.writeAddr.bits.lock    := 0.U
     axi.writeAddr.bits.cache   := 0.U
     axi.writeAddr.bits.prot    := 0.U
-    axi.writeAddr.valid        := memWriteEn
+    axi.writeAddr.valid        := memWriteEn & io.EX_to_MEM_bus.valid
 
     axi.writeData.bits.id      := 1.U
     axi.writeData.bits.data    := memWriteData
     axi.writeData.bits.strb    := wstrb
     axi.writeData.bits.last    := 1.U
-    axi.writeData.valid        := memWriteEn
-    axi.writeResp.ready        := memWriteEn 
+    axi.writeData.valid        := memWriteEn & io.EX_to_MEM_bus.valid
+    axi.writeResp.ready        := memWriteEn & io.EX_to_MEM_bus.valid
 
     //forward
     io.PMEM_to_ID_forward.bits.ALU_result   := ALU_result    
@@ -129,5 +134,5 @@ class MEM_pre_stage extends Module{
     io.PMEM_to_ID_forward.bits.memReadEn    := memReadEn
     io.PMEM_to_ID_forward.bits.csrWriteEn   := csrWriteEn
     io.PMEM_to_ID_forward.bits.csrWriteAddr := csrWriteAddr
-    io.PMEM_to_ID_forward.valid             := 1.U
+    io.PMEM_to_ID_forward.valid             := io.EX_to_MEM_bus.valid
 }

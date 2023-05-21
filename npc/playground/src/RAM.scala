@@ -1,4 +1,4 @@
-import chisel3._
+    import chisel3._
 import chisel3.util._
 import chisel3.experimental._
 import AXIDefs._
@@ -57,34 +57,39 @@ class AXI_Arbiter(val n: Int) extends Module{
     val in = IO(Flipped(Vec(n, new AXIMasterIF(32, 64, 4))))
     val req = IO(Flipped(Vec(n, new MyReadyValidIO)))
     val out = IO(new AXIMasterIF(32, 64, 4))
+    val axi_busy = IO(Input(UInt(2.W)))
 
     out <> in(n-1)
     for(i <- n - 1 to 0 by -1){
-        req(i).ready                := 0.U
-        in(i).readAddr.ready        := 0.U
-        in(i).readData.bits.id      := 0.U
-        in(i).readData.bits.data    := 0x77.U       //MAGIC NUMBER FOR DEBUG
-        in(i).readData.bits.resp    := 0.U
-        in(i).readData.bits.last    := 0.U
-        in(i).readData.valid        := 0.U
-        in(i).writeAddr.ready       := 0.U
-        in(i).writeData.ready       := 0.U
-        in(i).writeResp.bits.id     := 0.U
-        in(i).writeResp.bits.resp   := 0.U
-        in(i).writeResp.valid       := 0.U
-        when(req(i).valid){
+        when(req(i).valid){             
             out <> in(i)
             req(i).ready := 1.U
             for(j <- i+1 to n-1){
                 req(j).ready := 0.U
             }
+        }.otherwise{
+            req(i).ready                := 0.U
+            in(i).readAddr.ready        := 0.U
+            in(i).readData.bits.id      := 0.U
+            in(i).readData.bits.data    := 0x77.U       //MAGIC NUMBER FOR DEBUG
+            in(i).readData.bits.resp    := 0.U
+            in(i).readData.bits.last    := 0.U
+            in(i).readData.valid        := 0.U
+            in(i).writeAddr.ready       := 0.U
+            in(i).writeData.ready       := 0.U
+            in(i).writeResp.bits.id     := 0.U
+            in(i).writeResp.bits.resp   := 0.U
+            in(i).writeResp.valid       := 0.U
         }
     }
 }
 
 class RAMU extends Module{
     val axi      = IO(Flipped(new AXIMasterIF(32, 64, 4)))
+    val axi_busy = IO(Output(UInt(2.W)))
     val data_ram = Module(new sim_sram)
+
+    axi_busy                                := (data_ram.io.arready << 1) | data_ram.io.awready 
 
     //data ram
     data_ram.io.pc                          := 0.U
@@ -94,6 +99,12 @@ class RAMU extends Module{
     //ar
     data_ram.io.arid                        := axi.readAddr.bits.id
     data_ram.io.araddr                      := axi.readAddr.bits.addr
+    data_ram.io.arlen                       := axi.readAddr.bits.len
+    data_ram.io.arsize                      := axi.readAddr.bits.size
+    data_ram.io.arburst                     := axi.readAddr.bits.burst
+    data_ram.io.arlock                      := axi.readAddr.bits.lock
+    data_ram.io.arcache                     := axi.readAddr.bits.cache
+    data_ram.io.arprot                      := axi.readAddr.bits.prot
     data_ram.io.arvalid                     := axi.readAddr.valid
     axi.readAddr.ready                      := data_ram.io.arready
     //r

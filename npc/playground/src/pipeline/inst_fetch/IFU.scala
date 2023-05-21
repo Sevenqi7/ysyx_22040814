@@ -19,7 +19,15 @@ class IFU extends Module{
         //for npc to trap
         val PF_npc  = Output(UInt(64.W))
         val PF_pc   = Output(UInt(64.W))
+        val PF_Inst = Output(UInt(32.W))
         val PF_valid = Output(Bool())
+        val cache_hit = Output(Bool())
+        val cache_state = Output(UInt(3.W))
+        val cache_rvalid = Output(Bool())
+        val cache_tag    = Output(UInt(21.W))
+        val cache_set    = Output(UInt(2.W))
+        val cache_offset = Output(UInt(4.W))
+        val lineBuf      = Output(UInt(128.W))
 
         val axidata = Output(UInt(64.W))
     })
@@ -34,8 +42,16 @@ class IFU extends Module{
 
     io.PF_npc                               := pre_fetch.io.PF_npc
     io.PF_pc                                := pre_fetch.io.PF_pc
+    io.PF_Inst                              := pre_fetch.io.inst
     io.PF_valid                             := pre_fetch.io.inst_valid
     io.axidata                              := pre_fetch.axi.readData.bits.data
+    io.cache_hit                            := pre_fetch.io.cache_hit
+    io.cache_state                          := pre_fetch.io.cache_state
+    io.cache_rvalid                         := pre_fetch.io.cache_rvalid
+    io.cache_tag                            := pre_fetch.io.cache_tag
+    io.cache_set                            := pre_fetch.io.cache_set
+    io.cache_offset                         := pre_fetch.io.cache_offset
+    io.lineBuf                              := pre_fetch.io.lineBuf
 
     pre_fetch.io.IF_pc                      := io.IF_to_ID_bus.bits.PC
     pre_fetch.io.IF_valid                   := io.IF_to_ID_bus.valid
@@ -44,11 +60,32 @@ class IFU extends Module{
     pre_fetch.io.bp_taken                   := io.bp_taken
     pre_fetch.io.stall                      := !io.IF_to_ID_bus.ready | io.bp_stall
 
-    flush                                   := reset.asBool | io.bp_flush
+    flush                                   := (reset.asBool | io.bp_flush)
     //pipeline
-    regConnectWithResetAndStall(io.IF_to_ID_bus.bits.PC, pre_fetch.io.PF_pc   , flush, 0.U, !io.IF_to_ID_bus.ready)
-    regConnectWithResetAndStall(io.IF_to_ID_bus.valid, pre_fetch.io.inst_valid, flush, 0.U, !io.IF_to_ID_bus.ready)
-    regConnectWithResetAndStall(io.IF_to_ID_bus.bits.Inst, pre_fetch.axi.readData.bits.data  , flush, 0.U, !io.IF_to_ID_bus.ready)
+    val IF_pc    = Wire(UInt(64.W))
+    val IF_Inst  = Wire(UInt(32.W))
+    val IF_valid = Wire(Bool())
+
+    IF_pc := MuxCase(pre_fetch.io.PF_pc, Seq(
+                (!IF_valid             , 0.U),
+                (!io.IF_to_ID_bus.ready, io.IF_to_ID_bus.bits.PC),
+                (io.bp_flush           , 0.U)
+            ))
+
+    IF_Inst := MuxCase(pre_fetch.io.inst, Seq(
+                (!io.IF_to_ID_bus.ready, io.IF_to_ID_bus.bits.Inst),
+                (io.bp_flush           , 0.U)
+            ))
+    IF_valid := MuxCase(pre_fetch.io.inst_valid, Seq(
+                (!io.IF_to_ID_bus.ready, io.IF_to_ID_bus.valid),
+                (io.bp_flush           , 0.U)
+            ))
+
+    regConnect(io.IF_to_ID_bus.bits.PC          , IF_pc         )
+    regConnect(io.IF_to_ID_bus.bits.Inst        , IF_Inst       )
+    regConnect(io.IF_to_ID_bus.valid            , IF_valid      )
+    // regConnectWithResetAndStall(io.IF_to_ID_bus.bits.PC, pre_fetch.io.PF_pc   , flush, 0.U, !io.IF_to_ID_bus.ready)
+    // regConnectWithResetAndStall(io.IF_to_ID_bus.valid, pre_fetch.io.inst_valid, flush, 0.U, !io.IF_to_ID_bus.ready)
     // regConnectWithResetAndStall(io.IF_to_ID_bus.bits.Inst, pre_fetch.io.inst  , flush, 0.U, !io.IF_to_ID_bus.ready)
 
 }
