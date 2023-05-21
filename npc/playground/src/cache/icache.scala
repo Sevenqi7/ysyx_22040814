@@ -61,7 +61,6 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
     val lineBuf         = RegInit(0.U(dataWidth.W))
 
     io.lineBuf          := lineBuf
-
     io.cache_offset     := offset
     io.cache_set        := set
     io.cache_tag        := tag
@@ -77,6 +76,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
     io.axi_raddr    := 0.U
     io.miss         := !io.rvalid & req_valid
     
+
     //FSM
     val refillIDX       = Wire(UInt(lineWidth.W))
     val refillHit       = Wire(Bool())
