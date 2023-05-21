@@ -14464,9 +14464,9 @@ module MEM_pre_stage(	// <stdin>:3078:10
                 io_EX_to_MEM_bus_bits_csrWriteEn,
   input  [11:0] io_EX_to_MEM_bus_bits_csrWriteAddr,
   input  [63:0] io_EX_to_MEM_bus_bits_csrWriteData,
-  input         axi_readData_valid,
+  input         axi_writeAddr_ready,
+                axi_readAddr_ready,
   input  [63:0] axi_readData_bits_data,
-  input  [3:0]  axi_readData_bits_id,
   output        io_EX_to_MEM_bus_ready,
                 io_PMEM_to_MEM_bus_valid,
   output [63:0] io_PMEM_to_MEM_bus_bits_ALU_result,
@@ -14498,8 +14498,8 @@ module MEM_pre_stage(	// <stdin>:3078:10
                 axi_req_valid);
 
   reg  [4:0]  rhsReg_8;	// tools.scala:15:29
-  wire        stall = (io_EX_to_MEM_bus_bits_memReadEn | io_EX_to_MEM_bus_bits_memWriteEn) & axi_readData_bits_id
-                != 4'h1 & axi_readData_valid & io_EX_to_MEM_bus_valid;	// PMEM.scala:78:{28,66,105}
+  wire        stall = (io_EX_to_MEM_bus_bits_memReadEn | io_EX_to_MEM_bus_bits_memWriteEn) &
+                io_EX_to_MEM_bus_valid & ~axi_readAddr_ready & ~axi_writeAddr_ready;	// PMEM.scala:78:{28,69,89,91}
   reg  [63:0] rhsReg;	// tools.scala:15:29
   reg  [31:0] rhsReg_1;	// tools.scala:15:29
   reg  [63:0] rhsReg_2;	// tools.scala:15:29
@@ -14538,7 +14538,7 @@ module MEM_pre_stage(	// <stdin>:3078:10
       rhsReg_9 <= io_EX_to_MEM_bus_bits_csrWriteEn;	// tools.scala:15:29
       rhsReg_10 <= io_EX_to_MEM_bus_bits_csrWriteAddr;	// tools.scala:15:29
       rhsReg_11 <= io_EX_to_MEM_bus_bits_csrWriteData;	// tools.scala:15:29
-      rhsReg_12 <= ~stall & io_EX_to_MEM_bus_valid;	// PMEM.scala:78:105, :80:25, tools.scala:15:29
+      rhsReg_12 <= ~stall & io_EX_to_MEM_bus_valid;	// PMEM.scala:78:89, :80:25, tools.scala:15:29
     end
   end // always @(posedge)
   `ifndef SYNTHESIS	// <stdin>:3078:10
@@ -14587,7 +14587,7 @@ module MEM_pre_stage(	// <stdin>:3078:10
       `FIRRTL_AFTER_INITIAL	// <stdin>:3078:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  assign io_EX_to_MEM_bus_ready = ~stall;	// <stdin>:3078:10, PMEM.scala:78:105, :80:25
+  assign io_EX_to_MEM_bus_ready = ~stall;	// <stdin>:3078:10, PMEM.scala:78:89, :80:25
   assign io_PMEM_to_MEM_bus_valid = rhsReg_12;	// <stdin>:3078:10, tools.scala:15:29
   assign io_PMEM_to_MEM_bus_bits_ALU_result = rhsReg_2;	// <stdin>:3078:10, tools.scala:15:29
   assign io_PMEM_to_MEM_bus_bits_regWriteEn = rhsReg_3;	// <stdin>:3078:10, tools.scala:15:29
@@ -14892,14 +14892,14 @@ module RAMU(	// <stdin>:3436:10
   input  [7:0]  axi_readAddr_bits_len,
   input  [3:0]  axi_readAddr_bits_id,
   input         axi_readData_ready,
-  output        axi_readAddr_ready,
-                axi_readData_valid,
+  output        axi_writeAddr_ready,
+                axi_readAddr_ready,
   output [63:0] axi_readData_bits_data,
-  output [3:0]  axi_readData_bits_id,
   output        axi_readData_bits_last);
 
+  wire [3:0] _data_ram_rid;	// RAM.scala:90:26
   wire [1:0] _data_ram_rresp;	// RAM.scala:90:26
-  wire       _data_ram_awready;	// RAM.scala:90:26
+  wire       _data_ram_rvalid;	// RAM.scala:90:26
   wire       _data_ram_wready;	// RAM.scala:90:26
   wire [3:0] _data_ram_bid;	// RAM.scala:90:26
   wire [1:0] _data_ram_bresp;	// RAM.scala:90:26
@@ -14934,12 +14934,12 @@ module RAMU(	// <stdin>:3436:10
     .wvalid  (axi_writeData_valid),
     .bready  (axi_writeResp_ready),
     .arready (axi_readAddr_ready),
-    .rid     (axi_readData_bits_id),
+    .rid     (_data_ram_rid),
     .rdata   (axi_readData_bits_data),
     .rresp   (_data_ram_rresp),
     .rlast   (axi_readData_bits_last),
-    .rvalid  (axi_readData_valid),
-    .awready (_data_ram_awready),
+    .rvalid  (_data_ram_rvalid),
+    .awready (axi_writeAddr_ready),
     .wready  (_data_ram_wready),
     .bid     (_data_ram_bid),
     .bresp   (_data_ram_bresp),
@@ -14961,14 +14961,13 @@ module AXI_Arbiter(	// <stdin>:3527:10
   input  [31:0] in_1_readAddr_bits_addr,
   input         in_1_readData_ready,
                 req_0_valid,
+                out_writeAddr_ready,
                 out_readAddr_ready,
-                out_readData_valid,
   input  [63:0] out_readData_bits_data,
-  input  [3:0]  out_readData_bits_id,
   input         out_readData_bits_last,
-  output        in_0_readData_valid,
+  output        in_0_writeAddr_ready,
+                in_0_readAddr_ready,
   output [63:0] in_0_readData_bits_data,
-  output [3:0]  in_0_readData_bits_id,
   output        in_1_readAddr_ready,
   output [63:0] in_1_readData_bits_data,
   output        in_1_readData_bits_last,
@@ -14991,9 +14990,9 @@ module AXI_Arbiter(	// <stdin>:3527:10
   output        out_readData_ready);
 
   wire [3:0] _GEN = {3'h0, req_0_valid};	// RAM.scala:64:27, :65:17
-  assign in_0_readData_valid = req_0_valid & out_readData_valid;	// <stdin>:3527:10, RAM.scala:64:27, :65:17, :77:41
+  assign in_0_writeAddr_ready = req_0_valid & out_writeAddr_ready;	// <stdin>:3527:10, RAM.scala:64:27, :65:17, :78:41
+  assign in_0_readAddr_ready = req_0_valid & out_readAddr_ready;	// <stdin>:3527:10, RAM.scala:64:27, :65:17, :72:41
   assign in_0_readData_bits_data = req_0_valid ? out_readData_bits_data : 64'h77;	// <stdin>:3527:10, RAM.scala:64:27, :65:17, :74:41
-  assign in_0_readData_bits_id = req_0_valid ? out_readData_bits_id : 4'h0;	// <stdin>:3527:10, RAM.scala:64:27, :65:17, :73:41
   assign in_1_readAddr_ready = out_readAddr_ready;	// <stdin>:3527:10
   assign in_1_readData_bits_data = out_readData_bits_data;	// <stdin>:3527:10
   assign in_1_readData_bits_last = out_readData_bits_last;	// <stdin>:3527:10
@@ -15085,9 +15084,9 @@ module top(	// <stdin>:3570:10
                  io_ID_Rs2Data,
                  io_ALUResult);
 
-  wire        _arb_in_0_readData_valid;	// top.scala:215:21
+  wire        _arb_in_0_writeAddr_ready;	// top.scala:215:21
+  wire        _arb_in_0_readAddr_ready;	// top.scala:215:21
   wire [63:0] _arb_in_0_readData_bits_data;	// top.scala:215:21
-  wire [3:0]  _arb_in_0_readData_bits_id;	// top.scala:215:21
   wire        _arb_in_1_readAddr_ready;	// top.scala:215:21
   wire [63:0] _arb_in_1_readData_bits_data;	// top.scala:215:21
   wire        _arb_in_1_readData_bits_last;	// top.scala:215:21
@@ -15107,10 +15106,9 @@ module top(	// <stdin>:3570:10
   wire [7:0]  _arb_out_readAddr_bits_len;	// top.scala:215:21
   wire [3:0]  _arb_out_readAddr_bits_id;	// top.scala:215:21
   wire        _arb_out_readData_ready;	// top.scala:215:21
+  wire        _ram_unit_axi_writeAddr_ready;	// top.scala:214:26
   wire        _ram_unit_axi_readAddr_ready;	// top.scala:214:26
-  wire        _ram_unit_axi_readData_valid;	// top.scala:214:26
   wire [63:0] _ram_unit_axi_readData_bits_data;	// top.scala:214:26
-  wire [3:0]  _ram_unit_axi_readData_bits_id;	// top.scala:214:26
   wire        _ram_unit_axi_readData_bits_last;	// top.scala:214:26
   wire [63:0] _simulate_inst;	// top.scala:171:26
   wire [63:0] _csr_io_readData;	// top.scala:101:25
@@ -15450,9 +15448,9 @@ module top(	// <stdin>:3570:10
     .io_EX_to_MEM_bus_bits_csrWriteEn        (_excute_unit_io_EX_to_MEM_bus_bits_csrWriteEn),	// top.scala:97:29
     .io_EX_to_MEM_bus_bits_csrWriteAddr      (_excute_unit_io_EX_to_MEM_bus_bits_csrWriteAddr),	// top.scala:97:29
     .io_EX_to_MEM_bus_bits_csrWriteData      (_excute_unit_io_EX_to_MEM_bus_bits_csrWriteData),	// top.scala:97:29
-    .axi_readData_valid                      (_arb_in_0_readData_valid),	// top.scala:215:21
+    .axi_writeAddr_ready                     (_arb_in_0_writeAddr_ready),	// top.scala:215:21
+    .axi_readAddr_ready                      (_arb_in_0_readAddr_ready),	// top.scala:215:21
     .axi_readData_bits_data                  (_arb_in_0_readData_bits_data),	// top.scala:215:21
-    .axi_readData_bits_id                    (_arb_in_0_readData_bits_id),	// top.scala:215:21
     .io_EX_to_MEM_bus_ready                  (_pre_mem_unit_io_EX_to_MEM_bus_ready),
     .io_PMEM_to_MEM_bus_valid                (_pre_mem_unit_io_PMEM_to_MEM_bus_valid),
     .io_PMEM_to_MEM_bus_bits_ALU_result      (_pre_mem_unit_io_PMEM_to_MEM_bus_bits_ALU_result),
@@ -15563,10 +15561,9 @@ module top(	// <stdin>:3570:10
     .axi_readAddr_bits_len   (_arb_out_readAddr_bits_len),	// top.scala:215:21
     .axi_readAddr_bits_id    (_arb_out_readAddr_bits_id),	// top.scala:215:21
     .axi_readData_ready      (_arb_out_readData_ready),	// top.scala:215:21
+    .axi_writeAddr_ready     (_ram_unit_axi_writeAddr_ready),
     .axi_readAddr_ready      (_ram_unit_axi_readAddr_ready),
-    .axi_readData_valid      (_ram_unit_axi_readData_valid),
     .axi_readData_bits_data  (_ram_unit_axi_readData_bits_data),
-    .axi_readData_bits_id    (_ram_unit_axi_readData_bits_id),
     .axi_readData_bits_last  (_ram_unit_axi_readData_bits_last)
   );
 
@@ -15605,14 +15602,13 @@ sim simulate (	// top.scala:24:26
     .in_1_readAddr_bits_addr  (_inst_fetch_unit_axi_readAddr_bits_addr),	// top.scala:95:33
     .in_1_readData_ready      (_inst_fetch_unit_axi_readData_ready),	// top.scala:95:33
     .req_0_valid              (_pre_mem_unit_axi_req_valid),	// top.scala:98:30
+    .out_writeAddr_ready      (_ram_unit_axi_writeAddr_ready),	// top.scala:214:26
     .out_readAddr_ready       (_ram_unit_axi_readAddr_ready),	// top.scala:214:26
-    .out_readData_valid       (_ram_unit_axi_readData_valid),	// top.scala:214:26
     .out_readData_bits_data   (_ram_unit_axi_readData_bits_data),	// top.scala:214:26
-    .out_readData_bits_id     (_ram_unit_axi_readData_bits_id),	// top.scala:214:26
     .out_readData_bits_last   (_ram_unit_axi_readData_bits_last),	// top.scala:214:26
-    .in_0_readData_valid      (_arb_in_0_readData_valid),
+    .in_0_writeAddr_ready     (_arb_in_0_writeAddr_ready),
+    .in_0_readAddr_ready      (_arb_in_0_readAddr_ready),
     .in_0_readData_bits_data  (_arb_in_0_readData_bits_data),
-    .in_0_readData_bits_id    (_arb_in_0_readData_bits_id),
     .in_1_readAddr_ready      (_arb_in_1_readAddr_ready),
     .in_1_readData_bits_data  (_arb_in_1_readData_bits_data),
     .in_1_readData_bits_last  (_arb_in_1_readData_bits_last),
@@ -15788,7 +15784,7 @@ module sim_sram(
                 arready_r       <= 1'b1;
             end
         end
-        $display("arvalid:%d arready:%d arv_arr_flag:%d rdata:0x%x rlast:%d", arvalid, arready_r, arv_arr_flag, rdata, rlast_r);
+        $display("arvalid:%d arready:%d arv_arr_flag:%d rdata:0x%x rlast:%d, rid:%d", arvalid, arready_r, arv_arr_flag, rdata, rlast_r, rid_r);
     end
 
 

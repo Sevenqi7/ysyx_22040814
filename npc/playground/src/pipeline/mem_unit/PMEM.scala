@@ -75,7 +75,7 @@ class MEM_pre_stage extends Module{
         is (lbu){memReadData := axi.readData.bits.data( 7 ,0)}
     }
     
-    val stall = (memReadEn | memWriteEn) & io.EX_to_MEM_bus.valid & !axi.readAddr.ready & !axi.writeAddr.ready
+    val stall = (memReadEn | memWriteEn) & io.EX_to_MEM_bus.valid & (!axi.readAddr.ready | !axi.writeAddr.ready)
 
     val PMEM_valid = Mux(stall, 0.U, io.EX_to_MEM_bus.valid)
 
