@@ -77,6 +77,8 @@ class MEM_pre_stage extends Module{
     
     val stall = (memReadEn | memWriteEn) & (axi.readData.bits.id =/= 1.U && axi.readData.valid === 1.U) & io.EX_to_MEM_bus.valid
 
+    val PMEM_valid = Mux(stall, 0.U, io.EX_to_MEM_bus.valid)
+
     regConnect(io.PMEM_to_MEM_bus.bits.PC           , EX_pc                 )
     regConnect(io.PMEM_to_MEM_bus.bits.Inst         , EX_Inst               )
     regConnect(io.PMEM_to_MEM_bus.bits.ALU_result   , ALU_result            )
@@ -89,7 +91,7 @@ class MEM_pre_stage extends Module{
     regConnect(io.PMEM_to_MEM_bus.bits.csrWriteEn   , csrWriteEn            )
     regConnect(io.PMEM_to_MEM_bus.bits.csrWriteAddr , csrWriteAddr          )
     regConnect(io.PMEM_to_MEM_bus.bits.csrWriteData , csrWriteData          )
-    regConnect(io.PMEM_to_MEM_bus.valid             , Mux(stall, 0.U, io.EX_to_MEM_bus.valid))
+    regConnect(io.PMEM_to_MEM_bus.valid             , PMEM_valid)
     
     io.memReadData             := memReadData
     io.EX_to_MEM_bus.ready     := Mux(stall, 0.U, 1.U)
