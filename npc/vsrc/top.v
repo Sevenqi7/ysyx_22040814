@@ -15779,9 +15779,10 @@ module sim_sram(
             end
             else if(rvalid_r && rready && arlen_cntr == arlen_r) begin
                 arv_arr_flag    <= 1'b0;
+                arready_r       <= 1'b1;
             end
             else begin
-                arready_r       <= 1'b1;
+                arready_r       <= 1'b0;
             end
         end
         $display("arvalid:%d arready:%d arv_arr_flag:%d rdata:0x%x rlast:%d, rid:%d", arvalid, arready_r, arv_arr_flag, rdata, rlast_r, rid_r);
