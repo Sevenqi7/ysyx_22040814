@@ -8131,7 +8131,8 @@ module ICache(	// <stdin>:1182:10
                  reset,
                  io_valid,
   input  [63:0]  io_addr,
-  input          io_axi_arready,
+  input          io_axi_busy,
+                 io_axi_arready,
                  io_axi_rlast,
   input  [63:0]  io_axi_rdata,
   output [31:0]  io_rdata,
@@ -8658,8 +8659,9 @@ module ICache(	// <stdin>:1182:10
   wire                _T_3 = _GEN_1 == req_addr[31:11] & _GEN_6;	// icache.scala:52:28, :57:29, :97:{40,48}
   assign _GEN = ~_T & _T_1 & _T_3;	// icache.scala:72:21, :86:18, :97:48
   wire                _T_9 = state == 3'h2;	// icache.scala:60:34, :86:18, :109:33
+  wire                _T_11 = ~io_axi_arready | io_axi_busy;	// icache.scala:123:{18,34}
   wire [31:0]         _GEN_8 = {req_addr[31:4], 4'h0};	// icache.scala:52:28, :100:35, :128:33
-  wire                _T_12 = state == 3'h3;	// icache.scala:60:34, :86:18, :133:29, :140:35, :141:29
+  wire                _T_12 = state == 3'h3;	// icache.scala:60:34, :86:18, :129:33
   wire [20:0]         _GEN_9;	// icache.scala:147:22
   /* synopsys infer_mux_override */
   assign _GEN_9 = _GEN_2;	// icache.scala:97:40, :147:22
@@ -8670,390 +8672,390 @@ module ICache(	// <stdin>:1182:10
     if (reset) begin
       cache_0_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_0_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_0_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_0_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_1_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_1_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_1_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_1_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_2_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_2_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_2_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_2_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_3_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_3_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_3_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_3_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_4_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_4_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_4_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_4_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_5_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_5_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_5_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_5_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_6_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_6_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_6_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_6_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_7_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_7_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_7_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_7_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_8_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_8_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_8_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_8_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_9_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_9_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_9_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_9_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_10_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_10_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_10_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_10_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_11_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_11_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_11_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_11_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_12_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_12_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_12_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_12_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_13_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_13_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_13_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_13_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_14_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_14_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_14_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_14_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_15_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_15_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_15_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_15_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_16_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_16_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_16_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_16_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_17_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_17_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_17_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_17_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_18_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_18_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_18_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_18_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_19_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_19_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_19_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_19_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_20_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_20_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_20_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_20_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_21_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_21_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_21_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_21_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_22_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_22_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_22_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_22_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_23_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_23_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_23_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_23_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_24_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_24_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_24_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_24_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_25_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_25_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_25_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_25_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_26_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_26_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_26_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_26_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_27_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_27_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_27_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_27_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_28_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_28_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_28_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_28_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_29_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_29_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_29_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_29_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_30_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_30_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_30_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_30_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_31_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_31_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_31_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_31_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_32_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_32_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_32_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_32_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_33_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_33_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_33_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_33_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_34_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_34_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_34_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_34_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_35_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_35_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_35_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_35_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_36_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_36_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_36_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_36_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_37_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_37_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_37_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_37_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_38_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_38_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_38_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_38_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_39_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_39_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_39_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_39_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_40_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_40_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_40_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_40_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_41_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_41_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_41_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_41_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_42_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_42_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_42_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_42_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_43_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_43_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_43_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_43_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_44_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_44_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_44_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_44_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_45_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_45_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_45_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_45_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_46_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_46_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_46_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_46_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_47_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_47_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_47_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_47_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_48_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_48_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_48_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_48_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_49_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_49_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_49_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_49_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_50_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_50_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_50_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_50_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_51_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_51_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_51_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_51_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_52_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_52_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_52_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_52_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_53_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_53_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_53_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_53_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_54_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_54_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_54_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_54_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_55_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_55_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_55_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_55_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_56_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_56_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_56_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_56_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_57_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_57_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_57_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_57_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_58_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_58_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_58_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_58_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_59_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_59_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_59_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_59_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_60_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_60_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_60_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_60_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_61_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_61_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_61_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_61_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_62_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_62_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_62_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_62_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_63_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_63_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_63_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_63_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_64_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_64_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_64_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_64_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_65_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_65_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_65_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_65_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_66_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_66_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_66_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_66_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_67_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_67_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_67_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_67_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_68_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_68_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_68_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_68_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_69_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_69_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_69_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_69_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_70_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_70_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_70_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_70_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_71_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_71_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_71_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_71_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_72_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_72_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_72_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_72_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_73_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_73_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_73_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_73_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_74_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_74_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_74_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_74_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_75_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_75_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_75_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_75_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_76_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_76_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_76_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_76_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_77_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_77_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_77_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_77_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_78_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_78_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_78_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_78_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_79_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_79_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_79_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_79_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_80_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_80_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_80_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_80_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_81_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_81_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_81_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_81_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_82_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_82_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_82_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_82_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_83_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_83_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_83_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_83_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_84_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_84_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_84_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_84_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_85_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_85_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_85_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_85_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_86_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_86_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_86_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_86_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_87_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_87_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_87_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_87_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_88_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_88_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_88_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_88_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_89_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_89_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_89_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_89_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_90_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_90_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_90_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_90_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_91_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_91_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_91_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_91_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_92_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_92_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_92_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_92_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_93_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_93_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_93_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_93_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_94_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_94_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_94_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_94_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_95_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_95_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_95_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_95_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_96_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_96_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_96_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_96_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_97_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_97_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_97_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_97_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_98_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_98_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_98_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_98_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_99_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_99_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_99_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_99_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_100_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_100_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_100_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_100_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_101_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_101_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_101_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_101_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_102_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_102_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_102_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_102_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_103_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_103_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_103_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_103_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_104_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_104_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_104_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_104_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_105_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_105_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_105_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_105_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_106_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_106_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_106_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_106_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_107_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_107_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_107_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_107_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_108_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_108_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_108_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_108_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_109_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_109_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_109_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_109_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_110_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_110_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_110_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_110_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_111_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_111_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_111_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_111_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_112_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_112_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_112_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_112_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_113_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_113_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_113_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_113_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_114_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_114_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_114_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_114_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_115_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_115_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_115_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_115_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_116_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_116_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_116_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_116_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_117_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_117_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_117_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_117_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_118_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_118_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_118_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_118_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_119_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_119_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_119_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_119_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_120_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_120_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_120_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_120_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_121_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_121_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_121_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_121_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_122_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_122_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_122_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_122_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_123_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_123_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_123_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_123_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_124_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_124_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_124_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_124_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_125_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_125_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_125_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_125_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_126_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_126_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_126_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_126_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       cache_127_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
       cache_127_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_127_0_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:44:24
+      cache_127_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
       req_addr <= 64'h0;	// icache.scala:52:28
-      req_valid <= 1'h0;	// <stdin>:1182:10, icache.scala:53:28
+      req_valid <= 1'h0;	// icache.scala:41:21, :53:28
       state <= 3'h0;	// icache.scala:60:34
       lineBuf <= 128'h0;	// icache.scala:61:34
     end
@@ -10224,8 +10226,8 @@ module ICache(	// <stdin>:1182:10
         req_addr <= io_addr;	// icache.scala:52:28
         req_valid <= io_valid;	// icache.scala:53:28
       end
-      _GEN_139 = {{state}, {state}, {state}, {3'h0}, {io_axi_rlast ? 3'h4 : 3'h3}, {{2'h1, io_axi_arready}},
-                                                {_GEN ? {2'h0, io_valid} : 3'h2}, {io_valid ? 3'h1 : state}};	// icache.scala:60:34, :72:21, :86:18, :88:27, :89:29, :100:35, :108:26, :109:33, :111:32, :112:33, :118:33, :123:48, :124:33, :129:33, :133:29, :137:31, :138:29, :140:35, :141:29, :145:41
+      _GEN_139 = {{state}, {state}, {state}, {3'h0}, {io_axi_rlast ? 3'h4 : {2'h1, ~io_axi_busy}}, {{2'h1,
+                                                ~_T_11}}, {_GEN ? {2'h0, io_valid} : 3'h2}, {io_valid ? 3'h1 : state}};	// icache.scala:60:34, :72:21, :76:21, :86:18, :88:27, :89:29, :100:35, :108:26, :109:33, :111:32, :112:33, :118:33, :123:{34,48}, :124:33, :127:33, :129:33, :133:29, :137:31, :138:29, :140:35, :141:29, :145:41
       state <= _GEN_139[state];	// icache.scala:60:34, :86:18, :88:27, :108:26, :123:48, :137:31, :145:41
       if (_T | _T_1 | _T_9 | ~_T_12) begin	// icache.scala:61:34, :86:18
       end
@@ -13081,8 +13083,8 @@ module ICache(	// <stdin>:1182:10
   assign io_cache_set = req_addr[5:4];	// <stdin>:1182:10, icache.scala:52:28, :66:25
   assign io_cache_offset = req_addr[3:0];	// <stdin>:1182:10, icache.scala:52:28, :55:29
   assign io_lineBuf = lineBuf;	// <stdin>:1182:10, icache.scala:61:34
-  assign io_axi_rreq = ~_T & ~_T_1 & (_T_9 ? io_axi_arready : _T_12);	// <stdin>:1182:10, icache.scala:72:21, :76:21, :84:25, :86:18, :123:48
-  assign io_axi_raddr = _T | _T_1 ? 32'h0 : _T_9 ? (io_axi_arready ? _GEN_8 : 32'h0) : _T_12 ? _GEN_8 : 32'h0;	// <stdin>:1182:10, icache.scala:77:21, :86:18, :123:48, :128:33, :135:29
+  assign io_axi_rreq = ~_T & ~_T_1 & (_T_9 ? ~_T_11 : _T_12);	// <stdin>:1182:10, icache.scala:72:21, :76:21, :84:25, :86:18, :123:{34,48}, :127:33
+  assign io_axi_raddr = _T | _T_1 ? 32'h0 : _T_9 ? (_T_11 ? 32'h0 : _GEN_8) : _T_12 ? _GEN_8 : 32'h0;	// <stdin>:1182:10, icache.scala:77:21, :86:18, :123:{34,48}, :128:33, :135:29
 endmodule
 
 module IF_pre_fetch(	// <stdin>:1615:10
@@ -13095,6 +13097,7 @@ module IF_pre_fetch(	// <stdin>:1615:10
                  axi_readAddr_ready,
   input  [63:0]  axi_readData_bits_data,
   input          axi_readData_bits_last,
+                 axi_req_ready,
   output [31:0]  io_inst,
   output         io_inst_valid,
   output [63:0]  io_PF_pc,
@@ -13171,6 +13174,7 @@ module IF_pre_fetch(	// <stdin>:1615:10
     .reset           (reset),
     .io_valid        (~reset),	// pre_fetch.scala:72:35
     .io_addr         (io_bp_flush ? io_bp_npc : _npc_T ? rhsReg : io_bp_taken ? io_bp_npc : {32'h0, PF_npc[31:0]}),	// Mux.scala:101:16, pre_fetch.scala:33:27, :67:49, :69:19, tools.scala:15:29
+    .io_axi_busy     (~axi_req_ready),	// pre_fetch.scala:36:24
     .io_axi_arready  (axi_readAddr_ready),
     .io_axi_rlast    (axi_readData_bits_last),
     .io_axi_rdata    (axi_readData_bits_data),
@@ -13203,6 +13207,7 @@ module IFU(	// <stdin>:1706:10
   input          axi_readAddr_ready,
   input  [63:0]  axi_readData_bits_data,
   input          axi_readData_bits_last,
+                 axi_req_ready,
   output         io_IF_to_ID_bus_valid,
   output [63:0]  io_IF_to_ID_bus_bits_PC,
   output [31:0]  io_IF_to_ID_bus_bits_Inst,
@@ -13291,6 +13296,7 @@ module IFU(	// <stdin>:1706:10
     .axi_readAddr_ready     (axi_readAddr_ready),
     .axi_readData_bits_data (axi_readData_bits_data),
     .axi_readData_bits_last (axi_readData_bits_last),
+    .axi_req_ready          (axi_req_ready),
     .io_inst                (_pre_fetch_io_inst),
     .io_inst_valid          (_pre_fetch_io_inst_valid),
     .io_PF_pc               (_pre_fetch_io_PF_pc),
@@ -14889,18 +14895,18 @@ module RAMU(	// <stdin>:3434:10
   output [63:0] axi_readData_bits_data,
   output        axi_readData_bits_last);
 
-  wire [3:0] _data_ram_rid;	// RAM.scala:88:26
-  wire [1:0] _data_ram_rresp;	// RAM.scala:88:26
-  wire       _data_ram_rvalid;	// RAM.scala:88:26
-  wire       _data_ram_awready;	// RAM.scala:88:26
-  wire       _data_ram_wready;	// RAM.scala:88:26
-  wire [3:0] _data_ram_bid;	// RAM.scala:88:26
-  wire [1:0] _data_ram_bresp;	// RAM.scala:88:26
-  wire       _data_ram_bvalid;	// RAM.scala:88:26
-  sim_sram data_ram (	// RAM.scala:88:26
-    .pc      (64'h0),	// RAM.scala:93:45
+  wire [3:0] _data_ram_rid;	// RAM.scala:90:26
+  wire [1:0] _data_ram_rresp;	// RAM.scala:90:26
+  wire       _data_ram_rvalid;	// RAM.scala:90:26
+  wire       _data_ram_awready;	// RAM.scala:90:26
+  wire       _data_ram_wready;	// RAM.scala:90:26
+  wire [3:0] _data_ram_bid;	// RAM.scala:90:26
+  wire [1:0] _data_ram_bresp;	// RAM.scala:90:26
+  wire       _data_ram_bvalid;	// RAM.scala:90:26
+  sim_sram data_ram (	// RAM.scala:90:26
+    .pc      (64'h0),	// RAM.scala:95:45
     .aclk    (clock),
-    .aresetn (~reset),	// RAM.scala:96:48
+    .aresetn (~reset),	// RAM.scala:98:48
     .arid    (axi_readAddr_bits_id),
     .araddr  (axi_readAddr_bits_addr),
     .arlen   (axi_readAddr_bits_len),
@@ -14920,7 +14926,7 @@ module RAMU(	// <stdin>:3434:10
     .awcache (4'h0),	// <stdin>:3434:10
     .awprot  (3'h0),	// <stdin>:3434:10
     .awvalid (axi_writeAddr_valid),
-    .wid     ({3'h0, axi_writeData_bits_id}),	// <stdin>:3434:10, RAM.scala:127:45
+    .wid     ({3'h0, axi_writeData_bits_id}),	// <stdin>:3434:10, RAM.scala:129:45
     .wdata   (axi_writeData_bits_data),
     .wstrb   (axi_writeData_bits_strb),
     .wlast   (axi_writeData_bits_last),
@@ -14962,6 +14968,7 @@ module AXI_Arbiter(	// <stdin>:3525:10
   output [63:0] in_1_readData_bits_data,
   output        in_1_readData_bits_last,
                 req_0_ready,
+                req_1_ready,
                 out_writeAddr_valid,
   output [31:0] out_writeAddr_bits_addr,
   output [3:0]  out_writeAddr_bits_id,
@@ -14979,11 +14986,12 @@ module AXI_Arbiter(	// <stdin>:3525:10
   output        out_readData_ready);
 
   wire [3:0] _GEN = {3'h0, req_0_valid};	// RAM.scala:64:27, :65:17
-  assign in_0_readData_bits_data = req_0_valid ? out_readData_bits_data : 64'h77;	// <stdin>:3525:10, RAM.scala:64:27, :65:17, :72:41
+  assign in_0_readData_bits_data = req_0_valid ? out_readData_bits_data : 64'h77;	// <stdin>:3525:10, RAM.scala:64:27, :65:17, :74:41
   assign in_1_readAddr_ready = out_readAddr_ready;	// <stdin>:3525:10
   assign in_1_readData_bits_data = out_readData_bits_data;	// <stdin>:3525:10
   assign in_1_readData_bits_last = out_readData_bits_last;	// <stdin>:3525:10
   assign req_0_ready = req_0_valid;	// <stdin>:3525:10
+  assign req_1_ready = ~req_0_valid;	// <stdin>:3525:10, RAM.scala:64:27, :65:17
   assign out_writeAddr_valid = req_0_valid & in_0_writeAddr_valid;	// <stdin>:3525:10, RAM.scala:64:27, :65:17
   assign out_writeAddr_bits_addr = req_0_valid ? in_0_writeAddr_bits_addr : 32'h0;	// <stdin>:3525:10, RAM.scala:64:27, :65:17
   assign out_writeAddr_bits_id = _GEN;	// <stdin>:3525:10, RAM.scala:64:27, :65:17
@@ -15001,7 +15009,7 @@ module AXI_Arbiter(	// <stdin>:3525:10
   assign out_readData_ready = req_0_valid ? in_0_readData_ready : in_1_readData_ready;	// <stdin>:3525:10, RAM.scala:64:27, :65:17
 endmodule
 
-module top(	// <stdin>:3567:10
+module top(	// <stdin>:3568:10
   input          clock,
                  reset,
   output [63:0]  io_ID_npc,
@@ -15075,6 +15083,7 @@ module top(	// <stdin>:3567:10
   wire [63:0] _arb_in_1_readData_bits_data;	// top.scala:215:21
   wire        _arb_in_1_readData_bits_last;	// top.scala:215:21
   wire        _arb_req_0_ready;	// top.scala:215:21
+  wire        _arb_req_1_ready;	// top.scala:215:21
   wire        _arb_out_writeAddr_valid;	// top.scala:215:21
   wire [31:0] _arb_out_writeAddr_bits_addr;	// top.scala:215:21
   wire [3:0]  _arb_out_writeAddr_bits_id;	// top.scala:215:21
@@ -15275,6 +15284,7 @@ module top(	// <stdin>:3567:10
     .axi_readAddr_ready        (_arb_in_1_readAddr_ready),	// top.scala:215:21
     .axi_readData_bits_data    (_arb_in_1_readData_bits_data),	// top.scala:215:21
     .axi_readData_bits_last    (_arb_in_1_readData_bits_last),	// top.scala:215:21
+    .axi_req_ready             (_arb_req_1_ready),	// top.scala:215:21
     .io_IF_to_ID_bus_valid     (_inst_fetch_unit_io_IF_to_ID_bus_valid),
     .io_IF_to_ID_bus_bits_PC   (_inst_fetch_unit_io_IF_to_ID_bus_bits_PC),
     .io_IF_to_ID_bus_bits_Inst (_inst_fetch_unit_io_IF_to_ID_bus_bits_Inst),
@@ -15590,6 +15600,7 @@ sim simulate (	// top.scala:24:26
     .in_1_readData_bits_data  (_arb_in_1_readData_bits_data),
     .in_1_readData_bits_last  (_arb_in_1_readData_bits_last),
     .req_0_ready              (_arb_req_0_ready),
+    .req_1_ready              (_arb_req_1_ready),
     .out_writeAddr_valid      (_arb_out_writeAddr_valid),
     .out_writeAddr_bits_addr  (_arb_out_writeAddr_bits_addr),
     .out_writeAddr_bits_id    (_arb_out_writeAddr_bits_id),
@@ -15606,36 +15617,36 @@ sim simulate (	// top.scala:24:26
     .out_readAddr_bits_id     (_arb_out_readAddr_bits_id),
     .out_readData_ready       (_arb_out_readData_ready)
   );
-  assign io_ID_npc = _inst_decode_unit_io_ID_to_BPU_bus_bits_br_target;	// <stdin>:3567:10, top.scala:96:34
-  assign io_PF_pc = _inst_fetch_unit_io_PF_pc;	// <stdin>:3567:10, top.scala:95:33
-  assign io_PF_axidata = _arb_in_1_readData_bits_data;	// <stdin>:3567:10, top.scala:215:21
-  assign io_IF_pc = _inst_fetch_unit_io_IF_to_ID_bus_bits_PC;	// <stdin>:3567:10, top.scala:95:33
-  assign io_ID_pc = _inst_decode_unit_io_ID_to_EX_bus_bits_PC;	// <stdin>:3567:10, top.scala:96:34
-  assign io_EX_pc = _excute_unit_io_EX_to_MEM_bus_bits_PC;	// <stdin>:3567:10, top.scala:97:29
-  assign io_PMEM_pc = _pre_mem_unit_io_PMEM_to_MEM_bus_bits_PC;	// <stdin>:3567:10, top.scala:98:30
-  assign io_WB_Inst = _wb_unit_io_WB_Inst;	// <stdin>:3567:10, top.scala:100:25
-  assign io_WB_RegWriteData = _wb_unit_io_WB_to_ID_forward_bits_regWriteData;	// <stdin>:3567:10, top.scala:100:25
-  assign io_WB_RegWriteID = {59'h0, _wb_unit_io_WB_to_ID_forward_bits_regWriteID};	// <stdin>:3567:10, top.scala:100:25, :153:24
-  assign io_WB_valid = _wb_unit_io_WB_to_ID_forward_valid;	// <stdin>:3567:10, top.scala:100:25
-  assign io_MEM_RegWriteData = _arb_in_0_readData_bits_data;	// <stdin>:3567:10, top.scala:215:21
-  assign io_bp_npc = _bp_unit_io_bp_npc;	// <stdin>:3567:10, top.scala:94:33
-  assign io_bp_taken = _bp_unit_io_bp_taken;	// <stdin>:3567:10, top.scala:94:33
-  assign io_bp_flush = _bp_unit_io_bp_flush;	// <stdin>:3567:10, top.scala:94:33
-  assign io_csrWriteEn = _mem_unit_io_MEM_to_WB_bus_bits_csrWriteEn;	// <stdin>:3567:10, top.scala:99:26
-  assign io_csrWriteAddr = _mem_unit_io_MEM_to_WB_bus_bits_csrWriteAddr;	// <stdin>:3567:10, top.scala:99:26
-  assign io_csrWriteData = _mem_unit_io_MEM_to_WB_bus_bits_csrWriteData;	// <stdin>:3567:10, top.scala:99:26
-  assign io_EX_csrWriteData = _excute_unit_io_EX_to_MEM_bus_bits_csrWriteData;	// <stdin>:3567:10, top.scala:97:29
-  assign io_cache_axi_req = _inst_fetch_unit_axi_readAddr_valid;	// <stdin>:3567:10, top.scala:95:33
-  assign io_cache_rlast = _arb_in_1_readData_bits_last;	// <stdin>:3567:10, top.scala:215:21
-  assign io_IF_Inst = _inst_fetch_unit_io_IF_to_ID_bus_bits_Inst;	// <stdin>:3567:10, top.scala:95:33
-  assign io_IF_valid = _inst_fetch_unit_io_IF_to_ID_bus_valid;	// <stdin>:3567:10, top.scala:95:33
-  assign io_IF_AXIREQ = 1'h1;	// <stdin>:3567:10, top.scala:215:21
-  assign io_MEM_AXIREQ = _arb_req_0_ready;	// <stdin>:3567:10, top.scala:215:21
-  assign io_ID_ALU_Data1 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data1;	// <stdin>:3567:10, top.scala:96:34
-  assign io_ID_ALU_Data2 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data2;	// <stdin>:3567:10, top.scala:96:34
-  assign io_EX_ALU_result_pass = _excute_unit_io_EX_ALUResult_Pass;	// <stdin>:3567:10, top.scala:97:29
-  assign io_ID_Rs2Data = _inst_decode_unit_io_ID_to_EX_bus_bits_rs2_data;	// <stdin>:3567:10, top.scala:96:34
-  assign io_ALUResult = _excute_unit_io_EX_to_MEM_bus_bits_ALU_result;	// <stdin>:3567:10, top.scala:97:29
+  assign io_ID_npc = _inst_decode_unit_io_ID_to_BPU_bus_bits_br_target;	// <stdin>:3568:10, top.scala:96:34
+  assign io_PF_pc = _inst_fetch_unit_io_PF_pc;	// <stdin>:3568:10, top.scala:95:33
+  assign io_PF_axidata = _arb_in_1_readData_bits_data;	// <stdin>:3568:10, top.scala:215:21
+  assign io_IF_pc = _inst_fetch_unit_io_IF_to_ID_bus_bits_PC;	// <stdin>:3568:10, top.scala:95:33
+  assign io_ID_pc = _inst_decode_unit_io_ID_to_EX_bus_bits_PC;	// <stdin>:3568:10, top.scala:96:34
+  assign io_EX_pc = _excute_unit_io_EX_to_MEM_bus_bits_PC;	// <stdin>:3568:10, top.scala:97:29
+  assign io_PMEM_pc = _pre_mem_unit_io_PMEM_to_MEM_bus_bits_PC;	// <stdin>:3568:10, top.scala:98:30
+  assign io_WB_Inst = _wb_unit_io_WB_Inst;	// <stdin>:3568:10, top.scala:100:25
+  assign io_WB_RegWriteData = _wb_unit_io_WB_to_ID_forward_bits_regWriteData;	// <stdin>:3568:10, top.scala:100:25
+  assign io_WB_RegWriteID = {59'h0, _wb_unit_io_WB_to_ID_forward_bits_regWriteID};	// <stdin>:3568:10, top.scala:100:25, :153:24
+  assign io_WB_valid = _wb_unit_io_WB_to_ID_forward_valid;	// <stdin>:3568:10, top.scala:100:25
+  assign io_MEM_RegWriteData = _arb_in_0_readData_bits_data;	// <stdin>:3568:10, top.scala:215:21
+  assign io_bp_npc = _bp_unit_io_bp_npc;	// <stdin>:3568:10, top.scala:94:33
+  assign io_bp_taken = _bp_unit_io_bp_taken;	// <stdin>:3568:10, top.scala:94:33
+  assign io_bp_flush = _bp_unit_io_bp_flush;	// <stdin>:3568:10, top.scala:94:33
+  assign io_csrWriteEn = _mem_unit_io_MEM_to_WB_bus_bits_csrWriteEn;	// <stdin>:3568:10, top.scala:99:26
+  assign io_csrWriteAddr = _mem_unit_io_MEM_to_WB_bus_bits_csrWriteAddr;	// <stdin>:3568:10, top.scala:99:26
+  assign io_csrWriteData = _mem_unit_io_MEM_to_WB_bus_bits_csrWriteData;	// <stdin>:3568:10, top.scala:99:26
+  assign io_EX_csrWriteData = _excute_unit_io_EX_to_MEM_bus_bits_csrWriteData;	// <stdin>:3568:10, top.scala:97:29
+  assign io_cache_axi_req = _inst_fetch_unit_axi_readAddr_valid;	// <stdin>:3568:10, top.scala:95:33
+  assign io_cache_rlast = _arb_in_1_readData_bits_last;	// <stdin>:3568:10, top.scala:215:21
+  assign io_IF_Inst = _inst_fetch_unit_io_IF_to_ID_bus_bits_Inst;	// <stdin>:3568:10, top.scala:95:33
+  assign io_IF_valid = _inst_fetch_unit_io_IF_to_ID_bus_valid;	// <stdin>:3568:10, top.scala:95:33
+  assign io_IF_AXIREQ = _arb_req_1_ready;	// <stdin>:3568:10, top.scala:215:21
+  assign io_MEM_AXIREQ = _arb_req_0_ready;	// <stdin>:3568:10, top.scala:215:21
+  assign io_ID_ALU_Data1 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data1;	// <stdin>:3568:10, top.scala:96:34
+  assign io_ID_ALU_Data2 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data2;	// <stdin>:3568:10, top.scala:96:34
+  assign io_EX_ALU_result_pass = _excute_unit_io_EX_ALUResult_Pass;	// <stdin>:3568:10, top.scala:97:29
+  assign io_ID_Rs2Data = _inst_decode_unit_io_ID_to_EX_bus_bits_rs2_data;	// <stdin>:3568:10, top.scala:96:34
+  assign io_ALUResult = _excute_unit_io_EX_to_MEM_bus_bits_ALU_result;	// <stdin>:3568:10, top.scala:97:29
 endmodule
 
 
