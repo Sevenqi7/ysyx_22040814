@@ -106,8 +106,8 @@ class MEM_pre_stage extends Module{
     axi.readAddr.bits.lock     := 0.U
     axi.readAddr.bits.cache    := 0.U
     axi.readAddr.bits.prot     := 0.U
-    axi.readAddr.valid         := memReadEn
-    axi.readData.ready         := memReadEn
+    axi.readAddr.valid         := memReadEn & io.EX_to_MEM_bus.valid
+    axi.readData.ready         := memReadEn & io.EX_to_MEM_bus.valid
 
     //w
     axi.writeAddr.bits.id      := 1.U
@@ -118,14 +118,14 @@ class MEM_pre_stage extends Module{
     axi.writeAddr.bits.lock    := 0.U
     axi.writeAddr.bits.cache   := 0.U
     axi.writeAddr.bits.prot    := 0.U
-    axi.writeAddr.valid        := memWriteEn
+    axi.writeAddr.valid        := memWriteEn & io.EX_to_MEM_bus.valid
 
     axi.writeData.bits.id      := 1.U
     axi.writeData.bits.data    := memWriteData
     axi.writeData.bits.strb    := wstrb
     axi.writeData.bits.last    := 1.U
-    axi.writeData.valid        := memWriteEn
-    axi.writeResp.ready        := memWriteEn 
+    axi.writeData.valid        := memWriteEn & io.EX_to_MEM_bus.valid
+    axi.writeResp.ready        := memWriteEn & io.EX_to_MEM_bus.valid
 
     //forward
     io.PMEM_to_ID_forward.bits.ALU_result   := ALU_result    
