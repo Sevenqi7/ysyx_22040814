@@ -15772,6 +15772,7 @@ module sim_sram(
                 arready_r       <= 1'b0;
             end
         end
+        $display("arvalid:%d arready:%d arv_arr_flag:%d rdata:0x%x", arvalid, arready_r, arv_arr_flag, rdata);
     end
 
 
