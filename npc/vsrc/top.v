@@ -14464,8 +14464,9 @@ module MEM_pre_stage(	// <stdin>:3078:10
                 io_EX_to_MEM_bus_bits_csrWriteEn,
   input  [11:0] io_EX_to_MEM_bus_bits_csrWriteAddr,
   input  [63:0] io_EX_to_MEM_bus_bits_csrWriteData,
-                axi_readData_bits_data,
-  input         axi_req_ready,
+  input         axi_readData_valid,
+  input  [63:0] axi_readData_bits_data,
+  input  [3:0]  axi_readData_bits_id,
   output        io_EX_to_MEM_bus_ready,
                 io_PMEM_to_MEM_bus_valid,
   output [63:0] io_PMEM_to_MEM_bus_bits_ALU_result,
@@ -14497,8 +14498,8 @@ module MEM_pre_stage(	// <stdin>:3078:10
                 axi_req_valid);
 
   reg  [4:0]  rhsReg_8;	// tools.scala:15:29
-  wire        stall = (io_EX_to_MEM_bus_bits_memReadEn | io_EX_to_MEM_bus_bits_memWriteEn) &
-                io_EX_to_MEM_bus_valid & ~axi_req_ready;	// PMEM.scala:78:{28,67,69}
+  wire        stall = (io_EX_to_MEM_bus_bits_memReadEn | io_EX_to_MEM_bus_bits_memWriteEn) & axi_readData_bits_id
+                != 4'h1 & axi_readData_valid;	// PMEM.scala:78:{28,42,66}
   reg  [63:0] rhsReg;	// tools.scala:15:29
   reg  [31:0] rhsReg_1;	// tools.scala:15:29
   reg  [63:0] rhsReg_2;	// tools.scala:15:29
@@ -14537,7 +14538,7 @@ module MEM_pre_stage(	// <stdin>:3078:10
       rhsReg_9 <= io_EX_to_MEM_bus_bits_csrWriteEn;	// tools.scala:15:29
       rhsReg_10 <= io_EX_to_MEM_bus_bits_csrWriteAddr;	// tools.scala:15:29
       rhsReg_11 <= io_EX_to_MEM_bus_bits_csrWriteData;	// tools.scala:15:29
-      rhsReg_12 <= ~stall & io_EX_to_MEM_bus_valid;	// PMEM.scala:78:67, :92:58, tools.scala:15:29
+      rhsReg_12 <= ~stall & io_EX_to_MEM_bus_valid;	// PMEM.scala:78:42, :92:58, tools.scala:15:29
     end
   end // always @(posedge)
   `ifndef SYNTHESIS	// <stdin>:3078:10
@@ -14586,7 +14587,7 @@ module MEM_pre_stage(	// <stdin>:3078:10
       `FIRRTL_AFTER_INITIAL	// <stdin>:3078:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  assign io_EX_to_MEM_bus_ready = ~stall;	// <stdin>:3078:10, PMEM.scala:78:67, :92:58
+  assign io_EX_to_MEM_bus_ready = ~stall;	// <stdin>:3078:10, PMEM.scala:78:42, :92:58
   assign io_PMEM_to_MEM_bus_valid = rhsReg_12;	// <stdin>:3078:10, tools.scala:15:29
   assign io_PMEM_to_MEM_bus_bits_ALU_result = rhsReg_2;	// <stdin>:3078:10, tools.scala:15:29
   assign io_PMEM_to_MEM_bus_bits_regWriteEn = rhsReg_3;	// <stdin>:3078:10, tools.scala:15:29
@@ -14624,7 +14625,7 @@ module MEM_pre_stage(	// <stdin>:3078:10
   assign axi_req_valid = (|io_EX_to_MEM_bus_bits_lsutype) | (|rhsReg_8);	// <stdin>:3078:10, PMEM.scala:56:{34,41,76}, tools.scala:15:29
 endmodule
 
-module MEMU(	// <stdin>:3258:10
+module MEMU(	// <stdin>:3259:10
   input         clock,
                 reset,
                 io_PMEM_to_MEM_bus_valid,
@@ -14693,31 +14694,31 @@ module MEMU(	// <stdin>:3258:10
       rhsReg_8 <= io_PMEM_to_MEM_bus_valid;	// tools.scala:15:29
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:3258:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:3258:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:3258:10
+  `ifndef SYNTHESIS	// <stdin>:3259:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:3259:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:3259:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:3258:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:3258:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:3258:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:3258:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:3258:10
-      automatic logic [31:0] _RANDOM_4;	// <stdin>:3258:10
-      automatic logic [31:0] _RANDOM_5;	// <stdin>:3258:10
-      automatic logic [31:0] _RANDOM_6;	// <stdin>:3258:10
-      automatic logic [31:0] _RANDOM_7;	// <stdin>:3258:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:3258:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:3258:10
+    initial begin	// <stdin>:3259:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:3259:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:3259:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:3259:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:3259:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:3259:10
+      automatic logic [31:0] _RANDOM_5;	// <stdin>:3259:10
+      automatic logic [31:0] _RANDOM_6;	// <stdin>:3259:10
+      automatic logic [31:0] _RANDOM_7;	// <stdin>:3259:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:3259:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:3259:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:3258:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:3258:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:3258:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:3258:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:3258:10
-        _RANDOM_4 = `RANDOM;	// <stdin>:3258:10
-        _RANDOM_5 = `RANDOM;	// <stdin>:3258:10
-        _RANDOM_6 = `RANDOM;	// <stdin>:3258:10
-        _RANDOM_7 = `RANDOM;	// <stdin>:3258:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:3259:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:3259:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:3259:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:3259:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:3259:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:3259:10
+        _RANDOM_5 = `RANDOM;	// <stdin>:3259:10
+        _RANDOM_6 = `RANDOM;	// <stdin>:3259:10
+        _RANDOM_7 = `RANDOM;	// <stdin>:3259:10
         rhsReg = {_RANDOM_0, _RANDOM_1};	// tools.scala:15:29
         rhsReg_1 = _RANDOM_2;	// tools.scala:15:29
         rhsReg_2 = _RANDOM_3[0];	// tools.scala:15:29
@@ -14729,29 +14730,29 @@ module MEMU(	// <stdin>:3258:10
         rhsReg_8 = _RANDOM_7[19];	// tools.scala:15:29
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:3258:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:3258:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:3259:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:3259:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  assign io_MEM_to_WB_bus_valid = rhsReg_8;	// <stdin>:3258:10, tools.scala:15:29
-  assign io_MEM_to_WB_bus_bits_regWriteData = rhsReg_4;	// <stdin>:3258:10, tools.scala:15:29
-  assign io_MEM_to_WB_bus_bits_regWriteEn = rhsReg_2;	// <stdin>:3258:10, tools.scala:15:29
-  assign io_MEM_to_WB_bus_bits_regWriteID = rhsReg_3;	// <stdin>:3258:10, tools.scala:15:29
-  assign io_MEM_to_WB_bus_bits_csrWriteEn = rhsReg_5;	// <stdin>:3258:10, tools.scala:15:29
-  assign io_MEM_to_WB_bus_bits_csrWriteAddr = rhsReg_6;	// <stdin>:3258:10, tools.scala:15:29
-  assign io_MEM_to_WB_bus_bits_csrWriteData = rhsReg_7;	// <stdin>:3258:10, tools.scala:15:29
-  assign io_MEM_to_WB_bus_bits_PC = rhsReg;	// <stdin>:3258:10, tools.scala:15:29
-  assign io_MEM_to_WB_bus_bits_Inst = rhsReg_1;	// <stdin>:3258:10, tools.scala:15:29
+  assign io_MEM_to_WB_bus_valid = rhsReg_8;	// <stdin>:3259:10, tools.scala:15:29
+  assign io_MEM_to_WB_bus_bits_regWriteData = rhsReg_4;	// <stdin>:3259:10, tools.scala:15:29
+  assign io_MEM_to_WB_bus_bits_regWriteEn = rhsReg_2;	// <stdin>:3259:10, tools.scala:15:29
+  assign io_MEM_to_WB_bus_bits_regWriteID = rhsReg_3;	// <stdin>:3259:10, tools.scala:15:29
+  assign io_MEM_to_WB_bus_bits_csrWriteEn = rhsReg_5;	// <stdin>:3259:10, tools.scala:15:29
+  assign io_MEM_to_WB_bus_bits_csrWriteAddr = rhsReg_6;	// <stdin>:3259:10, tools.scala:15:29
+  assign io_MEM_to_WB_bus_bits_csrWriteData = rhsReg_7;	// <stdin>:3259:10, tools.scala:15:29
+  assign io_MEM_to_WB_bus_bits_PC = rhsReg;	// <stdin>:3259:10, tools.scala:15:29
+  assign io_MEM_to_WB_bus_bits_Inst = rhsReg_1;	// <stdin>:3259:10, tools.scala:15:29
   assign io_MEM_to_ID_forward_valid = io_PMEM_to_MEM_bus_bits_regWriteEn & (|io_PMEM_to_MEM_bus_bits_regWriteID) &
-                io_PMEM_to_MEM_bus_valid;	// <stdin>:3258:10, MEMU.scala:74:{72,79}
-  assign io_MEM_to_ID_forward_bits_regWriteData = io_PMEM_to_MEM_bus_bits_memReadEn ? io_memReadData : io_PMEM_to_MEM_bus_bits_ALU_result;	// <stdin>:3258:10, MEMU.scala:54:24
-  assign io_MEM_to_ID_forward_bits_regWriteEn = io_PMEM_to_MEM_bus_bits_regWriteEn;	// <stdin>:3258:10
-  assign io_MEM_to_ID_forward_bits_regWriteID = io_PMEM_to_MEM_bus_bits_regWriteID;	// <stdin>:3258:10
-  assign io_MEM_to_ID_forward_bits_csrWriteEn = io_PMEM_to_MEM_bus_bits_csrWriteEn;	// <stdin>:3258:10
-  assign io_MEM_to_ID_forward_bits_csrWriteAddr = io_PMEM_to_MEM_bus_bits_csrWriteAddr;	// <stdin>:3258:10
+                io_PMEM_to_MEM_bus_valid;	// <stdin>:3259:10, MEMU.scala:74:{72,79}
+  assign io_MEM_to_ID_forward_bits_regWriteData = io_PMEM_to_MEM_bus_bits_memReadEn ? io_memReadData : io_PMEM_to_MEM_bus_bits_ALU_result;	// <stdin>:3259:10, MEMU.scala:54:24
+  assign io_MEM_to_ID_forward_bits_regWriteEn = io_PMEM_to_MEM_bus_bits_regWriteEn;	// <stdin>:3259:10
+  assign io_MEM_to_ID_forward_bits_regWriteID = io_PMEM_to_MEM_bus_bits_regWriteID;	// <stdin>:3259:10
+  assign io_MEM_to_ID_forward_bits_csrWriteEn = io_PMEM_to_MEM_bus_bits_csrWriteEn;	// <stdin>:3259:10
+  assign io_MEM_to_ID_forward_bits_csrWriteAddr = io_PMEM_to_MEM_bus_bits_csrWriteAddr;	// <stdin>:3259:10
 endmodule
 
-module WBU(	// <stdin>:3314:10
+module WBU(	// <stdin>:3315:10
   input         io_MEM_to_WB_bus_valid,
   input  [63:0] io_MEM_to_WB_bus_bits_regWriteData,
   input         io_MEM_to_WB_bus_bits_regWriteEn,
@@ -14769,17 +14770,17 @@ module WBU(	// <stdin>:3314:10
   output [63:0] io_WB_pc,
   output [31:0] io_WB_Inst);
 
-  assign io_WB_to_ID_forward_valid = io_MEM_to_WB_bus_valid;	// <stdin>:3314:10
-  assign io_WB_to_ID_forward_bits_regWriteData = io_MEM_to_WB_bus_bits_regWriteData;	// <stdin>:3314:10
-  assign io_WB_to_ID_forward_bits_regWriteEn = io_MEM_to_WB_bus_bits_regWriteEn;	// <stdin>:3314:10
-  assign io_WB_to_ID_forward_bits_regWriteID = io_MEM_to_WB_bus_bits_regWriteID;	// <stdin>:3314:10
-  assign io_WB_to_ID_forward_bits_csrWriteEn = io_MEM_to_WB_bus_bits_csrWriteEn;	// <stdin>:3314:10
-  assign io_WB_to_ID_forward_bits_csrWriteAddr = io_MEM_to_WB_bus_bits_csrWriteAddr;	// <stdin>:3314:10
-  assign io_WB_pc = io_MEM_to_WB_bus_valid ? io_MEM_to_WB_bus_bits_PC : 64'h0;	// <stdin>:3314:10, WBU.scala:31:30
-  assign io_WB_Inst = io_MEM_to_WB_bus_bits_Inst;	// <stdin>:3314:10
+  assign io_WB_to_ID_forward_valid = io_MEM_to_WB_bus_valid;	// <stdin>:3315:10
+  assign io_WB_to_ID_forward_bits_regWriteData = io_MEM_to_WB_bus_bits_regWriteData;	// <stdin>:3315:10
+  assign io_WB_to_ID_forward_bits_regWriteEn = io_MEM_to_WB_bus_bits_regWriteEn;	// <stdin>:3315:10
+  assign io_WB_to_ID_forward_bits_regWriteID = io_MEM_to_WB_bus_bits_regWriteID;	// <stdin>:3315:10
+  assign io_WB_to_ID_forward_bits_csrWriteEn = io_MEM_to_WB_bus_bits_csrWriteEn;	// <stdin>:3315:10
+  assign io_WB_to_ID_forward_bits_csrWriteAddr = io_MEM_to_WB_bus_bits_csrWriteAddr;	// <stdin>:3315:10
+  assign io_WB_pc = io_MEM_to_WB_bus_valid ? io_MEM_to_WB_bus_bits_PC : 64'h0;	// <stdin>:3315:10, WBU.scala:31:30
+  assign io_WB_Inst = io_MEM_to_WB_bus_bits_Inst;	// <stdin>:3315:10
 endmodule
 
-module CSR(	// <stdin>:3330:10
+module CSR(	// <stdin>:3331:10
   input         clock,
                 reset,
                 io_ID_ecall,
@@ -14826,54 +14827,54 @@ module CSR(	// <stdin>:3330:10
         mcause <= io_writeData;	// CSR.scala:23:26
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:3330:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:3330:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:3330:10
+  `ifndef SYNTHESIS	// <stdin>:3331:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:3331:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:3331:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:3330:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:3330:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:3330:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:3330:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:3330:10
-      automatic logic [31:0] _RANDOM_4;	// <stdin>:3330:10
-      automatic logic [31:0] _RANDOM_5;	// <stdin>:3330:10
-      automatic logic [31:0] _RANDOM_6;	// <stdin>:3330:10
-      automatic logic [31:0] _RANDOM_7;	// <stdin>:3330:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:3330:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:3330:10
+    initial begin	// <stdin>:3331:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:3331:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:3331:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:3331:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:3331:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:3331:10
+      automatic logic [31:0] _RANDOM_5;	// <stdin>:3331:10
+      automatic logic [31:0] _RANDOM_6;	// <stdin>:3331:10
+      automatic logic [31:0] _RANDOM_7;	// <stdin>:3331:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:3331:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:3331:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:3330:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:3330:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:3330:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:3330:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:3330:10
-        _RANDOM_4 = `RANDOM;	// <stdin>:3330:10
-        _RANDOM_5 = `RANDOM;	// <stdin>:3330:10
-        _RANDOM_6 = `RANDOM;	// <stdin>:3330:10
-        _RANDOM_7 = `RANDOM;	// <stdin>:3330:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:3331:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:3331:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:3331:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:3331:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:3331:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:3331:10
+        _RANDOM_5 = `RANDOM;	// <stdin>:3331:10
+        _RANDOM_6 = `RANDOM;	// <stdin>:3331:10
+        _RANDOM_7 = `RANDOM;	// <stdin>:3331:10
         mstatus = {_RANDOM_0, _RANDOM_1};	// CSR.scala:20:26
         mtvec = {_RANDOM_2, _RANDOM_3};	// CSR.scala:21:26
         mepc = {_RANDOM_4, _RANDOM_5};	// CSR.scala:22:26
         mcause = {_RANDOM_6, _RANDOM_7};	// CSR.scala:23:26
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:3330:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:3330:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:3331:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:3331:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
   assign io_readData = io_readAddr == 12'h300 ? mstatus : io_readAddr == 12'h305 ? mtvec : io_readAddr == 12'h341
-                ? mepc : io_readAddr == 12'h342 ? mcause : 64'h0;	// <stdin>:3330:10, CSR.scala:20:26, :21:26, :22:26, :23:26, :30:17, :31:24, :32:37, :33:37, :34:37, :35:37
-  assign io_mstatus = mstatus;	// <stdin>:3330:10, CSR.scala:20:26
-  assign io_mtvec = mtvec;	// <stdin>:3330:10, CSR.scala:21:26
-  assign io_mepc = mepc;	// <stdin>:3330:10, CSR.scala:22:26
-  assign io_mcause = mcause;	// <stdin>:3330:10, CSR.scala:23:26
+                ? mepc : io_readAddr == 12'h342 ? mcause : 64'h0;	// <stdin>:3331:10, CSR.scala:20:26, :21:26, :22:26, :23:26, :30:17, :31:24, :32:37, :33:37, :34:37, :35:37
+  assign io_mstatus = mstatus;	// <stdin>:3331:10, CSR.scala:20:26
+  assign io_mtvec = mtvec;	// <stdin>:3331:10, CSR.scala:21:26
+  assign io_mepc = mepc;	// <stdin>:3331:10, CSR.scala:22:26
+  assign io_mcause = mcause;	// <stdin>:3331:10, CSR.scala:23:26
 endmodule
 
 // external module sim
 
 // external module sim_sram
 
-module RAMU(	// <stdin>:3434:10
+module RAMU(	// <stdin>:3435:10
   input         clock,
                 reset,
                 axi_writeAddr_valid,
@@ -14892,12 +14893,12 @@ module RAMU(	// <stdin>:3434:10
   input  [3:0]  axi_readAddr_bits_id,
   input         axi_readData_ready,
   output        axi_readAddr_ready,
+                axi_readData_valid,
   output [63:0] axi_readData_bits_data,
+  output [3:0]  axi_readData_bits_id,
   output        axi_readData_bits_last);
 
-  wire [3:0] _data_ram_rid;	// RAM.scala:90:26
   wire [1:0] _data_ram_rresp;	// RAM.scala:90:26
-  wire       _data_ram_rvalid;	// RAM.scala:90:26
   wire       _data_ram_awready;	// RAM.scala:90:26
   wire       _data_ram_wready;	// RAM.scala:90:26
   wire [3:0] _data_ram_bid;	// RAM.scala:90:26
@@ -14911,33 +14912,33 @@ module RAMU(	// <stdin>:3434:10
     .araddr  (axi_readAddr_bits_addr),
     .arlen   (axi_readAddr_bits_len),
     .arsize  (axi_readAddr_bits_size),
-    .arburst (2'h1),	// <stdin>:3434:10
-    .arlock  (2'h0),	// <stdin>:3434:10
-    .arcache (4'h0),	// <stdin>:3434:10
-    .arprot  (3'h0),	// <stdin>:3434:10
+    .arburst (2'h1),	// <stdin>:3435:10
+    .arlock  (2'h0),	// <stdin>:3435:10
+    .arcache (4'h0),	// <stdin>:3435:10
+    .arprot  (3'h0),	// <stdin>:3435:10
     .arvalid (axi_readAddr_valid),
     .rready  (axi_readData_ready),
     .awid    (axi_writeAddr_bits_id),
     .awaddr  (axi_writeAddr_bits_addr),
-    .awlen   (8'h0),	// <stdin>:3434:10
-    .awsize  (3'h0),	// <stdin>:3434:10
-    .awburst (2'h0),	// <stdin>:3434:10
-    .awlock  (2'h0),	// <stdin>:3434:10
-    .awcache (4'h0),	// <stdin>:3434:10
-    .awprot  (3'h0),	// <stdin>:3434:10
+    .awlen   (8'h0),	// <stdin>:3435:10
+    .awsize  (3'h0),	// <stdin>:3435:10
+    .awburst (2'h0),	// <stdin>:3435:10
+    .awlock  (2'h0),	// <stdin>:3435:10
+    .awcache (4'h0),	// <stdin>:3435:10
+    .awprot  (3'h0),	// <stdin>:3435:10
     .awvalid (axi_writeAddr_valid),
-    .wid     ({3'h0, axi_writeData_bits_id}),	// <stdin>:3434:10, RAM.scala:129:45
+    .wid     ({3'h0, axi_writeData_bits_id}),	// <stdin>:3435:10, RAM.scala:129:45
     .wdata   (axi_writeData_bits_data),
     .wstrb   (axi_writeData_bits_strb),
     .wlast   (axi_writeData_bits_last),
     .wvalid  (axi_writeData_valid),
     .bready  (axi_writeResp_ready),
     .arready (axi_readAddr_ready),
-    .rid     (_data_ram_rid),
+    .rid     (axi_readData_bits_id),
     .rdata   (axi_readData_bits_data),
     .rresp   (_data_ram_rresp),
     .rlast   (axi_readData_bits_last),
-    .rvalid  (_data_ram_rvalid),
+    .rvalid  (axi_readData_valid),
     .awready (_data_ram_awready),
     .wready  (_data_ram_wready),
     .bid     (_data_ram_bid),
@@ -14946,7 +14947,7 @@ module RAMU(	// <stdin>:3434:10
   );
 endmodule
 
-module AXI_Arbiter(	// <stdin>:3525:10
+module AXI_Arbiter(	// <stdin>:3526:10
   input         in_0_writeAddr_valid,
   input  [31:0] in_0_writeAddr_bits_addr,
   input         in_0_writeData_valid,
@@ -14961,9 +14962,13 @@ module AXI_Arbiter(	// <stdin>:3525:10
   input         in_1_readData_ready,
                 req_0_valid,
                 out_readAddr_ready,
+                out_readData_valid,
   input  [63:0] out_readData_bits_data,
+  input  [3:0]  out_readData_bits_id,
   input         out_readData_bits_last,
+  output        in_0_readData_valid,
   output [63:0] in_0_readData_bits_data,
+  output [3:0]  in_0_readData_bits_id,
   output        in_1_readAddr_ready,
   output [63:0] in_1_readData_bits_data,
   output        in_1_readData_bits_last,
@@ -14986,30 +14991,32 @@ module AXI_Arbiter(	// <stdin>:3525:10
   output        out_readData_ready);
 
   wire [3:0] _GEN = {3'h0, req_0_valid};	// RAM.scala:64:27, :65:17
-  assign in_0_readData_bits_data = req_0_valid ? out_readData_bits_data : 64'h77;	// <stdin>:3525:10, RAM.scala:64:27, :65:17, :74:41
-  assign in_1_readAddr_ready = out_readAddr_ready;	// <stdin>:3525:10
-  assign in_1_readData_bits_data = out_readData_bits_data;	// <stdin>:3525:10
-  assign in_1_readData_bits_last = out_readData_bits_last;	// <stdin>:3525:10
-  assign req_0_ready = req_0_valid;	// <stdin>:3525:10
-  assign req_1_ready = ~req_0_valid;	// <stdin>:3525:10, RAM.scala:64:27, :65:17
-  assign out_writeAddr_valid = req_0_valid & in_0_writeAddr_valid;	// <stdin>:3525:10, RAM.scala:64:27, :65:17
-  assign out_writeAddr_bits_addr = req_0_valid ? in_0_writeAddr_bits_addr : 32'h0;	// <stdin>:3525:10, RAM.scala:64:27, :65:17
-  assign out_writeAddr_bits_id = _GEN;	// <stdin>:3525:10, RAM.scala:64:27, :65:17
-  assign out_writeData_valid = req_0_valid & in_0_writeData_valid;	// <stdin>:3525:10, RAM.scala:64:27, :65:17
-  assign out_writeData_bits_data = req_0_valid ? in_0_writeData_bits_data : 64'h0;	// <stdin>:3525:10, RAM.scala:64:27, :65:17
-  assign out_writeData_bits_id = req_0_valid;	// <stdin>:3525:10
-  assign out_writeData_bits_strb = req_0_valid ? in_0_writeData_bits_strb : 8'h0;	// <stdin>:3525:10, RAM.scala:64:27, :65:17
-  assign out_writeData_bits_last = req_0_valid;	// <stdin>:3525:10
-  assign out_writeResp_ready = req_0_valid & in_0_writeResp_ready;	// <stdin>:3525:10, RAM.scala:64:27, :65:17
-  assign out_readAddr_valid = req_0_valid ? in_0_readAddr_valid : in_1_readAddr_valid;	// <stdin>:3525:10, RAM.scala:64:27, :65:17
-  assign out_readAddr_bits_addr = req_0_valid ? in_0_readAddr_bits_addr : in_1_readAddr_bits_addr;	// <stdin>:3525:10, RAM.scala:64:27, :65:17
-  assign out_readAddr_bits_size = req_0_valid ? 3'h6 : 3'h3;	// <stdin>:3525:10, RAM.scala:64:27, :65:17
-  assign out_readAddr_bits_len = {7'h0, ~req_0_valid};	// <stdin>:3525:10, RAM.scala:64:27, :65:17
-  assign out_readAddr_bits_id = _GEN;	// <stdin>:3525:10, RAM.scala:64:27, :65:17
-  assign out_readData_ready = req_0_valid ? in_0_readData_ready : in_1_readData_ready;	// <stdin>:3525:10, RAM.scala:64:27, :65:17
+  assign in_0_readData_valid = req_0_valid & out_readData_valid;	// <stdin>:3526:10, RAM.scala:64:27, :65:17, :77:41
+  assign in_0_readData_bits_data = req_0_valid ? out_readData_bits_data : 64'h77;	// <stdin>:3526:10, RAM.scala:64:27, :65:17, :74:41
+  assign in_0_readData_bits_id = req_0_valid ? out_readData_bits_id : 4'h0;	// <stdin>:3526:10, RAM.scala:64:27, :65:17, :73:41
+  assign in_1_readAddr_ready = out_readAddr_ready;	// <stdin>:3526:10
+  assign in_1_readData_bits_data = out_readData_bits_data;	// <stdin>:3526:10
+  assign in_1_readData_bits_last = out_readData_bits_last;	// <stdin>:3526:10
+  assign req_0_ready = req_0_valid;	// <stdin>:3526:10
+  assign req_1_ready = ~req_0_valid;	// <stdin>:3526:10, RAM.scala:64:27, :65:17
+  assign out_writeAddr_valid = req_0_valid & in_0_writeAddr_valid;	// <stdin>:3526:10, RAM.scala:64:27, :65:17
+  assign out_writeAddr_bits_addr = req_0_valid ? in_0_writeAddr_bits_addr : 32'h0;	// <stdin>:3526:10, RAM.scala:64:27, :65:17
+  assign out_writeAddr_bits_id = _GEN;	// <stdin>:3526:10, RAM.scala:64:27, :65:17
+  assign out_writeData_valid = req_0_valid & in_0_writeData_valid;	// <stdin>:3526:10, RAM.scala:64:27, :65:17
+  assign out_writeData_bits_data = req_0_valid ? in_0_writeData_bits_data : 64'h0;	// <stdin>:3526:10, RAM.scala:64:27, :65:17
+  assign out_writeData_bits_id = req_0_valid;	// <stdin>:3526:10
+  assign out_writeData_bits_strb = req_0_valid ? in_0_writeData_bits_strb : 8'h0;	// <stdin>:3526:10, RAM.scala:64:27, :65:17
+  assign out_writeData_bits_last = req_0_valid;	// <stdin>:3526:10
+  assign out_writeResp_ready = req_0_valid & in_0_writeResp_ready;	// <stdin>:3526:10, RAM.scala:64:27, :65:17
+  assign out_readAddr_valid = req_0_valid ? in_0_readAddr_valid : in_1_readAddr_valid;	// <stdin>:3526:10, RAM.scala:64:27, :65:17
+  assign out_readAddr_bits_addr = req_0_valid ? in_0_readAddr_bits_addr : in_1_readAddr_bits_addr;	// <stdin>:3526:10, RAM.scala:64:27, :65:17
+  assign out_readAddr_bits_size = req_0_valid ? 3'h6 : 3'h3;	// <stdin>:3526:10, RAM.scala:64:27, :65:17
+  assign out_readAddr_bits_len = {7'h0, ~req_0_valid};	// <stdin>:3526:10, RAM.scala:64:27, :65:17
+  assign out_readAddr_bits_id = _GEN;	// <stdin>:3526:10, RAM.scala:64:27, :65:17
+  assign out_readData_ready = req_0_valid ? in_0_readData_ready : in_1_readData_ready;	// <stdin>:3526:10, RAM.scala:64:27, :65:17
 endmodule
 
-module top(	// <stdin>:3568:10
+module top(	// <stdin>:3569:10
   input          clock,
                  reset,
   output [63:0]  io_ID_npc,
@@ -15078,11 +15085,12 @@ module top(	// <stdin>:3568:10
                  io_ID_Rs2Data,
                  io_ALUResult);
 
+  wire        _arb_in_0_readData_valid;	// top.scala:215:21
   wire [63:0] _arb_in_0_readData_bits_data;	// top.scala:215:21
+  wire [3:0]  _arb_in_0_readData_bits_id;	// top.scala:215:21
   wire        _arb_in_1_readAddr_ready;	// top.scala:215:21
   wire [63:0] _arb_in_1_readData_bits_data;	// top.scala:215:21
   wire        _arb_in_1_readData_bits_last;	// top.scala:215:21
-  wire        _arb_req_0_ready;	// top.scala:215:21
   wire        _arb_req_1_ready;	// top.scala:215:21
   wire        _arb_out_writeAddr_valid;	// top.scala:215:21
   wire [31:0] _arb_out_writeAddr_bits_addr;	// top.scala:215:21
@@ -15100,7 +15108,9 @@ module top(	// <stdin>:3568:10
   wire [3:0]  _arb_out_readAddr_bits_id;	// top.scala:215:21
   wire        _arb_out_readData_ready;	// top.scala:215:21
   wire        _ram_unit_axi_readAddr_ready;	// top.scala:214:26
+  wire        _ram_unit_axi_readData_valid;	// top.scala:214:26
   wire [63:0] _ram_unit_axi_readData_bits_data;	// top.scala:214:26
+  wire [3:0]  _ram_unit_axi_readData_bits_id;	// top.scala:214:26
   wire        _ram_unit_axi_readData_bits_last;	// top.scala:214:26
   wire [63:0] _simulate_inst;	// top.scala:171:26
   wire [63:0] _csr_io_readData;	// top.scala:101:25
@@ -15440,8 +15450,9 @@ module top(	// <stdin>:3568:10
     .io_EX_to_MEM_bus_bits_csrWriteEn        (_excute_unit_io_EX_to_MEM_bus_bits_csrWriteEn),	// top.scala:97:29
     .io_EX_to_MEM_bus_bits_csrWriteAddr      (_excute_unit_io_EX_to_MEM_bus_bits_csrWriteAddr),	// top.scala:97:29
     .io_EX_to_MEM_bus_bits_csrWriteData      (_excute_unit_io_EX_to_MEM_bus_bits_csrWriteData),	// top.scala:97:29
+    .axi_readData_valid                      (_arb_in_0_readData_valid),	// top.scala:215:21
     .axi_readData_bits_data                  (_arb_in_0_readData_bits_data),	// top.scala:215:21
-    .axi_req_ready                           (_arb_req_0_ready),	// top.scala:215:21
+    .axi_readData_bits_id                    (_arb_in_0_readData_bits_id),	// top.scala:215:21
     .io_EX_to_MEM_bus_ready                  (_pre_mem_unit_io_EX_to_MEM_bus_ready),
     .io_PMEM_to_MEM_bus_valid                (_pre_mem_unit_io_PMEM_to_MEM_bus_valid),
     .io_PMEM_to_MEM_bus_bits_ALU_result      (_pre_mem_unit_io_PMEM_to_MEM_bus_bits_ALU_result),
@@ -15553,7 +15564,9 @@ module top(	// <stdin>:3568:10
     .axi_readAddr_bits_id    (_arb_out_readAddr_bits_id),	// top.scala:215:21
     .axi_readData_ready      (_arb_out_readData_ready),	// top.scala:215:21
     .axi_readAddr_ready      (_ram_unit_axi_readAddr_ready),
+    .axi_readData_valid      (_ram_unit_axi_readData_valid),
     .axi_readData_bits_data  (_ram_unit_axi_readData_bits_data),
+    .axi_readData_bits_id    (_ram_unit_axi_readData_bits_id),
     .axi_readData_bits_last  (_ram_unit_axi_readData_bits_last)
   );
 
@@ -15593,13 +15606,17 @@ sim simulate (	// top.scala:24:26
     .in_1_readData_ready      (_inst_fetch_unit_axi_readData_ready),	// top.scala:95:33
     .req_0_valid              (_pre_mem_unit_axi_req_valid),	// top.scala:98:30
     .out_readAddr_ready       (_ram_unit_axi_readAddr_ready),	// top.scala:214:26
+    .out_readData_valid       (_ram_unit_axi_readData_valid),	// top.scala:214:26
     .out_readData_bits_data   (_ram_unit_axi_readData_bits_data),	// top.scala:214:26
+    .out_readData_bits_id     (_ram_unit_axi_readData_bits_id),	// top.scala:214:26
     .out_readData_bits_last   (_ram_unit_axi_readData_bits_last),	// top.scala:214:26
+    .in_0_readData_valid      (_arb_in_0_readData_valid),
     .in_0_readData_bits_data  (_arb_in_0_readData_bits_data),
+    .in_0_readData_bits_id    (_arb_in_0_readData_bits_id),
     .in_1_readAddr_ready      (_arb_in_1_readAddr_ready),
     .in_1_readData_bits_data  (_arb_in_1_readData_bits_data),
     .in_1_readData_bits_last  (_arb_in_1_readData_bits_last),
-    .req_0_ready              (_arb_req_0_ready),
+    .req_0_ready              (io_MEM_AXIREQ),
     .req_1_ready              (_arb_req_1_ready),
     .out_writeAddr_valid      (_arb_out_writeAddr_valid),
     .out_writeAddr_bits_addr  (_arb_out_writeAddr_bits_addr),
@@ -15617,36 +15634,35 @@ sim simulate (	// top.scala:24:26
     .out_readAddr_bits_id     (_arb_out_readAddr_bits_id),
     .out_readData_ready       (_arb_out_readData_ready)
   );
-  assign io_ID_npc = _inst_decode_unit_io_ID_to_BPU_bus_bits_br_target;	// <stdin>:3568:10, top.scala:96:34
-  assign io_PF_pc = _inst_fetch_unit_io_PF_pc;	// <stdin>:3568:10, top.scala:95:33
-  assign io_PF_axidata = _arb_in_1_readData_bits_data;	// <stdin>:3568:10, top.scala:215:21
-  assign io_IF_pc = _inst_fetch_unit_io_IF_to_ID_bus_bits_PC;	// <stdin>:3568:10, top.scala:95:33
-  assign io_ID_pc = _inst_decode_unit_io_ID_to_EX_bus_bits_PC;	// <stdin>:3568:10, top.scala:96:34
-  assign io_EX_pc = _excute_unit_io_EX_to_MEM_bus_bits_PC;	// <stdin>:3568:10, top.scala:97:29
-  assign io_PMEM_pc = _pre_mem_unit_io_PMEM_to_MEM_bus_bits_PC;	// <stdin>:3568:10, top.scala:98:30
-  assign io_WB_Inst = _wb_unit_io_WB_Inst;	// <stdin>:3568:10, top.scala:100:25
-  assign io_WB_RegWriteData = _wb_unit_io_WB_to_ID_forward_bits_regWriteData;	// <stdin>:3568:10, top.scala:100:25
-  assign io_WB_RegWriteID = {59'h0, _wb_unit_io_WB_to_ID_forward_bits_regWriteID};	// <stdin>:3568:10, top.scala:100:25, :153:24
-  assign io_WB_valid = _wb_unit_io_WB_to_ID_forward_valid;	// <stdin>:3568:10, top.scala:100:25
-  assign io_MEM_RegWriteData = _arb_in_0_readData_bits_data;	// <stdin>:3568:10, top.scala:215:21
-  assign io_bp_npc = _bp_unit_io_bp_npc;	// <stdin>:3568:10, top.scala:94:33
-  assign io_bp_taken = _bp_unit_io_bp_taken;	// <stdin>:3568:10, top.scala:94:33
-  assign io_bp_flush = _bp_unit_io_bp_flush;	// <stdin>:3568:10, top.scala:94:33
-  assign io_csrWriteEn = _mem_unit_io_MEM_to_WB_bus_bits_csrWriteEn;	// <stdin>:3568:10, top.scala:99:26
-  assign io_csrWriteAddr = _mem_unit_io_MEM_to_WB_bus_bits_csrWriteAddr;	// <stdin>:3568:10, top.scala:99:26
-  assign io_csrWriteData = _mem_unit_io_MEM_to_WB_bus_bits_csrWriteData;	// <stdin>:3568:10, top.scala:99:26
-  assign io_EX_csrWriteData = _excute_unit_io_EX_to_MEM_bus_bits_csrWriteData;	// <stdin>:3568:10, top.scala:97:29
-  assign io_cache_axi_req = _inst_fetch_unit_axi_readAddr_valid;	// <stdin>:3568:10, top.scala:95:33
-  assign io_cache_rlast = _arb_in_1_readData_bits_last;	// <stdin>:3568:10, top.scala:215:21
-  assign io_IF_Inst = _inst_fetch_unit_io_IF_to_ID_bus_bits_Inst;	// <stdin>:3568:10, top.scala:95:33
-  assign io_IF_valid = _inst_fetch_unit_io_IF_to_ID_bus_valid;	// <stdin>:3568:10, top.scala:95:33
-  assign io_IF_AXIREQ = _arb_req_1_ready;	// <stdin>:3568:10, top.scala:215:21
-  assign io_MEM_AXIREQ = _arb_req_0_ready;	// <stdin>:3568:10, top.scala:215:21
-  assign io_ID_ALU_Data1 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data1;	// <stdin>:3568:10, top.scala:96:34
-  assign io_ID_ALU_Data2 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data2;	// <stdin>:3568:10, top.scala:96:34
-  assign io_EX_ALU_result_pass = _excute_unit_io_EX_ALUResult_Pass;	// <stdin>:3568:10, top.scala:97:29
-  assign io_ID_Rs2Data = _inst_decode_unit_io_ID_to_EX_bus_bits_rs2_data;	// <stdin>:3568:10, top.scala:96:34
-  assign io_ALUResult = _excute_unit_io_EX_to_MEM_bus_bits_ALU_result;	// <stdin>:3568:10, top.scala:97:29
+  assign io_ID_npc = _inst_decode_unit_io_ID_to_BPU_bus_bits_br_target;	// <stdin>:3569:10, top.scala:96:34
+  assign io_PF_pc = _inst_fetch_unit_io_PF_pc;	// <stdin>:3569:10, top.scala:95:33
+  assign io_PF_axidata = _arb_in_1_readData_bits_data;	// <stdin>:3569:10, top.scala:215:21
+  assign io_IF_pc = _inst_fetch_unit_io_IF_to_ID_bus_bits_PC;	// <stdin>:3569:10, top.scala:95:33
+  assign io_ID_pc = _inst_decode_unit_io_ID_to_EX_bus_bits_PC;	// <stdin>:3569:10, top.scala:96:34
+  assign io_EX_pc = _excute_unit_io_EX_to_MEM_bus_bits_PC;	// <stdin>:3569:10, top.scala:97:29
+  assign io_PMEM_pc = _pre_mem_unit_io_PMEM_to_MEM_bus_bits_PC;	// <stdin>:3569:10, top.scala:98:30
+  assign io_WB_Inst = _wb_unit_io_WB_Inst;	// <stdin>:3569:10, top.scala:100:25
+  assign io_WB_RegWriteData = _wb_unit_io_WB_to_ID_forward_bits_regWriteData;	// <stdin>:3569:10, top.scala:100:25
+  assign io_WB_RegWriteID = {59'h0, _wb_unit_io_WB_to_ID_forward_bits_regWriteID};	// <stdin>:3569:10, top.scala:100:25, :153:24
+  assign io_WB_valid = _wb_unit_io_WB_to_ID_forward_valid;	// <stdin>:3569:10, top.scala:100:25
+  assign io_MEM_RegWriteData = _arb_in_0_readData_bits_data;	// <stdin>:3569:10, top.scala:215:21
+  assign io_bp_npc = _bp_unit_io_bp_npc;	// <stdin>:3569:10, top.scala:94:33
+  assign io_bp_taken = _bp_unit_io_bp_taken;	// <stdin>:3569:10, top.scala:94:33
+  assign io_bp_flush = _bp_unit_io_bp_flush;	// <stdin>:3569:10, top.scala:94:33
+  assign io_csrWriteEn = _mem_unit_io_MEM_to_WB_bus_bits_csrWriteEn;	// <stdin>:3569:10, top.scala:99:26
+  assign io_csrWriteAddr = _mem_unit_io_MEM_to_WB_bus_bits_csrWriteAddr;	// <stdin>:3569:10, top.scala:99:26
+  assign io_csrWriteData = _mem_unit_io_MEM_to_WB_bus_bits_csrWriteData;	// <stdin>:3569:10, top.scala:99:26
+  assign io_EX_csrWriteData = _excute_unit_io_EX_to_MEM_bus_bits_csrWriteData;	// <stdin>:3569:10, top.scala:97:29
+  assign io_cache_axi_req = _inst_fetch_unit_axi_readAddr_valid;	// <stdin>:3569:10, top.scala:95:33
+  assign io_cache_rlast = _arb_in_1_readData_bits_last;	// <stdin>:3569:10, top.scala:215:21
+  assign io_IF_Inst = _inst_fetch_unit_io_IF_to_ID_bus_bits_Inst;	// <stdin>:3569:10, top.scala:95:33
+  assign io_IF_valid = _inst_fetch_unit_io_IF_to_ID_bus_valid;	// <stdin>:3569:10, top.scala:95:33
+  assign io_IF_AXIREQ = _arb_req_1_ready;	// <stdin>:3569:10, top.scala:215:21
+  assign io_ID_ALU_Data1 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data1;	// <stdin>:3569:10, top.scala:96:34
+  assign io_ID_ALU_Data2 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data2;	// <stdin>:3569:10, top.scala:96:34
+  assign io_EX_ALU_result_pass = _excute_unit_io_EX_ALUResult_Pass;	// <stdin>:3569:10, top.scala:97:29
+  assign io_ID_Rs2Data = _inst_decode_unit_io_ID_to_EX_bus_bits_rs2_data;	// <stdin>:3569:10, top.scala:96:34
+  assign io_ALUResult = _excute_unit_io_EX_to_MEM_bus_bits_ALU_result;	// <stdin>:3569:10, top.scala:97:29
 endmodule
 
 
