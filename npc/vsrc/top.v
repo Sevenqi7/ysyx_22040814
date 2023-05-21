@@ -14499,7 +14499,7 @@ module MEM_pre_stage(	// <stdin>:3078:10
 
   reg  [4:0]  rhsReg_8;	// tools.scala:15:29
   wire        stall = (io_EX_to_MEM_bus_bits_memReadEn | io_EX_to_MEM_bus_bits_memWriteEn) &
-                io_EX_to_MEM_bus_valid & ~axi_readAddr_ready & ~axi_writeAddr_ready;	// PMEM.scala:78:{28,69,89,91}
+                io_EX_to_MEM_bus_valid & (~axi_readAddr_ready | ~axi_writeAddr_ready);	// PMEM.scala:78:{28,67,70,90,92}
   reg  [63:0] rhsReg;	// tools.scala:15:29
   reg  [31:0] rhsReg_1;	// tools.scala:15:29
   reg  [63:0] rhsReg_2;	// tools.scala:15:29
@@ -14538,7 +14538,7 @@ module MEM_pre_stage(	// <stdin>:3078:10
       rhsReg_9 <= io_EX_to_MEM_bus_bits_csrWriteEn;	// tools.scala:15:29
       rhsReg_10 <= io_EX_to_MEM_bus_bits_csrWriteAddr;	// tools.scala:15:29
       rhsReg_11 <= io_EX_to_MEM_bus_bits_csrWriteData;	// tools.scala:15:29
-      rhsReg_12 <= ~stall & io_EX_to_MEM_bus_valid;	// PMEM.scala:78:89, :80:25, tools.scala:15:29
+      rhsReg_12 <= ~stall & io_EX_to_MEM_bus_valid;	// PMEM.scala:78:67, :80:25, tools.scala:15:29
     end
   end // always @(posedge)
   `ifndef SYNTHESIS	// <stdin>:3078:10
@@ -14587,7 +14587,7 @@ module MEM_pre_stage(	// <stdin>:3078:10
       `FIRRTL_AFTER_INITIAL	// <stdin>:3078:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  assign io_EX_to_MEM_bus_ready = ~stall;	// <stdin>:3078:10, PMEM.scala:78:89, :80:25
+  assign io_EX_to_MEM_bus_ready = ~stall;	// <stdin>:3078:10, PMEM.scala:78:67, :80:25
   assign io_PMEM_to_MEM_bus_valid = rhsReg_12;	// <stdin>:3078:10, tools.scala:15:29
   assign io_PMEM_to_MEM_bus_bits_ALU_result = rhsReg_2;	// <stdin>:3078:10, tools.scala:15:29
   assign io_PMEM_to_MEM_bus_bits_regWriteEn = rhsReg_3;	// <stdin>:3078:10, tools.scala:15:29
