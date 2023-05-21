@@ -8659,8 +8659,9 @@ module ICache(	// <stdin>:1182:10
   wire                _T_3 = _GEN_1 == req_addr[31:11] & _GEN_6;	// icache.scala:52:28, :57:29, :97:{40,48}
   assign _GEN = ~_T & _T_1 & _T_3;	// icache.scala:72:21, :86:18, :97:48
   wire                _T_9 = state == 3'h2;	// icache.scala:60:34, :86:18, :109:33
+  wire                _T_11 = ~io_axi_arready | io_axi_busy;	// icache.scala:123:{18,34}
+  wire [31:0]         _GEN_8 = {req_addr[31:4], 4'h0};	// icache.scala:52:28, :100:35, :128:33
   wire                _T_12 = state == 3'h3;	// icache.scala:60:34, :86:18, :129:33
-  wire                _GEN_8 = _T_9 | _T_12;	// icache.scala:86:18, :124:29
   wire [20:0]         _GEN_9;	// icache.scala:147:22
   /* synopsys infer_mux_override */
   assign _GEN_9 = _GEN_2;	// icache.scala:97:40, :147:22
@@ -9188,7 +9189,7 @@ module ICache(	// <stdin>:1182:10
       automatic logic            _GEN_136;	// icache.scala:161:41
       automatic logic            _GEN_137;	// icache.scala:161:41
       automatic logic            _GEN_138;	// icache.scala:161:41
-      automatic logic [7:0][2:0] _GEN_139;	// icache.scala:60:34, :86:18, :88:27, :108:26, :125:48, :137:31, :145:41
+      automatic logic [7:0][2:0] _GEN_139;	// icache.scala:60:34, :86:18, :88:27, :108:26, :123:48, :137:31, :145:41
       _T_13 = state == 3'h4;	// icache.scala:60:34, :86:18, :100:35
       _GEN_11 = ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & ~(~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & (_GEN_10 &
                                                 req_addr[31:11] == _GEN_9 | ~_GEN_10)) & _refillIDX_prng_io_out_0;	// PRNG.scala:91:22, icache.scala:52:28, :57:29, :61:34, :72:21, :83:25, :84:25, :86:18, :147:{22,43}, :153:{42,48,70}, :154:41, :158:18
@@ -10226,9 +10227,8 @@ module ICache(	// <stdin>:1182:10
         req_valid <= io_valid;	// icache.scala:53:28
       end
       _GEN_139 = {{state}, {state}, {state}, {3'h0}, {io_axi_rlast ? 3'h4 : {2'h1, ~io_axi_busy}}, {{2'h1,
-                                                ~(~io_axi_arready | io_axi_busy)}}, {_GEN ? {2'h0, io_valid} : 3'h2}, {io_valid ? 3'h1 :
-                                                state}};	// icache.scala:60:34, :72:21, :86:18, :88:27, :89:29, :100:35, :108:26, :109:33, :111:32, :112:33, :118:33, :125:{18,34,48}, :126:33, :129:33, :133:29, :137:31, :138:29, :140:35, :141:29, :145:41
-      state <= _GEN_139[state];	// icache.scala:60:34, :86:18, :88:27, :108:26, :125:48, :137:31, :145:41
+                                                ~_T_11}}, {_GEN ? {2'h0, io_valid} : 3'h2}, {io_valid ? 3'h1 : state}};	// icache.scala:60:34, :72:21, :76:21, :86:18, :88:27, :89:29, :100:35, :108:26, :109:33, :111:32, :112:33, :118:33, :123:{34,48}, :124:33, :127:33, :129:33, :133:29, :137:31, :138:29, :140:35, :141:29, :145:41
+      state <= _GEN_139[state];	// icache.scala:60:34, :86:18, :88:27, :108:26, :123:48, :137:31, :145:41
       if (_T | _T_1 | _T_9 | ~_T_12) begin	// icache.scala:61:34, :86:18
       end
       else	// icache.scala:61:34, :86:18
@@ -13083,8 +13083,8 @@ module ICache(	// <stdin>:1182:10
   assign io_cache_set = req_addr[5:4];	// <stdin>:1182:10, icache.scala:52:28, :66:25
   assign io_cache_offset = req_addr[3:0];	// <stdin>:1182:10, icache.scala:52:28, :55:29
   assign io_lineBuf = lineBuf;	// <stdin>:1182:10, icache.scala:61:34
-  assign io_axi_rreq = ~_T & ~_T_1 & _GEN_8;	// <stdin>:1182:10, icache.scala:72:21, :76:21, :84:25, :86:18, :124:29
-  assign io_axi_raddr = _T | _T_1 | ~_GEN_8 ? 32'h0 : {req_addr[31:4], 4'h0};	// <stdin>:1182:10, icache.scala:52:28, :77:21, :86:18, :100:35, :124:29
+  assign io_axi_rreq = ~_T & ~_T_1 & (_T_9 ? ~_T_11 : _T_12);	// <stdin>:1182:10, icache.scala:72:21, :76:21, :84:25, :86:18, :123:{34,48}, :127:33
+  assign io_axi_raddr = _T | _T_1 ? 32'h0 : _T_9 ? (_T_11 ? 32'h0 : _GEN_8) : _T_12 ? _GEN_8 : 32'h0;	// <stdin>:1182:10, icache.scala:77:21, :86:18, :123:{34,48}, :128:33, :135:29
 endmodule
 
 module IF_pre_fetch(	// <stdin>:1615:10
@@ -15762,14 +15762,14 @@ module sim_sram(
         end 
         else begin
             if(arvalid && !awv_arw_flag && !arv_arr_flag) begin
-                arready_r       <= 1'b1;
+                arready_r       <= (arlen >= 8'b1);
                 arv_arr_flag    <= (arlen >= 8'b1);
             end
             else if(rvalid_r && rready && arlen_cntr == arlen_r) begin
                 arv_arr_flag    <= 1'b0;
             end
             else begin
-                arready_r       <= 1'b0;
+                arready_r       <= 1'b1;
             end
         end
         $display("arvalid:%d arready:%d arv_arr_flag:%d rdata:0x%x", arvalid, arready_r, arv_arr_flag, rdata);
