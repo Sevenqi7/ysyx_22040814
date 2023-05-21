@@ -55,7 +55,7 @@ class IF_pre_fetch extends Module{
     io.lineBuf                 := inst_cache.io.lineBuf
 
     axi.readAddr.bits.id       := 0.U
-    axi.readAddr.bits.len      := 2.U
+    axi.readAddr.bits.len      := 1.U
     axi.readAddr.bits.size     := "b011".U       //8 bytes
     axi.readAddr.bits.burst    := "b01".U
     axi.readAddr.bits.lock     := 0.U
