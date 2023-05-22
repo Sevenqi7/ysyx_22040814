@@ -12,6 +12,7 @@ char g_itrace_buf[MAX_ITRACE_STORE][128];
 static bool  g_print_step;
 static uint32_t g_itrace_base = 0;
 static uint32_t g_itrace_end = 0;
+static uint64_t nr_total_inst = 0;
 #ifdef CONFIG_ITRACE
 static uint32_t g_itrace_num = 0;
 #endif
@@ -81,6 +82,7 @@ void exec_once()            //disassemble实质上是反汇编的上一个已执
         nr_bubble++;
         clock_step();
     }
+    nr_total_inst++;
 trace:
     char logbuf[128];
     #ifdef CONFIG_ITRACE
@@ -116,6 +118,7 @@ void execute(uint64_t n)
         g_print_step = (n < MAX_INST_TO_PRINT);
         device_update();
         if(npc_state.state != NPC_RUNNING){
+            Log("Total instruction number: %ld", nr_total_inst);
             Log("Recieve %ld bubbles when pipelines running", nr_bubble);
             Log("nr of jal:%d", top->io_jal_cnt);
             Log("failure of jal:%d", top->io_jal_fail);
