@@ -2,6 +2,7 @@
 #include <npc.h>
 
 //toggle the clk 2 times
+
 void clock_step()
 {
     for(int i=0;i<2;i++)
