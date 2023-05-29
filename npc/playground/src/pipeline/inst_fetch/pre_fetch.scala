@@ -24,6 +24,7 @@ class IF_pre_fetch extends Module{
         val cache_tag    = Output(UInt(21.W))
         val cache_set    = Output(UInt(2.W))
         val cache_offset = Output(UInt(4.W))
+        val cache_miss_cnt = Output(UInt(32.W))
         val lineBuf   = Output(UInt(128.W))
 
     })
@@ -36,7 +37,6 @@ class IF_pre_fetch extends Module{
     axi_busy        := !axi_req.ready
     axi_req.valid   := 1.U
 
-
     /*****************ICache******************/
     
     //parameter
@@ -45,7 +45,6 @@ class IF_pre_fetch extends Module{
     val nrSets      = 128
     val nrLines     = 2
     val inst_cache  = Module(new ICache(tagWidth, nrSets, nrLines, offsetWidth))
-    
     io.cache_hit               := inst_cache.io.hit
     io.cache_state             := inst_cache.io.state
     io.cache_rvalid            := inst_cache.io.rvalid
@@ -75,7 +74,9 @@ class IF_pre_fetch extends Module{
     inst_cache.io.axi_rvalid   := axi.readData.valid
     inst_cache.io.axi_rlast    := axi.readData.bits.last
     inst_cache.io.axi_rdata    := axi.readData.bits.data
-    /*****************ICache******************/
+
+    io.cache_miss_cnt          := inst_cache.io.cache_miss_cnt
+    /***************ICache  End****************/
     
     io.inst                         := inst_cache.io.rdata
     io.inst_valid                   := inst_cache.io.rvalid

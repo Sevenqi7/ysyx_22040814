@@ -2,6 +2,7 @@
 #include <npc.h>
 
 //toggle the clk 2 times
+
 void clock_step()
 {
     for(int i=0;i<2;i++)
@@ -17,8 +18,8 @@ void clock_step()
     Log("bp_taken:%d", top->io_bp_taken);
     Log("bp_flush:%d", top->io_bp_flush);
     Log("BTB_hit:%d", top->io_BTB_hit);
-    // Log("ras_push:0x%lx", top->io_ras_push);
-    // Log("ras_pop:0x%lx", top->io_ras_pop);
+    Log("ras_push:0x%lx", top->io_ras_push);
+    Log("ras_pop:0x%lx", top->io_ras_pop);
     // Log("bht_update:%d", top->io_bht_update);
     // Log("pht_update:%d", top->io_pht_update);
     // Log("pht_idx:%d", top->io_pht_idx);
@@ -45,6 +46,7 @@ void clock_step()
     // Log("cache_set:0x%x", top->io_cache_set);
     // Log("cache_offset:0x%x", top->io_cache_offset);
     // Log("cache_rlast:%d", top->io_cache_rlast);
+    Log("cache_miss_cnt:%d", top->io_cache_miss_cnt);
     Log("cache_lineBuf:0x%llx", top->io_lineBuf);
 
     Log("IF_req:%d", top->io_IF_AXIREQ);

@@ -8143,11 +8143,12 @@ module ICache(	// <stdin>:1182:10
   output [20:0]  io_cache_tag,
   output [1:0]   io_cache_set,
   output [3:0]   io_cache_offset,
+  output [31:0]  io_cache_miss_cnt,
   output [127:0] io_lineBuf,
   output         io_axi_rreq,
   output [31:0]  io_axi_raddr);
 
-  wire                _GEN;	// icache.scala:72:21, :86:18
+  wire                _GEN;	// icache.scala:74:21, :89:18
   wire                _refillIDX_prng_io_out_0;	// PRNG.scala:91:22
   wire                _refillIDX_prng_io_out_1;	// PRNG.scala:91:22
   wire                _refillIDX_prng_io_out_2;	// PRNG.scala:91:22
@@ -8164,396 +8165,397 @@ module ICache(	// <stdin>:1182:10
   wire                _refillIDX_prng_io_out_13;	// PRNG.scala:91:22
   wire                _refillIDX_prng_io_out_14;	// PRNG.scala:91:22
   wire                _refillIDX_prng_io_out_15;	// PRNG.scala:91:22
-  reg  [20:0]         cache_0_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_0_0_data;	// icache.scala:44:24
-  reg                 cache_0_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_1_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_1_0_data;	// icache.scala:44:24
-  reg                 cache_1_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_2_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_2_0_data;	// icache.scala:44:24
-  reg                 cache_2_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_3_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_3_0_data;	// icache.scala:44:24
-  reg                 cache_3_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_4_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_4_0_data;	// icache.scala:44:24
-  reg                 cache_4_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_5_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_5_0_data;	// icache.scala:44:24
-  reg                 cache_5_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_6_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_6_0_data;	// icache.scala:44:24
-  reg                 cache_6_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_7_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_7_0_data;	// icache.scala:44:24
-  reg                 cache_7_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_8_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_8_0_data;	// icache.scala:44:24
-  reg                 cache_8_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_9_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_9_0_data;	// icache.scala:44:24
-  reg                 cache_9_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_10_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_10_0_data;	// icache.scala:44:24
-  reg                 cache_10_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_11_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_11_0_data;	// icache.scala:44:24
-  reg                 cache_11_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_12_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_12_0_data;	// icache.scala:44:24
-  reg                 cache_12_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_13_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_13_0_data;	// icache.scala:44:24
-  reg                 cache_13_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_14_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_14_0_data;	// icache.scala:44:24
-  reg                 cache_14_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_15_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_15_0_data;	// icache.scala:44:24
-  reg                 cache_15_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_16_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_16_0_data;	// icache.scala:44:24
-  reg                 cache_16_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_17_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_17_0_data;	// icache.scala:44:24
-  reg                 cache_17_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_18_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_18_0_data;	// icache.scala:44:24
-  reg                 cache_18_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_19_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_19_0_data;	// icache.scala:44:24
-  reg                 cache_19_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_20_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_20_0_data;	// icache.scala:44:24
-  reg                 cache_20_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_21_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_21_0_data;	// icache.scala:44:24
-  reg                 cache_21_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_22_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_22_0_data;	// icache.scala:44:24
-  reg                 cache_22_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_23_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_23_0_data;	// icache.scala:44:24
-  reg                 cache_23_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_24_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_24_0_data;	// icache.scala:44:24
-  reg                 cache_24_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_25_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_25_0_data;	// icache.scala:44:24
-  reg                 cache_25_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_26_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_26_0_data;	// icache.scala:44:24
-  reg                 cache_26_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_27_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_27_0_data;	// icache.scala:44:24
-  reg                 cache_27_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_28_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_28_0_data;	// icache.scala:44:24
-  reg                 cache_28_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_29_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_29_0_data;	// icache.scala:44:24
-  reg                 cache_29_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_30_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_30_0_data;	// icache.scala:44:24
-  reg                 cache_30_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_31_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_31_0_data;	// icache.scala:44:24
-  reg                 cache_31_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_32_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_32_0_data;	// icache.scala:44:24
-  reg                 cache_32_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_33_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_33_0_data;	// icache.scala:44:24
-  reg                 cache_33_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_34_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_34_0_data;	// icache.scala:44:24
-  reg                 cache_34_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_35_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_35_0_data;	// icache.scala:44:24
-  reg                 cache_35_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_36_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_36_0_data;	// icache.scala:44:24
-  reg                 cache_36_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_37_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_37_0_data;	// icache.scala:44:24
-  reg                 cache_37_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_38_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_38_0_data;	// icache.scala:44:24
-  reg                 cache_38_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_39_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_39_0_data;	// icache.scala:44:24
-  reg                 cache_39_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_40_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_40_0_data;	// icache.scala:44:24
-  reg                 cache_40_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_41_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_41_0_data;	// icache.scala:44:24
-  reg                 cache_41_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_42_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_42_0_data;	// icache.scala:44:24
-  reg                 cache_42_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_43_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_43_0_data;	// icache.scala:44:24
-  reg                 cache_43_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_44_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_44_0_data;	// icache.scala:44:24
-  reg                 cache_44_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_45_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_45_0_data;	// icache.scala:44:24
-  reg                 cache_45_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_46_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_46_0_data;	// icache.scala:44:24
-  reg                 cache_46_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_47_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_47_0_data;	// icache.scala:44:24
-  reg                 cache_47_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_48_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_48_0_data;	// icache.scala:44:24
-  reg                 cache_48_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_49_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_49_0_data;	// icache.scala:44:24
-  reg                 cache_49_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_50_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_50_0_data;	// icache.scala:44:24
-  reg                 cache_50_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_51_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_51_0_data;	// icache.scala:44:24
-  reg                 cache_51_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_52_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_52_0_data;	// icache.scala:44:24
-  reg                 cache_52_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_53_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_53_0_data;	// icache.scala:44:24
-  reg                 cache_53_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_54_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_54_0_data;	// icache.scala:44:24
-  reg                 cache_54_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_55_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_55_0_data;	// icache.scala:44:24
-  reg                 cache_55_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_56_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_56_0_data;	// icache.scala:44:24
-  reg                 cache_56_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_57_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_57_0_data;	// icache.scala:44:24
-  reg                 cache_57_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_58_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_58_0_data;	// icache.scala:44:24
-  reg                 cache_58_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_59_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_59_0_data;	// icache.scala:44:24
-  reg                 cache_59_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_60_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_60_0_data;	// icache.scala:44:24
-  reg                 cache_60_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_61_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_61_0_data;	// icache.scala:44:24
-  reg                 cache_61_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_62_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_62_0_data;	// icache.scala:44:24
-  reg                 cache_62_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_63_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_63_0_data;	// icache.scala:44:24
-  reg                 cache_63_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_64_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_64_0_data;	// icache.scala:44:24
-  reg                 cache_64_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_65_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_65_0_data;	// icache.scala:44:24
-  reg                 cache_65_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_66_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_66_0_data;	// icache.scala:44:24
-  reg                 cache_66_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_67_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_67_0_data;	// icache.scala:44:24
-  reg                 cache_67_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_68_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_68_0_data;	// icache.scala:44:24
-  reg                 cache_68_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_69_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_69_0_data;	// icache.scala:44:24
-  reg                 cache_69_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_70_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_70_0_data;	// icache.scala:44:24
-  reg                 cache_70_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_71_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_71_0_data;	// icache.scala:44:24
-  reg                 cache_71_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_72_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_72_0_data;	// icache.scala:44:24
-  reg                 cache_72_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_73_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_73_0_data;	// icache.scala:44:24
-  reg                 cache_73_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_74_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_74_0_data;	// icache.scala:44:24
-  reg                 cache_74_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_75_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_75_0_data;	// icache.scala:44:24
-  reg                 cache_75_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_76_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_76_0_data;	// icache.scala:44:24
-  reg                 cache_76_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_77_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_77_0_data;	// icache.scala:44:24
-  reg                 cache_77_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_78_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_78_0_data;	// icache.scala:44:24
-  reg                 cache_78_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_79_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_79_0_data;	// icache.scala:44:24
-  reg                 cache_79_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_80_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_80_0_data;	// icache.scala:44:24
-  reg                 cache_80_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_81_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_81_0_data;	// icache.scala:44:24
-  reg                 cache_81_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_82_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_82_0_data;	// icache.scala:44:24
-  reg                 cache_82_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_83_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_83_0_data;	// icache.scala:44:24
-  reg                 cache_83_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_84_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_84_0_data;	// icache.scala:44:24
-  reg                 cache_84_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_85_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_85_0_data;	// icache.scala:44:24
-  reg                 cache_85_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_86_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_86_0_data;	// icache.scala:44:24
-  reg                 cache_86_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_87_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_87_0_data;	// icache.scala:44:24
-  reg                 cache_87_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_88_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_88_0_data;	// icache.scala:44:24
-  reg                 cache_88_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_89_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_89_0_data;	// icache.scala:44:24
-  reg                 cache_89_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_90_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_90_0_data;	// icache.scala:44:24
-  reg                 cache_90_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_91_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_91_0_data;	// icache.scala:44:24
-  reg                 cache_91_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_92_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_92_0_data;	// icache.scala:44:24
-  reg                 cache_92_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_93_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_93_0_data;	// icache.scala:44:24
-  reg                 cache_93_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_94_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_94_0_data;	// icache.scala:44:24
-  reg                 cache_94_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_95_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_95_0_data;	// icache.scala:44:24
-  reg                 cache_95_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_96_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_96_0_data;	// icache.scala:44:24
-  reg                 cache_96_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_97_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_97_0_data;	// icache.scala:44:24
-  reg                 cache_97_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_98_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_98_0_data;	// icache.scala:44:24
-  reg                 cache_98_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_99_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_99_0_data;	// icache.scala:44:24
-  reg                 cache_99_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_100_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_100_0_data;	// icache.scala:44:24
-  reg                 cache_100_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_101_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_101_0_data;	// icache.scala:44:24
-  reg                 cache_101_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_102_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_102_0_data;	// icache.scala:44:24
-  reg                 cache_102_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_103_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_103_0_data;	// icache.scala:44:24
-  reg                 cache_103_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_104_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_104_0_data;	// icache.scala:44:24
-  reg                 cache_104_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_105_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_105_0_data;	// icache.scala:44:24
-  reg                 cache_105_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_106_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_106_0_data;	// icache.scala:44:24
-  reg                 cache_106_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_107_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_107_0_data;	// icache.scala:44:24
-  reg                 cache_107_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_108_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_108_0_data;	// icache.scala:44:24
-  reg                 cache_108_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_109_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_109_0_data;	// icache.scala:44:24
-  reg                 cache_109_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_110_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_110_0_data;	// icache.scala:44:24
-  reg                 cache_110_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_111_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_111_0_data;	// icache.scala:44:24
-  reg                 cache_111_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_112_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_112_0_data;	// icache.scala:44:24
-  reg                 cache_112_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_113_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_113_0_data;	// icache.scala:44:24
-  reg                 cache_113_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_114_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_114_0_data;	// icache.scala:44:24
-  reg                 cache_114_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_115_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_115_0_data;	// icache.scala:44:24
-  reg                 cache_115_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_116_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_116_0_data;	// icache.scala:44:24
-  reg                 cache_116_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_117_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_117_0_data;	// icache.scala:44:24
-  reg                 cache_117_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_118_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_118_0_data;	// icache.scala:44:24
-  reg                 cache_118_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_119_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_119_0_data;	// icache.scala:44:24
-  reg                 cache_119_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_120_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_120_0_data;	// icache.scala:44:24
-  reg                 cache_120_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_121_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_121_0_data;	// icache.scala:44:24
-  reg                 cache_121_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_122_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_122_0_data;	// icache.scala:44:24
-  reg                 cache_122_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_123_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_123_0_data;	// icache.scala:44:24
-  reg                 cache_123_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_124_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_124_0_data;	// icache.scala:44:24
-  reg                 cache_124_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_125_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_125_0_data;	// icache.scala:44:24
-  reg                 cache_125_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_126_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_126_0_data;	// icache.scala:44:24
-  reg                 cache_126_0_valid;	// icache.scala:44:24
-  reg  [20:0]         cache_127_0_tag;	// icache.scala:44:24
-  reg  [127:0]        cache_127_0_data;	// icache.scala:44:24
-  reg                 cache_127_0_valid;	// icache.scala:44:24
-  reg  [63:0]         req_addr;	// icache.scala:52:28
-  reg                 req_valid;	// icache.scala:53:28
-  reg  [2:0]          state;	// icache.scala:60:34
-  reg  [127:0]        lineBuf;	// icache.scala:61:34
-  wire                _T = state == 3'h0;	// icache.scala:60:34, :86:18
-  wire                _T_1 = state == 3'h1;	// icache.scala:60:34, :86:18, :89:29
+  reg  [31:0]         cache_miss_cnt;	// icache.scala:39:33
+  reg  [20:0]         cache_0_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_0_0_data;	// icache.scala:47:24
+  reg                 cache_0_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_1_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_1_0_data;	// icache.scala:47:24
+  reg                 cache_1_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_2_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_2_0_data;	// icache.scala:47:24
+  reg                 cache_2_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_3_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_3_0_data;	// icache.scala:47:24
+  reg                 cache_3_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_4_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_4_0_data;	// icache.scala:47:24
+  reg                 cache_4_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_5_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_5_0_data;	// icache.scala:47:24
+  reg                 cache_5_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_6_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_6_0_data;	// icache.scala:47:24
+  reg                 cache_6_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_7_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_7_0_data;	// icache.scala:47:24
+  reg                 cache_7_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_8_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_8_0_data;	// icache.scala:47:24
+  reg                 cache_8_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_9_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_9_0_data;	// icache.scala:47:24
+  reg                 cache_9_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_10_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_10_0_data;	// icache.scala:47:24
+  reg                 cache_10_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_11_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_11_0_data;	// icache.scala:47:24
+  reg                 cache_11_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_12_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_12_0_data;	// icache.scala:47:24
+  reg                 cache_12_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_13_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_13_0_data;	// icache.scala:47:24
+  reg                 cache_13_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_14_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_14_0_data;	// icache.scala:47:24
+  reg                 cache_14_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_15_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_15_0_data;	// icache.scala:47:24
+  reg                 cache_15_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_16_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_16_0_data;	// icache.scala:47:24
+  reg                 cache_16_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_17_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_17_0_data;	// icache.scala:47:24
+  reg                 cache_17_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_18_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_18_0_data;	// icache.scala:47:24
+  reg                 cache_18_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_19_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_19_0_data;	// icache.scala:47:24
+  reg                 cache_19_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_20_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_20_0_data;	// icache.scala:47:24
+  reg                 cache_20_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_21_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_21_0_data;	// icache.scala:47:24
+  reg                 cache_21_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_22_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_22_0_data;	// icache.scala:47:24
+  reg                 cache_22_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_23_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_23_0_data;	// icache.scala:47:24
+  reg                 cache_23_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_24_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_24_0_data;	// icache.scala:47:24
+  reg                 cache_24_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_25_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_25_0_data;	// icache.scala:47:24
+  reg                 cache_25_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_26_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_26_0_data;	// icache.scala:47:24
+  reg                 cache_26_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_27_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_27_0_data;	// icache.scala:47:24
+  reg                 cache_27_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_28_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_28_0_data;	// icache.scala:47:24
+  reg                 cache_28_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_29_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_29_0_data;	// icache.scala:47:24
+  reg                 cache_29_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_30_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_30_0_data;	// icache.scala:47:24
+  reg                 cache_30_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_31_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_31_0_data;	// icache.scala:47:24
+  reg                 cache_31_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_32_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_32_0_data;	// icache.scala:47:24
+  reg                 cache_32_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_33_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_33_0_data;	// icache.scala:47:24
+  reg                 cache_33_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_34_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_34_0_data;	// icache.scala:47:24
+  reg                 cache_34_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_35_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_35_0_data;	// icache.scala:47:24
+  reg                 cache_35_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_36_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_36_0_data;	// icache.scala:47:24
+  reg                 cache_36_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_37_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_37_0_data;	// icache.scala:47:24
+  reg                 cache_37_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_38_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_38_0_data;	// icache.scala:47:24
+  reg                 cache_38_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_39_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_39_0_data;	// icache.scala:47:24
+  reg                 cache_39_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_40_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_40_0_data;	// icache.scala:47:24
+  reg                 cache_40_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_41_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_41_0_data;	// icache.scala:47:24
+  reg                 cache_41_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_42_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_42_0_data;	// icache.scala:47:24
+  reg                 cache_42_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_43_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_43_0_data;	// icache.scala:47:24
+  reg                 cache_43_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_44_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_44_0_data;	// icache.scala:47:24
+  reg                 cache_44_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_45_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_45_0_data;	// icache.scala:47:24
+  reg                 cache_45_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_46_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_46_0_data;	// icache.scala:47:24
+  reg                 cache_46_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_47_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_47_0_data;	// icache.scala:47:24
+  reg                 cache_47_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_48_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_48_0_data;	// icache.scala:47:24
+  reg                 cache_48_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_49_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_49_0_data;	// icache.scala:47:24
+  reg                 cache_49_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_50_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_50_0_data;	// icache.scala:47:24
+  reg                 cache_50_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_51_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_51_0_data;	// icache.scala:47:24
+  reg                 cache_51_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_52_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_52_0_data;	// icache.scala:47:24
+  reg                 cache_52_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_53_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_53_0_data;	// icache.scala:47:24
+  reg                 cache_53_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_54_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_54_0_data;	// icache.scala:47:24
+  reg                 cache_54_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_55_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_55_0_data;	// icache.scala:47:24
+  reg                 cache_55_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_56_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_56_0_data;	// icache.scala:47:24
+  reg                 cache_56_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_57_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_57_0_data;	// icache.scala:47:24
+  reg                 cache_57_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_58_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_58_0_data;	// icache.scala:47:24
+  reg                 cache_58_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_59_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_59_0_data;	// icache.scala:47:24
+  reg                 cache_59_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_60_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_60_0_data;	// icache.scala:47:24
+  reg                 cache_60_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_61_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_61_0_data;	// icache.scala:47:24
+  reg                 cache_61_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_62_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_62_0_data;	// icache.scala:47:24
+  reg                 cache_62_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_63_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_63_0_data;	// icache.scala:47:24
+  reg                 cache_63_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_64_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_64_0_data;	// icache.scala:47:24
+  reg                 cache_64_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_65_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_65_0_data;	// icache.scala:47:24
+  reg                 cache_65_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_66_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_66_0_data;	// icache.scala:47:24
+  reg                 cache_66_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_67_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_67_0_data;	// icache.scala:47:24
+  reg                 cache_67_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_68_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_68_0_data;	// icache.scala:47:24
+  reg                 cache_68_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_69_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_69_0_data;	// icache.scala:47:24
+  reg                 cache_69_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_70_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_70_0_data;	// icache.scala:47:24
+  reg                 cache_70_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_71_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_71_0_data;	// icache.scala:47:24
+  reg                 cache_71_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_72_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_72_0_data;	// icache.scala:47:24
+  reg                 cache_72_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_73_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_73_0_data;	// icache.scala:47:24
+  reg                 cache_73_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_74_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_74_0_data;	// icache.scala:47:24
+  reg                 cache_74_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_75_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_75_0_data;	// icache.scala:47:24
+  reg                 cache_75_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_76_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_76_0_data;	// icache.scala:47:24
+  reg                 cache_76_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_77_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_77_0_data;	// icache.scala:47:24
+  reg                 cache_77_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_78_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_78_0_data;	// icache.scala:47:24
+  reg                 cache_78_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_79_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_79_0_data;	// icache.scala:47:24
+  reg                 cache_79_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_80_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_80_0_data;	// icache.scala:47:24
+  reg                 cache_80_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_81_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_81_0_data;	// icache.scala:47:24
+  reg                 cache_81_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_82_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_82_0_data;	// icache.scala:47:24
+  reg                 cache_82_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_83_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_83_0_data;	// icache.scala:47:24
+  reg                 cache_83_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_84_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_84_0_data;	// icache.scala:47:24
+  reg                 cache_84_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_85_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_85_0_data;	// icache.scala:47:24
+  reg                 cache_85_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_86_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_86_0_data;	// icache.scala:47:24
+  reg                 cache_86_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_87_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_87_0_data;	// icache.scala:47:24
+  reg                 cache_87_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_88_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_88_0_data;	// icache.scala:47:24
+  reg                 cache_88_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_89_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_89_0_data;	// icache.scala:47:24
+  reg                 cache_89_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_90_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_90_0_data;	// icache.scala:47:24
+  reg                 cache_90_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_91_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_91_0_data;	// icache.scala:47:24
+  reg                 cache_91_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_92_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_92_0_data;	// icache.scala:47:24
+  reg                 cache_92_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_93_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_93_0_data;	// icache.scala:47:24
+  reg                 cache_93_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_94_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_94_0_data;	// icache.scala:47:24
+  reg                 cache_94_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_95_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_95_0_data;	// icache.scala:47:24
+  reg                 cache_95_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_96_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_96_0_data;	// icache.scala:47:24
+  reg                 cache_96_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_97_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_97_0_data;	// icache.scala:47:24
+  reg                 cache_97_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_98_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_98_0_data;	// icache.scala:47:24
+  reg                 cache_98_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_99_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_99_0_data;	// icache.scala:47:24
+  reg                 cache_99_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_100_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_100_0_data;	// icache.scala:47:24
+  reg                 cache_100_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_101_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_101_0_data;	// icache.scala:47:24
+  reg                 cache_101_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_102_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_102_0_data;	// icache.scala:47:24
+  reg                 cache_102_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_103_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_103_0_data;	// icache.scala:47:24
+  reg                 cache_103_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_104_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_104_0_data;	// icache.scala:47:24
+  reg                 cache_104_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_105_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_105_0_data;	// icache.scala:47:24
+  reg                 cache_105_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_106_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_106_0_data;	// icache.scala:47:24
+  reg                 cache_106_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_107_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_107_0_data;	// icache.scala:47:24
+  reg                 cache_107_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_108_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_108_0_data;	// icache.scala:47:24
+  reg                 cache_108_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_109_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_109_0_data;	// icache.scala:47:24
+  reg                 cache_109_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_110_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_110_0_data;	// icache.scala:47:24
+  reg                 cache_110_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_111_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_111_0_data;	// icache.scala:47:24
+  reg                 cache_111_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_112_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_112_0_data;	// icache.scala:47:24
+  reg                 cache_112_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_113_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_113_0_data;	// icache.scala:47:24
+  reg                 cache_113_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_114_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_114_0_data;	// icache.scala:47:24
+  reg                 cache_114_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_115_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_115_0_data;	// icache.scala:47:24
+  reg                 cache_115_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_116_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_116_0_data;	// icache.scala:47:24
+  reg                 cache_116_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_117_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_117_0_data;	// icache.scala:47:24
+  reg                 cache_117_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_118_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_118_0_data;	// icache.scala:47:24
+  reg                 cache_118_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_119_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_119_0_data;	// icache.scala:47:24
+  reg                 cache_119_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_120_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_120_0_data;	// icache.scala:47:24
+  reg                 cache_120_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_121_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_121_0_data;	// icache.scala:47:24
+  reg                 cache_121_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_122_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_122_0_data;	// icache.scala:47:24
+  reg                 cache_122_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_123_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_123_0_data;	// icache.scala:47:24
+  reg                 cache_123_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_124_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_124_0_data;	// icache.scala:47:24
+  reg                 cache_124_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_125_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_125_0_data;	// icache.scala:47:24
+  reg                 cache_125_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_126_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_126_0_data;	// icache.scala:47:24
+  reg                 cache_126_0_valid;	// icache.scala:47:24
+  reg  [20:0]         cache_127_0_tag;	// icache.scala:47:24
+  reg  [127:0]        cache_127_0_data;	// icache.scala:47:24
+  reg                 cache_127_0_valid;	// icache.scala:47:24
+  reg  [63:0]         req_addr;	// icache.scala:55:28
+  reg                 req_valid;	// icache.scala:56:28
+  reg  [2:0]          state;	// icache.scala:63:34
+  reg  [127:0]        lineBuf;	// icache.scala:64:34
+  wire                _T = state == 3'h0;	// icache.scala:63:34, :89:18
+  wire                _T_1 = state == 3'h1;	// icache.scala:63:34, :89:18, :92:29
   wire [127:0][20:0]  _GEN_0 = {{cache_127_0_tag}, {cache_126_0_tag}, {cache_125_0_tag}, {cache_124_0_tag},
                 {cache_123_0_tag}, {cache_122_0_tag}, {cache_121_0_tag}, {cache_120_0_tag},
                 {cache_119_0_tag}, {cache_118_0_tag}, {cache_117_0_tag}, {cache_116_0_tag},
@@ -8580,11 +8582,11 @@ module ICache(	// <stdin>:1182:10
                 {cache_19_0_tag}, {cache_18_0_tag}, {cache_17_0_tag}, {cache_16_0_tag}, {cache_15_0_tag},
                 {cache_14_0_tag}, {cache_13_0_tag}, {cache_12_0_tag}, {cache_11_0_tag}, {cache_10_0_tag},
                 {cache_9_0_tag}, {cache_8_0_tag}, {cache_7_0_tag}, {cache_6_0_tag}, {cache_5_0_tag},
-                {cache_4_0_tag}, {cache_3_0_tag}, {cache_2_0_tag}, {cache_1_0_tag}, {cache_0_0_tag}};	// icache.scala:44:24, :97:40
-  wire [20:0]         _GEN_1;	// icache.scala:97:40
-  wire [20:0]         _GEN_2 = _GEN_0[req_addr[10:4]] /* cadence map_to_mux */;	// icache.scala:52:28, :56:29, :97:40
+                {cache_4_0_tag}, {cache_3_0_tag}, {cache_2_0_tag}, {cache_1_0_tag}, {cache_0_0_tag}};	// icache.scala:47:24, :100:40
+  wire [20:0]         _GEN_1;	// icache.scala:100:40
+  wire [20:0]         _GEN_2 = _GEN_0[req_addr[10:4]] /* cadence map_to_mux */;	// icache.scala:55:28, :59:29, :100:40
   /* synopsys infer_mux_override */
-  assign _GEN_1 = _GEN_2;	// icache.scala:97:40
+  assign _GEN_1 = _GEN_2;	// icache.scala:100:40
   wire [127:0][127:0] _GEN_3 = {{cache_127_0_data}, {cache_126_0_data}, {cache_125_0_data}, {cache_124_0_data},
                 {cache_123_0_data}, {cache_122_0_data}, {cache_121_0_data}, {cache_120_0_data},
                 {cache_119_0_data}, {cache_118_0_data}, {cache_117_0_data}, {cache_116_0_data},
@@ -8616,10 +8618,10 @@ module ICache(	// <stdin>:1182:10
                 {cache_15_0_data}, {cache_14_0_data}, {cache_13_0_data}, {cache_12_0_data},
                 {cache_11_0_data}, {cache_10_0_data}, {cache_9_0_data}, {cache_8_0_data}, {cache_7_0_data},
                 {cache_6_0_data}, {cache_5_0_data}, {cache_4_0_data}, {cache_3_0_data}, {cache_2_0_data},
-                {cache_1_0_data}, {cache_0_0_data}};	// icache.scala:44:24, :97:40
-  wire [127:0]        _GEN_4;	// icache.scala:97:40
+                {cache_1_0_data}, {cache_0_0_data}};	// icache.scala:47:24, :100:40
+  wire [127:0]        _GEN_4;	// icache.scala:100:40
   /* synopsys infer_mux_override */
-  assign _GEN_4 = _GEN_3[req_addr[10:4]] /* cadence map_to_mux */;	// icache.scala:52:28, :56:29, :97:40
+  assign _GEN_4 = _GEN_3[req_addr[10:4]] /* cadence map_to_mux */;	// icache.scala:55:28, :59:29, :100:40
   wire [127:0]        _GEN_5 = {{cache_127_0_valid}, {cache_126_0_valid}, {cache_125_0_valid}, {cache_124_0_valid},
                 {cache_123_0_valid}, {cache_122_0_valid}, {cache_121_0_valid}, {cache_120_0_valid},
                 {cache_119_0_valid}, {cache_118_0_valid}, {cache_117_0_valid}, {cache_116_0_valid},
@@ -8651,1588 +8653,1593 @@ module ICache(	// <stdin>:1182:10
                 {cache_15_0_valid}, {cache_14_0_valid}, {cache_13_0_valid}, {cache_12_0_valid},
                 {cache_11_0_valid}, {cache_10_0_valid}, {cache_9_0_valid}, {cache_8_0_valid},
                 {cache_7_0_valid}, {cache_6_0_valid}, {cache_5_0_valid}, {cache_4_0_valid},
-                {cache_3_0_valid}, {cache_2_0_valid}, {cache_1_0_valid}, {cache_0_0_valid}};	// icache.scala:44:24, :97:40
-  wire                _GEN_6;	// icache.scala:97:40
-  wire                _GEN_7 = _GEN_5[req_addr[10:4]] /* cadence map_to_mux */;	// icache.scala:52:28, :56:29, :97:40
+                {cache_3_0_valid}, {cache_2_0_valid}, {cache_1_0_valid}, {cache_0_0_valid}};	// icache.scala:47:24, :100:40
+  wire                _GEN_6;	// icache.scala:100:40
+  wire                _GEN_7 = _GEN_5[req_addr[10:4]] /* cadence map_to_mux */;	// icache.scala:55:28, :59:29, :100:40
   /* synopsys infer_mux_override */
-  assign _GEN_6 = _GEN_7;	// icache.scala:97:40
-  wire                _T_3 = _GEN_1 == req_addr[31:11] & _GEN_6;	// icache.scala:52:28, :57:29, :97:{40,48}
-  assign _GEN = ~_T & _T_1 & _T_3;	// icache.scala:72:21, :86:18, :97:48
-  wire                _T_9 = state == 3'h2;	// icache.scala:60:34, :86:18, :109:33
-  wire                _T_11 = ~io_axi_arready | io_axi_busy;	// icache.scala:123:{18,34}
-  wire [31:0]         _GEN_8 = {req_addr[31:4], 4'h0};	// icache.scala:52:28, :100:35, :128:33
-  wire                _T_12 = state == 3'h3;	// icache.scala:60:34, :86:18, :129:33
-  wire [20:0]         _GEN_9;	// icache.scala:147:22
+  assign _GEN_6 = _GEN_7;	// icache.scala:100:40
+  wire                _T_3 = _GEN_1 == req_addr[31:11] & _GEN_6;	// icache.scala:55:28, :60:29, :100:{40,48}
+  assign _GEN = ~_T & _T_1 & _T_3;	// icache.scala:74:21, :89:18, :100:48
+  wire                _T_9 = state == 3'h2;	// icache.scala:63:34, :89:18, :112:33
+  wire                _T_11 = ~io_axi_arready | io_axi_busy;	// icache.scala:126:{18,34}
+  wire [31:0]         _GEN_8 = {req_addr[31:4], 4'h0};	// icache.scala:55:28, :103:35, :131:33
+  wire                _T_12 = state == 3'h3;	// icache.scala:63:34, :89:18, :132:33
+  wire [20:0]         _GEN_9;	// icache.scala:150:22
   /* synopsys infer_mux_override */
-  assign _GEN_9 = _GEN_2;	// icache.scala:97:40, :147:22
-  wire                _GEN_10;	// icache.scala:147:22
+  assign _GEN_9 = _GEN_2;	// icache.scala:100:40, :150:22
+  wire                _GEN_10;	// icache.scala:150:22
   /* synopsys infer_mux_override */
-  assign _GEN_10 = _GEN_7;	// icache.scala:97:40, :147:22
+  assign _GEN_10 = _GEN_7;	// icache.scala:100:40, :150:22
   always @(posedge clock) begin
     if (reset) begin
-      cache_0_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_0_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_0_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_1_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_1_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_1_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_2_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_2_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_2_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_3_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_3_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_3_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_4_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_4_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_4_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_5_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_5_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_5_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_6_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_6_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_6_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_7_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_7_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_7_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_8_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_8_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_8_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_9_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_9_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_9_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_10_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_10_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_10_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_11_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_11_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_11_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_12_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_12_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_12_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_13_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_13_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_13_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_14_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_14_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_14_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_15_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_15_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_15_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_16_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_16_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_16_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_17_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_17_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_17_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_18_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_18_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_18_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_19_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_19_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_19_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_20_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_20_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_20_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_21_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_21_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_21_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_22_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_22_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_22_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_23_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_23_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_23_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_24_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_24_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_24_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_25_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_25_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_25_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_26_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_26_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_26_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_27_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_27_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_27_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_28_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_28_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_28_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_29_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_29_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_29_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_30_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_30_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_30_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_31_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_31_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_31_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_32_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_32_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_32_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_33_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_33_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_33_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_34_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_34_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_34_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_35_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_35_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_35_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_36_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_36_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_36_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_37_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_37_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_37_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_38_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_38_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_38_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_39_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_39_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_39_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_40_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_40_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_40_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_41_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_41_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_41_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_42_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_42_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_42_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_43_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_43_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_43_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_44_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_44_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_44_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_45_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_45_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_45_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_46_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_46_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_46_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_47_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_47_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_47_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_48_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_48_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_48_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_49_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_49_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_49_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_50_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_50_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_50_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_51_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_51_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_51_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_52_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_52_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_52_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_53_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_53_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_53_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_54_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_54_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_54_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_55_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_55_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_55_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_56_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_56_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_56_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_57_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_57_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_57_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_58_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_58_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_58_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_59_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_59_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_59_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_60_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_60_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_60_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_61_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_61_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_61_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_62_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_62_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_62_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_63_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_63_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_63_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_64_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_64_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_64_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_65_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_65_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_65_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_66_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_66_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_66_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_67_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_67_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_67_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_68_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_68_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_68_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_69_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_69_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_69_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_70_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_70_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_70_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_71_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_71_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_71_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_72_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_72_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_72_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_73_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_73_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_73_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_74_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_74_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_74_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_75_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_75_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_75_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_76_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_76_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_76_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_77_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_77_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_77_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_78_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_78_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_78_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_79_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_79_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_79_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_80_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_80_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_80_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_81_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_81_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_81_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_82_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_82_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_82_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_83_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_83_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_83_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_84_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_84_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_84_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_85_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_85_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_85_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_86_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_86_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_86_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_87_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_87_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_87_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_88_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_88_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_88_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_89_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_89_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_89_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_90_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_90_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_90_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_91_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_91_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_91_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_92_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_92_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_92_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_93_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_93_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_93_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_94_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_94_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_94_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_95_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_95_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_95_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_96_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_96_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_96_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_97_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_97_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_97_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_98_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_98_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_98_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_99_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_99_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_99_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_100_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_100_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_100_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_101_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_101_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_101_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_102_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_102_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_102_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_103_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_103_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_103_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_104_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_104_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_104_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_105_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_105_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_105_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_106_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_106_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_106_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_107_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_107_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_107_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_108_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_108_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_108_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_109_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_109_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_109_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_110_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_110_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_110_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_111_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_111_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_111_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_112_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_112_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_112_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_113_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_113_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_113_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_114_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_114_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_114_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_115_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_115_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_115_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_116_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_116_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_116_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_117_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_117_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_117_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_118_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_118_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_118_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_119_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_119_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_119_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_120_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_120_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_120_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_121_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_121_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_121_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_122_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_122_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_122_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_123_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_123_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_123_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_124_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_124_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_124_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_125_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_125_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_125_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_126_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_126_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_126_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      cache_127_0_tag <= 21'h0;	// icache.scala:41:21, :44:24
-      cache_127_0_data <= 128'h0;	// icache.scala:44:24, :61:34
-      cache_127_0_valid <= 1'h0;	// icache.scala:41:21, :44:24
-      req_addr <= 64'h0;	// icache.scala:52:28
-      req_valid <= 1'h0;	// icache.scala:41:21, :53:28
-      state <= 3'h0;	// icache.scala:60:34
-      lineBuf <= 128'h0;	// icache.scala:61:34
+      cache_miss_cnt <= 32'h0;	// icache.scala:39:33
+      cache_0_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_0_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_0_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_1_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_1_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_1_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_2_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_2_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_2_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_3_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_3_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_3_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_4_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_4_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_4_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_5_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_5_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_5_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_6_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_6_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_6_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_7_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_7_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_7_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_8_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_8_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_8_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_9_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_9_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_9_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_10_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_10_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_10_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_11_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_11_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_11_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_12_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_12_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_12_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_13_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_13_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_13_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_14_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_14_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_14_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_15_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_15_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_15_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_16_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_16_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_16_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_17_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_17_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_17_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_18_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_18_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_18_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_19_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_19_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_19_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_20_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_20_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_20_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_21_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_21_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_21_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_22_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_22_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_22_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_23_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_23_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_23_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_24_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_24_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_24_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_25_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_25_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_25_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_26_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_26_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_26_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_27_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_27_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_27_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_28_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_28_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_28_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_29_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_29_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_29_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_30_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_30_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_30_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_31_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_31_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_31_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_32_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_32_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_32_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_33_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_33_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_33_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_34_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_34_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_34_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_35_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_35_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_35_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_36_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_36_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_36_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_37_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_37_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_37_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_38_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_38_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_38_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_39_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_39_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_39_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_40_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_40_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_40_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_41_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_41_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_41_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_42_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_42_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_42_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_43_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_43_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_43_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_44_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_44_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_44_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_45_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_45_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_45_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_46_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_46_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_46_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_47_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_47_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_47_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_48_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_48_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_48_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_49_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_49_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_49_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_50_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_50_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_50_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_51_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_51_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_51_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_52_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_52_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_52_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_53_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_53_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_53_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_54_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_54_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_54_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_55_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_55_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_55_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_56_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_56_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_56_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_57_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_57_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_57_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_58_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_58_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_58_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_59_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_59_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_59_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_60_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_60_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_60_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_61_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_61_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_61_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_62_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_62_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_62_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_63_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_63_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_63_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_64_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_64_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_64_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_65_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_65_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_65_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_66_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_66_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_66_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_67_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_67_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_67_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_68_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_68_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_68_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_69_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_69_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_69_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_70_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_70_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_70_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_71_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_71_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_71_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_72_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_72_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_72_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_73_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_73_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_73_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_74_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_74_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_74_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_75_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_75_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_75_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_76_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_76_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_76_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_77_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_77_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_77_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_78_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_78_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_78_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_79_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_79_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_79_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_80_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_80_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_80_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_81_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_81_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_81_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_82_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_82_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_82_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_83_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_83_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_83_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_84_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_84_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_84_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_85_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_85_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_85_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_86_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_86_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_86_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_87_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_87_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_87_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_88_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_88_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_88_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_89_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_89_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_89_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_90_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_90_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_90_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_91_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_91_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_91_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_92_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_92_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_92_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_93_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_93_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_93_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_94_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_94_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_94_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_95_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_95_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_95_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_96_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_96_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_96_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_97_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_97_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_97_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_98_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_98_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_98_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_99_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_99_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_99_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_100_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_100_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_100_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_101_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_101_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_101_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_102_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_102_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_102_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_103_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_103_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_103_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_104_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_104_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_104_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_105_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_105_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_105_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_106_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_106_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_106_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_107_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_107_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_107_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_108_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_108_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_108_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_109_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_109_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_109_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_110_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_110_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_110_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_111_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_111_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_111_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_112_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_112_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_112_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_113_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_113_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_113_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_114_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_114_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_114_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_115_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_115_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_115_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_116_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_116_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_116_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_117_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_117_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_117_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_118_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_118_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_118_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_119_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_119_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_119_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_120_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_120_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_120_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_121_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_121_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_121_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_122_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_122_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_122_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_123_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_123_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_123_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_124_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_124_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_124_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_125_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_125_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_125_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_126_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_126_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_126_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      cache_127_0_tag <= 21'h0;	// icache.scala:44:21, :47:24
+      cache_127_0_data <= 128'h0;	// icache.scala:47:24, :64:34
+      cache_127_0_valid <= 1'h0;	// icache.scala:44:21, :47:24
+      req_addr <= 64'h0;	// icache.scala:55:28
+      req_valid <= 1'h0;	// icache.scala:44:21, :56:28
+      state <= 3'h0;	// icache.scala:63:34
+      lineBuf <= 128'h0;	// icache.scala:64:34
     end
     else begin
-      automatic logic            _T_13;	// icache.scala:86:18
-      automatic logic            _GEN_11;	// icache.scala:83:25, :86:18
-      automatic logic            _GEN_12;	// icache.scala:161:41
-      automatic logic            _GEN_13;	// icache.scala:161:41
-      automatic logic            _GEN_14;	// icache.scala:161:41
-      automatic logic            _GEN_15;	// icache.scala:161:41
-      automatic logic            _GEN_16;	// icache.scala:161:41
-      automatic logic            _GEN_17;	// icache.scala:161:41
-      automatic logic            _GEN_18;	// icache.scala:161:41
-      automatic logic            _GEN_19;	// icache.scala:161:41
-      automatic logic            _GEN_20;	// icache.scala:161:41
-      automatic logic            _GEN_21;	// icache.scala:161:41
-      automatic logic            _GEN_22;	// icache.scala:161:41
-      automatic logic            _GEN_23;	// icache.scala:161:41
-      automatic logic            _GEN_24;	// icache.scala:161:41
-      automatic logic            _GEN_25;	// icache.scala:161:41
-      automatic logic            _GEN_26;	// icache.scala:161:41
-      automatic logic            _GEN_27;	// icache.scala:161:41
-      automatic logic            _GEN_28;	// icache.scala:161:41
-      automatic logic            _GEN_29;	// icache.scala:161:41
-      automatic logic            _GEN_30;	// icache.scala:161:41
-      automatic logic            _GEN_31;	// icache.scala:161:41
-      automatic logic            _GEN_32;	// icache.scala:161:41
-      automatic logic            _GEN_33;	// icache.scala:161:41
-      automatic logic            _GEN_34;	// icache.scala:161:41
-      automatic logic            _GEN_35;	// icache.scala:161:41
-      automatic logic            _GEN_36;	// icache.scala:161:41
-      automatic logic            _GEN_37;	// icache.scala:161:41
-      automatic logic            _GEN_38;	// icache.scala:161:41
-      automatic logic            _GEN_39;	// icache.scala:161:41
-      automatic logic            _GEN_40;	// icache.scala:161:41
-      automatic logic            _GEN_41;	// icache.scala:161:41
-      automatic logic            _GEN_42;	// icache.scala:161:41
-      automatic logic            _GEN_43;	// icache.scala:161:41
-      automatic logic            _GEN_44;	// icache.scala:161:41
-      automatic logic            _GEN_45;	// icache.scala:161:41
-      automatic logic            _GEN_46;	// icache.scala:161:41
-      automatic logic            _GEN_47;	// icache.scala:161:41
-      automatic logic            _GEN_48;	// icache.scala:161:41
-      automatic logic            _GEN_49;	// icache.scala:161:41
-      automatic logic            _GEN_50;	// icache.scala:161:41
-      automatic logic            _GEN_51;	// icache.scala:161:41
-      automatic logic            _GEN_52;	// icache.scala:161:41
-      automatic logic            _GEN_53;	// icache.scala:161:41
-      automatic logic            _GEN_54;	// icache.scala:161:41
-      automatic logic            _GEN_55;	// icache.scala:161:41
-      automatic logic            _GEN_56;	// icache.scala:161:41
-      automatic logic            _GEN_57;	// icache.scala:161:41
-      automatic logic            _GEN_58;	// icache.scala:161:41
-      automatic logic            _GEN_59;	// icache.scala:161:41
-      automatic logic            _GEN_60;	// icache.scala:161:41
-      automatic logic            _GEN_61;	// icache.scala:161:41
-      automatic logic            _GEN_62;	// icache.scala:161:41
-      automatic logic            _GEN_63;	// icache.scala:161:41
-      automatic logic            _GEN_64;	// icache.scala:161:41
-      automatic logic            _GEN_65;	// icache.scala:161:41
-      automatic logic            _GEN_66;	// icache.scala:161:41
-      automatic logic            _GEN_67;	// icache.scala:161:41
-      automatic logic            _GEN_68;	// icache.scala:161:41
-      automatic logic            _GEN_69;	// icache.scala:161:41
-      automatic logic            _GEN_70;	// icache.scala:161:41
-      automatic logic            _GEN_71;	// icache.scala:161:41
-      automatic logic            _GEN_72;	// icache.scala:161:41
-      automatic logic            _GEN_73;	// icache.scala:161:41
-      automatic logic            _GEN_74;	// icache.scala:161:41
-      automatic logic            _GEN_75;	// icache.scala:161:41
-      automatic logic            _GEN_76;	// icache.scala:161:41
-      automatic logic            _GEN_77;	// icache.scala:161:41
-      automatic logic            _GEN_78;	// icache.scala:161:41
-      automatic logic            _GEN_79;	// icache.scala:161:41
-      automatic logic            _GEN_80;	// icache.scala:161:41
-      automatic logic            _GEN_81;	// icache.scala:161:41
-      automatic logic            _GEN_82;	// icache.scala:161:41
-      automatic logic            _GEN_83;	// icache.scala:161:41
-      automatic logic            _GEN_84;	// icache.scala:161:41
-      automatic logic            _GEN_85;	// icache.scala:161:41
-      automatic logic            _GEN_86;	// icache.scala:161:41
-      automatic logic            _GEN_87;	// icache.scala:161:41
-      automatic logic            _GEN_88;	// icache.scala:161:41
-      automatic logic            _GEN_89;	// icache.scala:161:41
-      automatic logic            _GEN_90;	// icache.scala:161:41
-      automatic logic            _GEN_91;	// icache.scala:161:41
-      automatic logic            _GEN_92;	// icache.scala:161:41
-      automatic logic            _GEN_93;	// icache.scala:161:41
-      automatic logic            _GEN_94;	// icache.scala:161:41
-      automatic logic            _GEN_95;	// icache.scala:161:41
-      automatic logic            _GEN_96;	// icache.scala:161:41
-      automatic logic            _GEN_97;	// icache.scala:161:41
-      automatic logic            _GEN_98;	// icache.scala:161:41
-      automatic logic            _GEN_99;	// icache.scala:161:41
-      automatic logic            _GEN_100;	// icache.scala:161:41
-      automatic logic            _GEN_101;	// icache.scala:161:41
-      automatic logic            _GEN_102;	// icache.scala:161:41
-      automatic logic            _GEN_103;	// icache.scala:161:41
-      automatic logic            _GEN_104;	// icache.scala:161:41
-      automatic logic            _GEN_105;	// icache.scala:161:41
-      automatic logic            _GEN_106;	// icache.scala:161:41
-      automatic logic            _GEN_107;	// icache.scala:161:41
-      automatic logic            _GEN_108;	// icache.scala:161:41
-      automatic logic            _GEN_109;	// icache.scala:161:41
-      automatic logic            _GEN_110;	// icache.scala:161:41
-      automatic logic            _GEN_111;	// icache.scala:161:41
-      automatic logic            _GEN_112;	// icache.scala:161:41
-      automatic logic            _GEN_113;	// icache.scala:161:41
-      automatic logic            _GEN_114;	// icache.scala:161:41
-      automatic logic            _GEN_115;	// icache.scala:161:41
-      automatic logic            _GEN_116;	// icache.scala:161:41
-      automatic logic            _GEN_117;	// icache.scala:161:41
-      automatic logic            _GEN_118;	// icache.scala:161:41
-      automatic logic            _GEN_119;	// icache.scala:161:41
-      automatic logic            _GEN_120;	// icache.scala:161:41
-      automatic logic            _GEN_121;	// icache.scala:161:41
-      automatic logic            _GEN_122;	// icache.scala:161:41
-      automatic logic            _GEN_123;	// icache.scala:161:41
-      automatic logic            _GEN_124;	// icache.scala:161:41
-      automatic logic            _GEN_125;	// icache.scala:161:41
-      automatic logic            _GEN_126;	// icache.scala:161:41
-      automatic logic            _GEN_127;	// icache.scala:161:41
-      automatic logic            _GEN_128;	// icache.scala:161:41
-      automatic logic            _GEN_129;	// icache.scala:161:41
-      automatic logic            _GEN_130;	// icache.scala:161:41
-      automatic logic            _GEN_131;	// icache.scala:161:41
-      automatic logic            _GEN_132;	// icache.scala:161:41
-      automatic logic            _GEN_133;	// icache.scala:161:41
-      automatic logic            _GEN_134;	// icache.scala:161:41
-      automatic logic            _GEN_135;	// icache.scala:161:41
-      automatic logic            _GEN_136;	// icache.scala:161:41
-      automatic logic            _GEN_137;	// icache.scala:161:41
-      automatic logic            _GEN_138;	// icache.scala:161:41
-      automatic logic [7:0][2:0] _GEN_139;	// icache.scala:60:34, :86:18, :88:27, :108:26, :123:48, :137:31, :145:41
-      _T_13 = state == 3'h4;	// icache.scala:60:34, :86:18, :100:35
+      automatic logic            _T_13;	// icache.scala:89:18
+      automatic logic            _GEN_11;	// icache.scala:86:25, :89:18
+      automatic logic            _GEN_12;	// icache.scala:164:41
+      automatic logic            _GEN_13;	// icache.scala:164:41
+      automatic logic            _GEN_14;	// icache.scala:164:41
+      automatic logic            _GEN_15;	// icache.scala:164:41
+      automatic logic            _GEN_16;	// icache.scala:164:41
+      automatic logic            _GEN_17;	// icache.scala:164:41
+      automatic logic            _GEN_18;	// icache.scala:164:41
+      automatic logic            _GEN_19;	// icache.scala:164:41
+      automatic logic            _GEN_20;	// icache.scala:164:41
+      automatic logic            _GEN_21;	// icache.scala:164:41
+      automatic logic            _GEN_22;	// icache.scala:164:41
+      automatic logic            _GEN_23;	// icache.scala:164:41
+      automatic logic            _GEN_24;	// icache.scala:164:41
+      automatic logic            _GEN_25;	// icache.scala:164:41
+      automatic logic            _GEN_26;	// icache.scala:164:41
+      automatic logic            _GEN_27;	// icache.scala:164:41
+      automatic logic            _GEN_28;	// icache.scala:164:41
+      automatic logic            _GEN_29;	// icache.scala:164:41
+      automatic logic            _GEN_30;	// icache.scala:164:41
+      automatic logic            _GEN_31;	// icache.scala:164:41
+      automatic logic            _GEN_32;	// icache.scala:164:41
+      automatic logic            _GEN_33;	// icache.scala:164:41
+      automatic logic            _GEN_34;	// icache.scala:164:41
+      automatic logic            _GEN_35;	// icache.scala:164:41
+      automatic logic            _GEN_36;	// icache.scala:164:41
+      automatic logic            _GEN_37;	// icache.scala:164:41
+      automatic logic            _GEN_38;	// icache.scala:164:41
+      automatic logic            _GEN_39;	// icache.scala:164:41
+      automatic logic            _GEN_40;	// icache.scala:164:41
+      automatic logic            _GEN_41;	// icache.scala:164:41
+      automatic logic            _GEN_42;	// icache.scala:164:41
+      automatic logic            _GEN_43;	// icache.scala:164:41
+      automatic logic            _GEN_44;	// icache.scala:164:41
+      automatic logic            _GEN_45;	// icache.scala:164:41
+      automatic logic            _GEN_46;	// icache.scala:164:41
+      automatic logic            _GEN_47;	// icache.scala:164:41
+      automatic logic            _GEN_48;	// icache.scala:164:41
+      automatic logic            _GEN_49;	// icache.scala:164:41
+      automatic logic            _GEN_50;	// icache.scala:164:41
+      automatic logic            _GEN_51;	// icache.scala:164:41
+      automatic logic            _GEN_52;	// icache.scala:164:41
+      automatic logic            _GEN_53;	// icache.scala:164:41
+      automatic logic            _GEN_54;	// icache.scala:164:41
+      automatic logic            _GEN_55;	// icache.scala:164:41
+      automatic logic            _GEN_56;	// icache.scala:164:41
+      automatic logic            _GEN_57;	// icache.scala:164:41
+      automatic logic            _GEN_58;	// icache.scala:164:41
+      automatic logic            _GEN_59;	// icache.scala:164:41
+      automatic logic            _GEN_60;	// icache.scala:164:41
+      automatic logic            _GEN_61;	// icache.scala:164:41
+      automatic logic            _GEN_62;	// icache.scala:164:41
+      automatic logic            _GEN_63;	// icache.scala:164:41
+      automatic logic            _GEN_64;	// icache.scala:164:41
+      automatic logic            _GEN_65;	// icache.scala:164:41
+      automatic logic            _GEN_66;	// icache.scala:164:41
+      automatic logic            _GEN_67;	// icache.scala:164:41
+      automatic logic            _GEN_68;	// icache.scala:164:41
+      automatic logic            _GEN_69;	// icache.scala:164:41
+      automatic logic            _GEN_70;	// icache.scala:164:41
+      automatic logic            _GEN_71;	// icache.scala:164:41
+      automatic logic            _GEN_72;	// icache.scala:164:41
+      automatic logic            _GEN_73;	// icache.scala:164:41
+      automatic logic            _GEN_74;	// icache.scala:164:41
+      automatic logic            _GEN_75;	// icache.scala:164:41
+      automatic logic            _GEN_76;	// icache.scala:164:41
+      automatic logic            _GEN_77;	// icache.scala:164:41
+      automatic logic            _GEN_78;	// icache.scala:164:41
+      automatic logic            _GEN_79;	// icache.scala:164:41
+      automatic logic            _GEN_80;	// icache.scala:164:41
+      automatic logic            _GEN_81;	// icache.scala:164:41
+      automatic logic            _GEN_82;	// icache.scala:164:41
+      automatic logic            _GEN_83;	// icache.scala:164:41
+      automatic logic            _GEN_84;	// icache.scala:164:41
+      automatic logic            _GEN_85;	// icache.scala:164:41
+      automatic logic            _GEN_86;	// icache.scala:164:41
+      automatic logic            _GEN_87;	// icache.scala:164:41
+      automatic logic            _GEN_88;	// icache.scala:164:41
+      automatic logic            _GEN_89;	// icache.scala:164:41
+      automatic logic            _GEN_90;	// icache.scala:164:41
+      automatic logic            _GEN_91;	// icache.scala:164:41
+      automatic logic            _GEN_92;	// icache.scala:164:41
+      automatic logic            _GEN_93;	// icache.scala:164:41
+      automatic logic            _GEN_94;	// icache.scala:164:41
+      automatic logic            _GEN_95;	// icache.scala:164:41
+      automatic logic            _GEN_96;	// icache.scala:164:41
+      automatic logic            _GEN_97;	// icache.scala:164:41
+      automatic logic            _GEN_98;	// icache.scala:164:41
+      automatic logic            _GEN_99;	// icache.scala:164:41
+      automatic logic            _GEN_100;	// icache.scala:164:41
+      automatic logic            _GEN_101;	// icache.scala:164:41
+      automatic logic            _GEN_102;	// icache.scala:164:41
+      automatic logic            _GEN_103;	// icache.scala:164:41
+      automatic logic            _GEN_104;	// icache.scala:164:41
+      automatic logic            _GEN_105;	// icache.scala:164:41
+      automatic logic            _GEN_106;	// icache.scala:164:41
+      automatic logic            _GEN_107;	// icache.scala:164:41
+      automatic logic            _GEN_108;	// icache.scala:164:41
+      automatic logic            _GEN_109;	// icache.scala:164:41
+      automatic logic            _GEN_110;	// icache.scala:164:41
+      automatic logic            _GEN_111;	// icache.scala:164:41
+      automatic logic            _GEN_112;	// icache.scala:164:41
+      automatic logic            _GEN_113;	// icache.scala:164:41
+      automatic logic            _GEN_114;	// icache.scala:164:41
+      automatic logic            _GEN_115;	// icache.scala:164:41
+      automatic logic            _GEN_116;	// icache.scala:164:41
+      automatic logic            _GEN_117;	// icache.scala:164:41
+      automatic logic            _GEN_118;	// icache.scala:164:41
+      automatic logic            _GEN_119;	// icache.scala:164:41
+      automatic logic            _GEN_120;	// icache.scala:164:41
+      automatic logic            _GEN_121;	// icache.scala:164:41
+      automatic logic            _GEN_122;	// icache.scala:164:41
+      automatic logic            _GEN_123;	// icache.scala:164:41
+      automatic logic            _GEN_124;	// icache.scala:164:41
+      automatic logic            _GEN_125;	// icache.scala:164:41
+      automatic logic            _GEN_126;	// icache.scala:164:41
+      automatic logic            _GEN_127;	// icache.scala:164:41
+      automatic logic            _GEN_128;	// icache.scala:164:41
+      automatic logic            _GEN_129;	// icache.scala:164:41
+      automatic logic            _GEN_130;	// icache.scala:164:41
+      automatic logic            _GEN_131;	// icache.scala:164:41
+      automatic logic            _GEN_132;	// icache.scala:164:41
+      automatic logic            _GEN_133;	// icache.scala:164:41
+      automatic logic            _GEN_134;	// icache.scala:164:41
+      automatic logic            _GEN_135;	// icache.scala:164:41
+      automatic logic            _GEN_136;	// icache.scala:164:41
+      automatic logic            _GEN_137;	// icache.scala:164:41
+      automatic logic            _GEN_138;	// icache.scala:164:41
+      automatic logic [7:0][2:0] _GEN_139;	// icache.scala:63:34, :89:18, :91:27, :111:26, :126:48, :140:31, :148:41
+      _T_13 = state == 3'h4;	// icache.scala:63:34, :89:18, :103:35
       _GEN_11 = ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & ~(~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & (_GEN_10 &
-                                                req_addr[31:11] == _GEN_9 | ~_GEN_10)) & _refillIDX_prng_io_out_0;	// PRNG.scala:91:22, icache.scala:52:28, :57:29, :61:34, :72:21, :83:25, :84:25, :86:18, :147:{22,43}, :153:{42,48,70}, :154:41, :158:18
-      _GEN_12 = req_addr[10:4] == 7'h0;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_13 = req_addr[10:4] == 7'h1;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_14 = req_addr[10:4] == 7'h2;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_15 = req_addr[10:4] == 7'h3;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_16 = req_addr[10:4] == 7'h4;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_17 = req_addr[10:4] == 7'h5;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_18 = req_addr[10:4] == 7'h6;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_19 = req_addr[10:4] == 7'h7;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_20 = req_addr[10:4] == 7'h8;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_21 = req_addr[10:4] == 7'h9;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_22 = req_addr[10:4] == 7'hA;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_23 = req_addr[10:4] == 7'hB;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_24 = req_addr[10:4] == 7'hC;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_25 = req_addr[10:4] == 7'hD;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_26 = req_addr[10:4] == 7'hE;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_27 = req_addr[10:4] == 7'hF;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_28 = req_addr[10:4] == 7'h10;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_29 = req_addr[10:4] == 7'h11;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_30 = req_addr[10:4] == 7'h12;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_31 = req_addr[10:4] == 7'h13;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_32 = req_addr[10:4] == 7'h14;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_33 = req_addr[10:4] == 7'h15;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_34 = req_addr[10:4] == 7'h16;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_35 = req_addr[10:4] == 7'h17;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_36 = req_addr[10:4] == 7'h18;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_37 = req_addr[10:4] == 7'h19;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_38 = req_addr[10:4] == 7'h1A;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_39 = req_addr[10:4] == 7'h1B;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_40 = req_addr[10:4] == 7'h1C;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_41 = req_addr[10:4] == 7'h1D;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_42 = req_addr[10:4] == 7'h1E;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_43 = req_addr[10:4] == 7'h1F;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_44 = req_addr[10:4] == 7'h20;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_45 = req_addr[10:4] == 7'h21;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_46 = req_addr[10:4] == 7'h22;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_47 = req_addr[10:4] == 7'h23;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_48 = req_addr[10:4] == 7'h24;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_49 = req_addr[10:4] == 7'h25;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_50 = req_addr[10:4] == 7'h26;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_51 = req_addr[10:4] == 7'h27;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_52 = req_addr[10:4] == 7'h28;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_53 = req_addr[10:4] == 7'h29;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_54 = req_addr[10:4] == 7'h2A;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_55 = req_addr[10:4] == 7'h2B;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_56 = req_addr[10:4] == 7'h2C;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_57 = req_addr[10:4] == 7'h2D;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_58 = req_addr[10:4] == 7'h2E;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_59 = req_addr[10:4] == 7'h2F;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_60 = req_addr[10:4] == 7'h30;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_61 = req_addr[10:4] == 7'h31;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_62 = req_addr[10:4] == 7'h32;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_63 = req_addr[10:4] == 7'h33;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_64 = req_addr[10:4] == 7'h34;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_65 = req_addr[10:4] == 7'h35;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_66 = req_addr[10:4] == 7'h36;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_67 = req_addr[10:4] == 7'h37;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_68 = req_addr[10:4] == 7'h38;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_69 = req_addr[10:4] == 7'h39;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_70 = req_addr[10:4] == 7'h3A;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_71 = req_addr[10:4] == 7'h3B;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_72 = req_addr[10:4] == 7'h3C;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_73 = req_addr[10:4] == 7'h3D;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_74 = req_addr[10:4] == 7'h3E;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_75 = req_addr[10:4] == 7'h3F;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_76 = req_addr[10:4] == 7'h40;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_77 = req_addr[10:4] == 7'h41;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_78 = req_addr[10:4] == 7'h42;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_79 = req_addr[10:4] == 7'h43;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_80 = req_addr[10:4] == 7'h44;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_81 = req_addr[10:4] == 7'h45;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_82 = req_addr[10:4] == 7'h46;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_83 = req_addr[10:4] == 7'h47;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_84 = req_addr[10:4] == 7'h48;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_85 = req_addr[10:4] == 7'h49;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_86 = req_addr[10:4] == 7'h4A;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_87 = req_addr[10:4] == 7'h4B;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_88 = req_addr[10:4] == 7'h4C;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_89 = req_addr[10:4] == 7'h4D;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_90 = req_addr[10:4] == 7'h4E;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_91 = req_addr[10:4] == 7'h4F;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_92 = req_addr[10:4] == 7'h50;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_93 = req_addr[10:4] == 7'h51;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_94 = req_addr[10:4] == 7'h52;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_95 = req_addr[10:4] == 7'h53;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_96 = req_addr[10:4] == 7'h54;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_97 = req_addr[10:4] == 7'h55;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_98 = req_addr[10:4] == 7'h56;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_99 = req_addr[10:4] == 7'h57;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_100 = req_addr[10:4] == 7'h58;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_101 = req_addr[10:4] == 7'h59;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_102 = req_addr[10:4] == 7'h5A;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_103 = req_addr[10:4] == 7'h5B;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_104 = req_addr[10:4] == 7'h5C;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_105 = req_addr[10:4] == 7'h5D;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_106 = req_addr[10:4] == 7'h5E;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_107 = req_addr[10:4] == 7'h5F;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_108 = req_addr[10:4] == 7'h60;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_109 = req_addr[10:4] == 7'h61;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_110 = req_addr[10:4] == 7'h62;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_111 = req_addr[10:4] == 7'h63;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_112 = req_addr[10:4] == 7'h64;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_113 = req_addr[10:4] == 7'h65;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_114 = req_addr[10:4] == 7'h66;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_115 = req_addr[10:4] == 7'h67;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_116 = req_addr[10:4] == 7'h68;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_117 = req_addr[10:4] == 7'h69;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_118 = req_addr[10:4] == 7'h6A;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_119 = req_addr[10:4] == 7'h6B;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_120 = req_addr[10:4] == 7'h6C;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_121 = req_addr[10:4] == 7'h6D;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_122 = req_addr[10:4] == 7'h6E;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_123 = req_addr[10:4] == 7'h6F;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_124 = req_addr[10:4] == 7'h70;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_125 = req_addr[10:4] == 7'h71;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_126 = req_addr[10:4] == 7'h72;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_127 = req_addr[10:4] == 7'h73;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_128 = req_addr[10:4] == 7'h74;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_129 = req_addr[10:4] == 7'h75;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_130 = req_addr[10:4] == 7'h76;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_131 = req_addr[10:4] == 7'h77;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_132 = req_addr[10:4] == 7'h78;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_133 = req_addr[10:4] == 7'h79;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_134 = req_addr[10:4] == 7'h7A;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_135 = req_addr[10:4] == 7'h7B;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_136 = req_addr[10:4] == 7'h7C;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_137 = req_addr[10:4] == 7'h7D;	// icache.scala:52:28, :56:29, :161:41
-      _GEN_138 = req_addr[10:4] == 7'h7E;	// icache.scala:52:28, :56:29, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_12 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-      end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_0_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_0_0_data <= lineBuf;	// icache.scala:44:24, :61:34
-      end
-      cache_0_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_12 & ~_GEN_11 | cache_0_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_13 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-      end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_1_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_1_0_data <= lineBuf;	// icache.scala:44:24, :61:34
-      end
-      cache_1_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_13 & ~_GEN_11 | cache_1_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_14 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-      end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_2_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_2_0_data <= lineBuf;	// icache.scala:44:24, :61:34
-      end
-      cache_2_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_14 & ~_GEN_11 | cache_2_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_15 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-      end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_3_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_3_0_data <= lineBuf;	// icache.scala:44:24, :61:34
-      end
-      cache_3_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_15 & ~_GEN_11 | cache_3_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_16 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-      end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_4_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_4_0_data <= lineBuf;	// icache.scala:44:24, :61:34
-      end
-      cache_4_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_16 & ~_GEN_11 | cache_4_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_17 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-      end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_5_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_5_0_data <= lineBuf;	// icache.scala:44:24, :61:34
-      end
-      cache_5_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_17 & ~_GEN_11 | cache_5_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_18 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-      end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_6_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_6_0_data <= lineBuf;	// icache.scala:44:24, :61:34
-      end
-      cache_6_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_18 & ~_GEN_11 | cache_6_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_19 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-      end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_7_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_7_0_data <= lineBuf;	// icache.scala:44:24, :61:34
-      end
-      cache_7_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_19 & ~_GEN_11 | cache_7_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_20 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-      end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_8_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_8_0_data <= lineBuf;	// icache.scala:44:24, :61:34
-      end
-      cache_8_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_20 & ~_GEN_11 | cache_8_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_21 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-      end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_9_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_9_0_data <= lineBuf;	// icache.scala:44:24, :61:34
-      end
-      cache_9_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_21 & ~_GEN_11 | cache_9_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_22 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-      end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_10_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_10_0_data <= lineBuf;	// icache.scala:44:24, :61:34
-      end
-      cache_10_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_22 & ~_GEN_11 | cache_10_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_23 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-      end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_11_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_11_0_data <= lineBuf;	// icache.scala:44:24, :61:34
-      end
-      cache_11_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_23 & ~_GEN_11 | cache_11_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_24 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-      end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_12_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_12_0_data <= lineBuf;	// icache.scala:44:24, :61:34
-      end
-      cache_12_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_24 & ~_GEN_11 | cache_12_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_25 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+                                                req_addr[31:11] == _GEN_9 | ~_GEN_10)) & _refillIDX_prng_io_out_0;	// PRNG.scala:91:22, icache.scala:55:28, :60:29, :64:34, :74:21, :86:25, :87:25, :89:18, :150:{22,43}, :156:{42,48,70}, :157:41, :161:18
+      _GEN_12 = req_addr[10:4] == 7'h0;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_13 = req_addr[10:4] == 7'h1;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_14 = req_addr[10:4] == 7'h2;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_15 = req_addr[10:4] == 7'h3;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_16 = req_addr[10:4] == 7'h4;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_17 = req_addr[10:4] == 7'h5;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_18 = req_addr[10:4] == 7'h6;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_19 = req_addr[10:4] == 7'h7;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_20 = req_addr[10:4] == 7'h8;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_21 = req_addr[10:4] == 7'h9;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_22 = req_addr[10:4] == 7'hA;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_23 = req_addr[10:4] == 7'hB;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_24 = req_addr[10:4] == 7'hC;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_25 = req_addr[10:4] == 7'hD;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_26 = req_addr[10:4] == 7'hE;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_27 = req_addr[10:4] == 7'hF;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_28 = req_addr[10:4] == 7'h10;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_29 = req_addr[10:4] == 7'h11;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_30 = req_addr[10:4] == 7'h12;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_31 = req_addr[10:4] == 7'h13;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_32 = req_addr[10:4] == 7'h14;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_33 = req_addr[10:4] == 7'h15;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_34 = req_addr[10:4] == 7'h16;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_35 = req_addr[10:4] == 7'h17;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_36 = req_addr[10:4] == 7'h18;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_37 = req_addr[10:4] == 7'h19;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_38 = req_addr[10:4] == 7'h1A;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_39 = req_addr[10:4] == 7'h1B;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_40 = req_addr[10:4] == 7'h1C;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_41 = req_addr[10:4] == 7'h1D;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_42 = req_addr[10:4] == 7'h1E;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_43 = req_addr[10:4] == 7'h1F;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_44 = req_addr[10:4] == 7'h20;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_45 = req_addr[10:4] == 7'h21;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_46 = req_addr[10:4] == 7'h22;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_47 = req_addr[10:4] == 7'h23;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_48 = req_addr[10:4] == 7'h24;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_49 = req_addr[10:4] == 7'h25;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_50 = req_addr[10:4] == 7'h26;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_51 = req_addr[10:4] == 7'h27;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_52 = req_addr[10:4] == 7'h28;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_53 = req_addr[10:4] == 7'h29;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_54 = req_addr[10:4] == 7'h2A;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_55 = req_addr[10:4] == 7'h2B;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_56 = req_addr[10:4] == 7'h2C;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_57 = req_addr[10:4] == 7'h2D;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_58 = req_addr[10:4] == 7'h2E;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_59 = req_addr[10:4] == 7'h2F;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_60 = req_addr[10:4] == 7'h30;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_61 = req_addr[10:4] == 7'h31;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_62 = req_addr[10:4] == 7'h32;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_63 = req_addr[10:4] == 7'h33;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_64 = req_addr[10:4] == 7'h34;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_65 = req_addr[10:4] == 7'h35;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_66 = req_addr[10:4] == 7'h36;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_67 = req_addr[10:4] == 7'h37;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_68 = req_addr[10:4] == 7'h38;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_69 = req_addr[10:4] == 7'h39;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_70 = req_addr[10:4] == 7'h3A;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_71 = req_addr[10:4] == 7'h3B;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_72 = req_addr[10:4] == 7'h3C;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_73 = req_addr[10:4] == 7'h3D;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_74 = req_addr[10:4] == 7'h3E;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_75 = req_addr[10:4] == 7'h3F;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_76 = req_addr[10:4] == 7'h40;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_77 = req_addr[10:4] == 7'h41;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_78 = req_addr[10:4] == 7'h42;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_79 = req_addr[10:4] == 7'h43;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_80 = req_addr[10:4] == 7'h44;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_81 = req_addr[10:4] == 7'h45;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_82 = req_addr[10:4] == 7'h46;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_83 = req_addr[10:4] == 7'h47;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_84 = req_addr[10:4] == 7'h48;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_85 = req_addr[10:4] == 7'h49;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_86 = req_addr[10:4] == 7'h4A;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_87 = req_addr[10:4] == 7'h4B;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_88 = req_addr[10:4] == 7'h4C;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_89 = req_addr[10:4] == 7'h4D;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_90 = req_addr[10:4] == 7'h4E;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_91 = req_addr[10:4] == 7'h4F;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_92 = req_addr[10:4] == 7'h50;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_93 = req_addr[10:4] == 7'h51;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_94 = req_addr[10:4] == 7'h52;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_95 = req_addr[10:4] == 7'h53;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_96 = req_addr[10:4] == 7'h54;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_97 = req_addr[10:4] == 7'h55;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_98 = req_addr[10:4] == 7'h56;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_99 = req_addr[10:4] == 7'h57;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_100 = req_addr[10:4] == 7'h58;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_101 = req_addr[10:4] == 7'h59;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_102 = req_addr[10:4] == 7'h5A;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_103 = req_addr[10:4] == 7'h5B;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_104 = req_addr[10:4] == 7'h5C;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_105 = req_addr[10:4] == 7'h5D;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_106 = req_addr[10:4] == 7'h5E;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_107 = req_addr[10:4] == 7'h5F;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_108 = req_addr[10:4] == 7'h60;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_109 = req_addr[10:4] == 7'h61;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_110 = req_addr[10:4] == 7'h62;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_111 = req_addr[10:4] == 7'h63;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_112 = req_addr[10:4] == 7'h64;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_113 = req_addr[10:4] == 7'h65;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_114 = req_addr[10:4] == 7'h66;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_115 = req_addr[10:4] == 7'h67;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_116 = req_addr[10:4] == 7'h68;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_117 = req_addr[10:4] == 7'h69;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_118 = req_addr[10:4] == 7'h6A;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_119 = req_addr[10:4] == 7'h6B;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_120 = req_addr[10:4] == 7'h6C;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_121 = req_addr[10:4] == 7'h6D;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_122 = req_addr[10:4] == 7'h6E;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_123 = req_addr[10:4] == 7'h6F;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_124 = req_addr[10:4] == 7'h70;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_125 = req_addr[10:4] == 7'h71;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_126 = req_addr[10:4] == 7'h72;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_127 = req_addr[10:4] == 7'h73;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_128 = req_addr[10:4] == 7'h74;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_129 = req_addr[10:4] == 7'h75;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_130 = req_addr[10:4] == 7'h76;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_131 = req_addr[10:4] == 7'h77;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_132 = req_addr[10:4] == 7'h78;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_133 = req_addr[10:4] == 7'h79;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_134 = req_addr[10:4] == 7'h7A;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_135 = req_addr[10:4] == 7'h7B;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_136 = req_addr[10:4] == 7'h7C;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_137 = req_addr[10:4] == 7'h7D;	// icache.scala:55:28, :59:29, :164:41
+      _GEN_138 = req_addr[10:4] == 7'h7E;	// icache.scala:55:28, :59:29, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13) begin	// icache.scala:39:33, :47:24, :89:18, :165:41
+      end
+      else	// icache.scala:39:33, :47:24, :89:18, :165:41
+        cache_miss_cnt <= cache_miss_cnt + 32'h1;	// icache.scala:39:33, :168:58
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_12 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+      end
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_0_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_0_0_data <= lineBuf;	// icache.scala:47:24, :64:34
+      end
+      cache_0_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_12 & ~_GEN_11 | cache_0_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_13 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+      end
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_1_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_1_0_data <= lineBuf;	// icache.scala:47:24, :64:34
+      end
+      cache_1_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_13 & ~_GEN_11 | cache_1_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_14 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+      end
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_2_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_2_0_data <= lineBuf;	// icache.scala:47:24, :64:34
+      end
+      cache_2_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_14 & ~_GEN_11 | cache_2_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_15 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+      end
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_3_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_3_0_data <= lineBuf;	// icache.scala:47:24, :64:34
+      end
+      cache_3_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_15 & ~_GEN_11 | cache_3_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_16 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+      end
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_4_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_4_0_data <= lineBuf;	// icache.scala:47:24, :64:34
+      end
+      cache_4_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_16 & ~_GEN_11 | cache_4_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_17 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+      end
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_5_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_5_0_data <= lineBuf;	// icache.scala:47:24, :64:34
+      end
+      cache_5_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_17 & ~_GEN_11 | cache_5_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_18 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+      end
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_6_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_6_0_data <= lineBuf;	// icache.scala:47:24, :64:34
+      end
+      cache_6_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_18 & ~_GEN_11 | cache_6_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_19 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+      end
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_7_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_7_0_data <= lineBuf;	// icache.scala:47:24, :64:34
+      end
+      cache_7_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_19 & ~_GEN_11 | cache_7_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_20 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+      end
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_8_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_8_0_data <= lineBuf;	// icache.scala:47:24, :64:34
+      end
+      cache_8_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_20 & ~_GEN_11 | cache_8_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_21 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+      end
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_9_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_9_0_data <= lineBuf;	// icache.scala:47:24, :64:34
+      end
+      cache_9_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_21 & ~_GEN_11 | cache_9_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_22 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+      end
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_10_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_10_0_data <= lineBuf;	// icache.scala:47:24, :64:34
+      end
+      cache_10_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_22 & ~_GEN_11 | cache_10_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_23 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+      end
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_11_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_11_0_data <= lineBuf;	// icache.scala:47:24, :64:34
+      end
+      cache_11_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_23 & ~_GEN_11 | cache_11_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_24 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+      end
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_12_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_12_0_data <= lineBuf;	// icache.scala:47:24, :64:34
+      end
+      cache_12_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_24 & ~_GEN_11 | cache_12_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_25 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_13_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_13_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_13_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_13_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_13_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_25 & ~_GEN_11 | cache_13_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_26 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_13_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_25 & ~_GEN_11 | cache_13_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_26 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_14_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_14_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_14_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_14_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_14_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_26 & ~_GEN_11 | cache_14_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_27 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_14_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_26 & ~_GEN_11 | cache_14_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_27 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_15_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_15_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_15_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_15_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_15_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_27 & ~_GEN_11 | cache_15_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_28 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_15_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_27 & ~_GEN_11 | cache_15_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_28 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_16_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_16_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_16_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_16_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_16_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_28 & ~_GEN_11 | cache_16_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_29 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_16_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_28 & ~_GEN_11 | cache_16_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_29 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_17_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_17_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_17_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_17_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_17_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_29 & ~_GEN_11 | cache_17_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_30 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_17_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_29 & ~_GEN_11 | cache_17_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_30 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_18_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_18_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_18_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_18_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_18_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_30 & ~_GEN_11 | cache_18_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_31 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_18_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_30 & ~_GEN_11 | cache_18_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_31 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_19_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_19_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_19_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_19_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_19_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_31 & ~_GEN_11 | cache_19_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_32 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_19_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_31 & ~_GEN_11 | cache_19_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_32 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_20_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_20_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_20_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_20_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_20_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_32 & ~_GEN_11 | cache_20_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_33 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_20_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_32 & ~_GEN_11 | cache_20_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_33 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_21_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_21_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_21_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_21_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_21_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_33 & ~_GEN_11 | cache_21_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_34 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_21_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_33 & ~_GEN_11 | cache_21_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_34 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_22_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_22_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_22_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_22_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_22_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_34 & ~_GEN_11 | cache_22_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_35 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_22_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_34 & ~_GEN_11 | cache_22_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_35 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_23_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_23_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_23_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_23_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_23_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_35 & ~_GEN_11 | cache_23_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_36 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_23_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_35 & ~_GEN_11 | cache_23_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_36 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_24_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_24_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_24_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_24_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_24_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_36 & ~_GEN_11 | cache_24_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_37 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_24_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_36 & ~_GEN_11 | cache_24_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_37 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_25_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_25_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_25_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_25_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_25_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_37 & ~_GEN_11 | cache_25_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_38 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_25_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_37 & ~_GEN_11 | cache_25_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_38 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_26_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_26_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_26_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_26_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_26_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_38 & ~_GEN_11 | cache_26_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_39 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_26_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_38 & ~_GEN_11 | cache_26_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_39 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_27_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_27_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_27_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_27_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_27_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_39 & ~_GEN_11 | cache_27_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_40 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_27_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_39 & ~_GEN_11 | cache_27_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_40 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_28_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_28_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_28_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_28_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_28_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_40 & ~_GEN_11 | cache_28_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_41 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_28_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_40 & ~_GEN_11 | cache_28_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_41 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_29_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_29_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_29_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_29_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_29_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_41 & ~_GEN_11 | cache_29_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_42 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_29_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_41 & ~_GEN_11 | cache_29_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_42 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_30_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_30_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_30_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_30_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_30_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_42 & ~_GEN_11 | cache_30_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_43 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_30_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_42 & ~_GEN_11 | cache_30_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_43 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_31_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_31_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_31_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_31_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_31_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_43 & ~_GEN_11 | cache_31_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_44 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_31_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_43 & ~_GEN_11 | cache_31_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_44 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_32_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_32_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_32_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_32_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_32_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_44 & ~_GEN_11 | cache_32_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_45 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_32_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_44 & ~_GEN_11 | cache_32_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_45 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_33_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_33_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_33_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_33_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_33_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_45 & ~_GEN_11 | cache_33_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_46 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_33_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_45 & ~_GEN_11 | cache_33_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_46 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_34_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_34_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_34_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_34_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_34_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_46 & ~_GEN_11 | cache_34_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_47 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_34_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_46 & ~_GEN_11 | cache_34_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_47 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_35_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_35_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_35_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_35_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_35_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_47 & ~_GEN_11 | cache_35_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_48 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_35_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_47 & ~_GEN_11 | cache_35_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_48 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_36_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_36_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_36_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_36_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_36_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_48 & ~_GEN_11 | cache_36_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_49 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_36_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_48 & ~_GEN_11 | cache_36_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_49 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_37_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_37_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_37_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_37_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_37_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_49 & ~_GEN_11 | cache_37_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_50 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_37_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_49 & ~_GEN_11 | cache_37_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_50 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_38_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_38_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_38_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_38_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_38_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_50 & ~_GEN_11 | cache_38_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_51 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_38_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_50 & ~_GEN_11 | cache_38_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_51 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_39_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_39_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_39_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_39_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_39_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_51 & ~_GEN_11 | cache_39_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_52 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_39_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_51 & ~_GEN_11 | cache_39_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_52 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_40_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_40_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_40_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_40_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_40_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_52 & ~_GEN_11 | cache_40_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_53 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_40_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_52 & ~_GEN_11 | cache_40_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_53 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_41_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_41_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_41_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_41_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_41_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_53 & ~_GEN_11 | cache_41_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_54 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_41_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_53 & ~_GEN_11 | cache_41_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_54 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_42_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_42_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_42_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_42_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_42_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_54 & ~_GEN_11 | cache_42_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_55 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_42_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_54 & ~_GEN_11 | cache_42_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_55 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_43_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_43_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_43_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_43_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_43_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_55 & ~_GEN_11 | cache_43_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_56 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_43_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_55 & ~_GEN_11 | cache_43_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_56 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_44_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_44_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_44_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_44_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_44_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_56 & ~_GEN_11 | cache_44_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_57 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_44_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_56 & ~_GEN_11 | cache_44_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_57 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_45_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_45_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_45_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_45_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_45_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_57 & ~_GEN_11 | cache_45_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_58 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_45_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_57 & ~_GEN_11 | cache_45_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_58 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_46_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_46_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_46_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_46_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_46_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_58 & ~_GEN_11 | cache_46_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_59 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_46_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_58 & ~_GEN_11 | cache_46_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_59 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_47_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_47_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_47_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_47_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_47_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_59 & ~_GEN_11 | cache_47_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_60 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_47_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_59 & ~_GEN_11 | cache_47_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_60 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_48_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_48_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_48_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_48_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_48_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_60 & ~_GEN_11 | cache_48_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_61 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_48_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_60 & ~_GEN_11 | cache_48_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_61 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_49_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_49_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_49_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_49_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_49_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_61 & ~_GEN_11 | cache_49_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_62 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_49_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_61 & ~_GEN_11 | cache_49_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_62 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_50_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_50_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_50_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_50_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_50_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_62 & ~_GEN_11 | cache_50_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_63 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_50_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_62 & ~_GEN_11 | cache_50_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_63 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_51_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_51_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_51_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_51_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_51_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_63 & ~_GEN_11 | cache_51_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_64 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_51_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_63 & ~_GEN_11 | cache_51_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_64 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_52_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_52_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_52_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_52_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_52_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_64 & ~_GEN_11 | cache_52_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_65 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_52_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_64 & ~_GEN_11 | cache_52_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_65 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_53_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_53_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_53_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_53_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_53_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_65 & ~_GEN_11 | cache_53_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_66 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_53_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_65 & ~_GEN_11 | cache_53_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_66 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_54_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_54_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_54_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_54_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_54_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_66 & ~_GEN_11 | cache_54_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_67 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_54_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_66 & ~_GEN_11 | cache_54_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_67 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_55_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_55_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_55_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_55_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_55_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_67 & ~_GEN_11 | cache_55_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_68 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_55_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_67 & ~_GEN_11 | cache_55_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_68 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_56_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_56_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_56_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_56_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_56_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_68 & ~_GEN_11 | cache_56_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_69 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_56_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_68 & ~_GEN_11 | cache_56_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_69 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_57_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_57_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_57_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_57_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_57_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_69 & ~_GEN_11 | cache_57_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_70 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_57_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_69 & ~_GEN_11 | cache_57_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_70 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_58_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_58_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_58_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_58_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_58_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_70 & ~_GEN_11 | cache_58_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_71 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_58_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_70 & ~_GEN_11 | cache_58_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_71 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_59_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_59_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_59_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_59_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_59_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_71 & ~_GEN_11 | cache_59_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_72 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_59_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_71 & ~_GEN_11 | cache_59_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_72 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_60_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_60_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_60_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_60_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_60_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_72 & ~_GEN_11 | cache_60_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_73 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_60_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_72 & ~_GEN_11 | cache_60_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_73 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_61_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_61_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_61_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_61_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_61_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_73 & ~_GEN_11 | cache_61_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_74 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_61_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_73 & ~_GEN_11 | cache_61_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_74 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_62_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_62_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_62_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_62_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_62_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_74 & ~_GEN_11 | cache_62_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_75 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_62_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_74 & ~_GEN_11 | cache_62_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_75 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_63_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_63_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_63_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_63_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_63_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_75 & ~_GEN_11 | cache_63_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_76 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_63_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_75 & ~_GEN_11 | cache_63_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_76 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_64_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_64_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_64_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_64_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_64_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_76 & ~_GEN_11 | cache_64_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_77 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_64_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_76 & ~_GEN_11 | cache_64_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_77 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_65_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_65_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_65_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_65_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_65_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_77 & ~_GEN_11 | cache_65_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_78 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_65_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_77 & ~_GEN_11 | cache_65_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_78 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_66_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_66_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_66_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_66_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_66_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_78 & ~_GEN_11 | cache_66_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_79 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_66_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_78 & ~_GEN_11 | cache_66_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_79 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_67_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_67_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_67_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_67_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_67_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_79 & ~_GEN_11 | cache_67_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_80 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_67_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_79 & ~_GEN_11 | cache_67_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_80 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_68_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_68_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_68_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_68_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_68_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_80 & ~_GEN_11 | cache_68_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_81 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_68_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_80 & ~_GEN_11 | cache_68_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_81 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_69_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_69_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_69_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_69_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_69_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_81 & ~_GEN_11 | cache_69_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_82 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_69_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_81 & ~_GEN_11 | cache_69_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_82 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_70_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_70_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_70_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_70_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_70_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_82 & ~_GEN_11 | cache_70_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_83 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_70_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_82 & ~_GEN_11 | cache_70_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_83 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_71_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_71_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_71_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_71_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_71_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_83 & ~_GEN_11 | cache_71_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_84 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_71_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_83 & ~_GEN_11 | cache_71_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_84 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_72_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_72_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_72_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_72_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_72_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_84 & ~_GEN_11 | cache_72_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_85 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_72_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_84 & ~_GEN_11 | cache_72_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_85 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_73_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_73_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_73_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_73_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_73_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_85 & ~_GEN_11 | cache_73_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_86 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_73_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_85 & ~_GEN_11 | cache_73_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_86 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_74_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_74_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_74_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_74_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_74_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_86 & ~_GEN_11 | cache_74_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_87 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_74_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_86 & ~_GEN_11 | cache_74_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_87 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_75_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_75_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_75_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_75_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_75_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_87 & ~_GEN_11 | cache_75_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_88 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_75_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_87 & ~_GEN_11 | cache_75_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_88 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_76_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_76_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_76_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_76_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_76_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_88 & ~_GEN_11 | cache_76_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_89 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_76_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_88 & ~_GEN_11 | cache_76_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_89 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_77_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_77_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_77_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_77_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_77_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_89 & ~_GEN_11 | cache_77_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_90 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_77_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_89 & ~_GEN_11 | cache_77_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_90 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_78_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_78_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_78_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_78_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_78_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_90 & ~_GEN_11 | cache_78_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_91 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_78_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_90 & ~_GEN_11 | cache_78_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_91 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_79_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_79_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_79_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_79_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_79_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_91 & ~_GEN_11 | cache_79_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_92 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_79_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_91 & ~_GEN_11 | cache_79_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_92 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_80_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_80_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_80_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_80_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_80_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_92 & ~_GEN_11 | cache_80_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_93 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_80_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_92 & ~_GEN_11 | cache_80_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_93 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_81_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_81_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_81_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_81_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_81_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_93 & ~_GEN_11 | cache_81_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_94 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_81_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_93 & ~_GEN_11 | cache_81_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_94 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_82_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_82_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_82_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_82_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_82_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_94 & ~_GEN_11 | cache_82_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_95 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_82_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_94 & ~_GEN_11 | cache_82_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_95 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_83_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_83_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_83_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_83_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_83_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_95 & ~_GEN_11 | cache_83_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_96 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_83_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_95 & ~_GEN_11 | cache_83_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_96 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_84_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_84_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_84_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_84_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_84_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_96 & ~_GEN_11 | cache_84_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_97 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_84_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_96 & ~_GEN_11 | cache_84_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_97 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_85_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_85_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_85_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_85_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_85_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_97 & ~_GEN_11 | cache_85_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_98 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_85_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_97 & ~_GEN_11 | cache_85_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_98 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_86_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_86_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_86_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_86_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_86_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_98 & ~_GEN_11 | cache_86_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_99 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_86_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_98 & ~_GEN_11 | cache_86_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_99 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_87_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_87_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_87_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_87_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_87_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_99 & ~_GEN_11 | cache_87_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_100 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_87_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_99 & ~_GEN_11 | cache_87_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_100 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_88_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_88_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_88_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_88_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_88_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_100 & ~_GEN_11 | cache_88_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_101 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_88_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_100 & ~_GEN_11 | cache_88_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_101 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_89_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_89_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_89_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_89_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_89_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_101 & ~_GEN_11 | cache_89_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_102 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_89_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_101 & ~_GEN_11 | cache_89_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_102 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_90_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_90_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_90_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_90_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_90_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_102 & ~_GEN_11 | cache_90_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_103 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_90_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_102 & ~_GEN_11 | cache_90_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_103 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_91_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_91_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_91_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_91_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_91_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_103 & ~_GEN_11 | cache_91_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_104 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_91_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_103 & ~_GEN_11 | cache_91_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_104 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_92_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_92_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_92_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_92_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_92_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_104 & ~_GEN_11 | cache_92_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_105 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_92_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_104 & ~_GEN_11 | cache_92_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_105 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_93_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_93_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_93_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_93_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_93_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_105 & ~_GEN_11 | cache_93_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_106 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_93_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_105 & ~_GEN_11 | cache_93_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_106 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_94_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_94_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_94_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_94_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_94_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_106 & ~_GEN_11 | cache_94_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_107 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_94_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_106 & ~_GEN_11 | cache_94_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_107 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_95_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_95_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_95_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_95_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_95_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_107 & ~_GEN_11 | cache_95_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_108 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_95_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_107 & ~_GEN_11 | cache_95_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_108 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_96_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_96_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_96_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_96_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_96_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_108 & ~_GEN_11 | cache_96_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_109 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_96_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_108 & ~_GEN_11 | cache_96_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_109 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_97_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_97_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_97_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_97_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_97_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_109 & ~_GEN_11 | cache_97_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_110 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_97_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_109 & ~_GEN_11 | cache_97_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_110 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_98_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_98_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_98_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_98_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_98_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_110 & ~_GEN_11 | cache_98_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_111 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_98_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_110 & ~_GEN_11 | cache_98_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_111 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_99_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_99_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_99_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_99_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_99_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_111 & ~_GEN_11 | cache_99_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_112 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_99_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_111 & ~_GEN_11 | cache_99_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_112 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_100_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_100_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_100_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_100_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_100_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_112 & ~_GEN_11 | cache_100_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_113 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_100_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_112 & ~_GEN_11 | cache_100_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_113 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_101_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_101_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_101_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_101_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_101_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_113 & ~_GEN_11 | cache_101_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_114 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_101_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_113 & ~_GEN_11 | cache_101_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_114 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_102_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_102_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_102_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_102_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_102_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_114 & ~_GEN_11 | cache_102_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_115 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_102_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_114 & ~_GEN_11 | cache_102_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_115 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_103_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_103_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_103_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_103_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_103_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_115 & ~_GEN_11 | cache_103_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_116 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_103_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_115 & ~_GEN_11 | cache_103_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_116 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_104_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_104_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_104_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_104_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_104_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_116 & ~_GEN_11 | cache_104_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_117 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_104_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_116 & ~_GEN_11 | cache_104_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_117 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_105_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_105_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_105_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_105_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_105_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_117 & ~_GEN_11 | cache_105_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_118 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_105_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_117 & ~_GEN_11 | cache_105_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_118 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_106_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_106_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_106_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_106_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_106_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_118 & ~_GEN_11 | cache_106_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_119 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_106_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_118 & ~_GEN_11 | cache_106_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_119 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_107_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_107_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_107_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_107_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_107_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_119 & ~_GEN_11 | cache_107_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_120 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_107_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_119 & ~_GEN_11 | cache_107_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_120 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_108_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_108_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_108_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_108_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_108_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_120 & ~_GEN_11 | cache_108_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_121 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_108_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_120 & ~_GEN_11 | cache_108_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_121 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_109_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_109_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_109_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_109_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_109_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_121 & ~_GEN_11 | cache_109_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_122 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_109_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_121 & ~_GEN_11 | cache_109_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_122 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_110_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_110_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_110_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_110_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_110_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_122 & ~_GEN_11 | cache_110_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_123 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_110_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_122 & ~_GEN_11 | cache_110_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_123 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_111_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_111_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_111_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_111_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_111_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_123 & ~_GEN_11 | cache_111_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_124 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_111_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_123 & ~_GEN_11 | cache_111_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_124 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_112_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_112_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_112_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_112_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_112_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_124 & ~_GEN_11 | cache_112_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_125 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_112_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_124 & ~_GEN_11 | cache_112_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_125 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_113_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_113_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_113_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_113_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_113_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_125 & ~_GEN_11 | cache_113_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_126 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_113_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_125 & ~_GEN_11 | cache_113_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_126 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_114_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_114_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_114_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_114_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_114_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_126 & ~_GEN_11 | cache_114_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_127 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_114_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_126 & ~_GEN_11 | cache_114_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_127 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_115_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_115_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_115_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_115_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_115_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_127 & ~_GEN_11 | cache_115_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_128 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_115_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_127 & ~_GEN_11 | cache_115_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_128 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_116_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_116_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_116_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_116_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_116_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_128 & ~_GEN_11 | cache_116_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_129 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_116_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_128 & ~_GEN_11 | cache_116_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_129 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_117_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_117_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_117_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_117_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_117_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_129 & ~_GEN_11 | cache_117_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_130 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_117_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_129 & ~_GEN_11 | cache_117_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_130 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_118_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_118_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_118_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_118_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_118_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_130 & ~_GEN_11 | cache_118_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_131 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_118_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_130 & ~_GEN_11 | cache_118_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_131 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_119_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_119_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_119_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_119_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_119_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_131 & ~_GEN_11 | cache_119_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_132 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_119_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_131 & ~_GEN_11 | cache_119_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_132 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_120_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_120_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_120_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_120_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_120_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_132 & ~_GEN_11 | cache_120_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_133 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_120_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_132 & ~_GEN_11 | cache_120_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_133 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_121_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_121_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_121_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_121_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_121_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_133 & ~_GEN_11 | cache_121_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_134 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_121_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_133 & ~_GEN_11 | cache_121_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_134 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_122_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_122_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_122_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_122_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_122_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_134 & ~_GEN_11 | cache_122_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_135 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_122_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_134 & ~_GEN_11 | cache_122_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_135 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_123_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_123_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_123_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_123_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_123_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_135 & ~_GEN_11 | cache_123_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_136 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_123_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_135 & ~_GEN_11 | cache_123_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_136 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_124_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_124_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_124_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_124_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_124_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_136 & ~_GEN_11 | cache_124_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_137 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_124_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_136 & ~_GEN_11 | cache_124_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_137 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_125_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_125_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_125_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_125_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_125_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_137 & ~_GEN_11 | cache_125_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_138 | _GEN_11) begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
+      cache_125_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_137 & ~_GEN_11 | cache_125_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~_GEN_138 | _GEN_11) begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :83:25, :86:18, :161:41, :162:41
-        cache_126_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_126_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :86:25, :89:18, :164:41, :165:41
+        cache_126_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_126_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_126_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_138 & ~_GEN_11 | cache_126_0_valid;	// icache.scala:44:24, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~(&(req_addr[10:4])) | _GEN_11) begin	// icache.scala:44:24, :52:28, :56:29, :83:25, :86:18, :161:41, :162:41
+      cache_126_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & _GEN_138 & ~_GEN_11 | cache_126_0_valid;	// icache.scala:47:24, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T | _T_1 | _T_9 | _T_12 | ~_T_13 | ~(&(req_addr[10:4])) | _GEN_11) begin	// icache.scala:47:24, :55:28, :59:29, :86:25, :89:18, :164:41, :165:41
       end
-      else begin	// icache.scala:44:24, :52:28, :56:29, :83:25, :86:18, :161:41, :162:41
-        cache_127_0_tag <= req_addr[31:11];	// icache.scala:44:24, :52:28, :57:29
-        cache_127_0_data <= lineBuf;	// icache.scala:44:24, :61:34
+      else begin	// icache.scala:47:24, :55:28, :59:29, :86:25, :89:18, :164:41, :165:41
+        cache_127_0_tag <= req_addr[31:11];	// icache.scala:47:24, :55:28, :60:29
+        cache_127_0_data <= lineBuf;	// icache.scala:47:24, :64:34
       end
-      cache_127_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & (&(req_addr[10:4])) & ~_GEN_11 | cache_127_0_valid;	// icache.scala:44:24, :52:28, :56:29, :61:34, :72:21, :83:25, :84:25, :86:18, :161:41
-      if (_T) begin	// icache.scala:86:18
+      cache_127_0_valid <= ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & (&(req_addr[10:4])) & ~_GEN_11 | cache_127_0_valid;	// icache.scala:47:24, :55:28, :59:29, :64:34, :74:21, :86:25, :87:25, :89:18, :164:41
+      if (_T) begin	// icache.scala:89:18
         if (io_valid) begin
-          req_addr <= io_addr;	// icache.scala:52:28
-          req_valid <= io_valid;	// icache.scala:53:28
+          req_addr <= io_addr;	// icache.scala:55:28
+          req_valid <= io_valid;	// icache.scala:56:28
         end
       end
-      else if (_T_1 & _GEN & io_valid) begin	// icache.scala:53:28, :72:21, :86:18, :108:26
-        req_addr <= io_addr;	// icache.scala:52:28
-        req_valid <= io_valid;	// icache.scala:53:28
+      else if (_T_1 & _GEN & io_valid) begin	// icache.scala:56:28, :74:21, :89:18, :111:26
+        req_addr <= io_addr;	// icache.scala:55:28
+        req_valid <= io_valid;	// icache.scala:56:28
       end
       _GEN_139 = {{state}, {state}, {state}, {3'h0}, {io_axi_rlast ? 3'h4 : {2'h1, ~io_axi_busy}}, {{2'h1,
-                                                ~_T_11}}, {_GEN ? {2'h0, io_valid} : 3'h2}, {io_valid ? 3'h1 : state}};	// icache.scala:60:34, :72:21, :76:21, :86:18, :88:27, :89:29, :100:35, :108:26, :109:33, :111:32, :112:33, :118:33, :123:{34,48}, :124:33, :127:33, :129:33, :133:29, :137:31, :138:29, :140:35, :141:29, :145:41
-      state <= _GEN_139[state];	// icache.scala:60:34, :86:18, :88:27, :108:26, :123:48, :137:31, :145:41
-      if (_T | _T_1 | _T_9 | ~_T_12) begin	// icache.scala:61:34, :86:18
+                                                ~_T_11}}, {_GEN ? {2'h0, io_valid} : 3'h2}, {io_valid ? 3'h1 : state}};	// icache.scala:63:34, :74:21, :78:21, :89:18, :91:27, :92:29, :103:35, :111:26, :112:33, :114:32, :115:33, :121:33, :126:{34,48}, :127:33, :130:33, :132:33, :136:29, :140:31, :141:29, :143:35, :144:29, :148:41
+      state <= _GEN_139[state];	// icache.scala:63:34, :89:18, :91:27, :111:26, :126:48, :140:31, :148:41
+      if (_T | _T_1 | _T_9 | ~_T_12) begin	// icache.scala:64:34, :89:18
       end
-      else	// icache.scala:61:34, :86:18
-        lineBuf <= {lineBuf[63:0], io_axi_rdata};	// icache.scala:61:34, :136:29
+      else	// icache.scala:64:34, :89:18
+        lineBuf <= {lineBuf[63:0], io_axi_rdata};	// icache.scala:64:34, :139:29
     end
   end // always @(posedge)
   `ifndef SYNTHESIS	// <stdin>:1182:10
@@ -11447,6 +11454,7 @@ module ICache(	// <stdin>:1182:10
       automatic logic [31:0] _RANDOM_1204;	// <stdin>:1182:10
       automatic logic [31:0] _RANDOM_1205;	// <stdin>:1182:10
       automatic logic [31:0] _RANDOM_1206;	// <stdin>:1182:10
+      automatic logic [31:0] _RANDOM_1207;	// <stdin>:1182:10
       `ifdef INIT_RANDOM_PROLOG_	// <stdin>:1182:10
         `INIT_RANDOM_PROLOG_	// <stdin>:1182:10
       `endif // INIT_RANDOM_PROLOG_
@@ -12658,394 +12666,396 @@ module ICache(	// <stdin>:1182:10
         _RANDOM_1204 = `RANDOM;	// <stdin>:1182:10
         _RANDOM_1205 = `RANDOM;	// <stdin>:1182:10
         _RANDOM_1206 = `RANDOM;	// <stdin>:1182:10
-        cache_0_0_tag = _RANDOM_0[20:0];	// icache.scala:44:24
-        cache_0_0_data = {_RANDOM_0[31:21], _RANDOM_1, _RANDOM_2, _RANDOM_3, _RANDOM_4[20:0]};	// icache.scala:44:24
-        cache_0_0_valid = _RANDOM_4[21];	// icache.scala:44:24
-        cache_1_0_tag = {_RANDOM_9[31:12], _RANDOM_10[0]};	// icache.scala:44:24
-        cache_1_0_data = {_RANDOM_10[31:1], _RANDOM_11, _RANDOM_12, _RANDOM_13, _RANDOM_14[0]};	// icache.scala:44:24
-        cache_1_0_valid = _RANDOM_14[1];	// icache.scala:44:24
-        cache_2_0_tag = {_RANDOM_18[31:24], _RANDOM_19[12:0]};	// icache.scala:44:24
-        cache_2_0_data = {_RANDOM_19[31:13], _RANDOM_20, _RANDOM_21, _RANDOM_22, _RANDOM_23[12:0]};	// icache.scala:44:24
-        cache_2_0_valid = _RANDOM_23[13];	// icache.scala:44:24
-        cache_3_0_tag = _RANDOM_28[24:4];	// icache.scala:44:24
-        cache_3_0_data = {_RANDOM_28[31:25], _RANDOM_29, _RANDOM_30, _RANDOM_31, _RANDOM_32[24:0]};	// icache.scala:44:24
-        cache_3_0_valid = _RANDOM_32[25];	// icache.scala:44:24
-        cache_4_0_tag = {_RANDOM_37[31:16], _RANDOM_38[4:0]};	// icache.scala:44:24
-        cache_4_0_data = {_RANDOM_38[31:5], _RANDOM_39, _RANDOM_40, _RANDOM_41, _RANDOM_42[4:0]};	// icache.scala:44:24
-        cache_4_0_valid = _RANDOM_42[5];	// icache.scala:44:24
-        cache_5_0_tag = {_RANDOM_46[31:28], _RANDOM_47[16:0]};	// icache.scala:44:24
-        cache_5_0_data = {_RANDOM_47[31:17], _RANDOM_48, _RANDOM_49, _RANDOM_50, _RANDOM_51[16:0]};	// icache.scala:44:24
-        cache_5_0_valid = _RANDOM_51[17];	// icache.scala:44:24
-        cache_6_0_tag = _RANDOM_56[28:8];	// icache.scala:44:24
-        cache_6_0_data = {_RANDOM_56[31:29], _RANDOM_57, _RANDOM_58, _RANDOM_59, _RANDOM_60[28:0]};	// icache.scala:44:24
-        cache_6_0_valid = _RANDOM_60[29];	// icache.scala:44:24
-        cache_7_0_tag = {_RANDOM_65[31:20], _RANDOM_66[8:0]};	// icache.scala:44:24
-        cache_7_0_data = {_RANDOM_66[31:9], _RANDOM_67, _RANDOM_68, _RANDOM_69, _RANDOM_70[8:0]};	// icache.scala:44:24
-        cache_7_0_valid = _RANDOM_70[9];	// icache.scala:44:24
-        cache_8_0_tag = _RANDOM_75[20:0];	// icache.scala:44:24
-        cache_8_0_data = {_RANDOM_75[31:21], _RANDOM_76, _RANDOM_77, _RANDOM_78, _RANDOM_79[20:0]};	// icache.scala:44:24
-        cache_8_0_valid = _RANDOM_79[21];	// icache.scala:44:24
-        cache_9_0_tag = {_RANDOM_84[31:12], _RANDOM_85[0]};	// icache.scala:44:24
-        cache_9_0_data = {_RANDOM_85[31:1], _RANDOM_86, _RANDOM_87, _RANDOM_88, _RANDOM_89[0]};	// icache.scala:44:24
-        cache_9_0_valid = _RANDOM_89[1];	// icache.scala:44:24
-        cache_10_0_tag = {_RANDOM_93[31:24], _RANDOM_94[12:0]};	// icache.scala:44:24
-        cache_10_0_data = {_RANDOM_94[31:13], _RANDOM_95, _RANDOM_96, _RANDOM_97, _RANDOM_98[12:0]};	// icache.scala:44:24
-        cache_10_0_valid = _RANDOM_98[13];	// icache.scala:44:24
-        cache_11_0_tag = _RANDOM_103[24:4];	// icache.scala:44:24
-        cache_11_0_data = {_RANDOM_103[31:25], _RANDOM_104, _RANDOM_105, _RANDOM_106, _RANDOM_107[24:0]};	// icache.scala:44:24
-        cache_11_0_valid = _RANDOM_107[25];	// icache.scala:44:24
-        cache_12_0_tag = {_RANDOM_112[31:16], _RANDOM_113[4:0]};	// icache.scala:44:24
-        cache_12_0_data = {_RANDOM_113[31:5], _RANDOM_114, _RANDOM_115, _RANDOM_116, _RANDOM_117[4:0]};	// icache.scala:44:24
-        cache_12_0_valid = _RANDOM_117[5];	// icache.scala:44:24
-        cache_13_0_tag = {_RANDOM_121[31:28], _RANDOM_122[16:0]};	// icache.scala:44:24
-        cache_13_0_data = {_RANDOM_122[31:17], _RANDOM_123, _RANDOM_124, _RANDOM_125, _RANDOM_126[16:0]};	// icache.scala:44:24
-        cache_13_0_valid = _RANDOM_126[17];	// icache.scala:44:24
-        cache_14_0_tag = _RANDOM_131[28:8];	// icache.scala:44:24
-        cache_14_0_data = {_RANDOM_131[31:29], _RANDOM_132, _RANDOM_133, _RANDOM_134, _RANDOM_135[28:0]};	// icache.scala:44:24
-        cache_14_0_valid = _RANDOM_135[29];	// icache.scala:44:24
-        cache_15_0_tag = {_RANDOM_140[31:20], _RANDOM_141[8:0]};	// icache.scala:44:24
-        cache_15_0_data = {_RANDOM_141[31:9], _RANDOM_142, _RANDOM_143, _RANDOM_144, _RANDOM_145[8:0]};	// icache.scala:44:24
-        cache_15_0_valid = _RANDOM_145[9];	// icache.scala:44:24
-        cache_16_0_tag = _RANDOM_150[20:0];	// icache.scala:44:24
-        cache_16_0_data = {_RANDOM_150[31:21], _RANDOM_151, _RANDOM_152, _RANDOM_153, _RANDOM_154[20:0]};	// icache.scala:44:24
-        cache_16_0_valid = _RANDOM_154[21];	// icache.scala:44:24
-        cache_17_0_tag = {_RANDOM_159[31:12], _RANDOM_160[0]};	// icache.scala:44:24
-        cache_17_0_data = {_RANDOM_160[31:1], _RANDOM_161, _RANDOM_162, _RANDOM_163, _RANDOM_164[0]};	// icache.scala:44:24
-        cache_17_0_valid = _RANDOM_164[1];	// icache.scala:44:24
-        cache_18_0_tag = {_RANDOM_168[31:24], _RANDOM_169[12:0]};	// icache.scala:44:24
-        cache_18_0_data = {_RANDOM_169[31:13], _RANDOM_170, _RANDOM_171, _RANDOM_172, _RANDOM_173[12:0]};	// icache.scala:44:24
-        cache_18_0_valid = _RANDOM_173[13];	// icache.scala:44:24
-        cache_19_0_tag = _RANDOM_178[24:4];	// icache.scala:44:24
-        cache_19_0_data = {_RANDOM_178[31:25], _RANDOM_179, _RANDOM_180, _RANDOM_181, _RANDOM_182[24:0]};	// icache.scala:44:24
-        cache_19_0_valid = _RANDOM_182[25];	// icache.scala:44:24
-        cache_20_0_tag = {_RANDOM_187[31:16], _RANDOM_188[4:0]};	// icache.scala:44:24
-        cache_20_0_data = {_RANDOM_188[31:5], _RANDOM_189, _RANDOM_190, _RANDOM_191, _RANDOM_192[4:0]};	// icache.scala:44:24
-        cache_20_0_valid = _RANDOM_192[5];	// icache.scala:44:24
-        cache_21_0_tag = {_RANDOM_196[31:28], _RANDOM_197[16:0]};	// icache.scala:44:24
-        cache_21_0_data = {_RANDOM_197[31:17], _RANDOM_198, _RANDOM_199, _RANDOM_200, _RANDOM_201[16:0]};	// icache.scala:44:24
-        cache_21_0_valid = _RANDOM_201[17];	// icache.scala:44:24
-        cache_22_0_tag = _RANDOM_206[28:8];	// icache.scala:44:24
-        cache_22_0_data = {_RANDOM_206[31:29], _RANDOM_207, _RANDOM_208, _RANDOM_209, _RANDOM_210[28:0]};	// icache.scala:44:24
-        cache_22_0_valid = _RANDOM_210[29];	// icache.scala:44:24
-        cache_23_0_tag = {_RANDOM_215[31:20], _RANDOM_216[8:0]};	// icache.scala:44:24
-        cache_23_0_data = {_RANDOM_216[31:9], _RANDOM_217, _RANDOM_218, _RANDOM_219, _RANDOM_220[8:0]};	// icache.scala:44:24
-        cache_23_0_valid = _RANDOM_220[9];	// icache.scala:44:24
-        cache_24_0_tag = _RANDOM_225[20:0];	// icache.scala:44:24
-        cache_24_0_data = {_RANDOM_225[31:21], _RANDOM_226, _RANDOM_227, _RANDOM_228, _RANDOM_229[20:0]};	// icache.scala:44:24
-        cache_24_0_valid = _RANDOM_229[21];	// icache.scala:44:24
-        cache_25_0_tag = {_RANDOM_234[31:12], _RANDOM_235[0]};	// icache.scala:44:24
-        cache_25_0_data = {_RANDOM_235[31:1], _RANDOM_236, _RANDOM_237, _RANDOM_238, _RANDOM_239[0]};	// icache.scala:44:24
-        cache_25_0_valid = _RANDOM_239[1];	// icache.scala:44:24
-        cache_26_0_tag = {_RANDOM_243[31:24], _RANDOM_244[12:0]};	// icache.scala:44:24
-        cache_26_0_data = {_RANDOM_244[31:13], _RANDOM_245, _RANDOM_246, _RANDOM_247, _RANDOM_248[12:0]};	// icache.scala:44:24
-        cache_26_0_valid = _RANDOM_248[13];	// icache.scala:44:24
-        cache_27_0_tag = _RANDOM_253[24:4];	// icache.scala:44:24
-        cache_27_0_data = {_RANDOM_253[31:25], _RANDOM_254, _RANDOM_255, _RANDOM_256, _RANDOM_257[24:0]};	// icache.scala:44:24
-        cache_27_0_valid = _RANDOM_257[25];	// icache.scala:44:24
-        cache_28_0_tag = {_RANDOM_262[31:16], _RANDOM_263[4:0]};	// icache.scala:44:24
-        cache_28_0_data = {_RANDOM_263[31:5], _RANDOM_264, _RANDOM_265, _RANDOM_266, _RANDOM_267[4:0]};	// icache.scala:44:24
-        cache_28_0_valid = _RANDOM_267[5];	// icache.scala:44:24
-        cache_29_0_tag = {_RANDOM_271[31:28], _RANDOM_272[16:0]};	// icache.scala:44:24
-        cache_29_0_data = {_RANDOM_272[31:17], _RANDOM_273, _RANDOM_274, _RANDOM_275, _RANDOM_276[16:0]};	// icache.scala:44:24
-        cache_29_0_valid = _RANDOM_276[17];	// icache.scala:44:24
-        cache_30_0_tag = _RANDOM_281[28:8];	// icache.scala:44:24
-        cache_30_0_data = {_RANDOM_281[31:29], _RANDOM_282, _RANDOM_283, _RANDOM_284, _RANDOM_285[28:0]};	// icache.scala:44:24
-        cache_30_0_valid = _RANDOM_285[29];	// icache.scala:44:24
-        cache_31_0_tag = {_RANDOM_290[31:20], _RANDOM_291[8:0]};	// icache.scala:44:24
-        cache_31_0_data = {_RANDOM_291[31:9], _RANDOM_292, _RANDOM_293, _RANDOM_294, _RANDOM_295[8:0]};	// icache.scala:44:24
-        cache_31_0_valid = _RANDOM_295[9];	// icache.scala:44:24
-        cache_32_0_tag = _RANDOM_300[20:0];	// icache.scala:44:24
-        cache_32_0_data = {_RANDOM_300[31:21], _RANDOM_301, _RANDOM_302, _RANDOM_303, _RANDOM_304[20:0]};	// icache.scala:44:24
-        cache_32_0_valid = _RANDOM_304[21];	// icache.scala:44:24
-        cache_33_0_tag = {_RANDOM_309[31:12], _RANDOM_310[0]};	// icache.scala:44:24
-        cache_33_0_data = {_RANDOM_310[31:1], _RANDOM_311, _RANDOM_312, _RANDOM_313, _RANDOM_314[0]};	// icache.scala:44:24
-        cache_33_0_valid = _RANDOM_314[1];	// icache.scala:44:24
-        cache_34_0_tag = {_RANDOM_318[31:24], _RANDOM_319[12:0]};	// icache.scala:44:24
-        cache_34_0_data = {_RANDOM_319[31:13], _RANDOM_320, _RANDOM_321, _RANDOM_322, _RANDOM_323[12:0]};	// icache.scala:44:24
-        cache_34_0_valid = _RANDOM_323[13];	// icache.scala:44:24
-        cache_35_0_tag = _RANDOM_328[24:4];	// icache.scala:44:24
-        cache_35_0_data = {_RANDOM_328[31:25], _RANDOM_329, _RANDOM_330, _RANDOM_331, _RANDOM_332[24:0]};	// icache.scala:44:24
-        cache_35_0_valid = _RANDOM_332[25];	// icache.scala:44:24
-        cache_36_0_tag = {_RANDOM_337[31:16], _RANDOM_338[4:0]};	// icache.scala:44:24
-        cache_36_0_data = {_RANDOM_338[31:5], _RANDOM_339, _RANDOM_340, _RANDOM_341, _RANDOM_342[4:0]};	// icache.scala:44:24
-        cache_36_0_valid = _RANDOM_342[5];	// icache.scala:44:24
-        cache_37_0_tag = {_RANDOM_346[31:28], _RANDOM_347[16:0]};	// icache.scala:44:24
-        cache_37_0_data = {_RANDOM_347[31:17], _RANDOM_348, _RANDOM_349, _RANDOM_350, _RANDOM_351[16:0]};	// icache.scala:44:24
-        cache_37_0_valid = _RANDOM_351[17];	// icache.scala:44:24
-        cache_38_0_tag = _RANDOM_356[28:8];	// icache.scala:44:24
-        cache_38_0_data = {_RANDOM_356[31:29], _RANDOM_357, _RANDOM_358, _RANDOM_359, _RANDOM_360[28:0]};	// icache.scala:44:24
-        cache_38_0_valid = _RANDOM_360[29];	// icache.scala:44:24
-        cache_39_0_tag = {_RANDOM_365[31:20], _RANDOM_366[8:0]};	// icache.scala:44:24
-        cache_39_0_data = {_RANDOM_366[31:9], _RANDOM_367, _RANDOM_368, _RANDOM_369, _RANDOM_370[8:0]};	// icache.scala:44:24
-        cache_39_0_valid = _RANDOM_370[9];	// icache.scala:44:24
-        cache_40_0_tag = _RANDOM_375[20:0];	// icache.scala:44:24
-        cache_40_0_data = {_RANDOM_375[31:21], _RANDOM_376, _RANDOM_377, _RANDOM_378, _RANDOM_379[20:0]};	// icache.scala:44:24
-        cache_40_0_valid = _RANDOM_379[21];	// icache.scala:44:24
-        cache_41_0_tag = {_RANDOM_384[31:12], _RANDOM_385[0]};	// icache.scala:44:24
-        cache_41_0_data = {_RANDOM_385[31:1], _RANDOM_386, _RANDOM_387, _RANDOM_388, _RANDOM_389[0]};	// icache.scala:44:24
-        cache_41_0_valid = _RANDOM_389[1];	// icache.scala:44:24
-        cache_42_0_tag = {_RANDOM_393[31:24], _RANDOM_394[12:0]};	// icache.scala:44:24
-        cache_42_0_data = {_RANDOM_394[31:13], _RANDOM_395, _RANDOM_396, _RANDOM_397, _RANDOM_398[12:0]};	// icache.scala:44:24
-        cache_42_0_valid = _RANDOM_398[13];	// icache.scala:44:24
-        cache_43_0_tag = _RANDOM_403[24:4];	// icache.scala:44:24
-        cache_43_0_data = {_RANDOM_403[31:25], _RANDOM_404, _RANDOM_405, _RANDOM_406, _RANDOM_407[24:0]};	// icache.scala:44:24
-        cache_43_0_valid = _RANDOM_407[25];	// icache.scala:44:24
-        cache_44_0_tag = {_RANDOM_412[31:16], _RANDOM_413[4:0]};	// icache.scala:44:24
-        cache_44_0_data = {_RANDOM_413[31:5], _RANDOM_414, _RANDOM_415, _RANDOM_416, _RANDOM_417[4:0]};	// icache.scala:44:24
-        cache_44_0_valid = _RANDOM_417[5];	// icache.scala:44:24
-        cache_45_0_tag = {_RANDOM_421[31:28], _RANDOM_422[16:0]};	// icache.scala:44:24
-        cache_45_0_data = {_RANDOM_422[31:17], _RANDOM_423, _RANDOM_424, _RANDOM_425, _RANDOM_426[16:0]};	// icache.scala:44:24
-        cache_45_0_valid = _RANDOM_426[17];	// icache.scala:44:24
-        cache_46_0_tag = _RANDOM_431[28:8];	// icache.scala:44:24
-        cache_46_0_data = {_RANDOM_431[31:29], _RANDOM_432, _RANDOM_433, _RANDOM_434, _RANDOM_435[28:0]};	// icache.scala:44:24
-        cache_46_0_valid = _RANDOM_435[29];	// icache.scala:44:24
-        cache_47_0_tag = {_RANDOM_440[31:20], _RANDOM_441[8:0]};	// icache.scala:44:24
-        cache_47_0_data = {_RANDOM_441[31:9], _RANDOM_442, _RANDOM_443, _RANDOM_444, _RANDOM_445[8:0]};	// icache.scala:44:24
-        cache_47_0_valid = _RANDOM_445[9];	// icache.scala:44:24
-        cache_48_0_tag = _RANDOM_450[20:0];	// icache.scala:44:24
-        cache_48_0_data = {_RANDOM_450[31:21], _RANDOM_451, _RANDOM_452, _RANDOM_453, _RANDOM_454[20:0]};	// icache.scala:44:24
-        cache_48_0_valid = _RANDOM_454[21];	// icache.scala:44:24
-        cache_49_0_tag = {_RANDOM_459[31:12], _RANDOM_460[0]};	// icache.scala:44:24
-        cache_49_0_data = {_RANDOM_460[31:1], _RANDOM_461, _RANDOM_462, _RANDOM_463, _RANDOM_464[0]};	// icache.scala:44:24
-        cache_49_0_valid = _RANDOM_464[1];	// icache.scala:44:24
-        cache_50_0_tag = {_RANDOM_468[31:24], _RANDOM_469[12:0]};	// icache.scala:44:24
-        cache_50_0_data = {_RANDOM_469[31:13], _RANDOM_470, _RANDOM_471, _RANDOM_472, _RANDOM_473[12:0]};	// icache.scala:44:24
-        cache_50_0_valid = _RANDOM_473[13];	// icache.scala:44:24
-        cache_51_0_tag = _RANDOM_478[24:4];	// icache.scala:44:24
-        cache_51_0_data = {_RANDOM_478[31:25], _RANDOM_479, _RANDOM_480, _RANDOM_481, _RANDOM_482[24:0]};	// icache.scala:44:24
-        cache_51_0_valid = _RANDOM_482[25];	// icache.scala:44:24
-        cache_52_0_tag = {_RANDOM_487[31:16], _RANDOM_488[4:0]};	// icache.scala:44:24
-        cache_52_0_data = {_RANDOM_488[31:5], _RANDOM_489, _RANDOM_490, _RANDOM_491, _RANDOM_492[4:0]};	// icache.scala:44:24
-        cache_52_0_valid = _RANDOM_492[5];	// icache.scala:44:24
-        cache_53_0_tag = {_RANDOM_496[31:28], _RANDOM_497[16:0]};	// icache.scala:44:24
-        cache_53_0_data = {_RANDOM_497[31:17], _RANDOM_498, _RANDOM_499, _RANDOM_500, _RANDOM_501[16:0]};	// icache.scala:44:24
-        cache_53_0_valid = _RANDOM_501[17];	// icache.scala:44:24
-        cache_54_0_tag = _RANDOM_506[28:8];	// icache.scala:44:24
-        cache_54_0_data = {_RANDOM_506[31:29], _RANDOM_507, _RANDOM_508, _RANDOM_509, _RANDOM_510[28:0]};	// icache.scala:44:24
-        cache_54_0_valid = _RANDOM_510[29];	// icache.scala:44:24
-        cache_55_0_tag = {_RANDOM_515[31:20], _RANDOM_516[8:0]};	// icache.scala:44:24
-        cache_55_0_data = {_RANDOM_516[31:9], _RANDOM_517, _RANDOM_518, _RANDOM_519, _RANDOM_520[8:0]};	// icache.scala:44:24
-        cache_55_0_valid = _RANDOM_520[9];	// icache.scala:44:24
-        cache_56_0_tag = _RANDOM_525[20:0];	// icache.scala:44:24
-        cache_56_0_data = {_RANDOM_525[31:21], _RANDOM_526, _RANDOM_527, _RANDOM_528, _RANDOM_529[20:0]};	// icache.scala:44:24
-        cache_56_0_valid = _RANDOM_529[21];	// icache.scala:44:24
-        cache_57_0_tag = {_RANDOM_534[31:12], _RANDOM_535[0]};	// icache.scala:44:24
-        cache_57_0_data = {_RANDOM_535[31:1], _RANDOM_536, _RANDOM_537, _RANDOM_538, _RANDOM_539[0]};	// icache.scala:44:24
-        cache_57_0_valid = _RANDOM_539[1];	// icache.scala:44:24
-        cache_58_0_tag = {_RANDOM_543[31:24], _RANDOM_544[12:0]};	// icache.scala:44:24
-        cache_58_0_data = {_RANDOM_544[31:13], _RANDOM_545, _RANDOM_546, _RANDOM_547, _RANDOM_548[12:0]};	// icache.scala:44:24
-        cache_58_0_valid = _RANDOM_548[13];	// icache.scala:44:24
-        cache_59_0_tag = _RANDOM_553[24:4];	// icache.scala:44:24
-        cache_59_0_data = {_RANDOM_553[31:25], _RANDOM_554, _RANDOM_555, _RANDOM_556, _RANDOM_557[24:0]};	// icache.scala:44:24
-        cache_59_0_valid = _RANDOM_557[25];	// icache.scala:44:24
-        cache_60_0_tag = {_RANDOM_562[31:16], _RANDOM_563[4:0]};	// icache.scala:44:24
-        cache_60_0_data = {_RANDOM_563[31:5], _RANDOM_564, _RANDOM_565, _RANDOM_566, _RANDOM_567[4:0]};	// icache.scala:44:24
-        cache_60_0_valid = _RANDOM_567[5];	// icache.scala:44:24
-        cache_61_0_tag = {_RANDOM_571[31:28], _RANDOM_572[16:0]};	// icache.scala:44:24
-        cache_61_0_data = {_RANDOM_572[31:17], _RANDOM_573, _RANDOM_574, _RANDOM_575, _RANDOM_576[16:0]};	// icache.scala:44:24
-        cache_61_0_valid = _RANDOM_576[17];	// icache.scala:44:24
-        cache_62_0_tag = _RANDOM_581[28:8];	// icache.scala:44:24
-        cache_62_0_data = {_RANDOM_581[31:29], _RANDOM_582, _RANDOM_583, _RANDOM_584, _RANDOM_585[28:0]};	// icache.scala:44:24
-        cache_62_0_valid = _RANDOM_585[29];	// icache.scala:44:24
-        cache_63_0_tag = {_RANDOM_590[31:20], _RANDOM_591[8:0]};	// icache.scala:44:24
-        cache_63_0_data = {_RANDOM_591[31:9], _RANDOM_592, _RANDOM_593, _RANDOM_594, _RANDOM_595[8:0]};	// icache.scala:44:24
-        cache_63_0_valid = _RANDOM_595[9];	// icache.scala:44:24
-        cache_64_0_tag = _RANDOM_600[20:0];	// icache.scala:44:24
-        cache_64_0_data = {_RANDOM_600[31:21], _RANDOM_601, _RANDOM_602, _RANDOM_603, _RANDOM_604[20:0]};	// icache.scala:44:24
-        cache_64_0_valid = _RANDOM_604[21];	// icache.scala:44:24
-        cache_65_0_tag = {_RANDOM_609[31:12], _RANDOM_610[0]};	// icache.scala:44:24
-        cache_65_0_data = {_RANDOM_610[31:1], _RANDOM_611, _RANDOM_612, _RANDOM_613, _RANDOM_614[0]};	// icache.scala:44:24
-        cache_65_0_valid = _RANDOM_614[1];	// icache.scala:44:24
-        cache_66_0_tag = {_RANDOM_618[31:24], _RANDOM_619[12:0]};	// icache.scala:44:24
-        cache_66_0_data = {_RANDOM_619[31:13], _RANDOM_620, _RANDOM_621, _RANDOM_622, _RANDOM_623[12:0]};	// icache.scala:44:24
-        cache_66_0_valid = _RANDOM_623[13];	// icache.scala:44:24
-        cache_67_0_tag = _RANDOM_628[24:4];	// icache.scala:44:24
-        cache_67_0_data = {_RANDOM_628[31:25], _RANDOM_629, _RANDOM_630, _RANDOM_631, _RANDOM_632[24:0]};	// icache.scala:44:24
-        cache_67_0_valid = _RANDOM_632[25];	// icache.scala:44:24
-        cache_68_0_tag = {_RANDOM_637[31:16], _RANDOM_638[4:0]};	// icache.scala:44:24
-        cache_68_0_data = {_RANDOM_638[31:5], _RANDOM_639, _RANDOM_640, _RANDOM_641, _RANDOM_642[4:0]};	// icache.scala:44:24
-        cache_68_0_valid = _RANDOM_642[5];	// icache.scala:44:24
-        cache_69_0_tag = {_RANDOM_646[31:28], _RANDOM_647[16:0]};	// icache.scala:44:24
-        cache_69_0_data = {_RANDOM_647[31:17], _RANDOM_648, _RANDOM_649, _RANDOM_650, _RANDOM_651[16:0]};	// icache.scala:44:24
-        cache_69_0_valid = _RANDOM_651[17];	// icache.scala:44:24
-        cache_70_0_tag = _RANDOM_656[28:8];	// icache.scala:44:24
-        cache_70_0_data = {_RANDOM_656[31:29], _RANDOM_657, _RANDOM_658, _RANDOM_659, _RANDOM_660[28:0]};	// icache.scala:44:24
-        cache_70_0_valid = _RANDOM_660[29];	// icache.scala:44:24
-        cache_71_0_tag = {_RANDOM_665[31:20], _RANDOM_666[8:0]};	// icache.scala:44:24
-        cache_71_0_data = {_RANDOM_666[31:9], _RANDOM_667, _RANDOM_668, _RANDOM_669, _RANDOM_670[8:0]};	// icache.scala:44:24
-        cache_71_0_valid = _RANDOM_670[9];	// icache.scala:44:24
-        cache_72_0_tag = _RANDOM_675[20:0];	// icache.scala:44:24
-        cache_72_0_data = {_RANDOM_675[31:21], _RANDOM_676, _RANDOM_677, _RANDOM_678, _RANDOM_679[20:0]};	// icache.scala:44:24
-        cache_72_0_valid = _RANDOM_679[21];	// icache.scala:44:24
-        cache_73_0_tag = {_RANDOM_684[31:12], _RANDOM_685[0]};	// icache.scala:44:24
-        cache_73_0_data = {_RANDOM_685[31:1], _RANDOM_686, _RANDOM_687, _RANDOM_688, _RANDOM_689[0]};	// icache.scala:44:24
-        cache_73_0_valid = _RANDOM_689[1];	// icache.scala:44:24
-        cache_74_0_tag = {_RANDOM_693[31:24], _RANDOM_694[12:0]};	// icache.scala:44:24
-        cache_74_0_data = {_RANDOM_694[31:13], _RANDOM_695, _RANDOM_696, _RANDOM_697, _RANDOM_698[12:0]};	// icache.scala:44:24
-        cache_74_0_valid = _RANDOM_698[13];	// icache.scala:44:24
-        cache_75_0_tag = _RANDOM_703[24:4];	// icache.scala:44:24
-        cache_75_0_data = {_RANDOM_703[31:25], _RANDOM_704, _RANDOM_705, _RANDOM_706, _RANDOM_707[24:0]};	// icache.scala:44:24
-        cache_75_0_valid = _RANDOM_707[25];	// icache.scala:44:24
-        cache_76_0_tag = {_RANDOM_712[31:16], _RANDOM_713[4:0]};	// icache.scala:44:24
-        cache_76_0_data = {_RANDOM_713[31:5], _RANDOM_714, _RANDOM_715, _RANDOM_716, _RANDOM_717[4:0]};	// icache.scala:44:24
-        cache_76_0_valid = _RANDOM_717[5];	// icache.scala:44:24
-        cache_77_0_tag = {_RANDOM_721[31:28], _RANDOM_722[16:0]};	// icache.scala:44:24
-        cache_77_0_data = {_RANDOM_722[31:17], _RANDOM_723, _RANDOM_724, _RANDOM_725, _RANDOM_726[16:0]};	// icache.scala:44:24
-        cache_77_0_valid = _RANDOM_726[17];	// icache.scala:44:24
-        cache_78_0_tag = _RANDOM_731[28:8];	// icache.scala:44:24
-        cache_78_0_data = {_RANDOM_731[31:29], _RANDOM_732, _RANDOM_733, _RANDOM_734, _RANDOM_735[28:0]};	// icache.scala:44:24
-        cache_78_0_valid = _RANDOM_735[29];	// icache.scala:44:24
-        cache_79_0_tag = {_RANDOM_740[31:20], _RANDOM_741[8:0]};	// icache.scala:44:24
-        cache_79_0_data = {_RANDOM_741[31:9], _RANDOM_742, _RANDOM_743, _RANDOM_744, _RANDOM_745[8:0]};	// icache.scala:44:24
-        cache_79_0_valid = _RANDOM_745[9];	// icache.scala:44:24
-        cache_80_0_tag = _RANDOM_750[20:0];	// icache.scala:44:24
-        cache_80_0_data = {_RANDOM_750[31:21], _RANDOM_751, _RANDOM_752, _RANDOM_753, _RANDOM_754[20:0]};	// icache.scala:44:24
-        cache_80_0_valid = _RANDOM_754[21];	// icache.scala:44:24
-        cache_81_0_tag = {_RANDOM_759[31:12], _RANDOM_760[0]};	// icache.scala:44:24
-        cache_81_0_data = {_RANDOM_760[31:1], _RANDOM_761, _RANDOM_762, _RANDOM_763, _RANDOM_764[0]};	// icache.scala:44:24
-        cache_81_0_valid = _RANDOM_764[1];	// icache.scala:44:24
-        cache_82_0_tag = {_RANDOM_768[31:24], _RANDOM_769[12:0]};	// icache.scala:44:24
-        cache_82_0_data = {_RANDOM_769[31:13], _RANDOM_770, _RANDOM_771, _RANDOM_772, _RANDOM_773[12:0]};	// icache.scala:44:24
-        cache_82_0_valid = _RANDOM_773[13];	// icache.scala:44:24
-        cache_83_0_tag = _RANDOM_778[24:4];	// icache.scala:44:24
-        cache_83_0_data = {_RANDOM_778[31:25], _RANDOM_779, _RANDOM_780, _RANDOM_781, _RANDOM_782[24:0]};	// icache.scala:44:24
-        cache_83_0_valid = _RANDOM_782[25];	// icache.scala:44:24
-        cache_84_0_tag = {_RANDOM_787[31:16], _RANDOM_788[4:0]};	// icache.scala:44:24
-        cache_84_0_data = {_RANDOM_788[31:5], _RANDOM_789, _RANDOM_790, _RANDOM_791, _RANDOM_792[4:0]};	// icache.scala:44:24
-        cache_84_0_valid = _RANDOM_792[5];	// icache.scala:44:24
-        cache_85_0_tag = {_RANDOM_796[31:28], _RANDOM_797[16:0]};	// icache.scala:44:24
-        cache_85_0_data = {_RANDOM_797[31:17], _RANDOM_798, _RANDOM_799, _RANDOM_800, _RANDOM_801[16:0]};	// icache.scala:44:24
-        cache_85_0_valid = _RANDOM_801[17];	// icache.scala:44:24
-        cache_86_0_tag = _RANDOM_806[28:8];	// icache.scala:44:24
-        cache_86_0_data = {_RANDOM_806[31:29], _RANDOM_807, _RANDOM_808, _RANDOM_809, _RANDOM_810[28:0]};	// icache.scala:44:24
-        cache_86_0_valid = _RANDOM_810[29];	// icache.scala:44:24
-        cache_87_0_tag = {_RANDOM_815[31:20], _RANDOM_816[8:0]};	// icache.scala:44:24
-        cache_87_0_data = {_RANDOM_816[31:9], _RANDOM_817, _RANDOM_818, _RANDOM_819, _RANDOM_820[8:0]};	// icache.scala:44:24
-        cache_87_0_valid = _RANDOM_820[9];	// icache.scala:44:24
-        cache_88_0_tag = _RANDOM_825[20:0];	// icache.scala:44:24
-        cache_88_0_data = {_RANDOM_825[31:21], _RANDOM_826, _RANDOM_827, _RANDOM_828, _RANDOM_829[20:0]};	// icache.scala:44:24
-        cache_88_0_valid = _RANDOM_829[21];	// icache.scala:44:24
-        cache_89_0_tag = {_RANDOM_834[31:12], _RANDOM_835[0]};	// icache.scala:44:24
-        cache_89_0_data = {_RANDOM_835[31:1], _RANDOM_836, _RANDOM_837, _RANDOM_838, _RANDOM_839[0]};	// icache.scala:44:24
-        cache_89_0_valid = _RANDOM_839[1];	// icache.scala:44:24
-        cache_90_0_tag = {_RANDOM_843[31:24], _RANDOM_844[12:0]};	// icache.scala:44:24
-        cache_90_0_data = {_RANDOM_844[31:13], _RANDOM_845, _RANDOM_846, _RANDOM_847, _RANDOM_848[12:0]};	// icache.scala:44:24
-        cache_90_0_valid = _RANDOM_848[13];	// icache.scala:44:24
-        cache_91_0_tag = _RANDOM_853[24:4];	// icache.scala:44:24
-        cache_91_0_data = {_RANDOM_853[31:25], _RANDOM_854, _RANDOM_855, _RANDOM_856, _RANDOM_857[24:0]};	// icache.scala:44:24
-        cache_91_0_valid = _RANDOM_857[25];	// icache.scala:44:24
-        cache_92_0_tag = {_RANDOM_862[31:16], _RANDOM_863[4:0]};	// icache.scala:44:24
-        cache_92_0_data = {_RANDOM_863[31:5], _RANDOM_864, _RANDOM_865, _RANDOM_866, _RANDOM_867[4:0]};	// icache.scala:44:24
-        cache_92_0_valid = _RANDOM_867[5];	// icache.scala:44:24
-        cache_93_0_tag = {_RANDOM_871[31:28], _RANDOM_872[16:0]};	// icache.scala:44:24
-        cache_93_0_data = {_RANDOM_872[31:17], _RANDOM_873, _RANDOM_874, _RANDOM_875, _RANDOM_876[16:0]};	// icache.scala:44:24
-        cache_93_0_valid = _RANDOM_876[17];	// icache.scala:44:24
-        cache_94_0_tag = _RANDOM_881[28:8];	// icache.scala:44:24
-        cache_94_0_data = {_RANDOM_881[31:29], _RANDOM_882, _RANDOM_883, _RANDOM_884, _RANDOM_885[28:0]};	// icache.scala:44:24
-        cache_94_0_valid = _RANDOM_885[29];	// icache.scala:44:24
-        cache_95_0_tag = {_RANDOM_890[31:20], _RANDOM_891[8:0]};	// icache.scala:44:24
-        cache_95_0_data = {_RANDOM_891[31:9], _RANDOM_892, _RANDOM_893, _RANDOM_894, _RANDOM_895[8:0]};	// icache.scala:44:24
-        cache_95_0_valid = _RANDOM_895[9];	// icache.scala:44:24
-        cache_96_0_tag = _RANDOM_900[20:0];	// icache.scala:44:24
-        cache_96_0_data = {_RANDOM_900[31:21], _RANDOM_901, _RANDOM_902, _RANDOM_903, _RANDOM_904[20:0]};	// icache.scala:44:24
-        cache_96_0_valid = _RANDOM_904[21];	// icache.scala:44:24
-        cache_97_0_tag = {_RANDOM_909[31:12], _RANDOM_910[0]};	// icache.scala:44:24
-        cache_97_0_data = {_RANDOM_910[31:1], _RANDOM_911, _RANDOM_912, _RANDOM_913, _RANDOM_914[0]};	// icache.scala:44:24
-        cache_97_0_valid = _RANDOM_914[1];	// icache.scala:44:24
-        cache_98_0_tag = {_RANDOM_918[31:24], _RANDOM_919[12:0]};	// icache.scala:44:24
-        cache_98_0_data = {_RANDOM_919[31:13], _RANDOM_920, _RANDOM_921, _RANDOM_922, _RANDOM_923[12:0]};	// icache.scala:44:24
-        cache_98_0_valid = _RANDOM_923[13];	// icache.scala:44:24
-        cache_99_0_tag = _RANDOM_928[24:4];	// icache.scala:44:24
-        cache_99_0_data = {_RANDOM_928[31:25], _RANDOM_929, _RANDOM_930, _RANDOM_931, _RANDOM_932[24:0]};	// icache.scala:44:24
-        cache_99_0_valid = _RANDOM_932[25];	// icache.scala:44:24
-        cache_100_0_tag = {_RANDOM_937[31:16], _RANDOM_938[4:0]};	// icache.scala:44:24
-        cache_100_0_data = {_RANDOM_938[31:5], _RANDOM_939, _RANDOM_940, _RANDOM_941, _RANDOM_942[4:0]};	// icache.scala:44:24
-        cache_100_0_valid = _RANDOM_942[5];	// icache.scala:44:24
-        cache_101_0_tag = {_RANDOM_946[31:28], _RANDOM_947[16:0]};	// icache.scala:44:24
-        cache_101_0_data = {_RANDOM_947[31:17], _RANDOM_948, _RANDOM_949, _RANDOM_950, _RANDOM_951[16:0]};	// icache.scala:44:24
-        cache_101_0_valid = _RANDOM_951[17];	// icache.scala:44:24
-        cache_102_0_tag = _RANDOM_956[28:8];	// icache.scala:44:24
-        cache_102_0_data = {_RANDOM_956[31:29], _RANDOM_957, _RANDOM_958, _RANDOM_959, _RANDOM_960[28:0]};	// icache.scala:44:24
-        cache_102_0_valid = _RANDOM_960[29];	// icache.scala:44:24
-        cache_103_0_tag = {_RANDOM_965[31:20], _RANDOM_966[8:0]};	// icache.scala:44:24
-        cache_103_0_data = {_RANDOM_966[31:9], _RANDOM_967, _RANDOM_968, _RANDOM_969, _RANDOM_970[8:0]};	// icache.scala:44:24
-        cache_103_0_valid = _RANDOM_970[9];	// icache.scala:44:24
-        cache_104_0_tag = _RANDOM_975[20:0];	// icache.scala:44:24
-        cache_104_0_data = {_RANDOM_975[31:21], _RANDOM_976, _RANDOM_977, _RANDOM_978, _RANDOM_979[20:0]};	// icache.scala:44:24
-        cache_104_0_valid = _RANDOM_979[21];	// icache.scala:44:24
-        cache_105_0_tag = {_RANDOM_984[31:12], _RANDOM_985[0]};	// icache.scala:44:24
-        cache_105_0_data = {_RANDOM_985[31:1], _RANDOM_986, _RANDOM_987, _RANDOM_988, _RANDOM_989[0]};	// icache.scala:44:24
-        cache_105_0_valid = _RANDOM_989[1];	// icache.scala:44:24
-        cache_106_0_tag = {_RANDOM_993[31:24], _RANDOM_994[12:0]};	// icache.scala:44:24
-        cache_106_0_data = {_RANDOM_994[31:13], _RANDOM_995, _RANDOM_996, _RANDOM_997, _RANDOM_998[12:0]};	// icache.scala:44:24
-        cache_106_0_valid = _RANDOM_998[13];	// icache.scala:44:24
-        cache_107_0_tag = _RANDOM_1003[24:4];	// icache.scala:44:24
-        cache_107_0_data = {_RANDOM_1003[31:25], _RANDOM_1004, _RANDOM_1005, _RANDOM_1006, _RANDOM_1007[24:0]};	// icache.scala:44:24
-        cache_107_0_valid = _RANDOM_1007[25];	// icache.scala:44:24
-        cache_108_0_tag = {_RANDOM_1012[31:16], _RANDOM_1013[4:0]};	// icache.scala:44:24
-        cache_108_0_data = {_RANDOM_1013[31:5], _RANDOM_1014, _RANDOM_1015, _RANDOM_1016, _RANDOM_1017[4:0]};	// icache.scala:44:24
-        cache_108_0_valid = _RANDOM_1017[5];	// icache.scala:44:24
-        cache_109_0_tag = {_RANDOM_1021[31:28], _RANDOM_1022[16:0]};	// icache.scala:44:24
-        cache_109_0_data = {_RANDOM_1022[31:17], _RANDOM_1023, _RANDOM_1024, _RANDOM_1025, _RANDOM_1026[16:0]};	// icache.scala:44:24
-        cache_109_0_valid = _RANDOM_1026[17];	// icache.scala:44:24
-        cache_110_0_tag = _RANDOM_1031[28:8];	// icache.scala:44:24
-        cache_110_0_data = {_RANDOM_1031[31:29], _RANDOM_1032, _RANDOM_1033, _RANDOM_1034, _RANDOM_1035[28:0]};	// icache.scala:44:24
-        cache_110_0_valid = _RANDOM_1035[29];	// icache.scala:44:24
-        cache_111_0_tag = {_RANDOM_1040[31:20], _RANDOM_1041[8:0]};	// icache.scala:44:24
-        cache_111_0_data = {_RANDOM_1041[31:9], _RANDOM_1042, _RANDOM_1043, _RANDOM_1044, _RANDOM_1045[8:0]};	// icache.scala:44:24
-        cache_111_0_valid = _RANDOM_1045[9];	// icache.scala:44:24
-        cache_112_0_tag = _RANDOM_1050[20:0];	// icache.scala:44:24
-        cache_112_0_data = {_RANDOM_1050[31:21], _RANDOM_1051, _RANDOM_1052, _RANDOM_1053, _RANDOM_1054[20:0]};	// icache.scala:44:24
-        cache_112_0_valid = _RANDOM_1054[21];	// icache.scala:44:24
-        cache_113_0_tag = {_RANDOM_1059[31:12], _RANDOM_1060[0]};	// icache.scala:44:24
-        cache_113_0_data = {_RANDOM_1060[31:1], _RANDOM_1061, _RANDOM_1062, _RANDOM_1063, _RANDOM_1064[0]};	// icache.scala:44:24
-        cache_113_0_valid = _RANDOM_1064[1];	// icache.scala:44:24
-        cache_114_0_tag = {_RANDOM_1068[31:24], _RANDOM_1069[12:0]};	// icache.scala:44:24
-        cache_114_0_data = {_RANDOM_1069[31:13], _RANDOM_1070, _RANDOM_1071, _RANDOM_1072, _RANDOM_1073[12:0]};	// icache.scala:44:24
-        cache_114_0_valid = _RANDOM_1073[13];	// icache.scala:44:24
-        cache_115_0_tag = _RANDOM_1078[24:4];	// icache.scala:44:24
-        cache_115_0_data = {_RANDOM_1078[31:25], _RANDOM_1079, _RANDOM_1080, _RANDOM_1081, _RANDOM_1082[24:0]};	// icache.scala:44:24
-        cache_115_0_valid = _RANDOM_1082[25];	// icache.scala:44:24
-        cache_116_0_tag = {_RANDOM_1087[31:16], _RANDOM_1088[4:0]};	// icache.scala:44:24
-        cache_116_0_data = {_RANDOM_1088[31:5], _RANDOM_1089, _RANDOM_1090, _RANDOM_1091, _RANDOM_1092[4:0]};	// icache.scala:44:24
-        cache_116_0_valid = _RANDOM_1092[5];	// icache.scala:44:24
-        cache_117_0_tag = {_RANDOM_1096[31:28], _RANDOM_1097[16:0]};	// icache.scala:44:24
-        cache_117_0_data = {_RANDOM_1097[31:17], _RANDOM_1098, _RANDOM_1099, _RANDOM_1100, _RANDOM_1101[16:0]};	// icache.scala:44:24
-        cache_117_0_valid = _RANDOM_1101[17];	// icache.scala:44:24
-        cache_118_0_tag = _RANDOM_1106[28:8];	// icache.scala:44:24
-        cache_118_0_data = {_RANDOM_1106[31:29], _RANDOM_1107, _RANDOM_1108, _RANDOM_1109, _RANDOM_1110[28:0]};	// icache.scala:44:24
-        cache_118_0_valid = _RANDOM_1110[29];	// icache.scala:44:24
-        cache_119_0_tag = {_RANDOM_1115[31:20], _RANDOM_1116[8:0]};	// icache.scala:44:24
-        cache_119_0_data = {_RANDOM_1116[31:9], _RANDOM_1117, _RANDOM_1118, _RANDOM_1119, _RANDOM_1120[8:0]};	// icache.scala:44:24
-        cache_119_0_valid = _RANDOM_1120[9];	// icache.scala:44:24
-        cache_120_0_tag = _RANDOM_1125[20:0];	// icache.scala:44:24
-        cache_120_0_data = {_RANDOM_1125[31:21], _RANDOM_1126, _RANDOM_1127, _RANDOM_1128, _RANDOM_1129[20:0]};	// icache.scala:44:24
-        cache_120_0_valid = _RANDOM_1129[21];	// icache.scala:44:24
-        cache_121_0_tag = {_RANDOM_1134[31:12], _RANDOM_1135[0]};	// icache.scala:44:24
-        cache_121_0_data = {_RANDOM_1135[31:1], _RANDOM_1136, _RANDOM_1137, _RANDOM_1138, _RANDOM_1139[0]};	// icache.scala:44:24
-        cache_121_0_valid = _RANDOM_1139[1];	// icache.scala:44:24
-        cache_122_0_tag = {_RANDOM_1143[31:24], _RANDOM_1144[12:0]};	// icache.scala:44:24
-        cache_122_0_data = {_RANDOM_1144[31:13], _RANDOM_1145, _RANDOM_1146, _RANDOM_1147, _RANDOM_1148[12:0]};	// icache.scala:44:24
-        cache_122_0_valid = _RANDOM_1148[13];	// icache.scala:44:24
-        cache_123_0_tag = _RANDOM_1153[24:4];	// icache.scala:44:24
-        cache_123_0_data = {_RANDOM_1153[31:25], _RANDOM_1154, _RANDOM_1155, _RANDOM_1156, _RANDOM_1157[24:0]};	// icache.scala:44:24
-        cache_123_0_valid = _RANDOM_1157[25];	// icache.scala:44:24
-        cache_124_0_tag = {_RANDOM_1162[31:16], _RANDOM_1163[4:0]};	// icache.scala:44:24
-        cache_124_0_data = {_RANDOM_1163[31:5], _RANDOM_1164, _RANDOM_1165, _RANDOM_1166, _RANDOM_1167[4:0]};	// icache.scala:44:24
-        cache_124_0_valid = _RANDOM_1167[5];	// icache.scala:44:24
-        cache_125_0_tag = {_RANDOM_1171[31:28], _RANDOM_1172[16:0]};	// icache.scala:44:24
-        cache_125_0_data = {_RANDOM_1172[31:17], _RANDOM_1173, _RANDOM_1174, _RANDOM_1175, _RANDOM_1176[16:0]};	// icache.scala:44:24
-        cache_125_0_valid = _RANDOM_1176[17];	// icache.scala:44:24
-        cache_126_0_tag = _RANDOM_1181[28:8];	// icache.scala:44:24
-        cache_126_0_data = {_RANDOM_1181[31:29], _RANDOM_1182, _RANDOM_1183, _RANDOM_1184, _RANDOM_1185[28:0]};	// icache.scala:44:24
-        cache_126_0_valid = _RANDOM_1185[29];	// icache.scala:44:24
-        cache_127_0_tag = {_RANDOM_1190[31:20], _RANDOM_1191[8:0]};	// icache.scala:44:24
-        cache_127_0_data = {_RANDOM_1191[31:9], _RANDOM_1192, _RANDOM_1193, _RANDOM_1194, _RANDOM_1195[8:0]};	// icache.scala:44:24
-        cache_127_0_valid = _RANDOM_1195[9];	// icache.scala:44:24
-        req_addr = {_RANDOM_1200, _RANDOM_1201};	// icache.scala:52:28
-        req_valid = _RANDOM_1202[0];	// icache.scala:53:28
-        state = _RANDOM_1202[3:1];	// icache.scala:53:28, :60:34
-        lineBuf = {_RANDOM_1202[31:4], _RANDOM_1203, _RANDOM_1204, _RANDOM_1205, _RANDOM_1206[3:0]};	// icache.scala:53:28, :61:34
+        _RANDOM_1207 = `RANDOM;	// <stdin>:1182:10
+        cache_miss_cnt = _RANDOM_0;	// icache.scala:39:33
+        cache_0_0_tag = _RANDOM_1[20:0];	// icache.scala:47:24
+        cache_0_0_data = {_RANDOM_1[31:21], _RANDOM_2, _RANDOM_3, _RANDOM_4, _RANDOM_5[20:0]};	// icache.scala:47:24
+        cache_0_0_valid = _RANDOM_5[21];	// icache.scala:47:24
+        cache_1_0_tag = {_RANDOM_10[31:12], _RANDOM_11[0]};	// icache.scala:47:24
+        cache_1_0_data = {_RANDOM_11[31:1], _RANDOM_12, _RANDOM_13, _RANDOM_14, _RANDOM_15[0]};	// icache.scala:47:24
+        cache_1_0_valid = _RANDOM_15[1];	// icache.scala:47:24
+        cache_2_0_tag = {_RANDOM_19[31:24], _RANDOM_20[12:0]};	// icache.scala:47:24
+        cache_2_0_data = {_RANDOM_20[31:13], _RANDOM_21, _RANDOM_22, _RANDOM_23, _RANDOM_24[12:0]};	// icache.scala:47:24
+        cache_2_0_valid = _RANDOM_24[13];	// icache.scala:47:24
+        cache_3_0_tag = _RANDOM_29[24:4];	// icache.scala:47:24
+        cache_3_0_data = {_RANDOM_29[31:25], _RANDOM_30, _RANDOM_31, _RANDOM_32, _RANDOM_33[24:0]};	// icache.scala:47:24
+        cache_3_0_valid = _RANDOM_33[25];	// icache.scala:47:24
+        cache_4_0_tag = {_RANDOM_38[31:16], _RANDOM_39[4:0]};	// icache.scala:47:24
+        cache_4_0_data = {_RANDOM_39[31:5], _RANDOM_40, _RANDOM_41, _RANDOM_42, _RANDOM_43[4:0]};	// icache.scala:47:24
+        cache_4_0_valid = _RANDOM_43[5];	// icache.scala:47:24
+        cache_5_0_tag = {_RANDOM_47[31:28], _RANDOM_48[16:0]};	// icache.scala:47:24
+        cache_5_0_data = {_RANDOM_48[31:17], _RANDOM_49, _RANDOM_50, _RANDOM_51, _RANDOM_52[16:0]};	// icache.scala:47:24
+        cache_5_0_valid = _RANDOM_52[17];	// icache.scala:47:24
+        cache_6_0_tag = _RANDOM_57[28:8];	// icache.scala:47:24
+        cache_6_0_data = {_RANDOM_57[31:29], _RANDOM_58, _RANDOM_59, _RANDOM_60, _RANDOM_61[28:0]};	// icache.scala:47:24
+        cache_6_0_valid = _RANDOM_61[29];	// icache.scala:47:24
+        cache_7_0_tag = {_RANDOM_66[31:20], _RANDOM_67[8:0]};	// icache.scala:47:24
+        cache_7_0_data = {_RANDOM_67[31:9], _RANDOM_68, _RANDOM_69, _RANDOM_70, _RANDOM_71[8:0]};	// icache.scala:47:24
+        cache_7_0_valid = _RANDOM_71[9];	// icache.scala:47:24
+        cache_8_0_tag = _RANDOM_76[20:0];	// icache.scala:47:24
+        cache_8_0_data = {_RANDOM_76[31:21], _RANDOM_77, _RANDOM_78, _RANDOM_79, _RANDOM_80[20:0]};	// icache.scala:47:24
+        cache_8_0_valid = _RANDOM_80[21];	// icache.scala:47:24
+        cache_9_0_tag = {_RANDOM_85[31:12], _RANDOM_86[0]};	// icache.scala:47:24
+        cache_9_0_data = {_RANDOM_86[31:1], _RANDOM_87, _RANDOM_88, _RANDOM_89, _RANDOM_90[0]};	// icache.scala:47:24
+        cache_9_0_valid = _RANDOM_90[1];	// icache.scala:47:24
+        cache_10_0_tag = {_RANDOM_94[31:24], _RANDOM_95[12:0]};	// icache.scala:47:24
+        cache_10_0_data = {_RANDOM_95[31:13], _RANDOM_96, _RANDOM_97, _RANDOM_98, _RANDOM_99[12:0]};	// icache.scala:47:24
+        cache_10_0_valid = _RANDOM_99[13];	// icache.scala:47:24
+        cache_11_0_tag = _RANDOM_104[24:4];	// icache.scala:47:24
+        cache_11_0_data = {_RANDOM_104[31:25], _RANDOM_105, _RANDOM_106, _RANDOM_107, _RANDOM_108[24:0]};	// icache.scala:47:24
+        cache_11_0_valid = _RANDOM_108[25];	// icache.scala:47:24
+        cache_12_0_tag = {_RANDOM_113[31:16], _RANDOM_114[4:0]};	// icache.scala:47:24
+        cache_12_0_data = {_RANDOM_114[31:5], _RANDOM_115, _RANDOM_116, _RANDOM_117, _RANDOM_118[4:0]};	// icache.scala:47:24
+        cache_12_0_valid = _RANDOM_118[5];	// icache.scala:47:24
+        cache_13_0_tag = {_RANDOM_122[31:28], _RANDOM_123[16:0]};	// icache.scala:47:24
+        cache_13_0_data = {_RANDOM_123[31:17], _RANDOM_124, _RANDOM_125, _RANDOM_126, _RANDOM_127[16:0]};	// icache.scala:47:24
+        cache_13_0_valid = _RANDOM_127[17];	// icache.scala:47:24
+        cache_14_0_tag = _RANDOM_132[28:8];	// icache.scala:47:24
+        cache_14_0_data = {_RANDOM_132[31:29], _RANDOM_133, _RANDOM_134, _RANDOM_135, _RANDOM_136[28:0]};	// icache.scala:47:24
+        cache_14_0_valid = _RANDOM_136[29];	// icache.scala:47:24
+        cache_15_0_tag = {_RANDOM_141[31:20], _RANDOM_142[8:0]};	// icache.scala:47:24
+        cache_15_0_data = {_RANDOM_142[31:9], _RANDOM_143, _RANDOM_144, _RANDOM_145, _RANDOM_146[8:0]};	// icache.scala:47:24
+        cache_15_0_valid = _RANDOM_146[9];	// icache.scala:47:24
+        cache_16_0_tag = _RANDOM_151[20:0];	// icache.scala:47:24
+        cache_16_0_data = {_RANDOM_151[31:21], _RANDOM_152, _RANDOM_153, _RANDOM_154, _RANDOM_155[20:0]};	// icache.scala:47:24
+        cache_16_0_valid = _RANDOM_155[21];	// icache.scala:47:24
+        cache_17_0_tag = {_RANDOM_160[31:12], _RANDOM_161[0]};	// icache.scala:47:24
+        cache_17_0_data = {_RANDOM_161[31:1], _RANDOM_162, _RANDOM_163, _RANDOM_164, _RANDOM_165[0]};	// icache.scala:47:24
+        cache_17_0_valid = _RANDOM_165[1];	// icache.scala:47:24
+        cache_18_0_tag = {_RANDOM_169[31:24], _RANDOM_170[12:0]};	// icache.scala:47:24
+        cache_18_0_data = {_RANDOM_170[31:13], _RANDOM_171, _RANDOM_172, _RANDOM_173, _RANDOM_174[12:0]};	// icache.scala:47:24
+        cache_18_0_valid = _RANDOM_174[13];	// icache.scala:47:24
+        cache_19_0_tag = _RANDOM_179[24:4];	// icache.scala:47:24
+        cache_19_0_data = {_RANDOM_179[31:25], _RANDOM_180, _RANDOM_181, _RANDOM_182, _RANDOM_183[24:0]};	// icache.scala:47:24
+        cache_19_0_valid = _RANDOM_183[25];	// icache.scala:47:24
+        cache_20_0_tag = {_RANDOM_188[31:16], _RANDOM_189[4:0]};	// icache.scala:47:24
+        cache_20_0_data = {_RANDOM_189[31:5], _RANDOM_190, _RANDOM_191, _RANDOM_192, _RANDOM_193[4:0]};	// icache.scala:47:24
+        cache_20_0_valid = _RANDOM_193[5];	// icache.scala:47:24
+        cache_21_0_tag = {_RANDOM_197[31:28], _RANDOM_198[16:0]};	// icache.scala:47:24
+        cache_21_0_data = {_RANDOM_198[31:17], _RANDOM_199, _RANDOM_200, _RANDOM_201, _RANDOM_202[16:0]};	// icache.scala:47:24
+        cache_21_0_valid = _RANDOM_202[17];	// icache.scala:47:24
+        cache_22_0_tag = _RANDOM_207[28:8];	// icache.scala:47:24
+        cache_22_0_data = {_RANDOM_207[31:29], _RANDOM_208, _RANDOM_209, _RANDOM_210, _RANDOM_211[28:0]};	// icache.scala:47:24
+        cache_22_0_valid = _RANDOM_211[29];	// icache.scala:47:24
+        cache_23_0_tag = {_RANDOM_216[31:20], _RANDOM_217[8:0]};	// icache.scala:47:24
+        cache_23_0_data = {_RANDOM_217[31:9], _RANDOM_218, _RANDOM_219, _RANDOM_220, _RANDOM_221[8:0]};	// icache.scala:47:24
+        cache_23_0_valid = _RANDOM_221[9];	// icache.scala:47:24
+        cache_24_0_tag = _RANDOM_226[20:0];	// icache.scala:47:24
+        cache_24_0_data = {_RANDOM_226[31:21], _RANDOM_227, _RANDOM_228, _RANDOM_229, _RANDOM_230[20:0]};	// icache.scala:47:24
+        cache_24_0_valid = _RANDOM_230[21];	// icache.scala:47:24
+        cache_25_0_tag = {_RANDOM_235[31:12], _RANDOM_236[0]};	// icache.scala:47:24
+        cache_25_0_data = {_RANDOM_236[31:1], _RANDOM_237, _RANDOM_238, _RANDOM_239, _RANDOM_240[0]};	// icache.scala:47:24
+        cache_25_0_valid = _RANDOM_240[1];	// icache.scala:47:24
+        cache_26_0_tag = {_RANDOM_244[31:24], _RANDOM_245[12:0]};	// icache.scala:47:24
+        cache_26_0_data = {_RANDOM_245[31:13], _RANDOM_246, _RANDOM_247, _RANDOM_248, _RANDOM_249[12:0]};	// icache.scala:47:24
+        cache_26_0_valid = _RANDOM_249[13];	// icache.scala:47:24
+        cache_27_0_tag = _RANDOM_254[24:4];	// icache.scala:47:24
+        cache_27_0_data = {_RANDOM_254[31:25], _RANDOM_255, _RANDOM_256, _RANDOM_257, _RANDOM_258[24:0]};	// icache.scala:47:24
+        cache_27_0_valid = _RANDOM_258[25];	// icache.scala:47:24
+        cache_28_0_tag = {_RANDOM_263[31:16], _RANDOM_264[4:0]};	// icache.scala:47:24
+        cache_28_0_data = {_RANDOM_264[31:5], _RANDOM_265, _RANDOM_266, _RANDOM_267, _RANDOM_268[4:0]};	// icache.scala:47:24
+        cache_28_0_valid = _RANDOM_268[5];	// icache.scala:47:24
+        cache_29_0_tag = {_RANDOM_272[31:28], _RANDOM_273[16:0]};	// icache.scala:47:24
+        cache_29_0_data = {_RANDOM_273[31:17], _RANDOM_274, _RANDOM_275, _RANDOM_276, _RANDOM_277[16:0]};	// icache.scala:47:24
+        cache_29_0_valid = _RANDOM_277[17];	// icache.scala:47:24
+        cache_30_0_tag = _RANDOM_282[28:8];	// icache.scala:47:24
+        cache_30_0_data = {_RANDOM_282[31:29], _RANDOM_283, _RANDOM_284, _RANDOM_285, _RANDOM_286[28:0]};	// icache.scala:47:24
+        cache_30_0_valid = _RANDOM_286[29];	// icache.scala:47:24
+        cache_31_0_tag = {_RANDOM_291[31:20], _RANDOM_292[8:0]};	// icache.scala:47:24
+        cache_31_0_data = {_RANDOM_292[31:9], _RANDOM_293, _RANDOM_294, _RANDOM_295, _RANDOM_296[8:0]};	// icache.scala:47:24
+        cache_31_0_valid = _RANDOM_296[9];	// icache.scala:47:24
+        cache_32_0_tag = _RANDOM_301[20:0];	// icache.scala:47:24
+        cache_32_0_data = {_RANDOM_301[31:21], _RANDOM_302, _RANDOM_303, _RANDOM_304, _RANDOM_305[20:0]};	// icache.scala:47:24
+        cache_32_0_valid = _RANDOM_305[21];	// icache.scala:47:24
+        cache_33_0_tag = {_RANDOM_310[31:12], _RANDOM_311[0]};	// icache.scala:47:24
+        cache_33_0_data = {_RANDOM_311[31:1], _RANDOM_312, _RANDOM_313, _RANDOM_314, _RANDOM_315[0]};	// icache.scala:47:24
+        cache_33_0_valid = _RANDOM_315[1];	// icache.scala:47:24
+        cache_34_0_tag = {_RANDOM_319[31:24], _RANDOM_320[12:0]};	// icache.scala:47:24
+        cache_34_0_data = {_RANDOM_320[31:13], _RANDOM_321, _RANDOM_322, _RANDOM_323, _RANDOM_324[12:0]};	// icache.scala:47:24
+        cache_34_0_valid = _RANDOM_324[13];	// icache.scala:47:24
+        cache_35_0_tag = _RANDOM_329[24:4];	// icache.scala:47:24
+        cache_35_0_data = {_RANDOM_329[31:25], _RANDOM_330, _RANDOM_331, _RANDOM_332, _RANDOM_333[24:0]};	// icache.scala:47:24
+        cache_35_0_valid = _RANDOM_333[25];	// icache.scala:47:24
+        cache_36_0_tag = {_RANDOM_338[31:16], _RANDOM_339[4:0]};	// icache.scala:47:24
+        cache_36_0_data = {_RANDOM_339[31:5], _RANDOM_340, _RANDOM_341, _RANDOM_342, _RANDOM_343[4:0]};	// icache.scala:47:24
+        cache_36_0_valid = _RANDOM_343[5];	// icache.scala:47:24
+        cache_37_0_tag = {_RANDOM_347[31:28], _RANDOM_348[16:0]};	// icache.scala:47:24
+        cache_37_0_data = {_RANDOM_348[31:17], _RANDOM_349, _RANDOM_350, _RANDOM_351, _RANDOM_352[16:0]};	// icache.scala:47:24
+        cache_37_0_valid = _RANDOM_352[17];	// icache.scala:47:24
+        cache_38_0_tag = _RANDOM_357[28:8];	// icache.scala:47:24
+        cache_38_0_data = {_RANDOM_357[31:29], _RANDOM_358, _RANDOM_359, _RANDOM_360, _RANDOM_361[28:0]};	// icache.scala:47:24
+        cache_38_0_valid = _RANDOM_361[29];	// icache.scala:47:24
+        cache_39_0_tag = {_RANDOM_366[31:20], _RANDOM_367[8:0]};	// icache.scala:47:24
+        cache_39_0_data = {_RANDOM_367[31:9], _RANDOM_368, _RANDOM_369, _RANDOM_370, _RANDOM_371[8:0]};	// icache.scala:47:24
+        cache_39_0_valid = _RANDOM_371[9];	// icache.scala:47:24
+        cache_40_0_tag = _RANDOM_376[20:0];	// icache.scala:47:24
+        cache_40_0_data = {_RANDOM_376[31:21], _RANDOM_377, _RANDOM_378, _RANDOM_379, _RANDOM_380[20:0]};	// icache.scala:47:24
+        cache_40_0_valid = _RANDOM_380[21];	// icache.scala:47:24
+        cache_41_0_tag = {_RANDOM_385[31:12], _RANDOM_386[0]};	// icache.scala:47:24
+        cache_41_0_data = {_RANDOM_386[31:1], _RANDOM_387, _RANDOM_388, _RANDOM_389, _RANDOM_390[0]};	// icache.scala:47:24
+        cache_41_0_valid = _RANDOM_390[1];	// icache.scala:47:24
+        cache_42_0_tag = {_RANDOM_394[31:24], _RANDOM_395[12:0]};	// icache.scala:47:24
+        cache_42_0_data = {_RANDOM_395[31:13], _RANDOM_396, _RANDOM_397, _RANDOM_398, _RANDOM_399[12:0]};	// icache.scala:47:24
+        cache_42_0_valid = _RANDOM_399[13];	// icache.scala:47:24
+        cache_43_0_tag = _RANDOM_404[24:4];	// icache.scala:47:24
+        cache_43_0_data = {_RANDOM_404[31:25], _RANDOM_405, _RANDOM_406, _RANDOM_407, _RANDOM_408[24:0]};	// icache.scala:47:24
+        cache_43_0_valid = _RANDOM_408[25];	// icache.scala:47:24
+        cache_44_0_tag = {_RANDOM_413[31:16], _RANDOM_414[4:0]};	// icache.scala:47:24
+        cache_44_0_data = {_RANDOM_414[31:5], _RANDOM_415, _RANDOM_416, _RANDOM_417, _RANDOM_418[4:0]};	// icache.scala:47:24
+        cache_44_0_valid = _RANDOM_418[5];	// icache.scala:47:24
+        cache_45_0_tag = {_RANDOM_422[31:28], _RANDOM_423[16:0]};	// icache.scala:47:24
+        cache_45_0_data = {_RANDOM_423[31:17], _RANDOM_424, _RANDOM_425, _RANDOM_426, _RANDOM_427[16:0]};	// icache.scala:47:24
+        cache_45_0_valid = _RANDOM_427[17];	// icache.scala:47:24
+        cache_46_0_tag = _RANDOM_432[28:8];	// icache.scala:47:24
+        cache_46_0_data = {_RANDOM_432[31:29], _RANDOM_433, _RANDOM_434, _RANDOM_435, _RANDOM_436[28:0]};	// icache.scala:47:24
+        cache_46_0_valid = _RANDOM_436[29];	// icache.scala:47:24
+        cache_47_0_tag = {_RANDOM_441[31:20], _RANDOM_442[8:0]};	// icache.scala:47:24
+        cache_47_0_data = {_RANDOM_442[31:9], _RANDOM_443, _RANDOM_444, _RANDOM_445, _RANDOM_446[8:0]};	// icache.scala:47:24
+        cache_47_0_valid = _RANDOM_446[9];	// icache.scala:47:24
+        cache_48_0_tag = _RANDOM_451[20:0];	// icache.scala:47:24
+        cache_48_0_data = {_RANDOM_451[31:21], _RANDOM_452, _RANDOM_453, _RANDOM_454, _RANDOM_455[20:0]};	// icache.scala:47:24
+        cache_48_0_valid = _RANDOM_455[21];	// icache.scala:47:24
+        cache_49_0_tag = {_RANDOM_460[31:12], _RANDOM_461[0]};	// icache.scala:47:24
+        cache_49_0_data = {_RANDOM_461[31:1], _RANDOM_462, _RANDOM_463, _RANDOM_464, _RANDOM_465[0]};	// icache.scala:47:24
+        cache_49_0_valid = _RANDOM_465[1];	// icache.scala:47:24
+        cache_50_0_tag = {_RANDOM_469[31:24], _RANDOM_470[12:0]};	// icache.scala:47:24
+        cache_50_0_data = {_RANDOM_470[31:13], _RANDOM_471, _RANDOM_472, _RANDOM_473, _RANDOM_474[12:0]};	// icache.scala:47:24
+        cache_50_0_valid = _RANDOM_474[13];	// icache.scala:47:24
+        cache_51_0_tag = _RANDOM_479[24:4];	// icache.scala:47:24
+        cache_51_0_data = {_RANDOM_479[31:25], _RANDOM_480, _RANDOM_481, _RANDOM_482, _RANDOM_483[24:0]};	// icache.scala:47:24
+        cache_51_0_valid = _RANDOM_483[25];	// icache.scala:47:24
+        cache_52_0_tag = {_RANDOM_488[31:16], _RANDOM_489[4:0]};	// icache.scala:47:24
+        cache_52_0_data = {_RANDOM_489[31:5], _RANDOM_490, _RANDOM_491, _RANDOM_492, _RANDOM_493[4:0]};	// icache.scala:47:24
+        cache_52_0_valid = _RANDOM_493[5];	// icache.scala:47:24
+        cache_53_0_tag = {_RANDOM_497[31:28], _RANDOM_498[16:0]};	// icache.scala:47:24
+        cache_53_0_data = {_RANDOM_498[31:17], _RANDOM_499, _RANDOM_500, _RANDOM_501, _RANDOM_502[16:0]};	// icache.scala:47:24
+        cache_53_0_valid = _RANDOM_502[17];	// icache.scala:47:24
+        cache_54_0_tag = _RANDOM_507[28:8];	// icache.scala:47:24
+        cache_54_0_data = {_RANDOM_507[31:29], _RANDOM_508, _RANDOM_509, _RANDOM_510, _RANDOM_511[28:0]};	// icache.scala:47:24
+        cache_54_0_valid = _RANDOM_511[29];	// icache.scala:47:24
+        cache_55_0_tag = {_RANDOM_516[31:20], _RANDOM_517[8:0]};	// icache.scala:47:24
+        cache_55_0_data = {_RANDOM_517[31:9], _RANDOM_518, _RANDOM_519, _RANDOM_520, _RANDOM_521[8:0]};	// icache.scala:47:24
+        cache_55_0_valid = _RANDOM_521[9];	// icache.scala:47:24
+        cache_56_0_tag = _RANDOM_526[20:0];	// icache.scala:47:24
+        cache_56_0_data = {_RANDOM_526[31:21], _RANDOM_527, _RANDOM_528, _RANDOM_529, _RANDOM_530[20:0]};	// icache.scala:47:24
+        cache_56_0_valid = _RANDOM_530[21];	// icache.scala:47:24
+        cache_57_0_tag = {_RANDOM_535[31:12], _RANDOM_536[0]};	// icache.scala:47:24
+        cache_57_0_data = {_RANDOM_536[31:1], _RANDOM_537, _RANDOM_538, _RANDOM_539, _RANDOM_540[0]};	// icache.scala:47:24
+        cache_57_0_valid = _RANDOM_540[1];	// icache.scala:47:24
+        cache_58_0_tag = {_RANDOM_544[31:24], _RANDOM_545[12:0]};	// icache.scala:47:24
+        cache_58_0_data = {_RANDOM_545[31:13], _RANDOM_546, _RANDOM_547, _RANDOM_548, _RANDOM_549[12:0]};	// icache.scala:47:24
+        cache_58_0_valid = _RANDOM_549[13];	// icache.scala:47:24
+        cache_59_0_tag = _RANDOM_554[24:4];	// icache.scala:47:24
+        cache_59_0_data = {_RANDOM_554[31:25], _RANDOM_555, _RANDOM_556, _RANDOM_557, _RANDOM_558[24:0]};	// icache.scala:47:24
+        cache_59_0_valid = _RANDOM_558[25];	// icache.scala:47:24
+        cache_60_0_tag = {_RANDOM_563[31:16], _RANDOM_564[4:0]};	// icache.scala:47:24
+        cache_60_0_data = {_RANDOM_564[31:5], _RANDOM_565, _RANDOM_566, _RANDOM_567, _RANDOM_568[4:0]};	// icache.scala:47:24
+        cache_60_0_valid = _RANDOM_568[5];	// icache.scala:47:24
+        cache_61_0_tag = {_RANDOM_572[31:28], _RANDOM_573[16:0]};	// icache.scala:47:24
+        cache_61_0_data = {_RANDOM_573[31:17], _RANDOM_574, _RANDOM_575, _RANDOM_576, _RANDOM_577[16:0]};	// icache.scala:47:24
+        cache_61_0_valid = _RANDOM_577[17];	// icache.scala:47:24
+        cache_62_0_tag = _RANDOM_582[28:8];	// icache.scala:47:24
+        cache_62_0_data = {_RANDOM_582[31:29], _RANDOM_583, _RANDOM_584, _RANDOM_585, _RANDOM_586[28:0]};	// icache.scala:47:24
+        cache_62_0_valid = _RANDOM_586[29];	// icache.scala:47:24
+        cache_63_0_tag = {_RANDOM_591[31:20], _RANDOM_592[8:0]};	// icache.scala:47:24
+        cache_63_0_data = {_RANDOM_592[31:9], _RANDOM_593, _RANDOM_594, _RANDOM_595, _RANDOM_596[8:0]};	// icache.scala:47:24
+        cache_63_0_valid = _RANDOM_596[9];	// icache.scala:47:24
+        cache_64_0_tag = _RANDOM_601[20:0];	// icache.scala:47:24
+        cache_64_0_data = {_RANDOM_601[31:21], _RANDOM_602, _RANDOM_603, _RANDOM_604, _RANDOM_605[20:0]};	// icache.scala:47:24
+        cache_64_0_valid = _RANDOM_605[21];	// icache.scala:47:24
+        cache_65_0_tag = {_RANDOM_610[31:12], _RANDOM_611[0]};	// icache.scala:47:24
+        cache_65_0_data = {_RANDOM_611[31:1], _RANDOM_612, _RANDOM_613, _RANDOM_614, _RANDOM_615[0]};	// icache.scala:47:24
+        cache_65_0_valid = _RANDOM_615[1];	// icache.scala:47:24
+        cache_66_0_tag = {_RANDOM_619[31:24], _RANDOM_620[12:0]};	// icache.scala:47:24
+        cache_66_0_data = {_RANDOM_620[31:13], _RANDOM_621, _RANDOM_622, _RANDOM_623, _RANDOM_624[12:0]};	// icache.scala:47:24
+        cache_66_0_valid = _RANDOM_624[13];	// icache.scala:47:24
+        cache_67_0_tag = _RANDOM_629[24:4];	// icache.scala:47:24
+        cache_67_0_data = {_RANDOM_629[31:25], _RANDOM_630, _RANDOM_631, _RANDOM_632, _RANDOM_633[24:0]};	// icache.scala:47:24
+        cache_67_0_valid = _RANDOM_633[25];	// icache.scala:47:24
+        cache_68_0_tag = {_RANDOM_638[31:16], _RANDOM_639[4:0]};	// icache.scala:47:24
+        cache_68_0_data = {_RANDOM_639[31:5], _RANDOM_640, _RANDOM_641, _RANDOM_642, _RANDOM_643[4:0]};	// icache.scala:47:24
+        cache_68_0_valid = _RANDOM_643[5];	// icache.scala:47:24
+        cache_69_0_tag = {_RANDOM_647[31:28], _RANDOM_648[16:0]};	// icache.scala:47:24
+        cache_69_0_data = {_RANDOM_648[31:17], _RANDOM_649, _RANDOM_650, _RANDOM_651, _RANDOM_652[16:0]};	// icache.scala:47:24
+        cache_69_0_valid = _RANDOM_652[17];	// icache.scala:47:24
+        cache_70_0_tag = _RANDOM_657[28:8];	// icache.scala:47:24
+        cache_70_0_data = {_RANDOM_657[31:29], _RANDOM_658, _RANDOM_659, _RANDOM_660, _RANDOM_661[28:0]};	// icache.scala:47:24
+        cache_70_0_valid = _RANDOM_661[29];	// icache.scala:47:24
+        cache_71_0_tag = {_RANDOM_666[31:20], _RANDOM_667[8:0]};	// icache.scala:47:24
+        cache_71_0_data = {_RANDOM_667[31:9], _RANDOM_668, _RANDOM_669, _RANDOM_670, _RANDOM_671[8:0]};	// icache.scala:47:24
+        cache_71_0_valid = _RANDOM_671[9];	// icache.scala:47:24
+        cache_72_0_tag = _RANDOM_676[20:0];	// icache.scala:47:24
+        cache_72_0_data = {_RANDOM_676[31:21], _RANDOM_677, _RANDOM_678, _RANDOM_679, _RANDOM_680[20:0]};	// icache.scala:47:24
+        cache_72_0_valid = _RANDOM_680[21];	// icache.scala:47:24
+        cache_73_0_tag = {_RANDOM_685[31:12], _RANDOM_686[0]};	// icache.scala:47:24
+        cache_73_0_data = {_RANDOM_686[31:1], _RANDOM_687, _RANDOM_688, _RANDOM_689, _RANDOM_690[0]};	// icache.scala:47:24
+        cache_73_0_valid = _RANDOM_690[1];	// icache.scala:47:24
+        cache_74_0_tag = {_RANDOM_694[31:24], _RANDOM_695[12:0]};	// icache.scala:47:24
+        cache_74_0_data = {_RANDOM_695[31:13], _RANDOM_696, _RANDOM_697, _RANDOM_698, _RANDOM_699[12:0]};	// icache.scala:47:24
+        cache_74_0_valid = _RANDOM_699[13];	// icache.scala:47:24
+        cache_75_0_tag = _RANDOM_704[24:4];	// icache.scala:47:24
+        cache_75_0_data = {_RANDOM_704[31:25], _RANDOM_705, _RANDOM_706, _RANDOM_707, _RANDOM_708[24:0]};	// icache.scala:47:24
+        cache_75_0_valid = _RANDOM_708[25];	// icache.scala:47:24
+        cache_76_0_tag = {_RANDOM_713[31:16], _RANDOM_714[4:0]};	// icache.scala:47:24
+        cache_76_0_data = {_RANDOM_714[31:5], _RANDOM_715, _RANDOM_716, _RANDOM_717, _RANDOM_718[4:0]};	// icache.scala:47:24
+        cache_76_0_valid = _RANDOM_718[5];	// icache.scala:47:24
+        cache_77_0_tag = {_RANDOM_722[31:28], _RANDOM_723[16:0]};	// icache.scala:47:24
+        cache_77_0_data = {_RANDOM_723[31:17], _RANDOM_724, _RANDOM_725, _RANDOM_726, _RANDOM_727[16:0]};	// icache.scala:47:24
+        cache_77_0_valid = _RANDOM_727[17];	// icache.scala:47:24
+        cache_78_0_tag = _RANDOM_732[28:8];	// icache.scala:47:24
+        cache_78_0_data = {_RANDOM_732[31:29], _RANDOM_733, _RANDOM_734, _RANDOM_735, _RANDOM_736[28:0]};	// icache.scala:47:24
+        cache_78_0_valid = _RANDOM_736[29];	// icache.scala:47:24
+        cache_79_0_tag = {_RANDOM_741[31:20], _RANDOM_742[8:0]};	// icache.scala:47:24
+        cache_79_0_data = {_RANDOM_742[31:9], _RANDOM_743, _RANDOM_744, _RANDOM_745, _RANDOM_746[8:0]};	// icache.scala:47:24
+        cache_79_0_valid = _RANDOM_746[9];	// icache.scala:47:24
+        cache_80_0_tag = _RANDOM_751[20:0];	// icache.scala:47:24
+        cache_80_0_data = {_RANDOM_751[31:21], _RANDOM_752, _RANDOM_753, _RANDOM_754, _RANDOM_755[20:0]};	// icache.scala:47:24
+        cache_80_0_valid = _RANDOM_755[21];	// icache.scala:47:24
+        cache_81_0_tag = {_RANDOM_760[31:12], _RANDOM_761[0]};	// icache.scala:47:24
+        cache_81_0_data = {_RANDOM_761[31:1], _RANDOM_762, _RANDOM_763, _RANDOM_764, _RANDOM_765[0]};	// icache.scala:47:24
+        cache_81_0_valid = _RANDOM_765[1];	// icache.scala:47:24
+        cache_82_0_tag = {_RANDOM_769[31:24], _RANDOM_770[12:0]};	// icache.scala:47:24
+        cache_82_0_data = {_RANDOM_770[31:13], _RANDOM_771, _RANDOM_772, _RANDOM_773, _RANDOM_774[12:0]};	// icache.scala:47:24
+        cache_82_0_valid = _RANDOM_774[13];	// icache.scala:47:24
+        cache_83_0_tag = _RANDOM_779[24:4];	// icache.scala:47:24
+        cache_83_0_data = {_RANDOM_779[31:25], _RANDOM_780, _RANDOM_781, _RANDOM_782, _RANDOM_783[24:0]};	// icache.scala:47:24
+        cache_83_0_valid = _RANDOM_783[25];	// icache.scala:47:24
+        cache_84_0_tag = {_RANDOM_788[31:16], _RANDOM_789[4:0]};	// icache.scala:47:24
+        cache_84_0_data = {_RANDOM_789[31:5], _RANDOM_790, _RANDOM_791, _RANDOM_792, _RANDOM_793[4:0]};	// icache.scala:47:24
+        cache_84_0_valid = _RANDOM_793[5];	// icache.scala:47:24
+        cache_85_0_tag = {_RANDOM_797[31:28], _RANDOM_798[16:0]};	// icache.scala:47:24
+        cache_85_0_data = {_RANDOM_798[31:17], _RANDOM_799, _RANDOM_800, _RANDOM_801, _RANDOM_802[16:0]};	// icache.scala:47:24
+        cache_85_0_valid = _RANDOM_802[17];	// icache.scala:47:24
+        cache_86_0_tag = _RANDOM_807[28:8];	// icache.scala:47:24
+        cache_86_0_data = {_RANDOM_807[31:29], _RANDOM_808, _RANDOM_809, _RANDOM_810, _RANDOM_811[28:0]};	// icache.scala:47:24
+        cache_86_0_valid = _RANDOM_811[29];	// icache.scala:47:24
+        cache_87_0_tag = {_RANDOM_816[31:20], _RANDOM_817[8:0]};	// icache.scala:47:24
+        cache_87_0_data = {_RANDOM_817[31:9], _RANDOM_818, _RANDOM_819, _RANDOM_820, _RANDOM_821[8:0]};	// icache.scala:47:24
+        cache_87_0_valid = _RANDOM_821[9];	// icache.scala:47:24
+        cache_88_0_tag = _RANDOM_826[20:0];	// icache.scala:47:24
+        cache_88_0_data = {_RANDOM_826[31:21], _RANDOM_827, _RANDOM_828, _RANDOM_829, _RANDOM_830[20:0]};	// icache.scala:47:24
+        cache_88_0_valid = _RANDOM_830[21];	// icache.scala:47:24
+        cache_89_0_tag = {_RANDOM_835[31:12], _RANDOM_836[0]};	// icache.scala:47:24
+        cache_89_0_data = {_RANDOM_836[31:1], _RANDOM_837, _RANDOM_838, _RANDOM_839, _RANDOM_840[0]};	// icache.scala:47:24
+        cache_89_0_valid = _RANDOM_840[1];	// icache.scala:47:24
+        cache_90_0_tag = {_RANDOM_844[31:24], _RANDOM_845[12:0]};	// icache.scala:47:24
+        cache_90_0_data = {_RANDOM_845[31:13], _RANDOM_846, _RANDOM_847, _RANDOM_848, _RANDOM_849[12:0]};	// icache.scala:47:24
+        cache_90_0_valid = _RANDOM_849[13];	// icache.scala:47:24
+        cache_91_0_tag = _RANDOM_854[24:4];	// icache.scala:47:24
+        cache_91_0_data = {_RANDOM_854[31:25], _RANDOM_855, _RANDOM_856, _RANDOM_857, _RANDOM_858[24:0]};	// icache.scala:47:24
+        cache_91_0_valid = _RANDOM_858[25];	// icache.scala:47:24
+        cache_92_0_tag = {_RANDOM_863[31:16], _RANDOM_864[4:0]};	// icache.scala:47:24
+        cache_92_0_data = {_RANDOM_864[31:5], _RANDOM_865, _RANDOM_866, _RANDOM_867, _RANDOM_868[4:0]};	// icache.scala:47:24
+        cache_92_0_valid = _RANDOM_868[5];	// icache.scala:47:24
+        cache_93_0_tag = {_RANDOM_872[31:28], _RANDOM_873[16:0]};	// icache.scala:47:24
+        cache_93_0_data = {_RANDOM_873[31:17], _RANDOM_874, _RANDOM_875, _RANDOM_876, _RANDOM_877[16:0]};	// icache.scala:47:24
+        cache_93_0_valid = _RANDOM_877[17];	// icache.scala:47:24
+        cache_94_0_tag = _RANDOM_882[28:8];	// icache.scala:47:24
+        cache_94_0_data = {_RANDOM_882[31:29], _RANDOM_883, _RANDOM_884, _RANDOM_885, _RANDOM_886[28:0]};	// icache.scala:47:24
+        cache_94_0_valid = _RANDOM_886[29];	// icache.scala:47:24
+        cache_95_0_tag = {_RANDOM_891[31:20], _RANDOM_892[8:0]};	// icache.scala:47:24
+        cache_95_0_data = {_RANDOM_892[31:9], _RANDOM_893, _RANDOM_894, _RANDOM_895, _RANDOM_896[8:0]};	// icache.scala:47:24
+        cache_95_0_valid = _RANDOM_896[9];	// icache.scala:47:24
+        cache_96_0_tag = _RANDOM_901[20:0];	// icache.scala:47:24
+        cache_96_0_data = {_RANDOM_901[31:21], _RANDOM_902, _RANDOM_903, _RANDOM_904, _RANDOM_905[20:0]};	// icache.scala:47:24
+        cache_96_0_valid = _RANDOM_905[21];	// icache.scala:47:24
+        cache_97_0_tag = {_RANDOM_910[31:12], _RANDOM_911[0]};	// icache.scala:47:24
+        cache_97_0_data = {_RANDOM_911[31:1], _RANDOM_912, _RANDOM_913, _RANDOM_914, _RANDOM_915[0]};	// icache.scala:47:24
+        cache_97_0_valid = _RANDOM_915[1];	// icache.scala:47:24
+        cache_98_0_tag = {_RANDOM_919[31:24], _RANDOM_920[12:0]};	// icache.scala:47:24
+        cache_98_0_data = {_RANDOM_920[31:13], _RANDOM_921, _RANDOM_922, _RANDOM_923, _RANDOM_924[12:0]};	// icache.scala:47:24
+        cache_98_0_valid = _RANDOM_924[13];	// icache.scala:47:24
+        cache_99_0_tag = _RANDOM_929[24:4];	// icache.scala:47:24
+        cache_99_0_data = {_RANDOM_929[31:25], _RANDOM_930, _RANDOM_931, _RANDOM_932, _RANDOM_933[24:0]};	// icache.scala:47:24
+        cache_99_0_valid = _RANDOM_933[25];	// icache.scala:47:24
+        cache_100_0_tag = {_RANDOM_938[31:16], _RANDOM_939[4:0]};	// icache.scala:47:24
+        cache_100_0_data = {_RANDOM_939[31:5], _RANDOM_940, _RANDOM_941, _RANDOM_942, _RANDOM_943[4:0]};	// icache.scala:47:24
+        cache_100_0_valid = _RANDOM_943[5];	// icache.scala:47:24
+        cache_101_0_tag = {_RANDOM_947[31:28], _RANDOM_948[16:0]};	// icache.scala:47:24
+        cache_101_0_data = {_RANDOM_948[31:17], _RANDOM_949, _RANDOM_950, _RANDOM_951, _RANDOM_952[16:0]};	// icache.scala:47:24
+        cache_101_0_valid = _RANDOM_952[17];	// icache.scala:47:24
+        cache_102_0_tag = _RANDOM_957[28:8];	// icache.scala:47:24
+        cache_102_0_data = {_RANDOM_957[31:29], _RANDOM_958, _RANDOM_959, _RANDOM_960, _RANDOM_961[28:0]};	// icache.scala:47:24
+        cache_102_0_valid = _RANDOM_961[29];	// icache.scala:47:24
+        cache_103_0_tag = {_RANDOM_966[31:20], _RANDOM_967[8:0]};	// icache.scala:47:24
+        cache_103_0_data = {_RANDOM_967[31:9], _RANDOM_968, _RANDOM_969, _RANDOM_970, _RANDOM_971[8:0]};	// icache.scala:47:24
+        cache_103_0_valid = _RANDOM_971[9];	// icache.scala:47:24
+        cache_104_0_tag = _RANDOM_976[20:0];	// icache.scala:47:24
+        cache_104_0_data = {_RANDOM_976[31:21], _RANDOM_977, _RANDOM_978, _RANDOM_979, _RANDOM_980[20:0]};	// icache.scala:47:24
+        cache_104_0_valid = _RANDOM_980[21];	// icache.scala:47:24
+        cache_105_0_tag = {_RANDOM_985[31:12], _RANDOM_986[0]};	// icache.scala:47:24
+        cache_105_0_data = {_RANDOM_986[31:1], _RANDOM_987, _RANDOM_988, _RANDOM_989, _RANDOM_990[0]};	// icache.scala:47:24
+        cache_105_0_valid = _RANDOM_990[1];	// icache.scala:47:24
+        cache_106_0_tag = {_RANDOM_994[31:24], _RANDOM_995[12:0]};	// icache.scala:47:24
+        cache_106_0_data = {_RANDOM_995[31:13], _RANDOM_996, _RANDOM_997, _RANDOM_998, _RANDOM_999[12:0]};	// icache.scala:47:24
+        cache_106_0_valid = _RANDOM_999[13];	// icache.scala:47:24
+        cache_107_0_tag = _RANDOM_1004[24:4];	// icache.scala:47:24
+        cache_107_0_data = {_RANDOM_1004[31:25], _RANDOM_1005, _RANDOM_1006, _RANDOM_1007, _RANDOM_1008[24:0]};	// icache.scala:47:24
+        cache_107_0_valid = _RANDOM_1008[25];	// icache.scala:47:24
+        cache_108_0_tag = {_RANDOM_1013[31:16], _RANDOM_1014[4:0]};	// icache.scala:47:24
+        cache_108_0_data = {_RANDOM_1014[31:5], _RANDOM_1015, _RANDOM_1016, _RANDOM_1017, _RANDOM_1018[4:0]};	// icache.scala:47:24
+        cache_108_0_valid = _RANDOM_1018[5];	// icache.scala:47:24
+        cache_109_0_tag = {_RANDOM_1022[31:28], _RANDOM_1023[16:0]};	// icache.scala:47:24
+        cache_109_0_data = {_RANDOM_1023[31:17], _RANDOM_1024, _RANDOM_1025, _RANDOM_1026, _RANDOM_1027[16:0]};	// icache.scala:47:24
+        cache_109_0_valid = _RANDOM_1027[17];	// icache.scala:47:24
+        cache_110_0_tag = _RANDOM_1032[28:8];	// icache.scala:47:24
+        cache_110_0_data = {_RANDOM_1032[31:29], _RANDOM_1033, _RANDOM_1034, _RANDOM_1035, _RANDOM_1036[28:0]};	// icache.scala:47:24
+        cache_110_0_valid = _RANDOM_1036[29];	// icache.scala:47:24
+        cache_111_0_tag = {_RANDOM_1041[31:20], _RANDOM_1042[8:0]};	// icache.scala:47:24
+        cache_111_0_data = {_RANDOM_1042[31:9], _RANDOM_1043, _RANDOM_1044, _RANDOM_1045, _RANDOM_1046[8:0]};	// icache.scala:47:24
+        cache_111_0_valid = _RANDOM_1046[9];	// icache.scala:47:24
+        cache_112_0_tag = _RANDOM_1051[20:0];	// icache.scala:47:24
+        cache_112_0_data = {_RANDOM_1051[31:21], _RANDOM_1052, _RANDOM_1053, _RANDOM_1054, _RANDOM_1055[20:0]};	// icache.scala:47:24
+        cache_112_0_valid = _RANDOM_1055[21];	// icache.scala:47:24
+        cache_113_0_tag = {_RANDOM_1060[31:12], _RANDOM_1061[0]};	// icache.scala:47:24
+        cache_113_0_data = {_RANDOM_1061[31:1], _RANDOM_1062, _RANDOM_1063, _RANDOM_1064, _RANDOM_1065[0]};	// icache.scala:47:24
+        cache_113_0_valid = _RANDOM_1065[1];	// icache.scala:47:24
+        cache_114_0_tag = {_RANDOM_1069[31:24], _RANDOM_1070[12:0]};	// icache.scala:47:24
+        cache_114_0_data = {_RANDOM_1070[31:13], _RANDOM_1071, _RANDOM_1072, _RANDOM_1073, _RANDOM_1074[12:0]};	// icache.scala:47:24
+        cache_114_0_valid = _RANDOM_1074[13];	// icache.scala:47:24
+        cache_115_0_tag = _RANDOM_1079[24:4];	// icache.scala:47:24
+        cache_115_0_data = {_RANDOM_1079[31:25], _RANDOM_1080, _RANDOM_1081, _RANDOM_1082, _RANDOM_1083[24:0]};	// icache.scala:47:24
+        cache_115_0_valid = _RANDOM_1083[25];	// icache.scala:47:24
+        cache_116_0_tag = {_RANDOM_1088[31:16], _RANDOM_1089[4:0]};	// icache.scala:47:24
+        cache_116_0_data = {_RANDOM_1089[31:5], _RANDOM_1090, _RANDOM_1091, _RANDOM_1092, _RANDOM_1093[4:0]};	// icache.scala:47:24
+        cache_116_0_valid = _RANDOM_1093[5];	// icache.scala:47:24
+        cache_117_0_tag = {_RANDOM_1097[31:28], _RANDOM_1098[16:0]};	// icache.scala:47:24
+        cache_117_0_data = {_RANDOM_1098[31:17], _RANDOM_1099, _RANDOM_1100, _RANDOM_1101, _RANDOM_1102[16:0]};	// icache.scala:47:24
+        cache_117_0_valid = _RANDOM_1102[17];	// icache.scala:47:24
+        cache_118_0_tag = _RANDOM_1107[28:8];	// icache.scala:47:24
+        cache_118_0_data = {_RANDOM_1107[31:29], _RANDOM_1108, _RANDOM_1109, _RANDOM_1110, _RANDOM_1111[28:0]};	// icache.scala:47:24
+        cache_118_0_valid = _RANDOM_1111[29];	// icache.scala:47:24
+        cache_119_0_tag = {_RANDOM_1116[31:20], _RANDOM_1117[8:0]};	// icache.scala:47:24
+        cache_119_0_data = {_RANDOM_1117[31:9], _RANDOM_1118, _RANDOM_1119, _RANDOM_1120, _RANDOM_1121[8:0]};	// icache.scala:47:24
+        cache_119_0_valid = _RANDOM_1121[9];	// icache.scala:47:24
+        cache_120_0_tag = _RANDOM_1126[20:0];	// icache.scala:47:24
+        cache_120_0_data = {_RANDOM_1126[31:21], _RANDOM_1127, _RANDOM_1128, _RANDOM_1129, _RANDOM_1130[20:0]};	// icache.scala:47:24
+        cache_120_0_valid = _RANDOM_1130[21];	// icache.scala:47:24
+        cache_121_0_tag = {_RANDOM_1135[31:12], _RANDOM_1136[0]};	// icache.scala:47:24
+        cache_121_0_data = {_RANDOM_1136[31:1], _RANDOM_1137, _RANDOM_1138, _RANDOM_1139, _RANDOM_1140[0]};	// icache.scala:47:24
+        cache_121_0_valid = _RANDOM_1140[1];	// icache.scala:47:24
+        cache_122_0_tag = {_RANDOM_1144[31:24], _RANDOM_1145[12:0]};	// icache.scala:47:24
+        cache_122_0_data = {_RANDOM_1145[31:13], _RANDOM_1146, _RANDOM_1147, _RANDOM_1148, _RANDOM_1149[12:0]};	// icache.scala:47:24
+        cache_122_0_valid = _RANDOM_1149[13];	// icache.scala:47:24
+        cache_123_0_tag = _RANDOM_1154[24:4];	// icache.scala:47:24
+        cache_123_0_data = {_RANDOM_1154[31:25], _RANDOM_1155, _RANDOM_1156, _RANDOM_1157, _RANDOM_1158[24:0]};	// icache.scala:47:24
+        cache_123_0_valid = _RANDOM_1158[25];	// icache.scala:47:24
+        cache_124_0_tag = {_RANDOM_1163[31:16], _RANDOM_1164[4:0]};	// icache.scala:47:24
+        cache_124_0_data = {_RANDOM_1164[31:5], _RANDOM_1165, _RANDOM_1166, _RANDOM_1167, _RANDOM_1168[4:0]};	// icache.scala:47:24
+        cache_124_0_valid = _RANDOM_1168[5];	// icache.scala:47:24
+        cache_125_0_tag = {_RANDOM_1172[31:28], _RANDOM_1173[16:0]};	// icache.scala:47:24
+        cache_125_0_data = {_RANDOM_1173[31:17], _RANDOM_1174, _RANDOM_1175, _RANDOM_1176, _RANDOM_1177[16:0]};	// icache.scala:47:24
+        cache_125_0_valid = _RANDOM_1177[17];	// icache.scala:47:24
+        cache_126_0_tag = _RANDOM_1182[28:8];	// icache.scala:47:24
+        cache_126_0_data = {_RANDOM_1182[31:29], _RANDOM_1183, _RANDOM_1184, _RANDOM_1185, _RANDOM_1186[28:0]};	// icache.scala:47:24
+        cache_126_0_valid = _RANDOM_1186[29];	// icache.scala:47:24
+        cache_127_0_tag = {_RANDOM_1191[31:20], _RANDOM_1192[8:0]};	// icache.scala:47:24
+        cache_127_0_data = {_RANDOM_1192[31:9], _RANDOM_1193, _RANDOM_1194, _RANDOM_1195, _RANDOM_1196[8:0]};	// icache.scala:47:24
+        cache_127_0_valid = _RANDOM_1196[9];	// icache.scala:47:24
+        req_addr = {_RANDOM_1201, _RANDOM_1202};	// icache.scala:55:28
+        req_valid = _RANDOM_1203[0];	// icache.scala:56:28
+        state = _RANDOM_1203[3:1];	// icache.scala:56:28, :63:34
+        lineBuf = {_RANDOM_1203[31:4], _RANDOM_1204, _RANDOM_1205, _RANDOM_1206, _RANDOM_1207[3:0]};	// icache.scala:56:28, :64:34
       `endif // RANDOMIZE_REG_INIT
     end // initial
     `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:1182:10
@@ -13074,20 +13084,21 @@ module ICache(	// <stdin>:1182:10
   );
   assign io_rdata = _T | ~(_T_1 & _T_3) ? 32'h7777 : req_addr[3:0] == 4'h0 ? _GEN_4[95:64] : req_addr[3:0] ==
                 4'h4 ? _GEN_4[127:96] : req_addr[3:0] == 4'h8 ? _GEN_4[31:0] : req_addr[3:0] == 4'hC ?
-                _GEN_4[63:32] : 32'h7777;	// <stdin>:1182:10, icache.scala:52:28, :55:29, :58:36, :74:21, :86:18, :97:{40,48,71}, :100:35, :101:{50,71}, :102:{50,71}, :103:{50,71}, :104:{50,71}
-  assign io_hit = _GEN;	// <stdin>:1182:10, icache.scala:72:21, :86:18
-  assign io_rvalid = _GEN;	// <stdin>:1182:10, icache.scala:72:21, :86:18
-  assign io_state = state;	// <stdin>:1182:10, icache.scala:60:34
-  assign io_miss = ~_GEN & req_valid;	// <stdin>:1182:10, icache.scala:53:28, :72:21, :78:{24,35}, :86:18
-  assign io_cache_tag = req_addr[31:11];	// <stdin>:1182:10, icache.scala:52:28, :57:29
-  assign io_cache_set = req_addr[5:4];	// <stdin>:1182:10, icache.scala:52:28, :66:25
-  assign io_cache_offset = req_addr[3:0];	// <stdin>:1182:10, icache.scala:52:28, :55:29
-  assign io_lineBuf = lineBuf;	// <stdin>:1182:10, icache.scala:61:34
-  assign io_axi_rreq = ~_T & ~_T_1 & (_T_9 ? ~_T_11 : _T_12);	// <stdin>:1182:10, icache.scala:72:21, :76:21, :84:25, :86:18, :123:{34,48}, :127:33
-  assign io_axi_raddr = _T | _T_1 ? 32'h0 : _T_9 ? (_T_11 ? 32'h0 : _GEN_8) : _T_12 ? _GEN_8 : 32'h0;	// <stdin>:1182:10, icache.scala:77:21, :86:18, :123:{34,48}, :128:33, :135:29
+                _GEN_4[63:32] : 32'h7777;	// <stdin>:1182:10, icache.scala:55:28, :58:29, :61:36, :76:21, :89:18, :100:{40,48,71}, :103:35, :104:{50,71}, :105:{50,71}, :106:{50,71}, :107:{50,71}
+  assign io_hit = _GEN;	// <stdin>:1182:10, icache.scala:74:21, :89:18
+  assign io_rvalid = _GEN;	// <stdin>:1182:10, icache.scala:74:21, :89:18
+  assign io_state = state;	// <stdin>:1182:10, icache.scala:63:34
+  assign io_miss = ~_GEN & req_valid;	// <stdin>:1182:10, icache.scala:56:28, :74:21, :80:{24,35}, :89:18
+  assign io_cache_tag = req_addr[31:11];	// <stdin>:1182:10, icache.scala:55:28, :60:29
+  assign io_cache_set = req_addr[5:4];	// <stdin>:1182:10, icache.scala:55:28, :68:25
+  assign io_cache_offset = req_addr[3:0];	// <stdin>:1182:10, icache.scala:55:28, :58:29
+  assign io_cache_miss_cnt = cache_miss_cnt;	// <stdin>:1182:10, icache.scala:39:33
+  assign io_lineBuf = lineBuf;	// <stdin>:1182:10, icache.scala:64:34
+  assign io_axi_rreq = ~_T & ~_T_1 & (_T_9 ? ~_T_11 : _T_12);	// <stdin>:1182:10, icache.scala:74:21, :78:21, :87:25, :89:18, :126:{34,48}, :130:33
+  assign io_axi_raddr = _T | _T_1 ? 32'h0 : _T_9 ? (_T_11 ? 32'h0 : _GEN_8) : _T_12 ? _GEN_8 : 32'h0;	// <stdin>:1182:10, icache.scala:39:33, :79:21, :89:18, :126:{34,48}, :131:33, :138:29
 endmodule
 
-module IF_pre_fetch(	// <stdin>:1615:10
+module IF_pre_fetch(	// <stdin>:1621:10
   input          clock,
                  reset,
                  io_stall,
@@ -13108,6 +13119,7 @@ module IF_pre_fetch(	// <stdin>:1615:10
   output [20:0]  io_cache_tag,
   output [1:0]   io_cache_set,
   output [3:0]   io_cache_offset,
+  output [31:0]  io_cache_miss_cnt,
   output [127:0] io_lineBuf,
   output         axi_readAddr_valid,
   output [31:0]  axi_readAddr_bits_addr,
@@ -13116,88 +13128,89 @@ module IF_pre_fetch(	// <stdin>:1615:10
   reg  [63:0] rhsReg;	// tools.scala:15:29
   wire        _inst_cache_io_rvalid;	// pre_fetch.scala:47:29
   wire        _inst_cache_io_miss;	// pre_fetch.scala:47:29
-  reg  [63:0] PF_npc;	// pre_fetch.scala:33:27
-  wire        _npc_T = io_stall | _inst_cache_io_miss;	// pre_fetch.scala:47:29, :69:19
+  reg  [63:0] PF_npc;	// pre_fetch.scala:34:27
+  wire        _npc_T = io_stall | _inst_cache_io_miss;	// pre_fetch.scala:47:29, :68:19
   always @(posedge clock) begin
     if (reset) begin
-      PF_npc <= 64'h80000000;	// pre_fetch.scala:33:27
+      PF_npc <= 64'h80000000;	// pre_fetch.scala:34:27
       rhsReg <= 64'h0;	// tools.scala:15:29
     end
     else begin
-      automatic logic [63:0] _PF_npc_T_3;	// pre_fetch.scala:84:33
-      _PF_npc_T_3 = io_bp_npc + 64'h4;	// pre_fetch.scala:83:33, :84:33
+      automatic logic [63:0] _PF_npc_T_3;	// pre_fetch.scala:85:33
+      _PF_npc_T_3 = io_bp_npc + 64'h4;	// pre_fetch.scala:84:33, :85:33
       if (io_bp_flush) begin
-        PF_npc <= _PF_npc_T_3;	// pre_fetch.scala:33:27, :84:33
+        PF_npc <= _PF_npc_T_3;	// pre_fetch.scala:34:27, :85:33
         rhsReg <= io_bp_npc;	// tools.scala:15:29
       end
-      else if (~_npc_T) begin	// pre_fetch.scala:69:19
+      else if (~_npc_T) begin	// pre_fetch.scala:68:19
         if (io_bp_taken) begin
-          PF_npc <= _PF_npc_T_3;	// pre_fetch.scala:33:27, :84:33
+          PF_npc <= _PF_npc_T_3;	// pre_fetch.scala:34:27, :85:33
           rhsReg <= io_bp_npc;	// tools.scala:15:29
         end
         else begin
-          PF_npc <= PF_npc + 64'h4;	// pre_fetch.scala:33:27, :83:33
-          rhsReg <= PF_npc;	// pre_fetch.scala:33:27, tools.scala:15:29
+          PF_npc <= PF_npc + 64'h4;	// pre_fetch.scala:34:27, :84:33
+          rhsReg <= PF_npc;	// pre_fetch.scala:34:27, tools.scala:15:29
         end
       end
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:1615:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:1615:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:1615:10
+  `ifndef SYNTHESIS	// <stdin>:1621:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:1621:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:1621:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:1615:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:1615:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:1615:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:1615:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:1615:10
-      automatic logic [31:0] _RANDOM_4;	// <stdin>:1615:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:1615:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:1615:10
+    initial begin	// <stdin>:1621:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:1621:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:1621:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:1621:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:1621:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:1621:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:1621:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:1621:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:1615:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:1615:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:1615:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:1615:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:1615:10
-        _RANDOM_4 = `RANDOM;	// <stdin>:1615:10
-        PF_npc = {_RANDOM_0, _RANDOM_1};	// pre_fetch.scala:33:27
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:1621:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:1621:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:1621:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:1621:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:1621:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:1621:10
+        PF_npc = {_RANDOM_0, _RANDOM_1};	// pre_fetch.scala:34:27
         rhsReg = {_RANDOM_2[31:1], _RANDOM_3, _RANDOM_4[0]};	// tools.scala:15:29
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:1615:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:1615:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:1621:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:1621:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
   ICache inst_cache (	// pre_fetch.scala:47:29
-    .clock           (clock),
-    .reset           (reset),
-    .io_valid        (~reset),	// pre_fetch.scala:72:35
-    .io_addr         (io_bp_flush ? io_bp_npc : _npc_T ? rhsReg : io_bp_taken ? io_bp_npc : {32'h0, PF_npc[31:0]}),	// Mux.scala:101:16, pre_fetch.scala:33:27, :67:49, :69:19, tools.scala:15:29
-    .io_axi_busy     (~axi_req_ready),	// pre_fetch.scala:36:24
-    .io_axi_arready  (axi_readAddr_ready),
-    .io_axi_rlast    (axi_readData_bits_last),
-    .io_axi_rdata    (axi_readData_bits_data),
-    .io_rdata        (io_inst),
-    .io_hit          (io_cache_hit),
-    .io_rvalid       (_inst_cache_io_rvalid),
-    .io_state        (io_cache_state),
-    .io_miss         (_inst_cache_io_miss),
-    .io_cache_tag    (io_cache_tag),
-    .io_cache_set    (io_cache_set),
-    .io_cache_offset (io_cache_offset),
-    .io_lineBuf      (io_lineBuf),
-    .io_axi_rreq     (axi_readAddr_valid),
-    .io_axi_raddr    (axi_readAddr_bits_addr)
+    .clock             (clock),
+    .reset             (reset),
+    .io_valid          (~reset),	// pre_fetch.scala:71:35
+    .io_addr           (io_bp_flush ? io_bp_npc : _npc_T ? rhsReg : io_bp_taken ? io_bp_npc : {32'h0, PF_npc[31:0]}),	// Mux.scala:101:16, pre_fetch.scala:34:27, :66:49, :68:19, tools.scala:15:29
+    .io_axi_busy       (~axi_req_ready),	// pre_fetch.scala:37:24
+    .io_axi_arready    (axi_readAddr_ready),
+    .io_axi_rlast      (axi_readData_bits_last),
+    .io_axi_rdata      (axi_readData_bits_data),
+    .io_rdata          (io_inst),
+    .io_hit            (io_cache_hit),
+    .io_rvalid         (_inst_cache_io_rvalid),
+    .io_state          (io_cache_state),
+    .io_miss           (_inst_cache_io_miss),
+    .io_cache_tag      (io_cache_tag),
+    .io_cache_set      (io_cache_set),
+    .io_cache_offset   (io_cache_offset),
+    .io_cache_miss_cnt (io_cache_miss_cnt),
+    .io_lineBuf        (io_lineBuf),
+    .io_axi_rreq       (axi_readAddr_valid),
+    .io_axi_raddr      (axi_readAddr_bits_addr)
   );
-  assign io_inst_valid = _inst_cache_io_rvalid;	// <stdin>:1615:10, pre_fetch.scala:47:29
-  assign io_PF_pc = rhsReg;	// <stdin>:1615:10, tools.scala:15:29
-  assign io_PF_npc = PF_npc;	// <stdin>:1615:10, pre_fetch.scala:33:27
-  assign io_cache_rvalid = _inst_cache_io_rvalid;	// <stdin>:1615:10, pre_fetch.scala:47:29
-  assign axi_readData_ready = ~io_stall;	// <stdin>:1615:10, pre_fetch.scala:66:35
+  assign io_inst_valid = _inst_cache_io_rvalid;	// <stdin>:1621:10, pre_fetch.scala:47:29
+  assign io_PF_pc = rhsReg;	// <stdin>:1621:10, tools.scala:15:29
+  assign io_PF_npc = PF_npc;	// <stdin>:1621:10, pre_fetch.scala:34:27
+  assign io_cache_rvalid = _inst_cache_io_rvalid;	// <stdin>:1621:10, pre_fetch.scala:47:29
+  assign axi_readData_ready = ~io_stall;	// <stdin>:1621:10, pre_fetch.scala:65:35
 endmodule
 
-module IFU(	// <stdin>:1706:10
+module IFU(	// <stdin>:1713:10
   input          clock,
                  reset,
                  io_IF_to_ID_bus_ready,
@@ -13221,75 +13234,76 @@ module IFU(	// <stdin>:1706:10
   output [20:0]  io_cache_tag,
   output [1:0]   io_cache_set,
   output [3:0]   io_cache_offset,
+  output [31:0]  io_cache_miss_cnt,
   output [127:0] io_lineBuf,
   output         axi_readAddr_valid,
   output [31:0]  axi_readAddr_bits_addr,
   output         axi_readData_ready);
 
-  wire [31:0] _pre_fetch_io_inst;	// IFU.scala:37:27
-  wire        _pre_fetch_io_inst_valid;	// IFU.scala:37:27
-  wire [63:0] _pre_fetch_io_PF_pc;	// IFU.scala:37:27
+  wire [31:0] _pre_fetch_io_inst;	// IFU.scala:38:27
+  wire        _pre_fetch_io_inst_valid;	// IFU.scala:38:27
+  wire [63:0] _pre_fetch_io_PF_pc;	// IFU.scala:38:27
   reg  [63:0] rhsReg;	// tools.scala:15:29
   reg  [31:0] rhsReg_1;	// tools.scala:15:29
   reg         rhsReg_2;	// tools.scala:15:29
   always @(posedge clock) begin
     if (reset) begin
-      rhsReg <= 64'h0;	// <stdin>:1706:10, tools.scala:15:29
-      rhsReg_1 <= 32'h0;	// <stdin>:1706:10, tools.scala:15:29
-      rhsReg_2 <= 1'h0;	// <stdin>:1706:10, tools.scala:15:29
+      rhsReg <= 64'h0;	// <stdin>:1713:10, tools.scala:15:29
+      rhsReg_1 <= 32'h0;	// <stdin>:1713:10, tools.scala:15:29
+      rhsReg_2 <= 1'h0;	// <stdin>:1713:10, tools.scala:15:29
     end
     else begin
       automatic logic _IF_valid_T_1;	// Mux.scala:101:16
-      _IF_valid_T_1 = ~io_bp_flush & _pre_fetch_io_inst_valid;	// IFU.scala:37:27, Mux.scala:101:16
+      _IF_valid_T_1 = ~io_bp_flush & _pre_fetch_io_inst_valid;	// IFU.scala:38:27, Mux.scala:101:16
       if (io_IF_to_ID_bus_ready ? _IF_valid_T_1 : rhsReg_2) begin	// Mux.scala:101:16, tools.scala:15:29
         if (io_IF_to_ID_bus_ready) begin
           if (io_bp_flush)
-            rhsReg <= 64'h0;	// <stdin>:1706:10, tools.scala:15:29
+            rhsReg <= 64'h0;	// <stdin>:1713:10, tools.scala:15:29
           else
-            rhsReg <= _pre_fetch_io_PF_pc;	// IFU.scala:37:27, tools.scala:15:29
+            rhsReg <= _pre_fetch_io_PF_pc;	// IFU.scala:38:27, tools.scala:15:29
         end
       end
       else	// Mux.scala:101:16, tools.scala:15:29
-        rhsReg <= 64'h0;	// <stdin>:1706:10, tools.scala:15:29
+        rhsReg <= 64'h0;	// <stdin>:1713:10, tools.scala:15:29
       if (io_IF_to_ID_bus_ready) begin
         if (io_bp_flush)
-          rhsReg_1 <= 32'h0;	// <stdin>:1706:10, tools.scala:15:29
+          rhsReg_1 <= 32'h0;	// <stdin>:1713:10, tools.scala:15:29
         else
-          rhsReg_1 <= _pre_fetch_io_inst;	// IFU.scala:37:27, tools.scala:15:29
+          rhsReg_1 <= _pre_fetch_io_inst;	// IFU.scala:38:27, tools.scala:15:29
         rhsReg_2 <= _IF_valid_T_1;	// Mux.scala:101:16, tools.scala:15:29
       end
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:1706:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:1706:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:1706:10
+  `ifndef SYNTHESIS	// <stdin>:1713:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:1713:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:1713:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:1706:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:1706:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:1706:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:1706:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:1706:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:1706:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:1706:10
+    initial begin	// <stdin>:1713:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:1713:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:1713:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:1713:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:1713:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:1713:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:1713:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:1706:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:1706:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:1706:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:1706:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:1706:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:1713:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:1713:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:1713:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:1713:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:1713:10
         rhsReg = {_RANDOM_0, _RANDOM_1};	// tools.scala:15:29
         rhsReg_1 = _RANDOM_2;	// tools.scala:15:29
         rhsReg_2 = _RANDOM_3[0];	// tools.scala:15:29
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:1706:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:1706:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:1713:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:1713:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  IF_pre_fetch pre_fetch (	// IFU.scala:37:27
+  IF_pre_fetch pre_fetch (	// IFU.scala:38:27
     .clock                  (clock),
     .reset                  (reset),
-    .io_stall               (~io_IF_to_ID_bus_ready),	// IFU.scala:61:48
+    .io_stall               (~io_IF_to_ID_bus_ready),	// IFU.scala:63:48
     .io_bp_npc              (io_bp_npc),
     .io_bp_taken            (io_bp_taken),
     .io_bp_flush            (io_bp_flush),
@@ -13307,20 +13321,21 @@ module IFU(	// <stdin>:1706:10
     .io_cache_tag           (io_cache_tag),
     .io_cache_set           (io_cache_set),
     .io_cache_offset        (io_cache_offset),
+    .io_cache_miss_cnt      (io_cache_miss_cnt),
     .io_lineBuf             (io_lineBuf),
     .axi_readAddr_valid     (axi_readAddr_valid),
     .axi_readAddr_bits_addr (axi_readAddr_bits_addr),
     .axi_readData_ready     (axi_readData_ready)
   );
-  assign io_IF_to_ID_bus_valid = rhsReg_2;	// <stdin>:1706:10, tools.scala:15:29
-  assign io_IF_to_ID_bus_bits_PC = rhsReg;	// <stdin>:1706:10, tools.scala:15:29
-  assign io_IF_to_ID_bus_bits_Inst = rhsReg_1;	// <stdin>:1706:10, tools.scala:15:29
-  assign io_PF_pc = _pre_fetch_io_PF_pc;	// <stdin>:1706:10, IFU.scala:37:27
-  assign io_PF_Inst = _pre_fetch_io_inst;	// <stdin>:1706:10, IFU.scala:37:27
-  assign io_PF_valid = _pre_fetch_io_inst_valid;	// <stdin>:1706:10, IFU.scala:37:27
+  assign io_IF_to_ID_bus_valid = rhsReg_2;	// <stdin>:1713:10, tools.scala:15:29
+  assign io_IF_to_ID_bus_bits_PC = rhsReg;	// <stdin>:1713:10, tools.scala:15:29
+  assign io_IF_to_ID_bus_bits_Inst = rhsReg_1;	// <stdin>:1713:10, tools.scala:15:29
+  assign io_PF_pc = _pre_fetch_io_PF_pc;	// <stdin>:1713:10, IFU.scala:38:27
+  assign io_PF_Inst = _pre_fetch_io_inst;	// <stdin>:1713:10, IFU.scala:38:27
+  assign io_PF_valid = _pre_fetch_io_inst_valid;	// <stdin>:1713:10, IFU.scala:38:27
 endmodule
 
-module IDU(	// <stdin>:1783:10
+module IDU(	// <stdin>:1791:10
   input         clock,
                 reset,
                 io_IF_to_ID_bus_valid,
@@ -13965,171 +13980,171 @@ module IDU(	// <stdin>:1783:10
       end
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:1783:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:1783:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:1783:10
+  `ifndef SYNTHESIS	// <stdin>:1791:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:1791:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:1791:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_4;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_5;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_6;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_7;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_8;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_9;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_10;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_11;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_12;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_13;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_14;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_15;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_16;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_17;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_18;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_19;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_20;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_21;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_22;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_23;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_24;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_25;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_26;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_27;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_28;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_29;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_30;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_31;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_32;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_33;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_34;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_35;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_36;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_37;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_38;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_39;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_40;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_41;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_42;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_43;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_44;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_45;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_46;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_47;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_48;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_49;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_50;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_51;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_52;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_53;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_54;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_55;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_56;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_57;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_58;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_59;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_60;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_61;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_62;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_63;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_64;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_65;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_66;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_67;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_68;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_69;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_70;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_71;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_72;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_73;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_74;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_75;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_76;	// <stdin>:1783:10
-      automatic logic [31:0] _RANDOM_77;	// <stdin>:1783:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:1783:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:1783:10
+    initial begin	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_5;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_6;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_7;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_8;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_9;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_10;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_11;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_12;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_13;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_14;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_15;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_16;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_17;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_18;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_19;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_20;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_21;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_22;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_23;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_24;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_25;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_26;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_27;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_28;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_29;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_30;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_31;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_32;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_33;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_34;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_35;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_36;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_37;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_38;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_39;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_40;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_41;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_42;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_43;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_44;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_45;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_46;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_47;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_48;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_49;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_50;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_51;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_52;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_53;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_54;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_55;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_56;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_57;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_58;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_59;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_60;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_61;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_62;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_63;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_64;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_65;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_66;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_67;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_68;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_69;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_70;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_71;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_72;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_73;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_74;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_75;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_76;	// <stdin>:1791:10
+      automatic logic [31:0] _RANDOM_77;	// <stdin>:1791:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:1791:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:1791:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:1783:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_4 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_5 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_6 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_7 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_8 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_9 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_10 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_11 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_12 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_13 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_14 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_15 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_16 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_17 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_18 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_19 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_20 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_21 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_22 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_23 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_24 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_25 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_26 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_27 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_28 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_29 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_30 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_31 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_32 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_33 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_34 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_35 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_36 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_37 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_38 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_39 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_40 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_41 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_42 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_43 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_44 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_45 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_46 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_47 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_48 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_49 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_50 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_51 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_52 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_53 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_54 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_55 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_56 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_57 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_58 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_59 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_60 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_61 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_62 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_63 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_64 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_65 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_66 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_67 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_68 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_69 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_70 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_71 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_72 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_73 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_74 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_75 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_76 = `RANDOM;	// <stdin>:1783:10
-        _RANDOM_77 = `RANDOM;	// <stdin>:1783:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:1791:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_5 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_6 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_7 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_8 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_9 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_10 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_11 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_12 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_13 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_14 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_15 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_16 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_17 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_18 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_19 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_20 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_21 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_22 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_23 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_24 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_25 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_26 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_27 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_28 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_29 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_30 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_31 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_32 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_33 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_34 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_35 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_36 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_37 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_38 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_39 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_40 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_41 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_42 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_43 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_44 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_45 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_46 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_47 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_48 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_49 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_50 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_51 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_52 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_53 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_54 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_55 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_56 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_57 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_58 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_59 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_60 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_61 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_62 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_63 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_64 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_65 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_66 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_67 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_68 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_69 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_70 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_71 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_72 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_73 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_74 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_75 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_76 = `RANDOM;	// <stdin>:1791:10
+        _RANDOM_77 = `RANDOM;	// <stdin>:1791:10
         GPR_0 = {_RANDOM_0, _RANDOM_1};	// IDU.scala:120:22
         GPR_1 = {_RANDOM_2, _RANDOM_3};	// IDU.scala:120:22
         GPR_2 = {_RANDOM_4, _RANDOM_5};	// IDU.scala:120:22
@@ -14179,32 +14194,32 @@ module IDU(	// <stdin>:1783:10
         rhsReg_16 = _RANDOM_77[26];	// tools.scala:23:29
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:1783:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:1783:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:1791:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:1791:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  assign io_IF_to_ID_bus_ready = ~_io_ID_stall_T;	// <stdin>:1783:10, IDU.scala:71:20, :210:35
-  assign io_ID_to_EX_bus_valid = rhsReg_16;	// <stdin>:1783:10, tools.scala:23:29
-  assign io_ID_to_EX_bus_bits_ALU_Data1 = rhsReg_2;	// <stdin>:1783:10, tools.scala:23:29
-  assign io_ID_to_EX_bus_bits_ALU_Data2 = rhsReg_3;	// <stdin>:1783:10, tools.scala:23:29
-  assign io_ID_to_EX_bus_bits_futype = rhsReg_9[0];	// <stdin>:1783:10, tools.scala:23:29, :27:17
-  assign io_ID_to_EX_bus_bits_optype = rhsReg_8;	// <stdin>:1783:10, tools.scala:23:29
-  assign io_ID_to_EX_bus_bits_rs1_data = rhsReg_10;	// <stdin>:1783:10, tools.scala:23:29
-  assign io_ID_to_EX_bus_bits_rs2_data = rhsReg_12;	// <stdin>:1783:10, tools.scala:23:29
-  assign io_ID_to_EX_bus_bits_regWriteID = rhsReg_4;	// <stdin>:1783:10, tools.scala:23:29
-  assign io_ID_to_EX_bus_bits_regWriteEn = rhsReg_5;	// <stdin>:1783:10, tools.scala:23:29
-  assign io_ID_to_EX_bus_bits_memWriteEn = rhsReg_7;	// <stdin>:1783:10, tools.scala:23:29
-  assign io_ID_to_EX_bus_bits_memReadEn = rhsReg_6;	// <stdin>:1783:10, tools.scala:23:29
-  assign io_ID_to_EX_bus_bits_csrWriteAddr = rhsReg_15[11:0];	// <stdin>:1783:10, tools.scala:23:29, :27:17
-  assign io_ID_to_EX_bus_bits_csrWriteEn = rhsReg_14;	// <stdin>:1783:10, tools.scala:23:29
-  assign io_ID_to_EX_bus_bits_PC = rhsReg;	// <stdin>:1783:10, tools.scala:23:29
-  assign io_ID_to_EX_bus_bits_Inst = rhsReg_1;	// <stdin>:1783:10, tools.scala:23:29
+  assign io_IF_to_ID_bus_ready = ~_io_ID_stall_T;	// <stdin>:1791:10, IDU.scala:71:20, :210:35
+  assign io_ID_to_EX_bus_valid = rhsReg_16;	// <stdin>:1791:10, tools.scala:23:29
+  assign io_ID_to_EX_bus_bits_ALU_Data1 = rhsReg_2;	// <stdin>:1791:10, tools.scala:23:29
+  assign io_ID_to_EX_bus_bits_ALU_Data2 = rhsReg_3;	// <stdin>:1791:10, tools.scala:23:29
+  assign io_ID_to_EX_bus_bits_futype = rhsReg_9[0];	// <stdin>:1791:10, tools.scala:23:29, :27:17
+  assign io_ID_to_EX_bus_bits_optype = rhsReg_8;	// <stdin>:1791:10, tools.scala:23:29
+  assign io_ID_to_EX_bus_bits_rs1_data = rhsReg_10;	// <stdin>:1791:10, tools.scala:23:29
+  assign io_ID_to_EX_bus_bits_rs2_data = rhsReg_12;	// <stdin>:1791:10, tools.scala:23:29
+  assign io_ID_to_EX_bus_bits_regWriteID = rhsReg_4;	// <stdin>:1791:10, tools.scala:23:29
+  assign io_ID_to_EX_bus_bits_regWriteEn = rhsReg_5;	// <stdin>:1791:10, tools.scala:23:29
+  assign io_ID_to_EX_bus_bits_memWriteEn = rhsReg_7;	// <stdin>:1791:10, tools.scala:23:29
+  assign io_ID_to_EX_bus_bits_memReadEn = rhsReg_6;	// <stdin>:1791:10, tools.scala:23:29
+  assign io_ID_to_EX_bus_bits_csrWriteAddr = rhsReg_15[11:0];	// <stdin>:1791:10, tools.scala:23:29, :27:17
+  assign io_ID_to_EX_bus_bits_csrWriteEn = rhsReg_14;	// <stdin>:1791:10, tools.scala:23:29
+  assign io_ID_to_EX_bus_bits_PC = rhsReg;	// <stdin>:1791:10, tools.scala:23:29
+  assign io_ID_to_EX_bus_bits_Inst = rhsReg_1;	// <stdin>:1791:10, tools.scala:23:29
   assign io_ID_to_BPU_bus_valid = io_IF_to_ID_bus_valid & (_io_ID_to_BPU_bus_valid_T | _io_ID_to_BPU_bus_valid_T_1 |
                 _io_ID_to_BPU_bus_valid_T_3 & _io_ID_to_BPU_bus_valid_T_4 | _io_ID_to_BPU_bus_valid_T_7 |
-                _io_ID_to_BPU_bus_valid_T_8) & ~_io_ID_stall_T;	// <stdin>:1783:10, IDU.scala:71:20, :173:19, :174:19, :183:15, :195:104, :199:35, :202:37, :210:35, :301:{62,80,142}
-  assign io_ID_to_BPU_bus_bits_PC = IF_pc;	// <stdin>:1783:10, IDU.scala:74:20
+                _io_ID_to_BPU_bus_valid_T_8) & ~_io_ID_stall_T;	// <stdin>:1791:10, IDU.scala:71:20, :173:19, :174:19, :183:15, :195:104, :199:35, :202:37, :210:35, :301:{62,80,142}
+  assign io_ID_to_BPU_bus_bits_PC = IF_pc;	// <stdin>:1791:10, IDU.scala:74:20
   assign io_ID_to_BPU_bus_bits_taken = _io_ID_to_BPU_bus_valid_T | (_io_ID_to_BPU_bus_valid_T_1 ? _GEN_12 :
-                _io_ID_to_BPU_bus_valid_T_3 & _io_ID_to_BPU_bus_valid_T_4);	// <stdin>:1783:10, IDU.scala:173:19, :174:19, :183:15, :195:104, :265:19, :266:34, :275:15, :276:21, :277:31, :278:31, :279:31
+                _io_ID_to_BPU_bus_valid_T_3 & _io_ID_to_BPU_bus_valid_T_4);	// <stdin>:1791:10, IDU.scala:173:19, :174:19, :183:15, :195:104, :265:19, :266:34, :275:15, :276:21, :277:31, :278:31, :279:31
   assign io_ID_to_BPU_bus_bits_br_target = _io_ID_to_BPU_bus_valid_T ? IF_pc + {{44{io_IF_to_ID_bus_bits_Inst[31]}},
                 io_IF_to_ID_bus_bits_Inst[19:12], io_IF_to_ID_bus_bits_Inst[20],
                 io_IF_to_ID_bus_bits_Inst[30:21], 1'h0} : _io_ID_to_BPU_bus_valid_T_1 & _GEN_12 ? IF_pc +
@@ -14212,49 +14227,49 @@ module IDU(	// <stdin>:1783:10
                 io_IF_to_ID_bus_bits_Inst[30:25], io_IF_to_ID_bus_bits_Inst[11:8], 1'h0} :
                 _io_ID_to_BPU_bus_valid_T_3 & _io_ID_to_BPU_bus_valid_T_4 ? _rs1_data_T_17 +
                 {_immI_ret_T_2, io_IF_to_ID_bus_bits_Inst[31:20]} : _io_ID_to_BPU_bus_valid_T_7 |
-                _io_ID_to_BPU_bus_valid_T_8 ? io_CSR_csrReadData : {32'h0, _ALU_Data1_T_5[31:0]};	// <stdin>:1783:10, Bitwise.scala:77:12, IDU.scala:71:20, :74:20, :110:25, :113:{25,44,66,92}, :114:{48,72,90}, :173:19, :174:19, :183:{15,30}, :195:104, :199:35, :202:37, :265:19, :266:34, :291:13, :293:37, :294:{31,50}, :295:{31,58}, :296:39, Mux.scala:101:16
-  assign io_ID_to_BPU_bus_bits_stall = _io_ID_stall_T;	// <stdin>:1783:10, IDU.scala:210:35
+                _io_ID_to_BPU_bus_valid_T_8 ? io_CSR_csrReadData : {32'h0, _ALU_Data1_T_5[31:0]};	// <stdin>:1791:10, Bitwise.scala:77:12, IDU.scala:71:20, :74:20, :110:25, :113:{25,44,66,92}, :114:{48,72,90}, :173:19, :174:19, :183:{15,30}, :195:104, :199:35, :202:37, :265:19, :266:34, :291:13, :293:37, :294:{31,50}, :295:{31,58}, :296:39, Mux.scala:101:16
+  assign io_ID_to_BPU_bus_bits_stall = _io_ID_stall_T;	// <stdin>:1791:10, IDU.scala:210:35
   assign io_ID_to_BPU_bus_bits_Type = _io_ID_to_BPU_bus_valid_T ? 2'h1 : _io_ID_to_BPU_bus_valid_T_1 ? 2'h2 :
-                _io_ID_to_BPU_bus_valid_T_3 ? {2{_io_ID_to_BPU_bus_valid_T_4}} : 2'h0;	// <stdin>:1783:10, IDU.scala:173:19, :174:19, :183:15, :195:104, :283:10, :284:21, :285:27, :286:27, :287:{27,33}, Lookup.scala:34:39
-  assign io_ID_csrReadAddr = _GEN_11;	// <stdin>:1783:10, Mux.scala:101:16
-  assign io_ID_ecall = _io_ID_to_BPU_bus_valid_T_7;	// <stdin>:1783:10, IDU.scala:199:35
-  assign io_ID_stall = _io_ID_stall_T;	// <stdin>:1783:10, IDU.scala:210:35
-  assign io_ID_GPR_0 = GPR_0;	// <stdin>:1783:10, IDU.scala:120:22
-  assign io_ID_GPR_1 = GPR_1;	// <stdin>:1783:10, IDU.scala:120:22
-  assign io_ID_GPR_2 = GPR_2;	// <stdin>:1783:10, IDU.scala:120:22
-  assign io_ID_GPR_3 = GPR_3;	// <stdin>:1783:10, IDU.scala:120:22
-  assign io_ID_GPR_4 = GPR_4;	// <stdin>:1783:10, IDU.scala:120:22
-  assign io_ID_GPR_5 = GPR_5;	// <stdin>:1783:10, IDU.scala:120:22
-  assign io_ID_GPR_6 = GPR_6;	// <stdin>:1783:10, IDU.scala:120:22
-  assign io_ID_GPR_7 = GPR_7;	// <stdin>:1783:10, IDU.scala:120:22
-  assign io_ID_GPR_8 = GPR_8;	// <stdin>:1783:10, IDU.scala:120:22
-  assign io_ID_GPR_9 = GPR_9;	// <stdin>:1783:10, IDU.scala:120:22
-  assign io_ID_GPR_10 = GPR_10;	// <stdin>:1783:10, IDU.scala:120:22
-  assign io_ID_GPR_11 = GPR_11;	// <stdin>:1783:10, IDU.scala:120:22
-  assign io_ID_GPR_12 = GPR_12;	// <stdin>:1783:10, IDU.scala:120:22
-  assign io_ID_GPR_13 = GPR_13;	// <stdin>:1783:10, IDU.scala:120:22
-  assign io_ID_GPR_14 = GPR_14;	// <stdin>:1783:10, IDU.scala:120:22
-  assign io_ID_GPR_15 = GPR_15;	// <stdin>:1783:10, IDU.scala:120:22
-  assign io_ID_GPR_16 = GPR_16;	// <stdin>:1783:10, IDU.scala:120:22
-  assign io_ID_GPR_17 = GPR_17;	// <stdin>:1783:10, IDU.scala:120:22
-  assign io_ID_GPR_18 = GPR_18;	// <stdin>:1783:10, IDU.scala:120:22
-  assign io_ID_GPR_19 = GPR_19;	// <stdin>:1783:10, IDU.scala:120:22
-  assign io_ID_GPR_20 = GPR_20;	// <stdin>:1783:10, IDU.scala:120:22
-  assign io_ID_GPR_21 = GPR_21;	// <stdin>:1783:10, IDU.scala:120:22
-  assign io_ID_GPR_22 = GPR_22;	// <stdin>:1783:10, IDU.scala:120:22
-  assign io_ID_GPR_23 = GPR_23;	// <stdin>:1783:10, IDU.scala:120:22
-  assign io_ID_GPR_24 = GPR_24;	// <stdin>:1783:10, IDU.scala:120:22
-  assign io_ID_GPR_25 = GPR_25;	// <stdin>:1783:10, IDU.scala:120:22
-  assign io_ID_GPR_26 = GPR_26;	// <stdin>:1783:10, IDU.scala:120:22
-  assign io_ID_GPR_27 = GPR_27;	// <stdin>:1783:10, IDU.scala:120:22
-  assign io_ID_GPR_28 = GPR_28;	// <stdin>:1783:10, IDU.scala:120:22
-  assign io_ID_GPR_29 = GPR_29;	// <stdin>:1783:10, IDU.scala:120:22
-  assign io_ID_GPR_30 = GPR_30;	// <stdin>:1783:10, IDU.scala:120:22
-  assign io_ID_GPR_31 = GPR_31;	// <stdin>:1783:10, IDU.scala:120:22
-  assign io_ID_unknown_inst = InstInfo_0 == 4'h0 & io_IF_to_ID_bus_valid;	// <stdin>:1783:10, IDU.scala:236:{36,44}, Lookup.scala:34:39
+                _io_ID_to_BPU_bus_valid_T_3 ? {2{_io_ID_to_BPU_bus_valid_T_4}} : 2'h0;	// <stdin>:1791:10, IDU.scala:173:19, :174:19, :183:15, :195:104, :283:10, :284:21, :285:27, :286:27, :287:{27,33}, Lookup.scala:34:39
+  assign io_ID_csrReadAddr = _GEN_11;	// <stdin>:1791:10, Mux.scala:101:16
+  assign io_ID_ecall = _io_ID_to_BPU_bus_valid_T_7;	// <stdin>:1791:10, IDU.scala:199:35
+  assign io_ID_stall = _io_ID_stall_T;	// <stdin>:1791:10, IDU.scala:210:35
+  assign io_ID_GPR_0 = GPR_0;	// <stdin>:1791:10, IDU.scala:120:22
+  assign io_ID_GPR_1 = GPR_1;	// <stdin>:1791:10, IDU.scala:120:22
+  assign io_ID_GPR_2 = GPR_2;	// <stdin>:1791:10, IDU.scala:120:22
+  assign io_ID_GPR_3 = GPR_3;	// <stdin>:1791:10, IDU.scala:120:22
+  assign io_ID_GPR_4 = GPR_4;	// <stdin>:1791:10, IDU.scala:120:22
+  assign io_ID_GPR_5 = GPR_5;	// <stdin>:1791:10, IDU.scala:120:22
+  assign io_ID_GPR_6 = GPR_6;	// <stdin>:1791:10, IDU.scala:120:22
+  assign io_ID_GPR_7 = GPR_7;	// <stdin>:1791:10, IDU.scala:120:22
+  assign io_ID_GPR_8 = GPR_8;	// <stdin>:1791:10, IDU.scala:120:22
+  assign io_ID_GPR_9 = GPR_9;	// <stdin>:1791:10, IDU.scala:120:22
+  assign io_ID_GPR_10 = GPR_10;	// <stdin>:1791:10, IDU.scala:120:22
+  assign io_ID_GPR_11 = GPR_11;	// <stdin>:1791:10, IDU.scala:120:22
+  assign io_ID_GPR_12 = GPR_12;	// <stdin>:1791:10, IDU.scala:120:22
+  assign io_ID_GPR_13 = GPR_13;	// <stdin>:1791:10, IDU.scala:120:22
+  assign io_ID_GPR_14 = GPR_14;	// <stdin>:1791:10, IDU.scala:120:22
+  assign io_ID_GPR_15 = GPR_15;	// <stdin>:1791:10, IDU.scala:120:22
+  assign io_ID_GPR_16 = GPR_16;	// <stdin>:1791:10, IDU.scala:120:22
+  assign io_ID_GPR_17 = GPR_17;	// <stdin>:1791:10, IDU.scala:120:22
+  assign io_ID_GPR_18 = GPR_18;	// <stdin>:1791:10, IDU.scala:120:22
+  assign io_ID_GPR_19 = GPR_19;	// <stdin>:1791:10, IDU.scala:120:22
+  assign io_ID_GPR_20 = GPR_20;	// <stdin>:1791:10, IDU.scala:120:22
+  assign io_ID_GPR_21 = GPR_21;	// <stdin>:1791:10, IDU.scala:120:22
+  assign io_ID_GPR_22 = GPR_22;	// <stdin>:1791:10, IDU.scala:120:22
+  assign io_ID_GPR_23 = GPR_23;	// <stdin>:1791:10, IDU.scala:120:22
+  assign io_ID_GPR_24 = GPR_24;	// <stdin>:1791:10, IDU.scala:120:22
+  assign io_ID_GPR_25 = GPR_25;	// <stdin>:1791:10, IDU.scala:120:22
+  assign io_ID_GPR_26 = GPR_26;	// <stdin>:1791:10, IDU.scala:120:22
+  assign io_ID_GPR_27 = GPR_27;	// <stdin>:1791:10, IDU.scala:120:22
+  assign io_ID_GPR_28 = GPR_28;	// <stdin>:1791:10, IDU.scala:120:22
+  assign io_ID_GPR_29 = GPR_29;	// <stdin>:1791:10, IDU.scala:120:22
+  assign io_ID_GPR_30 = GPR_30;	// <stdin>:1791:10, IDU.scala:120:22
+  assign io_ID_GPR_31 = GPR_31;	// <stdin>:1791:10, IDU.scala:120:22
+  assign io_ID_unknown_inst = InstInfo_0 == 4'h0 & io_IF_to_ID_bus_valid;	// <stdin>:1791:10, IDU.scala:236:{36,44}, Lookup.scala:34:39
 endmodule
 
-module EXU(	// <stdin>:2754:10
+module EXU(	// <stdin>:2762:10
   input         clock,
                 reset,
                 io_ID_to_EX_bus_valid,
@@ -14383,35 +14398,35 @@ module EXU(	// <stdin>:2754:10
       rhsReg_12 <= io_ID_to_EX_bus_valid;	// tools.scala:23:29
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:2754:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:2754:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:2754:10
+  `ifndef SYNTHESIS	// <stdin>:2762:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:2762:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:2762:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:2754:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:2754:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:2754:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:2754:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:2754:10
-      automatic logic [31:0] _RANDOM_4;	// <stdin>:2754:10
-      automatic logic [31:0] _RANDOM_5;	// <stdin>:2754:10
-      automatic logic [31:0] _RANDOM_6;	// <stdin>:2754:10
-      automatic logic [31:0] _RANDOM_7;	// <stdin>:2754:10
-      automatic logic [31:0] _RANDOM_8;	// <stdin>:2754:10
-      automatic logic [31:0] _RANDOM_9;	// <stdin>:2754:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:2754:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:2754:10
+    initial begin	// <stdin>:2762:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:2762:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:2762:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:2762:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:2762:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:2762:10
+      automatic logic [31:0] _RANDOM_5;	// <stdin>:2762:10
+      automatic logic [31:0] _RANDOM_6;	// <stdin>:2762:10
+      automatic logic [31:0] _RANDOM_7;	// <stdin>:2762:10
+      automatic logic [31:0] _RANDOM_8;	// <stdin>:2762:10
+      automatic logic [31:0] _RANDOM_9;	// <stdin>:2762:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:2762:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:2762:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:2754:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:2754:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:2754:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:2754:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:2754:10
-        _RANDOM_4 = `RANDOM;	// <stdin>:2754:10
-        _RANDOM_5 = `RANDOM;	// <stdin>:2754:10
-        _RANDOM_6 = `RANDOM;	// <stdin>:2754:10
-        _RANDOM_7 = `RANDOM;	// <stdin>:2754:10
-        _RANDOM_8 = `RANDOM;	// <stdin>:2754:10
-        _RANDOM_9 = `RANDOM;	// <stdin>:2754:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:2762:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:2762:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:2762:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:2762:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:2762:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:2762:10
+        _RANDOM_5 = `RANDOM;	// <stdin>:2762:10
+        _RANDOM_6 = `RANDOM;	// <stdin>:2762:10
+        _RANDOM_7 = `RANDOM;	// <stdin>:2762:10
+        _RANDOM_8 = `RANDOM;	// <stdin>:2762:10
+        _RANDOM_9 = `RANDOM;	// <stdin>:2762:10
         rhsReg = {_RANDOM_0, _RANDOM_1};	// tools.scala:23:29
         rhsReg_1 = _RANDOM_2;	// tools.scala:23:29
         rhsReg_2 = _RANDOM_3[0];	// tools.scala:23:29
@@ -14427,28 +14442,28 @@ module EXU(	// <stdin>:2754:10
         rhsReg_12 = _RANDOM_9[26];	// tools.scala:23:29
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:2754:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:2754:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:2762:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:2762:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  assign io_ID_to_EX_bus_ready = io_EX_to_MEM_bus_ready;	// <stdin>:2754:10
-  assign io_EX_to_MEM_bus_valid = rhsReg_12;	// <stdin>:2754:10, tools.scala:23:29
-  assign io_EX_to_MEM_bus_bits_Inst = rhsReg_1;	// <stdin>:2754:10, tools.scala:23:29
-  assign io_EX_to_MEM_bus_bits_PC = rhsReg;	// <stdin>:2754:10, tools.scala:23:29
-  assign io_EX_to_MEM_bus_bits_ALU_result = rhsReg_8;	// <stdin>:2754:10, tools.scala:23:29
-  assign io_EX_to_MEM_bus_bits_memWriteData = rhsReg_6;	// <stdin>:2754:10, tools.scala:23:29
-  assign io_EX_to_MEM_bus_bits_memWriteEn = rhsReg_4;	// <stdin>:2754:10, tools.scala:23:29
-  assign io_EX_to_MEM_bus_bits_memReadEn = rhsReg_5;	// <stdin>:2754:10, tools.scala:23:29
-  assign io_EX_to_MEM_bus_bits_lsutype = rhsReg_7;	// <stdin>:2754:10, tools.scala:23:29
-  assign io_EX_to_MEM_bus_bits_regWriteID = rhsReg_3;	// <stdin>:2754:10, tools.scala:23:29
-  assign io_EX_to_MEM_bus_bits_regWriteEn = rhsReg_2;	// <stdin>:2754:10, tools.scala:23:29
-  assign io_EX_to_MEM_bus_bits_csrWriteEn = rhsReg_9;	// <stdin>:2754:10, tools.scala:23:29
-  assign io_EX_to_MEM_bus_bits_csrWriteAddr = rhsReg_10;	// <stdin>:2754:10, tools.scala:23:29
-  assign io_EX_to_MEM_bus_bits_csrWriteData = rhsReg_11;	// <stdin>:2754:10, tools.scala:23:29
-  assign io_EX_ALUResult_Pass = _GEN_5;	// <stdin>:2754:10, Mux.scala:101:16
+  assign io_ID_to_EX_bus_ready = io_EX_to_MEM_bus_ready;	// <stdin>:2762:10
+  assign io_EX_to_MEM_bus_valid = rhsReg_12;	// <stdin>:2762:10, tools.scala:23:29
+  assign io_EX_to_MEM_bus_bits_Inst = rhsReg_1;	// <stdin>:2762:10, tools.scala:23:29
+  assign io_EX_to_MEM_bus_bits_PC = rhsReg;	// <stdin>:2762:10, tools.scala:23:29
+  assign io_EX_to_MEM_bus_bits_ALU_result = rhsReg_8;	// <stdin>:2762:10, tools.scala:23:29
+  assign io_EX_to_MEM_bus_bits_memWriteData = rhsReg_6;	// <stdin>:2762:10, tools.scala:23:29
+  assign io_EX_to_MEM_bus_bits_memWriteEn = rhsReg_4;	// <stdin>:2762:10, tools.scala:23:29
+  assign io_EX_to_MEM_bus_bits_memReadEn = rhsReg_5;	// <stdin>:2762:10, tools.scala:23:29
+  assign io_EX_to_MEM_bus_bits_lsutype = rhsReg_7;	// <stdin>:2762:10, tools.scala:23:29
+  assign io_EX_to_MEM_bus_bits_regWriteID = rhsReg_3;	// <stdin>:2762:10, tools.scala:23:29
+  assign io_EX_to_MEM_bus_bits_regWriteEn = rhsReg_2;	// <stdin>:2762:10, tools.scala:23:29
+  assign io_EX_to_MEM_bus_bits_csrWriteEn = rhsReg_9;	// <stdin>:2762:10, tools.scala:23:29
+  assign io_EX_to_MEM_bus_bits_csrWriteAddr = rhsReg_10;	// <stdin>:2762:10, tools.scala:23:29
+  assign io_EX_to_MEM_bus_bits_csrWriteData = rhsReg_11;	// <stdin>:2762:10, tools.scala:23:29
+  assign io_EX_ALUResult_Pass = _GEN_5;	// <stdin>:2762:10, Mux.scala:101:16
 endmodule
 
-module MEM_pre_stage(	// <stdin>:3078:10
+module MEM_pre_stage(	// <stdin>:3086:10
   input         clock,
                 reset,
                 io_EX_to_MEM_bus_valid,
@@ -14543,35 +14558,35 @@ module MEM_pre_stage(	// <stdin>:3078:10
       rhsReg_12 <= ~stall & io_EX_to_MEM_bus_valid;	// PMEM.scala:78:67, :80:25, tools.scala:15:29
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:3078:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:3078:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:3078:10
+  `ifndef SYNTHESIS	// <stdin>:3086:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:3086:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:3086:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:3078:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:3078:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:3078:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:3078:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:3078:10
-      automatic logic [31:0] _RANDOM_4;	// <stdin>:3078:10
-      automatic logic [31:0] _RANDOM_5;	// <stdin>:3078:10
-      automatic logic [31:0] _RANDOM_6;	// <stdin>:3078:10
-      automatic logic [31:0] _RANDOM_7;	// <stdin>:3078:10
-      automatic logic [31:0] _RANDOM_8;	// <stdin>:3078:10
-      automatic logic [31:0] _RANDOM_9;	// <stdin>:3078:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:3078:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:3078:10
+    initial begin	// <stdin>:3086:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:3086:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:3086:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:3086:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:3086:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:3086:10
+      automatic logic [31:0] _RANDOM_5;	// <stdin>:3086:10
+      automatic logic [31:0] _RANDOM_6;	// <stdin>:3086:10
+      automatic logic [31:0] _RANDOM_7;	// <stdin>:3086:10
+      automatic logic [31:0] _RANDOM_8;	// <stdin>:3086:10
+      automatic logic [31:0] _RANDOM_9;	// <stdin>:3086:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:3086:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:3086:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:3078:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:3078:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:3078:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:3078:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:3078:10
-        _RANDOM_4 = `RANDOM;	// <stdin>:3078:10
-        _RANDOM_5 = `RANDOM;	// <stdin>:3078:10
-        _RANDOM_6 = `RANDOM;	// <stdin>:3078:10
-        _RANDOM_7 = `RANDOM;	// <stdin>:3078:10
-        _RANDOM_8 = `RANDOM;	// <stdin>:3078:10
-        _RANDOM_9 = `RANDOM;	// <stdin>:3078:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:3086:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:3086:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:3086:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:3086:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:3086:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:3086:10
+        _RANDOM_5 = `RANDOM;	// <stdin>:3086:10
+        _RANDOM_6 = `RANDOM;	// <stdin>:3086:10
+        _RANDOM_7 = `RANDOM;	// <stdin>:3086:10
+        _RANDOM_8 = `RANDOM;	// <stdin>:3086:10
+        _RANDOM_9 = `RANDOM;	// <stdin>:3086:10
         rhsReg = {_RANDOM_0, _RANDOM_1};	// tools.scala:15:29
         rhsReg_1 = _RANDOM_2;	// tools.scala:15:29
         rhsReg_2 = {_RANDOM_3, _RANDOM_4};	// tools.scala:15:29
@@ -14585,49 +14600,49 @@ module MEM_pre_stage(	// <stdin>:3078:10
         rhsReg_12 = _RANDOM_9[26];	// tools.scala:15:29
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:3078:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:3078:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:3086:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:3086:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  assign io_EX_to_MEM_bus_ready = ~stall;	// <stdin>:3078:10, PMEM.scala:78:67, :80:25
-  assign io_PMEM_to_MEM_bus_valid = rhsReg_12;	// <stdin>:3078:10, tools.scala:15:29
-  assign io_PMEM_to_MEM_bus_bits_ALU_result = rhsReg_2;	// <stdin>:3078:10, tools.scala:15:29
-  assign io_PMEM_to_MEM_bus_bits_regWriteEn = rhsReg_3;	// <stdin>:3078:10, tools.scala:15:29
-  assign io_PMEM_to_MEM_bus_bits_regWriteID = rhsReg_4;	// <stdin>:3078:10, tools.scala:15:29
-  assign io_PMEM_to_MEM_bus_bits_memReadEn = rhsReg_5;	// <stdin>:3078:10, tools.scala:15:29
-  assign io_PMEM_to_MEM_bus_bits_csrWriteAddr = rhsReg_10;	// <stdin>:3078:10, tools.scala:15:29
-  assign io_PMEM_to_MEM_bus_bits_csrWriteEn = rhsReg_9;	// <stdin>:3078:10, tools.scala:15:29
-  assign io_PMEM_to_MEM_bus_bits_csrWriteData = rhsReg_11;	// <stdin>:3078:10, tools.scala:15:29
-  assign io_PMEM_to_MEM_bus_bits_PC = rhsReg;	// <stdin>:3078:10, tools.scala:15:29
-  assign io_PMEM_to_MEM_bus_bits_Inst = rhsReg_1;	// <stdin>:3078:10, tools.scala:15:29
-  assign io_PMEM_to_ID_forward_valid = io_EX_to_MEM_bus_valid;	// <stdin>:3078:10
-  assign io_PMEM_to_ID_forward_bits_ALU_result = io_EX_to_MEM_bus_bits_ALU_result;	// <stdin>:3078:10
-  assign io_PMEM_to_ID_forward_bits_regWriteEn = io_EX_to_MEM_bus_bits_regWriteEn;	// <stdin>:3078:10
-  assign io_PMEM_to_ID_forward_bits_regWriteID = io_EX_to_MEM_bus_bits_regWriteID;	// <stdin>:3078:10
-  assign io_PMEM_to_ID_forward_bits_memReadEn = io_EX_to_MEM_bus_bits_memReadEn;	// <stdin>:3078:10
-  assign io_PMEM_to_ID_forward_bits_csrWriteAddr = io_EX_to_MEM_bus_bits_csrWriteAddr;	// <stdin>:3078:10
-  assign io_PMEM_to_ID_forward_bits_csrWriteEn = io_EX_to_MEM_bus_bits_csrWriteEn;	// <stdin>:3078:10
+  assign io_EX_to_MEM_bus_ready = ~stall;	// <stdin>:3086:10, PMEM.scala:78:67, :80:25
+  assign io_PMEM_to_MEM_bus_valid = rhsReg_12;	// <stdin>:3086:10, tools.scala:15:29
+  assign io_PMEM_to_MEM_bus_bits_ALU_result = rhsReg_2;	// <stdin>:3086:10, tools.scala:15:29
+  assign io_PMEM_to_MEM_bus_bits_regWriteEn = rhsReg_3;	// <stdin>:3086:10, tools.scala:15:29
+  assign io_PMEM_to_MEM_bus_bits_regWriteID = rhsReg_4;	// <stdin>:3086:10, tools.scala:15:29
+  assign io_PMEM_to_MEM_bus_bits_memReadEn = rhsReg_5;	// <stdin>:3086:10, tools.scala:15:29
+  assign io_PMEM_to_MEM_bus_bits_csrWriteAddr = rhsReg_10;	// <stdin>:3086:10, tools.scala:15:29
+  assign io_PMEM_to_MEM_bus_bits_csrWriteEn = rhsReg_9;	// <stdin>:3086:10, tools.scala:15:29
+  assign io_PMEM_to_MEM_bus_bits_csrWriteData = rhsReg_11;	// <stdin>:3086:10, tools.scala:15:29
+  assign io_PMEM_to_MEM_bus_bits_PC = rhsReg;	// <stdin>:3086:10, tools.scala:15:29
+  assign io_PMEM_to_MEM_bus_bits_Inst = rhsReg_1;	// <stdin>:3086:10, tools.scala:15:29
+  assign io_PMEM_to_ID_forward_valid = io_EX_to_MEM_bus_valid;	// <stdin>:3086:10
+  assign io_PMEM_to_ID_forward_bits_ALU_result = io_EX_to_MEM_bus_bits_ALU_result;	// <stdin>:3086:10
+  assign io_PMEM_to_ID_forward_bits_regWriteEn = io_EX_to_MEM_bus_bits_regWriteEn;	// <stdin>:3086:10
+  assign io_PMEM_to_ID_forward_bits_regWriteID = io_EX_to_MEM_bus_bits_regWriteID;	// <stdin>:3086:10
+  assign io_PMEM_to_ID_forward_bits_memReadEn = io_EX_to_MEM_bus_bits_memReadEn;	// <stdin>:3086:10
+  assign io_PMEM_to_ID_forward_bits_csrWriteAddr = io_EX_to_MEM_bus_bits_csrWriteAddr;	// <stdin>:3086:10
+  assign io_PMEM_to_ID_forward_bits_csrWriteEn = io_EX_to_MEM_bus_bits_csrWriteEn;	// <stdin>:3086:10
   assign io_memReadData = rhsReg_8 == 5'h11 ? axi_readData_bits_data : rhsReg_8 == 5'h9 ?
                 {{32{axi_readData_bits_data[31]}}, axi_readData_bits_data[31:0]} : rhsReg_8 == 5'h5 ?
                 {{48{axi_readData_bits_data[15]}}, axi_readData_bits_data[15:0]} : rhsReg_8 == 5'h3 ?
                 {{56{axi_readData_bits_data[7]}}, axi_readData_bits_data[7:0]} : rhsReg_8 == 5'h8 ? {32'h0,
                 axi_readData_bits_data[31:0]} : rhsReg_8 == 5'h4 ? {48'h0, axi_readData_bits_data[15:0]} :
-                rhsReg_8 == 5'h2 ? {56'h0, axi_readData_bits_data[7:0]} : 64'h0;	// <stdin>:3078:10, Bitwise.scala:77:12, Cat.scala:33:92, PMEM.scala:43:28, :59:20, :67:17, :68:44, :69:30, :70:{30,60}, :71:{30,60}, :72:{30,60}, :73:{30,55}, :74:{30,55}, :75:{30,55}, tools.scala:9:34, :15:29
-  assign axi_writeAddr_valid = _axi_writeResp_ready_T;	// <stdin>:3078:10, PMEM.scala:121:46
-  assign axi_writeAddr_bits_addr = io_EX_to_MEM_bus_bits_ALU_result[31:0];	// <stdin>:3078:10, PMEM.scala:102:45
-  assign axi_writeData_valid = _axi_writeResp_ready_T;	// <stdin>:3078:10, PMEM.scala:121:46
-  assign axi_writeData_bits_data = io_EX_to_MEM_bus_bits_memWriteData;	// <stdin>:3078:10
+                rhsReg_8 == 5'h2 ? {56'h0, axi_readData_bits_data[7:0]} : 64'h0;	// <stdin>:3086:10, Bitwise.scala:77:12, Cat.scala:33:92, PMEM.scala:43:28, :59:20, :67:17, :68:44, :69:30, :70:{30,60}, :71:{30,60}, :72:{30,60}, :73:{30,55}, :74:{30,55}, :75:{30,55}, tools.scala:9:34, :15:29
+  assign axi_writeAddr_valid = _axi_writeResp_ready_T;	// <stdin>:3086:10, PMEM.scala:121:46
+  assign axi_writeAddr_bits_addr = io_EX_to_MEM_bus_bits_ALU_result[31:0];	// <stdin>:3086:10, PMEM.scala:102:45
+  assign axi_writeData_valid = _axi_writeResp_ready_T;	// <stdin>:3086:10, PMEM.scala:121:46
+  assign axi_writeData_bits_data = io_EX_to_MEM_bus_bits_memWriteData;	// <stdin>:3086:10
   assign axi_writeData_bits_strb = io_EX_to_MEM_bus_bits_lsutype == 5'h10 ? 8'hFF : io_EX_to_MEM_bus_bits_lsutype == 5'h8 ?
                 8'hF : io_EX_to_MEM_bus_bits_lsutype == 5'h4 ? 8'h3 : {7'h0, io_EX_to_MEM_bus_bits_lsutype
-                == 5'h2};	// <stdin>:3078:10, PMEM.scala:58:11, :59:20, :60:24, :61:24, :62:24, :63:24
-  assign axi_writeResp_ready = _axi_writeResp_ready_T;	// <stdin>:3078:10, PMEM.scala:121:46
-  assign axi_readAddr_valid = _axi_readData_ready_T;	// <stdin>:3078:10, PMEM.scala:109:45
-  assign axi_readAddr_bits_addr = io_EX_to_MEM_bus_bits_ALU_result[31:0];	// <stdin>:3078:10, PMEM.scala:102:45
-  assign axi_readData_ready = _axi_readData_ready_T;	// <stdin>:3078:10, PMEM.scala:109:45
-  assign axi_req_valid = (|io_EX_to_MEM_bus_bits_lsutype) | (|rhsReg_8);	// <stdin>:3078:10, PMEM.scala:56:{34,41,76}, tools.scala:15:29
+                == 5'h2};	// <stdin>:3086:10, PMEM.scala:58:11, :59:20, :60:24, :61:24, :62:24, :63:24
+  assign axi_writeResp_ready = _axi_writeResp_ready_T;	// <stdin>:3086:10, PMEM.scala:121:46
+  assign axi_readAddr_valid = _axi_readData_ready_T;	// <stdin>:3086:10, PMEM.scala:109:45
+  assign axi_readAddr_bits_addr = io_EX_to_MEM_bus_bits_ALU_result[31:0];	// <stdin>:3086:10, PMEM.scala:102:45
+  assign axi_readData_ready = _axi_readData_ready_T;	// <stdin>:3086:10, PMEM.scala:109:45
+  assign axi_req_valid = (|io_EX_to_MEM_bus_bits_lsutype) | (|rhsReg_8);	// <stdin>:3086:10, PMEM.scala:56:{34,41,76}, tools.scala:15:29
 endmodule
 
-module MEMU(	// <stdin>:3265:10
+module MEMU(	// <stdin>:3273:10
   input         clock,
                 reset,
                 io_PMEM_to_MEM_bus_valid,
@@ -14696,31 +14711,31 @@ module MEMU(	// <stdin>:3265:10
       rhsReg_8 <= io_PMEM_to_MEM_bus_valid;	// tools.scala:15:29
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:3265:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:3265:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:3265:10
+  `ifndef SYNTHESIS	// <stdin>:3273:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:3273:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:3273:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:3265:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:3265:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:3265:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:3265:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:3265:10
-      automatic logic [31:0] _RANDOM_4;	// <stdin>:3265:10
-      automatic logic [31:0] _RANDOM_5;	// <stdin>:3265:10
-      automatic logic [31:0] _RANDOM_6;	// <stdin>:3265:10
-      automatic logic [31:0] _RANDOM_7;	// <stdin>:3265:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:3265:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:3265:10
+    initial begin	// <stdin>:3273:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:3273:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:3273:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:3273:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:3273:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:3273:10
+      automatic logic [31:0] _RANDOM_5;	// <stdin>:3273:10
+      automatic logic [31:0] _RANDOM_6;	// <stdin>:3273:10
+      automatic logic [31:0] _RANDOM_7;	// <stdin>:3273:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:3273:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:3273:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:3265:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:3265:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:3265:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:3265:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:3265:10
-        _RANDOM_4 = `RANDOM;	// <stdin>:3265:10
-        _RANDOM_5 = `RANDOM;	// <stdin>:3265:10
-        _RANDOM_6 = `RANDOM;	// <stdin>:3265:10
-        _RANDOM_7 = `RANDOM;	// <stdin>:3265:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:3273:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:3273:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:3273:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:3273:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:3273:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:3273:10
+        _RANDOM_5 = `RANDOM;	// <stdin>:3273:10
+        _RANDOM_6 = `RANDOM;	// <stdin>:3273:10
+        _RANDOM_7 = `RANDOM;	// <stdin>:3273:10
         rhsReg = {_RANDOM_0, _RANDOM_1};	// tools.scala:15:29
         rhsReg_1 = _RANDOM_2;	// tools.scala:15:29
         rhsReg_2 = _RANDOM_3[0];	// tools.scala:15:29
@@ -14732,29 +14747,29 @@ module MEMU(	// <stdin>:3265:10
         rhsReg_8 = _RANDOM_7[19];	// tools.scala:15:29
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:3265:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:3265:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:3273:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:3273:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  assign io_MEM_to_WB_bus_valid = rhsReg_8;	// <stdin>:3265:10, tools.scala:15:29
-  assign io_MEM_to_WB_bus_bits_regWriteData = rhsReg_4;	// <stdin>:3265:10, tools.scala:15:29
-  assign io_MEM_to_WB_bus_bits_regWriteEn = rhsReg_2;	// <stdin>:3265:10, tools.scala:15:29
-  assign io_MEM_to_WB_bus_bits_regWriteID = rhsReg_3;	// <stdin>:3265:10, tools.scala:15:29
-  assign io_MEM_to_WB_bus_bits_csrWriteEn = rhsReg_5;	// <stdin>:3265:10, tools.scala:15:29
-  assign io_MEM_to_WB_bus_bits_csrWriteAddr = rhsReg_6;	// <stdin>:3265:10, tools.scala:15:29
-  assign io_MEM_to_WB_bus_bits_csrWriteData = rhsReg_7;	// <stdin>:3265:10, tools.scala:15:29
-  assign io_MEM_to_WB_bus_bits_PC = rhsReg;	// <stdin>:3265:10, tools.scala:15:29
-  assign io_MEM_to_WB_bus_bits_Inst = rhsReg_1;	// <stdin>:3265:10, tools.scala:15:29
+  assign io_MEM_to_WB_bus_valid = rhsReg_8;	// <stdin>:3273:10, tools.scala:15:29
+  assign io_MEM_to_WB_bus_bits_regWriteData = rhsReg_4;	// <stdin>:3273:10, tools.scala:15:29
+  assign io_MEM_to_WB_bus_bits_regWriteEn = rhsReg_2;	// <stdin>:3273:10, tools.scala:15:29
+  assign io_MEM_to_WB_bus_bits_regWriteID = rhsReg_3;	// <stdin>:3273:10, tools.scala:15:29
+  assign io_MEM_to_WB_bus_bits_csrWriteEn = rhsReg_5;	// <stdin>:3273:10, tools.scala:15:29
+  assign io_MEM_to_WB_bus_bits_csrWriteAddr = rhsReg_6;	// <stdin>:3273:10, tools.scala:15:29
+  assign io_MEM_to_WB_bus_bits_csrWriteData = rhsReg_7;	// <stdin>:3273:10, tools.scala:15:29
+  assign io_MEM_to_WB_bus_bits_PC = rhsReg;	// <stdin>:3273:10, tools.scala:15:29
+  assign io_MEM_to_WB_bus_bits_Inst = rhsReg_1;	// <stdin>:3273:10, tools.scala:15:29
   assign io_MEM_to_ID_forward_valid = io_PMEM_to_MEM_bus_bits_regWriteEn & (|io_PMEM_to_MEM_bus_bits_regWriteID) &
-                io_PMEM_to_MEM_bus_valid;	// <stdin>:3265:10, MEMU.scala:74:{72,79}
-  assign io_MEM_to_ID_forward_bits_regWriteData = io_PMEM_to_MEM_bus_bits_memReadEn ? io_memReadData : io_PMEM_to_MEM_bus_bits_ALU_result;	// <stdin>:3265:10, MEMU.scala:54:24
-  assign io_MEM_to_ID_forward_bits_regWriteEn = io_PMEM_to_MEM_bus_bits_regWriteEn;	// <stdin>:3265:10
-  assign io_MEM_to_ID_forward_bits_regWriteID = io_PMEM_to_MEM_bus_bits_regWriteID;	// <stdin>:3265:10
-  assign io_MEM_to_ID_forward_bits_csrWriteEn = io_PMEM_to_MEM_bus_bits_csrWriteEn;	// <stdin>:3265:10
-  assign io_MEM_to_ID_forward_bits_csrWriteAddr = io_PMEM_to_MEM_bus_bits_csrWriteAddr;	// <stdin>:3265:10
+                io_PMEM_to_MEM_bus_valid;	// <stdin>:3273:10, MEMU.scala:74:{72,79}
+  assign io_MEM_to_ID_forward_bits_regWriteData = io_PMEM_to_MEM_bus_bits_memReadEn ? io_memReadData : io_PMEM_to_MEM_bus_bits_ALU_result;	// <stdin>:3273:10, MEMU.scala:54:24
+  assign io_MEM_to_ID_forward_bits_regWriteEn = io_PMEM_to_MEM_bus_bits_regWriteEn;	// <stdin>:3273:10
+  assign io_MEM_to_ID_forward_bits_regWriteID = io_PMEM_to_MEM_bus_bits_regWriteID;	// <stdin>:3273:10
+  assign io_MEM_to_ID_forward_bits_csrWriteEn = io_PMEM_to_MEM_bus_bits_csrWriteEn;	// <stdin>:3273:10
+  assign io_MEM_to_ID_forward_bits_csrWriteAddr = io_PMEM_to_MEM_bus_bits_csrWriteAddr;	// <stdin>:3273:10
 endmodule
 
-module WBU(	// <stdin>:3321:10
+module WBU(	// <stdin>:3329:10
   input         io_MEM_to_WB_bus_valid,
   input  [63:0] io_MEM_to_WB_bus_bits_regWriteData,
   input         io_MEM_to_WB_bus_bits_regWriteEn,
@@ -14772,17 +14787,17 @@ module WBU(	// <stdin>:3321:10
   output [63:0] io_WB_pc,
   output [31:0] io_WB_Inst);
 
-  assign io_WB_to_ID_forward_valid = io_MEM_to_WB_bus_valid;	// <stdin>:3321:10
-  assign io_WB_to_ID_forward_bits_regWriteData = io_MEM_to_WB_bus_bits_regWriteData;	// <stdin>:3321:10
-  assign io_WB_to_ID_forward_bits_regWriteEn = io_MEM_to_WB_bus_bits_regWriteEn;	// <stdin>:3321:10
-  assign io_WB_to_ID_forward_bits_regWriteID = io_MEM_to_WB_bus_bits_regWriteID;	// <stdin>:3321:10
-  assign io_WB_to_ID_forward_bits_csrWriteEn = io_MEM_to_WB_bus_bits_csrWriteEn;	// <stdin>:3321:10
-  assign io_WB_to_ID_forward_bits_csrWriteAddr = io_MEM_to_WB_bus_bits_csrWriteAddr;	// <stdin>:3321:10
-  assign io_WB_pc = io_MEM_to_WB_bus_valid ? io_MEM_to_WB_bus_bits_PC : 64'h0;	// <stdin>:3321:10, WBU.scala:31:30
-  assign io_WB_Inst = io_MEM_to_WB_bus_bits_Inst;	// <stdin>:3321:10
+  assign io_WB_to_ID_forward_valid = io_MEM_to_WB_bus_valid;	// <stdin>:3329:10
+  assign io_WB_to_ID_forward_bits_regWriteData = io_MEM_to_WB_bus_bits_regWriteData;	// <stdin>:3329:10
+  assign io_WB_to_ID_forward_bits_regWriteEn = io_MEM_to_WB_bus_bits_regWriteEn;	// <stdin>:3329:10
+  assign io_WB_to_ID_forward_bits_regWriteID = io_MEM_to_WB_bus_bits_regWriteID;	// <stdin>:3329:10
+  assign io_WB_to_ID_forward_bits_csrWriteEn = io_MEM_to_WB_bus_bits_csrWriteEn;	// <stdin>:3329:10
+  assign io_WB_to_ID_forward_bits_csrWriteAddr = io_MEM_to_WB_bus_bits_csrWriteAddr;	// <stdin>:3329:10
+  assign io_WB_pc = io_MEM_to_WB_bus_valid ? io_MEM_to_WB_bus_bits_PC : 64'h0;	// <stdin>:3329:10, WBU.scala:31:30
+  assign io_WB_Inst = io_MEM_to_WB_bus_bits_Inst;	// <stdin>:3329:10
 endmodule
 
-module CSR(	// <stdin>:3337:10
+module CSR(	// <stdin>:3345:10
   input         clock,
                 reset,
                 io_ID_ecall,
@@ -14829,54 +14844,54 @@ module CSR(	// <stdin>:3337:10
         mcause <= io_writeData;	// CSR.scala:23:26
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:3337:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:3337:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:3337:10
+  `ifndef SYNTHESIS	// <stdin>:3345:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:3345:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:3345:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:3337:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:3337:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:3337:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:3337:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:3337:10
-      automatic logic [31:0] _RANDOM_4;	// <stdin>:3337:10
-      automatic logic [31:0] _RANDOM_5;	// <stdin>:3337:10
-      automatic logic [31:0] _RANDOM_6;	// <stdin>:3337:10
-      automatic logic [31:0] _RANDOM_7;	// <stdin>:3337:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:3337:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:3337:10
+    initial begin	// <stdin>:3345:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:3345:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:3345:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:3345:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:3345:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:3345:10
+      automatic logic [31:0] _RANDOM_5;	// <stdin>:3345:10
+      automatic logic [31:0] _RANDOM_6;	// <stdin>:3345:10
+      automatic logic [31:0] _RANDOM_7;	// <stdin>:3345:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:3345:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:3345:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:3337:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:3337:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:3337:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:3337:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:3337:10
-        _RANDOM_4 = `RANDOM;	// <stdin>:3337:10
-        _RANDOM_5 = `RANDOM;	// <stdin>:3337:10
-        _RANDOM_6 = `RANDOM;	// <stdin>:3337:10
-        _RANDOM_7 = `RANDOM;	// <stdin>:3337:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:3345:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:3345:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:3345:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:3345:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:3345:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:3345:10
+        _RANDOM_5 = `RANDOM;	// <stdin>:3345:10
+        _RANDOM_6 = `RANDOM;	// <stdin>:3345:10
+        _RANDOM_7 = `RANDOM;	// <stdin>:3345:10
         mstatus = {_RANDOM_0, _RANDOM_1};	// CSR.scala:20:26
         mtvec = {_RANDOM_2, _RANDOM_3};	// CSR.scala:21:26
         mepc = {_RANDOM_4, _RANDOM_5};	// CSR.scala:22:26
         mcause = {_RANDOM_6, _RANDOM_7};	// CSR.scala:23:26
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:3337:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:3337:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:3345:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:3345:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
   assign io_readData = io_readAddr == 12'h300 ? mstatus : io_readAddr == 12'h305 ? mtvec : io_readAddr == 12'h341
-                ? mepc : io_readAddr == 12'h342 ? mcause : 64'h0;	// <stdin>:3337:10, CSR.scala:20:26, :21:26, :22:26, :23:26, :30:17, :31:24, :32:37, :33:37, :34:37, :35:37
-  assign io_mstatus = mstatus;	// <stdin>:3337:10, CSR.scala:20:26
-  assign io_mtvec = mtvec;	// <stdin>:3337:10, CSR.scala:21:26
-  assign io_mepc = mepc;	// <stdin>:3337:10, CSR.scala:22:26
-  assign io_mcause = mcause;	// <stdin>:3337:10, CSR.scala:23:26
+                ? mepc : io_readAddr == 12'h342 ? mcause : 64'h0;	// <stdin>:3345:10, CSR.scala:20:26, :21:26, :22:26, :23:26, :30:17, :31:24, :32:37, :33:37, :34:37, :35:37
+  assign io_mstatus = mstatus;	// <stdin>:3345:10, CSR.scala:20:26
+  assign io_mtvec = mtvec;	// <stdin>:3345:10, CSR.scala:21:26
+  assign io_mepc = mepc;	// <stdin>:3345:10, CSR.scala:22:26
+  assign io_mcause = mcause;	// <stdin>:3345:10, CSR.scala:23:26
 endmodule
 
 // external module sim
 
 // external module sim_sram
 
-module RAMU(	// <stdin>:3441:10
+module RAMU(	// <stdin>:3449:10
   input         clock,
                 reset,
                 axi_writeAddr_valid,
@@ -14914,22 +14929,22 @@ module RAMU(	// <stdin>:3441:10
     .araddr  (axi_readAddr_bits_addr),
     .arlen   (axi_readAddr_bits_len),
     .arsize  (axi_readAddr_bits_size),
-    .arburst (2'h1),	// <stdin>:3441:10
-    .arlock  (2'h0),	// <stdin>:3441:10
-    .arcache (4'h0),	// <stdin>:3441:10
-    .arprot  (3'h0),	// <stdin>:3441:10
+    .arburst (2'h1),	// <stdin>:3449:10
+    .arlock  (2'h0),	// <stdin>:3449:10
+    .arcache (4'h0),	// <stdin>:3449:10
+    .arprot  (3'h0),	// <stdin>:3449:10
     .arvalid (axi_readAddr_valid),
     .rready  (axi_readData_ready),
     .awid    (axi_writeAddr_bits_id),
     .awaddr  (axi_writeAddr_bits_addr),
-    .awlen   (8'h0),	// <stdin>:3441:10
-    .awsize  (3'h0),	// <stdin>:3441:10
-    .awburst (2'h0),	// <stdin>:3441:10
-    .awlock  (2'h0),	// <stdin>:3441:10
-    .awcache (4'h0),	// <stdin>:3441:10
-    .awprot  (3'h0),	// <stdin>:3441:10
+    .awlen   (8'h0),	// <stdin>:3449:10
+    .awsize  (3'h0),	// <stdin>:3449:10
+    .awburst (2'h0),	// <stdin>:3449:10
+    .awlock  (2'h0),	// <stdin>:3449:10
+    .awcache (4'h0),	// <stdin>:3449:10
+    .awprot  (3'h0),	// <stdin>:3449:10
     .awvalid (axi_writeAddr_valid),
-    .wid     ({3'h0, axi_writeData_bits_id}),	// <stdin>:3441:10, RAM.scala:129:45
+    .wid     ({3'h0, axi_writeData_bits_id}),	// <stdin>:3449:10, RAM.scala:129:45
     .wdata   (axi_writeData_bits_data),
     .wstrb   (axi_writeData_bits_strb),
     .wlast   (axi_writeData_bits_last),
@@ -14949,7 +14964,7 @@ module RAMU(	// <stdin>:3441:10
   );
 endmodule
 
-module AXI_Arbiter(	// <stdin>:3532:10
+module AXI_Arbiter(	// <stdin>:3540:10
   input         in_0_writeAddr_valid,
   input  [31:0] in_0_writeAddr_bits_addr,
   input         in_0_writeData_valid,
@@ -14992,32 +15007,32 @@ module AXI_Arbiter(	// <stdin>:3532:10
   output        out_readData_ready);
 
   wire [3:0] _GEN = {3'h0, req_0_valid};	// RAM.scala:64:27, :65:17
-  assign in_0_writeAddr_ready = req_0_valid & out_writeAddr_ready;	// <stdin>:3532:10, RAM.scala:64:27, :65:17, :78:41
-  assign in_0_readAddr_ready = req_0_valid & out_readAddr_ready;	// <stdin>:3532:10, RAM.scala:64:27, :65:17, :72:41
-  assign in_0_readData_bits_data = req_0_valid ? out_readData_bits_data : 64'h77;	// <stdin>:3532:10, RAM.scala:64:27, :65:17, :74:41
-  assign in_1_readAddr_ready = out_readAddr_ready;	// <stdin>:3532:10
-  assign in_1_readData_bits_data = out_readData_bits_data;	// <stdin>:3532:10
-  assign in_1_readData_bits_last = out_readData_bits_last;	// <stdin>:3532:10
-  assign req_0_ready = req_0_valid;	// <stdin>:3532:10
-  assign req_1_ready = ~req_0_valid;	// <stdin>:3532:10, RAM.scala:64:27, :65:17
-  assign out_writeAddr_valid = req_0_valid & in_0_writeAddr_valid;	// <stdin>:3532:10, RAM.scala:64:27, :65:17
-  assign out_writeAddr_bits_addr = req_0_valid ? in_0_writeAddr_bits_addr : 32'h0;	// <stdin>:3532:10, RAM.scala:64:27, :65:17
-  assign out_writeAddr_bits_id = _GEN;	// <stdin>:3532:10, RAM.scala:64:27, :65:17
-  assign out_writeData_valid = req_0_valid & in_0_writeData_valid;	// <stdin>:3532:10, RAM.scala:64:27, :65:17
-  assign out_writeData_bits_data = req_0_valid ? in_0_writeData_bits_data : 64'h0;	// <stdin>:3532:10, RAM.scala:64:27, :65:17
-  assign out_writeData_bits_id = req_0_valid;	// <stdin>:3532:10
-  assign out_writeData_bits_strb = req_0_valid ? in_0_writeData_bits_strb : 8'h0;	// <stdin>:3532:10, RAM.scala:64:27, :65:17
-  assign out_writeData_bits_last = req_0_valid;	// <stdin>:3532:10
-  assign out_writeResp_ready = req_0_valid & in_0_writeResp_ready;	// <stdin>:3532:10, RAM.scala:64:27, :65:17
-  assign out_readAddr_valid = req_0_valid ? in_0_readAddr_valid : in_1_readAddr_valid;	// <stdin>:3532:10, RAM.scala:64:27, :65:17
-  assign out_readAddr_bits_addr = req_0_valid ? in_0_readAddr_bits_addr : in_1_readAddr_bits_addr;	// <stdin>:3532:10, RAM.scala:64:27, :65:17
-  assign out_readAddr_bits_size = req_0_valid ? 3'h6 : 3'h3;	// <stdin>:3532:10, RAM.scala:64:27, :65:17
-  assign out_readAddr_bits_len = {7'h0, ~req_0_valid};	// <stdin>:3532:10, RAM.scala:64:27, :65:17
-  assign out_readAddr_bits_id = _GEN;	// <stdin>:3532:10, RAM.scala:64:27, :65:17
-  assign out_readData_ready = req_0_valid ? in_0_readData_ready : in_1_readData_ready;	// <stdin>:3532:10, RAM.scala:64:27, :65:17
+  assign in_0_writeAddr_ready = req_0_valid & out_writeAddr_ready;	// <stdin>:3540:10, RAM.scala:64:27, :65:17, :78:41
+  assign in_0_readAddr_ready = req_0_valid & out_readAddr_ready;	// <stdin>:3540:10, RAM.scala:64:27, :65:17, :72:41
+  assign in_0_readData_bits_data = req_0_valid ? out_readData_bits_data : 64'h77;	// <stdin>:3540:10, RAM.scala:64:27, :65:17, :74:41
+  assign in_1_readAddr_ready = out_readAddr_ready;	// <stdin>:3540:10
+  assign in_1_readData_bits_data = out_readData_bits_data;	// <stdin>:3540:10
+  assign in_1_readData_bits_last = out_readData_bits_last;	// <stdin>:3540:10
+  assign req_0_ready = req_0_valid;	// <stdin>:3540:10
+  assign req_1_ready = ~req_0_valid;	// <stdin>:3540:10, RAM.scala:64:27, :65:17
+  assign out_writeAddr_valid = req_0_valid & in_0_writeAddr_valid;	// <stdin>:3540:10, RAM.scala:64:27, :65:17
+  assign out_writeAddr_bits_addr = req_0_valid ? in_0_writeAddr_bits_addr : 32'h0;	// <stdin>:3540:10, RAM.scala:64:27, :65:17
+  assign out_writeAddr_bits_id = _GEN;	// <stdin>:3540:10, RAM.scala:64:27, :65:17
+  assign out_writeData_valid = req_0_valid & in_0_writeData_valid;	// <stdin>:3540:10, RAM.scala:64:27, :65:17
+  assign out_writeData_bits_data = req_0_valid ? in_0_writeData_bits_data : 64'h0;	// <stdin>:3540:10, RAM.scala:64:27, :65:17
+  assign out_writeData_bits_id = req_0_valid;	// <stdin>:3540:10
+  assign out_writeData_bits_strb = req_0_valid ? in_0_writeData_bits_strb : 8'h0;	// <stdin>:3540:10, RAM.scala:64:27, :65:17
+  assign out_writeData_bits_last = req_0_valid;	// <stdin>:3540:10
+  assign out_writeResp_ready = req_0_valid & in_0_writeResp_ready;	// <stdin>:3540:10, RAM.scala:64:27, :65:17
+  assign out_readAddr_valid = req_0_valid ? in_0_readAddr_valid : in_1_readAddr_valid;	// <stdin>:3540:10, RAM.scala:64:27, :65:17
+  assign out_readAddr_bits_addr = req_0_valid ? in_0_readAddr_bits_addr : in_1_readAddr_bits_addr;	// <stdin>:3540:10, RAM.scala:64:27, :65:17
+  assign out_readAddr_bits_size = req_0_valid ? 3'h6 : 3'h3;	// <stdin>:3540:10, RAM.scala:64:27, :65:17
+  assign out_readAddr_bits_len = {7'h0, ~req_0_valid};	// <stdin>:3540:10, RAM.scala:64:27, :65:17
+  assign out_readAddr_bits_id = _GEN;	// <stdin>:3540:10, RAM.scala:64:27, :65:17
+  assign out_readData_ready = req_0_valid ? in_0_readData_ready : in_1_readData_ready;	// <stdin>:3540:10, RAM.scala:64:27, :65:17
 endmodule
 
-module top(	// <stdin>:3575:10
+module top(	// <stdin>:3583:10
   input          clock,
                  reset,
   output [63:0]  io_ID_npc,
@@ -15074,6 +15089,7 @@ module top(	// <stdin>:3575:10
   output [1:0]   io_cache_set,
   output [3:0]   io_cache_offset,
   output         io_cache_rlast,
+  output [31:0]  io_cache_miss_cnt,
   output [127:0] io_lineBuf,
   output [31:0]  io_IF_Inst,
   output         io_IF_valid,
@@ -15086,180 +15102,180 @@ module top(	// <stdin>:3575:10
                  io_ID_Rs2Data,
                  io_ALUResult);
 
-  wire        _arb_in_0_writeAddr_ready;	// top.scala:215:21
-  wire        _arb_in_0_readAddr_ready;	// top.scala:215:21
-  wire [63:0] _arb_in_0_readData_bits_data;	// top.scala:215:21
-  wire        _arb_in_1_readAddr_ready;	// top.scala:215:21
-  wire [63:0] _arb_in_1_readData_bits_data;	// top.scala:215:21
-  wire        _arb_in_1_readData_bits_last;	// top.scala:215:21
-  wire        _arb_req_1_ready;	// top.scala:215:21
-  wire        _arb_out_writeAddr_valid;	// top.scala:215:21
-  wire [31:0] _arb_out_writeAddr_bits_addr;	// top.scala:215:21
-  wire [3:0]  _arb_out_writeAddr_bits_id;	// top.scala:215:21
-  wire        _arb_out_writeData_valid;	// top.scala:215:21
-  wire [63:0] _arb_out_writeData_bits_data;	// top.scala:215:21
-  wire        _arb_out_writeData_bits_id;	// top.scala:215:21
-  wire [7:0]  _arb_out_writeData_bits_strb;	// top.scala:215:21
-  wire        _arb_out_writeData_bits_last;	// top.scala:215:21
-  wire        _arb_out_writeResp_ready;	// top.scala:215:21
-  wire        _arb_out_readAddr_valid;	// top.scala:215:21
-  wire [31:0] _arb_out_readAddr_bits_addr;	// top.scala:215:21
-  wire [2:0]  _arb_out_readAddr_bits_size;	// top.scala:215:21
-  wire [7:0]  _arb_out_readAddr_bits_len;	// top.scala:215:21
-  wire [3:0]  _arb_out_readAddr_bits_id;	// top.scala:215:21
-  wire        _arb_out_readData_ready;	// top.scala:215:21
-  wire        _ram_unit_axi_writeAddr_ready;	// top.scala:214:26
-  wire        _ram_unit_axi_readAddr_ready;	// top.scala:214:26
-  wire [63:0] _ram_unit_axi_readData_bits_data;	// top.scala:214:26
-  wire        _ram_unit_axi_readData_bits_last;	// top.scala:214:26
-  wire [63:0] _simulate_inst;	// top.scala:171:26
-  wire [63:0] _csr_io_readData;	// top.scala:101:25
-  wire        _wb_unit_io_WB_to_ID_forward_valid;	// top.scala:100:25
-  wire [63:0] _wb_unit_io_WB_to_ID_forward_bits_regWriteData;	// top.scala:100:25
-  wire        _wb_unit_io_WB_to_ID_forward_bits_regWriteEn;	// top.scala:100:25
-  wire [4:0]  _wb_unit_io_WB_to_ID_forward_bits_regWriteID;	// top.scala:100:25
-  wire        _wb_unit_io_WB_to_ID_forward_bits_csrWriteEn;	// top.scala:100:25
-  wire [11:0] _wb_unit_io_WB_to_ID_forward_bits_csrWriteAddr;	// top.scala:100:25
-  wire [31:0] _wb_unit_io_WB_Inst;	// top.scala:100:25
-  wire        _mem_unit_io_MEM_to_WB_bus_valid;	// top.scala:99:26
-  wire [63:0] _mem_unit_io_MEM_to_WB_bus_bits_regWriteData;	// top.scala:99:26
-  wire        _mem_unit_io_MEM_to_WB_bus_bits_regWriteEn;	// top.scala:99:26
-  wire [4:0]  _mem_unit_io_MEM_to_WB_bus_bits_regWriteID;	// top.scala:99:26
-  wire        _mem_unit_io_MEM_to_WB_bus_bits_csrWriteEn;	// top.scala:99:26
-  wire [11:0] _mem_unit_io_MEM_to_WB_bus_bits_csrWriteAddr;	// top.scala:99:26
-  wire [63:0] _mem_unit_io_MEM_to_WB_bus_bits_csrWriteData;	// top.scala:99:26
-  wire [63:0] _mem_unit_io_MEM_to_WB_bus_bits_PC;	// top.scala:99:26
-  wire [31:0] _mem_unit_io_MEM_to_WB_bus_bits_Inst;	// top.scala:99:26
-  wire        _mem_unit_io_MEM_to_ID_forward_valid;	// top.scala:99:26
-  wire [63:0] _mem_unit_io_MEM_to_ID_forward_bits_regWriteData;	// top.scala:99:26
-  wire        _mem_unit_io_MEM_to_ID_forward_bits_regWriteEn;	// top.scala:99:26
-  wire [4:0]  _mem_unit_io_MEM_to_ID_forward_bits_regWriteID;	// top.scala:99:26
-  wire        _mem_unit_io_MEM_to_ID_forward_bits_csrWriteEn;	// top.scala:99:26
-  wire [11:0] _mem_unit_io_MEM_to_ID_forward_bits_csrWriteAddr;	// top.scala:99:26
-  wire        _pre_mem_unit_io_EX_to_MEM_bus_ready;	// top.scala:98:30
-  wire        _pre_mem_unit_io_PMEM_to_MEM_bus_valid;	// top.scala:98:30
-  wire [63:0] _pre_mem_unit_io_PMEM_to_MEM_bus_bits_ALU_result;	// top.scala:98:30
-  wire        _pre_mem_unit_io_PMEM_to_MEM_bus_bits_regWriteEn;	// top.scala:98:30
-  wire [4:0]  _pre_mem_unit_io_PMEM_to_MEM_bus_bits_regWriteID;	// top.scala:98:30
-  wire        _pre_mem_unit_io_PMEM_to_MEM_bus_bits_memReadEn;	// top.scala:98:30
-  wire [11:0] _pre_mem_unit_io_PMEM_to_MEM_bus_bits_csrWriteAddr;	// top.scala:98:30
-  wire        _pre_mem_unit_io_PMEM_to_MEM_bus_bits_csrWriteEn;	// top.scala:98:30
-  wire [63:0] _pre_mem_unit_io_PMEM_to_MEM_bus_bits_csrWriteData;	// top.scala:98:30
-  wire [63:0] _pre_mem_unit_io_PMEM_to_MEM_bus_bits_PC;	// top.scala:98:30
-  wire [31:0] _pre_mem_unit_io_PMEM_to_MEM_bus_bits_Inst;	// top.scala:98:30
-  wire        _pre_mem_unit_io_PMEM_to_ID_forward_valid;	// top.scala:98:30
-  wire [63:0] _pre_mem_unit_io_PMEM_to_ID_forward_bits_ALU_result;	// top.scala:98:30
-  wire        _pre_mem_unit_io_PMEM_to_ID_forward_bits_regWriteEn;	// top.scala:98:30
-  wire [4:0]  _pre_mem_unit_io_PMEM_to_ID_forward_bits_regWriteID;	// top.scala:98:30
-  wire        _pre_mem_unit_io_PMEM_to_ID_forward_bits_memReadEn;	// top.scala:98:30
-  wire [11:0] _pre_mem_unit_io_PMEM_to_ID_forward_bits_csrWriteAddr;	// top.scala:98:30
-  wire        _pre_mem_unit_io_PMEM_to_ID_forward_bits_csrWriteEn;	// top.scala:98:30
-  wire [63:0] _pre_mem_unit_io_memReadData;	// top.scala:98:30
-  wire        _pre_mem_unit_axi_writeAddr_valid;	// top.scala:98:30
-  wire [31:0] _pre_mem_unit_axi_writeAddr_bits_addr;	// top.scala:98:30
-  wire        _pre_mem_unit_axi_writeData_valid;	// top.scala:98:30
-  wire [63:0] _pre_mem_unit_axi_writeData_bits_data;	// top.scala:98:30
-  wire [7:0]  _pre_mem_unit_axi_writeData_bits_strb;	// top.scala:98:30
-  wire        _pre_mem_unit_axi_writeResp_ready;	// top.scala:98:30
-  wire        _pre_mem_unit_axi_readAddr_valid;	// top.scala:98:30
-  wire [31:0] _pre_mem_unit_axi_readAddr_bits_addr;	// top.scala:98:30
-  wire        _pre_mem_unit_axi_readData_ready;	// top.scala:98:30
-  wire        _pre_mem_unit_axi_req_valid;	// top.scala:98:30
-  wire        _excute_unit_io_ID_to_EX_bus_ready;	// top.scala:97:29
-  wire        _excute_unit_io_EX_to_MEM_bus_valid;	// top.scala:97:29
-  wire [31:0] _excute_unit_io_EX_to_MEM_bus_bits_Inst;	// top.scala:97:29
-  wire [63:0] _excute_unit_io_EX_to_MEM_bus_bits_PC;	// top.scala:97:29
-  wire [63:0] _excute_unit_io_EX_to_MEM_bus_bits_ALU_result;	// top.scala:97:29
-  wire [63:0] _excute_unit_io_EX_to_MEM_bus_bits_memWriteData;	// top.scala:97:29
-  wire        _excute_unit_io_EX_to_MEM_bus_bits_memWriteEn;	// top.scala:97:29
-  wire        _excute_unit_io_EX_to_MEM_bus_bits_memReadEn;	// top.scala:97:29
-  wire [4:0]  _excute_unit_io_EX_to_MEM_bus_bits_lsutype;	// top.scala:97:29
-  wire [4:0]  _excute_unit_io_EX_to_MEM_bus_bits_regWriteID;	// top.scala:97:29
-  wire        _excute_unit_io_EX_to_MEM_bus_bits_regWriteEn;	// top.scala:97:29
-  wire        _excute_unit_io_EX_to_MEM_bus_bits_csrWriteEn;	// top.scala:97:29
-  wire [11:0] _excute_unit_io_EX_to_MEM_bus_bits_csrWriteAddr;	// top.scala:97:29
-  wire [63:0] _excute_unit_io_EX_to_MEM_bus_bits_csrWriteData;	// top.scala:97:29
-  wire [63:0] _excute_unit_io_EX_ALUResult_Pass;	// top.scala:97:29
-  wire        _inst_decode_unit_io_IF_to_ID_bus_ready;	// top.scala:96:34
-  wire        _inst_decode_unit_io_ID_to_EX_bus_valid;	// top.scala:96:34
-  wire [63:0] _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data1;	// top.scala:96:34
-  wire [63:0] _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data2;	// top.scala:96:34
-  wire        _inst_decode_unit_io_ID_to_EX_bus_bits_futype;	// top.scala:96:34
-  wire [4:0]  _inst_decode_unit_io_ID_to_EX_bus_bits_optype;	// top.scala:96:34
-  wire [63:0] _inst_decode_unit_io_ID_to_EX_bus_bits_rs2_data;	// top.scala:96:34
-  wire [4:0]  _inst_decode_unit_io_ID_to_EX_bus_bits_regWriteID;	// top.scala:96:34
-  wire        _inst_decode_unit_io_ID_to_EX_bus_bits_regWriteEn;	// top.scala:96:34
-  wire        _inst_decode_unit_io_ID_to_EX_bus_bits_memWriteEn;	// top.scala:96:34
-  wire        _inst_decode_unit_io_ID_to_EX_bus_bits_memReadEn;	// top.scala:96:34
-  wire [11:0] _inst_decode_unit_io_ID_to_EX_bus_bits_csrWriteAddr;	// top.scala:96:34
-  wire        _inst_decode_unit_io_ID_to_EX_bus_bits_csrWriteEn;	// top.scala:96:34
-  wire [63:0] _inst_decode_unit_io_ID_to_EX_bus_bits_PC;	// top.scala:96:34
-  wire [31:0] _inst_decode_unit_io_ID_to_EX_bus_bits_Inst;	// top.scala:96:34
-  wire        _inst_decode_unit_io_ID_to_BPU_bus_valid;	// top.scala:96:34
-  wire [63:0] _inst_decode_unit_io_ID_to_BPU_bus_bits_PC;	// top.scala:96:34
-  wire        _inst_decode_unit_io_ID_to_BPU_bus_bits_taken;	// top.scala:96:34
-  wire [63:0] _inst_decode_unit_io_ID_to_BPU_bus_bits_br_target;	// top.scala:96:34
-  wire        _inst_decode_unit_io_ID_to_BPU_bus_bits_stall;	// top.scala:96:34
-  wire [1:0]  _inst_decode_unit_io_ID_to_BPU_bus_bits_Type;	// top.scala:96:34
-  wire [11:0] _inst_decode_unit_io_ID_csrReadAddr;	// top.scala:96:34
-  wire        _inst_decode_unit_io_ID_ecall;	// top.scala:96:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_0;	// top.scala:96:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_1;	// top.scala:96:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_2;	// top.scala:96:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_3;	// top.scala:96:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_4;	// top.scala:96:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_5;	// top.scala:96:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_6;	// top.scala:96:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_7;	// top.scala:96:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_8;	// top.scala:96:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_9;	// top.scala:96:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_10;	// top.scala:96:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_11;	// top.scala:96:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_12;	// top.scala:96:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_13;	// top.scala:96:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_14;	// top.scala:96:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_15;	// top.scala:96:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_16;	// top.scala:96:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_17;	// top.scala:96:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_18;	// top.scala:96:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_19;	// top.scala:96:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_20;	// top.scala:96:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_21;	// top.scala:96:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_22;	// top.scala:96:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_23;	// top.scala:96:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_24;	// top.scala:96:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_25;	// top.scala:96:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_26;	// top.scala:96:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_27;	// top.scala:96:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_28;	// top.scala:96:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_29;	// top.scala:96:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_30;	// top.scala:96:34
-  wire [63:0] _inst_decode_unit_io_ID_GPR_31;	// top.scala:96:34
-  wire        _inst_decode_unit_io_ID_unknown_inst;	// top.scala:96:34
-  wire        _inst_fetch_unit_io_IF_to_ID_bus_valid;	// top.scala:95:33
-  wire [63:0] _inst_fetch_unit_io_IF_to_ID_bus_bits_PC;	// top.scala:95:33
-  wire [31:0] _inst_fetch_unit_io_IF_to_ID_bus_bits_Inst;	// top.scala:95:33
-  wire [63:0] _inst_fetch_unit_io_PF_pc;	// top.scala:95:33
-  wire [31:0] _inst_fetch_unit_io_PF_Inst;	// top.scala:95:33
-  wire        _inst_fetch_unit_io_PF_valid;	// top.scala:95:33
-  wire        _inst_fetch_unit_axi_readAddr_valid;	// top.scala:95:33
-  wire [31:0] _inst_fetch_unit_axi_readAddr_bits_addr;	// top.scala:95:33
-  wire        _inst_fetch_unit_axi_readData_ready;	// top.scala:95:33
-  wire        _bp_unit_io_bp_taken;	// top.scala:94:33
-  wire        _bp_unit_io_bp_flush;	// top.scala:94:33
-  wire [63:0] _bp_unit_io_bp_npc;	// top.scala:94:33
-  BPU bp_unit (	// top.scala:94:33
+  wire        _arb_in_0_writeAddr_ready;	// top.scala:217:21
+  wire        _arb_in_0_readAddr_ready;	// top.scala:217:21
+  wire [63:0] _arb_in_0_readData_bits_data;	// top.scala:217:21
+  wire        _arb_in_1_readAddr_ready;	// top.scala:217:21
+  wire [63:0] _arb_in_1_readData_bits_data;	// top.scala:217:21
+  wire        _arb_in_1_readData_bits_last;	// top.scala:217:21
+  wire        _arb_req_1_ready;	// top.scala:217:21
+  wire        _arb_out_writeAddr_valid;	// top.scala:217:21
+  wire [31:0] _arb_out_writeAddr_bits_addr;	// top.scala:217:21
+  wire [3:0]  _arb_out_writeAddr_bits_id;	// top.scala:217:21
+  wire        _arb_out_writeData_valid;	// top.scala:217:21
+  wire [63:0] _arb_out_writeData_bits_data;	// top.scala:217:21
+  wire        _arb_out_writeData_bits_id;	// top.scala:217:21
+  wire [7:0]  _arb_out_writeData_bits_strb;	// top.scala:217:21
+  wire        _arb_out_writeData_bits_last;	// top.scala:217:21
+  wire        _arb_out_writeResp_ready;	// top.scala:217:21
+  wire        _arb_out_readAddr_valid;	// top.scala:217:21
+  wire [31:0] _arb_out_readAddr_bits_addr;	// top.scala:217:21
+  wire [2:0]  _arb_out_readAddr_bits_size;	// top.scala:217:21
+  wire [7:0]  _arb_out_readAddr_bits_len;	// top.scala:217:21
+  wire [3:0]  _arb_out_readAddr_bits_id;	// top.scala:217:21
+  wire        _arb_out_readData_ready;	// top.scala:217:21
+  wire        _ram_unit_axi_writeAddr_ready;	// top.scala:216:26
+  wire        _ram_unit_axi_readAddr_ready;	// top.scala:216:26
+  wire [63:0] _ram_unit_axi_readData_bits_data;	// top.scala:216:26
+  wire        _ram_unit_axi_readData_bits_last;	// top.scala:216:26
+  wire [63:0] _simulate_inst;	// top.scala:173:26
+  wire [63:0] _csr_io_readData;	// top.scala:102:25
+  wire        _wb_unit_io_WB_to_ID_forward_valid;	// top.scala:101:25
+  wire [63:0] _wb_unit_io_WB_to_ID_forward_bits_regWriteData;	// top.scala:101:25
+  wire        _wb_unit_io_WB_to_ID_forward_bits_regWriteEn;	// top.scala:101:25
+  wire [4:0]  _wb_unit_io_WB_to_ID_forward_bits_regWriteID;	// top.scala:101:25
+  wire        _wb_unit_io_WB_to_ID_forward_bits_csrWriteEn;	// top.scala:101:25
+  wire [11:0] _wb_unit_io_WB_to_ID_forward_bits_csrWriteAddr;	// top.scala:101:25
+  wire [31:0] _wb_unit_io_WB_Inst;	// top.scala:101:25
+  wire        _mem_unit_io_MEM_to_WB_bus_valid;	// top.scala:100:26
+  wire [63:0] _mem_unit_io_MEM_to_WB_bus_bits_regWriteData;	// top.scala:100:26
+  wire        _mem_unit_io_MEM_to_WB_bus_bits_regWriteEn;	// top.scala:100:26
+  wire [4:0]  _mem_unit_io_MEM_to_WB_bus_bits_regWriteID;	// top.scala:100:26
+  wire        _mem_unit_io_MEM_to_WB_bus_bits_csrWriteEn;	// top.scala:100:26
+  wire [11:0] _mem_unit_io_MEM_to_WB_bus_bits_csrWriteAddr;	// top.scala:100:26
+  wire [63:0] _mem_unit_io_MEM_to_WB_bus_bits_csrWriteData;	// top.scala:100:26
+  wire [63:0] _mem_unit_io_MEM_to_WB_bus_bits_PC;	// top.scala:100:26
+  wire [31:0] _mem_unit_io_MEM_to_WB_bus_bits_Inst;	// top.scala:100:26
+  wire        _mem_unit_io_MEM_to_ID_forward_valid;	// top.scala:100:26
+  wire [63:0] _mem_unit_io_MEM_to_ID_forward_bits_regWriteData;	// top.scala:100:26
+  wire        _mem_unit_io_MEM_to_ID_forward_bits_regWriteEn;	// top.scala:100:26
+  wire [4:0]  _mem_unit_io_MEM_to_ID_forward_bits_regWriteID;	// top.scala:100:26
+  wire        _mem_unit_io_MEM_to_ID_forward_bits_csrWriteEn;	// top.scala:100:26
+  wire [11:0] _mem_unit_io_MEM_to_ID_forward_bits_csrWriteAddr;	// top.scala:100:26
+  wire        _pre_mem_unit_io_EX_to_MEM_bus_ready;	// top.scala:99:30
+  wire        _pre_mem_unit_io_PMEM_to_MEM_bus_valid;	// top.scala:99:30
+  wire [63:0] _pre_mem_unit_io_PMEM_to_MEM_bus_bits_ALU_result;	// top.scala:99:30
+  wire        _pre_mem_unit_io_PMEM_to_MEM_bus_bits_regWriteEn;	// top.scala:99:30
+  wire [4:0]  _pre_mem_unit_io_PMEM_to_MEM_bus_bits_regWriteID;	// top.scala:99:30
+  wire        _pre_mem_unit_io_PMEM_to_MEM_bus_bits_memReadEn;	// top.scala:99:30
+  wire [11:0] _pre_mem_unit_io_PMEM_to_MEM_bus_bits_csrWriteAddr;	// top.scala:99:30
+  wire        _pre_mem_unit_io_PMEM_to_MEM_bus_bits_csrWriteEn;	// top.scala:99:30
+  wire [63:0] _pre_mem_unit_io_PMEM_to_MEM_bus_bits_csrWriteData;	// top.scala:99:30
+  wire [63:0] _pre_mem_unit_io_PMEM_to_MEM_bus_bits_PC;	// top.scala:99:30
+  wire [31:0] _pre_mem_unit_io_PMEM_to_MEM_bus_bits_Inst;	// top.scala:99:30
+  wire        _pre_mem_unit_io_PMEM_to_ID_forward_valid;	// top.scala:99:30
+  wire [63:0] _pre_mem_unit_io_PMEM_to_ID_forward_bits_ALU_result;	// top.scala:99:30
+  wire        _pre_mem_unit_io_PMEM_to_ID_forward_bits_regWriteEn;	// top.scala:99:30
+  wire [4:0]  _pre_mem_unit_io_PMEM_to_ID_forward_bits_regWriteID;	// top.scala:99:30
+  wire        _pre_mem_unit_io_PMEM_to_ID_forward_bits_memReadEn;	// top.scala:99:30
+  wire [11:0] _pre_mem_unit_io_PMEM_to_ID_forward_bits_csrWriteAddr;	// top.scala:99:30
+  wire        _pre_mem_unit_io_PMEM_to_ID_forward_bits_csrWriteEn;	// top.scala:99:30
+  wire [63:0] _pre_mem_unit_io_memReadData;	// top.scala:99:30
+  wire        _pre_mem_unit_axi_writeAddr_valid;	// top.scala:99:30
+  wire [31:0] _pre_mem_unit_axi_writeAddr_bits_addr;	// top.scala:99:30
+  wire        _pre_mem_unit_axi_writeData_valid;	// top.scala:99:30
+  wire [63:0] _pre_mem_unit_axi_writeData_bits_data;	// top.scala:99:30
+  wire [7:0]  _pre_mem_unit_axi_writeData_bits_strb;	// top.scala:99:30
+  wire        _pre_mem_unit_axi_writeResp_ready;	// top.scala:99:30
+  wire        _pre_mem_unit_axi_readAddr_valid;	// top.scala:99:30
+  wire [31:0] _pre_mem_unit_axi_readAddr_bits_addr;	// top.scala:99:30
+  wire        _pre_mem_unit_axi_readData_ready;	// top.scala:99:30
+  wire        _pre_mem_unit_axi_req_valid;	// top.scala:99:30
+  wire        _excute_unit_io_ID_to_EX_bus_ready;	// top.scala:98:29
+  wire        _excute_unit_io_EX_to_MEM_bus_valid;	// top.scala:98:29
+  wire [31:0] _excute_unit_io_EX_to_MEM_bus_bits_Inst;	// top.scala:98:29
+  wire [63:0] _excute_unit_io_EX_to_MEM_bus_bits_PC;	// top.scala:98:29
+  wire [63:0] _excute_unit_io_EX_to_MEM_bus_bits_ALU_result;	// top.scala:98:29
+  wire [63:0] _excute_unit_io_EX_to_MEM_bus_bits_memWriteData;	// top.scala:98:29
+  wire        _excute_unit_io_EX_to_MEM_bus_bits_memWriteEn;	// top.scala:98:29
+  wire        _excute_unit_io_EX_to_MEM_bus_bits_memReadEn;	// top.scala:98:29
+  wire [4:0]  _excute_unit_io_EX_to_MEM_bus_bits_lsutype;	// top.scala:98:29
+  wire [4:0]  _excute_unit_io_EX_to_MEM_bus_bits_regWriteID;	// top.scala:98:29
+  wire        _excute_unit_io_EX_to_MEM_bus_bits_regWriteEn;	// top.scala:98:29
+  wire        _excute_unit_io_EX_to_MEM_bus_bits_csrWriteEn;	// top.scala:98:29
+  wire [11:0] _excute_unit_io_EX_to_MEM_bus_bits_csrWriteAddr;	// top.scala:98:29
+  wire [63:0] _excute_unit_io_EX_to_MEM_bus_bits_csrWriteData;	// top.scala:98:29
+  wire [63:0] _excute_unit_io_EX_ALUResult_Pass;	// top.scala:98:29
+  wire        _inst_decode_unit_io_IF_to_ID_bus_ready;	// top.scala:97:34
+  wire        _inst_decode_unit_io_ID_to_EX_bus_valid;	// top.scala:97:34
+  wire [63:0] _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data1;	// top.scala:97:34
+  wire [63:0] _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data2;	// top.scala:97:34
+  wire        _inst_decode_unit_io_ID_to_EX_bus_bits_futype;	// top.scala:97:34
+  wire [4:0]  _inst_decode_unit_io_ID_to_EX_bus_bits_optype;	// top.scala:97:34
+  wire [63:0] _inst_decode_unit_io_ID_to_EX_bus_bits_rs2_data;	// top.scala:97:34
+  wire [4:0]  _inst_decode_unit_io_ID_to_EX_bus_bits_regWriteID;	// top.scala:97:34
+  wire        _inst_decode_unit_io_ID_to_EX_bus_bits_regWriteEn;	// top.scala:97:34
+  wire        _inst_decode_unit_io_ID_to_EX_bus_bits_memWriteEn;	// top.scala:97:34
+  wire        _inst_decode_unit_io_ID_to_EX_bus_bits_memReadEn;	// top.scala:97:34
+  wire [11:0] _inst_decode_unit_io_ID_to_EX_bus_bits_csrWriteAddr;	// top.scala:97:34
+  wire        _inst_decode_unit_io_ID_to_EX_bus_bits_csrWriteEn;	// top.scala:97:34
+  wire [63:0] _inst_decode_unit_io_ID_to_EX_bus_bits_PC;	// top.scala:97:34
+  wire [31:0] _inst_decode_unit_io_ID_to_EX_bus_bits_Inst;	// top.scala:97:34
+  wire        _inst_decode_unit_io_ID_to_BPU_bus_valid;	// top.scala:97:34
+  wire [63:0] _inst_decode_unit_io_ID_to_BPU_bus_bits_PC;	// top.scala:97:34
+  wire        _inst_decode_unit_io_ID_to_BPU_bus_bits_taken;	// top.scala:97:34
+  wire [63:0] _inst_decode_unit_io_ID_to_BPU_bus_bits_br_target;	// top.scala:97:34
+  wire        _inst_decode_unit_io_ID_to_BPU_bus_bits_stall;	// top.scala:97:34
+  wire [1:0]  _inst_decode_unit_io_ID_to_BPU_bus_bits_Type;	// top.scala:97:34
+  wire [11:0] _inst_decode_unit_io_ID_csrReadAddr;	// top.scala:97:34
+  wire        _inst_decode_unit_io_ID_ecall;	// top.scala:97:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_0;	// top.scala:97:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_1;	// top.scala:97:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_2;	// top.scala:97:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_3;	// top.scala:97:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_4;	// top.scala:97:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_5;	// top.scala:97:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_6;	// top.scala:97:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_7;	// top.scala:97:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_8;	// top.scala:97:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_9;	// top.scala:97:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_10;	// top.scala:97:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_11;	// top.scala:97:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_12;	// top.scala:97:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_13;	// top.scala:97:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_14;	// top.scala:97:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_15;	// top.scala:97:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_16;	// top.scala:97:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_17;	// top.scala:97:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_18;	// top.scala:97:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_19;	// top.scala:97:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_20;	// top.scala:97:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_21;	// top.scala:97:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_22;	// top.scala:97:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_23;	// top.scala:97:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_24;	// top.scala:97:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_25;	// top.scala:97:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_26;	// top.scala:97:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_27;	// top.scala:97:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_28;	// top.scala:97:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_29;	// top.scala:97:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_30;	// top.scala:97:34
+  wire [63:0] _inst_decode_unit_io_ID_GPR_31;	// top.scala:97:34
+  wire        _inst_decode_unit_io_ID_unknown_inst;	// top.scala:97:34
+  wire        _inst_fetch_unit_io_IF_to_ID_bus_valid;	// top.scala:96:33
+  wire [63:0] _inst_fetch_unit_io_IF_to_ID_bus_bits_PC;	// top.scala:96:33
+  wire [31:0] _inst_fetch_unit_io_IF_to_ID_bus_bits_Inst;	// top.scala:96:33
+  wire [63:0] _inst_fetch_unit_io_PF_pc;	// top.scala:96:33
+  wire [31:0] _inst_fetch_unit_io_PF_Inst;	// top.scala:96:33
+  wire        _inst_fetch_unit_io_PF_valid;	// top.scala:96:33
+  wire        _inst_fetch_unit_axi_readAddr_valid;	// top.scala:96:33
+  wire [31:0] _inst_fetch_unit_axi_readAddr_bits_addr;	// top.scala:96:33
+  wire        _inst_fetch_unit_axi_readData_ready;	// top.scala:96:33
+  wire        _bp_unit_io_bp_taken;	// top.scala:95:33
+  wire        _bp_unit_io_bp_flush;	// top.scala:95:33
+  wire [63:0] _bp_unit_io_bp_npc;	// top.scala:95:33
+  BPU bp_unit (	// top.scala:95:33
     .clock                           (clock),
     .reset                           (reset),
-    .io_PF_pc                        (_inst_fetch_unit_io_PF_pc),	// top.scala:95:33
-    .io_PF_inst                      (_inst_fetch_unit_io_PF_Inst),	// top.scala:95:33
-    .io_PF_valid                     (_inst_fetch_unit_io_PF_valid),	// top.scala:95:33
-    .io_ID_to_BPU_bus_valid          (_inst_decode_unit_io_ID_to_BPU_bus_valid),	// top.scala:96:34
-    .io_ID_to_BPU_bus_bits_PC        (_inst_decode_unit_io_ID_to_BPU_bus_bits_PC),	// top.scala:96:34
-    .io_ID_to_BPU_bus_bits_taken     (_inst_decode_unit_io_ID_to_BPU_bus_bits_taken),	// top.scala:96:34
-    .io_ID_to_BPU_bus_bits_br_target (_inst_decode_unit_io_ID_to_BPU_bus_bits_br_target),	// top.scala:96:34
-    .io_ID_to_BPU_bus_bits_stall     (_inst_decode_unit_io_ID_to_BPU_bus_bits_stall),	// top.scala:96:34
-    .io_ID_to_BPU_bus_bits_Type      (_inst_decode_unit_io_ID_to_BPU_bus_bits_Type),	// top.scala:96:34
+    .io_PF_pc                        (_inst_fetch_unit_io_PF_pc),	// top.scala:96:33
+    .io_PF_inst                      (_inst_fetch_unit_io_PF_Inst),	// top.scala:96:33
+    .io_PF_valid                     (_inst_fetch_unit_io_PF_valid),	// top.scala:96:33
+    .io_ID_to_BPU_bus_valid          (_inst_decode_unit_io_ID_to_BPU_bus_valid),	// top.scala:97:34
+    .io_ID_to_BPU_bus_bits_PC        (_inst_decode_unit_io_ID_to_BPU_bus_bits_PC),	// top.scala:97:34
+    .io_ID_to_BPU_bus_bits_taken     (_inst_decode_unit_io_ID_to_BPU_bus_bits_taken),	// top.scala:97:34
+    .io_ID_to_BPU_bus_bits_br_target (_inst_decode_unit_io_ID_to_BPU_bus_bits_br_target),	// top.scala:97:34
+    .io_ID_to_BPU_bus_bits_stall     (_inst_decode_unit_io_ID_to_BPU_bus_bits_stall),	// top.scala:97:34
+    .io_ID_to_BPU_bus_bits_Type      (_inst_decode_unit_io_ID_to_BPU_bus_bits_Type),	// top.scala:97:34
     .io_bp_taken                     (_bp_unit_io_bp_taken),
     .io_bp_flush                     (_bp_unit_io_bp_flush),
     .io_bp_npc                       (_bp_unit_io_bp_npc),
@@ -15284,17 +15300,17 @@ module top(	// <stdin>:3575:10
     .io_ras_pop                      (io_ras_pop),
     .io_ras_push                     (io_ras_push)
   );
-  IFU inst_fetch_unit (	// top.scala:95:33
+  IFU inst_fetch_unit (	// top.scala:96:33
     .clock                     (clock),
     .reset                     (reset),
-    .io_IF_to_ID_bus_ready     (_inst_decode_unit_io_IF_to_ID_bus_ready),	// top.scala:96:34
-    .io_bp_flush               (_bp_unit_io_bp_flush),	// top.scala:94:33
-    .io_bp_taken               (_bp_unit_io_bp_taken),	// top.scala:94:33
-    .io_bp_npc                 (_bp_unit_io_bp_npc),	// top.scala:94:33
-    .axi_readAddr_ready        (_arb_in_1_readAddr_ready),	// top.scala:215:21
-    .axi_readData_bits_data    (_arb_in_1_readData_bits_data),	// top.scala:215:21
-    .axi_readData_bits_last    (_arb_in_1_readData_bits_last),	// top.scala:215:21
-    .axi_req_ready             (_arb_req_1_ready),	// top.scala:215:21
+    .io_IF_to_ID_bus_ready     (_inst_decode_unit_io_IF_to_ID_bus_ready),	// top.scala:97:34
+    .io_bp_flush               (_bp_unit_io_bp_flush),	// top.scala:95:33
+    .io_bp_taken               (_bp_unit_io_bp_taken),	// top.scala:95:33
+    .io_bp_npc                 (_bp_unit_io_bp_npc),	// top.scala:95:33
+    .axi_readAddr_ready        (_arb_in_1_readAddr_ready),	// top.scala:217:21
+    .axi_readData_bits_data    (_arb_in_1_readData_bits_data),	// top.scala:217:21
+    .axi_readData_bits_last    (_arb_in_1_readData_bits_last),	// top.scala:217:21
+    .axi_req_ready             (_arb_req_1_ready),	// top.scala:217:21
     .io_IF_to_ID_bus_valid     (_inst_fetch_unit_io_IF_to_ID_bus_valid),
     .io_IF_to_ID_bus_bits_PC   (_inst_fetch_unit_io_IF_to_ID_bus_bits_PC),
     .io_IF_to_ID_bus_bits_Inst (_inst_fetch_unit_io_IF_to_ID_bus_bits_Inst),
@@ -15308,39 +15324,40 @@ module top(	// <stdin>:3575:10
     .io_cache_tag              (io_cache_tag),
     .io_cache_set              (io_cache_set),
     .io_cache_offset           (io_cache_offset),
+    .io_cache_miss_cnt         (io_cache_miss_cnt),
     .io_lineBuf                (io_lineBuf),
     .axi_readAddr_valid        (_inst_fetch_unit_axi_readAddr_valid),
     .axi_readAddr_bits_addr    (_inst_fetch_unit_axi_readAddr_bits_addr),
     .axi_readData_ready        (_inst_fetch_unit_axi_readData_ready)
   );
-  IDU inst_decode_unit (	// top.scala:96:34
+  IDU inst_decode_unit (	// top.scala:97:34
     .clock                                   (clock),
     .reset                                   (reset),
-    .io_IF_to_ID_bus_valid                   (_inst_fetch_unit_io_IF_to_ID_bus_valid),	// top.scala:95:33
-    .io_IF_to_ID_bus_bits_PC                 (_inst_fetch_unit_io_IF_to_ID_bus_bits_PC),	// top.scala:95:33
-    .io_IF_to_ID_bus_bits_Inst               (_inst_fetch_unit_io_IF_to_ID_bus_bits_Inst),	// top.scala:95:33
-    .io_ID_to_EX_bus_ready                   (_excute_unit_io_ID_to_EX_bus_ready),	// top.scala:97:29
-    .io_WB_to_ID_forward_valid               (_wb_unit_io_WB_to_ID_forward_valid),	// top.scala:100:25
-    .io_WB_to_ID_forward_bits_regWriteData   (_wb_unit_io_WB_to_ID_forward_bits_regWriteData),	// top.scala:100:25
-    .io_WB_to_ID_forward_bits_regWriteEn     (_wb_unit_io_WB_to_ID_forward_bits_regWriteEn),	// top.scala:100:25
-    .io_WB_to_ID_forward_bits_regWriteID     (_wb_unit_io_WB_to_ID_forward_bits_regWriteID),	// top.scala:100:25
-    .io_WB_to_ID_forward_bits_csrWriteEn     (_wb_unit_io_WB_to_ID_forward_bits_csrWriteEn),	// top.scala:100:25
-    .io_WB_to_ID_forward_bits_csrWriteAddr   (_wb_unit_io_WB_to_ID_forward_bits_csrWriteAddr),	// top.scala:100:25
-    .io_PMEM_to_ID_forward_valid             (_pre_mem_unit_io_PMEM_to_ID_forward_valid),	// top.scala:98:30
-    .io_PMEM_to_ID_forward_bits_ALU_result   (_pre_mem_unit_io_PMEM_to_ID_forward_bits_ALU_result),	// top.scala:98:30
-    .io_PMEM_to_ID_forward_bits_regWriteEn   (_pre_mem_unit_io_PMEM_to_ID_forward_bits_regWriteEn),	// top.scala:98:30
-    .io_PMEM_to_ID_forward_bits_regWriteID   (_pre_mem_unit_io_PMEM_to_ID_forward_bits_regWriteID),	// top.scala:98:30
-    .io_PMEM_to_ID_forward_bits_memReadEn    (_pre_mem_unit_io_PMEM_to_ID_forward_bits_memReadEn),	// top.scala:98:30
-    .io_PMEM_to_ID_forward_bits_csrWriteAddr (_pre_mem_unit_io_PMEM_to_ID_forward_bits_csrWriteAddr),	// top.scala:98:30
-    .io_PMEM_to_ID_forward_bits_csrWriteEn   (_pre_mem_unit_io_PMEM_to_ID_forward_bits_csrWriteEn),	// top.scala:98:30
-    .io_MEM_to_ID_forward_valid              (_mem_unit_io_MEM_to_ID_forward_valid),	// top.scala:99:26
-    .io_MEM_to_ID_forward_bits_regWriteData  (_mem_unit_io_MEM_to_ID_forward_bits_regWriteData),	// top.scala:99:26
-    .io_MEM_to_ID_forward_bits_regWriteEn    (_mem_unit_io_MEM_to_ID_forward_bits_regWriteEn),	// top.scala:99:26
-    .io_MEM_to_ID_forward_bits_regWriteID    (_mem_unit_io_MEM_to_ID_forward_bits_regWriteID),	// top.scala:99:26
-    .io_MEM_to_ID_forward_bits_csrWriteEn    (_mem_unit_io_MEM_to_ID_forward_bits_csrWriteEn),	// top.scala:99:26
-    .io_MEM_to_ID_forward_bits_csrWriteAddr  (_mem_unit_io_MEM_to_ID_forward_bits_csrWriteAddr),	// top.scala:99:26
-    .io_EX_ALUResult                         (_excute_unit_io_EX_ALUResult_Pass),	// top.scala:97:29
-    .io_CSR_csrReadData                      (_csr_io_readData),	// top.scala:101:25
+    .io_IF_to_ID_bus_valid                   (_inst_fetch_unit_io_IF_to_ID_bus_valid),	// top.scala:96:33
+    .io_IF_to_ID_bus_bits_PC                 (_inst_fetch_unit_io_IF_to_ID_bus_bits_PC),	// top.scala:96:33
+    .io_IF_to_ID_bus_bits_Inst               (_inst_fetch_unit_io_IF_to_ID_bus_bits_Inst),	// top.scala:96:33
+    .io_ID_to_EX_bus_ready                   (_excute_unit_io_ID_to_EX_bus_ready),	// top.scala:98:29
+    .io_WB_to_ID_forward_valid               (_wb_unit_io_WB_to_ID_forward_valid),	// top.scala:101:25
+    .io_WB_to_ID_forward_bits_regWriteData   (_wb_unit_io_WB_to_ID_forward_bits_regWriteData),	// top.scala:101:25
+    .io_WB_to_ID_forward_bits_regWriteEn     (_wb_unit_io_WB_to_ID_forward_bits_regWriteEn),	// top.scala:101:25
+    .io_WB_to_ID_forward_bits_regWriteID     (_wb_unit_io_WB_to_ID_forward_bits_regWriteID),	// top.scala:101:25
+    .io_WB_to_ID_forward_bits_csrWriteEn     (_wb_unit_io_WB_to_ID_forward_bits_csrWriteEn),	// top.scala:101:25
+    .io_WB_to_ID_forward_bits_csrWriteAddr   (_wb_unit_io_WB_to_ID_forward_bits_csrWriteAddr),	// top.scala:101:25
+    .io_PMEM_to_ID_forward_valid             (_pre_mem_unit_io_PMEM_to_ID_forward_valid),	// top.scala:99:30
+    .io_PMEM_to_ID_forward_bits_ALU_result   (_pre_mem_unit_io_PMEM_to_ID_forward_bits_ALU_result),	// top.scala:99:30
+    .io_PMEM_to_ID_forward_bits_regWriteEn   (_pre_mem_unit_io_PMEM_to_ID_forward_bits_regWriteEn),	// top.scala:99:30
+    .io_PMEM_to_ID_forward_bits_regWriteID   (_pre_mem_unit_io_PMEM_to_ID_forward_bits_regWriteID),	// top.scala:99:30
+    .io_PMEM_to_ID_forward_bits_memReadEn    (_pre_mem_unit_io_PMEM_to_ID_forward_bits_memReadEn),	// top.scala:99:30
+    .io_PMEM_to_ID_forward_bits_csrWriteAddr (_pre_mem_unit_io_PMEM_to_ID_forward_bits_csrWriteAddr),	// top.scala:99:30
+    .io_PMEM_to_ID_forward_bits_csrWriteEn   (_pre_mem_unit_io_PMEM_to_ID_forward_bits_csrWriteEn),	// top.scala:99:30
+    .io_MEM_to_ID_forward_valid              (_mem_unit_io_MEM_to_ID_forward_valid),	// top.scala:100:26
+    .io_MEM_to_ID_forward_bits_regWriteData  (_mem_unit_io_MEM_to_ID_forward_bits_regWriteData),	// top.scala:100:26
+    .io_MEM_to_ID_forward_bits_regWriteEn    (_mem_unit_io_MEM_to_ID_forward_bits_regWriteEn),	// top.scala:100:26
+    .io_MEM_to_ID_forward_bits_regWriteID    (_mem_unit_io_MEM_to_ID_forward_bits_regWriteID),	// top.scala:100:26
+    .io_MEM_to_ID_forward_bits_csrWriteEn    (_mem_unit_io_MEM_to_ID_forward_bits_csrWriteEn),	// top.scala:100:26
+    .io_MEM_to_ID_forward_bits_csrWriteAddr  (_mem_unit_io_MEM_to_ID_forward_bits_csrWriteAddr),	// top.scala:100:26
+    .io_EX_ALUResult                         (_excute_unit_io_EX_ALUResult_Pass),	// top.scala:98:29
+    .io_CSR_csrReadData                      (_csr_io_readData),	// top.scala:102:25
     .io_IF_to_ID_bus_ready                   (_inst_decode_unit_io_IF_to_ID_bus_ready),
     .io_ID_to_EX_bus_valid                   (_inst_decode_unit_io_ID_to_EX_bus_valid),
     .io_ID_to_EX_bus_bits_ALU_Data1          (_inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data1),
@@ -15400,24 +15417,24 @@ module top(	// <stdin>:3575:10
     .io_ID_GPR_31                            (_inst_decode_unit_io_ID_GPR_31),
     .io_ID_unknown_inst                      (_inst_decode_unit_io_ID_unknown_inst)
   );
-  EXU excute_unit (	// top.scala:97:29
+  EXU excute_unit (	// top.scala:98:29
     .clock                              (clock),
     .reset                              (reset),
-    .io_ID_to_EX_bus_valid              (_inst_decode_unit_io_ID_to_EX_bus_valid),	// top.scala:96:34
-    .io_ID_to_EX_bus_bits_ALU_Data1     (_inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data1),	// top.scala:96:34
-    .io_ID_to_EX_bus_bits_ALU_Data2     (_inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data2),	// top.scala:96:34
-    .io_ID_to_EX_bus_bits_futype        (_inst_decode_unit_io_ID_to_EX_bus_bits_futype),	// top.scala:96:34
-    .io_ID_to_EX_bus_bits_optype        (_inst_decode_unit_io_ID_to_EX_bus_bits_optype),	// top.scala:96:34
-    .io_ID_to_EX_bus_bits_rs2_data      (_inst_decode_unit_io_ID_to_EX_bus_bits_rs2_data),	// top.scala:96:34
-    .io_ID_to_EX_bus_bits_regWriteID    (_inst_decode_unit_io_ID_to_EX_bus_bits_regWriteID),	// top.scala:96:34
-    .io_ID_to_EX_bus_bits_regWriteEn    (_inst_decode_unit_io_ID_to_EX_bus_bits_regWriteEn),	// top.scala:96:34
-    .io_ID_to_EX_bus_bits_memWriteEn    (_inst_decode_unit_io_ID_to_EX_bus_bits_memWriteEn),	// top.scala:96:34
-    .io_ID_to_EX_bus_bits_memReadEn     (_inst_decode_unit_io_ID_to_EX_bus_bits_memReadEn),	// top.scala:96:34
-    .io_ID_to_EX_bus_bits_csrWriteAddr  (_inst_decode_unit_io_ID_to_EX_bus_bits_csrWriteAddr),	// top.scala:96:34
-    .io_ID_to_EX_bus_bits_csrWriteEn    (_inst_decode_unit_io_ID_to_EX_bus_bits_csrWriteEn),	// top.scala:96:34
-    .io_ID_to_EX_bus_bits_PC            (_inst_decode_unit_io_ID_to_EX_bus_bits_PC),	// top.scala:96:34
-    .io_ID_to_EX_bus_bits_Inst          (_inst_decode_unit_io_ID_to_EX_bus_bits_Inst),	// top.scala:96:34
-    .io_EX_to_MEM_bus_ready             (_pre_mem_unit_io_EX_to_MEM_bus_ready),	// top.scala:98:30
+    .io_ID_to_EX_bus_valid              (_inst_decode_unit_io_ID_to_EX_bus_valid),	// top.scala:97:34
+    .io_ID_to_EX_bus_bits_ALU_Data1     (_inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data1),	// top.scala:97:34
+    .io_ID_to_EX_bus_bits_ALU_Data2     (_inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data2),	// top.scala:97:34
+    .io_ID_to_EX_bus_bits_futype        (_inst_decode_unit_io_ID_to_EX_bus_bits_futype),	// top.scala:97:34
+    .io_ID_to_EX_bus_bits_optype        (_inst_decode_unit_io_ID_to_EX_bus_bits_optype),	// top.scala:97:34
+    .io_ID_to_EX_bus_bits_rs2_data      (_inst_decode_unit_io_ID_to_EX_bus_bits_rs2_data),	// top.scala:97:34
+    .io_ID_to_EX_bus_bits_regWriteID    (_inst_decode_unit_io_ID_to_EX_bus_bits_regWriteID),	// top.scala:97:34
+    .io_ID_to_EX_bus_bits_regWriteEn    (_inst_decode_unit_io_ID_to_EX_bus_bits_regWriteEn),	// top.scala:97:34
+    .io_ID_to_EX_bus_bits_memWriteEn    (_inst_decode_unit_io_ID_to_EX_bus_bits_memWriteEn),	// top.scala:97:34
+    .io_ID_to_EX_bus_bits_memReadEn     (_inst_decode_unit_io_ID_to_EX_bus_bits_memReadEn),	// top.scala:97:34
+    .io_ID_to_EX_bus_bits_csrWriteAddr  (_inst_decode_unit_io_ID_to_EX_bus_bits_csrWriteAddr),	// top.scala:97:34
+    .io_ID_to_EX_bus_bits_csrWriteEn    (_inst_decode_unit_io_ID_to_EX_bus_bits_csrWriteEn),	// top.scala:97:34
+    .io_ID_to_EX_bus_bits_PC            (_inst_decode_unit_io_ID_to_EX_bus_bits_PC),	// top.scala:97:34
+    .io_ID_to_EX_bus_bits_Inst          (_inst_decode_unit_io_ID_to_EX_bus_bits_Inst),	// top.scala:97:34
+    .io_EX_to_MEM_bus_ready             (_pre_mem_unit_io_EX_to_MEM_bus_ready),	// top.scala:99:30
     .io_ID_to_EX_bus_ready              (_excute_unit_io_ID_to_EX_bus_ready),
     .io_EX_to_MEM_bus_valid             (_excute_unit_io_EX_to_MEM_bus_valid),
     .io_EX_to_MEM_bus_bits_Inst         (_excute_unit_io_EX_to_MEM_bus_bits_Inst),
@@ -15434,25 +15451,25 @@ module top(	// <stdin>:3575:10
     .io_EX_to_MEM_bus_bits_csrWriteData (_excute_unit_io_EX_to_MEM_bus_bits_csrWriteData),
     .io_EX_ALUResult_Pass               (_excute_unit_io_EX_ALUResult_Pass)
   );
-  MEM_pre_stage pre_mem_unit (	// top.scala:98:30
+  MEM_pre_stage pre_mem_unit (	// top.scala:99:30
     .clock                                   (clock),
     .reset                                   (reset),
-    .io_EX_to_MEM_bus_valid                  (_excute_unit_io_EX_to_MEM_bus_valid),	// top.scala:97:29
-    .io_EX_to_MEM_bus_bits_Inst              (_excute_unit_io_EX_to_MEM_bus_bits_Inst),	// top.scala:97:29
-    .io_EX_to_MEM_bus_bits_PC                (_excute_unit_io_EX_to_MEM_bus_bits_PC),	// top.scala:97:29
-    .io_EX_to_MEM_bus_bits_ALU_result        (_excute_unit_io_EX_to_MEM_bus_bits_ALU_result),	// top.scala:97:29
-    .io_EX_to_MEM_bus_bits_memWriteData      (_excute_unit_io_EX_to_MEM_bus_bits_memWriteData),	// top.scala:97:29
-    .io_EX_to_MEM_bus_bits_memWriteEn        (_excute_unit_io_EX_to_MEM_bus_bits_memWriteEn),	// top.scala:97:29
-    .io_EX_to_MEM_bus_bits_memReadEn         (_excute_unit_io_EX_to_MEM_bus_bits_memReadEn),	// top.scala:97:29
-    .io_EX_to_MEM_bus_bits_lsutype           (_excute_unit_io_EX_to_MEM_bus_bits_lsutype),	// top.scala:97:29
-    .io_EX_to_MEM_bus_bits_regWriteID        (_excute_unit_io_EX_to_MEM_bus_bits_regWriteID),	// top.scala:97:29
-    .io_EX_to_MEM_bus_bits_regWriteEn        (_excute_unit_io_EX_to_MEM_bus_bits_regWriteEn),	// top.scala:97:29
-    .io_EX_to_MEM_bus_bits_csrWriteEn        (_excute_unit_io_EX_to_MEM_bus_bits_csrWriteEn),	// top.scala:97:29
-    .io_EX_to_MEM_bus_bits_csrWriteAddr      (_excute_unit_io_EX_to_MEM_bus_bits_csrWriteAddr),	// top.scala:97:29
-    .io_EX_to_MEM_bus_bits_csrWriteData      (_excute_unit_io_EX_to_MEM_bus_bits_csrWriteData),	// top.scala:97:29
-    .axi_writeAddr_ready                     (_arb_in_0_writeAddr_ready),	// top.scala:215:21
-    .axi_readAddr_ready                      (_arb_in_0_readAddr_ready),	// top.scala:215:21
-    .axi_readData_bits_data                  (_arb_in_0_readData_bits_data),	// top.scala:215:21
+    .io_EX_to_MEM_bus_valid                  (_excute_unit_io_EX_to_MEM_bus_valid),	// top.scala:98:29
+    .io_EX_to_MEM_bus_bits_Inst              (_excute_unit_io_EX_to_MEM_bus_bits_Inst),	// top.scala:98:29
+    .io_EX_to_MEM_bus_bits_PC                (_excute_unit_io_EX_to_MEM_bus_bits_PC),	// top.scala:98:29
+    .io_EX_to_MEM_bus_bits_ALU_result        (_excute_unit_io_EX_to_MEM_bus_bits_ALU_result),	// top.scala:98:29
+    .io_EX_to_MEM_bus_bits_memWriteData      (_excute_unit_io_EX_to_MEM_bus_bits_memWriteData),	// top.scala:98:29
+    .io_EX_to_MEM_bus_bits_memWriteEn        (_excute_unit_io_EX_to_MEM_bus_bits_memWriteEn),	// top.scala:98:29
+    .io_EX_to_MEM_bus_bits_memReadEn         (_excute_unit_io_EX_to_MEM_bus_bits_memReadEn),	// top.scala:98:29
+    .io_EX_to_MEM_bus_bits_lsutype           (_excute_unit_io_EX_to_MEM_bus_bits_lsutype),	// top.scala:98:29
+    .io_EX_to_MEM_bus_bits_regWriteID        (_excute_unit_io_EX_to_MEM_bus_bits_regWriteID),	// top.scala:98:29
+    .io_EX_to_MEM_bus_bits_regWriteEn        (_excute_unit_io_EX_to_MEM_bus_bits_regWriteEn),	// top.scala:98:29
+    .io_EX_to_MEM_bus_bits_csrWriteEn        (_excute_unit_io_EX_to_MEM_bus_bits_csrWriteEn),	// top.scala:98:29
+    .io_EX_to_MEM_bus_bits_csrWriteAddr      (_excute_unit_io_EX_to_MEM_bus_bits_csrWriteAddr),	// top.scala:98:29
+    .io_EX_to_MEM_bus_bits_csrWriteData      (_excute_unit_io_EX_to_MEM_bus_bits_csrWriteData),	// top.scala:98:29
+    .axi_writeAddr_ready                     (_arb_in_0_writeAddr_ready),	// top.scala:217:21
+    .axi_readAddr_ready                      (_arb_in_0_readAddr_ready),	// top.scala:217:21
+    .axi_readData_bits_data                  (_arb_in_0_readData_bits_data),	// top.scala:217:21
     .io_EX_to_MEM_bus_ready                  (_pre_mem_unit_io_EX_to_MEM_bus_ready),
     .io_PMEM_to_MEM_bus_valid                (_pre_mem_unit_io_PMEM_to_MEM_bus_valid),
     .io_PMEM_to_MEM_bus_bits_ALU_result      (_pre_mem_unit_io_PMEM_to_MEM_bus_bits_ALU_result),
@@ -15483,20 +15500,20 @@ module top(	// <stdin>:3575:10
     .axi_readData_ready                      (_pre_mem_unit_axi_readData_ready),
     .axi_req_valid                           (_pre_mem_unit_axi_req_valid)
   );
-  MEMU mem_unit (	// top.scala:99:26
+  MEMU mem_unit (	// top.scala:100:26
     .clock                                  (clock),
     .reset                                  (reset),
-    .io_PMEM_to_MEM_bus_valid               (_pre_mem_unit_io_PMEM_to_MEM_bus_valid),	// top.scala:98:30
-    .io_PMEM_to_MEM_bus_bits_ALU_result     (_pre_mem_unit_io_PMEM_to_MEM_bus_bits_ALU_result),	// top.scala:98:30
-    .io_PMEM_to_MEM_bus_bits_regWriteEn     (_pre_mem_unit_io_PMEM_to_MEM_bus_bits_regWriteEn),	// top.scala:98:30
-    .io_PMEM_to_MEM_bus_bits_regWriteID     (_pre_mem_unit_io_PMEM_to_MEM_bus_bits_regWriteID),	// top.scala:98:30
-    .io_PMEM_to_MEM_bus_bits_memReadEn      (_pre_mem_unit_io_PMEM_to_MEM_bus_bits_memReadEn),	// top.scala:98:30
-    .io_PMEM_to_MEM_bus_bits_csrWriteAddr   (_pre_mem_unit_io_PMEM_to_MEM_bus_bits_csrWriteAddr),	// top.scala:98:30
-    .io_PMEM_to_MEM_bus_bits_csrWriteEn     (_pre_mem_unit_io_PMEM_to_MEM_bus_bits_csrWriteEn),	// top.scala:98:30
-    .io_PMEM_to_MEM_bus_bits_csrWriteData   (_pre_mem_unit_io_PMEM_to_MEM_bus_bits_csrWriteData),	// top.scala:98:30
-    .io_PMEM_to_MEM_bus_bits_PC             (_pre_mem_unit_io_PMEM_to_MEM_bus_bits_PC),	// top.scala:98:30
-    .io_PMEM_to_MEM_bus_bits_Inst           (_pre_mem_unit_io_PMEM_to_MEM_bus_bits_Inst),	// top.scala:98:30
-    .io_memReadData                         (_pre_mem_unit_io_memReadData),	// top.scala:98:30
+    .io_PMEM_to_MEM_bus_valid               (_pre_mem_unit_io_PMEM_to_MEM_bus_valid),	// top.scala:99:30
+    .io_PMEM_to_MEM_bus_bits_ALU_result     (_pre_mem_unit_io_PMEM_to_MEM_bus_bits_ALU_result),	// top.scala:99:30
+    .io_PMEM_to_MEM_bus_bits_regWriteEn     (_pre_mem_unit_io_PMEM_to_MEM_bus_bits_regWriteEn),	// top.scala:99:30
+    .io_PMEM_to_MEM_bus_bits_regWriteID     (_pre_mem_unit_io_PMEM_to_MEM_bus_bits_regWriteID),	// top.scala:99:30
+    .io_PMEM_to_MEM_bus_bits_memReadEn      (_pre_mem_unit_io_PMEM_to_MEM_bus_bits_memReadEn),	// top.scala:99:30
+    .io_PMEM_to_MEM_bus_bits_csrWriteAddr   (_pre_mem_unit_io_PMEM_to_MEM_bus_bits_csrWriteAddr),	// top.scala:99:30
+    .io_PMEM_to_MEM_bus_bits_csrWriteEn     (_pre_mem_unit_io_PMEM_to_MEM_bus_bits_csrWriteEn),	// top.scala:99:30
+    .io_PMEM_to_MEM_bus_bits_csrWriteData   (_pre_mem_unit_io_PMEM_to_MEM_bus_bits_csrWriteData),	// top.scala:99:30
+    .io_PMEM_to_MEM_bus_bits_PC             (_pre_mem_unit_io_PMEM_to_MEM_bus_bits_PC),	// top.scala:99:30
+    .io_PMEM_to_MEM_bus_bits_Inst           (_pre_mem_unit_io_PMEM_to_MEM_bus_bits_Inst),	// top.scala:99:30
+    .io_memReadData                         (_pre_mem_unit_io_memReadData),	// top.scala:99:30
     .io_MEM_to_WB_bus_valid                 (_mem_unit_io_MEM_to_WB_bus_valid),
     .io_MEM_to_WB_bus_bits_regWriteData     (_mem_unit_io_MEM_to_WB_bus_bits_regWriteData),
     .io_MEM_to_WB_bus_bits_regWriteEn       (_mem_unit_io_MEM_to_WB_bus_bits_regWriteEn),
@@ -15513,15 +15530,15 @@ module top(	// <stdin>:3575:10
     .io_MEM_to_ID_forward_bits_csrWriteEn   (_mem_unit_io_MEM_to_ID_forward_bits_csrWriteEn),
     .io_MEM_to_ID_forward_bits_csrWriteAddr (_mem_unit_io_MEM_to_ID_forward_bits_csrWriteAddr)
   );
-  WBU wb_unit (	// top.scala:100:25
-    .io_MEM_to_WB_bus_valid                (_mem_unit_io_MEM_to_WB_bus_valid),	// top.scala:99:26
-    .io_MEM_to_WB_bus_bits_regWriteData    (_mem_unit_io_MEM_to_WB_bus_bits_regWriteData),	// top.scala:99:26
-    .io_MEM_to_WB_bus_bits_regWriteEn      (_mem_unit_io_MEM_to_WB_bus_bits_regWriteEn),	// top.scala:99:26
-    .io_MEM_to_WB_bus_bits_regWriteID      (_mem_unit_io_MEM_to_WB_bus_bits_regWriteID),	// top.scala:99:26
-    .io_MEM_to_WB_bus_bits_csrWriteEn      (_mem_unit_io_MEM_to_WB_bus_bits_csrWriteEn),	// top.scala:99:26
-    .io_MEM_to_WB_bus_bits_csrWriteAddr    (_mem_unit_io_MEM_to_WB_bus_bits_csrWriteAddr),	// top.scala:99:26
-    .io_MEM_to_WB_bus_bits_PC              (_mem_unit_io_MEM_to_WB_bus_bits_PC),	// top.scala:99:26
-    .io_MEM_to_WB_bus_bits_Inst            (_mem_unit_io_MEM_to_WB_bus_bits_Inst),	// top.scala:99:26
+  WBU wb_unit (	// top.scala:101:25
+    .io_MEM_to_WB_bus_valid                (_mem_unit_io_MEM_to_WB_bus_valid),	// top.scala:100:26
+    .io_MEM_to_WB_bus_bits_regWriteData    (_mem_unit_io_MEM_to_WB_bus_bits_regWriteData),	// top.scala:100:26
+    .io_MEM_to_WB_bus_bits_regWriteEn      (_mem_unit_io_MEM_to_WB_bus_bits_regWriteEn),	// top.scala:100:26
+    .io_MEM_to_WB_bus_bits_regWriteID      (_mem_unit_io_MEM_to_WB_bus_bits_regWriteID),	// top.scala:100:26
+    .io_MEM_to_WB_bus_bits_csrWriteEn      (_mem_unit_io_MEM_to_WB_bus_bits_csrWriteEn),	// top.scala:100:26
+    .io_MEM_to_WB_bus_bits_csrWriteAddr    (_mem_unit_io_MEM_to_WB_bus_bits_csrWriteAddr),	// top.scala:100:26
+    .io_MEM_to_WB_bus_bits_PC              (_mem_unit_io_MEM_to_WB_bus_bits_PC),	// top.scala:100:26
+    .io_MEM_to_WB_bus_bits_Inst            (_mem_unit_io_MEM_to_WB_bus_bits_Inst),	// top.scala:100:26
     .io_WB_to_ID_forward_valid             (_wb_unit_io_WB_to_ID_forward_valid),
     .io_WB_to_ID_forward_bits_regWriteData (_wb_unit_io_WB_to_ID_forward_bits_regWriteData),
     .io_WB_to_ID_forward_bits_regWriteEn   (_wb_unit_io_WB_to_ID_forward_bits_regWriteEn),
@@ -15531,38 +15548,38 @@ module top(	// <stdin>:3575:10
     .io_WB_pc                              (io_WB_pc),
     .io_WB_Inst                            (_wb_unit_io_WB_Inst)
   );
-  CSR csr (	// top.scala:101:25
+  CSR csr (	// top.scala:102:25
     .clock        (clock),
     .reset        (reset),
-    .io_ID_ecall  (_inst_decode_unit_io_ID_ecall),	// top.scala:96:34
-    .io_writeEn   (_mem_unit_io_MEM_to_WB_bus_bits_csrWriteEn),	// top.scala:99:26
-    .io_writeAddr (_mem_unit_io_MEM_to_WB_bus_bits_csrWriteAddr),	// top.scala:99:26
-    .io_writeData (_mem_unit_io_MEM_to_WB_bus_bits_csrWriteData),	// top.scala:99:26
-    .io_readAddr  (_inst_decode_unit_io_ID_csrReadAddr),	// top.scala:96:34
+    .io_ID_ecall  (_inst_decode_unit_io_ID_ecall),	// top.scala:97:34
+    .io_writeEn   (_mem_unit_io_MEM_to_WB_bus_bits_csrWriteEn),	// top.scala:100:26
+    .io_writeAddr (_mem_unit_io_MEM_to_WB_bus_bits_csrWriteAddr),	// top.scala:100:26
+    .io_writeData (_mem_unit_io_MEM_to_WB_bus_bits_csrWriteData),	// top.scala:100:26
+    .io_readAddr  (_inst_decode_unit_io_ID_csrReadAddr),	// top.scala:97:34
     .io_readData  (_csr_io_readData),
     .io_mstatus   (io_mstatus),
     .io_mtvec     (io_mtvec),
     .io_mepc      (io_mepc),
     .io_mcause    (io_mcause)
   );
-  RAMU ram_unit (	// top.scala:214:26
+  RAMU ram_unit (	// top.scala:216:26
     .clock                   (clock),
     .reset                   (reset),
-    .axi_writeAddr_valid     (_arb_out_writeAddr_valid),	// top.scala:215:21
-    .axi_writeAddr_bits_addr (_arb_out_writeAddr_bits_addr),	// top.scala:215:21
-    .axi_writeAddr_bits_id   (_arb_out_writeAddr_bits_id),	// top.scala:215:21
-    .axi_writeData_valid     (_arb_out_writeData_valid),	// top.scala:215:21
-    .axi_writeData_bits_data (_arb_out_writeData_bits_data),	// top.scala:215:21
-    .axi_writeData_bits_id   (_arb_out_writeData_bits_id),	// top.scala:215:21
-    .axi_writeData_bits_strb (_arb_out_writeData_bits_strb),	// top.scala:215:21
-    .axi_writeData_bits_last (_arb_out_writeData_bits_last),	// top.scala:215:21
-    .axi_writeResp_ready     (_arb_out_writeResp_ready),	// top.scala:215:21
-    .axi_readAddr_valid      (_arb_out_readAddr_valid),	// top.scala:215:21
-    .axi_readAddr_bits_addr  (_arb_out_readAddr_bits_addr),	// top.scala:215:21
-    .axi_readAddr_bits_size  (_arb_out_readAddr_bits_size),	// top.scala:215:21
-    .axi_readAddr_bits_len   (_arb_out_readAddr_bits_len),	// top.scala:215:21
-    .axi_readAddr_bits_id    (_arb_out_readAddr_bits_id),	// top.scala:215:21
-    .axi_readData_ready      (_arb_out_readData_ready),	// top.scala:215:21
+    .axi_writeAddr_valid     (_arb_out_writeAddr_valid),	// top.scala:217:21
+    .axi_writeAddr_bits_addr (_arb_out_writeAddr_bits_addr),	// top.scala:217:21
+    .axi_writeAddr_bits_id   (_arb_out_writeAddr_bits_id),	// top.scala:217:21
+    .axi_writeData_valid     (_arb_out_writeData_valid),	// top.scala:217:21
+    .axi_writeData_bits_data (_arb_out_writeData_bits_data),	// top.scala:217:21
+    .axi_writeData_bits_id   (_arb_out_writeData_bits_id),	// top.scala:217:21
+    .axi_writeData_bits_strb (_arb_out_writeData_bits_strb),	// top.scala:217:21
+    .axi_writeData_bits_last (_arb_out_writeData_bits_last),	// top.scala:217:21
+    .axi_writeResp_ready     (_arb_out_writeResp_ready),	// top.scala:217:21
+    .axi_readAddr_valid      (_arb_out_readAddr_valid),	// top.scala:217:21
+    .axi_readAddr_bits_addr  (_arb_out_readAddr_bits_addr),	// top.scala:217:21
+    .axi_readAddr_bits_size  (_arb_out_readAddr_bits_size),	// top.scala:217:21
+    .axi_readAddr_bits_len   (_arb_out_readAddr_bits_len),	// top.scala:217:21
+    .axi_readAddr_bits_id    (_arb_out_readAddr_bits_id),	// top.scala:217:21
+    .axi_readData_ready      (_arb_out_readData_ready),	// top.scala:217:21
     .axi_writeAddr_ready     (_ram_unit_axi_writeAddr_ready),
     .axi_readAddr_ready      (_ram_unit_axi_readAddr_ready),
     .axi_readData_bits_data  (_ram_unit_axi_readData_bits_data),
@@ -15590,24 +15607,24 @@ sim simulate (	// top.scala:24:26
    .GPR               (GPR),
    .unknown_inst_flag(_inst_decode_unit_io_ID_unknown_inst)
 );
-  AXI_Arbiter arb (	// top.scala:215:21
-    .in_0_writeAddr_valid     (_pre_mem_unit_axi_writeAddr_valid),	// top.scala:98:30
-    .in_0_writeAddr_bits_addr (_pre_mem_unit_axi_writeAddr_bits_addr),	// top.scala:98:30
-    .in_0_writeData_valid     (_pre_mem_unit_axi_writeData_valid),	// top.scala:98:30
-    .in_0_writeData_bits_data (_pre_mem_unit_axi_writeData_bits_data),	// top.scala:98:30
-    .in_0_writeData_bits_strb (_pre_mem_unit_axi_writeData_bits_strb),	// top.scala:98:30
-    .in_0_writeResp_ready     (_pre_mem_unit_axi_writeResp_ready),	// top.scala:98:30
-    .in_0_readAddr_valid      (_pre_mem_unit_axi_readAddr_valid),	// top.scala:98:30
-    .in_0_readAddr_bits_addr  (_pre_mem_unit_axi_readAddr_bits_addr),	// top.scala:98:30
-    .in_0_readData_ready      (_pre_mem_unit_axi_readData_ready),	// top.scala:98:30
-    .in_1_readAddr_valid      (_inst_fetch_unit_axi_readAddr_valid),	// top.scala:95:33
-    .in_1_readAddr_bits_addr  (_inst_fetch_unit_axi_readAddr_bits_addr),	// top.scala:95:33
-    .in_1_readData_ready      (_inst_fetch_unit_axi_readData_ready),	// top.scala:95:33
-    .req_0_valid              (_pre_mem_unit_axi_req_valid),	// top.scala:98:30
-    .out_writeAddr_ready      (_ram_unit_axi_writeAddr_ready),	// top.scala:214:26
-    .out_readAddr_ready       (_ram_unit_axi_readAddr_ready),	// top.scala:214:26
-    .out_readData_bits_data   (_ram_unit_axi_readData_bits_data),	// top.scala:214:26
-    .out_readData_bits_last   (_ram_unit_axi_readData_bits_last),	// top.scala:214:26
+  AXI_Arbiter arb (	// top.scala:217:21
+    .in_0_writeAddr_valid     (_pre_mem_unit_axi_writeAddr_valid),	// top.scala:99:30
+    .in_0_writeAddr_bits_addr (_pre_mem_unit_axi_writeAddr_bits_addr),	// top.scala:99:30
+    .in_0_writeData_valid     (_pre_mem_unit_axi_writeData_valid),	// top.scala:99:30
+    .in_0_writeData_bits_data (_pre_mem_unit_axi_writeData_bits_data),	// top.scala:99:30
+    .in_0_writeData_bits_strb (_pre_mem_unit_axi_writeData_bits_strb),	// top.scala:99:30
+    .in_0_writeResp_ready     (_pre_mem_unit_axi_writeResp_ready),	// top.scala:99:30
+    .in_0_readAddr_valid      (_pre_mem_unit_axi_readAddr_valid),	// top.scala:99:30
+    .in_0_readAddr_bits_addr  (_pre_mem_unit_axi_readAddr_bits_addr),	// top.scala:99:30
+    .in_0_readData_ready      (_pre_mem_unit_axi_readData_ready),	// top.scala:99:30
+    .in_1_readAddr_valid      (_inst_fetch_unit_axi_readAddr_valid),	// top.scala:96:33
+    .in_1_readAddr_bits_addr  (_inst_fetch_unit_axi_readAddr_bits_addr),	// top.scala:96:33
+    .in_1_readData_ready      (_inst_fetch_unit_axi_readData_ready),	// top.scala:96:33
+    .req_0_valid              (_pre_mem_unit_axi_req_valid),	// top.scala:99:30
+    .out_writeAddr_ready      (_ram_unit_axi_writeAddr_ready),	// top.scala:216:26
+    .out_readAddr_ready       (_ram_unit_axi_readAddr_ready),	// top.scala:216:26
+    .out_readData_bits_data   (_ram_unit_axi_readData_bits_data),	// top.scala:216:26
+    .out_readData_bits_last   (_ram_unit_axi_readData_bits_last),	// top.scala:216:26
     .in_0_writeAddr_ready     (_arb_in_0_writeAddr_ready),
     .in_0_readAddr_ready      (_arb_in_0_readAddr_ready),
     .in_0_readData_bits_data  (_arb_in_0_readData_bits_data),
@@ -15632,35 +15649,35 @@ sim simulate (	// top.scala:24:26
     .out_readAddr_bits_id     (_arb_out_readAddr_bits_id),
     .out_readData_ready       (_arb_out_readData_ready)
   );
-  assign io_ID_npc = _inst_decode_unit_io_ID_to_BPU_bus_bits_br_target;	// <stdin>:3575:10, top.scala:96:34
-  assign io_PF_pc = _inst_fetch_unit_io_PF_pc;	// <stdin>:3575:10, top.scala:95:33
-  assign io_PF_axidata = _arb_in_1_readData_bits_data;	// <stdin>:3575:10, top.scala:215:21
-  assign io_IF_pc = _inst_fetch_unit_io_IF_to_ID_bus_bits_PC;	// <stdin>:3575:10, top.scala:95:33
-  assign io_ID_pc = _inst_decode_unit_io_ID_to_EX_bus_bits_PC;	// <stdin>:3575:10, top.scala:96:34
-  assign io_EX_pc = _excute_unit_io_EX_to_MEM_bus_bits_PC;	// <stdin>:3575:10, top.scala:97:29
-  assign io_PMEM_pc = _pre_mem_unit_io_PMEM_to_MEM_bus_bits_PC;	// <stdin>:3575:10, top.scala:98:30
-  assign io_WB_Inst = _wb_unit_io_WB_Inst;	// <stdin>:3575:10, top.scala:100:25
-  assign io_WB_RegWriteData = _wb_unit_io_WB_to_ID_forward_bits_regWriteData;	// <stdin>:3575:10, top.scala:100:25
-  assign io_WB_RegWriteID = {59'h0, _wb_unit_io_WB_to_ID_forward_bits_regWriteID};	// <stdin>:3575:10, top.scala:100:25, :153:24
-  assign io_WB_valid = _wb_unit_io_WB_to_ID_forward_valid;	// <stdin>:3575:10, top.scala:100:25
-  assign io_MEM_RegWriteData = _arb_in_0_readData_bits_data;	// <stdin>:3575:10, top.scala:215:21
-  assign io_bp_npc = _bp_unit_io_bp_npc;	// <stdin>:3575:10, top.scala:94:33
-  assign io_bp_taken = _bp_unit_io_bp_taken;	// <stdin>:3575:10, top.scala:94:33
-  assign io_bp_flush = _bp_unit_io_bp_flush;	// <stdin>:3575:10, top.scala:94:33
-  assign io_csrWriteEn = _mem_unit_io_MEM_to_WB_bus_bits_csrWriteEn;	// <stdin>:3575:10, top.scala:99:26
-  assign io_csrWriteAddr = _mem_unit_io_MEM_to_WB_bus_bits_csrWriteAddr;	// <stdin>:3575:10, top.scala:99:26
-  assign io_csrWriteData = _mem_unit_io_MEM_to_WB_bus_bits_csrWriteData;	// <stdin>:3575:10, top.scala:99:26
-  assign io_EX_csrWriteData = _excute_unit_io_EX_to_MEM_bus_bits_csrWriteData;	// <stdin>:3575:10, top.scala:97:29
-  assign io_cache_axi_req = _inst_fetch_unit_axi_readAddr_valid;	// <stdin>:3575:10, top.scala:95:33
-  assign io_cache_rlast = _arb_in_1_readData_bits_last;	// <stdin>:3575:10, top.scala:215:21
-  assign io_IF_Inst = _inst_fetch_unit_io_IF_to_ID_bus_bits_Inst;	// <stdin>:3575:10, top.scala:95:33
-  assign io_IF_valid = _inst_fetch_unit_io_IF_to_ID_bus_valid;	// <stdin>:3575:10, top.scala:95:33
-  assign io_IF_AXIREQ = _arb_req_1_ready;	// <stdin>:3575:10, top.scala:215:21
-  assign io_ID_ALU_Data1 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data1;	// <stdin>:3575:10, top.scala:96:34
-  assign io_ID_ALU_Data2 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data2;	// <stdin>:3575:10, top.scala:96:34
-  assign io_EX_ALU_result_pass = _excute_unit_io_EX_ALUResult_Pass;	// <stdin>:3575:10, top.scala:97:29
-  assign io_ID_Rs2Data = _inst_decode_unit_io_ID_to_EX_bus_bits_rs2_data;	// <stdin>:3575:10, top.scala:96:34
-  assign io_ALUResult = _excute_unit_io_EX_to_MEM_bus_bits_ALU_result;	// <stdin>:3575:10, top.scala:97:29
+  assign io_ID_npc = _inst_decode_unit_io_ID_to_BPU_bus_bits_br_target;	// <stdin>:3583:10, top.scala:97:34
+  assign io_PF_pc = _inst_fetch_unit_io_PF_pc;	// <stdin>:3583:10, top.scala:96:33
+  assign io_PF_axidata = _arb_in_1_readData_bits_data;	// <stdin>:3583:10, top.scala:217:21
+  assign io_IF_pc = _inst_fetch_unit_io_IF_to_ID_bus_bits_PC;	// <stdin>:3583:10, top.scala:96:33
+  assign io_ID_pc = _inst_decode_unit_io_ID_to_EX_bus_bits_PC;	// <stdin>:3583:10, top.scala:97:34
+  assign io_EX_pc = _excute_unit_io_EX_to_MEM_bus_bits_PC;	// <stdin>:3583:10, top.scala:98:29
+  assign io_PMEM_pc = _pre_mem_unit_io_PMEM_to_MEM_bus_bits_PC;	// <stdin>:3583:10, top.scala:99:30
+  assign io_WB_Inst = _wb_unit_io_WB_Inst;	// <stdin>:3583:10, top.scala:101:25
+  assign io_WB_RegWriteData = _wb_unit_io_WB_to_ID_forward_bits_regWriteData;	// <stdin>:3583:10, top.scala:101:25
+  assign io_WB_RegWriteID = {59'h0, _wb_unit_io_WB_to_ID_forward_bits_regWriteID};	// <stdin>:3583:10, top.scala:101:25, :155:24
+  assign io_WB_valid = _wb_unit_io_WB_to_ID_forward_valid;	// <stdin>:3583:10, top.scala:101:25
+  assign io_MEM_RegWriteData = _arb_in_0_readData_bits_data;	// <stdin>:3583:10, top.scala:217:21
+  assign io_bp_npc = _bp_unit_io_bp_npc;	// <stdin>:3583:10, top.scala:95:33
+  assign io_bp_taken = _bp_unit_io_bp_taken;	// <stdin>:3583:10, top.scala:95:33
+  assign io_bp_flush = _bp_unit_io_bp_flush;	// <stdin>:3583:10, top.scala:95:33
+  assign io_csrWriteEn = _mem_unit_io_MEM_to_WB_bus_bits_csrWriteEn;	// <stdin>:3583:10, top.scala:100:26
+  assign io_csrWriteAddr = _mem_unit_io_MEM_to_WB_bus_bits_csrWriteAddr;	// <stdin>:3583:10, top.scala:100:26
+  assign io_csrWriteData = _mem_unit_io_MEM_to_WB_bus_bits_csrWriteData;	// <stdin>:3583:10, top.scala:100:26
+  assign io_EX_csrWriteData = _excute_unit_io_EX_to_MEM_bus_bits_csrWriteData;	// <stdin>:3583:10, top.scala:98:29
+  assign io_cache_axi_req = _inst_fetch_unit_axi_readAddr_valid;	// <stdin>:3583:10, top.scala:96:33
+  assign io_cache_rlast = _arb_in_1_readData_bits_last;	// <stdin>:3583:10, top.scala:217:21
+  assign io_IF_Inst = _inst_fetch_unit_io_IF_to_ID_bus_bits_Inst;	// <stdin>:3583:10, top.scala:96:33
+  assign io_IF_valid = _inst_fetch_unit_io_IF_to_ID_bus_valid;	// <stdin>:3583:10, top.scala:96:33
+  assign io_IF_AXIREQ = _arb_req_1_ready;	// <stdin>:3583:10, top.scala:217:21
+  assign io_ID_ALU_Data1 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data1;	// <stdin>:3583:10, top.scala:97:34
+  assign io_ID_ALU_Data2 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data2;	// <stdin>:3583:10, top.scala:97:34
+  assign io_EX_ALU_result_pass = _excute_unit_io_EX_ALUResult_Pass;	// <stdin>:3583:10, top.scala:98:29
+  assign io_ID_Rs2Data = _inst_decode_unit_io_ID_to_EX_bus_bits_rs2_data;	// <stdin>:3583:10, top.scala:97:34
+  assign io_ALUResult = _excute_unit_io_EX_to_MEM_bus_bits_ALU_result;	// <stdin>:3583:10, top.scala:98:29
 endmodule
 
 
@@ -15789,7 +15806,7 @@ module sim_sram(
                 arready_r       <= 1'b1;
             end
         end
-        // $display("arvalid:%d arready:%d arv_arr_flag:%d rdata:0x%x rlast:%d, rid:%d", arvalid, arready_r, arv_arr_flag, rdata, rlast_r, rid_r);
+        $display("arvalid:%d arready:%d arv_arr_flag:%d rdata:0x%x rlast:%d, rid:%d", arvalid, arready_r, arv_arr_flag, rdata, rlast_r, rid_r);
     end
 
 
