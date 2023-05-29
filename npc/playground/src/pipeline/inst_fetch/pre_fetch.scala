@@ -35,7 +35,7 @@ class IF_pre_fetch extends Module{
     io.PF_npc    := PF_npc
     val axi_busy = RegInit(0.U(1.W))
     axi_busy        := !axi_req.ready
-
+    axi_req.valid   := 1.U
 
     /*****************ICache******************/
     
@@ -45,8 +45,6 @@ class IF_pre_fetch extends Module{
     val nrSets      = 128
     val nrLines     = 2
     val inst_cache  = Module(new ICache(tagWidth, nrSets, nrLines, offsetWidth))
-    axi_req.valid              := inst_cache.io.axi_rreq
-
     io.cache_hit               := inst_cache.io.hit
     io.cache_state             := inst_cache.io.state
     io.cache_rvalid            := inst_cache.io.rvalid
