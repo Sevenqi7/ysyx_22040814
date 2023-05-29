@@ -21,6 +21,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
         val cache_tag = Output(UInt(tagWidth.W))
         val cache_set = Output(UInt(2.W))
         val cache_offset = Output(UInt(4.W))
+        val cache_miss_cnt = Output(UInt(32.W))
         val lineBuf   = Output(UInt(128.W)) 
 
         //cache-axi
@@ -34,6 +35,9 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
     })
 
     val sIdle :: sLookup :: sMiss :: sRefill :: sReplace :: Nil = Enum(5)
+
+    val cache_miss_cnt = RegInit(0.U(32.W))
+    io.cache_miss_cnt   := cache_miss_cnt
 
     val cacheline = Wire(new CacheLine(tagWidth, 128))
 
@@ -161,6 +165,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
             cache(set)(refillIDX).tag   := tag
             cache(set)(refillIDX).data  := lineBuf
             io.axi_rreq                 := 0.U
+            cache_miss_cnt              := cache_miss_cnt+1.U
         }
     }
 

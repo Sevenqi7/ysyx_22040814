@@ -27,6 +27,7 @@ class IFU extends Module{
         val cache_tag    = Output(UInt(21.W))
         val cache_set    = Output(UInt(2.W))
         val cache_offset = Output(UInt(4.W))
+        val cache_miss_cnt = Output(UInt(32.W))
         val lineBuf      = Output(UInt(128.W))
 
         val axidata = Output(UInt(64.W))
@@ -51,6 +52,7 @@ class IFU extends Module{
     io.cache_tag                            := pre_fetch.io.cache_tag
     io.cache_set                            := pre_fetch.io.cache_set
     io.cache_offset                         := pre_fetch.io.cache_offset
+    io.cache_miss_cnt                       := pre_fetch.io.cache_miss_cnt
     io.lineBuf                              := pre_fetch.io.lineBuf
 
     pre_fetch.io.IF_pc                      := io.IF_to_ID_bus.bits.PC
