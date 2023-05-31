@@ -134,7 +134,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
             state           := sRefill
             io.axi_rreq     := 1.U
             io.axi_raddr    := req_addr & (0xFFFFFFFFL.U << offsetWidth)
-            if(io.axi_rvalid){
+            when(io.axi_rvalid){
                 lineBuf         := (lineBuf << 64) | io.axi_rdata
             }
             when(io.axi_rlast){
