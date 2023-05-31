@@ -22,7 +22,7 @@ static uint64_t nr_bubble = 0;
 
 void device_update();
 void difftest_regcpy(void *dut, bool direction);
-uint8_t stall_flag ;
+uint8_t stall_flag;
 
 static void trace_and_difftest(char *logbuf)
 {
