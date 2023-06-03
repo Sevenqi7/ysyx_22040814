@@ -60,7 +60,7 @@ class LIFO[T <: Data](gen: T, depth: Int) extends Module{
         stop        := sptr
     }.elsewhen(!io.pushEn && io.popEn){
         sptr        := Mux(sptr === 0.U, (depth-1).U, sptr-1.U)
-        sb          := sptr
+        stop        := sptr
     }      
 
     io.pop := Mux(io.popEn, stack(stop), 0.U)
