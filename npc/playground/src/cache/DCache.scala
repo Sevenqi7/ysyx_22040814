@@ -117,7 +117,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
         is (qsWrite1){
             io.axi_wdata    := dataQueue.io.deqData(127, 64)
             io.axi_wstrb    := 0xFF.U
-            io.axi_wvalid   := 1.U
+            io.axi_wreq     := 1.U
             qstate          := qsWrite1
             when(io.axi_wready){
                 qstate      := qsWrite2
@@ -126,7 +126,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
         is (qsWrite2){
             io.axi_wdata    := dataQueue.deqData(63, 0)
             io.axi_wstrb    := 0xFF.U
-            io.axi_wvalid   := 1.U
+            io.axi_wreq     := 1.U
             io.axi_wlast    := 1.U
             qstate          := qsWrite2
             when(io.axi_wready){
