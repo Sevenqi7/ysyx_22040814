@@ -68,7 +68,7 @@ class LIFO[T <: Data](gen: T, depth: Int) extends Module{
 
 
 //deqData always keeps the data corresponding to the end of the queue.
-class FIFO[T <: Data](gen: T, depth: Int) extends Modules{
+class FIFO[T <: Data](gen: T, depth: Int) extends Module{
     val io = IO(new Bundle{
         val enqValid = Input(Bool())
         val enqData  = Input(gen)
