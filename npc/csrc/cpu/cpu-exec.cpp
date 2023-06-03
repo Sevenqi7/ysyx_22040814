@@ -22,7 +22,7 @@ static uint64_t nr_bubble = 0;
 
 void device_update();
 void difftest_regcpy(void *dut, bool direction);
-uint8_t stall_flag ;
+uint8_t stall_flag;
 
 static void trace_and_difftest(char *logbuf)
 {
@@ -119,6 +119,7 @@ void execute(uint64_t n)
         device_update();
         if(npc_state.state != NPC_RUNNING){
             Log("Total instruction number: %ld", nr_total_inst);
+            Log("icache miss cnt: %d", top->io_cache_miss_cnt);
             Log("Recieve %ld bubbles when pipelines running", nr_bubble);
             Log("nr of jal:%d", top->io_jal_cnt);
             Log("failure of jal:%d", top->io_jal_fail);

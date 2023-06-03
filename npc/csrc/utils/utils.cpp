@@ -38,15 +38,14 @@ void clock_step()
     Log("PF_axidata:0x%lx", top->io_PF_axidata);
     Log("IF_pc:0x%lx", top->io_IF_pc); 
     Log("IF_valid:%d", top->io_IF_valid);
-    Log("cache_hit:%d", top->io_cache_hit);
-    Log("cache_state:%d", top->io_cache_state);
-    // Log("cache_axi_req:%d", top->io_cache_axi_req);
-    // Log("cache_rvalid:%d", top->io_cache_rvalid);
-    // Log("cache_tag:0x%x", top->io_cache_tag);
-    // Log("cache_set:0x%x", top->io_cache_set);
-    // Log("cache_offset:0x%x", top->io_cache_offset);
-    // Log("cache_rlast:%d", top->io_cache_rlast);
-    Log("cache_miss_cnt:%d", top->io_cache_miss_cnt);
+    Log("icache_hit:%d", top->io_cache_hit);
+    Log("icache_state:%d", top->io_cache_state);
+    // Log("icache_axi_req:%d", top->io_cache_axi_req);
+    // Log("icache_rvalid:%d", top->io_cache_rvalid);
+    // Log("icache_tag:0x%x", top->io_cache_tag);
+    // Log("icache_set:0x%x", top->io_cache_set);
+    // Log("icache_offset:0x%x", top->io_cache_offset);
+    // Log("icache_rlast:%d", top->io_cache_rlast);
     Log("cache_lineBuf:0x%llx", top->io_lineBuf);
 
     Log("IF_req:%d", top->io_IF_AXIREQ);

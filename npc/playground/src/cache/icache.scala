@@ -2,8 +2,6 @@ import chisel3._
 import chisel3.util._
 import utils._
 
-
-
 //axi return 64bits data within single read transaction
 class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends Module{
     val io = IO(new Bundle{
@@ -136,7 +134,9 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
             state           := sRefill
             io.axi_rreq     := 1.U
             io.axi_raddr    := req_addr & (0xFFFFFFFFL.U << offsetWidth)
-            lineBuf         := (lineBuf << 64) | io.axi_rdata
+            when(io.axi_rvalid){
+                lineBuf         := (lineBuf << 64) | io.axi_rdata
+            }
             when(io.axi_rlast){
                 state       := sReplace
             }

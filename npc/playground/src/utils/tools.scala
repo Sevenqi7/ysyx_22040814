@@ -52,16 +52,59 @@ class LIFO[T <: Data](gen: T, depth: Int) extends Module{
     foo := 0.U.asTypeOf(gen)
     val stack = RegInit(VecInit.fill(depth)(foo))
     val sptr  = RegInit(0.U(log2Ceil(depth).W))
-    val sb    = RegInit(0.U(log2Ceil(depth).W))
+    val stop  = RegInit(0.U(log2Ceil(depth).W))
 
     when(io.pushEn & !io.popEn){
         stack(sptr) := io.push
         sptr        := Mux(sptr === (depth-1).U, 0.U, sptr+1.U)
-        sb          := sptr
+        stop        := sptr
     }.elsewhen(!io.pushEn && io.popEn){
         sptr        := Mux(sptr === 0.U, (depth-1).U, sptr-1.U)
-        sb          := sptr
+        stop        := sptr
     }      
 
-    io.pop := Mux(io.popEn, stack(sb), 0.U)
+    io.pop := Mux(io.popEn, stack(stop), 0.U)
+}
+
+
+//deqData always keeps the data corresponding to the end of the queue.
+class FIFO[T <: Data](gen: T, depth: Int) extends Module{
+    val io = IO(new Bundle{
+        val enqValid = Input(Bool())
+        val enqData  = Input(gen)
+        val deqValid = Input(Bool())
+        val deqData  = Output(gen)
+        val empty    = Output(Bool())
+        val full     = Output(Bool())
+    })
+
+    val foo     = Wire(gen)
+    foo         := 0.U.asTypeOf(gen)
+    val queue   = RegInit(VecInit.fill(depth)(foo))
+    val qrear   = RegInit(0.U(log2Ceil(depth).W))
+    val qfront  = RegInit(0.U(log2Ceil(depth).W))
+    val full    = RegInit(0.B)
+    val empty   = RegInit(1.B)
+
+
+    io.empty    := empty
+    io.full     := full
+
+
+    when(io.enqValid & !full){
+        queue(qrear)    := io.enqData
+        qrear           := qrear + 1.U
+        empty       := 0.U
+        when(qrear+1.U === qfront){
+            full        := 1.U
+        }
+    }.elsewhen(!io.enqValid & io.deqValid & !empty){
+        qfront          := qfront + 1.U
+        full            := 0.U
+        when(qfront+1.U === qrear){
+            empty       := 1.U
+        }
+    }
+
+    io.deqData          := queue(qrear-1.U)
 }
