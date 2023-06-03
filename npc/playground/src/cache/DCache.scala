@@ -34,55 +34,99 @@
 //         val axi_waddr   = Output(UInt(32.W))
 //         val axi_wstrb   = Output(UInt(4.W))
 //         val axi_wdata   = Output(UInt(64.W))
+//         val axi_wlast   = Output(Bool())
+//         val axi_awready = Input(Bool())
 //         val axi_wready  = Input(Bool())
 //     })
 
-//     // Main States
-//     val sIdle :: sLookup :: sMiss :: sRefill :: sReplace :: Nil = Enum(5)
-
-//     // WriteBuffer States
-//     val wsIdle :: wsWrite :: Nil = Enum(2) 
-
+    
+    
 
 //     val cacheline = Wire(new CacheLineEX(tagWidth, 128))
-
+    
 //     cacheline.tag       := 0.U
 //     cacheline.data      := 0.U
 //     cacheline.valid     := 0.U
 //     cacheline.dirty     := 0.U
 //     val cache = RegInit(VecInit.fill(nrSets, nrLines)(cacheline))
-
+    
 //     val setWidth        = log2Ceil(nrSets)
 //     val lineWidth       = log2Ceil(nrLines)
 //     val dataWidth       = 128
     
+    
+//     //pipeline request
 //     val req_addr        = RegInit(0.U(64.W))
 //     val req_valid       = RegInit(0.B)
 //     val req_op          = RegInit(0.B)
-
+    
 //     val req_wdata       = RegInit(0.U(64.W))
 //     val req_wstrb       = RegInit(0.U(8.W))
 //     val req_woffset     = RegInit(0.U(4.W))
 //     val req_wset        = RegInit(0.U(setWidth.W))
 //     val req_wline       = RegInit(0.U(lineWidth.W))
-
+    
 //     val offset          = req_addr(offsetWidth - 1, 0)
 //     val set             = req_addr(offsetWidth + setWidth - 1, offsetWidth)
 //     val tag             = req_addr(offsetWidth + setWidth + tagWidth -1 , offsetWidth + setWidth)
 //     val index           = 127.U - offset * 8.U
-
+    
 //     val state           = RegInit(sIdle)
 //     val wstate          = RegInit(wsIdle)
 //     val lineBuf         = RegInit(0.U(dataWidth.W))
-
+    
 //     //initialise
 //     io.rdata        := 0x7777.U
 //     io.rvalid       := 0.U
 //     io.axi_rreq     := 0.U
 //     io.axi_raddr    := 0.U
+//     io.axi_wreq     := 0.U
+//     io.axi_wtype    := 0.U
+//     io.axi_waddr    := 0.U
+//     io.axi_wstrb    := 0.U
+//     io.axi_wdata    := 0x7777.U  
     
-//     //FSM
-
+//     /************************FSM************************/
+    
+//     //cache-axi FIFO
+   
+//     val qsIdle :: qsWrite1 :: qsWrite2 :: Nil = Enum(3)
+//     val dataQueue      = Module(new FIFO(UInt(128.W), 8))
+//     val qstate          = RegInit(qsIdle)
+    
+//     val wcnt            = RegInit(0.B)
+//     switch(qstate){
+//         is (qsIdle){
+//             when(io.axi_awready & !dataQueue.empty){
+//                 qstate      := qsWrite1
+//             }
+//         }
+//         is (qsWrite1){
+//             io.axi_wdata    := dataQueue.deqData(127, 64)
+//             io.axi_wstrb    := 0xFF.U
+//             io.axi_wvalid   := 1.U
+//             qstate          := qsWrite1
+//             when(io.axi_wready){
+//                 qstate      := qsWrite2
+//             }
+//         }
+//         is (qsWrite2){
+//             io.axi_wdata    := dataQueue.deqData(63, 0)
+//             io.axi_wstrb    := 0xFF.U
+//             io.axi_wvalid   := 1.U
+//             io.axi_wlast    := 1.U
+//             qstate          := qsWrite2
+//             when(io.axi_wready){
+//                 qstate      := qsIdle
+//             }
+//         }
+//     }
+    
+    
+//     //cache main state machine
+ 
+//     // Main States
+//     val sIdle :: sLookup :: sMiss :: sRefill :: sReplace :: Nil = Enum(5)
 //     val refillIDX   = Wire(UInt(lineWidth.W))
 //     val refillHit   = Wire(Bool())
 //     refillIDX       := 0.U
@@ -143,11 +187,38 @@
 //         }
 //         is (sReplace){
 //             state                    := sIdle
+//             for(i <- 0 until nrLines-1){
+//                 when(!cache(set)(i).valid){
+//                     refillHit        := 1.U
+//                     refillIDX        := i.U
+//                 }
+//             }
+//             for(i <- 0 until nrLines-1){
+//                 when(cache(set)(i).valid & tag === cache(set)(i).tag){
+//                     refillHit        := 1.U
+//                     refillIDX        := i.U
+//                 }
+//             }
+//             when(!refillHit){
+//                 refillIDX            := random.LFSR(16)(lineWidth-1, 0)
+//             }
+//             when(cache(set)(refillIDX).dirty & cache(set)(refillIDX).valid){
+//                 cache(set)(refillIDX).dirty := 0.U
+
+                
+//             }
+//             cache(set)(refillIDX).valid     := 1.U
+//             cache(set)(refillIDX).tag       := tag
+//             cache(set)(refillIDX).data      := lineBuf
 //             //TODO: Cache-AXI interaction when write miss
 //         }
 //     }
 
 //     //Write Buffer
+
+//     // WriteBuffer States
+//     val wsIdle :: wsWrite :: Nil = Enum(2) 
+
 //     val writeLowBit  = Wire(UInt(6.W))
 //     val writeHighBit = Wire(UInt(6.W))
 //     val writeData    = Wire(UInt(64.W))
@@ -164,8 +235,8 @@
 //             }
 //         }
 //         is (wsWrite){
-//             cache(req_wset)(req_wdata).dirty            := 1.U
 //             dataMask                                    := (0xFFFFFFFFFFFFFFFFL.U << (writeHighBit + 1.U)) | (0xFFFFFFFFFFFFFFFFL.U >> (64.U - writeLowBit))
+//             cache(req_wset)(req_wdata).dirty            := 1.U
 //             when(req_wstrb === 0xFF.U){
 //                 cache(req_wset)(req_wline).data         := Cat(req_wdata(63, 0), req_wdata(127, 64))
 //             }

@@ -119,7 +119,7 @@ void execute(uint64_t n)
         device_update();
         if(npc_state.state != NPC_RUNNING){
             Log("Total instruction number: %ld", nr_total_inst);
-            Log("cache miss cnt: %d", top->io_cache_miss_cnt);
+            Log("icache miss cnt: %d", top->io_cache_miss_cnt);
             Log("Recieve %ld bubbles when pipelines running", nr_bubble);
             Log("nr of jal:%d", top->io_jal_cnt);
             Log("failure of jal:%d", top->io_jal_fail);
