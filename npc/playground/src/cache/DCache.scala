@@ -17,7 +17,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
         val wstrb       = Input(UInt(8.W))  
         val wdata       = Input(UInt(64.W)) 
         val rdata       = Output(UInt(64.W))
-        val ready       = OUtput(UInt(Bool()))
+        val ready       = Output(Bool())
         val aready      = Output(Bool())
 
         //cache-axi
