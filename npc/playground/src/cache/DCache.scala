@@ -218,7 +218,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
                 cache(set)(refillIDX).dirty := 0.U
                 addrQueue.io.enqValid       := 1.U
                 addrQueue.io.enqData        := Cat(Seq(cache(set)(refillIDX).tag, set, refillIDX))
-                dataQueue.io.eneqValid      := 1.U
+                dataQueue.io.enqValid      := 1.U
                 dataQueue.io.enqData        := cache(set)(refillIDX).data
             }
             cache(set)(refillIDX).valid     := 1.U
@@ -254,7 +254,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
             when(req_wstrb === 0xFF.U){
                 cache(req_wset)(req_wline).data         := Cat(req_wdata(63, 0), req_wdata(127, 64))
             }
-            .elsewhen(req_woffset & "b1000".U){
+            .elsewhen((req_woffset & "b1000".U) > 0.U){
                 cache(req_wset)(req_wline).data         := Cat(cache(req_wset)(req_wline).data(127, 64), (cache(req_wset)(req_wline).data(63, 0) & dataMask) | writeData)
             }
             .otherwise{
