@@ -124,7 +124,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
             }
         }
         is (qsWrite2){
-            io.axi_wdata    := dataQueue.deqData(63, 0)
+            io.axi_wdata    := dataQueue.io.deqData(63, 0)
             io.axi_wstrb    := 0xFF.U
             io.axi_wreq     := 1.U
             io.axi_wlast    := 1.U
@@ -149,7 +149,6 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
         is (sIdle){
             when(io.valid){
                 state       := sLookup
-                io.ready    := 1.U
                 req_valid   := io.valid
                 req_addr    := io.addr
             }
@@ -160,7 +159,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
                     io.hit  := 1.U
                     //read opereation
                     when(!req_op){
-                        when(offset & "b1000".U){
+                        when((offset & "b1000".U) > 0.U){
                             io.rdata                := cache(set)(i).data(63, 0)
                         }
                         .otherwise{
