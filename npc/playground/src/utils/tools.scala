@@ -87,7 +87,6 @@ class FIFO[T <: Data](gen: T, depth: Int) extends Module{
     val empty   = RegInit(1.B)
 
 
-    io.enqReady := (qrear < depth.U)
     io.empty    := empty
     io.full     := full
 
