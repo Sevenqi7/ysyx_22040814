@@ -81,7 +81,8 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     
     //initialise
     io.rdata        := 0x7777.U
-    io.rvalid       := 0.U
+    io.data_ok      := 0.U
+    io.addr_ok      := 0.U
     io.axi_rreq     := 0.U
     io.axi_raddr    := 0.U
     io.axi_wreq     := 0.U
