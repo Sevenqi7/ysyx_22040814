@@ -3,7 +3,7 @@ import chisel3.util._
 import utils._
 
 
-class CacheLineEX extends CacheLine{
+class CacheLineEX(tagWidth: Int, dataWidth: Int) extends CacheLine{
     val dirty = Bool()
 }
 
