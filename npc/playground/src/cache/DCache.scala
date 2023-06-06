@@ -246,14 +246,13 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
             
 
             switch(req_wstrb){
-                is (0x01.U) { dataMask  := Fill(8 , 1.U)}
-                is (0x03.U) { dataMask  := Fill(16, 1.U)}
-                is (0x0F.U) { dataMask  := Fill(32, 1.U)}
-                is (0xFF.U) { dataMask  := Fill(64, 1.U)}
+                is (0x01.U) { dataMask  := Fill(8 , 1.U) << (req_woffset(2, 0) << 3.U)}
+                is (0x03.U) { dataMask  := Fill(16, 1.U) << (req_woffset(2, 0) << 3.U)}
+                is (0x0F.U) { dataMask  := Fill(32, 1.U) << (req_woffset(2, 0) << 3.U)}
+                is (0xFF.U) { dataMask  := Fill(64, 1.U) << (req_woffset(2, 0) << 3.U)}
             }
 
-            dataMask                := (dataMask << (req_woffset(2, 0) << 3.U))
-            // maskedData              := (req_wdata << (req_woffset(2, 0) << 3.U)) & dataMask
+            maskedData              := (req_wdata << (req_woffset(2, 0) << 3.U)) & dataMask
             when((req_woffset & "b1000".U) > 0.U){
                 cache(req_wset)(req_wline).data   := Cat(cache(req_wset)(req_wline).data(127, 64), 
                                                          cache(req_wset)(req_wline).data & ~dataMask | maskedData)
