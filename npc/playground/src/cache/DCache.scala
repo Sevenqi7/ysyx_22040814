@@ -41,28 +41,6 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
         val axi_awready = Input(Bool())
         val axi_wready  = Input(Bool())
     })
-
-    def writeCacheLine(cacheline: Reg[UInt], data: UInt, wstrb: UInt, offset: UInt) : Unit = {
-        val dataMask   = Wire(UInt(64.W))
-        val maskedData = Wire(UInt(64.W))
-        
-        dataMask                    := 0.U
-        switch(wstrb){
-            is (0x01.U) { dataMask  := Fill(8 , 1.U)}
-            is (0x03.U) { dataMask  := Fill(16, 1.U)}
-            is (0x0F.U) { dataMask  := Fill(32, 1.U)}
-            is (0xFF.U) { dataMask  := Fill(64, 1.U)}
-        }
-
-        dataMask                := (dataMask << (offset(2, 0) << 3.U))
-        maskedData              := (data << (offseT(2, 0) << 3.U)) & dataMask
-        when((offset & "b1000".U) > 0.U){
-            cacheline           := Cat(cacheline(127, 64), cacheline(63, 0) & ~dataMask | maskedData)
-        }.otherwise{
-            cacheline           := Cat(cacheline(127, 64) & ~dataMask | maskedData, cacheline(63, 0))
-        }
-        
-    }
     
 
     val cacheline = Wire(new CacheLineEX(tagWidth, 128))
@@ -250,6 +228,10 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     // WriteBuffer States
     val wsIdle :: wsWrite :: Nil = Enum(2) 
     val wstate       = RegInit(wsIdle)
+    val dataMask   = Wire(UInt(64.W))
+    val maskedData = Wire(UInt(64.W))
+    dataMask              := 0.U
+    maskedData            := 0.U
 
     switch(wstate){
         is (wsIdle){
@@ -258,8 +240,25 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
             }
         }
         is (wsWrite){
+            
 
-            writeCacheLine(cache(req_wset)(req_wline).data, req_wdata, req_wstrb, req_woffset)
+            switch(req_wstrb){
+                is (0x01.U) { dataMask  := Fill(8 , 1.U)}
+                is (0x03.U) { dataMask  := Fill(16, 1.U)}
+                is (0x0F.U) { dataMask  := Fill(32, 1.U)}
+                is (0xFF.U) { dataMask  := Fill(64, 1.U)}
+            }
+
+            dataMask                := (dataMask << (req_woffset(2, 0) << 3.U))
+            maskedData              := (req_wdata << (req_woffset(2, 0) << 3.U)) & dataMask
+            when((req_woffet & "b1000".U) > 0.U){
+                cache(req_wset)(req_wline).data   := Cat(cache(req_wset)(req_wline).data(127, 64), 
+                                                         cache(req_wset)(req_wline).data & ~dataMask | maskedData)
+            }
+            .otherwise{
+                cache(req_wset)(req_wline).data   := Cat(cache(req_wset)(req_wline).data(127, 64) & ~dataMask | maskedData, 
+                                                         cache(req_wset)(req_wline).data(63, 0))
+            }
             when(io.hit & req_op){
                 wstate      := wsWrite
             }
