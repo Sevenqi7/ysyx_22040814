@@ -79,6 +79,7 @@ class MEM_pre_stage extends Module{
     mem_cache.io.addr          := ALU_result(31, 0)
     mem_cache.io.wstrb         := wstrb
     mem_cache.io.wdata         := memWriteData
+    mem_cache.io.axi_rdata     := axi.readData.bits.data
     mem_cache.io.axi_arready   := axi.readAddr.ready
     mem_cache.io.axi_rlast     := axi.readData.bits.last
     mem_cache.io.axi_rvalid    := axi.readData.valid
