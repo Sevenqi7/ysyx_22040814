@@ -25,7 +25,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
 
         //cache-axi
         val axi_rreq    = Output(Bool())
-        val axi_rtype   = Output(UInt(3.W))
+        // val axi_rtype   = Output(UInt(3.W))
         val axi_raddr   = Output(UInt(32.W))
         val axi_arready = Input(Bool())
         val axi_rvalid  = Input(Bool())
@@ -82,9 +82,10 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     io.axi_rreq     := 0.U
     io.axi_raddr    := 0.U
     io.axi_wreq     := 0.U
-    io.axi_wtype    := 0.U
+    // io.axi_wtype    := 0.U
     io.axi_waddr    := 0.U
     io.axi_wstrb    := 0.U
+    io.axi_wlast    := 0.U
     io.axi_wdata    := 0x7777.U  
     
     /************************FSM************************/
@@ -121,6 +122,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
             io.axi_wdata            := dataQueue.io.deqData(63, 0)
             io.axi_wstrb            := 0xFF.U
             io.axi_wreq             := 1.U
+            io.axi_wlast            := 1.U
             dataQueue.io.deqValid   := 1.U
             addrQueue.io.deqValid   := 1.U
             qstate                  := qsWrite1
