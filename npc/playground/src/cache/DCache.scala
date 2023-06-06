@@ -42,7 +42,27 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
         val axi_wready  = Input(Bool())
     })
 
-    
+    def writeCacheLine(cacheline: Reg[UInt], data: UInt, wstrb: UInt, offset: UInt) : Unit = {
+        val dataMask   = Wire(UInt(64.W))
+        val maskedData = Wire(UInt(64.W))
+        
+        dataMask                    := 0.U
+        switch(wstrb){
+            is (0x01.U) { dataMask  := Fill(1.U, 8 )}
+            is (0x03.U) { dataMask  := Fill(1.U, 16)}
+            is (0x0F.U) { dataMask  := Fill(1.U, 32)}
+            is (0xFF.U) { dataMask  := Fill(1.U, 64)}
+        }
+
+        dataMask                := (dataMask << (offset(2, 0) << 3.U))
+        maskedData              := (data << (offser(2, 0) << 3.U)) & dataMask
+        when((offset & "b1000".U) > 0.U){
+            cacheline           := Cat(cacheline(127, 64), cacheline(63, 0) & ~dataMask | maskedData)
+        }.otherwise{
+            cacheline           := Cat(cacheline(127, 64) & ~dataMask | maskedData, cacheline(63, 0))
+        }
+        
+    }
     
 
     val cacheline = Wire(new CacheLineEX(tagWidth, 128))
@@ -231,15 +251,6 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     val wsIdle :: wsWrite :: Nil = Enum(2) 
     val wstate       = RegInit(wsIdle)
 
-    val writeLowBit  = Wire(UInt(6.W))
-    val writeHighBit = Wire(UInt(6.W))
-    val writeData    = Wire(UInt(64.W))
-    val dataMask     = Wire(UInt(64.W))
-    writeLowBit     := req_woffset(2, 0) << 3.U
-    writeHighBit    := writeLowBit + req_wstrb - 1.U
-    writeData       := (req_wdata << writeLowBit) & (0xFFFFFFFFFFFFFFFFL.U >> (63.U - writeHighBit))
-    dataMask        := 0xFFFFFFFFFFFFFFFFL.U
-
     switch(wstate){
         is (wsIdle){
             when(io.hit & req_op){
@@ -247,18 +258,8 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
             }
         }
         is (wsWrite){
-            dataMask                                    := (0xFFFFFFFFFFFFFFFFL.U << (writeHighBit + 1.U)) | (0xFFFFFFFFFFFFFFFFL.U >> (64.U - writeLowBit))
-            cache(req_wset)(req_wdata).dirty            := 1.U
-            when(req_wstrb === 0xFF.U){
-                cache(req_wset)(req_wline).data         := Cat(req_wdata(63, 0), req_wdata(127, 64))
-            }
-            .elsewhen((req_woffset & "b1000".U) > 0.U){
-                cache(req_wset)(req_wline).data         := Cat(cache(req_wset)(req_wline).data(127, 64), (cache(req_wset)(req_wline).data(63, 0) & dataMask) | writeData)
-            }
-            .otherwise{
-                cache(req_wset)(req_wline).data         := Cat((cache(req_wset)(req_wline).data(127, 64) & dataMask) | writeData, cache(req_wset)(req_wline).data(63, 0))
-            }
 
+            writeCacheLine(cache(req_wset)(req_wline).data, req_wdata, req_wstrb, req_woffset)
             when(io.hit & req_op){
                 wstate      := wsWrite
             }
