@@ -74,7 +74,6 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     val tag             = req_addr(offsetWidth + setWidth + tagWidth -1 , offsetWidth + setWidth)
     val index           = 127.U - offset * 8.U
     
-    val state           = RegInit(sIdle)
     val wstate          = RegInit(wsIdle)
     val lineBuf         = RegInit(0.U(dataWidth.W))
     
@@ -93,12 +92,12 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     /************************FSM************************/
     
     //cache-axi FIFO
-   
+    
     val qsIdle :: qsWrite1 :: qsWrite2 :: Nil = Enum(3)
     val dataQueue       = Module(new FIFO(UInt(128.W), 8))
     val addrQueue       = Module(new FIFO(UInt( 32.W), 8))
     val qstate          = RegInit(qsIdle)
-
+    
     dataQueue.io.enqValid   := 0.U
     dataQueue.io.enqData    := 0.U
     dataQueue.io.deqValid   := 0.U
@@ -135,14 +134,15 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     
     
     //cache main state machine
- 
+    
     // Main States
     val sIdle :: sLookup :: sMiss :: sRefill :: sReplace :: Nil = Enum(5)
     val refillIDX   = Wire(UInt(lineWidth.W))
     val refillHit   = Wire(Bool())
     refillIDX       := 0.U
     refillHit       := 0.U
-
+    val state           = RegInit(sIdle)
+    
     switch(state){
         is (sIdle){
             when(io.valid){
