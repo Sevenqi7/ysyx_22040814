@@ -109,7 +109,7 @@ class MEM_pre_stage extends Module{
     axi.readAddr.bits.cache    := 0.U
     axi.readAddr.bits.prot     := 0.U
     axi.readAddr.valid         := mem_cache.io.axi_rreq
-    axi.readData.ready         := memReadEn & io.EX_to_MEM_bus.valid
+    axi.readData.ready         := 1.U
 
 
     //w

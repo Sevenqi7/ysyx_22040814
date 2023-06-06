@@ -244,7 +244,6 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
         }
         is (wsWrite){
             
-
             switch(req_wstrb){
                 is (0x01.U) { dataMask  := Fill(8 , 1.U) << (req_woffset(2, 0) << 3.U)}
                 is (0x03.U) { dataMask  := Fill(16, 1.U) << (req_woffset(2, 0) << 3.U)}
