@@ -27050,16 +27050,16 @@ module sim_sram(
     reg [7:0] arlen_cntr, arlen_r, awlen_r, awlen_cntr, wstrb_r;
 
 
-    assign arready = arready_r;
-    assign rvalid = rvalid_r;
-    assign awready = awready_r;
-    assign wready = wready_r;
-    assign bvalid = bvalid_r;
-    assign bid   = bid_r;
-    assign rid   = rid_r;
-    assign rlast = rlast_r;
-    assign rresp = rresp_r;
-    assign bresp = bresp_r;
+    assign arready  = arready_r;
+    assign rvalid   = rvalid_r;
+    assign awready  = awready_r;
+    assign wready   = wready_r;
+    assign bvalid   = bvalid_r;
+    assign bid      = bid_r;
+    assign rid      = rid_r;
+    assign rlast    = rlast_r;
+    assign rresp    = rresp_r;
+    assign bresp    = bresp_r;
     // assign rdata = rdata_r;
 
     //ar
@@ -27083,7 +27083,7 @@ module sim_sram(
                 arready_r       <= 1'b1;
             end
         end
-        $display("arvalid:%d arready:%d arv_arr_flag:%d rdata:0x%x rvalid:%d rlast:%d, rid:%d", arvalid, arready_r, arv_arr_flag, rdata, rvalid_r, rlast_r, rid_r);
+        $display("arvalid:%d arready:%d arv_arr_flag:%d rdata:0x%x rvalid:%d rlast:%d, rid:%d, raddr_r:0x%x", arvalid, arready_r, arv_arr_flag, rdata, rvalid_r, rlast_r, rid_r, araddr_r);
     end
 
 
@@ -27102,7 +27102,7 @@ module sim_sram(
                 arburst_r   <= arburst;
                 arlen_r     <= arlen;
                 arsize_r    <= arsize;
-                arlen_cntr  <= 8'b0;
+                arlen_cntr  <= 8'b1;
                 rlast_r     <= (arlen < 8'b1);
                 rid_r       <= arid;
             end
