@@ -38,7 +38,7 @@ class MEM_pre_stage extends Module{
     })
     val axi = IO(new AXIMasterIF(32, 64, 4))
     val axi_req  = IO(new MyReadyValidIO)
-
+    
     //unpack bus from EXU
     val EX_pc        =  Mux(io.EX_to_MEM_bus.valid, io.EX_to_MEM_bus.bits.PC, 0.U)
     val EX_Inst      =  io.EX_to_MEM_bus.bits.Inst
@@ -53,7 +53,17 @@ class MEM_pre_stage extends Module{
     val csrWriteAddr =  io.EX_to_MEM_bus.bits.csrWriteAddr
     val csrWriteData =  io.EX_to_MEM_bus.bits.csrWriteData
     
-    axi_req.valid   :=  (lsutype > 0.U) | (io.PMEM_to_MEM_bus.bits.lsutype > 0.U)
+
+    /*****************DCache******************/
+    
+    //parameter
+    val offsetWidth = 4
+    val tagWidth    = 21
+    val nrSets      = 128
+    val nrLines     = 2
+
+    val mem_cache = Module(new DCache(tagWidth, nrSets, nrLines, offsetWidth))
+
     val wstrb = Wire(UInt(8.W))
     wstrb := 0.U
     switch(lsutype){
@@ -62,18 +72,64 @@ class MEM_pre_stage extends Module{
         is (sh) {wstrb := 0x03.U}
         is (sb) {wstrb := 0x01.U}
     }
-
+    //r
+    
+    mem_cache.io.valid         := (memReadEn | memWriteEn) & io.EX_to_MEM_bus.valid
+    mem_cache.io.op            := Mux(memWriteEn, 1.U, 0.U)
+    mem_cache.io.addr          := ALU_result(31, 0)
+    mem_cache.io.wstrb         := wstrb
+    mem_cache.io.wdata         := memWriteData
+    mem_cache.io.axi_arready   := axi.readAddr.ready
+    mem_cache.io.axi_rlast     := axi.readAddr.bits.rlast
+    mem_cache.io.axi_rvalid    := axi.readData.bits.valid
+    mem_cache.io.axi_awready   := axi.writeAddr.ready
+    mem_cache.io.axi_wready    := axi.writeData.ready
+     
+    
     val memReadData = Wire(UInt(64.W))
     memReadData := 0.U
     switch(io.PMEM_to_MEM_bus.bits.lsutype){
-        is (ld) {memReadData := axi.readData.bits.data}
-        is (lw) {memReadData := SEXT(axi.readData.bits.data(31, 0), 32)}
-        is (lh) {memReadData := SEXT(axi.readData.bits.data(15, 0), 16)}
-        is (lb) {memReadData := SEXT(axi.readData.bits.data( 7, 0),  8)}
-        is (lwu){memReadData := axi.readData.bits.data(31, 0)}
-        is (lhu){memReadData := axi.readData.bits.data(15, 0)}
-        is (lbu){memReadData := axi.readData.bits.data( 7 ,0)}
+        is (ld) {memReadData := mem_cache.io.rdata}
+        is (lw) {memReadData := SEXT(mem_cache.io.rdata(31, 0), 32)}
+        is (lh) {memReadData := SEXT(mem_cache.io.rdata(15, 0), 16)}
+        is (lb) {memReadData := SEXT(mem_cache.io.rdata( 7, 0),  8)}
+        is (lwu){memReadData := mem_cache.io.rdata(31, 0)}
+        is (lhu){memReadData := mem_cache.io.rdata(15, 0)}
+        is (lbu){memReadData := mem_cache.io.rdata( 7 ,0)}
     }
+    
+    axi_req.valid              := mem_cache.io.axi_rreq | mem_cache.io.axi_wreq
+    axi.readAddr.bits.id       := 1.U
+    axi.readAddr.bits.addr     := mem_cache.io.axi_raddr
+    axi.readAddr.bits.len      := 0.U
+    axi.readAddr.bits.size     := "b011.U".U       //64 bits
+    axi.readAddr.bits.burst    := "b01".U
+    axi.readAddr.bits.lock     := 0.U
+    axi.readAddr.bits.cache    := 0.U
+    axi.readAddr.bits.prot     := 0.U
+    axi.readAddr.valid         := mem_cache.io.axi_rreq
+    axi.readData.ready         := memReadEn & io.EX_to_MEM_bus.valid
+
+
+    //w
+    axi.writeAddr.bits.id      := 1.U
+    axi.writeAddr.bits.addr    := mem_cahce.io.axi_waddr
+    axi.writeAddr.bits.len     := 1.U
+    axi.writeAddr.bits.size    := "b011".U
+    axi.writeAddr.bits.burst   := "b01".U
+    axi.writeAddr.bits.lock    := 0.U
+    axi.writeAddr.bits.cache   := 0.U
+    axi.writeAddr.bits.prot    := 0.U
+    axi.writeAddr.valid        := mem_cache.io.axi_wreq
+
+    axi.writeData.bits.id      := 1.U
+    axi.writeData.bits.data    := mem_cahce.io.axi_wdata
+    axi.writeData.bits.strb    := mem_cache.io.axi_wstrb
+    axi.writeData.bits.last    := mem_cache.io.axi_wlast
+    axi.writeData.valid        := mem_cache.io.axi_wreq
+    axi.writeResp.ready        := 1.U
+    /***************DCache  End****************/
+
     
     val stall = (memReadEn | memWriteEn) & io.EX_to_MEM_bus.valid & (!axi.readAddr.ready | !axi.writeAddr.ready)
 
@@ -96,36 +152,6 @@ class MEM_pre_stage extends Module{
     io.memReadData             := memReadData
     io.EX_to_MEM_bus.ready     := Mux(stall, 0.U, 1.U)
 
-    //r
-    
-    axi.readAddr.bits.id       := 1.U
-    axi.readAddr.bits.addr     := ALU_result(31, 0)
-    axi.readAddr.bits.len      := 0.U
-    axi.readAddr.bits.size     := 6.U       //64 bits
-    axi.readAddr.bits.burst    := "b01".U
-    axi.readAddr.bits.lock     := 0.U
-    axi.readAddr.bits.cache    := 0.U
-    axi.readAddr.bits.prot     := 0.U
-    axi.readAddr.valid         := memReadEn & io.EX_to_MEM_bus.valid
-    axi.readData.ready         := memReadEn & io.EX_to_MEM_bus.valid
-
-    //w
-    axi.writeAddr.bits.id      := 1.U
-    axi.writeAddr.bits.addr    := ALU_result(31, 0)
-    axi.writeAddr.bits.len     := 0.U
-    axi.writeAddr.bits.size    := 0.U
-    axi.writeAddr.bits.burst   := 0.U
-    axi.writeAddr.bits.lock    := 0.U
-    axi.writeAddr.bits.cache   := 0.U
-    axi.writeAddr.bits.prot    := 0.U
-    axi.writeAddr.valid        := memWriteEn & io.EX_to_MEM_bus.valid
-
-    axi.writeData.bits.id      := 1.U
-    axi.writeData.bits.data    := memWriteData
-    axi.writeData.bits.strb    := wstrb
-    axi.writeData.bits.last    := 1.U
-    axi.writeData.valid        := memWriteEn & io.EX_to_MEM_bus.valid
-    axi.writeResp.ready        := memWriteEn & io.EX_to_MEM_bus.valid
 
     //forward
     io.PMEM_to_ID_forward.bits.ALU_result   := ALU_result    

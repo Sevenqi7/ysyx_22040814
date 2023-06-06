@@ -39,7 +39,6 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
         val axi_wdata   = Output(UInt(64.W))
         val axi_wlast   = Output(Bool())
         val axi_awready = Input(Bool())
-        val axi_awvalid = Output(Bool())
         val axi_wready  = Input(Bool())
     })
 
@@ -110,27 +109,26 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     val wcnt            = RegInit(0.B)
     switch(qstate){
         is (qsIdle){
+            qstate              := qsIdle
             when(io.axi_awready & !dataQueue.empty){
-                qstate      := qsWrite1
+                io.axi_wreq     := 1.U
+                io.axi_wstrb    := 0xFF.U
+                io.axi_wdata    := dataQueue.io.deqData(127, 64)
+                io.axi_waddr    := addrQueue.io.deqData
+                when(io.axi_wready){
+                    qstate      := qsWrite1
+                }
             }
         }
         is (qsWrite1){
-            io.axi_wdata    := dataQueue.io.deqData(127, 64)
-            io.axi_wstrb    := 0xFF.U
-            io.axi_wreq     := 1.U
-            qstate          := qsWrite1
+            io.axi_wdata            := dataQueue.io.deqData(63, 0)
+            io.axi_wstrb            := 0xFF.U
+            io.axi_wreq             := 1.U
+            dataQueue.io.deqValid   := 1.U
+            addrQueue.io.deqValid   := 1.U
+            qstate                  := qsWrite1
             when(io.axi_wready){
-                qstate      := qsWrite2
-            }
-        }
-        is (qsWrite2){
-            io.axi_wdata    := dataQueue.io.deqData(63, 0)
-            io.axi_wstrb    := 0xFF.U
-            io.axi_wreq     := 1.U
-            io.axi_wlast    := 1.U
-            qstate          := qsWrite2
-            when(io.axi_wready){
-                qstate      := qsIdle
+                qstate              := qsIdle
             }
         }
     }
@@ -205,7 +203,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
                     refillIDX        := i.U
                 }
             }
-            for(i <- 0 until nrLines-1){
+            for(i <- 0 until nrLines-1){memWriteEn & io.EX_to_MEM_bus.valid
                 when(cache(set)(i).valid & tag === cache(set)(i).tag){
                     refillHit        := 1.U
                     refillIDX        := i.U
@@ -218,7 +216,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
                 cache(set)(refillIDX).dirty := 0.U
                 addrQueue.io.enqValid       := 1.U
                 addrQueue.io.enqData        := Cat(Seq(cache(set)(refillIDX).tag, set, refillIDX))
-                dataQueue.io.enqValid      := 1.U
+                dataQueue.io.enqValid       := 1.U
                 dataQueue.io.enqData        := cache(set)(refillIDX).data
             }
             cache(set)(refillIDX).valid     := 1.U

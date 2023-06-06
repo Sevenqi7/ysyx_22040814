@@ -44,6 +44,7 @@ class IF_pre_fetch extends Module{
     val tagWidth    = 21
     val nrSets      = 128
     val nrLines     = 2
+    
     val inst_cache  = Module(new ICache(tagWidth, nrSets, nrLines, offsetWidth))
     io.cache_hit               := inst_cache.io.hit
     io.cache_state             := inst_cache.io.state
