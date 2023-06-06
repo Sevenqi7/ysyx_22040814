@@ -231,8 +231,8 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     // WriteBuffer States
     val wsIdle :: wsWrite :: Nil = Enum(2) 
     val wstate       = RegInit(wsIdle)
-    val dataMask   = Wire(UInt(64.W))
-    val maskedData = Wire(UInt(64.W))
+    val dataMask     = Wire(UInt(64.W))
+    val maskedData   = Wire(UInt(64.W))
     dataMask              := 0.U
     maskedData            := 0.U
 
@@ -253,7 +253,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
             }
 
             dataMask                := (dataMask << (req_woffset(2, 0) << 3.U))
-            maskedData              := (req_wdata << (req_woffset(2, 0) << 3.U)) & dataMask
+            // maskedData              := (req_wdata << (req_woffset(2, 0) << 3.U)) & dataMask
             when((req_woffset & "b1000".U) > 0.U){
                 cache(req_wset)(req_wline).data   := Cat(cache(req_wset)(req_wline).data(127, 64), 
                                                          cache(req_wset)(req_wline).data & ~dataMask | maskedData)
