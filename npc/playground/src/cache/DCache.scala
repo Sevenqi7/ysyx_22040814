@@ -203,7 +203,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
                     refillIDX        := i.U
                 }
             }
-            for(i <- 0 until nrLines-1){memWriteEn & io.EX_to_MEM_bus.valid
+            for(i <- 0 until nrLines-1){
                 when(cache(set)(i).valid & tag === cache(set)(i).tag){
                     refillHit        := 1.U
                     refillIDX        := i.U
