@@ -113,7 +113,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
                 io.axi_wstrb    := 0xFF.U
                 io.axi_wdata    := dataQueue.io.deqData(127, 64)
                 io.axi_waddr    := addrQueue.io.deqData
-                when(io.axi_wready){
+                when(io.axi_awready){
                     qstate      := qsWrite1
                 }
             }
@@ -175,12 +175,12 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
             }
         }
         is (sMiss){
+            io.axi_rreq          := 1.U
+            io.axi_raddr         := req_addr & (0xFFFFFFFFL.U << offsetWidth)
             when(!io.axi_arready){
                 state                := sMiss
             }
             .otherwise{
-                io.axi_rreq          := 1.U
-                io.axi_raddr         := req_addr & (0xFFFFFFFFL.U << offsetWidth)
                 state                := sRefill
             }
         }
