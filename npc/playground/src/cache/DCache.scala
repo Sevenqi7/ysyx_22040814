@@ -108,7 +108,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     switch(qstate){
         is (qsIdle){
             qstate              := qsIdle
-            when(io.axi_awready & !dataQueue.empty){
+            when(io.axi_awready & !dataQueue.io.empty){
                 io.axi_wreq     := 1.U
                 io.axi_wstrb    := 0xFF.U
                 io.axi_wdata    := dataQueue.io.deqData(127, 64)
