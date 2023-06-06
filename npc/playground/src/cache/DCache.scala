@@ -47,7 +47,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
         val maskedData = Wire(UInt(64.W))
         
         dataMask                    := 0.U
-        switch(wstrb)
+        switch(wstrb){
             is (0x01.U) { dataMask  := Fill(8 , 1.U)}
             is (0x03.U) { dataMask  := Fill(16, 1.U)}
             is (0x0F.U) { dataMask  := Fill(32, 1.U)}
