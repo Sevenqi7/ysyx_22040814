@@ -14479,13 +14479,13 @@ module FIFO(	// <stdin>:3087:10
   reg  [127:0]      queue_6;	// tools.scala:83:26
   reg  [127:0]      queue_7;	// tools.scala:83:26
   reg  [2:0]        qrear;	// tools.scala:84:26
-  reg  [2:0]        qfront;	// tools.scala:85:26
-  reg               full;	// tools.scala:86:26
-  reg               empty;	// tools.scala:87:26
+  reg  [2:0]        qfront;	// tools.scala:86:26
+  reg               full;	// tools.scala:87:26
+  reg               empty;	// tools.scala:88:26
   wire [7:0][127:0] _GEN = {{queue_7}, {queue_6}, {queue_5}, {queue_4}, {queue_3}, {queue_2}, {queue_1}, {queue_0}};	// tools.scala:83:26, :109:25
   wire [127:0]      _GEN_0;	// tools.scala:109:25
   /* synopsys infer_mux_override */
-  assign _GEN_0 = _GEN[qrear - 3'h1] /* cadence map_to_mux */;	// tools.scala:84:26, :109:{25,39}
+  assign _GEN_0 = _GEN[qfront] /* cadence map_to_mux */;	// tools.scala:86:26, :109:25
   always @(posedge clock) begin
     if (reset) begin
       queue_0 <= 128'h0;	// tools.scala:82:32, :83:26
@@ -14497,17 +14497,17 @@ module FIFO(	// <stdin>:3087:10
       queue_6 <= 128'h0;	// tools.scala:82:32, :83:26
       queue_7 <= 128'h0;	// tools.scala:82:32, :83:26
       qrear <= 3'h0;	// tools.scala:84:26
-      qfront <= 3'h0;	// tools.scala:84:26, :85:26
-      full <= 1'h0;	// tools.scala:82:32, :86:26
-      empty <= 1'h1;	// tools.scala:87:26
+      qfront <= 3'h0;	// tools.scala:84:26, :86:26
+      full <= 1'h0;	// tools.scala:82:32, :87:26
+      empty <= 1'h1;	// tools.scala:88:26
     end
     else begin
       automatic logic       _T_1;	// tools.scala:94:22
       automatic logic       _T_8;	// tools.scala:101:43
       automatic logic [2:0] _qfront_T_1;	// tools.scala:102:35
-      _T_1 = io_enqValid & ~full;	// tools.scala:86:26, :94:{22,24}
-      _T_8 = ~io_enqValid & io_deqValid & ~empty;	// tools.scala:87:26, :101:{16,43,45}
-      _qfront_T_1 = qfront + 3'h1;	// tools.scala:85:26, :95:25, :102:35
+      _T_1 = io_enqValid & ~full;	// tools.scala:87:26, :94:{22,24}
+      _T_8 = ~io_enqValid & io_deqValid & ~empty;	// tools.scala:88:26, :101:{16,43,45}
+      _qfront_T_1 = qfront + 3'h1;	// tools.scala:86:26, :95:25, :102:35
       if (_T_1 & qrear == 3'h0)	// tools.scala:83:26, :84:26, :94:{22,30}, :95:25
         queue_0 <= io_enqData;	// tools.scala:83:26
       if (_T_1 & qrear == 3'h1)	// tools.scala:83:26, :84:26, :94:{22,30}, :95:25
@@ -14528,15 +14528,15 @@ module FIFO(	// <stdin>:3087:10
         automatic logic [2:0] _qrear_T_1;	// tools.scala:96:34
         _qrear_T_1 = qrear + 3'h1;	// tools.scala:84:26, :95:25, :96:34
         qrear <= _qrear_T_1;	// tools.scala:84:26, :96:34
-        full <= _qrear_T_1 == qfront | full;	// tools.scala:85:26, :86:26, :96:34, :98:{24,35}, :99:25
+        full <= _qrear_T_1 == qfront | full;	// tools.scala:86:26, :87:26, :96:34, :98:{24,35}, :99:25
       end
       else	// tools.scala:94:22
-        full <= ~_T_8 & full;	// tools.scala:85:26, :86:26, :94:30, :101:{43,52}, :103:25
-      if (_T_1 | ~_T_8) begin	// tools.scala:85:26, :94:{22,30}, :101:{43,52}
+        full <= ~_T_8 & full;	// tools.scala:86:26, :87:26, :94:30, :101:{43,52}, :103:25
+      if (_T_1 | ~_T_8) begin	// tools.scala:86:26, :94:{22,30}, :101:{43,52}
       end
-      else	// tools.scala:85:26, :94:{22,30}, :101:{43,52}
-        qfront <= _qfront_T_1;	// tools.scala:85:26, :102:35
-      empty <= ~_T_1 & (_T_8 & _qfront_T_1 == qrear | empty);	// tools.scala:84:26, :87:26, :94:{22,30}, :97:21, :101:{43,52}, :102:35, :104:{25,35}
+      else	// tools.scala:86:26, :94:{22,30}, :101:{43,52}
+        qfront <= _qfront_T_1;	// tools.scala:86:26, :102:35
+      empty <= ~_T_1 & (_T_8 & _qfront_T_1 == qrear | empty);	// tools.scala:84:26, :88:26, :94:{22,30}, :97:21, :101:{43,52}, :102:35, :104:{25,35}
     end
   end // always @(posedge)
   `ifndef SYNTHESIS	// <stdin>:3087:10
@@ -14623,9 +14623,9 @@ module FIFO(	// <stdin>:3087:10
         queue_6 = {_RANDOM_24, _RANDOM_25, _RANDOM_26, _RANDOM_27};	// tools.scala:83:26
         queue_7 = {_RANDOM_28, _RANDOM_29, _RANDOM_30, _RANDOM_31};	// tools.scala:83:26
         qrear = _RANDOM_32[2:0];	// tools.scala:84:26
-        qfront = _RANDOM_32[5:3];	// tools.scala:84:26, :85:26
-        full = _RANDOM_32[6];	// tools.scala:84:26, :86:26
-        empty = _RANDOM_32[7];	// tools.scala:84:26, :87:26
+        qfront = _RANDOM_32[8:6];	// tools.scala:84:26, :86:26
+        full = _RANDOM_32[9];	// tools.scala:84:26, :87:26
+        empty = _RANDOM_32[10];	// tools.scala:84:26, :88:26
       `endif // RANDOMIZE_REG_INIT
     end // initial
     `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:3087:10
@@ -14633,7 +14633,7 @@ module FIFO(	// <stdin>:3087:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
   assign io_deqData = _GEN_0;	// <stdin>:3087:10, tools.scala:109:25
-  assign io_empty = empty;	// <stdin>:3087:10, tools.scala:87:26
+  assign io_empty = empty;	// <stdin>:3087:10, tools.scala:88:26
 endmodule
 
 module FIFO_1(	// <stdin>:3149:10
@@ -14653,13 +14653,13 @@ module FIFO_1(	// <stdin>:3149:10
   reg  [31:0]      queue_6;	// tools.scala:83:26
   reg  [31:0]      queue_7;	// tools.scala:83:26
   reg  [2:0]       qrear;	// tools.scala:84:26
-  reg  [2:0]       qfront;	// tools.scala:85:26
-  reg              full;	// tools.scala:86:26
-  reg              empty;	// tools.scala:87:26
+  reg  [2:0]       qfront;	// tools.scala:86:26
+  reg              full;	// tools.scala:87:26
+  reg              empty;	// tools.scala:88:26
   wire [7:0][31:0] _GEN = {{queue_7}, {queue_6}, {queue_5}, {queue_4}, {queue_3}, {queue_2}, {queue_1}, {queue_0}};	// tools.scala:83:26, :109:25
   wire [31:0]      _GEN_0;	// tools.scala:109:25
   /* synopsys infer_mux_override */
-  assign _GEN_0 = _GEN[qrear - 3'h1] /* cadence map_to_mux */;	// tools.scala:84:26, :109:{25,39}
+  assign _GEN_0 = _GEN[qfront] /* cadence map_to_mux */;	// tools.scala:86:26, :109:25
   always @(posedge clock) begin
     if (reset) begin
       queue_0 <= 32'h0;	// tools.scala:82:32, :83:26
@@ -14671,17 +14671,17 @@ module FIFO_1(	// <stdin>:3149:10
       queue_6 <= 32'h0;	// tools.scala:82:32, :83:26
       queue_7 <= 32'h0;	// tools.scala:82:32, :83:26
       qrear <= 3'h0;	// tools.scala:84:26
-      qfront <= 3'h0;	// tools.scala:84:26, :85:26
-      full <= 1'h0;	// tools.scala:82:32, :86:26
-      empty <= 1'h1;	// tools.scala:87:26
+      qfront <= 3'h0;	// tools.scala:84:26, :86:26
+      full <= 1'h0;	// tools.scala:82:32, :87:26
+      empty <= 1'h1;	// tools.scala:88:26
     end
     else begin
       automatic logic       _T_1;	// tools.scala:94:22
       automatic logic       _T_8;	// tools.scala:101:43
       automatic logic [2:0] _qfront_T_1;	// tools.scala:102:35
-      _T_1 = io_enqValid & ~full;	// tools.scala:86:26, :94:{22,24}
-      _T_8 = ~io_enqValid & io_deqValid & ~empty;	// tools.scala:87:26, :101:{16,43,45}
-      _qfront_T_1 = qfront + 3'h1;	// tools.scala:85:26, :95:25, :102:35
+      _T_1 = io_enqValid & ~full;	// tools.scala:87:26, :94:{22,24}
+      _T_8 = ~io_enqValid & io_deqValid & ~empty;	// tools.scala:88:26, :101:{16,43,45}
+      _qfront_T_1 = qfront + 3'h1;	// tools.scala:86:26, :95:25, :102:35
       if (_T_1 & qrear == 3'h0)	// tools.scala:83:26, :84:26, :94:{22,30}, :95:25
         queue_0 <= io_enqData;	// tools.scala:83:26
       if (_T_1 & qrear == 3'h1)	// tools.scala:83:26, :84:26, :94:{22,30}, :95:25
@@ -14702,15 +14702,15 @@ module FIFO_1(	// <stdin>:3149:10
         automatic logic [2:0] _qrear_T_1;	// tools.scala:96:34
         _qrear_T_1 = qrear + 3'h1;	// tools.scala:84:26, :95:25, :96:34
         qrear <= _qrear_T_1;	// tools.scala:84:26, :96:34
-        full <= _qrear_T_1 == qfront | full;	// tools.scala:85:26, :86:26, :96:34, :98:{24,35}, :99:25
+        full <= _qrear_T_1 == qfront | full;	// tools.scala:86:26, :87:26, :96:34, :98:{24,35}, :99:25
       end
       else	// tools.scala:94:22
-        full <= ~_T_8 & full;	// tools.scala:85:26, :86:26, :94:30, :101:{43,52}, :103:25
-      if (_T_1 | ~_T_8) begin	// tools.scala:85:26, :94:{22,30}, :101:{43,52}
+        full <= ~_T_8 & full;	// tools.scala:86:26, :87:26, :94:30, :101:{43,52}, :103:25
+      if (_T_1 | ~_T_8) begin	// tools.scala:86:26, :94:{22,30}, :101:{43,52}
       end
-      else	// tools.scala:85:26, :94:{22,30}, :101:{43,52}
-        qfront <= _qfront_T_1;	// tools.scala:85:26, :102:35
-      empty <= ~_T_1 & (_T_8 & _qfront_T_1 == qrear | empty);	// tools.scala:84:26, :87:26, :94:{22,30}, :97:21, :101:{43,52}, :102:35, :104:{25,35}
+      else	// tools.scala:86:26, :94:{22,30}, :101:{43,52}
+        qfront <= _qfront_T_1;	// tools.scala:86:26, :102:35
+      empty <= ~_T_1 & (_T_8 & _qfront_T_1 == qrear | empty);	// tools.scala:84:26, :88:26, :94:{22,30}, :97:21, :101:{43,52}, :102:35, :104:{25,35}
     end
   end // always @(posedge)
   `ifndef SYNTHESIS	// <stdin>:3149:10
@@ -14749,9 +14749,9 @@ module FIFO_1(	// <stdin>:3149:10
         queue_6 = _RANDOM_6;	// tools.scala:83:26
         queue_7 = _RANDOM_7;	// tools.scala:83:26
         qrear = _RANDOM_8[2:0];	// tools.scala:84:26
-        qfront = _RANDOM_8[5:3];	// tools.scala:84:26, :85:26
-        full = _RANDOM_8[6];	// tools.scala:84:26, :86:26
-        empty = _RANDOM_8[7];	// tools.scala:84:26, :87:26
+        qfront = _RANDOM_8[8:6];	// tools.scala:84:26, :86:26
+        full = _RANDOM_8[9];	// tools.scala:84:26, :87:26
+        empty = _RANDOM_8[10];	// tools.scala:84:26, :88:26
       `endif // RANDOMIZE_REG_INIT
     end // initial
     `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:3149:10
