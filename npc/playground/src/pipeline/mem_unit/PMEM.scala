@@ -80,11 +80,11 @@ class MEM_pre_stage extends Module{
     mem_cache.io.wstrb         := wstrb
     mem_cache.io.wdata         := memWriteData
     mem_cache.io.axi_arready   := axi.readAddr.ready
-    mem_cache.io.axi_rlast     := axi.readAddr.bits.rlast
-    mem_cache.io.axi_rvalid    := axi.readData.bits.valid
+    mem_cache.io.axi_rlast     := axi.readData.bits.last
+    mem_cache.io.axi_rvalid    := axi.readData.valid
     mem_cache.io.axi_awready   := axi.writeAddr.ready
     mem_cache.io.axi_wready    := axi.writeData.ready
-     
+
     
     val memReadData = Wire(UInt(64.W))
     memReadData := 0.U
@@ -113,7 +113,7 @@ class MEM_pre_stage extends Module{
 
     //w
     axi.writeAddr.bits.id      := 1.U
-    axi.writeAddr.bits.addr    := mem_cahce.io.axi_waddr
+    axi.writeAddr.bits.addr    := mem_cache.io.axi_waddr
     axi.writeAddr.bits.len     := 1.U
     axi.writeAddr.bits.size    := "b011".U
     axi.writeAddr.bits.burst   := "b01".U
@@ -123,7 +123,7 @@ class MEM_pre_stage extends Module{
     axi.writeAddr.valid        := mem_cache.io.axi_wreq
 
     axi.writeData.bits.id      := 1.U
-    axi.writeData.bits.data    := mem_cahce.io.axi_wdata
+    axi.writeData.bits.data    := mem_cache.io.axi_wdata
     axi.writeData.bits.strb    := mem_cache.io.axi_wstrb
     axi.writeData.bits.last    := mem_cache.io.axi_wlast
     axi.writeData.valid        := mem_cache.io.axi_wreq
