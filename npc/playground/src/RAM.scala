@@ -1,4 +1,4 @@
-    import chisel3._
+import chisel3._
 import chisel3.util._
 import chisel3.experimental._
 import AXIDefs._
@@ -57,7 +57,6 @@ class AXI_Arbiter(val n: Int) extends Module{
     val in = IO(Flipped(Vec(n, new AXIMasterIF(32, 64, 4))))
     val req = IO(Flipped(Vec(n, new MyReadyValidIO)))
     val out = IO(new AXIMasterIF(32, 64, 4))
-    val axi_busy = IO(Input(UInt(2.W)))
 
     out <> in(n-1)
     for(i <- n - 1 to 0 by -1){

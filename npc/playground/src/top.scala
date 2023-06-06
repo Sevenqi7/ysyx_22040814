@@ -220,7 +220,6 @@ class top extends Module{
     arb.in(1)       <> inst_fetch_unit.axi
     arb.req(0)      <> pre_mem_unit.axi_req
     arb.req(1)      <> inst_fetch_unit.axi_req
-    arb.axi_busy    := ram_unit.axi_busy
     io.PF_axidata := inst_fetch_unit.axi.readData.bits.data
     io.cache_rlast := inst_fetch_unit.axi.readData.bits.last
 
