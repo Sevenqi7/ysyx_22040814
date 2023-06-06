@@ -74,7 +74,6 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     val tag             = req_addr(offsetWidth + setWidth + tagWidth -1 , offsetWidth + setWidth)
     val index           = 127.U - offset * 8.U
     
-    val wstate          = RegInit(wsIdle)
     val lineBuf         = RegInit(0.U(dataWidth.W))
     
     //initialise
@@ -139,9 +138,9 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     val sIdle :: sLookup :: sMiss :: sRefill :: sReplace :: Nil = Enum(5)
     val refillIDX   = Wire(UInt(lineWidth.W))
     val refillHit   = Wire(Bool())
+    val state       = RegInit(sIdle)
     refillIDX       := 0.U
     refillHit       := 0.U
-    val state           = RegInit(sIdle)
     
     switch(state){
         is (sIdle){
@@ -230,6 +229,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
 
     // WriteBuffer States
     val wsIdle :: wsWrite :: Nil = Enum(2) 
+    val wstate       = RegInit(wsIdle)
 
     val writeLowBit  = Wire(UInt(6.W))
     val writeHighBit = Wire(UInt(6.W))
