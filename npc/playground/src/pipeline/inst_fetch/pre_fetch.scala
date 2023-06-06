@@ -66,7 +66,7 @@ class IF_pre_fetch extends Module{
     axi.readData.ready         := !io.stall
     inst_cache.io.addr         := MuxCase(PF_npc(31, 0), Seq(
         (io.bp_flush, io.bp_npc),
-        (io.stall | inst_cache.io.miss, io.PF_pc ),
+        (io.stall | inst_cache.io.miss, io.PF_pc),
         (io.bp_taken, io.bp_npc)
         ))
     inst_cache.io.valid        := !reset.asBool

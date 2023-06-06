@@ -17,6 +17,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
         val wstrb       = Input(UInt(8.W))  
         val wdata       = Input(UInt(64.W)) 
         val rdata       = Output(UInt(64.W))
+        val miss        = Output(Bool())
         val data_ok     = Output(Bool())
         val addr_ok     = Output(Bool())
 
@@ -76,9 +77,9 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     
     //initialise
     io.hit          := 0.U
-    io.rdata        := 0x7777.U
-    io.data_ok      := 0.U
+    io.data_ok      := 0.U    
     io.addr_ok      := 0.U
+    io.rdata        := 0x7777.U
     io.axi_rreq     := 0.U
     io.axi_raddr    := 0.U
     io.axi_wreq     := 0.U
@@ -88,6 +89,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     io.axi_wlast    := 0.U
     io.axi_wdata    := 0x7777.U  
     
+    io.miss         := !io.data_ok & io.addr_ok
     /************************FSM************************/
     
     //cache-axi FIFO
@@ -139,16 +141,25 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     val sIdle :: sLookup :: sMiss :: sRefill :: sReplace :: Nil = Enum(5)
     val refillIDX   = Wire(UInt(lineWidth.W))
     val refillHit   = Wire(Bool())
+    val addr_ok     = RegInit(0.B)
     val state       = RegInit(sIdle)
     refillIDX       := 0.U
     refillHit       := 0.U
+
+    io.data_ok      := 0.U
+    io.addr_ok      := addr_ok
     
     switch(state){
         is (sIdle){
-            when(io.valid){
+            when(addr_ok){
+                state       := sLookup
+            }
+            .elsewhen(io.valid){
                 state       := sLookup
                 req_valid   := io.valid
                 req_addr    := io.addr
+                req_op      := io.op
+                addr_ok     := 1.U
             }
         }
         is (sLookup){
@@ -158,10 +169,10 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
                     //read opereation
                     when(!req_op){
                         when((offset & "b1000".U) > 0.U){
-                            io.rdata                := cache(set)(i).data(63, 0)
+                            io.rdata                := cache(set)(i).data(63, 0) >> (offset(2, 0) << 3.U)
                         }
                         .otherwise{
-                            io.rdata                := cache(set)(i).data(127, 64)
+                            io.rdata                := cache(set)(i).data(127, 64) >> (offset(2, 0) << 3.U)
                         }
                     }
                     .otherwise{
@@ -170,8 +181,22 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
                         req_wset     := set
                         req_wline    := i.U
                     }
+                    io.data_ok                  := 1.U
+                    addr_ok                     := 0.U
                     //write operation is in WriteBuffer FSM
                 }               
+            }
+            when(!io.hit){
+                state                := sMiss
+            }
+            .elsewhen(io.valid){
+                state                := sLookup
+                req_valid            := io.valid
+                req_addr             := io.addr
+                req_op               := io.op
+                addr_ok              := 1.U
+            }.otherwise{
+                state                := sIdle
             }
         }
         is (sMiss){
@@ -243,15 +268,15 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
             }
         }
         is (wsWrite){
-            
             switch(req_wstrb){
                 is (0x01.U) { dataMask  := Fill(8 , 1.U) << (req_woffset(2, 0) << 3.U)}
                 is (0x03.U) { dataMask  := Fill(16, 1.U) << (req_woffset(2, 0) << 3.U)}
                 is (0x0F.U) { dataMask  := Fill(32, 1.U) << (req_woffset(2, 0) << 3.U)}
                 is (0xFF.U) { dataMask  := Fill(64, 1.U) << (req_woffset(2, 0) << 3.U)}
             }
-
-            maskedData              := (req_wdata << (req_woffset(2, 0) << 3.U)) & dataMask
+            
+            maskedData                            := (req_wdata << (req_woffset(2, 0) << 3.U)) & dataMask
+            cache(req_wset)(req_wline).dirty      := 1.U
             when((req_woffset & "b1000".U) > 0.U){
                 cache(req_wset)(req_wline).data   := Cat(cache(req_wset)(req_wline).data(127, 64), 
                                                          cache(req_wset)(req_wline).data & ~dataMask | maskedData)
@@ -264,7 +289,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
                 wstate      := wsWrite
             }
             .otherwise{
-                wstate := wsIdle
+                wstate      := wsIdle
             }
         }
     }

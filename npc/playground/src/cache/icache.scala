@@ -34,7 +34,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
 
     val sIdle :: sLookup :: sMiss :: sRefill :: sReplace :: Nil = Enum(5)
 
-    //statistics
+    //statistic
     val cache_miss_cnt = RegInit(0.U(32.W))
     io.cache_miss_cnt   := cache_miss_cnt
 

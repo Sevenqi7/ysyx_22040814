@@ -31,10 +31,11 @@ class MEM_to_WB_Message extends Bundle{
 
 class MEMU extends Module{
     val io = IO(new Bundle{
-        val PMEM_to_MEM_bus = Flipped(Decoupled(new PMEM_MEM_Message))
-        val memReadData = Input(UInt(64.W))
-        val MEM_to_WB_bus = Decoupled(new MEM_to_WB_Message)
-        val MEM_to_ID_forward = Decoupled(new MEM_to_ID_Message)
+        val PMEM_to_MEM_bus     = Flipped(Decoupled(new PMEM_MEM_Message))
+        val memReadData         = Input(UInt(64.W))
+        val MEM_to_WB_bus       = Decoupled(new MEM_to_WB_Message)
+        val MEM_to_ID_forward   = Decoupled(new MEM_to_ID_Message)
+        val dcache_miss         = Input(Bool())
     })
 
     //unpack bus from PMEMU
@@ -53,18 +54,18 @@ class MEMU extends Module{
 
     regWriteData := Mux(memReadEn, io.memReadData, ALU_result)
     
-    regConnect(io.MEM_to_WB_bus.bits.PC                , PMEM_pc        )
-    regConnect(io.MEM_to_WB_bus.bits.Inst              , PMEM_Inst      )
-    regConnect(io.MEM_to_WB_bus.bits.regWriteEn        , regWriteEn     )
-    regConnect(io.MEM_to_WB_bus.bits.regWriteID        , regWriteID     )
-    regConnect(io.MEM_to_WB_bus.bits.regWriteData      , regWriteData   )
-    regConnect(io.MEM_to_WB_bus.bits.csrWriteEn        , csrWriteEn     )
-    regConnect(io.MEM_to_WB_bus.bits.csrWriteAddr      , csrWriteAddr   )
-    regConnect(io.MEM_to_WB_bus.bits.csrWriteData      , csrWriteData   )
+    regConnectWithStall(io.MEM_to_WB_bus.bits.PC                , PMEM_pc        , io.dcache_miss)
+    regConnectWithStall(io.MEM_to_WB_bus.bits.Inst              , PMEM_Inst      , io.dcache_miss)
+    regConnectWithStall(io.MEM_to_WB_bus.bits.regWriteEn        , regWriteEn     , io.dcache_miss)
+    regConnectWithStall(io.MEM_to_WB_bus.bits.regWriteID        , regWriteID     , io.dcache_miss)
+    regConnectWithStall(io.MEM_to_WB_bus.bits.regWriteData      , regWriteData   , io.dcache_miss)
+    regConnectWithStall(io.MEM_to_WB_bus.bits.csrWriteEn        , csrWriteEn     , io.dcache_miss)
+    regConnectWithStall(io.MEM_to_WB_bus.bits.csrWriteAddr      , csrWriteAddr   , io.dcache_miss)
+    regConnectWithStall(io.MEM_to_WB_bus.bits.csrWriteData      , csrWriteData   , io.dcache_miss)
 
 
-    regConnect(io.MEM_to_WB_bus.valid                  , io.PMEM_to_MEM_bus.valid)
-    io.PMEM_to_MEM_bus.ready               := 1.U
+    regConnect(io.MEM_to_WB_bus.valid                  , io.PMEM_to_MEM_bus.valid & !io.dcache_miss)
+    io.PMEM_to_MEM_bus.ready               := !io.dcache_miss
 
     io.MEM_to_ID_forward.bits.regWriteData := regWriteData
     io.MEM_to_ID_forward.bits.regWriteEn   := regWriteEn
