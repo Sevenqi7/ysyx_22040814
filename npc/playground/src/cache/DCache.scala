@@ -55,7 +55,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
         }
 
         dataMask                := (dataMask << (offset(2, 0) << 3.U))
-        maskedData              := (data << (offser(2, 0) << 3.U)) & dataMask
+        maskedData              := (data << (offseT(2, 0) << 3.U)) & dataMask
         when((offset & "b1000".U) > 0.U){
             cacheline           := Cat(cacheline(127, 64), cacheline(63, 0) & ~dataMask | maskedData)
         }.otherwise{
