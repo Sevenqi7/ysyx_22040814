@@ -75,6 +75,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     val lineBuf         = RegInit(0.U(dataWidth.W))
     
     //initialise
+    io.hit          := 0.U
     io.rdata        := 0x7777.U
     io.data_ok      := 0.U
     io.addr_ok      := 0.U
