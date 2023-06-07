@@ -145,11 +145,7 @@ module sim_sram(
             rresp_r  <= 2'b0;
         end
         else begin
-            if(arvalid && !arv_arr_flag) begin
-                rvalid_r    <= 1'b1;
-                rresp_r     <= 2'b0;
-            end
-            else if(arv_arr_flag) begin
+            if(arv_arr_flag) begin
                 rvalid_r    <= 1'b1;
                 rresp_r     <= 2'b0;
             end
