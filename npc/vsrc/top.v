@@ -27070,13 +27070,13 @@ module sim_sram(
         end 
         else begin
             if(arvalid && !awv_arw_flag && !arv_arr_flag) begin
-                arready_r       <= 1'b0;
-                arv_arr_flag    <= 1'b1;
+                arready_r       <= (arlen < 8'b1);
+                arv_arr_flag    <= (arlen >= 8'b1);
             end
-            else if(rvalid_r && rready && arlen_cntr == arlen_r) begin
+            else if(rvalid_r && rready && arlen_cntr > arlen_r) begin
                 arv_arr_flag    <= 1'b0;
             end
-            else if(rvalid_r && rready && arlen_cntr < arlen_r) begin
+            else if(rvalid_r && rready && arlen_cntr <= arlen_r) begin
                 arready_r       <= 1'b0;
             end
             else begin
@@ -27098,17 +27098,17 @@ module sim_sram(
         end
         else begin
             if(arvalid && !arv_arr_flag) begin
+                araddr_r    <= araddr;
                 arburst_r   <= arburst;
                 arlen_r     <= arlen;
                 arsize_r    <= arsize;
-                arlen_cntr  <= 8'b0;
+                arlen_cntr  <= 8'b1;
                 rlast_r     <= (arlen < 8'b1);
                 rid_r       <= arid;
-                araddr_r    <= araddr;
             end
-            else if((arlen_cntr < arlen_r) && rready) begin
+            else if((arlen_cntr <= arlen_r) && rvalid && rready) begin
                 arlen_cntr  <= arlen_cntr + 1'b1;
-                rlast_r     <= 1'b0;
+                rlast_r     <= (arlen_cntr == arlen_r);
                 case (arburst_r)
                     2'b01: begin
                         araddr_r <= araddr_r + (1 << arsize_r);
@@ -27117,34 +27117,39 @@ module sim_sram(
                     $display("unsupported burst type:%d", arburst_r);
                 endcase
             end
-            else if((arlen_cntr == arlen_r) && !rlast_r && arv_arr_flag) begin
-                    rlast_r <= 1'b1; 
-                    arlen_cntr <= 8'b0;
-            end
-            else if(arready) begin
+            else begin
                     rlast_r   <= 1'b0;
             end
         end
-        $display("arlen_cntr:%d, arlen_r:%d", arlen_cntr, arlen_r);
-    end
-    
-    always@(*) begin
-        dci_pmem_read({32'b0, araddr_r}, rdata, 8'HFF);
     end
 
+    always_latch@(*) begin
+        if(arvalid && !arv_arr_flag) begin
+            dci_pmem_read({32'b0, araddr}, rdata, 8'HFF);
+        end
+        else if(arv_arr_flag)begin
+            dci_pmem_read({32'b0, araddr_r}, rdata, 8'HFF);
+        end
+    end
+    
     always@(posedge aclk) begin
         if(!aresetn) begin
             rvalid_r <= 1'b0;
             rresp_r  <= 2'b0;
         end
         else begin
-            if(arv_arr_flag) begin
+            if(arvalid && !arv_arr_flag) begin
                 rvalid_r    <= 1'b1;
                 rresp_r     <= 2'b0;
             end
-            else if(rvalid_r && rready) begin
-                rvalid_r    <= 1'b0;
+            else if(arv_arr_flag) begin
+                rvalid_r    <= !(rvalid_r & rready & rlast_r);
+                // rvalid_r    <= 1'b1;
+                rresp_r     <= 2'b0;
             end
+            // else if(rvalid_r && rready) begin
+            //     rvalid_r    <= 1'b0;
+            // end
         end
     end
 
