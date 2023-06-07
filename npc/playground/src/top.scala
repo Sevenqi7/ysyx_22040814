@@ -68,16 +68,22 @@ class top extends Module{
         val mepc      = Output(UInt(64.W))
         val mcause    = Output(UInt(64.W))      
 
-        val cache_hit = Output(Bool())
-        val cache_state = Output(UInt(3.W))
-        val cache_rvalid = Output(Bool())
-        val cache_axi_req = Output(Bool())
-        val cache_tag    = Output(UInt(21.W))
-        val cache_set    = Output(UInt(2.W))
-        val cache_offset = Output(UInt(4.W))
-        val cache_rlast  = Output(Bool())
-        val cache_miss_cnt = Output(UInt(32.W))
+        val icache_hit = Output(Bool())
+        val icache_state = Output(UInt(3.W))
+        val icache_rvalid = Output(Bool())
+        val icache_axi_req = Output(Bool())
+        val icache_tag    = Output(UInt(21.W))
+        val icache_set    = Output(UInt(2.W))
+        val icache_offset = Output(UInt(4.W))
+        val icache_rlast  = Output(Bool())
+        val icache_miss_cnt = Output(UInt(32.W))
         val lineBuf      = Output(UInt(128.W))
+
+        val dcache_hit = Output(Bool())
+        val dcache_miss = Output(Bool())
+        val dcache_state = Output(UInt(3.W))
+        val dcache_qstate = Output(UInt(3.W))
+        val dcache_wstate = Output(UInt(3.W))
 
         val IF_Inst = Output(UInt(32.W))
         val IF_valid = Output(Bool())
@@ -132,15 +138,21 @@ class top extends Module{
 
     io.IF_Inst  := inst_fetch_unit.io.IF_to_ID_bus.bits.Inst
     io.IF_valid := inst_fetch_unit.io.IF_to_ID_bus.valid
-    io.cache_hit := inst_fetch_unit.io.cache_hit
-    io.cache_state := inst_fetch_unit.io.cache_state
-    io.cache_axi_req := inst_fetch_unit.axi.readAddr.valid
-    io.cache_rvalid := inst_fetch_unit.io.cache_rvalid
-    io.cache_tag        := inst_fetch_unit.io.cache_tag
-    io.cache_set        := inst_fetch_unit.io.cache_set
-    io.cache_offset     := inst_fetch_unit.io.cache_offset
-    io.cache_miss_cnt   := inst_fetch_unit.io.cache_miss_cnt
+    io.icache_hit := inst_fetch_unit.io.cache_hit
+    io.icache_state := inst_fetch_unit.io.cache_state
+    io.icache_axi_req := inst_fetch_unit.axi.readAddr.valid
+    io.icache_rvalid := inst_fetch_unit.io.cache_rvalid
+    io.icache_tag        := inst_fetch_unit.io.cache_tag
+    io.icache_set        := inst_fetch_unit.io.cache_set
+    io.icache_offset     := inst_fetch_unit.io.cache_offset
+    io.icache_miss_cnt   := inst_fetch_unit.io.cache_miss_cnt
     io.lineBuf          := inst_fetch_unit.io.lineBuf
+    io.dcache_hit       := pre_mem_unit.io.dcache_hit
+    io.dcache_miss      := pre_mem_unit.io.dcache_miss
+    io.dcache_qstate    := pre_mem_unit.io.dcache_qstate
+    io.dcache_wstate    := pre_mem_unit.io.dcache_wstate
+    io.dcache_state     := pre_mem_unit.io.dcache_state
+
 
     io.ID_npc   := inst_decode_unit.io.ID_to_BPU_bus.bits.br_target
     io.PF_npc   := inst_fetch_unit.io.PF_npc

@@ -41,6 +41,11 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
         val axi_wlast   = Output(Bool())
         val axi_awready = Input(Bool())
         val axi_wready  = Input(Bool())
+
+        //debug
+        val state       = Output(UInt(3.W))
+        val qstate      = Output(UInt(3.W))
+        val wstate      = Output(UInt(3.W))
     })
     
 
@@ -293,5 +298,12 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
             }
         }
     }
+
+
+    //statistic
+    io.state            := state
+    io.qstate           := qstate
+    io.wstate           := wstate
+
 }
     

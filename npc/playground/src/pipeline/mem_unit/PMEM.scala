@@ -37,6 +37,12 @@ class MEM_pre_stage extends Module{
         val PMEM_to_ID_forward  = Decoupled(new PMEM_to_ID_Message)
         val memReadData         = Output(UInt(64.W))
         val dcache_miss         = Output(Bool())
+
+        //debug
+        val dcache_hit          = Output(Bool())
+        val dcache_state        = Output(UInt(3.W))
+        val dcache_qstate       = Output(UInt(3.W))
+        val dcache_wstate       = Output(UInt(3.W))
     })
     val axi = IO(new AXIMasterIF(32, 64, 4))
     val axi_req  = IO(new MyReadyValidIO)
@@ -88,6 +94,11 @@ class MEM_pre_stage extends Module{
     mem_cache.io.axi_awready   := axi.writeAddr.ready
     mem_cache.io.axi_wready    := axi.writeData.ready
     io.dcache_miss             := mem_cache.io.miss
+
+    io.dcache_hit              := mem_cache.io.hit
+    io.dcache_state            := mem_cache.io.state
+    io.dcache_qstate           := mem_cache.io.qstate
+    io.dcache_wstate           := mem_cache.io.wstate
     
     val memReadData = Wire(UInt(64.W))
     memReadData := 0.U

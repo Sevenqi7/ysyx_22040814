@@ -1789,7 +1789,7 @@ endmodule
 module BPU(	// <stdin>:346:10
   input         clock,
                 reset,
-  input  [63:0] io_PF_pc,
+  input  [63:0] io_PF_pc ,
   input  [31:0] io_PF_inst,
   input         io_PF_valid,
                 io_ID_to_BPU_bus_valid,
@@ -1801,7 +1801,7 @@ module BPU(	// <stdin>:346:10
   output        io_bp_taken,
                 io_bp_flush,
   output [63:0] io_bp_npc,
-  output [2:0]  io_BTB_wset,
+  output [2:0]  io_BTB_wset,      
   output [15:0] io_BTB_wtag,
   output [2:0]  io_BTB_rset,
   output [15:0] io_BTB_rtag,
@@ -1825,9 +1825,9 @@ module BPU(	// <stdin>:346:10
   wire [63:0]       _RAS_io_pop;	// bpu.scala:166:21
   wire [63:0]       _BTB_io_readData;	// bpu.scala:165:21
   wire              _BTB_io_hit;	// bpu.scala:165:21
-  wire              _JAL_T = io_PF_inst[6:0] == 7'h67;	// bpu.scala:135:28, :141:24
-  wire              _JALR_T = io_PF_inst[6:0] == 7'h6F;	// bpu.scala:135:28, :142:24
-  wire              _J_type_T = _JAL_T | _JALR_T;	// bpu.scala:141:24, :142:24, :145:21
+  wire              _JALR_T = io_PF_inst[6:0] == 7'h67;	// bpu.scala:135:28, :141:25
+  wire              _JAL_T = io_PF_inst[6:0] == 7'h6F;	// bpu.scala:135:28, :142:25
+  wire              _J_type_T = _JAL_T | _JALR_T;	// bpu.scala:141:25, :142:25, :145:21
   reg  [63:0]       bp_target;	// bpu.scala:149:28
   wire              _T_23 = io_PF_inst[6:0] == 7'h63 | _J_type_T;	// bpu.scala:135:28, :144:24, :145:21, :151:18
   reg  [3:0]        BHT_0;	// bpu.scala:163:22
@@ -2722,9 +2722,9 @@ module BPU(	// <stdin>:346:10
   wire              _pushEn_T_4 = io_PF_inst[11:7] == 5'h1;	// bpu.scala:235:25, :237:29
   wire              _pushEn_T_5 = io_PF_inst[11:7] == 5'h5;	// bpu.scala:235:25, :237:43
   wire              _RAS_io_pushEn_T = (_JAL_T & (_pushEn_T_4 | _pushEn_T_5) | _JALR_T & (_pushEn_T_4 | _pushEn_T_5) &
-                io_PF_inst[19:15] == io_PF_inst[11:7]) & io_PF_valid;	// bpu.scala:141:24, :142:24, :233:25, :235:25, :237:{23,29,37,43,53,75,90,97}, :242:29
+                io_PF_inst[19:15] == io_PF_inst[11:7]) & io_PF_valid;	// bpu.scala:141:25, :142:25, :233:25, :235:25, :237:{23,29,37,43,53,75,90,97}, :242:29
   wire              _RAS_io_popEn_T = _JALR_T & (io_PF_inst[19:15] == 5'h1 | io_PF_inst[19:15] == 5'h5) & io_PF_inst[11:7] !=
-                5'h1 & io_PF_inst[11:7] != 5'h5 & io_PF_valid;	// bpu.scala:142:24, :233:25, :235:25, :237:{29,43}, :239:{34,42,49,64,78}, :243:28
+                5'h1 & io_PF_inst[11:7] != 5'h5 & io_PF_valid;	// bpu.scala:141:25, :233:25, :235:25, :237:{29,43}, :239:{34,42,49,64,78}, :243:28
   wire [63:0]       _RAS_io_push_T_1 = io_PF_pc + 64'h4;	// bpu.scala:246:31
   wire              _io_bp_flush_T_1 = io_ID_to_BPU_bus_valid & bp_target != io_ID_to_BPU_bus_bits_br_target;	// bpu.scala:149:28, :252:{49,62}
   wire              _io_bp_npc_T_2 = _GEN_35 & _RAS_io_popEn_T;	// bpu.scala:191:18, :192:42, :193:25, :243:28, :255:19
@@ -27177,6 +27177,7 @@ module sim_sram(
                 awready_r       <= 1'b1;
             end
         end
+        $display("awready:%d wvalid:%d wready:%d awv_arw_flag:%d wlast:%d", awready_r, wvalid, wready_r, awv_arw_flag, wlast);
     end
 
     //w
