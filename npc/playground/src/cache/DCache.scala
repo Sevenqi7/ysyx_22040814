@@ -309,6 +309,6 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     io.wstate           := wstate
     io.dataMask         := dataMask
     io.maskedData       := maskedData
-    io.originWdata      := originWdata
+    io.originWdata      := req_wdata
 }
     
