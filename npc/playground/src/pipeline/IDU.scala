@@ -227,7 +227,7 @@ class IDU extends Module{
     regConnectWithStall(io.ID_to_EX_bus.bits.csrWriteEn     , csrWriteEn                , !io.ID_to_EX_bus.ready)
     regConnectWithStall(io.ID_to_EX_bus.bits.csrWriteAddr   , csrWriteAddr              , !io.ID_to_EX_bus.ready)
     regConnectWithStall(io.ID_to_EX_bus.valid               , ID_valid                  , !io.ID_to_EX_bus.ready)
-    io.IF_to_ID_bus.ready := !io.ID_stall & !io.ID_to_EX_bus.ready
+    io.IF_to_ID_bus.ready := !io.ID_stall & io.ID_to_EX_bus.ready
     io.MEM_to_ID_forward.ready := 1.U
     io.PMEM_to_ID_forward.ready := 1.U
     io.WB_to_ID_forward.ready := 1.U
