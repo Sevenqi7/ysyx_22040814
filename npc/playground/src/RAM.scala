@@ -61,24 +61,22 @@ class AXI_Arbiter(val n: Int) extends Module{
     val last = RegInit(0.U((n-1).W))
 
     when(req(last).valid){
+        for(i <- n - 1 to 0 by -1){
+            req(i).ready                := 0.U
+            in(i).readAddr.ready        := 0.U
+            in(i).readData.bits.id      := 0.U
+            in(i).readData.bits.data    := 0x77.U       //MAGIC NUMBER FOR DEBUG
+            in(i).readData.bits.resp    := 0.U
+            in(i).readData.bits.last    := 0.U
+            in(i).readData.valid        := 0.U
+            in(i).writeAddr.ready       := 0.U
+            in(i).writeData.ready       := 0.U
+            in(i).writeResp.bits.id     := 0.U
+            in(i).writeResp.bits.resp   := 0.U
+            in(i).writeResp.valid       := 0.U   
+        }
         out                 <> in(last)
         req(last).ready     := 1.U
-        for(i <- n - 1 to 0 by -1){
-            when(i.U =/= last){
-                req(i).ready                := 0.U
-                in(i).readAddr.ready        := 0.U
-                in(i).readData.bits.id      := 0.U
-                in(i).readData.bits.data    := 0x77.U       //MAGIC NUMBER FOR DEBUG
-                in(i).readData.bits.resp    := 0.U
-                in(i).readData.bits.last    := 0.U
-                in(i).readData.valid        := 0.U
-                in(i).writeAddr.ready       := 0.U
-                in(i).writeData.ready       := 0.U
-                in(i).writeResp.bits.id     := 0.U
-                in(i).writeResp.bits.resp   := 0.U
-                in(i).writeResp.valid       := 0.U   
-            }
-        }
     }
     .otherwise{
         out     <> in(0)
