@@ -115,7 +115,7 @@ class MEM_pre_stage extends Module{
     axi_req.valid              := mem_cache.io.axi_rreq | mem_cache.io.axi_wreq
     axi.readAddr.bits.id       := 1.U
     axi.readAddr.bits.addr     := mem_cache.io.axi_raddr
-    axi.readAddr.bits.len      := 0.U
+    axi.readAddr.bits.len      := 1.U
     axi.readAddr.bits.size     := "b011".U       //64 bits
     axi.readAddr.bits.burst    := "b01".U
     axi.readAddr.bits.lock     := 0.U
