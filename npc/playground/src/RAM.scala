@@ -58,7 +58,7 @@ class AXI_Arbiter(val n: Int) extends Module{
     val req = IO(Flipped(Vec(n, new MyReadyValidIO)))
     val out = IO(new AXIMasterIF(32, 64, 4))
 
-    val last = RegInit(0.U(log2Ceil(n-1).W))
+    val last = RegInit(0.U((n-1).W))
 
     when(req(last).valid){
         out     <> in(last)
