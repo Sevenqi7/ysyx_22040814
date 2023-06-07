@@ -151,6 +151,14 @@ static int cmd_si(char *args)
     return 0;
 }
 
+static int cmd_csi(char *args)
+{
+    int steps = args ? atoi((const char *)args) : 1;
+    for(int i=0;i<steps;i++)
+        clock_step();
+    return 0;
+}
+
 static int cmd_info(char *args)
 {
     if(!args)
@@ -194,7 +202,8 @@ static struct {
   { "help", "Display information about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NPC", cmd_q },
-  { "si", "Step next N commands, 1 if N is not given", cmd_si},
+  { "si", "Excute next N instructions, 1 if N is not given", cmd_si},
+  { "csi", "skip N clock cycles. 1 if N is not given. debuginfo will be printed if macro DEBUG_MSG is defined", cmd_csi},
   { "x", "Print the content of memory with a given address.", cmd_x},
   { "w", "Set watchpoint.", cmd_w},
   { "d", "Delete watchpoint.", cmd_d},

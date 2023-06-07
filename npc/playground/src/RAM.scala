@@ -93,7 +93,7 @@ class AXI_Arbiter(val n: Int) extends Module{
                 out <> in(i)
                 out.readData.ready  := in(i).readData.ready
                 out.writeResp.ready := in(i).writeResp.ready
-                last         := i.U
+                last                := i.U
             }.otherwise{
                 req(i).ready                := 0.U
                 in(i).readAddr.ready        := 0.U
