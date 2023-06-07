@@ -80,8 +80,6 @@ class AXI_Arbiter(val n: Int) extends Module{
     }
     .otherwise{
         out     <> in(n-1)
-        out.readData.ready  := in(n-1).readData.ready
-        out.writeResp.ready := in(n-1).writeResp.ready
         for(i <- n - 1 to 0 by -1){
             when(req(i).valid){             
                 req(i).ready := 1.U
