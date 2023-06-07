@@ -76,10 +76,14 @@ class AXI_Arbiter(val n: Int) extends Module{
             in(i).writeResp.valid       := 0.U   
         }
         out                 <> in(last)
+        out.readData.ready  := in(last).readData.ready
+        out.writeResp.ready := in(last).writeResp.ready
         req(last).ready     := 1.U
     }
     .otherwise{
         out     <> in(n-1)
+        out.readData.ready  := in(n-1).readData.ready
+        out.writeResp.ready := in(n-1).writeResp.ready
         for(i <- n - 1 to 0 by -1){
             when(req(i).valid){             
                 req(i).ready := 1.U
@@ -87,6 +91,8 @@ class AXI_Arbiter(val n: Int) extends Module{
                     req(j).ready := 0.U
                 }
                 out <> in(i)
+                out.readData.ready  := in(i).readData.ready
+                out.writeResp.ready := in(i).writeResp.ready
                 last         := i.U
             }.otherwise{
                 req(i).ready                := 0.U
