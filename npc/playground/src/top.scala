@@ -234,7 +234,7 @@ class top extends Module{
     arb.req(0)      <> pre_mem_unit.axi_req
     arb.req(1)      <> inst_fetch_unit.axi_req
     io.PF_axidata := inst_fetch_unit.axi.readData.bits.data
-    io.cache_rlast := inst_fetch_unit.axi.readData.bits.last
+    io.icache_rlast := inst_fetch_unit.axi.readData.bits.last
 
 
 
