@@ -168,6 +168,8 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
                 req_addr    := io.addr
                 req_op      := io.op
                 addr_ok     := 1.U
+                req_wdata    := io.wdata
+                req_wstrb    := io.wstrb 
             }
         }
         is (sLookup){
@@ -184,14 +186,12 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
                         }
                     }
                     .otherwise{
-                        req_wdata    := io.wdata
-                        req_wstrb    := io.wstrb 
                         req_wset     := set
                         req_wline    := i.U
                     }
+                    //write operation is in WriteBuffer FSM
                     io.data_ok                  := 1.U
                     addr_ok                     := 0.U
-                    //write operation is in WriteBuffer FSM
                 }               
             }
             when(!io.hit){
@@ -309,6 +309,6 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     io.wstate           := wstate
     io.dataMask         := dataMask
     io.maskedData       := maskedData
-    io.originWdata      := req_wdata
+    io.originWdata      := originWdata
 }
     
