@@ -8662,7 +8662,7 @@ module ICache(	// <stdin>:1182:10
   wire                _T_3 = _GEN_1 == req_addr[31:11] & _GEN_6;	// icache.scala:54:28, :59:29, :99:{40,48}
   assign _GEN = ~_T & _T_1 & _T_3;	// icache.scala:73:21, :88:18, :99:48
   wire                _T_9 = state == 3'h2;	// icache.scala:62:34, :88:18, :111:33
-  wire                _T_11 = ~io_axi_arready | io_axi_busy;	// icache.scala:125:{18,34}
+  wire                _T_11 = ~io_axi_arready | io_axi_busy;	// icache.scala:126:{18,34}
   wire [31:0]         _GEN_8 = {req_addr[31:4], 4'h0};	// icache.scala:54:28, :102:35, :130:33
   wire                _T_12 = state == 3'h3;	// icache.scala:62:34, :88:18, :131:33
   wire [20:0]         _GEN_9;	// icache.scala:151:22
@@ -9193,7 +9193,7 @@ module ICache(	// <stdin>:1182:10
       automatic logic            _GEN_136;	// icache.scala:165:41
       automatic logic            _GEN_137;	// icache.scala:165:41
       automatic logic            _GEN_138;	// icache.scala:165:41
-      automatic logic [7:0][2:0] _GEN_139;	// icache.scala:62:34, :88:18, :90:27, :110:26, :125:48, :141:31, :149:41
+      automatic logic [7:0][2:0] _GEN_139;	// icache.scala:62:34, :88:18, :90:27, :110:26, :126:48, :141:31, :149:41
       _T_13 = state == 3'h4;	// icache.scala:62:34, :88:18, :102:35
       _GEN_11 = ~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & ~(~_T & ~_T_1 & ~_T_9 & ~_T_12 & _T_13 & (_GEN_10 &
                                                 req_addr[31:11] == _GEN_9 | ~_GEN_10)) & _refillIDX_prng_io_out_0;	// PRNG.scala:91:22, icache.scala:54:28, :59:29, :73:21, :85:25, :86:25, :88:18, :151:{22,43}, :157:{42,48,70}, :158:41, :162:18
@@ -10235,8 +10235,8 @@ module ICache(	// <stdin>:1182:10
         req_valid <= io_valid;	// icache.scala:55:28
       end
       _GEN_139 = {{state}, {state}, {state}, {3'h0}, {io_axi_rlast ? 3'h4 : {2'h1, ~io_axi_busy}}, {{2'h1,
-                                                ~_T_11}}, {_GEN ? {2'h0, io_valid} : 3'h2}, {io_valid ? 3'h1 : state}};	// icache.scala:62:34, :73:21, :77:21, :88:18, :90:27, :91:29, :102:35, :110:26, :111:33, :113:32, :114:33, :120:33, :125:{34,48}, :126:33, :129:33, :131:33, :135:29, :141:31, :142:29, :144:35, :145:29, :149:41
-      state <= _GEN_139[state];	// icache.scala:62:34, :88:18, :90:27, :110:26, :125:48, :141:31, :149:41
+                                                ~_T_11}}, {_GEN ? {2'h0, io_valid} : 3'h2}, {io_valid ? 3'h1 : state}};	// icache.scala:62:34, :73:21, :88:18, :90:27, :91:29, :102:35, :110:26, :111:33, :113:32, :114:33, :120:33, :126:{34,48}, :127:33, :131:33, :135:29, :141:31, :142:29, :144:35, :145:29, :149:41
+      state <= _GEN_139[state];	// icache.scala:62:34, :88:18, :90:27, :110:26, :126:48, :141:31, :149:41
       if (_T | _T_1 | _T_9 | ~(_T_12 & io_axi_rvalid)) begin	// icache.scala:63:34, :88:18, :138:32
       end
       else	// icache.scala:63:34, :88:18, :138:32
@@ -13095,8 +13095,8 @@ module ICache(	// <stdin>:1182:10
   assign io_cache_offset = req_addr[3:0];	// <stdin>:1182:10, icache.scala:54:28, :57:29
   assign io_cache_miss_cnt = cache_miss_cnt;	// <stdin>:1182:10, icache.scala:38:33
   assign io_lineBuf = lineBuf;	// <stdin>:1182:10, icache.scala:63:34
-  assign io_axi_rreq = ~_T & ~_T_1 & (_T_9 ? ~_T_11 : _T_12);	// <stdin>:1182:10, icache.scala:73:21, :77:21, :86:25, :88:18, :125:{34,48}, :129:33
-  assign io_axi_raddr = _T | _T_1 ? 32'h0 : _T_9 ? (_T_11 ? 32'h0 : _GEN_8) : _T_12 ? _GEN_8 : 32'h0;	// <stdin>:1182:10, icache.scala:38:33, :78:21, :88:18, :125:{34,48}, :130:33, :137:29
+  assign io_axi_rreq = ~_T & ~_T_1 & (_T_9 | _T_12);	// <stdin>:1182:10, icache.scala:73:21, :77:21, :86:25, :88:18, :125:33
+  assign io_axi_raddr = _T | _T_1 ? 32'h0 : _T_9 ? (_T_11 ? 32'h0 : _GEN_8) : _T_12 ? _GEN_8 : 32'h0;	// <stdin>:1182:10, icache.scala:38:33, :78:21, :88:18, :126:{34,48}, :130:33, :137:29
 endmodule
 
 module IF_pre_fetch(	// <stdin>:1622:10
@@ -13125,32 +13125,34 @@ module IF_pre_fetch(	// <stdin>:1622:10
   output [127:0] io_lineBuf,
   output         axi_readAddr_valid,
   output [31:0]  axi_readAddr_bits_addr,
-  output         axi_readData_ready);
+  output         axi_readData_ready,
+                 axi_req_valid);
 
   reg  [63:0] rhsReg;	// tools.scala:15:29
-  wire        _inst_cache_io_rvalid;	// pre_fetch.scala:48:29
-  wire        _inst_cache_io_miss;	// pre_fetch.scala:48:29
+  wire        _inst_cache_io_rvalid;	// pre_fetch.scala:47:29
+  wire        _inst_cache_io_miss;	// pre_fetch.scala:47:29
+  wire        _inst_cache_io_axi_rreq;	// pre_fetch.scala:47:29
   reg  [63:0] PF_npc;	// pre_fetch.scala:34:27
-  wire        _npc_T = io_stall | _inst_cache_io_miss;	// pre_fetch.scala:48:29, :69:19
+  wire        _npc_T = io_stall | _inst_cache_io_miss;	// pre_fetch.scala:47:29, :70:19
   always @(posedge clock) begin
     if (reset) begin
       PF_npc <= 64'h80000000;	// pre_fetch.scala:34:27
       rhsReg <= 64'h0;	// tools.scala:15:29
     end
     else begin
-      automatic logic [63:0] _PF_npc_T_3;	// pre_fetch.scala:86:33
-      _PF_npc_T_3 = io_bp_npc + 64'h4;	// pre_fetch.scala:85:33, :86:33
+      automatic logic [63:0] _PF_npc_T_3;	// pre_fetch.scala:87:33
+      _PF_npc_T_3 = io_bp_npc + 64'h4;	// pre_fetch.scala:86:33, :87:33
       if (io_bp_flush) begin
-        PF_npc <= _PF_npc_T_3;	// pre_fetch.scala:34:27, :86:33
+        PF_npc <= _PF_npc_T_3;	// pre_fetch.scala:34:27, :87:33
         rhsReg <= io_bp_npc;	// tools.scala:15:29
       end
-      else if (~_npc_T) begin	// pre_fetch.scala:69:19
+      else if (~_npc_T) begin	// pre_fetch.scala:70:19
         if (io_bp_taken) begin
-          PF_npc <= _PF_npc_T_3;	// pre_fetch.scala:34:27, :86:33
+          PF_npc <= _PF_npc_T_3;	// pre_fetch.scala:34:27, :87:33
           rhsReg <= io_bp_npc;	// tools.scala:15:29
         end
         else begin
-          PF_npc <= PF_npc + 64'h4;	// pre_fetch.scala:34:27, :85:33
+          PF_npc <= PF_npc + 64'h4;	// pre_fetch.scala:34:27, :86:33
           rhsReg <= PF_npc;	// pre_fetch.scala:34:27, tools.scala:15:29
         end
       end
@@ -13183,11 +13185,11 @@ module IF_pre_fetch(	// <stdin>:1622:10
       `FIRRTL_AFTER_INITIAL	// <stdin>:1622:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  ICache inst_cache (	// pre_fetch.scala:48:29
+  ICache inst_cache (	// pre_fetch.scala:47:29
     .clock             (clock),
     .reset             (reset),
-    .io_valid          (~reset),	// pre_fetch.scala:72:35
-    .io_addr           (io_bp_flush ? io_bp_npc : _npc_T ? rhsReg : io_bp_taken ? io_bp_npc : {32'h0, PF_npc[31:0]}),	// Mux.scala:101:16, pre_fetch.scala:34:27, :67:49, :69:19, tools.scala:15:29
+    .io_valid          (~reset),	// pre_fetch.scala:73:35
+    .io_addr           (io_bp_flush ? io_bp_npc : _npc_T ? rhsReg : io_bp_taken ? io_bp_npc : {32'h0, PF_npc[31:0]}),	// Mux.scala:101:16, pre_fetch.scala:34:27, :68:49, :70:19, tools.scala:15:29
     .io_axi_busy       (~axi_req_ready),	// pre_fetch.scala:37:24
     .io_axi_arready    (axi_readAddr_ready),
     .io_axi_rvalid     (axi_readData_valid),
@@ -13203,14 +13205,16 @@ module IF_pre_fetch(	// <stdin>:1622:10
     .io_cache_offset   (io_cache_offset),
     .io_cache_miss_cnt (io_cache_miss_cnt),
     .io_lineBuf        (io_lineBuf),
-    .io_axi_rreq       (axi_readAddr_valid),
+    .io_axi_rreq       (_inst_cache_io_axi_rreq),
     .io_axi_raddr      (axi_readAddr_bits_addr)
   );
-  assign io_inst_valid = _inst_cache_io_rvalid;	// <stdin>:1622:10, pre_fetch.scala:48:29
+  assign io_inst_valid = _inst_cache_io_rvalid;	// <stdin>:1622:10, pre_fetch.scala:47:29
   assign io_PF_pc = rhsReg;	// <stdin>:1622:10, tools.scala:15:29
   assign io_PF_npc = PF_npc;	// <stdin>:1622:10, pre_fetch.scala:34:27
-  assign io_cache_rvalid = _inst_cache_io_rvalid;	// <stdin>:1622:10, pre_fetch.scala:48:29
-  assign axi_readData_ready = ~io_stall;	// <stdin>:1622:10, pre_fetch.scala:66:35
+  assign io_cache_rvalid = _inst_cache_io_rvalid;	// <stdin>:1622:10, pre_fetch.scala:47:29
+  assign axi_readAddr_valid = _inst_cache_io_axi_rreq;	// <stdin>:1622:10, pre_fetch.scala:47:29
+  assign axi_readData_ready = ~io_stall;	// <stdin>:1622:10, pre_fetch.scala:67:35
+  assign axi_req_valid = _inst_cache_io_axi_rreq;	// <stdin>:1622:10, pre_fetch.scala:47:29
 endmodule
 
 module IFU(	// <stdin>:1714:10
@@ -13242,7 +13246,8 @@ module IFU(	// <stdin>:1714:10
   output [127:0] io_lineBuf,
   output         axi_readAddr_valid,
   output [31:0]  axi_readAddr_bits_addr,
-  output         axi_readData_ready);
+  output         axi_readData_ready,
+                 axi_req_valid);
 
   wire [31:0] _pre_fetch_io_inst;	// IFU.scala:38:27
   wire        _pre_fetch_io_inst_valid;	// IFU.scala:38:27
@@ -13330,7 +13335,8 @@ module IFU(	// <stdin>:1714:10
     .io_lineBuf             (io_lineBuf),
     .axi_readAddr_valid     (axi_readAddr_valid),
     .axi_readAddr_bits_addr (axi_readAddr_bits_addr),
-    .axi_readData_ready     (axi_readData_ready)
+    .axi_readData_ready     (axi_readData_ready),
+    .axi_req_valid          (axi_req_valid)
   );
   assign io_IF_to_ID_bus_valid = rhsReg_2;	// <stdin>:1714:10, tools.scala:15:29
   assign io_IF_to_ID_bus_bits_PC = rhsReg;	// <stdin>:1714:10, tools.scala:15:29
@@ -26243,6 +26249,7 @@ module AXI_Arbiter(	// <stdin>:4396:10
   input  [31:0] in_1_readAddr_bits_addr,
   input         in_1_readData_ready,
                 req_0_valid,
+                req_1_valid,
                 out_writeAddr_ready,
                 out_writeData_ready,
                 out_readAddr_ready,
@@ -26285,12 +26292,12 @@ module AXI_Arbiter(	// <stdin>:4396:10
   assign in_0_readData_valid = req_0_valid & out_readData_valid;	// <stdin>:4396:10, RAM.scala:63:27, :64:17, :76:41
   assign in_0_readData_bits_data = req_0_valid ? out_readData_bits_data : 64'h77;	// <stdin>:4396:10, RAM.scala:63:27, :64:17, :73:41
   assign in_0_readData_bits_last = req_0_valid & out_readData_bits_last;	// <stdin>:4396:10, RAM.scala:63:27, :64:17, :75:41
-  assign in_1_readAddr_ready = out_readAddr_ready;	// <stdin>:4396:10
-  assign in_1_readData_valid = out_readData_valid;	// <stdin>:4396:10
-  assign in_1_readData_bits_data = out_readData_bits_data;	// <stdin>:4396:10
-  assign in_1_readData_bits_last = out_readData_bits_last;	// <stdin>:4396:10
+  assign in_1_readAddr_ready = req_1_valid & out_readAddr_ready;	// <stdin>:4396:10, RAM.scala:63:27, :64:17, :71:41
+  assign in_1_readData_valid = req_1_valid & out_readData_valid;	// <stdin>:4396:10, RAM.scala:63:27, :64:17, :76:41
+  assign in_1_readData_bits_data = req_1_valid ? out_readData_bits_data : 64'h77;	// <stdin>:4396:10, RAM.scala:63:27, :64:17, :73:41
+  assign in_1_readData_bits_last = req_1_valid & out_readData_bits_last;	// <stdin>:4396:10, RAM.scala:63:27, :64:17, :75:41
   assign req_0_ready = req_0_valid;	// <stdin>:4396:10
-  assign req_1_ready = ~req_0_valid;	// <stdin>:4396:10, RAM.scala:63:27, :67:30
+  assign req_1_ready = ~req_0_valid & req_1_valid;	// <stdin>:4396:10, RAM.scala:63:27, :67:30
   assign out_writeAddr_valid = req_0_valid & in_0_writeAddr_valid;	// <stdin>:4396:10, RAM.scala:63:27, :64:17
   assign out_writeAddr_bits_addr = req_0_valid ? in_0_writeAddr_bits_addr : 32'h0;	// <stdin>:4396:10, RAM.scala:63:27, :64:17
   assign out_writeAddr_bits_size = req_0_valid ? 3'h3 : 3'h0;	// <stdin>:4396:10, RAM.scala:63:27, :64:17
@@ -26552,6 +26559,7 @@ module top(	// <stdin>:4438:10
   wire        _inst_fetch_unit_axi_readAddr_valid;	// top.scala:104:33
   wire [31:0] _inst_fetch_unit_axi_readAddr_bits_addr;	// top.scala:104:33
   wire        _inst_fetch_unit_axi_readData_ready;	// top.scala:104:33
+  wire        _inst_fetch_unit_axi_req_valid;	// top.scala:104:33
   wire        _bp_unit_io_bp_taken;	// top.scala:103:33
   wire        _bp_unit_io_bp_flush;	// top.scala:103:33
   wire [63:0] _bp_unit_io_bp_npc;	// top.scala:103:33
@@ -26620,7 +26628,8 @@ module top(	// <stdin>:4438:10
     .io_lineBuf                (io_lineBuf),
     .axi_readAddr_valid        (_inst_fetch_unit_axi_readAddr_valid),
     .axi_readAddr_bits_addr    (_inst_fetch_unit_axi_readAddr_bits_addr),
-    .axi_readData_ready        (_inst_fetch_unit_axi_readData_ready)
+    .axi_readData_ready        (_inst_fetch_unit_axi_readData_ready),
+    .axi_req_valid             (_inst_fetch_unit_axi_req_valid)
   );
   IDU inst_decode_unit (	// top.scala:105:34
     .clock                                   (clock),
@@ -26926,6 +26935,7 @@ sim simulate (	// top.scala:24:26
     .in_1_readAddr_bits_addr  (_inst_fetch_unit_axi_readAddr_bits_addr),	// top.scala:104:33
     .in_1_readData_ready      (_inst_fetch_unit_axi_readData_ready),	// top.scala:104:33
     .req_0_valid              (_pre_mem_unit_axi_req_valid),	// top.scala:107:30
+    .req_1_valid              (_inst_fetch_unit_axi_req_valid),	// top.scala:104:33
     .out_writeAddr_ready      (_ram_unit_axi_writeAddr_ready),	// top.scala:233:26
     .out_writeData_ready      (_ram_unit_axi_writeData_ready),	// top.scala:233:26
     .out_readAddr_ready       (_ram_unit_axi_readAddr_ready),	// top.scala:233:26

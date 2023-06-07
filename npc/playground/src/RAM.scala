@@ -58,27 +58,51 @@ class AXI_Arbiter(val n: Int) extends Module{
     val req = IO(Flipped(Vec(n, new MyReadyValidIO)))
     val out = IO(new AXIMasterIF(32, 64, 4))
 
-    out <> in(n-1)
-    for(i <- n - 1 to 0 by -1){
-        when(req(i).valid){             
-            out <> in(i)
-            req(i).ready := 1.U
-            for(j <- i+1 to n-1){
-                req(j).ready := 0.U
+    val last = RegInit(0.U(log2Ceil(n).W))
+
+    when(req(last).valid){
+        out     <> in(last)
+        for(i <- n - 1 to by -1){
+            when(i.U =/= last){
+                req(i).ready                := 0.U
+                in(i).readAddr.ready        := 0.U
+                in(i).readData.bits.id      := 0.U
+                in(i).readData.bits.data    := 0x77.U       //MAGIC NUMBER FOR DEBUG
+                in(i).readData.bits.resp    := 0.U
+                in(i).readData.bits.last    := 0.U
+                in(i).readData.valid        := 0.U
+                in(i).writeAddr.ready       := 0.U
+                in(i).writeData.ready       := 0.U
+                in(i).writeResp.bits.id     := 0.U
+                in(i).writeResp.bits.resp   := 0.U
+                in(i).writeResp.valid       := 0.U   
             }
-        }.otherwise{
-            req(i).ready                := 0.U
-            in(i).readAddr.ready        := 0.U
-            in(i).readData.bits.id      := 0.U
-            in(i).readData.bits.data    := 0x77.U       //MAGIC NUMBER FOR DEBUG
-            in(i).readData.bits.resp    := 0.U
-            in(i).readData.bits.last    := 0.U
-            in(i).readData.valid        := 0.U
-            in(i).writeAddr.ready       := 0.U
-            in(i).writeData.ready       := 0.U
-            in(i).writeResp.bits.id     := 0.U
-            in(i).writeResp.bits.resp   := 0.U
-            in(i).writeResp.valid       := 0.U
+        }
+    }
+    .otherwise{
+        out     <> in(0)
+        for(i <- n - 1 to 0 by -1){
+            when(req(i).valid){             
+                out <> in(i)
+                req(i).ready := 1.U
+                for(j <- i+1 to n-1){
+                    req(j).ready := 0.U
+                }
+                last         := i.U
+            }.otherwise{
+                req(i).ready                := 0.U
+                in(i).readAddr.ready        := 0.U
+                in(i).readData.bits.id      := 0.U
+                in(i).readData.bits.data    := 0x77.U       //MAGIC NUMBER FOR DEBUG
+                in(i).readData.bits.resp    := 0.U
+                in(i).readData.bits.last    := 0.U
+                in(i).readData.valid        := 0.U
+                in(i).writeAddr.ready       := 0.U
+                in(i).writeData.ready       := 0.U
+                in(i).writeResp.bits.id     := 0.U
+                in(i).writeResp.bits.resp   := 0.U
+                in(i).writeResp.valid       := 0.U
+            }
         }
     }
 }
