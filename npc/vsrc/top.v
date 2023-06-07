@@ -27177,7 +27177,7 @@ module sim_sram(
                 rid_r       <= arid;
             end
             else if((arlen_cntr <= arlen_r) && rvalid && rready) begin
-                arlen_cntr  <= arlen_cntr + 1'b1;
+                arlen_cntr  <= arlen_cntr == arlen_r ? 0 : arlen_cntr + 1'b1;
                 rlast_r     <= (arlen_cntr == arlen_r);
                 case (arburst_r)
                     2'b01: begin
