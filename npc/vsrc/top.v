@@ -27070,8 +27070,8 @@ module sim_sram(
         end 
         else begin
             if(arvalid && !awv_arw_flag && !arv_arr_flag) begin
-                arready_r       <= (arlen < 8'b1);
-                arv_arr_flag    <= (arlen >= 8'b1);
+                arready_r       <= 1'b0;
+                arv_arr_flag    <= 1'b1;
             end
             else if(rvalid_r && rready && arlen_cntr == arlen_r) begin
                 arv_arr_flag    <= 1'b0;
@@ -27106,7 +27106,7 @@ module sim_sram(
                 rid_r       <= arid;
                 araddr_r    <= araddr;
             end
-            else if((arlen_cntr < arlen_r) && rvalid && rready) begin
+            else if((arlen_cntr < arlen_r) && rready) begin
                 arlen_cntr  <= arlen_cntr + 1'b1;
                 rlast_r     <= 1'b0;
                 case (arburst_r)
@@ -27119,11 +27119,13 @@ module sim_sram(
             end
             else if((arlen_cntr == arlen_r) && !rlast_r && arv_arr_flag) begin
                     rlast_r <= 1'b1; 
+                    arlen_cntr <= 8'b0;
             end
             else if(arready) begin
                     rlast_r   <= 1'b0;
             end
         end
+        $display("arlen_cntr:%d, arlen_r:%d", arlen_cntr, arlen_r);
     end
     
     always@(*) begin
@@ -27136,11 +27138,7 @@ module sim_sram(
             rresp_r  <= 2'b0;
         end
         else begin
-            if(arvalid && !arv_arr_flag) begin
-                rvalid_r    <= 1'b1;
-                rresp_r     <= 2'b0;
-            end
-            else if(arv_arr_flag) begin
+            if(arv_arr_flag) begin
                 rvalid_r    <= 1'b1;
                 rresp_r     <= 2'b0;
             end
