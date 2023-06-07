@@ -15884,11 +15884,11 @@ module DCache(	// <stdin>:3275:10
                 {cache_19_0_tag}, {cache_18_0_tag}, {cache_17_0_tag}, {cache_16_0_tag}, {cache_15_0_tag},
                 {cache_14_0_tag}, {cache_13_0_tag}, {cache_12_0_tag}, {cache_11_0_tag}, {cache_10_0_tag},
                 {cache_9_0_tag}, {cache_8_0_tag}, {cache_7_0_tag}, {cache_6_0_tag}, {cache_5_0_tag},
-                {cache_4_0_tag}, {cache_3_0_tag}, {cache_2_0_tag}, {cache_1_0_tag}, {cache_0_0_tag}};	// DCache.scala:61:24, :175:40
-  wire [20:0]         _GEN_2;	// DCache.scala:175:40
-  wire [20:0]         _GEN_3 = _GEN_1[req_addr[10:4]] /* cadence map_to_mux */;	// DCache.scala:69:34, :80:35, :175:40
+                {cache_4_0_tag}, {cache_3_0_tag}, {cache_2_0_tag}, {cache_1_0_tag}, {cache_0_0_tag}};	// DCache.scala:61:24, :177:40
+  wire [20:0]         _GEN_2;	// DCache.scala:177:40
+  wire [20:0]         _GEN_3 = _GEN_1[req_addr[10:4]] /* cadence map_to_mux */;	// DCache.scala:69:34, :80:35, :177:40
   /* synopsys infer_mux_override */
-  assign _GEN_2 = _GEN_3;	// DCache.scala:175:40
+  assign _GEN_2 = _GEN_3;	// DCache.scala:177:40
   wire [127:0][127:0] _GEN_4 = {{cache_127_0_data}, {cache_126_0_data}, {cache_125_0_data}, {cache_124_0_data},
                 {cache_123_0_data}, {cache_122_0_data}, {cache_121_0_data}, {cache_120_0_data},
                 {cache_119_0_data}, {cache_118_0_data}, {cache_117_0_data}, {cache_116_0_data},
@@ -15920,11 +15920,11 @@ module DCache(	// <stdin>:3275:10
                 {cache_15_0_data}, {cache_14_0_data}, {cache_13_0_data}, {cache_12_0_data},
                 {cache_11_0_data}, {cache_10_0_data}, {cache_9_0_data}, {cache_8_0_data}, {cache_7_0_data},
                 {cache_6_0_data}, {cache_5_0_data}, {cache_4_0_data}, {cache_3_0_data}, {cache_2_0_data},
-                {cache_1_0_data}, {cache_0_0_data}};	// DCache.scala:61:24, :175:40
-  wire [127:0]        _GEN_5;	// DCache.scala:175:40
-  wire [127:0]        _GEN_6 = _GEN_4[req_addr[10:4]] /* cadence map_to_mux */;	// DCache.scala:69:34, :80:35, :175:40
+                {cache_1_0_data}, {cache_0_0_data}};	// DCache.scala:61:24, :177:40
+  wire [127:0]        _GEN_5;	// DCache.scala:177:40
+  wire [127:0]        _GEN_6 = _GEN_4[req_addr[10:4]] /* cadence map_to_mux */;	// DCache.scala:69:34, :80:35, :177:40
   /* synopsys infer_mux_override */
-  assign _GEN_5 = _GEN_6;	// DCache.scala:175:40
+  assign _GEN_5 = _GEN_6;	// DCache.scala:177:40
   wire [127:0]        _GEN_7 = {{cache_127_0_valid}, {cache_126_0_valid}, {cache_125_0_valid}, {cache_124_0_valid},
                 {cache_123_0_valid}, {cache_122_0_valid}, {cache_121_0_valid}, {cache_120_0_valid},
                 {cache_119_0_valid}, {cache_118_0_valid}, {cache_117_0_valid}, {cache_116_0_valid},
@@ -15956,11 +15956,11 @@ module DCache(	// <stdin>:3275:10
                 {cache_15_0_valid}, {cache_14_0_valid}, {cache_13_0_valid}, {cache_12_0_valid},
                 {cache_11_0_valid}, {cache_10_0_valid}, {cache_9_0_valid}, {cache_8_0_valid},
                 {cache_7_0_valid}, {cache_6_0_valid}, {cache_5_0_valid}, {cache_4_0_valid},
-                {cache_3_0_valid}, {cache_2_0_valid}, {cache_1_0_valid}, {cache_0_0_valid}};	// DCache.scala:61:24, :175:40
-  wire                _GEN_8;	// DCache.scala:175:40
-  wire                _GEN_9 = _GEN_7[req_addr[10:4]] /* cadence map_to_mux */;	// DCache.scala:69:34, :80:35, :175:40
+                {cache_3_0_valid}, {cache_2_0_valid}, {cache_1_0_valid}, {cache_0_0_valid}};	// DCache.scala:61:24, :177:40
+  wire                _GEN_8;	// DCache.scala:177:40
+  wire                _GEN_9 = _GEN_7[req_addr[10:4]] /* cadence map_to_mux */;	// DCache.scala:69:34, :80:35, :177:40
   /* synopsys infer_mux_override */
-  assign _GEN_8 = _GEN_9;	// DCache.scala:175:40
+  assign _GEN_8 = _GEN_9;	// DCache.scala:177:40
   wire [127:0][20:0]  _GEN_10 = {{cache_127_1_tag}, {cache_126_1_tag}, {cache_125_1_tag}, {cache_124_1_tag},
                 {cache_123_1_tag}, {cache_122_1_tag}, {cache_121_1_tag}, {cache_120_1_tag},
                 {cache_119_1_tag}, {cache_118_1_tag}, {cache_117_1_tag}, {cache_116_1_tag},
@@ -15987,11 +15987,11 @@ module DCache(	// <stdin>:3275:10
                 {cache_19_1_tag}, {cache_18_1_tag}, {cache_17_1_tag}, {cache_16_1_tag}, {cache_15_1_tag},
                 {cache_14_1_tag}, {cache_13_1_tag}, {cache_12_1_tag}, {cache_11_1_tag}, {cache_10_1_tag},
                 {cache_9_1_tag}, {cache_8_1_tag}, {cache_7_1_tag}, {cache_6_1_tag}, {cache_5_1_tag},
-                {cache_4_1_tag}, {cache_3_1_tag}, {cache_2_1_tag}, {cache_1_1_tag}, {cache_0_1_tag}};	// DCache.scala:61:24, :175:40
-  wire [20:0]         _GEN_11;	// DCache.scala:175:40
-  wire [20:0]         _GEN_12 = _GEN_10[req_addr[10:4]] /* cadence map_to_mux */;	// DCache.scala:69:34, :80:35, :175:40
+                {cache_4_1_tag}, {cache_3_1_tag}, {cache_2_1_tag}, {cache_1_1_tag}, {cache_0_1_tag}};	// DCache.scala:61:24, :177:40
+  wire [20:0]         _GEN_11;	// DCache.scala:177:40
+  wire [20:0]         _GEN_12 = _GEN_10[req_addr[10:4]] /* cadence map_to_mux */;	// DCache.scala:69:34, :80:35, :177:40
   /* synopsys infer_mux_override */
-  assign _GEN_11 = _GEN_12;	// DCache.scala:175:40
+  assign _GEN_11 = _GEN_12;	// DCache.scala:177:40
   wire [127:0][127:0] _GEN_13 = {{cache_127_1_data}, {cache_126_1_data}, {cache_125_1_data}, {cache_124_1_data},
                 {cache_123_1_data}, {cache_122_1_data}, {cache_121_1_data}, {cache_120_1_data},
                 {cache_119_1_data}, {cache_118_1_data}, {cache_117_1_data}, {cache_116_1_data},
@@ -16023,11 +16023,11 @@ module DCache(	// <stdin>:3275:10
                 {cache_15_1_data}, {cache_14_1_data}, {cache_13_1_data}, {cache_12_1_data},
                 {cache_11_1_data}, {cache_10_1_data}, {cache_9_1_data}, {cache_8_1_data}, {cache_7_1_data},
                 {cache_6_1_data}, {cache_5_1_data}, {cache_4_1_data}, {cache_3_1_data}, {cache_2_1_data},
-                {cache_1_1_data}, {cache_0_1_data}};	// DCache.scala:61:24, :175:40
-  wire [127:0]        _GEN_14;	// DCache.scala:175:40
-  wire [127:0]        _GEN_15 = _GEN_13[req_addr[10:4]] /* cadence map_to_mux */;	// DCache.scala:69:34, :80:35, :175:40
+                {cache_1_1_data}, {cache_0_1_data}};	// DCache.scala:61:24, :177:40
+  wire [127:0]        _GEN_14;	// DCache.scala:177:40
+  wire [127:0]        _GEN_15 = _GEN_13[req_addr[10:4]] /* cadence map_to_mux */;	// DCache.scala:69:34, :80:35, :177:40
   /* synopsys infer_mux_override */
-  assign _GEN_14 = _GEN_15;	// DCache.scala:175:40
+  assign _GEN_14 = _GEN_15;	// DCache.scala:177:40
   wire [127:0]        _GEN_16 = {{cache_127_1_valid}, {cache_126_1_valid}, {cache_125_1_valid}, {cache_124_1_valid},
                 {cache_123_1_valid}, {cache_122_1_valid}, {cache_121_1_valid}, {cache_120_1_valid},
                 {cache_119_1_valid}, {cache_118_1_valid}, {cache_117_1_valid}, {cache_116_1_valid},
@@ -16059,14 +16059,14 @@ module DCache(	// <stdin>:3275:10
                 {cache_15_1_valid}, {cache_14_1_valid}, {cache_13_1_valid}, {cache_12_1_valid},
                 {cache_11_1_valid}, {cache_10_1_valid}, {cache_9_1_valid}, {cache_8_1_valid},
                 {cache_7_1_valid}, {cache_6_1_valid}, {cache_5_1_valid}, {cache_4_1_valid},
-                {cache_3_1_valid}, {cache_2_1_valid}, {cache_1_1_valid}, {cache_0_1_valid}};	// DCache.scala:61:24, :175:40
-  wire                _GEN_17;	// DCache.scala:175:40
-  wire                _GEN_18 = _GEN_16[req_addr[10:4]] /* cadence map_to_mux */;	// DCache.scala:69:34, :80:35, :175:40
+                {cache_3_1_valid}, {cache_2_1_valid}, {cache_1_1_valid}, {cache_0_1_valid}};	// DCache.scala:61:24, :177:40
+  wire                _GEN_17;	// DCache.scala:177:40
+  wire                _GEN_18 = _GEN_16[req_addr[10:4]] /* cadence map_to_mux */;	// DCache.scala:69:34, :80:35, :177:40
   /* synopsys infer_mux_override */
-  assign _GEN_17 = _GEN_18;	// DCache.scala:175:40
-  wire                _T_6 = _GEN_2 == req_addr[31:11] & _GEN_8;	// DCache.scala:69:34, :81:35, :175:{40,48}
-  wire                _T_11 = _GEN_11 == req_addr[31:11] & _GEN_17;	// DCache.scala:69:34, :81:35, :175:{40,48}
-  assign _GEN = ~_T_3 & _T_4 & (_T_11 | _T_6);	// DCache.scala:87:21, :160:18, :175:{48,71}, :176:29
+  assign _GEN_17 = _GEN_18;	// DCache.scala:177:40
+  wire                _T_6 = _GEN_2 == req_addr[31:11] & _GEN_8;	// DCache.scala:69:34, :81:35, :177:{40,48}
+  wire                _T_11 = _GEN_11 == req_addr[31:11] & _GEN_17;	// DCache.scala:69:34, :81:35, :177:{40,48}
+  assign _GEN = ~_T_3 & _T_4 & (_T_11 | _T_6);	// DCache.scala:73:34, :87:21, :160:18, :162:26, :177:{48,71}, :178:29
   wire                _GEN_19 = _T_3 | ~_T_4;	// DCache.scala:90:21, :160:18
   wire                _T_16 = state == 3'h2;	// DCache.scala:153:30, :160:18, :198:38
   wire                _T_18 = state == 3'h3;	// DCache.scala:153:30, :160:18, :217:38
@@ -16074,13 +16074,13 @@ module DCache(	// <stdin>:3275:10
   wire                _T_19 = state == 3'h4;	// DCache.scala:153:30, :160:18, :228:38
   wire [20:0]         _GEN_21;	// DCache.scala:234:22
   /* synopsys infer_mux_override */
-  assign _GEN_21 = _GEN_3;	// DCache.scala:175:40, :234:22
+  assign _GEN_21 = _GEN_3;	// DCache.scala:177:40, :234:22
   wire [127:0]        _GEN_22;	// DCache.scala:234:22
   /* synopsys infer_mux_override */
-  assign _GEN_22 = _GEN_6;	// DCache.scala:175:40, :234:22
+  assign _GEN_22 = _GEN_6;	// DCache.scala:177:40, :234:22
   wire                _GEN_23;	// DCache.scala:234:22
   /* synopsys infer_mux_override */
-  assign _GEN_23 = _GEN_9;	// DCache.scala:175:40, :234:22
+  assign _GEN_23 = _GEN_9;	// DCache.scala:177:40, :234:22
   wire [127:0]        _GEN_24 = {{cache_127_0_dirty}, {cache_126_0_dirty}, {cache_125_0_dirty}, {cache_124_0_dirty},
                 {cache_123_0_dirty}, {cache_122_0_dirty}, {cache_121_0_dirty}, {cache_120_0_dirty},
                 {cache_119_0_dirty}, {cache_118_0_dirty}, {cache_117_0_dirty}, {cache_116_0_dirty},
@@ -16118,13 +16118,13 @@ module DCache(	// <stdin>:3275:10
   assign _GEN_25 = _GEN_24[req_addr[10:4]] /* cadence map_to_mux */;	// DCache.scala:69:34, :80:35, :234:22
   wire [20:0]         _GEN_26;	// DCache.scala:234:22
   /* synopsys infer_mux_override */
-  assign _GEN_26 = _GEN_12;	// DCache.scala:175:40, :234:22
+  assign _GEN_26 = _GEN_12;	// DCache.scala:177:40, :234:22
   wire [127:0]        _GEN_27;	// DCache.scala:234:22
   /* synopsys infer_mux_override */
-  assign _GEN_27 = _GEN_15;	// DCache.scala:175:40, :234:22
+  assign _GEN_27 = _GEN_15;	// DCache.scala:177:40, :234:22
   wire                _GEN_28;	// DCache.scala:234:22
   /* synopsys infer_mux_override */
-  assign _GEN_28 = _GEN_18;	// DCache.scala:175:40, :234:22
+  assign _GEN_28 = _GEN_18;	// DCache.scala:177:40, :234:22
   wire [127:0]        _GEN_29 = {{cache_127_1_dirty}, {cache_126_1_dirty}, {cache_125_1_dirty}, {cache_124_1_dirty},
                 {cache_123_1_dirty}, {cache_122_1_dirty}, {cache_121_1_dirty}, {cache_120_1_dirty},
                 {cache_119_1_dirty}, {cache_118_1_dirty}, {cache_117_1_dirty}, {cache_116_1_dirty},
@@ -16161,9 +16161,9 @@ module DCache(	// <stdin>:3275:10
   /* synopsys infer_mux_override */
   assign _GEN_30 = _GEN_29[req_addr[10:4]] /* cadence map_to_mux */;	// DCache.scala:69:34, :80:35, :234:22
   wire                _GEN_31 = ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & ~(~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 &
-                (_GEN_23 & req_addr[31:11] == _GEN_21 | ~_GEN_23)) & _refillIDX_prng_io_out_0;	// DCache.scala:69:34, :81:35, :87:21, :90:21, :154:21, :155:21, :160:18, :234:{22,43}, :240:{42,48,70}, :241:38, :245:18, PRNG.scala:91:22
+                (_GEN_23 & req_addr[31:11] == _GEN_21 | ~_GEN_23)) & _refillIDX_prng_io_out_0;	// DCache.scala:69:34, :73:34, :81:35, :90:21, :154:21, :155:21, :160:18, :162:26, :234:{22,43}, :240:{42,48,70}, :241:38, :245:18, PRNG.scala:91:22
   wire                _T_24 = (_GEN_31 ? _GEN_30 : _GEN_25) & (_GEN_31 ? _GEN_28 : _GEN_23);	// DCache.scala:154:21, :160:18, :234:22, :248:46
-  wire                _GEN_32 = ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _T_24;	// DCache.scala:87:21, :90:21, :113:29, :155:21, :160:18, :248:46
+  wire                _GEN_32 = ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _T_24;	// DCache.scala:73:34, :90:21, :113:29, :155:21, :160:18, :162:26, :248:46
   wire                _GEN_33 = _T_3 | _T_4 | _T_16 | _T_18 | ~(_T_19 & _T_24);	// DCache.scala:114:29, :160:18, :248:{46,76}
   reg                 wstate;	// DCache.scala:266:31
   wire [63:0]         _GEN_34 = wstate ? (req_wstrb == 8'h1 ? 64'hFF : req_wstrb == 8'h3 ? 64'hFFFF : req_wstrb == 8'hF ?
@@ -16171,10 +16171,10 @@ module DCache(	// <stdin>:3275:10
   wire [63:0]         _GEN_35 = wstate ? req_wdata & _GEN_34 : 64'h0;	// DCache.scala:69:34, :73:34, :266:31, :269:27, :270:27, :272:19, :286:96
   wire [127:0]        _GEN_36;	// DCache.scala:287:51
   /* synopsys infer_mux_override */
-  assign _GEN_36 = _GEN_4[req_wset] /* cadence map_to_mux */;	// DCache.scala:76:34, :175:40, :287:51
+  assign _GEN_36 = _GEN_4[req_wset] /* cadence map_to_mux */;	// DCache.scala:76:34, :177:40, :287:51
   wire [127:0]        _GEN_37;	// DCache.scala:287:51
   /* synopsys infer_mux_override */
-  assign _GEN_37 = _GEN_13[req_wset] /* cadence map_to_mux */;	// DCache.scala:76:34, :175:40, :287:51
+  assign _GEN_37 = _GEN_13[req_wset] /* cadence map_to_mux */;	// DCache.scala:76:34, :177:40, :287:51
   always @(posedge clock) begin
     if (reset) begin
       cache_0_0_tag <= 21'h0;	// DCache.scala:57:25, :61:24
@@ -18507,7 +18507,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_0_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_0_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_38 & ~_GEN_31 | cache_0_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_0_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_38 & ~_GEN_31 | cache_0_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_0_0_dirty <= wstate & _GEN_422 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_38
                                                 | _GEN_31) & cache_0_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_166) begin	// DCache.scala:61:24, :160:18
@@ -18520,7 +18520,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_0_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_0_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_38 & _GEN_31 | cache_0_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_0_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_38 & _GEN_31 | cache_0_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_0_1_dirty <= _GEN_423 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_38 | ~_GEN_31) &
                                                 cache_0_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_167) begin	// DCache.scala:61:24, :160:18
@@ -18535,7 +18535,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_1_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_1_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_39 & ~_GEN_31 | cache_1_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_1_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_39 & ~_GEN_31 | cache_1_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_1_0_dirty <= wstate & _GEN_424 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_39
                                                 | _GEN_31) & cache_1_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_168) begin	// DCache.scala:61:24, :160:18
@@ -18548,7 +18548,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_1_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_1_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_39 & _GEN_31 | cache_1_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_1_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_39 & _GEN_31 | cache_1_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_1_1_dirty <= _GEN_425 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_39 | ~_GEN_31) &
                                                 cache_1_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_169) begin	// DCache.scala:61:24, :160:18
@@ -18563,7 +18563,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_2_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_2_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_40 & ~_GEN_31 | cache_2_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_2_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_40 & ~_GEN_31 | cache_2_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_2_0_dirty <= wstate & _GEN_426 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_40
                                                 | _GEN_31) & cache_2_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_170) begin	// DCache.scala:61:24, :160:18
@@ -18576,7 +18576,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_2_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_2_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_40 & _GEN_31 | cache_2_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_2_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_40 & _GEN_31 | cache_2_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_2_1_dirty <= _GEN_427 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_40 | ~_GEN_31) &
                                                 cache_2_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_171) begin	// DCache.scala:61:24, :160:18
@@ -18591,7 +18591,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_3_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_3_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_41 & ~_GEN_31 | cache_3_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_3_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_41 & ~_GEN_31 | cache_3_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_3_0_dirty <= wstate & _GEN_428 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_41
                                                 | _GEN_31) & cache_3_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_172) begin	// DCache.scala:61:24, :160:18
@@ -18604,7 +18604,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_3_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_3_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_41 & _GEN_31 | cache_3_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_3_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_41 & _GEN_31 | cache_3_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_3_1_dirty <= _GEN_429 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_41 | ~_GEN_31) &
                                                 cache_3_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_173) begin	// DCache.scala:61:24, :160:18
@@ -18619,7 +18619,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_4_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_4_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_42 & ~_GEN_31 | cache_4_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_4_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_42 & ~_GEN_31 | cache_4_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_4_0_dirty <= wstate & _GEN_430 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_42
                                                 | _GEN_31) & cache_4_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_174) begin	// DCache.scala:61:24, :160:18
@@ -18632,7 +18632,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_4_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_4_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_42 & _GEN_31 | cache_4_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_4_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_42 & _GEN_31 | cache_4_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_4_1_dirty <= _GEN_431 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_42 | ~_GEN_31) &
                                                 cache_4_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_175) begin	// DCache.scala:61:24, :160:18
@@ -18647,7 +18647,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_5_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_5_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_43 & ~_GEN_31 | cache_5_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_5_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_43 & ~_GEN_31 | cache_5_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_5_0_dirty <= wstate & _GEN_432 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_43
                                                 | _GEN_31) & cache_5_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_176) begin	// DCache.scala:61:24, :160:18
@@ -18660,7 +18660,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_5_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_5_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_43 & _GEN_31 | cache_5_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_5_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_43 & _GEN_31 | cache_5_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_5_1_dirty <= _GEN_433 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_43 | ~_GEN_31) &
                                                 cache_5_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_177) begin	// DCache.scala:61:24, :160:18
@@ -18675,7 +18675,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_6_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_6_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_44 & ~_GEN_31 | cache_6_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_6_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_44 & ~_GEN_31 | cache_6_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_6_0_dirty <= wstate & _GEN_434 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_44
                                                 | _GEN_31) & cache_6_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_178) begin	// DCache.scala:61:24, :160:18
@@ -18688,7 +18688,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_6_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_6_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_44 & _GEN_31 | cache_6_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_6_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_44 & _GEN_31 | cache_6_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_6_1_dirty <= _GEN_435 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_44 | ~_GEN_31) &
                                                 cache_6_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_179) begin	// DCache.scala:61:24, :160:18
@@ -18703,7 +18703,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_7_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_7_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_45 & ~_GEN_31 | cache_7_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_7_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_45 & ~_GEN_31 | cache_7_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_7_0_dirty <= wstate & _GEN_436 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_45
                                                 | _GEN_31) & cache_7_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_180) begin	// DCache.scala:61:24, :160:18
@@ -18716,7 +18716,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_7_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_7_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_45 & _GEN_31 | cache_7_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_7_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_45 & _GEN_31 | cache_7_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_7_1_dirty <= _GEN_437 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_45 | ~_GEN_31) &
                                                 cache_7_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_181) begin	// DCache.scala:61:24, :160:18
@@ -18731,7 +18731,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_8_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_8_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_46 & ~_GEN_31 | cache_8_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_8_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_46 & ~_GEN_31 | cache_8_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_8_0_dirty <= wstate & _GEN_438 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_46
                                                 | _GEN_31) & cache_8_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_182) begin	// DCache.scala:61:24, :160:18
@@ -18744,7 +18744,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_8_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_8_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_46 & _GEN_31 | cache_8_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_8_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_46 & _GEN_31 | cache_8_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_8_1_dirty <= _GEN_439 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_46 | ~_GEN_31) &
                                                 cache_8_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_183) begin	// DCache.scala:61:24, :160:18
@@ -18759,7 +18759,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_9_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_9_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_47 & ~_GEN_31 | cache_9_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_9_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_47 & ~_GEN_31 | cache_9_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_9_0_dirty <= wstate & _GEN_440 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_47
                                                 | _GEN_31) & cache_9_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_184) begin	// DCache.scala:61:24, :160:18
@@ -18772,7 +18772,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_9_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_9_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_47 & _GEN_31 | cache_9_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_9_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_47 & _GEN_31 | cache_9_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_9_1_dirty <= _GEN_441 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_47 | ~_GEN_31) &
                                                 cache_9_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_185) begin	// DCache.scala:61:24, :160:18
@@ -18787,7 +18787,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_10_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_10_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_48 & ~_GEN_31 | cache_10_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_10_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_48 & ~_GEN_31 | cache_10_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_10_0_dirty <= wstate & _GEN_442 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_48
                                                 | _GEN_31) & cache_10_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_186) begin	// DCache.scala:61:24, :160:18
@@ -18800,7 +18800,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_10_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_10_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_48 & _GEN_31 | cache_10_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_10_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_48 & _GEN_31 | cache_10_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_10_1_dirty <= _GEN_443 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_48 | ~_GEN_31) &
                                                 cache_10_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_187) begin	// DCache.scala:61:24, :160:18
@@ -18815,7 +18815,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_11_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_11_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_49 & ~_GEN_31 | cache_11_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_11_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_49 & ~_GEN_31 | cache_11_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_11_0_dirty <= wstate & _GEN_444 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_49
                                                 | _GEN_31) & cache_11_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_188) begin	// DCache.scala:61:24, :160:18
@@ -18828,7 +18828,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_11_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_11_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_49 & _GEN_31 | cache_11_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_11_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_49 & _GEN_31 | cache_11_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_11_1_dirty <= _GEN_445 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_49 | ~_GEN_31) &
                                                 cache_11_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_189) begin	// DCache.scala:61:24, :160:18
@@ -18843,7 +18843,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_12_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_12_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_50 & ~_GEN_31 | cache_12_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_12_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_50 & ~_GEN_31 | cache_12_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_12_0_dirty <= wstate & _GEN_446 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_50
                                                 | _GEN_31) & cache_12_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_190) begin	// DCache.scala:61:24, :160:18
@@ -18856,7 +18856,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_12_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_12_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_50 & _GEN_31 | cache_12_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_12_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_50 & _GEN_31 | cache_12_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_12_1_dirty <= _GEN_447 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_50 | ~_GEN_31) &
                                                 cache_12_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_191) begin	// DCache.scala:61:24, :160:18
@@ -18871,7 +18871,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_13_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_13_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_51 & ~_GEN_31 | cache_13_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_13_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_51 & ~_GEN_31 | cache_13_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_13_0_dirty <= wstate & _GEN_448 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_51
                                                 | _GEN_31) & cache_13_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_192) begin	// DCache.scala:61:24, :160:18
@@ -18884,7 +18884,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_13_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_13_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_51 & _GEN_31 | cache_13_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_13_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_51 & _GEN_31 | cache_13_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_13_1_dirty <= _GEN_449 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_51 | ~_GEN_31) &
                                                 cache_13_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_193) begin	// DCache.scala:61:24, :160:18
@@ -18899,7 +18899,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_14_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_14_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_52 & ~_GEN_31 | cache_14_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_14_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_52 & ~_GEN_31 | cache_14_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_14_0_dirty <= wstate & _GEN_450 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_52
                                                 | _GEN_31) & cache_14_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_194) begin	// DCache.scala:61:24, :160:18
@@ -18912,7 +18912,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_14_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_14_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_52 & _GEN_31 | cache_14_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_14_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_52 & _GEN_31 | cache_14_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_14_1_dirty <= _GEN_451 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_52 | ~_GEN_31) &
                                                 cache_14_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_195) begin	// DCache.scala:61:24, :160:18
@@ -18927,7 +18927,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_15_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_15_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_53 & ~_GEN_31 | cache_15_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_15_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_53 & ~_GEN_31 | cache_15_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_15_0_dirty <= wstate & _GEN_452 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_53
                                                 | _GEN_31) & cache_15_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_196) begin	// DCache.scala:61:24, :160:18
@@ -18940,7 +18940,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_15_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_15_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_53 & _GEN_31 | cache_15_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_15_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_53 & _GEN_31 | cache_15_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_15_1_dirty <= _GEN_453 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_53 | ~_GEN_31) &
                                                 cache_15_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_197) begin	// DCache.scala:61:24, :160:18
@@ -18955,7 +18955,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_16_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_16_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_54 & ~_GEN_31 | cache_16_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_16_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_54 & ~_GEN_31 | cache_16_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_16_0_dirty <= wstate & _GEN_454 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_54
                                                 | _GEN_31) & cache_16_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_198) begin	// DCache.scala:61:24, :160:18
@@ -18968,7 +18968,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_16_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_16_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_54 & _GEN_31 | cache_16_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_16_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_54 & _GEN_31 | cache_16_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_16_1_dirty <= _GEN_455 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_54 | ~_GEN_31) &
                                                 cache_16_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_199) begin	// DCache.scala:61:24, :160:18
@@ -18983,7 +18983,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_17_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_17_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_55 & ~_GEN_31 | cache_17_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_17_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_55 & ~_GEN_31 | cache_17_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_17_0_dirty <= wstate & _GEN_456 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_55
                                                 | _GEN_31) & cache_17_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_200) begin	// DCache.scala:61:24, :160:18
@@ -18996,7 +18996,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_17_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_17_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_55 & _GEN_31 | cache_17_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_17_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_55 & _GEN_31 | cache_17_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_17_1_dirty <= _GEN_457 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_55 | ~_GEN_31) &
                                                 cache_17_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_201) begin	// DCache.scala:61:24, :160:18
@@ -19011,7 +19011,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_18_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_18_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_56 & ~_GEN_31 | cache_18_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_18_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_56 & ~_GEN_31 | cache_18_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_18_0_dirty <= wstate & _GEN_458 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_56
                                                 | _GEN_31) & cache_18_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_202) begin	// DCache.scala:61:24, :160:18
@@ -19024,7 +19024,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_18_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_18_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_56 & _GEN_31 | cache_18_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_18_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_56 & _GEN_31 | cache_18_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_18_1_dirty <= _GEN_459 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_56 | ~_GEN_31) &
                                                 cache_18_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_203) begin	// DCache.scala:61:24, :160:18
@@ -19039,7 +19039,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_19_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_19_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_57 & ~_GEN_31 | cache_19_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_19_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_57 & ~_GEN_31 | cache_19_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_19_0_dirty <= wstate & _GEN_460 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_57
                                                 | _GEN_31) & cache_19_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_204) begin	// DCache.scala:61:24, :160:18
@@ -19052,7 +19052,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_19_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_19_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_57 & _GEN_31 | cache_19_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_19_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_57 & _GEN_31 | cache_19_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_19_1_dirty <= _GEN_461 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_57 | ~_GEN_31) &
                                                 cache_19_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_205) begin	// DCache.scala:61:24, :160:18
@@ -19067,7 +19067,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_20_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_20_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_58 & ~_GEN_31 | cache_20_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_20_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_58 & ~_GEN_31 | cache_20_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_20_0_dirty <= wstate & _GEN_462 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_58
                                                 | _GEN_31) & cache_20_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_206) begin	// DCache.scala:61:24, :160:18
@@ -19080,7 +19080,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_20_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_20_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_58 & _GEN_31 | cache_20_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_20_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_58 & _GEN_31 | cache_20_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_20_1_dirty <= _GEN_463 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_58 | ~_GEN_31) &
                                                 cache_20_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_207) begin	// DCache.scala:61:24, :160:18
@@ -19095,7 +19095,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_21_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_21_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_59 & ~_GEN_31 | cache_21_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_21_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_59 & ~_GEN_31 | cache_21_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_21_0_dirty <= wstate & _GEN_464 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_59
                                                 | _GEN_31) & cache_21_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_208) begin	// DCache.scala:61:24, :160:18
@@ -19108,7 +19108,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_21_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_21_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_59 & _GEN_31 | cache_21_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_21_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_59 & _GEN_31 | cache_21_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_21_1_dirty <= _GEN_465 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_59 | ~_GEN_31) &
                                                 cache_21_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_209) begin	// DCache.scala:61:24, :160:18
@@ -19123,7 +19123,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_22_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_22_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_60 & ~_GEN_31 | cache_22_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_22_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_60 & ~_GEN_31 | cache_22_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_22_0_dirty <= wstate & _GEN_466 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_60
                                                 | _GEN_31) & cache_22_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_210) begin	// DCache.scala:61:24, :160:18
@@ -19136,7 +19136,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_22_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_22_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_60 & _GEN_31 | cache_22_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_22_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_60 & _GEN_31 | cache_22_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_22_1_dirty <= _GEN_467 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_60 | ~_GEN_31) &
                                                 cache_22_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_211) begin	// DCache.scala:61:24, :160:18
@@ -19151,7 +19151,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_23_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_23_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_61 & ~_GEN_31 | cache_23_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_23_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_61 & ~_GEN_31 | cache_23_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_23_0_dirty <= wstate & _GEN_468 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_61
                                                 | _GEN_31) & cache_23_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_212) begin	// DCache.scala:61:24, :160:18
@@ -19164,7 +19164,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_23_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_23_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_61 & _GEN_31 | cache_23_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_23_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_61 & _GEN_31 | cache_23_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_23_1_dirty <= _GEN_469 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_61 | ~_GEN_31) &
                                                 cache_23_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_213) begin	// DCache.scala:61:24, :160:18
@@ -19179,7 +19179,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_24_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_24_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_62 & ~_GEN_31 | cache_24_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_24_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_62 & ~_GEN_31 | cache_24_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_24_0_dirty <= wstate & _GEN_470 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_62
                                                 | _GEN_31) & cache_24_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_214) begin	// DCache.scala:61:24, :160:18
@@ -19192,7 +19192,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_24_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_24_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_62 & _GEN_31 | cache_24_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_24_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_62 & _GEN_31 | cache_24_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_24_1_dirty <= _GEN_471 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_62 | ~_GEN_31) &
                                                 cache_24_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_215) begin	// DCache.scala:61:24, :160:18
@@ -19207,7 +19207,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_25_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_25_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_63 & ~_GEN_31 | cache_25_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_25_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_63 & ~_GEN_31 | cache_25_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_25_0_dirty <= wstate & _GEN_472 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_63
                                                 | _GEN_31) & cache_25_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_216) begin	// DCache.scala:61:24, :160:18
@@ -19220,7 +19220,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_25_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_25_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_63 & _GEN_31 | cache_25_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_25_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_63 & _GEN_31 | cache_25_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_25_1_dirty <= _GEN_473 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_63 | ~_GEN_31) &
                                                 cache_25_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_217) begin	// DCache.scala:61:24, :160:18
@@ -19235,7 +19235,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_26_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_26_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_64 & ~_GEN_31 | cache_26_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_26_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_64 & ~_GEN_31 | cache_26_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_26_0_dirty <= wstate & _GEN_474 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_64
                                                 | _GEN_31) & cache_26_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_218) begin	// DCache.scala:61:24, :160:18
@@ -19248,7 +19248,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_26_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_26_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_64 & _GEN_31 | cache_26_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_26_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_64 & _GEN_31 | cache_26_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_26_1_dirty <= _GEN_475 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_64 | ~_GEN_31) &
                                                 cache_26_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_219) begin	// DCache.scala:61:24, :160:18
@@ -19263,7 +19263,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_27_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_27_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_65 & ~_GEN_31 | cache_27_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_27_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_65 & ~_GEN_31 | cache_27_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_27_0_dirty <= wstate & _GEN_476 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_65
                                                 | _GEN_31) & cache_27_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_220) begin	// DCache.scala:61:24, :160:18
@@ -19276,7 +19276,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_27_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_27_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_65 & _GEN_31 | cache_27_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_27_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_65 & _GEN_31 | cache_27_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_27_1_dirty <= _GEN_477 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_65 | ~_GEN_31) &
                                                 cache_27_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_221) begin	// DCache.scala:61:24, :160:18
@@ -19291,7 +19291,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_28_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_28_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_66 & ~_GEN_31 | cache_28_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_28_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_66 & ~_GEN_31 | cache_28_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_28_0_dirty <= wstate & _GEN_478 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_66
                                                 | _GEN_31) & cache_28_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_222) begin	// DCache.scala:61:24, :160:18
@@ -19304,7 +19304,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_28_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_28_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_66 & _GEN_31 | cache_28_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_28_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_66 & _GEN_31 | cache_28_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_28_1_dirty <= _GEN_479 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_66 | ~_GEN_31) &
                                                 cache_28_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_223) begin	// DCache.scala:61:24, :160:18
@@ -19319,7 +19319,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_29_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_29_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_67 & ~_GEN_31 | cache_29_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_29_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_67 & ~_GEN_31 | cache_29_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_29_0_dirty <= wstate & _GEN_480 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_67
                                                 | _GEN_31) & cache_29_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_224) begin	// DCache.scala:61:24, :160:18
@@ -19332,7 +19332,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_29_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_29_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_67 & _GEN_31 | cache_29_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_29_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_67 & _GEN_31 | cache_29_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_29_1_dirty <= _GEN_481 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_67 | ~_GEN_31) &
                                                 cache_29_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_225) begin	// DCache.scala:61:24, :160:18
@@ -19347,7 +19347,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_30_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_30_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_68 & ~_GEN_31 | cache_30_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_30_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_68 & ~_GEN_31 | cache_30_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_30_0_dirty <= wstate & _GEN_482 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_68
                                                 | _GEN_31) & cache_30_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_226) begin	// DCache.scala:61:24, :160:18
@@ -19360,7 +19360,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_30_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_30_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_68 & _GEN_31 | cache_30_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_30_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_68 & _GEN_31 | cache_30_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_30_1_dirty <= _GEN_483 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_68 | ~_GEN_31) &
                                                 cache_30_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_227) begin	// DCache.scala:61:24, :160:18
@@ -19375,7 +19375,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_31_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_31_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_69 & ~_GEN_31 | cache_31_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_31_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_69 & ~_GEN_31 | cache_31_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_31_0_dirty <= wstate & _GEN_484 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_69
                                                 | _GEN_31) & cache_31_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_228) begin	// DCache.scala:61:24, :160:18
@@ -19388,7 +19388,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_31_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_31_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_69 & _GEN_31 | cache_31_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_31_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_69 & _GEN_31 | cache_31_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_31_1_dirty <= _GEN_485 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_69 | ~_GEN_31) &
                                                 cache_31_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_229) begin	// DCache.scala:61:24, :160:18
@@ -19403,7 +19403,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_32_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_32_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_70 & ~_GEN_31 | cache_32_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_32_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_70 & ~_GEN_31 | cache_32_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_32_0_dirty <= wstate & _GEN_486 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_70
                                                 | _GEN_31) & cache_32_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_230) begin	// DCache.scala:61:24, :160:18
@@ -19416,7 +19416,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_32_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_32_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_70 & _GEN_31 | cache_32_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_32_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_70 & _GEN_31 | cache_32_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_32_1_dirty <= _GEN_487 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_70 | ~_GEN_31) &
                                                 cache_32_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_231) begin	// DCache.scala:61:24, :160:18
@@ -19431,7 +19431,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_33_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_33_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_71 & ~_GEN_31 | cache_33_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_33_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_71 & ~_GEN_31 | cache_33_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_33_0_dirty <= wstate & _GEN_488 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_71
                                                 | _GEN_31) & cache_33_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_232) begin	// DCache.scala:61:24, :160:18
@@ -19444,7 +19444,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_33_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_33_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_71 & _GEN_31 | cache_33_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_33_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_71 & _GEN_31 | cache_33_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_33_1_dirty <= _GEN_489 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_71 | ~_GEN_31) &
                                                 cache_33_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_233) begin	// DCache.scala:61:24, :160:18
@@ -19459,7 +19459,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_34_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_34_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_72 & ~_GEN_31 | cache_34_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_34_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_72 & ~_GEN_31 | cache_34_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_34_0_dirty <= wstate & _GEN_490 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_72
                                                 | _GEN_31) & cache_34_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_234) begin	// DCache.scala:61:24, :160:18
@@ -19472,7 +19472,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_34_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_34_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_72 & _GEN_31 | cache_34_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_34_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_72 & _GEN_31 | cache_34_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_34_1_dirty <= _GEN_491 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_72 | ~_GEN_31) &
                                                 cache_34_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_235) begin	// DCache.scala:61:24, :160:18
@@ -19487,7 +19487,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_35_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_35_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_73 & ~_GEN_31 | cache_35_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_35_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_73 & ~_GEN_31 | cache_35_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_35_0_dirty <= wstate & _GEN_492 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_73
                                                 | _GEN_31) & cache_35_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_236) begin	// DCache.scala:61:24, :160:18
@@ -19500,7 +19500,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_35_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_35_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_73 & _GEN_31 | cache_35_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_35_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_73 & _GEN_31 | cache_35_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_35_1_dirty <= _GEN_493 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_73 | ~_GEN_31) &
                                                 cache_35_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_237) begin	// DCache.scala:61:24, :160:18
@@ -19515,7 +19515,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_36_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_36_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_74 & ~_GEN_31 | cache_36_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_36_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_74 & ~_GEN_31 | cache_36_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_36_0_dirty <= wstate & _GEN_494 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_74
                                                 | _GEN_31) & cache_36_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_238) begin	// DCache.scala:61:24, :160:18
@@ -19528,7 +19528,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_36_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_36_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_74 & _GEN_31 | cache_36_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_36_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_74 & _GEN_31 | cache_36_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_36_1_dirty <= _GEN_495 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_74 | ~_GEN_31) &
                                                 cache_36_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_239) begin	// DCache.scala:61:24, :160:18
@@ -19543,7 +19543,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_37_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_37_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_75 & ~_GEN_31 | cache_37_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_37_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_75 & ~_GEN_31 | cache_37_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_37_0_dirty <= wstate & _GEN_496 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_75
                                                 | _GEN_31) & cache_37_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_240) begin	// DCache.scala:61:24, :160:18
@@ -19556,7 +19556,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_37_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_37_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_75 & _GEN_31 | cache_37_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_37_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_75 & _GEN_31 | cache_37_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_37_1_dirty <= _GEN_497 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_75 | ~_GEN_31) &
                                                 cache_37_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_241) begin	// DCache.scala:61:24, :160:18
@@ -19571,7 +19571,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_38_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_38_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_76 & ~_GEN_31 | cache_38_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_38_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_76 & ~_GEN_31 | cache_38_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_38_0_dirty <= wstate & _GEN_498 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_76
                                                 | _GEN_31) & cache_38_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_242) begin	// DCache.scala:61:24, :160:18
@@ -19584,7 +19584,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_38_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_38_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_76 & _GEN_31 | cache_38_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_38_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_76 & _GEN_31 | cache_38_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_38_1_dirty <= _GEN_499 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_76 | ~_GEN_31) &
                                                 cache_38_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_243) begin	// DCache.scala:61:24, :160:18
@@ -19599,7 +19599,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_39_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_39_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_77 & ~_GEN_31 | cache_39_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_39_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_77 & ~_GEN_31 | cache_39_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_39_0_dirty <= wstate & _GEN_500 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_77
                                                 | _GEN_31) & cache_39_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_244) begin	// DCache.scala:61:24, :160:18
@@ -19612,7 +19612,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_39_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_39_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_77 & _GEN_31 | cache_39_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_39_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_77 & _GEN_31 | cache_39_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_39_1_dirty <= _GEN_501 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_77 | ~_GEN_31) &
                                                 cache_39_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_245) begin	// DCache.scala:61:24, :160:18
@@ -19627,7 +19627,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_40_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_40_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_78 & ~_GEN_31 | cache_40_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_40_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_78 & ~_GEN_31 | cache_40_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_40_0_dirty <= wstate & _GEN_502 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_78
                                                 | _GEN_31) & cache_40_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_246) begin	// DCache.scala:61:24, :160:18
@@ -19640,7 +19640,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_40_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_40_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_78 & _GEN_31 | cache_40_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_40_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_78 & _GEN_31 | cache_40_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_40_1_dirty <= _GEN_503 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_78 | ~_GEN_31) &
                                                 cache_40_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_247) begin	// DCache.scala:61:24, :160:18
@@ -19655,7 +19655,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_41_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_41_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_79 & ~_GEN_31 | cache_41_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_41_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_79 & ~_GEN_31 | cache_41_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_41_0_dirty <= wstate & _GEN_504 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_79
                                                 | _GEN_31) & cache_41_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_248) begin	// DCache.scala:61:24, :160:18
@@ -19668,7 +19668,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_41_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_41_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_79 & _GEN_31 | cache_41_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_41_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_79 & _GEN_31 | cache_41_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_41_1_dirty <= _GEN_505 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_79 | ~_GEN_31) &
                                                 cache_41_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_249) begin	// DCache.scala:61:24, :160:18
@@ -19683,7 +19683,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_42_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_42_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_80 & ~_GEN_31 | cache_42_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_42_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_80 & ~_GEN_31 | cache_42_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_42_0_dirty <= wstate & _GEN_506 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_80
                                                 | _GEN_31) & cache_42_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_250) begin	// DCache.scala:61:24, :160:18
@@ -19696,7 +19696,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_42_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_42_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_80 & _GEN_31 | cache_42_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_42_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_80 & _GEN_31 | cache_42_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_42_1_dirty <= _GEN_507 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_80 | ~_GEN_31) &
                                                 cache_42_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_251) begin	// DCache.scala:61:24, :160:18
@@ -19711,7 +19711,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_43_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_43_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_81 & ~_GEN_31 | cache_43_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_43_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_81 & ~_GEN_31 | cache_43_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_43_0_dirty <= wstate & _GEN_508 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_81
                                                 | _GEN_31) & cache_43_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_252) begin	// DCache.scala:61:24, :160:18
@@ -19724,7 +19724,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_43_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_43_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_81 & _GEN_31 | cache_43_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_43_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_81 & _GEN_31 | cache_43_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_43_1_dirty <= _GEN_509 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_81 | ~_GEN_31) &
                                                 cache_43_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_253) begin	// DCache.scala:61:24, :160:18
@@ -19739,7 +19739,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_44_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_44_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_82 & ~_GEN_31 | cache_44_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_44_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_82 & ~_GEN_31 | cache_44_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_44_0_dirty <= wstate & _GEN_510 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_82
                                                 | _GEN_31) & cache_44_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_254) begin	// DCache.scala:61:24, :160:18
@@ -19752,7 +19752,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_44_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_44_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_82 & _GEN_31 | cache_44_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_44_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_82 & _GEN_31 | cache_44_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_44_1_dirty <= _GEN_511 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_82 | ~_GEN_31) &
                                                 cache_44_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_255) begin	// DCache.scala:61:24, :160:18
@@ -19767,7 +19767,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_45_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_45_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_83 & ~_GEN_31 | cache_45_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_45_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_83 & ~_GEN_31 | cache_45_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_45_0_dirty <= wstate & _GEN_512 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_83
                                                 | _GEN_31) & cache_45_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_256) begin	// DCache.scala:61:24, :160:18
@@ -19780,7 +19780,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_45_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_45_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_83 & _GEN_31 | cache_45_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_45_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_83 & _GEN_31 | cache_45_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_45_1_dirty <= _GEN_513 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_83 | ~_GEN_31) &
                                                 cache_45_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_257) begin	// DCache.scala:61:24, :160:18
@@ -19795,7 +19795,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_46_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_46_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_84 & ~_GEN_31 | cache_46_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_46_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_84 & ~_GEN_31 | cache_46_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_46_0_dirty <= wstate & _GEN_514 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_84
                                                 | _GEN_31) & cache_46_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_258) begin	// DCache.scala:61:24, :160:18
@@ -19808,7 +19808,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_46_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_46_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_84 & _GEN_31 | cache_46_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_46_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_84 & _GEN_31 | cache_46_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_46_1_dirty <= _GEN_515 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_84 | ~_GEN_31) &
                                                 cache_46_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_259) begin	// DCache.scala:61:24, :160:18
@@ -19823,7 +19823,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_47_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_47_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_85 & ~_GEN_31 | cache_47_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_47_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_85 & ~_GEN_31 | cache_47_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_47_0_dirty <= wstate & _GEN_516 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_85
                                                 | _GEN_31) & cache_47_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_260) begin	// DCache.scala:61:24, :160:18
@@ -19836,7 +19836,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_47_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_47_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_85 & _GEN_31 | cache_47_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_47_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_85 & _GEN_31 | cache_47_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_47_1_dirty <= _GEN_517 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_85 | ~_GEN_31) &
                                                 cache_47_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_261) begin	// DCache.scala:61:24, :160:18
@@ -19851,7 +19851,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_48_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_48_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_86 & ~_GEN_31 | cache_48_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_48_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_86 & ~_GEN_31 | cache_48_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_48_0_dirty <= wstate & _GEN_518 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_86
                                                 | _GEN_31) & cache_48_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_262) begin	// DCache.scala:61:24, :160:18
@@ -19864,7 +19864,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_48_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_48_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_86 & _GEN_31 | cache_48_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_48_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_86 & _GEN_31 | cache_48_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_48_1_dirty <= _GEN_519 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_86 | ~_GEN_31) &
                                                 cache_48_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_263) begin	// DCache.scala:61:24, :160:18
@@ -19879,7 +19879,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_49_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_49_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_87 & ~_GEN_31 | cache_49_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_49_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_87 & ~_GEN_31 | cache_49_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_49_0_dirty <= wstate & _GEN_520 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_87
                                                 | _GEN_31) & cache_49_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_264) begin	// DCache.scala:61:24, :160:18
@@ -19892,7 +19892,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_49_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_49_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_87 & _GEN_31 | cache_49_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_49_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_87 & _GEN_31 | cache_49_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_49_1_dirty <= _GEN_521 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_87 | ~_GEN_31) &
                                                 cache_49_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_265) begin	// DCache.scala:61:24, :160:18
@@ -19907,7 +19907,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_50_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_50_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_88 & ~_GEN_31 | cache_50_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_50_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_88 & ~_GEN_31 | cache_50_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_50_0_dirty <= wstate & _GEN_522 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_88
                                                 | _GEN_31) & cache_50_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_266) begin	// DCache.scala:61:24, :160:18
@@ -19920,7 +19920,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_50_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_50_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_88 & _GEN_31 | cache_50_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_50_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_88 & _GEN_31 | cache_50_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_50_1_dirty <= _GEN_523 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_88 | ~_GEN_31) &
                                                 cache_50_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_267) begin	// DCache.scala:61:24, :160:18
@@ -19935,7 +19935,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_51_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_51_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_89 & ~_GEN_31 | cache_51_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_51_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_89 & ~_GEN_31 | cache_51_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_51_0_dirty <= wstate & _GEN_524 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_89
                                                 | _GEN_31) & cache_51_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_268) begin	// DCache.scala:61:24, :160:18
@@ -19948,7 +19948,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_51_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_51_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_89 & _GEN_31 | cache_51_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_51_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_89 & _GEN_31 | cache_51_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_51_1_dirty <= _GEN_525 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_89 | ~_GEN_31) &
                                                 cache_51_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_269) begin	// DCache.scala:61:24, :160:18
@@ -19963,7 +19963,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_52_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_52_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_90 & ~_GEN_31 | cache_52_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_52_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_90 & ~_GEN_31 | cache_52_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_52_0_dirty <= wstate & _GEN_526 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_90
                                                 | _GEN_31) & cache_52_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_270) begin	// DCache.scala:61:24, :160:18
@@ -19976,7 +19976,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_52_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_52_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_90 & _GEN_31 | cache_52_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_52_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_90 & _GEN_31 | cache_52_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_52_1_dirty <= _GEN_527 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_90 | ~_GEN_31) &
                                                 cache_52_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_271) begin	// DCache.scala:61:24, :160:18
@@ -19991,7 +19991,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_53_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_53_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_91 & ~_GEN_31 | cache_53_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_53_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_91 & ~_GEN_31 | cache_53_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_53_0_dirty <= wstate & _GEN_528 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_91
                                                 | _GEN_31) & cache_53_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_272) begin	// DCache.scala:61:24, :160:18
@@ -20004,7 +20004,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_53_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_53_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_91 & _GEN_31 | cache_53_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_53_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_91 & _GEN_31 | cache_53_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_53_1_dirty <= _GEN_529 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_91 | ~_GEN_31) &
                                                 cache_53_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_273) begin	// DCache.scala:61:24, :160:18
@@ -20019,7 +20019,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_54_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_54_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_92 & ~_GEN_31 | cache_54_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_54_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_92 & ~_GEN_31 | cache_54_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_54_0_dirty <= wstate & _GEN_530 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_92
                                                 | _GEN_31) & cache_54_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_274) begin	// DCache.scala:61:24, :160:18
@@ -20032,7 +20032,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_54_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_54_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_92 & _GEN_31 | cache_54_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_54_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_92 & _GEN_31 | cache_54_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_54_1_dirty <= _GEN_531 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_92 | ~_GEN_31) &
                                                 cache_54_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_275) begin	// DCache.scala:61:24, :160:18
@@ -20047,7 +20047,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_55_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_55_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_93 & ~_GEN_31 | cache_55_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_55_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_93 & ~_GEN_31 | cache_55_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_55_0_dirty <= wstate & _GEN_532 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_93
                                                 | _GEN_31) & cache_55_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_276) begin	// DCache.scala:61:24, :160:18
@@ -20060,7 +20060,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_55_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_55_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_93 & _GEN_31 | cache_55_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_55_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_93 & _GEN_31 | cache_55_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_55_1_dirty <= _GEN_533 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_93 | ~_GEN_31) &
                                                 cache_55_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_277) begin	// DCache.scala:61:24, :160:18
@@ -20075,7 +20075,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_56_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_56_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_94 & ~_GEN_31 | cache_56_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_56_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_94 & ~_GEN_31 | cache_56_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_56_0_dirty <= wstate & _GEN_534 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_94
                                                 | _GEN_31) & cache_56_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_278) begin	// DCache.scala:61:24, :160:18
@@ -20088,7 +20088,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_56_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_56_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_94 & _GEN_31 | cache_56_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_56_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_94 & _GEN_31 | cache_56_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_56_1_dirty <= _GEN_535 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_94 | ~_GEN_31) &
                                                 cache_56_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_279) begin	// DCache.scala:61:24, :160:18
@@ -20103,7 +20103,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_57_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_57_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_95 & ~_GEN_31 | cache_57_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_57_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_95 & ~_GEN_31 | cache_57_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_57_0_dirty <= wstate & _GEN_536 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_95
                                                 | _GEN_31) & cache_57_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_280) begin	// DCache.scala:61:24, :160:18
@@ -20116,7 +20116,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_57_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_57_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_95 & _GEN_31 | cache_57_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_57_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_95 & _GEN_31 | cache_57_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_57_1_dirty <= _GEN_537 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_95 | ~_GEN_31) &
                                                 cache_57_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_281) begin	// DCache.scala:61:24, :160:18
@@ -20131,7 +20131,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_58_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_58_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_96 & ~_GEN_31 | cache_58_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_58_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_96 & ~_GEN_31 | cache_58_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_58_0_dirty <= wstate & _GEN_538 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_96
                                                 | _GEN_31) & cache_58_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_282) begin	// DCache.scala:61:24, :160:18
@@ -20144,7 +20144,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_58_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_58_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_96 & _GEN_31 | cache_58_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_58_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_96 & _GEN_31 | cache_58_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_58_1_dirty <= _GEN_539 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_96 | ~_GEN_31) &
                                                 cache_58_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_283) begin	// DCache.scala:61:24, :160:18
@@ -20159,7 +20159,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_59_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_59_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_97 & ~_GEN_31 | cache_59_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_59_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_97 & ~_GEN_31 | cache_59_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_59_0_dirty <= wstate & _GEN_540 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_97
                                                 | _GEN_31) & cache_59_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_284) begin	// DCache.scala:61:24, :160:18
@@ -20172,7 +20172,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_59_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_59_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_97 & _GEN_31 | cache_59_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_59_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_97 & _GEN_31 | cache_59_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_59_1_dirty <= _GEN_541 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_97 | ~_GEN_31) &
                                                 cache_59_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_285) begin	// DCache.scala:61:24, :160:18
@@ -20187,7 +20187,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_60_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_60_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_98 & ~_GEN_31 | cache_60_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_60_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_98 & ~_GEN_31 | cache_60_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_60_0_dirty <= wstate & _GEN_542 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_98
                                                 | _GEN_31) & cache_60_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_286) begin	// DCache.scala:61:24, :160:18
@@ -20200,7 +20200,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_60_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_60_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_98 & _GEN_31 | cache_60_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_60_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_98 & _GEN_31 | cache_60_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_60_1_dirty <= _GEN_543 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_98 | ~_GEN_31) &
                                                 cache_60_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_287) begin	// DCache.scala:61:24, :160:18
@@ -20215,7 +20215,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_61_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_61_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_99 & ~_GEN_31 | cache_61_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_61_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_99 & ~_GEN_31 | cache_61_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_61_0_dirty <= wstate & _GEN_544 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_99
                                                 | _GEN_31) & cache_61_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_288) begin	// DCache.scala:61:24, :160:18
@@ -20228,7 +20228,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_61_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_61_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_99 & _GEN_31 | cache_61_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_61_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_99 & _GEN_31 | cache_61_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_61_1_dirty <= _GEN_545 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_99 | ~_GEN_31) &
                                                 cache_61_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_289) begin	// DCache.scala:61:24, :160:18
@@ -20243,7 +20243,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_62_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_62_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_100 & ~_GEN_31 | cache_62_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_62_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_100 & ~_GEN_31 | cache_62_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_62_0_dirty <= wstate & _GEN_546 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_100
                                                 | _GEN_31) & cache_62_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_290) begin	// DCache.scala:61:24, :160:18
@@ -20256,7 +20256,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_62_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_62_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_100 & _GEN_31 | cache_62_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_62_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_100 & _GEN_31 | cache_62_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_62_1_dirty <= _GEN_547 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_100 | ~_GEN_31) &
                                                 cache_62_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_291) begin	// DCache.scala:61:24, :160:18
@@ -20271,7 +20271,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_63_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_63_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_101 & ~_GEN_31 | cache_63_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_63_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_101 & ~_GEN_31 | cache_63_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_63_0_dirty <= wstate & _GEN_548 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_101
                                                 | _GEN_31) & cache_63_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_292) begin	// DCache.scala:61:24, :160:18
@@ -20284,7 +20284,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_63_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_63_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_101 & _GEN_31 | cache_63_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_63_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_101 & _GEN_31 | cache_63_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_63_1_dirty <= _GEN_549 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_101 | ~_GEN_31) &
                                                 cache_63_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_293) begin	// DCache.scala:61:24, :160:18
@@ -20299,7 +20299,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_64_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_64_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_102 & ~_GEN_31 | cache_64_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_64_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_102 & ~_GEN_31 | cache_64_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_64_0_dirty <= wstate & _GEN_550 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_102
                                                 | _GEN_31) & cache_64_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_294) begin	// DCache.scala:61:24, :160:18
@@ -20312,7 +20312,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_64_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_64_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_102 & _GEN_31 | cache_64_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_64_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_102 & _GEN_31 | cache_64_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_64_1_dirty <= _GEN_551 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_102 | ~_GEN_31) &
                                                 cache_64_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_295) begin	// DCache.scala:61:24, :160:18
@@ -20327,7 +20327,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_65_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_65_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_103 & ~_GEN_31 | cache_65_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_65_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_103 & ~_GEN_31 | cache_65_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_65_0_dirty <= wstate & _GEN_552 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_103
                                                 | _GEN_31) & cache_65_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_296) begin	// DCache.scala:61:24, :160:18
@@ -20340,7 +20340,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_65_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_65_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_103 & _GEN_31 | cache_65_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_65_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_103 & _GEN_31 | cache_65_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_65_1_dirty <= _GEN_553 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_103 | ~_GEN_31) &
                                                 cache_65_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_297) begin	// DCache.scala:61:24, :160:18
@@ -20355,7 +20355,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_66_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_66_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_104 & ~_GEN_31 | cache_66_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_66_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_104 & ~_GEN_31 | cache_66_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_66_0_dirty <= wstate & _GEN_554 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_104
                                                 | _GEN_31) & cache_66_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_298) begin	// DCache.scala:61:24, :160:18
@@ -20368,7 +20368,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_66_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_66_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_104 & _GEN_31 | cache_66_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_66_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_104 & _GEN_31 | cache_66_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_66_1_dirty <= _GEN_555 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_104 | ~_GEN_31) &
                                                 cache_66_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_299) begin	// DCache.scala:61:24, :160:18
@@ -20383,7 +20383,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_67_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_67_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_105 & ~_GEN_31 | cache_67_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_67_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_105 & ~_GEN_31 | cache_67_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_67_0_dirty <= wstate & _GEN_556 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_105
                                                 | _GEN_31) & cache_67_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_300) begin	// DCache.scala:61:24, :160:18
@@ -20396,7 +20396,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_67_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_67_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_105 & _GEN_31 | cache_67_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_67_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_105 & _GEN_31 | cache_67_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_67_1_dirty <= _GEN_557 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_105 | ~_GEN_31) &
                                                 cache_67_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_301) begin	// DCache.scala:61:24, :160:18
@@ -20411,7 +20411,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_68_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_68_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_106 & ~_GEN_31 | cache_68_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_68_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_106 & ~_GEN_31 | cache_68_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_68_0_dirty <= wstate & _GEN_558 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_106
                                                 | _GEN_31) & cache_68_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_302) begin	// DCache.scala:61:24, :160:18
@@ -20424,7 +20424,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_68_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_68_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_106 & _GEN_31 | cache_68_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_68_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_106 & _GEN_31 | cache_68_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_68_1_dirty <= _GEN_559 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_106 | ~_GEN_31) &
                                                 cache_68_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_303) begin	// DCache.scala:61:24, :160:18
@@ -20439,7 +20439,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_69_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_69_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_107 & ~_GEN_31 | cache_69_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_69_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_107 & ~_GEN_31 | cache_69_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_69_0_dirty <= wstate & _GEN_560 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_107
                                                 | _GEN_31) & cache_69_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_304) begin	// DCache.scala:61:24, :160:18
@@ -20452,7 +20452,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_69_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_69_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_107 & _GEN_31 | cache_69_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_69_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_107 & _GEN_31 | cache_69_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_69_1_dirty <= _GEN_561 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_107 | ~_GEN_31) &
                                                 cache_69_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_305) begin	// DCache.scala:61:24, :160:18
@@ -20467,7 +20467,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_70_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_70_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_108 & ~_GEN_31 | cache_70_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_70_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_108 & ~_GEN_31 | cache_70_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_70_0_dirty <= wstate & _GEN_562 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_108
                                                 | _GEN_31) & cache_70_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_306) begin	// DCache.scala:61:24, :160:18
@@ -20480,7 +20480,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_70_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_70_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_108 & _GEN_31 | cache_70_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_70_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_108 & _GEN_31 | cache_70_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_70_1_dirty <= _GEN_563 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_108 | ~_GEN_31) &
                                                 cache_70_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_307) begin	// DCache.scala:61:24, :160:18
@@ -20495,7 +20495,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_71_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_71_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_109 & ~_GEN_31 | cache_71_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_71_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_109 & ~_GEN_31 | cache_71_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_71_0_dirty <= wstate & _GEN_564 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_109
                                                 | _GEN_31) & cache_71_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_308) begin	// DCache.scala:61:24, :160:18
@@ -20508,7 +20508,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_71_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_71_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_109 & _GEN_31 | cache_71_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_71_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_109 & _GEN_31 | cache_71_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_71_1_dirty <= _GEN_565 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_109 | ~_GEN_31) &
                                                 cache_71_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_309) begin	// DCache.scala:61:24, :160:18
@@ -20523,7 +20523,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_72_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_72_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_110 & ~_GEN_31 | cache_72_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_72_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_110 & ~_GEN_31 | cache_72_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_72_0_dirty <= wstate & _GEN_566 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_110
                                                 | _GEN_31) & cache_72_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_310) begin	// DCache.scala:61:24, :160:18
@@ -20536,7 +20536,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_72_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_72_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_110 & _GEN_31 | cache_72_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_72_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_110 & _GEN_31 | cache_72_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_72_1_dirty <= _GEN_567 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_110 | ~_GEN_31) &
                                                 cache_72_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_311) begin	// DCache.scala:61:24, :160:18
@@ -20551,7 +20551,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_73_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_73_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_111 & ~_GEN_31 | cache_73_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_73_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_111 & ~_GEN_31 | cache_73_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_73_0_dirty <= wstate & _GEN_568 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_111
                                                 | _GEN_31) & cache_73_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_312) begin	// DCache.scala:61:24, :160:18
@@ -20564,7 +20564,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_73_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_73_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_111 & _GEN_31 | cache_73_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_73_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_111 & _GEN_31 | cache_73_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_73_1_dirty <= _GEN_569 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_111 | ~_GEN_31) &
                                                 cache_73_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_313) begin	// DCache.scala:61:24, :160:18
@@ -20579,7 +20579,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_74_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_74_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_112 & ~_GEN_31 | cache_74_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_74_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_112 & ~_GEN_31 | cache_74_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_74_0_dirty <= wstate & _GEN_570 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_112
                                                 | _GEN_31) & cache_74_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_314) begin	// DCache.scala:61:24, :160:18
@@ -20592,7 +20592,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_74_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_74_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_112 & _GEN_31 | cache_74_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_74_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_112 & _GEN_31 | cache_74_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_74_1_dirty <= _GEN_571 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_112 | ~_GEN_31) &
                                                 cache_74_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_315) begin	// DCache.scala:61:24, :160:18
@@ -20607,7 +20607,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_75_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_75_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_113 & ~_GEN_31 | cache_75_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_75_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_113 & ~_GEN_31 | cache_75_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_75_0_dirty <= wstate & _GEN_572 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_113
                                                 | _GEN_31) & cache_75_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_316) begin	// DCache.scala:61:24, :160:18
@@ -20620,7 +20620,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_75_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_75_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_113 & _GEN_31 | cache_75_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_75_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_113 & _GEN_31 | cache_75_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_75_1_dirty <= _GEN_573 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_113 | ~_GEN_31) &
                                                 cache_75_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_317) begin	// DCache.scala:61:24, :160:18
@@ -20635,7 +20635,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_76_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_76_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_114 & ~_GEN_31 | cache_76_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_76_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_114 & ~_GEN_31 | cache_76_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_76_0_dirty <= wstate & _GEN_574 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_114
                                                 | _GEN_31) & cache_76_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_318) begin	// DCache.scala:61:24, :160:18
@@ -20648,7 +20648,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_76_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_76_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_114 & _GEN_31 | cache_76_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_76_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_114 & _GEN_31 | cache_76_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_76_1_dirty <= _GEN_575 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_114 | ~_GEN_31) &
                                                 cache_76_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_319) begin	// DCache.scala:61:24, :160:18
@@ -20663,7 +20663,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_77_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_77_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_115 & ~_GEN_31 | cache_77_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_77_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_115 & ~_GEN_31 | cache_77_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_77_0_dirty <= wstate & _GEN_576 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_115
                                                 | _GEN_31) & cache_77_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_320) begin	// DCache.scala:61:24, :160:18
@@ -20676,7 +20676,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_77_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_77_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_115 & _GEN_31 | cache_77_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_77_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_115 & _GEN_31 | cache_77_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_77_1_dirty <= _GEN_577 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_115 | ~_GEN_31) &
                                                 cache_77_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_321) begin	// DCache.scala:61:24, :160:18
@@ -20691,7 +20691,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_78_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_78_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_116 & ~_GEN_31 | cache_78_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_78_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_116 & ~_GEN_31 | cache_78_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_78_0_dirty <= wstate & _GEN_578 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_116
                                                 | _GEN_31) & cache_78_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_322) begin	// DCache.scala:61:24, :160:18
@@ -20704,7 +20704,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_78_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_78_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_116 & _GEN_31 | cache_78_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_78_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_116 & _GEN_31 | cache_78_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_78_1_dirty <= _GEN_579 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_116 | ~_GEN_31) &
                                                 cache_78_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_323) begin	// DCache.scala:61:24, :160:18
@@ -20719,7 +20719,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_79_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_79_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_117 & ~_GEN_31 | cache_79_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_79_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_117 & ~_GEN_31 | cache_79_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_79_0_dirty <= wstate & _GEN_580 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_117
                                                 | _GEN_31) & cache_79_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_324) begin	// DCache.scala:61:24, :160:18
@@ -20732,7 +20732,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_79_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_79_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_117 & _GEN_31 | cache_79_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_79_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_117 & _GEN_31 | cache_79_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_79_1_dirty <= _GEN_581 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_117 | ~_GEN_31) &
                                                 cache_79_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_325) begin	// DCache.scala:61:24, :160:18
@@ -20747,7 +20747,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_80_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_80_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_118 & ~_GEN_31 | cache_80_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_80_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_118 & ~_GEN_31 | cache_80_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_80_0_dirty <= wstate & _GEN_582 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_118
                                                 | _GEN_31) & cache_80_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_326) begin	// DCache.scala:61:24, :160:18
@@ -20760,7 +20760,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_80_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_80_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_118 & _GEN_31 | cache_80_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_80_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_118 & _GEN_31 | cache_80_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_80_1_dirty <= _GEN_583 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_118 | ~_GEN_31) &
                                                 cache_80_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_327) begin	// DCache.scala:61:24, :160:18
@@ -20775,7 +20775,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_81_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_81_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_119 & ~_GEN_31 | cache_81_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_81_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_119 & ~_GEN_31 | cache_81_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_81_0_dirty <= wstate & _GEN_584 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_119
                                                 | _GEN_31) & cache_81_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_328) begin	// DCache.scala:61:24, :160:18
@@ -20788,7 +20788,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_81_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_81_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_119 & _GEN_31 | cache_81_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_81_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_119 & _GEN_31 | cache_81_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_81_1_dirty <= _GEN_585 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_119 | ~_GEN_31) &
                                                 cache_81_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_329) begin	// DCache.scala:61:24, :160:18
@@ -20803,7 +20803,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_82_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_82_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_120 & ~_GEN_31 | cache_82_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_82_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_120 & ~_GEN_31 | cache_82_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_82_0_dirty <= wstate & _GEN_586 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_120
                                                 | _GEN_31) & cache_82_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_330) begin	// DCache.scala:61:24, :160:18
@@ -20816,7 +20816,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_82_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_82_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_120 & _GEN_31 | cache_82_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_82_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_120 & _GEN_31 | cache_82_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_82_1_dirty <= _GEN_587 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_120 | ~_GEN_31) &
                                                 cache_82_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_331) begin	// DCache.scala:61:24, :160:18
@@ -20831,7 +20831,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_83_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_83_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_121 & ~_GEN_31 | cache_83_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_83_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_121 & ~_GEN_31 | cache_83_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_83_0_dirty <= wstate & _GEN_588 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_121
                                                 | _GEN_31) & cache_83_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_332) begin	// DCache.scala:61:24, :160:18
@@ -20844,7 +20844,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_83_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_83_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_121 & _GEN_31 | cache_83_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_83_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_121 & _GEN_31 | cache_83_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_83_1_dirty <= _GEN_589 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_121 | ~_GEN_31) &
                                                 cache_83_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_333) begin	// DCache.scala:61:24, :160:18
@@ -20859,7 +20859,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_84_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_84_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_122 & ~_GEN_31 | cache_84_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_84_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_122 & ~_GEN_31 | cache_84_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_84_0_dirty <= wstate & _GEN_590 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_122
                                                 | _GEN_31) & cache_84_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_334) begin	// DCache.scala:61:24, :160:18
@@ -20872,7 +20872,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_84_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_84_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_122 & _GEN_31 | cache_84_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_84_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_122 & _GEN_31 | cache_84_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_84_1_dirty <= _GEN_591 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_122 | ~_GEN_31) &
                                                 cache_84_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_335) begin	// DCache.scala:61:24, :160:18
@@ -20887,7 +20887,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_85_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_85_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_123 & ~_GEN_31 | cache_85_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_85_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_123 & ~_GEN_31 | cache_85_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_85_0_dirty <= wstate & _GEN_592 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_123
                                                 | _GEN_31) & cache_85_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_336) begin	// DCache.scala:61:24, :160:18
@@ -20900,7 +20900,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_85_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_85_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_123 & _GEN_31 | cache_85_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_85_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_123 & _GEN_31 | cache_85_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_85_1_dirty <= _GEN_593 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_123 | ~_GEN_31) &
                                                 cache_85_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_337) begin	// DCache.scala:61:24, :160:18
@@ -20915,7 +20915,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_86_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_86_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_124 & ~_GEN_31 | cache_86_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_86_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_124 & ~_GEN_31 | cache_86_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_86_0_dirty <= wstate & _GEN_594 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_124
                                                 | _GEN_31) & cache_86_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_338) begin	// DCache.scala:61:24, :160:18
@@ -20928,7 +20928,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_86_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_86_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_124 & _GEN_31 | cache_86_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_86_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_124 & _GEN_31 | cache_86_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_86_1_dirty <= _GEN_595 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_124 | ~_GEN_31) &
                                                 cache_86_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_339) begin	// DCache.scala:61:24, :160:18
@@ -20943,7 +20943,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_87_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_87_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_125 & ~_GEN_31 | cache_87_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_87_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_125 & ~_GEN_31 | cache_87_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_87_0_dirty <= wstate & _GEN_596 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_125
                                                 | _GEN_31) & cache_87_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_340) begin	// DCache.scala:61:24, :160:18
@@ -20956,7 +20956,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_87_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_87_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_125 & _GEN_31 | cache_87_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_87_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_125 & _GEN_31 | cache_87_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_87_1_dirty <= _GEN_597 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_125 | ~_GEN_31) &
                                                 cache_87_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_341) begin	// DCache.scala:61:24, :160:18
@@ -20971,7 +20971,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_88_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_88_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_126 & ~_GEN_31 | cache_88_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_88_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_126 & ~_GEN_31 | cache_88_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_88_0_dirty <= wstate & _GEN_598 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_126
                                                 | _GEN_31) & cache_88_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_342) begin	// DCache.scala:61:24, :160:18
@@ -20984,7 +20984,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_88_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_88_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_126 & _GEN_31 | cache_88_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_88_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_126 & _GEN_31 | cache_88_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_88_1_dirty <= _GEN_599 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_126 | ~_GEN_31) &
                                                 cache_88_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_343) begin	// DCache.scala:61:24, :160:18
@@ -20999,7 +20999,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_89_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_89_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_127 & ~_GEN_31 | cache_89_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_89_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_127 & ~_GEN_31 | cache_89_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_89_0_dirty <= wstate & _GEN_600 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_127
                                                 | _GEN_31) & cache_89_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_344) begin	// DCache.scala:61:24, :160:18
@@ -21012,7 +21012,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_89_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_89_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_127 & _GEN_31 | cache_89_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_89_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_127 & _GEN_31 | cache_89_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_89_1_dirty <= _GEN_601 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_127 | ~_GEN_31) &
                                                 cache_89_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_345) begin	// DCache.scala:61:24, :160:18
@@ -21027,7 +21027,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_90_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_90_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_128 & ~_GEN_31 | cache_90_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_90_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_128 & ~_GEN_31 | cache_90_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_90_0_dirty <= wstate & _GEN_602 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_128
                                                 | _GEN_31) & cache_90_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_346) begin	// DCache.scala:61:24, :160:18
@@ -21040,7 +21040,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_90_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_90_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_128 & _GEN_31 | cache_90_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_90_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_128 & _GEN_31 | cache_90_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_90_1_dirty <= _GEN_603 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_128 | ~_GEN_31) &
                                                 cache_90_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_347) begin	// DCache.scala:61:24, :160:18
@@ -21055,7 +21055,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_91_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_91_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_129 & ~_GEN_31 | cache_91_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_91_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_129 & ~_GEN_31 | cache_91_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_91_0_dirty <= wstate & _GEN_604 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_129
                                                 | _GEN_31) & cache_91_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_348) begin	// DCache.scala:61:24, :160:18
@@ -21068,7 +21068,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_91_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_91_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_129 & _GEN_31 | cache_91_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_91_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_129 & _GEN_31 | cache_91_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_91_1_dirty <= _GEN_605 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_129 | ~_GEN_31) &
                                                 cache_91_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_349) begin	// DCache.scala:61:24, :160:18
@@ -21083,7 +21083,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_92_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_92_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_130 & ~_GEN_31 | cache_92_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_92_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_130 & ~_GEN_31 | cache_92_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_92_0_dirty <= wstate & _GEN_606 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_130
                                                 | _GEN_31) & cache_92_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_350) begin	// DCache.scala:61:24, :160:18
@@ -21096,7 +21096,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_92_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_92_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_130 & _GEN_31 | cache_92_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_92_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_130 & _GEN_31 | cache_92_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_92_1_dirty <= _GEN_607 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_130 | ~_GEN_31) &
                                                 cache_92_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_351) begin	// DCache.scala:61:24, :160:18
@@ -21111,7 +21111,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_93_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_93_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_131 & ~_GEN_31 | cache_93_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_93_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_131 & ~_GEN_31 | cache_93_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_93_0_dirty <= wstate & _GEN_608 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_131
                                                 | _GEN_31) & cache_93_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_352) begin	// DCache.scala:61:24, :160:18
@@ -21124,7 +21124,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_93_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_93_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_131 & _GEN_31 | cache_93_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_93_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_131 & _GEN_31 | cache_93_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_93_1_dirty <= _GEN_609 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_131 | ~_GEN_31) &
                                                 cache_93_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_353) begin	// DCache.scala:61:24, :160:18
@@ -21139,7 +21139,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_94_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_94_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_132 & ~_GEN_31 | cache_94_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_94_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_132 & ~_GEN_31 | cache_94_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_94_0_dirty <= wstate & _GEN_610 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_132
                                                 | _GEN_31) & cache_94_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_354) begin	// DCache.scala:61:24, :160:18
@@ -21152,7 +21152,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_94_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_94_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_132 & _GEN_31 | cache_94_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_94_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_132 & _GEN_31 | cache_94_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_94_1_dirty <= _GEN_611 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_132 | ~_GEN_31) &
                                                 cache_94_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_355) begin	// DCache.scala:61:24, :160:18
@@ -21167,7 +21167,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_95_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_95_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_133 & ~_GEN_31 | cache_95_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_95_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_133 & ~_GEN_31 | cache_95_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_95_0_dirty <= wstate & _GEN_612 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_133
                                                 | _GEN_31) & cache_95_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_356) begin	// DCache.scala:61:24, :160:18
@@ -21180,7 +21180,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_95_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_95_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_133 & _GEN_31 | cache_95_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_95_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_133 & _GEN_31 | cache_95_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_95_1_dirty <= _GEN_613 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_133 | ~_GEN_31) &
                                                 cache_95_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_357) begin	// DCache.scala:61:24, :160:18
@@ -21195,7 +21195,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_96_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_96_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_134 & ~_GEN_31 | cache_96_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_96_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_134 & ~_GEN_31 | cache_96_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_96_0_dirty <= wstate & _GEN_614 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_134
                                                 | _GEN_31) & cache_96_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_358) begin	// DCache.scala:61:24, :160:18
@@ -21208,7 +21208,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_96_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_96_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_134 & _GEN_31 | cache_96_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_96_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_134 & _GEN_31 | cache_96_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_96_1_dirty <= _GEN_615 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_134 | ~_GEN_31) &
                                                 cache_96_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_359) begin	// DCache.scala:61:24, :160:18
@@ -21223,7 +21223,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_97_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_97_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_135 & ~_GEN_31 | cache_97_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_97_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_135 & ~_GEN_31 | cache_97_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_97_0_dirty <= wstate & _GEN_616 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_135
                                                 | _GEN_31) & cache_97_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_360) begin	// DCache.scala:61:24, :160:18
@@ -21236,7 +21236,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_97_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_97_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_135 & _GEN_31 | cache_97_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_97_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_135 & _GEN_31 | cache_97_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_97_1_dirty <= _GEN_617 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_135 | ~_GEN_31) &
                                                 cache_97_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_361) begin	// DCache.scala:61:24, :160:18
@@ -21251,7 +21251,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_98_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_98_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_136 & ~_GEN_31 | cache_98_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_98_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_136 & ~_GEN_31 | cache_98_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_98_0_dirty <= wstate & _GEN_618 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_136
                                                 | _GEN_31) & cache_98_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_362) begin	// DCache.scala:61:24, :160:18
@@ -21264,7 +21264,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_98_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_98_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_136 & _GEN_31 | cache_98_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_98_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_136 & _GEN_31 | cache_98_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_98_1_dirty <= _GEN_619 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_136 | ~_GEN_31) &
                                                 cache_98_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_363) begin	// DCache.scala:61:24, :160:18
@@ -21279,7 +21279,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_99_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_99_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_137 & ~_GEN_31 | cache_99_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_99_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_137 & ~_GEN_31 | cache_99_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_99_0_dirty <= wstate & _GEN_620 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_137
                                                 | _GEN_31) & cache_99_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_364) begin	// DCache.scala:61:24, :160:18
@@ -21292,7 +21292,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_99_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_99_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_137 & _GEN_31 | cache_99_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_99_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_137 & _GEN_31 | cache_99_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_99_1_dirty <= _GEN_621 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_137 | ~_GEN_31) &
                                                 cache_99_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_365) begin	// DCache.scala:61:24, :160:18
@@ -21307,7 +21307,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_100_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_100_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_138 & ~_GEN_31 | cache_100_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_100_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_138 & ~_GEN_31 | cache_100_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_100_0_dirty <= wstate & _GEN_622 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_138
                                                 | _GEN_31) & cache_100_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_366) begin	// DCache.scala:61:24, :160:18
@@ -21320,7 +21320,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_100_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_100_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_138 & _GEN_31 | cache_100_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_100_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_138 & _GEN_31 | cache_100_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_100_1_dirty <= _GEN_623 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_138 | ~_GEN_31) &
                                                 cache_100_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_367) begin	// DCache.scala:61:24, :160:18
@@ -21335,7 +21335,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_101_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_101_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_139 & ~_GEN_31 | cache_101_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_101_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_139 & ~_GEN_31 | cache_101_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_101_0_dirty <= wstate & _GEN_624 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_139
                                                 | _GEN_31) & cache_101_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_368) begin	// DCache.scala:61:24, :160:18
@@ -21348,7 +21348,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_101_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_101_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_139 & _GEN_31 | cache_101_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_101_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_139 & _GEN_31 | cache_101_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_101_1_dirty <= _GEN_625 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_139 | ~_GEN_31) &
                                                 cache_101_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_369) begin	// DCache.scala:61:24, :160:18
@@ -21363,7 +21363,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_102_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_102_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_140 & ~_GEN_31 | cache_102_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_102_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_140 & ~_GEN_31 | cache_102_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_102_0_dirty <= wstate & _GEN_626 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_140
                                                 | _GEN_31) & cache_102_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_370) begin	// DCache.scala:61:24, :160:18
@@ -21376,7 +21376,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_102_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_102_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_140 & _GEN_31 | cache_102_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_102_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_140 & _GEN_31 | cache_102_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_102_1_dirty <= _GEN_627 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_140 | ~_GEN_31) &
                                                 cache_102_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_371) begin	// DCache.scala:61:24, :160:18
@@ -21391,7 +21391,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_103_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_103_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_141 & ~_GEN_31 | cache_103_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_103_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_141 & ~_GEN_31 | cache_103_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_103_0_dirty <= wstate & _GEN_628 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_141
                                                 | _GEN_31) & cache_103_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_372) begin	// DCache.scala:61:24, :160:18
@@ -21404,7 +21404,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_103_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_103_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_141 & _GEN_31 | cache_103_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_103_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_141 & _GEN_31 | cache_103_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_103_1_dirty <= _GEN_629 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_141 | ~_GEN_31) &
                                                 cache_103_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_373) begin	// DCache.scala:61:24, :160:18
@@ -21419,7 +21419,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_104_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_104_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_142 & ~_GEN_31 | cache_104_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_104_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_142 & ~_GEN_31 | cache_104_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_104_0_dirty <= wstate & _GEN_630 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_142
                                                 | _GEN_31) & cache_104_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_374) begin	// DCache.scala:61:24, :160:18
@@ -21432,7 +21432,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_104_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_104_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_142 & _GEN_31 | cache_104_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_104_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_142 & _GEN_31 | cache_104_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_104_1_dirty <= _GEN_631 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_142 | ~_GEN_31) &
                                                 cache_104_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_375) begin	// DCache.scala:61:24, :160:18
@@ -21447,7 +21447,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_105_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_105_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_143 & ~_GEN_31 | cache_105_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_105_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_143 & ~_GEN_31 | cache_105_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_105_0_dirty <= wstate & _GEN_632 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_143
                                                 | _GEN_31) & cache_105_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_376) begin	// DCache.scala:61:24, :160:18
@@ -21460,7 +21460,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_105_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_105_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_143 & _GEN_31 | cache_105_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_105_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_143 & _GEN_31 | cache_105_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_105_1_dirty <= _GEN_633 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_143 | ~_GEN_31) &
                                                 cache_105_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_377) begin	// DCache.scala:61:24, :160:18
@@ -21475,7 +21475,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_106_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_106_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_144 & ~_GEN_31 | cache_106_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_106_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_144 & ~_GEN_31 | cache_106_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_106_0_dirty <= wstate & _GEN_634 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_144
                                                 | _GEN_31) & cache_106_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_378) begin	// DCache.scala:61:24, :160:18
@@ -21488,7 +21488,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_106_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_106_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_144 & _GEN_31 | cache_106_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_106_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_144 & _GEN_31 | cache_106_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_106_1_dirty <= _GEN_635 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_144 | ~_GEN_31) &
                                                 cache_106_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_379) begin	// DCache.scala:61:24, :160:18
@@ -21503,7 +21503,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_107_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_107_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_145 & ~_GEN_31 | cache_107_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_107_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_145 & ~_GEN_31 | cache_107_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_107_0_dirty <= wstate & _GEN_636 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_145
                                                 | _GEN_31) & cache_107_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_380) begin	// DCache.scala:61:24, :160:18
@@ -21516,7 +21516,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_107_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_107_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_145 & _GEN_31 | cache_107_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_107_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_145 & _GEN_31 | cache_107_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_107_1_dirty <= _GEN_637 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_145 | ~_GEN_31) &
                                                 cache_107_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_381) begin	// DCache.scala:61:24, :160:18
@@ -21531,7 +21531,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_108_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_108_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_146 & ~_GEN_31 | cache_108_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_108_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_146 & ~_GEN_31 | cache_108_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_108_0_dirty <= wstate & _GEN_638 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_146
                                                 | _GEN_31) & cache_108_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_382) begin	// DCache.scala:61:24, :160:18
@@ -21544,7 +21544,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_108_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_108_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_146 & _GEN_31 | cache_108_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_108_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_146 & _GEN_31 | cache_108_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_108_1_dirty <= _GEN_639 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_146 | ~_GEN_31) &
                                                 cache_108_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_383) begin	// DCache.scala:61:24, :160:18
@@ -21559,7 +21559,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_109_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_109_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_147 & ~_GEN_31 | cache_109_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_109_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_147 & ~_GEN_31 | cache_109_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_109_0_dirty <= wstate & _GEN_640 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_147
                                                 | _GEN_31) & cache_109_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_384) begin	// DCache.scala:61:24, :160:18
@@ -21572,7 +21572,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_109_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_109_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_147 & _GEN_31 | cache_109_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_109_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_147 & _GEN_31 | cache_109_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_109_1_dirty <= _GEN_641 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_147 | ~_GEN_31) &
                                                 cache_109_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_385) begin	// DCache.scala:61:24, :160:18
@@ -21587,7 +21587,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_110_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_110_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_148 & ~_GEN_31 | cache_110_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_110_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_148 & ~_GEN_31 | cache_110_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_110_0_dirty <= wstate & _GEN_642 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_148
                                                 | _GEN_31) & cache_110_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_386) begin	// DCache.scala:61:24, :160:18
@@ -21600,7 +21600,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_110_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_110_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_148 & _GEN_31 | cache_110_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_110_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_148 & _GEN_31 | cache_110_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_110_1_dirty <= _GEN_643 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_148 | ~_GEN_31) &
                                                 cache_110_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_387) begin	// DCache.scala:61:24, :160:18
@@ -21615,7 +21615,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_111_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_111_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_149 & ~_GEN_31 | cache_111_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_111_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_149 & ~_GEN_31 | cache_111_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_111_0_dirty <= wstate & _GEN_644 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_149
                                                 | _GEN_31) & cache_111_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_388) begin	// DCache.scala:61:24, :160:18
@@ -21628,7 +21628,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_111_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_111_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_149 & _GEN_31 | cache_111_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_111_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_149 & _GEN_31 | cache_111_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_111_1_dirty <= _GEN_645 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_149 | ~_GEN_31) &
                                                 cache_111_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_389) begin	// DCache.scala:61:24, :160:18
@@ -21643,7 +21643,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_112_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_112_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_150 & ~_GEN_31 | cache_112_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_112_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_150 & ~_GEN_31 | cache_112_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_112_0_dirty <= wstate & _GEN_646 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_150
                                                 | _GEN_31) & cache_112_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_390) begin	// DCache.scala:61:24, :160:18
@@ -21656,7 +21656,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_112_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_112_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_150 & _GEN_31 | cache_112_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_112_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_150 & _GEN_31 | cache_112_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_112_1_dirty <= _GEN_647 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_150 | ~_GEN_31) &
                                                 cache_112_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_391) begin	// DCache.scala:61:24, :160:18
@@ -21671,7 +21671,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_113_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_113_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_151 & ~_GEN_31 | cache_113_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_113_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_151 & ~_GEN_31 | cache_113_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_113_0_dirty <= wstate & _GEN_648 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_151
                                                 | _GEN_31) & cache_113_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_392) begin	// DCache.scala:61:24, :160:18
@@ -21684,7 +21684,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_113_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_113_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_151 & _GEN_31 | cache_113_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_113_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_151 & _GEN_31 | cache_113_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_113_1_dirty <= _GEN_649 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_151 | ~_GEN_31) &
                                                 cache_113_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_393) begin	// DCache.scala:61:24, :160:18
@@ -21699,7 +21699,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_114_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_114_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_152 & ~_GEN_31 | cache_114_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_114_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_152 & ~_GEN_31 | cache_114_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_114_0_dirty <= wstate & _GEN_650 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_152
                                                 | _GEN_31) & cache_114_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_394) begin	// DCache.scala:61:24, :160:18
@@ -21712,7 +21712,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_114_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_114_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_152 & _GEN_31 | cache_114_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_114_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_152 & _GEN_31 | cache_114_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_114_1_dirty <= _GEN_651 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_152 | ~_GEN_31) &
                                                 cache_114_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_395) begin	// DCache.scala:61:24, :160:18
@@ -21727,7 +21727,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_115_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_115_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_153 & ~_GEN_31 | cache_115_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_115_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_153 & ~_GEN_31 | cache_115_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_115_0_dirty <= wstate & _GEN_652 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_153
                                                 | _GEN_31) & cache_115_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_396) begin	// DCache.scala:61:24, :160:18
@@ -21740,7 +21740,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_115_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_115_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_153 & _GEN_31 | cache_115_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_115_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_153 & _GEN_31 | cache_115_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_115_1_dirty <= _GEN_653 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_153 | ~_GEN_31) &
                                                 cache_115_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_397) begin	// DCache.scala:61:24, :160:18
@@ -21755,7 +21755,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_116_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_116_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_154 & ~_GEN_31 | cache_116_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_116_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_154 & ~_GEN_31 | cache_116_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_116_0_dirty <= wstate & _GEN_654 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_154
                                                 | _GEN_31) & cache_116_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_398) begin	// DCache.scala:61:24, :160:18
@@ -21768,7 +21768,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_116_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_116_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_154 & _GEN_31 | cache_116_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_116_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_154 & _GEN_31 | cache_116_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_116_1_dirty <= _GEN_655 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_154 | ~_GEN_31) &
                                                 cache_116_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_399) begin	// DCache.scala:61:24, :160:18
@@ -21783,7 +21783,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_117_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_117_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_155 & ~_GEN_31 | cache_117_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_117_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_155 & ~_GEN_31 | cache_117_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_117_0_dirty <= wstate & _GEN_656 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_155
                                                 | _GEN_31) & cache_117_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_400) begin	// DCache.scala:61:24, :160:18
@@ -21796,7 +21796,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_117_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_117_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_155 & _GEN_31 | cache_117_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_117_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_155 & _GEN_31 | cache_117_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_117_1_dirty <= _GEN_657 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_155 | ~_GEN_31) &
                                                 cache_117_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_401) begin	// DCache.scala:61:24, :160:18
@@ -21811,7 +21811,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_118_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_118_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_156 & ~_GEN_31 | cache_118_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_118_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_156 & ~_GEN_31 | cache_118_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_118_0_dirty <= wstate & _GEN_658 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_156
                                                 | _GEN_31) & cache_118_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_402) begin	// DCache.scala:61:24, :160:18
@@ -21824,7 +21824,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_118_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_118_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_156 & _GEN_31 | cache_118_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_118_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_156 & _GEN_31 | cache_118_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_118_1_dirty <= _GEN_659 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_156 | ~_GEN_31) &
                                                 cache_118_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_403) begin	// DCache.scala:61:24, :160:18
@@ -21839,7 +21839,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_119_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_119_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_157 & ~_GEN_31 | cache_119_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_119_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_157 & ~_GEN_31 | cache_119_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_119_0_dirty <= wstate & _GEN_660 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_157
                                                 | _GEN_31) & cache_119_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_404) begin	// DCache.scala:61:24, :160:18
@@ -21852,7 +21852,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_119_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_119_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_157 & _GEN_31 | cache_119_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_119_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_157 & _GEN_31 | cache_119_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_119_1_dirty <= _GEN_661 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_157 | ~_GEN_31) &
                                                 cache_119_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_405) begin	// DCache.scala:61:24, :160:18
@@ -21867,7 +21867,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_120_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_120_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_158 & ~_GEN_31 | cache_120_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_120_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_158 & ~_GEN_31 | cache_120_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_120_0_dirty <= wstate & _GEN_662 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_158
                                                 | _GEN_31) & cache_120_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_406) begin	// DCache.scala:61:24, :160:18
@@ -21880,7 +21880,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_120_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_120_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_158 & _GEN_31 | cache_120_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_120_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_158 & _GEN_31 | cache_120_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_120_1_dirty <= _GEN_663 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_158 | ~_GEN_31) &
                                                 cache_120_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_407) begin	// DCache.scala:61:24, :160:18
@@ -21895,7 +21895,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_121_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_121_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_159 & ~_GEN_31 | cache_121_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_121_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_159 & ~_GEN_31 | cache_121_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_121_0_dirty <= wstate & _GEN_664 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_159
                                                 | _GEN_31) & cache_121_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_408) begin	// DCache.scala:61:24, :160:18
@@ -21908,7 +21908,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_121_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_121_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_159 & _GEN_31 | cache_121_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_121_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_159 & _GEN_31 | cache_121_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_121_1_dirty <= _GEN_665 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_159 | ~_GEN_31) &
                                                 cache_121_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_409) begin	// DCache.scala:61:24, :160:18
@@ -21923,7 +21923,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_122_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_122_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_160 & ~_GEN_31 | cache_122_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_122_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_160 & ~_GEN_31 | cache_122_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_122_0_dirty <= wstate & _GEN_666 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_160
                                                 | _GEN_31) & cache_122_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_410) begin	// DCache.scala:61:24, :160:18
@@ -21936,7 +21936,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_122_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_122_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_160 & _GEN_31 | cache_122_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_122_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_160 & _GEN_31 | cache_122_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_122_1_dirty <= _GEN_667 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_160 | ~_GEN_31) &
                                                 cache_122_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_411) begin	// DCache.scala:61:24, :160:18
@@ -21951,7 +21951,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_123_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_123_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_161 & ~_GEN_31 | cache_123_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_123_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_161 & ~_GEN_31 | cache_123_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_123_0_dirty <= wstate & _GEN_668 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_161
                                                 | _GEN_31) & cache_123_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_412) begin	// DCache.scala:61:24, :160:18
@@ -21964,7 +21964,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_123_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_123_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_161 & _GEN_31 | cache_123_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_123_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_161 & _GEN_31 | cache_123_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_123_1_dirty <= _GEN_669 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_161 | ~_GEN_31) &
                                                 cache_123_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_413) begin	// DCache.scala:61:24, :160:18
@@ -21979,7 +21979,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_124_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_124_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_162 & ~_GEN_31 | cache_124_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_124_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_162 & ~_GEN_31 | cache_124_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_124_0_dirty <= wstate & _GEN_670 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_162
                                                 | _GEN_31) & cache_124_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_414) begin	// DCache.scala:61:24, :160:18
@@ -21992,7 +21992,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_124_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_124_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_162 & _GEN_31 | cache_124_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_124_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_162 & _GEN_31 | cache_124_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_124_1_dirty <= _GEN_671 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_162 | ~_GEN_31) &
                                                 cache_124_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_415) begin	// DCache.scala:61:24, :160:18
@@ -22007,7 +22007,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_125_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_125_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_163 & ~_GEN_31 | cache_125_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_125_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_163 & ~_GEN_31 | cache_125_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_125_0_dirty <= wstate & _GEN_672 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_163
                                                 | _GEN_31) & cache_125_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_416) begin	// DCache.scala:61:24, :160:18
@@ -22020,7 +22020,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_125_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_125_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_163 & _GEN_31 | cache_125_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_125_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_163 & _GEN_31 | cache_125_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_125_1_dirty <= _GEN_673 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_163 | ~_GEN_31) &
                                                 cache_125_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_417) begin	// DCache.scala:61:24, :160:18
@@ -22035,7 +22035,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_126_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
-      cache_126_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_164 & ~_GEN_31 | cache_126_0_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_126_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_164 & ~_GEN_31 | cache_126_0_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_126_0_dirty <= wstate & _GEN_674 & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_164
                                                 | _GEN_31) & cache_126_0_dirty;	// DCache.scala:61:24, :77:34, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_418) begin	// DCache.scala:61:24, :160:18
@@ -22048,7 +22048,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_126_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_126_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_164 & _GEN_31 | cache_126_1_valid;	// DCache.scala:61:24, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_126_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & _GEN_164 & _GEN_31 | cache_126_1_valid;	// DCache.scala:61:24, :73:34, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_126_1_dirty <= _GEN_675 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~_GEN_164 | ~_GEN_31) &
                                                 cache_126_1_dirty;	// DCache.scala:61:24, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_GEN_419) begin	// DCache.scala:61:24, :160:18
@@ -22064,7 +22064,7 @@ module DCache(	// <stdin>:3275:10
       else	// DCache.scala:76:34, :77:34, :160:18, :266:31, :272:19, :287:51, :288:50, :293:51
         cache_127_0_data <= _cache_data_T_10;	// Cat.scala:33:92, DCache.scala:61:24
       cache_127_0_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & (&(req_addr[10:4])) & ~_GEN_31 |
-                                                cache_127_0_valid;	// DCache.scala:61:24, :69:34, :80:35, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+                                                cache_127_0_valid;	// DCache.scala:61:24, :69:34, :73:34, :80:35, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_127_0_dirty <= wstate & (&req_wset) & ~req_wline | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 |
                                                 ~(&(req_addr[10:4])) | _GEN_31) & cache_127_0_dirty;	// DCache.scala:61:24, :69:34, :76:34, :77:34, :80:35, :154:21, :160:18, :248:{46,76}, :249:45, :266:31, :272:19, :287:51
       if (_GEN_420) begin	// DCache.scala:61:24, :160:18
@@ -22077,7 +22077,7 @@ module DCache(	// <stdin>:3275:10
       end
       else	// DCache.scala:61:24, :160:18, :272:19
         cache_127_1_data <= lineBuf;	// DCache.scala:61:24, :84:34
-      cache_127_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & (&(req_addr[10:4])) & _GEN_31 | cache_127_1_valid;	// DCache.scala:61:24, :69:34, :80:35, :87:21, :90:21, :154:21, :155:21, :160:18, :249:45
+      cache_127_1_valid <= ~_T_3 & ~_T_4 & ~_T_16 & ~_T_18 & _T_19 & (&(req_addr[10:4])) & _GEN_31 | cache_127_1_valid;	// DCache.scala:61:24, :69:34, :73:34, :80:35, :90:21, :154:21, :155:21, :160:18, :162:26, :249:45
       cache_127_1_dirty <= _GEN_676 | (_T_3 | _T_4 | _T_16 | _T_18 | ~_T_19 | ~_T_24 | ~(&(req_addr[10:4])) |
                                                 ~_GEN_31) & cache_127_1_dirty;	// DCache.scala:61:24, :69:34, :80:35, :154:21, :160:18, :248:{46,76}, :249:45, :272:19
       if (_T_3) begin	// DCache.scala:160:18
@@ -22095,26 +22095,26 @@ module DCache(	// <stdin>:3275:10
           req_op <= io_op;	// DCache.scala:71:34
         end
         if (_T_4)	// DCache.scala:160:18
-          addr_ok <= _GEN & io_valid | ~_T_11 & ~_T_6 & addr_ok;	// DCache.scala:87:21, :90:21, :152:30, :160:18, :175:{48,71}, :178:34, :193:49, :197:26, :200:32
+          addr_ok <= _GEN & io_valid | ~_T_11 & ~_T_6 & addr_ok;	// DCache.scala:87:21, :90:21, :152:30, :160:18, :177:{48,71}, :180:34, :194:49, :197:26, :200:32
+      end
+      if (~_T_3 | addr_ok | ~io_valid) begin	// DCache.scala:69:34, :73:34, :152:30, :160:18, :162:26, :165:32
+      end
+      else begin	// DCache.scala:69:34, :73:34, :152:30, :160:18, :162:26, :165:32
+        req_wdata <= io_wdata;	// DCache.scala:73:34
+        req_wstrb <= io_wstrb;	// DCache.scala:74:34
       end
       if (_GEN_19) begin	// DCache.scala:90:21, :160:18
       end
       else begin	// DCache.scala:90:21, :160:18
-        automatic logic _GEN_678;	// DCache.scala:73:34, :175:71, :178:34
-        _GEN_678 = _T_6 & req_op;	// DCache.scala:71:34, :73:34, :175:{48,71}, :178:34
-        if (_T_11) begin	// DCache.scala:175:48
-          if (req_op | _GEN_678) begin	// DCache.scala:71:34, :73:34, :175:71, :178:34, :187:38
-            req_wdata <= io_wdata;	// DCache.scala:73:34
-            req_wstrb <= io_wstrb;	// DCache.scala:74:34
+        automatic logic _GEN_678;	// DCache.scala:76:34, :177:71, :180:34
+        _GEN_678 = _T_6 & req_op;	// DCache.scala:71:34, :76:34, :177:{48,71}, :180:34
+        if (_T_11) begin	// DCache.scala:177:48
+          if (req_op | _GEN_678)	// DCache.scala:71:34, :76:34, :177:71, :180:34, :189:38
             req_wset <= req_addr[10:4];	// DCache.scala:69:34, :76:34, :80:35
-          end
         end
-        else if (_GEN_678) begin	// DCache.scala:73:34, :175:{48,71}, :178:34
-          req_wdata <= io_wdata;	// DCache.scala:73:34
-          req_wstrb <= io_wstrb;	// DCache.scala:74:34
+        else if (_GEN_678)	// DCache.scala:76:34, :177:{48,71}, :180:34
           req_wset <= req_addr[10:4];	// DCache.scala:69:34, :76:34, :80:35
-        end
-        req_wline <= _T_11 & req_op | (~_T_6 | ~req_op) & req_wline;	// DCache.scala:71:34, :77:34, :90:21, :175:{48,71}, :178:{26,34}
+        req_wline <= _T_11 & req_op | (~_T_6 | ~req_op) & req_wline;	// DCache.scala:71:34, :77:34, :90:21, :177:{48,71}, :180:{26,34}
       end
       if (_T_3 | _T_4 | _T_16 | ~(_T_18 & io_axi_rvalid)) begin	// DCache.scala:84:34, :160:18, :224:32
       end
@@ -25661,10 +25661,10 @@ module DCache(	// <stdin>:3275:10
   assign io_rdata = _GEN_19 ? 64'h7777 : ~_T_11 | req_op ? (~_T_6 | req_op ? 64'h7777 : req_addr[3] ?
                 _GEN_5[63:0] >> {58'h0, req_addr[2:0], 3'h0} : _GEN_5[127:64] >> {58'h0, req_addr[2:0],
                 3'h0}) : req_addr[3] ? _GEN_14[63:0] >> {58'h0, req_addr[2:0], 3'h0} : _GEN_14[127:64] >>
-                {58'h0, req_addr[2:0], 3'h0};	// <stdin>:3275:10, DCache.scala:69:34, :71:34, :79:35, :90:21, :153:30, :160:18, :175:{40,48,71}, :178:34, :179:57, :180:{53,74,82,92}, :183:{53,74,84,94}
+                {58'h0, req_addr[2:0], 3'h0};	// <stdin>:3275:10, DCache.scala:69:34, :71:34, :79:35, :90:21, :153:30, :160:18, :177:{40,48,71}, :180:34, :181:57, :182:{53,74,82,92}, :185:{53,74,84,94}
   assign io_miss = ~_GEN & addr_ok;	// <stdin>:3275:10, DCache.scala:87:21, :100:{24,36}, :152:30, :160:18
   assign io_hit = _GEN;	// <stdin>:3275:10, DCache.scala:87:21, :160:18
-  assign io_axi_rreq = ~_T_3 & ~_T_4 & _GEN_20;	// <stdin>:3275:10, DCache.scala:87:21, :90:21, :91:21, :160:18, :211:34
+  assign io_axi_rreq = ~_T_3 & ~_T_4 & _GEN_20;	// <stdin>:3275:10, DCache.scala:73:34, :90:21, :91:21, :160:18, :162:26, :211:34
   assign io_axi_raddr = _T_3 | _T_4 | ~_GEN_20 ? 32'h0 : {req_addr[31:4], 4'h0};	// <stdin>:3275:10, Bitwise.scala:77:12, DCache.scala:69:34, :92:21, :160:18, :211:34, :212:{34,46}
   assign io_axi_wreq = _T ? ~_dataQueue_io_empty : _T_2;	// <stdin>:3275:10, DCache.scala:106:33, :118:19, :121:{18,38}
   assign io_axi_waddr = ~_T | _dataQueue_io_empty ? 32'h0 : _addrQueue_io_deqData;	// <stdin>:3275:10, Bitwise.scala:77:12, DCache.scala:95:21, :106:33, :107:33, :118:19, :121:38
@@ -25680,7 +25680,7 @@ module DCache(	// <stdin>:3275:10
   assign io_originWdata = req_wdata;	// <stdin>:3275:10, DCache.scala:73:34
 endmodule
 
-module MEM_pre_stage(	// <stdin>:3884:10
+module MEM_pre_stage(	// <stdin>:3882:10
   input         clock,
                 reset,
                 io_EX_to_MEM_bus_valid,
@@ -25788,37 +25788,37 @@ module MEM_pre_stage(	// <stdin>:3884:10
       rhsReg_13 <= io_EX_to_MEM_bus_valid;	// tools.scala:23:29
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:3884:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:3884:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:3884:10
+  `ifndef SYNTHESIS	// <stdin>:3882:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:3882:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:3882:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:3884:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:3884:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:3884:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:3884:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:3884:10
-      automatic logic [31:0] _RANDOM_4;	// <stdin>:3884:10
-      automatic logic [31:0] _RANDOM_5;	// <stdin>:3884:10
-      automatic logic [31:0] _RANDOM_6;	// <stdin>:3884:10
-      automatic logic [31:0] _RANDOM_7;	// <stdin>:3884:10
-      automatic logic [31:0] _RANDOM_8;	// <stdin>:3884:10
-      automatic logic [31:0] _RANDOM_9;	// <stdin>:3884:10
-      automatic logic [31:0] _RANDOM_10;	// <stdin>:3884:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:3884:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:3884:10
+    initial begin	// <stdin>:3882:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:3882:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:3882:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:3882:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:3882:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:3882:10
+      automatic logic [31:0] _RANDOM_5;	// <stdin>:3882:10
+      automatic logic [31:0] _RANDOM_6;	// <stdin>:3882:10
+      automatic logic [31:0] _RANDOM_7;	// <stdin>:3882:10
+      automatic logic [31:0] _RANDOM_8;	// <stdin>:3882:10
+      automatic logic [31:0] _RANDOM_9;	// <stdin>:3882:10
+      automatic logic [31:0] _RANDOM_10;	// <stdin>:3882:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:3882:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:3882:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:3884:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:3884:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:3884:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:3884:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:3884:10
-        _RANDOM_4 = `RANDOM;	// <stdin>:3884:10
-        _RANDOM_5 = `RANDOM;	// <stdin>:3884:10
-        _RANDOM_6 = `RANDOM;	// <stdin>:3884:10
-        _RANDOM_7 = `RANDOM;	// <stdin>:3884:10
-        _RANDOM_8 = `RANDOM;	// <stdin>:3884:10
-        _RANDOM_9 = `RANDOM;	// <stdin>:3884:10
-        _RANDOM_10 = `RANDOM;	// <stdin>:3884:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:3882:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:3882:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:3882:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:3882:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:3882:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:3882:10
+        _RANDOM_5 = `RANDOM;	// <stdin>:3882:10
+        _RANDOM_6 = `RANDOM;	// <stdin>:3882:10
+        _RANDOM_7 = `RANDOM;	// <stdin>:3882:10
+        _RANDOM_8 = `RANDOM;	// <stdin>:3882:10
+        _RANDOM_9 = `RANDOM;	// <stdin>:3882:10
+        _RANDOM_10 = `RANDOM;	// <stdin>:3882:10
         rhsReg = {_RANDOM_0, _RANDOM_1};	// tools.scala:23:29
         rhsReg_1 = _RANDOM_2;	// tools.scala:23:29
         rhsReg_2 = {_RANDOM_3, _RANDOM_4};	// tools.scala:23:29
@@ -25832,8 +25832,8 @@ module MEM_pre_stage(	// <stdin>:3884:10
         rhsReg_13 = _RANDOM_10[2];	// tools.scala:23:29
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:3884:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:3884:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:3882:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:3882:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
   DCache mem_cache (	// PMEM.scala:76:27
@@ -25870,39 +25870,39 @@ module MEM_pre_stage(	// <stdin>:3884:10
     .io_maskedData  (io_dcache_maskedData),
     .io_originWdata (io_dcache_originWdata)
   );
-  assign io_EX_to_MEM_bus_ready = ~_mem_cache_io_miss;	// <stdin>:3884:10, PMEM.scala:76:27, tools.scala:24:18
-  assign io_PMEM_to_MEM_bus_valid = rhsReg_13;	// <stdin>:3884:10, tools.scala:23:29
-  assign io_PMEM_to_MEM_bus_bits_ALU_result = rhsReg_2;	// <stdin>:3884:10, tools.scala:23:29
-  assign io_PMEM_to_MEM_bus_bits_regWriteEn = rhsReg_3;	// <stdin>:3884:10, tools.scala:23:29
-  assign io_PMEM_to_MEM_bus_bits_regWriteID = rhsReg_4;	// <stdin>:3884:10, tools.scala:23:29
-  assign io_PMEM_to_MEM_bus_bits_memReadEn = rhsReg_5;	// <stdin>:3884:10, tools.scala:23:29
-  assign io_PMEM_to_MEM_bus_bits_csrWriteAddr = rhsReg_10;	// <stdin>:3884:10, tools.scala:23:29
-  assign io_PMEM_to_MEM_bus_bits_csrWriteEn = rhsReg_9;	// <stdin>:3884:10, tools.scala:23:29
-  assign io_PMEM_to_MEM_bus_bits_csrWriteData = rhsReg_11;	// <stdin>:3884:10, tools.scala:23:29
-  assign io_PMEM_to_MEM_bus_bits_PC = rhsReg;	// <stdin>:3884:10, tools.scala:23:29
-  assign io_PMEM_to_MEM_bus_bits_Inst = rhsReg_1;	// <stdin>:3884:10, tools.scala:23:29
-  assign io_PMEM_to_ID_forward_valid = io_EX_to_MEM_bus_valid;	// <stdin>:3884:10
-  assign io_PMEM_to_ID_forward_bits_ALU_result = io_EX_to_MEM_bus_bits_ALU_result;	// <stdin>:3884:10
-  assign io_PMEM_to_ID_forward_bits_regWriteEn = io_EX_to_MEM_bus_bits_regWriteEn;	// <stdin>:3884:10
-  assign io_PMEM_to_ID_forward_bits_regWriteID = io_EX_to_MEM_bus_bits_regWriteID;	// <stdin>:3884:10
-  assign io_PMEM_to_ID_forward_bits_memReadEn = io_EX_to_MEM_bus_bits_memReadEn;	// <stdin>:3884:10
-  assign io_PMEM_to_ID_forward_bits_csrWriteAddr = io_EX_to_MEM_bus_bits_csrWriteAddr;	// <stdin>:3884:10
-  assign io_PMEM_to_ID_forward_bits_csrWriteEn = io_EX_to_MEM_bus_bits_csrWriteEn;	// <stdin>:3884:10
+  assign io_EX_to_MEM_bus_ready = ~_mem_cache_io_miss;	// <stdin>:3882:10, PMEM.scala:76:27, tools.scala:24:18
+  assign io_PMEM_to_MEM_bus_valid = rhsReg_13;	// <stdin>:3882:10, tools.scala:23:29
+  assign io_PMEM_to_MEM_bus_bits_ALU_result = rhsReg_2;	// <stdin>:3882:10, tools.scala:23:29
+  assign io_PMEM_to_MEM_bus_bits_regWriteEn = rhsReg_3;	// <stdin>:3882:10, tools.scala:23:29
+  assign io_PMEM_to_MEM_bus_bits_regWriteID = rhsReg_4;	// <stdin>:3882:10, tools.scala:23:29
+  assign io_PMEM_to_MEM_bus_bits_memReadEn = rhsReg_5;	// <stdin>:3882:10, tools.scala:23:29
+  assign io_PMEM_to_MEM_bus_bits_csrWriteAddr = rhsReg_10;	// <stdin>:3882:10, tools.scala:23:29
+  assign io_PMEM_to_MEM_bus_bits_csrWriteEn = rhsReg_9;	// <stdin>:3882:10, tools.scala:23:29
+  assign io_PMEM_to_MEM_bus_bits_csrWriteData = rhsReg_11;	// <stdin>:3882:10, tools.scala:23:29
+  assign io_PMEM_to_MEM_bus_bits_PC = rhsReg;	// <stdin>:3882:10, tools.scala:23:29
+  assign io_PMEM_to_MEM_bus_bits_Inst = rhsReg_1;	// <stdin>:3882:10, tools.scala:23:29
+  assign io_PMEM_to_ID_forward_valid = io_EX_to_MEM_bus_valid;	// <stdin>:3882:10
+  assign io_PMEM_to_ID_forward_bits_ALU_result = io_EX_to_MEM_bus_bits_ALU_result;	// <stdin>:3882:10
+  assign io_PMEM_to_ID_forward_bits_regWriteEn = io_EX_to_MEM_bus_bits_regWriteEn;	// <stdin>:3882:10
+  assign io_PMEM_to_ID_forward_bits_regWriteID = io_EX_to_MEM_bus_bits_regWriteID;	// <stdin>:3882:10
+  assign io_PMEM_to_ID_forward_bits_memReadEn = io_EX_to_MEM_bus_bits_memReadEn;	// <stdin>:3882:10
+  assign io_PMEM_to_ID_forward_bits_csrWriteAddr = io_EX_to_MEM_bus_bits_csrWriteAddr;	// <stdin>:3882:10
+  assign io_PMEM_to_ID_forward_bits_csrWriteEn = io_EX_to_MEM_bus_bits_csrWriteEn;	// <stdin>:3882:10
   assign io_memReadData = rhsReg_8 == 5'h11 ? _mem_cache_io_rdata : rhsReg_8 == 5'h9 ?
                 {{32{_mem_cache_io_rdata[31]}}, _mem_cache_io_rdata[31:0]} : rhsReg_8 == 5'h5 ?
                 {{48{_mem_cache_io_rdata[15]}}, _mem_cache_io_rdata[15:0]} : rhsReg_8 == 5'h3 ?
                 {{56{_mem_cache_io_rdata[7]}}, _mem_cache_io_rdata[7:0]} : rhsReg_8 == 5'h8 ? {32'h0,
                 _mem_cache_io_rdata[31:0]} : rhsReg_8 == 5'h4 ? {48'h0, _mem_cache_io_rdata[15:0]} :
-                rhsReg_8 == 5'h2 ? {56'h0, _mem_cache_io_rdata[7:0]} : 64'h0;	// <stdin>:3884:10, Bitwise.scala:77:12, Cat.scala:33:92, PMEM.scala:54:28, :76:27, :80:20, :110:17, :111:44, :112:30, :113:{30,56}, :114:{30,56}, :115:{30,56}, :116:{30,51}, :117:{30,51}, :118:{30,51}, tools.scala:9:34, :23:29
-  assign io_dcache_miss = _mem_cache_io_miss;	// <stdin>:3884:10, PMEM.scala:76:27
-  assign axi_writeAddr_valid = _mem_cache_io_axi_wreq;	// <stdin>:3884:10, PMEM.scala:76:27
-  assign axi_writeData_valid = _mem_cache_io_axi_wreq;	// <stdin>:3884:10, PMEM.scala:76:27
-  assign axi_writeData_bits_strb = {4'h0, _mem_cache_io_axi_wstrb};	// <stdin>:3884:10, PMEM.scala:76:27, :146:32
-  assign axi_readAddr_valid = _mem_cache_io_axi_rreq;	// <stdin>:3884:10, PMEM.scala:76:27
-  assign axi_req_valid = _mem_cache_io_axi_rreq | _mem_cache_io_axi_wreq;	// <stdin>:3884:10, PMEM.scala:76:27, :121:57
+                rhsReg_8 == 5'h2 ? {56'h0, _mem_cache_io_rdata[7:0]} : 64'h0;	// <stdin>:3882:10, Bitwise.scala:77:12, Cat.scala:33:92, PMEM.scala:54:28, :76:27, :80:20, :110:17, :111:44, :112:30, :113:{30,56}, :114:{30,56}, :115:{30,56}, :116:{30,51}, :117:{30,51}, :118:{30,51}, tools.scala:9:34, :23:29
+  assign io_dcache_miss = _mem_cache_io_miss;	// <stdin>:3882:10, PMEM.scala:76:27
+  assign axi_writeAddr_valid = _mem_cache_io_axi_wreq;	// <stdin>:3882:10, PMEM.scala:76:27
+  assign axi_writeData_valid = _mem_cache_io_axi_wreq;	// <stdin>:3882:10, PMEM.scala:76:27
+  assign axi_writeData_bits_strb = {4'h0, _mem_cache_io_axi_wstrb};	// <stdin>:3882:10, PMEM.scala:76:27, :146:32
+  assign axi_readAddr_valid = _mem_cache_io_axi_rreq;	// <stdin>:3882:10, PMEM.scala:76:27
+  assign axi_req_valid = _mem_cache_io_axi_rreq | _mem_cache_io_axi_wreq;	// <stdin>:3882:10, PMEM.scala:76:27, :121:57
 endmodule
 
-module MEMU(	// <stdin>:4112:10
+module MEMU(	// <stdin>:4110:10
   input         clock,
                 reset,
                 io_PMEM_to_MEM_bus_valid,
@@ -25976,31 +25976,31 @@ module MEMU(	// <stdin>:4112:10
       rhsReg_8 <= io_PMEM_to_MEM_bus_valid & ~io_dcache_miss;	// MEMU.scala:67:83, tools.scala:15:29, :24:18
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:4112:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:4112:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:4112:10
+  `ifndef SYNTHESIS	// <stdin>:4110:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:4110:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:4110:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:4112:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:4112:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:4112:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:4112:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:4112:10
-      automatic logic [31:0] _RANDOM_4;	// <stdin>:4112:10
-      automatic logic [31:0] _RANDOM_5;	// <stdin>:4112:10
-      automatic logic [31:0] _RANDOM_6;	// <stdin>:4112:10
-      automatic logic [31:0] _RANDOM_7;	// <stdin>:4112:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:4112:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:4112:10
+    initial begin	// <stdin>:4110:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:4110:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:4110:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:4110:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:4110:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:4110:10
+      automatic logic [31:0] _RANDOM_5;	// <stdin>:4110:10
+      automatic logic [31:0] _RANDOM_6;	// <stdin>:4110:10
+      automatic logic [31:0] _RANDOM_7;	// <stdin>:4110:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:4110:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:4110:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:4112:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:4112:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:4112:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:4112:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:4112:10
-        _RANDOM_4 = `RANDOM;	// <stdin>:4112:10
-        _RANDOM_5 = `RANDOM;	// <stdin>:4112:10
-        _RANDOM_6 = `RANDOM;	// <stdin>:4112:10
-        _RANDOM_7 = `RANDOM;	// <stdin>:4112:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:4110:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:4110:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:4110:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:4110:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:4110:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:4110:10
+        _RANDOM_5 = `RANDOM;	// <stdin>:4110:10
+        _RANDOM_6 = `RANDOM;	// <stdin>:4110:10
+        _RANDOM_7 = `RANDOM;	// <stdin>:4110:10
         rhsReg = {_RANDOM_0, _RANDOM_1};	// tools.scala:23:29
         rhsReg_1 = _RANDOM_2;	// tools.scala:23:29
         rhsReg_2 = _RANDOM_3[0];	// tools.scala:23:29
@@ -26012,29 +26012,29 @@ module MEMU(	// <stdin>:4112:10
         rhsReg_8 = _RANDOM_7[19];	// tools.scala:15:29, :23:29
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:4112:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:4112:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:4110:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:4110:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
-  assign io_MEM_to_WB_bus_valid = rhsReg_8;	// <stdin>:4112:10, tools.scala:15:29
-  assign io_MEM_to_WB_bus_bits_regWriteData = rhsReg_4;	// <stdin>:4112:10, tools.scala:23:29
-  assign io_MEM_to_WB_bus_bits_regWriteEn = rhsReg_2;	// <stdin>:4112:10, tools.scala:23:29
-  assign io_MEM_to_WB_bus_bits_regWriteID = rhsReg_3;	// <stdin>:4112:10, tools.scala:23:29
-  assign io_MEM_to_WB_bus_bits_csrWriteEn = rhsReg_5;	// <stdin>:4112:10, tools.scala:23:29
-  assign io_MEM_to_WB_bus_bits_csrWriteAddr = rhsReg_6;	// <stdin>:4112:10, tools.scala:23:29
-  assign io_MEM_to_WB_bus_bits_csrWriteData = rhsReg_7;	// <stdin>:4112:10, tools.scala:23:29
-  assign io_MEM_to_WB_bus_bits_PC = rhsReg;	// <stdin>:4112:10, tools.scala:23:29
-  assign io_MEM_to_WB_bus_bits_Inst = rhsReg_1;	// <stdin>:4112:10, tools.scala:23:29
+  assign io_MEM_to_WB_bus_valid = rhsReg_8;	// <stdin>:4110:10, tools.scala:15:29
+  assign io_MEM_to_WB_bus_bits_regWriteData = rhsReg_4;	// <stdin>:4110:10, tools.scala:23:29
+  assign io_MEM_to_WB_bus_bits_regWriteEn = rhsReg_2;	// <stdin>:4110:10, tools.scala:23:29
+  assign io_MEM_to_WB_bus_bits_regWriteID = rhsReg_3;	// <stdin>:4110:10, tools.scala:23:29
+  assign io_MEM_to_WB_bus_bits_csrWriteEn = rhsReg_5;	// <stdin>:4110:10, tools.scala:23:29
+  assign io_MEM_to_WB_bus_bits_csrWriteAddr = rhsReg_6;	// <stdin>:4110:10, tools.scala:23:29
+  assign io_MEM_to_WB_bus_bits_csrWriteData = rhsReg_7;	// <stdin>:4110:10, tools.scala:23:29
+  assign io_MEM_to_WB_bus_bits_PC = rhsReg;	// <stdin>:4110:10, tools.scala:23:29
+  assign io_MEM_to_WB_bus_bits_Inst = rhsReg_1;	// <stdin>:4110:10, tools.scala:23:29
   assign io_MEM_to_ID_forward_valid = io_PMEM_to_MEM_bus_bits_regWriteEn & (|io_PMEM_to_MEM_bus_bits_regWriteID) &
-                io_PMEM_to_MEM_bus_valid;	// <stdin>:4112:10, MEMU.scala:75:{72,79}
-  assign io_MEM_to_ID_forward_bits_regWriteData = io_PMEM_to_MEM_bus_bits_memReadEn ? io_memReadData : io_PMEM_to_MEM_bus_bits_ALU_result;	// <stdin>:4112:10, MEMU.scala:55:24
-  assign io_MEM_to_ID_forward_bits_regWriteEn = io_PMEM_to_MEM_bus_bits_regWriteEn;	// <stdin>:4112:10
-  assign io_MEM_to_ID_forward_bits_regWriteID = io_PMEM_to_MEM_bus_bits_regWriteID;	// <stdin>:4112:10
-  assign io_MEM_to_ID_forward_bits_csrWriteEn = io_PMEM_to_MEM_bus_bits_csrWriteEn;	// <stdin>:4112:10
-  assign io_MEM_to_ID_forward_bits_csrWriteAddr = io_PMEM_to_MEM_bus_bits_csrWriteAddr;	// <stdin>:4112:10
+                io_PMEM_to_MEM_bus_valid;	// <stdin>:4110:10, MEMU.scala:75:{72,79}
+  assign io_MEM_to_ID_forward_bits_regWriteData = io_PMEM_to_MEM_bus_bits_memReadEn ? io_memReadData : io_PMEM_to_MEM_bus_bits_ALU_result;	// <stdin>:4110:10, MEMU.scala:55:24
+  assign io_MEM_to_ID_forward_bits_regWriteEn = io_PMEM_to_MEM_bus_bits_regWriteEn;	// <stdin>:4110:10
+  assign io_MEM_to_ID_forward_bits_regWriteID = io_PMEM_to_MEM_bus_bits_regWriteID;	// <stdin>:4110:10
+  assign io_MEM_to_ID_forward_bits_csrWriteEn = io_PMEM_to_MEM_bus_bits_csrWriteEn;	// <stdin>:4110:10
+  assign io_MEM_to_ID_forward_bits_csrWriteAddr = io_PMEM_to_MEM_bus_bits_csrWriteAddr;	// <stdin>:4110:10
 endmodule
 
-module WBU(	// <stdin>:4187:10
+module WBU(	// <stdin>:4185:10
   input         io_MEM_to_WB_bus_valid,
   input  [63:0] io_MEM_to_WB_bus_bits_regWriteData,
   input         io_MEM_to_WB_bus_bits_regWriteEn,
@@ -26052,17 +26052,17 @@ module WBU(	// <stdin>:4187:10
   output [63:0] io_WB_pc,
   output [31:0] io_WB_Inst);
 
-  assign io_WB_to_ID_forward_valid = io_MEM_to_WB_bus_valid;	// <stdin>:4187:10
-  assign io_WB_to_ID_forward_bits_regWriteData = io_MEM_to_WB_bus_bits_regWriteData;	// <stdin>:4187:10
-  assign io_WB_to_ID_forward_bits_regWriteEn = io_MEM_to_WB_bus_bits_regWriteEn;	// <stdin>:4187:10
-  assign io_WB_to_ID_forward_bits_regWriteID = io_MEM_to_WB_bus_bits_regWriteID;	// <stdin>:4187:10
-  assign io_WB_to_ID_forward_bits_csrWriteEn = io_MEM_to_WB_bus_bits_csrWriteEn;	// <stdin>:4187:10
-  assign io_WB_to_ID_forward_bits_csrWriteAddr = io_MEM_to_WB_bus_bits_csrWriteAddr;	// <stdin>:4187:10
-  assign io_WB_pc = io_MEM_to_WB_bus_valid ? io_MEM_to_WB_bus_bits_PC : 64'h0;	// <stdin>:4187:10, WBU.scala:31:30
-  assign io_WB_Inst = io_MEM_to_WB_bus_bits_Inst;	// <stdin>:4187:10
+  assign io_WB_to_ID_forward_valid = io_MEM_to_WB_bus_valid;	// <stdin>:4185:10
+  assign io_WB_to_ID_forward_bits_regWriteData = io_MEM_to_WB_bus_bits_regWriteData;	// <stdin>:4185:10
+  assign io_WB_to_ID_forward_bits_regWriteEn = io_MEM_to_WB_bus_bits_regWriteEn;	// <stdin>:4185:10
+  assign io_WB_to_ID_forward_bits_regWriteID = io_MEM_to_WB_bus_bits_regWriteID;	// <stdin>:4185:10
+  assign io_WB_to_ID_forward_bits_csrWriteEn = io_MEM_to_WB_bus_bits_csrWriteEn;	// <stdin>:4185:10
+  assign io_WB_to_ID_forward_bits_csrWriteAddr = io_MEM_to_WB_bus_bits_csrWriteAddr;	// <stdin>:4185:10
+  assign io_WB_pc = io_MEM_to_WB_bus_valid ? io_MEM_to_WB_bus_bits_PC : 64'h0;	// <stdin>:4185:10, WBU.scala:31:30
+  assign io_WB_Inst = io_MEM_to_WB_bus_bits_Inst;	// <stdin>:4185:10
 endmodule
 
-module CSR(	// <stdin>:4203:10
+module CSR(	// <stdin>:4201:10
   input         clock,
                 reset,
                 io_ID_ecall,
@@ -26109,54 +26109,54 @@ module CSR(	// <stdin>:4203:10
         mcause <= io_writeData;	// CSR.scala:23:26
     end
   end // always @(posedge)
-  `ifndef SYNTHESIS	// <stdin>:4203:10
-    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:4203:10
-      `FIRRTL_BEFORE_INITIAL	// <stdin>:4203:10
+  `ifndef SYNTHESIS	// <stdin>:4201:10
+    `ifdef FIRRTL_BEFORE_INITIAL	// <stdin>:4201:10
+      `FIRRTL_BEFORE_INITIAL	// <stdin>:4201:10
     `endif // FIRRTL_BEFORE_INITIAL
-    initial begin	// <stdin>:4203:10
-      automatic logic [31:0] _RANDOM_0;	// <stdin>:4203:10
-      automatic logic [31:0] _RANDOM_1;	// <stdin>:4203:10
-      automatic logic [31:0] _RANDOM_2;	// <stdin>:4203:10
-      automatic logic [31:0] _RANDOM_3;	// <stdin>:4203:10
-      automatic logic [31:0] _RANDOM_4;	// <stdin>:4203:10
-      automatic logic [31:0] _RANDOM_5;	// <stdin>:4203:10
-      automatic logic [31:0] _RANDOM_6;	// <stdin>:4203:10
-      automatic logic [31:0] _RANDOM_7;	// <stdin>:4203:10
-      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:4203:10
-        `INIT_RANDOM_PROLOG_	// <stdin>:4203:10
+    initial begin	// <stdin>:4201:10
+      automatic logic [31:0] _RANDOM_0;	// <stdin>:4201:10
+      automatic logic [31:0] _RANDOM_1;	// <stdin>:4201:10
+      automatic logic [31:0] _RANDOM_2;	// <stdin>:4201:10
+      automatic logic [31:0] _RANDOM_3;	// <stdin>:4201:10
+      automatic logic [31:0] _RANDOM_4;	// <stdin>:4201:10
+      automatic logic [31:0] _RANDOM_5;	// <stdin>:4201:10
+      automatic logic [31:0] _RANDOM_6;	// <stdin>:4201:10
+      automatic logic [31:0] _RANDOM_7;	// <stdin>:4201:10
+      `ifdef INIT_RANDOM_PROLOG_	// <stdin>:4201:10
+        `INIT_RANDOM_PROLOG_	// <stdin>:4201:10
       `endif // INIT_RANDOM_PROLOG_
-      `ifdef RANDOMIZE_REG_INIT	// <stdin>:4203:10
-        _RANDOM_0 = `RANDOM;	// <stdin>:4203:10
-        _RANDOM_1 = `RANDOM;	// <stdin>:4203:10
-        _RANDOM_2 = `RANDOM;	// <stdin>:4203:10
-        _RANDOM_3 = `RANDOM;	// <stdin>:4203:10
-        _RANDOM_4 = `RANDOM;	// <stdin>:4203:10
-        _RANDOM_5 = `RANDOM;	// <stdin>:4203:10
-        _RANDOM_6 = `RANDOM;	// <stdin>:4203:10
-        _RANDOM_7 = `RANDOM;	// <stdin>:4203:10
+      `ifdef RANDOMIZE_REG_INIT	// <stdin>:4201:10
+        _RANDOM_0 = `RANDOM;	// <stdin>:4201:10
+        _RANDOM_1 = `RANDOM;	// <stdin>:4201:10
+        _RANDOM_2 = `RANDOM;	// <stdin>:4201:10
+        _RANDOM_3 = `RANDOM;	// <stdin>:4201:10
+        _RANDOM_4 = `RANDOM;	// <stdin>:4201:10
+        _RANDOM_5 = `RANDOM;	// <stdin>:4201:10
+        _RANDOM_6 = `RANDOM;	// <stdin>:4201:10
+        _RANDOM_7 = `RANDOM;	// <stdin>:4201:10
         mstatus = {_RANDOM_0, _RANDOM_1};	// CSR.scala:20:26
         mtvec = {_RANDOM_2, _RANDOM_3};	// CSR.scala:21:26
         mepc = {_RANDOM_4, _RANDOM_5};	// CSR.scala:22:26
         mcause = {_RANDOM_6, _RANDOM_7};	// CSR.scala:23:26
       `endif // RANDOMIZE_REG_INIT
     end // initial
-    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:4203:10
-      `FIRRTL_AFTER_INITIAL	// <stdin>:4203:10
+    `ifdef FIRRTL_AFTER_INITIAL	// <stdin>:4201:10
+      `FIRRTL_AFTER_INITIAL	// <stdin>:4201:10
     `endif // FIRRTL_AFTER_INITIAL
   `endif // not def SYNTHESIS
   assign io_readData = io_readAddr == 12'h300 ? mstatus : io_readAddr == 12'h305 ? mtvec : io_readAddr == 12'h341
-                ? mepc : io_readAddr == 12'h342 ? mcause : 64'h0;	// <stdin>:4203:10, CSR.scala:20:26, :21:26, :22:26, :23:26, :30:17, :31:24, :32:37, :33:37, :34:37, :35:37
-  assign io_mstatus = mstatus;	// <stdin>:4203:10, CSR.scala:20:26
-  assign io_mtvec = mtvec;	// <stdin>:4203:10, CSR.scala:21:26
-  assign io_mepc = mepc;	// <stdin>:4203:10, CSR.scala:22:26
-  assign io_mcause = mcause;	// <stdin>:4203:10, CSR.scala:23:26
+                ? mepc : io_readAddr == 12'h342 ? mcause : 64'h0;	// <stdin>:4201:10, CSR.scala:20:26, :21:26, :22:26, :23:26, :30:17, :31:24, :32:37, :33:37, :34:37, :35:37
+  assign io_mstatus = mstatus;	// <stdin>:4201:10, CSR.scala:20:26
+  assign io_mtvec = mtvec;	// <stdin>:4201:10, CSR.scala:21:26
+  assign io_mepc = mepc;	// <stdin>:4201:10, CSR.scala:22:26
+  assign io_mcause = mcause;	// <stdin>:4201:10, CSR.scala:23:26
 endmodule
 
 // external module sim
 
 // external module sim_sram
 
-module RAMU(	// <stdin>:4307:10
+module RAMU(	// <stdin>:4305:10
   input         clock,
                 reset,
                 axi_writeAddr_valid,
@@ -26193,12 +26193,12 @@ module RAMU(	// <stdin>:4307:10
     .aresetn (~reset),	// RAM.scala:97:48
     .arid    (axi_readAddr_bits_id),
     .araddr  (axi_readAddr_bits_addr),
-    .arlen   (8'h1),	// <stdin>:4307:10
-    .arsize  (3'h3),	// <stdin>:4307:10
-    .arburst (2'h1),	// <stdin>:4307:10
+    .arlen   (8'h1),	// <stdin>:4305:10
+    .arsize  (3'h3),	// <stdin>:4305:10
+    .arburst (2'h1),	// <stdin>:4305:10
     .arlock  (2'h0),	// RAM.scala:122:45
-    .arcache (4'h0),	// <stdin>:4307:10
-    .arprot  (3'h0),	// <stdin>:4307:10
+    .arcache (4'h0),	// <stdin>:4305:10
+    .arprot  (3'h0),	// <stdin>:4305:10
     .arvalid (axi_readAddr_valid),
     .rready  (axi_readData_ready),
     .awid    (axi_writeAddr_bits_id),
@@ -26207,10 +26207,10 @@ module RAMU(	// <stdin>:4307:10
     .awsize  (axi_writeAddr_bits_size),
     .awburst (axi_writeAddr_bits_burst),
     .awlock  (2'h0),	// RAM.scala:122:45
-    .awcache (4'h0),	// <stdin>:4307:10
-    .awprot  (3'h0),	// <stdin>:4307:10
+    .awcache (4'h0),	// <stdin>:4305:10
+    .awprot  (3'h0),	// <stdin>:4305:10
     .awvalid (axi_writeAddr_valid),
-    .wid     ({3'h0, axi_writeData_bits_id}),	// <stdin>:4307:10, RAM.scala:128:45
+    .wid     ({3'h0, axi_writeData_bits_id}),	// <stdin>:4305:10, RAM.scala:128:45
     .wdata   (axi_writeData_bits_data),
     .wstrb   (axi_writeData_bits_strb),
     .wlast   (axi_writeData_bits_last),
@@ -26230,7 +26230,7 @@ module RAMU(	// <stdin>:4307:10
   );
 endmodule
 
-module AXI_Arbiter(	// <stdin>:4398:10
+module AXI_Arbiter(	// <stdin>:4396:10
   input         in_0_writeAddr_valid,
   input  [31:0] in_0_writeAddr_bits_addr,
   input         in_0_writeData_valid,
@@ -26278,38 +26278,38 @@ module AXI_Arbiter(	// <stdin>:4398:10
   output [3:0]  out_readAddr_bits_id,
   output        out_readData_ready);
 
-  wire [3:0] _GEN = {3'h0, req_0_valid};	// <stdin>:4398:10, RAM.scala:63:27, :64:17
-  assign in_0_writeAddr_ready = req_0_valid & out_writeAddr_ready;	// <stdin>:4398:10, RAM.scala:63:27, :64:17, :77:41
-  assign in_0_writeData_ready = req_0_valid & out_writeData_ready;	// <stdin>:4398:10, RAM.scala:63:27, :64:17, :78:41
-  assign in_0_readAddr_ready = req_0_valid & out_readAddr_ready;	// <stdin>:4398:10, RAM.scala:63:27, :64:17, :71:41
-  assign in_0_readData_valid = req_0_valid & out_readData_valid;	// <stdin>:4398:10, RAM.scala:63:27, :64:17, :76:41
-  assign in_0_readData_bits_data = req_0_valid ? out_readData_bits_data : 64'h77;	// <stdin>:4398:10, RAM.scala:63:27, :64:17, :73:41
-  assign in_0_readData_bits_last = req_0_valid & out_readData_bits_last;	// <stdin>:4398:10, RAM.scala:63:27, :64:17, :75:41
-  assign in_1_readAddr_ready = out_readAddr_ready;	// <stdin>:4398:10
-  assign in_1_readData_valid = out_readData_valid;	// <stdin>:4398:10
-  assign in_1_readData_bits_data = out_readData_bits_data;	// <stdin>:4398:10
-  assign in_1_readData_bits_last = out_readData_bits_last;	// <stdin>:4398:10
-  assign req_0_ready = req_0_valid;	// <stdin>:4398:10
-  assign req_1_ready = ~req_0_valid;	// <stdin>:4398:10, RAM.scala:63:27, :67:30
-  assign out_writeAddr_valid = req_0_valid & in_0_writeAddr_valid;	// <stdin>:4398:10, RAM.scala:63:27, :64:17
-  assign out_writeAddr_bits_addr = req_0_valid ? in_0_writeAddr_bits_addr : 32'h0;	// <stdin>:4398:10, RAM.scala:63:27, :64:17
-  assign out_writeAddr_bits_size = req_0_valid ? 3'h3 : 3'h0;	// <stdin>:4398:10, RAM.scala:63:27, :64:17
-  assign out_writeAddr_bits_len = {7'h0, req_0_valid};	// <stdin>:4398:10, RAM.scala:63:27, :64:17
-  assign out_writeAddr_bits_burst = {1'h0, req_0_valid};	// <stdin>:4398:10, RAM.scala:63:27, :64:17
-  assign out_writeAddr_bits_id = _GEN;	// <stdin>:4398:10, RAM.scala:63:27, :64:17
-  assign out_writeData_valid = req_0_valid & in_0_writeData_valid;	// <stdin>:4398:10, RAM.scala:63:27, :64:17
-  assign out_writeData_bits_data = req_0_valid ? in_0_writeData_bits_data : 64'h0;	// <stdin>:4398:10, RAM.scala:63:27, :64:17
-  assign out_writeData_bits_id = req_0_valid;	// <stdin>:4398:10
-  assign out_writeData_bits_strb = req_0_valid ? in_0_writeData_bits_strb : 8'h0;	// <stdin>:4398:10, RAM.scala:63:27, :64:17
-  assign out_writeData_bits_last = req_0_valid & in_0_writeData_bits_last;	// <stdin>:4398:10, RAM.scala:63:27, :64:17
-  assign out_writeResp_ready = req_0_valid;	// <stdin>:4398:10
-  assign out_readAddr_valid = req_0_valid ? in_0_readAddr_valid : in_1_readAddr_valid;	// <stdin>:4398:10, RAM.scala:63:27, :64:17
-  assign out_readAddr_bits_addr = req_0_valid ? in_0_readAddr_bits_addr : in_1_readAddr_bits_addr;	// <stdin>:4398:10, RAM.scala:63:27, :64:17
-  assign out_readAddr_bits_id = _GEN;	// <stdin>:4398:10, RAM.scala:63:27, :64:17
-  assign out_readData_ready = req_0_valid | in_1_readData_ready;	// <stdin>:4398:10, RAM.scala:63:27, :64:17
+  wire [3:0] _GEN = {3'h0, req_0_valid};	// <stdin>:4396:10, RAM.scala:63:27, :64:17
+  assign in_0_writeAddr_ready = req_0_valid & out_writeAddr_ready;	// <stdin>:4396:10, RAM.scala:63:27, :64:17, :77:41
+  assign in_0_writeData_ready = req_0_valid & out_writeData_ready;	// <stdin>:4396:10, RAM.scala:63:27, :64:17, :78:41
+  assign in_0_readAddr_ready = req_0_valid & out_readAddr_ready;	// <stdin>:4396:10, RAM.scala:63:27, :64:17, :71:41
+  assign in_0_readData_valid = req_0_valid & out_readData_valid;	// <stdin>:4396:10, RAM.scala:63:27, :64:17, :76:41
+  assign in_0_readData_bits_data = req_0_valid ? out_readData_bits_data : 64'h77;	// <stdin>:4396:10, RAM.scala:63:27, :64:17, :73:41
+  assign in_0_readData_bits_last = req_0_valid & out_readData_bits_last;	// <stdin>:4396:10, RAM.scala:63:27, :64:17, :75:41
+  assign in_1_readAddr_ready = out_readAddr_ready;	// <stdin>:4396:10
+  assign in_1_readData_valid = out_readData_valid;	// <stdin>:4396:10
+  assign in_1_readData_bits_data = out_readData_bits_data;	// <stdin>:4396:10
+  assign in_1_readData_bits_last = out_readData_bits_last;	// <stdin>:4396:10
+  assign req_0_ready = req_0_valid;	// <stdin>:4396:10
+  assign req_1_ready = ~req_0_valid;	// <stdin>:4396:10, RAM.scala:63:27, :67:30
+  assign out_writeAddr_valid = req_0_valid & in_0_writeAddr_valid;	// <stdin>:4396:10, RAM.scala:63:27, :64:17
+  assign out_writeAddr_bits_addr = req_0_valid ? in_0_writeAddr_bits_addr : 32'h0;	// <stdin>:4396:10, RAM.scala:63:27, :64:17
+  assign out_writeAddr_bits_size = req_0_valid ? 3'h3 : 3'h0;	// <stdin>:4396:10, RAM.scala:63:27, :64:17
+  assign out_writeAddr_bits_len = {7'h0, req_0_valid};	// <stdin>:4396:10, RAM.scala:63:27, :64:17
+  assign out_writeAddr_bits_burst = {1'h0, req_0_valid};	// <stdin>:4396:10, RAM.scala:63:27, :64:17
+  assign out_writeAddr_bits_id = _GEN;	// <stdin>:4396:10, RAM.scala:63:27, :64:17
+  assign out_writeData_valid = req_0_valid & in_0_writeData_valid;	// <stdin>:4396:10, RAM.scala:63:27, :64:17
+  assign out_writeData_bits_data = req_0_valid ? in_0_writeData_bits_data : 64'h0;	// <stdin>:4396:10, RAM.scala:63:27, :64:17
+  assign out_writeData_bits_id = req_0_valid;	// <stdin>:4396:10
+  assign out_writeData_bits_strb = req_0_valid ? in_0_writeData_bits_strb : 8'h0;	// <stdin>:4396:10, RAM.scala:63:27, :64:17
+  assign out_writeData_bits_last = req_0_valid & in_0_writeData_bits_last;	// <stdin>:4396:10, RAM.scala:63:27, :64:17
+  assign out_writeResp_ready = req_0_valid;	// <stdin>:4396:10
+  assign out_readAddr_valid = req_0_valid ? in_0_readAddr_valid : in_1_readAddr_valid;	// <stdin>:4396:10, RAM.scala:63:27, :64:17
+  assign out_readAddr_bits_addr = req_0_valid ? in_0_readAddr_bits_addr : in_1_readAddr_bits_addr;	// <stdin>:4396:10, RAM.scala:63:27, :64:17
+  assign out_readAddr_bits_id = _GEN;	// <stdin>:4396:10, RAM.scala:63:27, :64:17
+  assign out_readData_ready = req_0_valid | in_1_readData_ready;	// <stdin>:4396:10, RAM.scala:63:27, :64:17
 endmodule
 
-module top(	// <stdin>:4440:10
+module top(	// <stdin>:4438:10
   input          clock,
                  reset,
   output [63:0]  io_ID_npc,
@@ -26961,35 +26961,35 @@ sim simulate (	// top.scala:24:26
     .out_readAddr_bits_id     (_arb_out_readAddr_bits_id),
     .out_readData_ready       (_arb_out_readData_ready)
   );
-  assign io_ID_npc = _inst_decode_unit_io_ID_to_BPU_bus_bits_br_target;	// <stdin>:4440:10, top.scala:105:34
-  assign io_PF_pc = _inst_fetch_unit_io_PF_pc;	// <stdin>:4440:10, top.scala:104:33
-  assign io_PF_axidata = _arb_in_1_readData_bits_data;	// <stdin>:4440:10, top.scala:234:21
-  assign io_IF_pc = _inst_fetch_unit_io_IF_to_ID_bus_bits_PC;	// <stdin>:4440:10, top.scala:104:33
-  assign io_ID_pc = _inst_decode_unit_io_ID_to_EX_bus_bits_PC;	// <stdin>:4440:10, top.scala:105:34
-  assign io_EX_pc = _excute_unit_io_EX_to_MEM_bus_bits_PC;	// <stdin>:4440:10, top.scala:106:29
-  assign io_PMEM_pc = _pre_mem_unit_io_PMEM_to_MEM_bus_bits_PC;	// <stdin>:4440:10, top.scala:107:30
-  assign io_WB_Inst = _wb_unit_io_WB_Inst;	// <stdin>:4440:10, top.scala:109:25
-  assign io_WB_RegWriteData = _wb_unit_io_WB_to_ID_forward_bits_regWriteData;	// <stdin>:4440:10, top.scala:109:25
-  assign io_WB_RegWriteID = {59'h0, _wb_unit_io_WB_to_ID_forward_bits_regWriteID};	// <stdin>:4440:10, top.scala:109:25, :171:24
-  assign io_WB_valid = _wb_unit_io_WB_to_ID_forward_valid;	// <stdin>:4440:10, top.scala:109:25
-  assign io_MEM_RegWriteData = _arb_in_0_readData_bits_data;	// <stdin>:4440:10, top.scala:234:21
-  assign io_bp_npc = _bp_unit_io_bp_npc;	// <stdin>:4440:10, top.scala:103:33
-  assign io_bp_taken = _bp_unit_io_bp_taken;	// <stdin>:4440:10, top.scala:103:33
-  assign io_bp_flush = _bp_unit_io_bp_flush;	// <stdin>:4440:10, top.scala:103:33
-  assign io_csrWriteEn = _mem_unit_io_MEM_to_WB_bus_bits_csrWriteEn;	// <stdin>:4440:10, top.scala:108:26
-  assign io_csrWriteAddr = _mem_unit_io_MEM_to_WB_bus_bits_csrWriteAddr;	// <stdin>:4440:10, top.scala:108:26
-  assign io_csrWriteData = _mem_unit_io_MEM_to_WB_bus_bits_csrWriteData;	// <stdin>:4440:10, top.scala:108:26
-  assign io_EX_csrWriteData = _excute_unit_io_EX_to_MEM_bus_bits_csrWriteData;	// <stdin>:4440:10, top.scala:106:29
-  assign io_icache_axi_req = _inst_fetch_unit_axi_readAddr_valid;	// <stdin>:4440:10, top.scala:104:33
-  assign io_dcache_miss = _pre_mem_unit_io_dcache_miss;	// <stdin>:4440:10, top.scala:107:30
-  assign io_IF_Inst = _inst_fetch_unit_io_IF_to_ID_bus_bits_Inst;	// <stdin>:4440:10, top.scala:104:33
-  assign io_IF_valid = _inst_fetch_unit_io_IF_to_ID_bus_valid;	// <stdin>:4440:10, top.scala:104:33
-  assign io_IF_AXIREQ = _arb_req_1_ready;	// <stdin>:4440:10, top.scala:234:21
-  assign io_ID_ALU_Data1 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data1;	// <stdin>:4440:10, top.scala:105:34
-  assign io_ID_ALU_Data2 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data2;	// <stdin>:4440:10, top.scala:105:34
-  assign io_EX_ALU_result_pass = _excute_unit_io_EX_ALUResult_Pass;	// <stdin>:4440:10, top.scala:106:29
-  assign io_ID_Rs2Data = _inst_decode_unit_io_ID_to_EX_bus_bits_rs2_data;	// <stdin>:4440:10, top.scala:105:34
-  assign io_ALUResult = _excute_unit_io_EX_to_MEM_bus_bits_ALU_result;	// <stdin>:4440:10, top.scala:106:29
+  assign io_ID_npc = _inst_decode_unit_io_ID_to_BPU_bus_bits_br_target;	// <stdin>:4438:10, top.scala:105:34
+  assign io_PF_pc = _inst_fetch_unit_io_PF_pc;	// <stdin>:4438:10, top.scala:104:33
+  assign io_PF_axidata = _arb_in_1_readData_bits_data;	// <stdin>:4438:10, top.scala:234:21
+  assign io_IF_pc = _inst_fetch_unit_io_IF_to_ID_bus_bits_PC;	// <stdin>:4438:10, top.scala:104:33
+  assign io_ID_pc = _inst_decode_unit_io_ID_to_EX_bus_bits_PC;	// <stdin>:4438:10, top.scala:105:34
+  assign io_EX_pc = _excute_unit_io_EX_to_MEM_bus_bits_PC;	// <stdin>:4438:10, top.scala:106:29
+  assign io_PMEM_pc = _pre_mem_unit_io_PMEM_to_MEM_bus_bits_PC;	// <stdin>:4438:10, top.scala:107:30
+  assign io_WB_Inst = _wb_unit_io_WB_Inst;	// <stdin>:4438:10, top.scala:109:25
+  assign io_WB_RegWriteData = _wb_unit_io_WB_to_ID_forward_bits_regWriteData;	// <stdin>:4438:10, top.scala:109:25
+  assign io_WB_RegWriteID = {59'h0, _wb_unit_io_WB_to_ID_forward_bits_regWriteID};	// <stdin>:4438:10, top.scala:109:25, :171:24
+  assign io_WB_valid = _wb_unit_io_WB_to_ID_forward_valid;	// <stdin>:4438:10, top.scala:109:25
+  assign io_MEM_RegWriteData = _arb_in_0_readData_bits_data;	// <stdin>:4438:10, top.scala:234:21
+  assign io_bp_npc = _bp_unit_io_bp_npc;	// <stdin>:4438:10, top.scala:103:33
+  assign io_bp_taken = _bp_unit_io_bp_taken;	// <stdin>:4438:10, top.scala:103:33
+  assign io_bp_flush = _bp_unit_io_bp_flush;	// <stdin>:4438:10, top.scala:103:33
+  assign io_csrWriteEn = _mem_unit_io_MEM_to_WB_bus_bits_csrWriteEn;	// <stdin>:4438:10, top.scala:108:26
+  assign io_csrWriteAddr = _mem_unit_io_MEM_to_WB_bus_bits_csrWriteAddr;	// <stdin>:4438:10, top.scala:108:26
+  assign io_csrWriteData = _mem_unit_io_MEM_to_WB_bus_bits_csrWriteData;	// <stdin>:4438:10, top.scala:108:26
+  assign io_EX_csrWriteData = _excute_unit_io_EX_to_MEM_bus_bits_csrWriteData;	// <stdin>:4438:10, top.scala:106:29
+  assign io_icache_axi_req = _inst_fetch_unit_axi_readAddr_valid;	// <stdin>:4438:10, top.scala:104:33
+  assign io_dcache_miss = _pre_mem_unit_io_dcache_miss;	// <stdin>:4438:10, top.scala:107:30
+  assign io_IF_Inst = _inst_fetch_unit_io_IF_to_ID_bus_bits_Inst;	// <stdin>:4438:10, top.scala:104:33
+  assign io_IF_valid = _inst_fetch_unit_io_IF_to_ID_bus_valid;	// <stdin>:4438:10, top.scala:104:33
+  assign io_IF_AXIREQ = _arb_req_1_ready;	// <stdin>:4438:10, top.scala:234:21
+  assign io_ID_ALU_Data1 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data1;	// <stdin>:4438:10, top.scala:105:34
+  assign io_ID_ALU_Data2 = _inst_decode_unit_io_ID_to_EX_bus_bits_ALU_Data2;	// <stdin>:4438:10, top.scala:105:34
+  assign io_EX_ALU_result_pass = _excute_unit_io_EX_ALUResult_Pass;	// <stdin>:4438:10, top.scala:106:29
+  assign io_ID_Rs2Data = _inst_decode_unit_io_ID_to_EX_bus_bits_rs2_data;	// <stdin>:4438:10, top.scala:105:34
+  assign io_ALUResult = _excute_unit_io_EX_to_MEM_bus_bits_ALU_result;	// <stdin>:4438:10, top.scala:106:29
 endmodule
 
 

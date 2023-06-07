@@ -239,8 +239,6 @@ class top extends Module{
     arb.req(1)      <> inst_fetch_unit.axi_req
     io.PF_axidata := inst_fetch_unit.axi.readData.bits.data
 
-
-
     //debug
     io.MEM_AXIREQ:= arb.req(0).ready
     io.IF_AXIREQ := arb.req(1).ready
