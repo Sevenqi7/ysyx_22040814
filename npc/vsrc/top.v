@@ -27105,13 +27105,13 @@ module sim_sram(
                 rlast_r     <= (arlen < 8'b1);
                 rid_r       <= arid;
                 araddr_r    <= araddr;
-                case (arburst)
-                    2'b01: begin
-                        araddr_r <= araddr + (1 << arsize);
-                    end
-                default:
-                    $display("unsupported burst type:%d", arburst);
-                endcase
+                // case (arburst)
+                //     2'b01: begin
+                //         araddr_r <= araddr + (1 << arsize);
+                //     end
+                // default:
+                //     $display("unsupported burst type:%d", arburst);
+                // endcase
             end
             else if((arlen_cntr < arlen_r) && rvalid && rready) begin
                 arlen_cntr  <= arlen_cntr + 1'b1;
@@ -27134,7 +27134,10 @@ module sim_sram(
     end
     
     always@(posedge aclk) begin
-        if((arvalid & !arv_arr_flag) | arv_arr_flag) begin
+        if((arvalid & !arv_arr_flag)) begin
+            dci_pmem_read({32'b0, araddr}, rdata, 8'HFF);
+        end
+        else if(arv_arr_flag) begin
             dci_pmem_read({32'b0, araddr_r}, rdata, 8'HFF);
         end
     end
