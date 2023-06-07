@@ -77,6 +77,7 @@ class IF_pre_fetch extends Module{
     inst_cache.io.axi_rlast    := axi.readData.bits.last
     inst_cache.io.axi_rdata    := axi.readData.bits.data
 
+    //statistics
     io.cache_miss_cnt          := inst_cache.io.cache_miss_cnt
     /***************ICache  End****************/
     
