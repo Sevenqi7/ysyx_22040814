@@ -106,7 +106,7 @@ module sim_sram(
             rlast_r   <= 1'b0;
         end
         else begin
-            if(arvalid && !arv_arr_flag) begin
+            if(arvalid && arready_r && !arv_arr_flag) begin
                 araddr_r    <= araddr;
                 arburst_r   <= arburst;
                 arlen_r     <= arlen;
@@ -133,7 +133,7 @@ module sim_sram(
     end
 
     always_latch@(*) begin
-        if(arvalid && !arv_arr_flag) begin
+        if(arvalid && arready_r && !arv_arr_flag) begin
             dci_pmem_read({32'b0, araddr}, rdata, 8'HFF);
         end
         else if(arv_arr_flag)begin
@@ -147,7 +147,7 @@ module sim_sram(
             rresp_r  <= 2'b0;
         end
         else begin
-            if(arvalid && !arv_arr_flag) begin
+            if(arvalid && arready_r && !arv_arr_flag) begin
                 rvalid_r    <= 1'b1;
                 rresp_r     <= 2'b0;
             end
