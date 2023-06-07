@@ -26161,7 +26161,6 @@ module RAMU(	// <stdin>:4300:10
                 axi_writeResp_ready,
                 axi_readAddr_valid,
   input  [31:0] axi_readAddr_bits_addr,
-  input  [7:0]  axi_readAddr_bits_len,
   input  [3:0]  axi_readAddr_bits_id,
   input         axi_readData_ready,
   output        axi_writeAddr_ready,
@@ -26182,7 +26181,7 @@ module RAMU(	// <stdin>:4300:10
     .aresetn (~reset),	// RAM.scala:97:48
     .arid    (axi_readAddr_bits_id),
     .araddr  (axi_readAddr_bits_addr),
-    .arlen   (axi_readAddr_bits_len),
+    .arlen   (8'h1),	// <stdin>:4300:10
     .arsize  (3'h3),	// <stdin>:4300:10
     .arburst (2'h1),	// <stdin>:4300:10
     .arlock  (2'h0),	// RAM.scala:122:45
@@ -26264,7 +26263,6 @@ module AXI_Arbiter(	// <stdin>:4391:10
                 out_writeResp_ready,
                 out_readAddr_valid,
   output [31:0] out_readAddr_bits_addr,
-  output [7:0]  out_readAddr_bits_len,
   output [3:0]  out_readAddr_bits_id,
   output        out_readData_ready);
 
@@ -26280,7 +26278,7 @@ module AXI_Arbiter(	// <stdin>:4391:10
   assign in_1_readData_bits_data = out_readData_bits_data;	// <stdin>:4391:10
   assign in_1_readData_bits_last = out_readData_bits_last;	// <stdin>:4391:10
   assign req_0_ready = req_0_valid;	// <stdin>:4391:10
-  assign req_1_ready = ~req_0_valid;	// <stdin>:4391:10, RAM.scala:63:27, :64:17
+  assign req_1_ready = ~req_0_valid;	// <stdin>:4391:10, RAM.scala:63:27, :67:30
   assign out_writeAddr_valid = req_0_valid & in_0_writeAddr_valid;	// <stdin>:4391:10, RAM.scala:63:27, :64:17
   assign out_writeAddr_bits_addr = req_0_valid ? in_0_writeAddr_bits_addr : 32'h0;	// <stdin>:4391:10, RAM.scala:63:27, :64:17
   assign out_writeAddr_bits_size = req_0_valid ? 3'h3 : 3'h0;	// <stdin>:4391:10, RAM.scala:63:27, :64:17
@@ -26295,7 +26293,6 @@ module AXI_Arbiter(	// <stdin>:4391:10
   assign out_writeResp_ready = req_0_valid;	// <stdin>:4391:10
   assign out_readAddr_valid = req_0_valid ? in_0_readAddr_valid : in_1_readAddr_valid;	// <stdin>:4391:10, RAM.scala:63:27, :64:17
   assign out_readAddr_bits_addr = req_0_valid ? in_0_readAddr_bits_addr : in_1_readAddr_bits_addr;	// <stdin>:4391:10, RAM.scala:63:27, :64:17
-  assign out_readAddr_bits_len = {7'h0, ~req_0_valid};	// <stdin>:4391:10, RAM.scala:63:27, :64:17
   assign out_readAddr_bits_id = _GEN;	// <stdin>:4391:10, RAM.scala:63:27, :64:17
   assign out_readData_ready = req_0_valid | in_1_readData_ready;	// <stdin>:4391:10, RAM.scala:63:27, :64:17
 endmodule
@@ -26399,7 +26396,6 @@ module top(	// <stdin>:4433:10
   wire        _arb_out_writeResp_ready;	// top.scala:229:21
   wire        _arb_out_readAddr_valid;	// top.scala:229:21
   wire [31:0] _arb_out_readAddr_bits_addr;	// top.scala:229:21
-  wire [7:0]  _arb_out_readAddr_bits_len;	// top.scala:229:21
   wire [3:0]  _arb_out_readAddr_bits_id;	// top.scala:229:21
   wire        _arb_out_readData_ready;	// top.scala:229:21
   wire        _ram_unit_axi_writeAddr_ready;	// top.scala:228:26
@@ -26868,7 +26864,6 @@ module top(	// <stdin>:4433:10
     .axi_writeResp_ready      (_arb_out_writeResp_ready),	// top.scala:229:21
     .axi_readAddr_valid       (_arb_out_readAddr_valid),	// top.scala:229:21
     .axi_readAddr_bits_addr   (_arb_out_readAddr_bits_addr),	// top.scala:229:21
-    .axi_readAddr_bits_len    (_arb_out_readAddr_bits_len),	// top.scala:229:21
     .axi_readAddr_bits_id     (_arb_out_readAddr_bits_id),	// top.scala:229:21
     .axi_readData_ready       (_arb_out_readData_ready),	// top.scala:229:21
     .axi_writeAddr_ready      (_ram_unit_axi_writeAddr_ready),
@@ -26945,7 +26940,6 @@ sim simulate (	// top.scala:24:26
     .out_writeResp_ready      (_arb_out_writeResp_ready),
     .out_readAddr_valid       (_arb_out_readAddr_valid),
     .out_readAddr_bits_addr   (_arb_out_readAddr_bits_addr),
-    .out_readAddr_bits_len    (_arb_out_readAddr_bits_len),
     .out_readAddr_bits_id     (_arb_out_readAddr_bits_id),
     .out_readData_ready       (_arb_out_readData_ready)
   );
