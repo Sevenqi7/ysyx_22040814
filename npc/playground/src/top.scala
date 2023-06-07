@@ -83,6 +83,7 @@ class top extends Module{
         val dcache_state = Output(UInt(3.W))
         val dcache_qstate = Output(UInt(3.W))
         val dcache_wstate = Output(UInt(3.W))
+        val dcache_maskedData = Output(UInt(64.W))
 
         val IF_Inst = Output(UInt(32.W))
         val IF_valid = Output(Bool())
@@ -141,17 +142,17 @@ class top extends Module{
     io.icache_state := inst_fetch_unit.io.cache_state
     io.icache_axi_req := inst_fetch_unit.axi.readAddr.valid
     io.icache_rvalid := inst_fetch_unit.io.cache_rvalid
-    io.icache_tag        := inst_fetch_unit.io.cache_tag
-    io.icache_set        := inst_fetch_unit.io.cache_set
-    io.icache_offset     := inst_fetch_unit.io.cache_offset
-    io.icache_miss_cnt   := inst_fetch_unit.io.cache_miss_cnt
-    io.lineBuf          := inst_fetch_unit.io.lineBuf
-    io.dcache_hit       := pre_mem_unit.io.dcache_hit
-    io.dcache_miss      := pre_mem_unit.io.dcache_miss
-    io.dcache_qstate    := pre_mem_unit.io.dcache_qstate
-    io.dcache_wstate    := pre_mem_unit.io.dcache_wstate
-    io.dcache_state     := pre_mem_unit.io.dcache_state
-
+    io.icache_tag           := inst_fetch_unit.io.cache_tag
+    io.icache_set           := inst_fetch_unit.io.cache_set
+    io.icache_offset        := inst_fetch_unit.io.cache_offset
+    io.icache_miss_cnt      := inst_fetch_unit.io.cache_miss_cnt
+    io.lineBuf              := inst_fetch_unit.io.lineBuf
+    io.dcache_hit           := pre_mem_unit.io.dcache_hit
+    io.dcache_miss          := pre_mem_unit.io.dcache_miss
+    io.dcache_qstate        := pre_mem_unit.io.dcache_qstate
+    io.dcache_wstate        := pre_mem_unit.io.dcache_wstate
+    io.dcache_state         := pre_mem_unit.io.dcache_state
+    io.dcache_maskedData    := pre_mem_unit.io.dcache_maskedData
 
     io.ID_npc   := inst_decode_unit.io.ID_to_BPU_bus.bits.br_target
     io.PF_npc   := inst_fetch_unit.io.PF_npc

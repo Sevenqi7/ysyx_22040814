@@ -43,6 +43,7 @@ class MEM_pre_stage extends Module{
         val dcache_state        = Output(UInt(3.W))
         val dcache_qstate       = Output(UInt(3.W))
         val dcache_wstate       = Output(UInt(3.W))
+        val dcache_maskedData   = Output(UInt(64.W))
     })
     val axi = IO(new AXIMasterIF(32, 64, 4))
     val axi_req  = IO(new MyReadyValidIO)
@@ -99,6 +100,7 @@ class MEM_pre_stage extends Module{
     io.dcache_state            := mem_cache.io.state
     io.dcache_qstate           := mem_cache.io.qstate
     io.dcache_wstate           := mem_cache.io.wstate
+    io.dcache_maskedData       := mem_cache.io.maskedData
     
     val memReadData = Wire(UInt(64.W))
     memReadData := 0.U

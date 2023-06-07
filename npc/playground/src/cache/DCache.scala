@@ -46,6 +46,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
         val state       = Output(UInt(3.W))
         val qstate      = Output(UInt(3.W))
         val wstate      = Output(UInt(3.W))
+        val maskedData  = Output(UInt(64.W))
     })
     
 
@@ -304,6 +305,6 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     io.state            := state
     io.qstate           := qstate
     io.wstate           := wstate
-
+    io.maskedData       := maskedData
 }
     
