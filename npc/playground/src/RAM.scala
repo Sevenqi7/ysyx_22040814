@@ -60,6 +60,7 @@ class AXI_Arbiter(val n: Int) extends Module{
 
     val last = RegInit(0.U((n-1).W))
 
+    out         <> in(0)
     when(req(last).valid){
         out     <> in(last)
         for(i <- n - 1 to 0 by -1){
