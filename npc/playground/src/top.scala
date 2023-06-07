@@ -75,7 +75,6 @@ class top extends Module{
         val icache_tag    = Output(UInt(21.W))
         val icache_set    = Output(UInt(2.W))
         val icache_offset = Output(UInt(4.W))
-        val icache_rlast  = Output(Bool())
         val icache_miss_cnt = Output(UInt(32.W))
         val lineBuf      = Output(UInt(128.W))
 
@@ -234,7 +233,6 @@ class top extends Module{
     arb.req(0)      <> pre_mem_unit.axi_req
     arb.req(1)      <> inst_fetch_unit.axi_req
     io.PF_axidata := inst_fetch_unit.axi.readData.bits.data
-    io.icache_rlast := inst_fetch_unit.axi.readData.bits.last
 
 
 
