@@ -13139,19 +13139,19 @@ module IF_pre_fetch(	// <stdin>:1622:10
       rhsReg <= 64'h0;	// tools.scala:15:29
     end
     else begin
-      automatic logic [63:0] _PF_npc_T_3;	// pre_fetch.scala:87:33
-      _PF_npc_T_3 = io_bp_npc + 64'h4;	// pre_fetch.scala:86:33, :87:33
+      automatic logic [63:0] _PF_npc_T_3;	// pre_fetch.scala:88:33
+      _PF_npc_T_3 = io_bp_npc + 64'h4;	// pre_fetch.scala:87:33, :88:33
       if (io_bp_flush) begin
-        PF_npc <= _PF_npc_T_3;	// pre_fetch.scala:34:27, :87:33
+        PF_npc <= _PF_npc_T_3;	// pre_fetch.scala:34:27, :88:33
         rhsReg <= io_bp_npc;	// tools.scala:15:29
       end
       else if (~_npc_T) begin	// pre_fetch.scala:70:19
         if (io_bp_taken) begin
-          PF_npc <= _PF_npc_T_3;	// pre_fetch.scala:34:27, :87:33
+          PF_npc <= _PF_npc_T_3;	// pre_fetch.scala:34:27, :88:33
           rhsReg <= io_bp_npc;	// tools.scala:15:29
         end
         else begin
-          PF_npc <= PF_npc + 64'h4;	// pre_fetch.scala:34:27, :86:33
+          PF_npc <= PF_npc + 64'h4;	// pre_fetch.scala:34:27, :87:33
           rhsReg <= PF_npc;	// pre_fetch.scala:34:27, tools.scala:15:29
         end
       end
@@ -27153,7 +27153,7 @@ module sim_sram(
                 arready_r       <= 1'b1;
             end
         end
-        $display("arvalid:%d arready:%d arv_arr_flag:%d rdata:0x%x rvalid:%d rready:%d, rlast:%d, rid:%d", arvalid, arready_r, arv_arr_flag, rdata, rvalid_r, rready, rlast_r, rid_r);
+        $display("arvalid:%d arready:%d arv_arr_flag:%d arlen_cntr:%d rdata:0x%x rvalid:%d rready:%d, rlast:%d, rid:%d", arvalid, arready_r, arv_arr_flag, arlen_cntr, rdata, rvalid_r, rready, rlast_r, rid_r);
     end
 
 
