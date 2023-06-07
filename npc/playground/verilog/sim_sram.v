@@ -137,26 +137,32 @@ module sim_sram(
     
     always@(posedge aclk) begin
         if(!aresetn) begin
-            rvalid_r = 1'b0;
-            rresp_r  = 2'b0;
+            rvalid_r <= 1'b0;
+            rresp_r  <= 2'b0;
         end
         else begin
             if(arvalid && !arv_arr_flag) begin
-                dci_pmem_read({32'b0, araddr}, rdata, 8'HFF);
-                rvalid_r    = 1'b1;
-                rresp_r     = 2'b0;
+                rvalid_r    <= 1'b1;
+                rresp_r     <= 2'b0;
             end
             else if(arv_arr_flag) begin
-                dci_pmem_read({32'b0, araddr_r}, rdata, 8'HFF);
-                rvalid_r    = 1'b1;
-                rresp_r     = 2'b0;
+                rvalid_r    <= 1'b1;
+                rresp_r     <= 2'b0;
             end
             else if(rvalid_r && rready) begin
-                rvalid_r    = 1'b0;
+                rvalid_r    <= 1'b0;
             end
         end
     end
 
+    always@(posedge aclk) begin
+        if(arvalid & !arv_arr_flag) begin
+            dci_pmem_read({32'b0, araddr}, rdata, 8'HFF);
+        end
+        else if(arv_arr_flag) begin
+            dci_pmem_read({32'b0, araddr_r}, rdata, 8'HFF);
+        end
+    end
 
     //aw
     always@(posedge aclk) begin
