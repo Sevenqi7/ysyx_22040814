@@ -107,13 +107,20 @@ module sim_sram(
         end
         else begin
             if(arvalid && !arv_arr_flag) begin
-                araddr_r    <= araddr;
                 arburst_r   <= arburst;
                 arlen_r     <= arlen;
                 arsize_r    <= arsize;
                 arlen_cntr  <= 8'b0;
                 rlast_r     <= (arlen < 8'b1);
                 rid_r       <= arid;
+                araddr_r    <= araddr;
+                case (arburst)
+                    2'b01: begin
+                        araddr_r <= araddr + (1 << arsize);
+                    end
+                default:
+                    $display("unsupported burst type:%d", arburst);
+                endcase
             end
             else if((arlen_cntr < arlen_r) && rvalid && rready) begin
                 arlen_cntr  <= arlen_cntr + 1'b1;
@@ -136,16 +143,25 @@ module sim_sram(
     end
     
     always@(posedge aclk) begin
+        if(arvalid & !arv_arr_flag) begin
+            dci_pmem_read({32'b0, araddr}, rdata, 8'HFF);
+        end
+        else if(arv_arr_flag) begin
+            dci_pmem_read({32'b0, araddr_r}, rdata, 8'HFF);
+        end
+    end
+
+    always@(posedge aclk) begin
         if(!aresetn) begin
             rvalid_r <= 1'b0;
             rresp_r  <= 2'b0;
         end
         else begin
-            // if(arvalid && !arv_arr_flag) begin
-            //     rvalid_r    <= 1'b1;
-            //     rresp_r     <= 2'b0;
-            // end
-            if(arv_arr_flag) begin
+            if(arvalid && !arv_arr_flag) begin
+                rvalid_r    <= 1'b1;
+                rresp_r     <= 2'b0;
+            end
+            else if(arv_arr_flag) begin
                 rvalid_r    <= 1'b1;
                 rresp_r     <= 2'b0;
             end
@@ -155,14 +171,6 @@ module sim_sram(
         end
     end
 
-    always@(posedge aclk) begin
-        // if(arvalid & !arv_arr_flag) begin
-        //     dci_pmem_read({32'b0, araddr}, rdata, 8'HFF);
-        // end
-        if(arv_arr_flag) begin
-            dci_pmem_read({32'b0, araddr_r}, rdata, 8'HFF);
-        end
-    end
 
     //aw
     always@(posedge aclk) begin
