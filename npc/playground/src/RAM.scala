@@ -82,11 +82,11 @@ class AXI_Arbiter(val n: Int) extends Module{
         out     <> in(0)
         for(i <- n - 1 to 0 by -1){
             when(req(i).valid){             
-                out <> in(i)
                 req(i).ready := 1.U
                 for(j <- i+1 to n-1){
                     req(j).ready := 0.U
                 }
+                out <> in(i)
                 last         := i.U
             }.otherwise{
                 req(i).ready                := 0.U
