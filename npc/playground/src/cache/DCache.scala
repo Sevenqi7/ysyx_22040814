@@ -103,9 +103,9 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     io.axi_wlast    := 0.U
     io.axi_wdata    := 0x7777.U  
     
-    io.miss         := !io.data_ok & io.addr_ok & !war_stall
     war_stall       := 0.U
     req_rline       := 0.U
+    
     /************************FSM************************/
     
     //cache-axi FIFO
