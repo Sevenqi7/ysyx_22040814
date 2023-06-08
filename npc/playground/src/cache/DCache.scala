@@ -293,7 +293,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
             cache(req_wset)(req_wline).dirty      := 1.U
             when((req_woffset & "b1000".U) > 0.U){
                 cache(req_wset)(req_wline).data   := Cat(cache(req_wset)(req_wline).data(127, 64), 
-                                                         cache(req_wset)(req_wline).data & ~dataMask | maskedData)
+                                                         cache(req_wset)(req_wline).data(63, 0) & ~dataMask | maskedData)
             }
             .otherwise{
                 cache(req_wset)(req_wline).data   := Cat(cache(req_wset)(req_wline).data(127, 64) & ~dataMask | maskedData, 
