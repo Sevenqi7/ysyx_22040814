@@ -36,7 +36,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
         val axi_wreq    = Output(Bool())
         // val axi_wtype   = Output(UInt(3.W))
         val axi_waddr   = Output(UInt(32.W))
-        val axi_wstrb   = Output(UInt(4.W))
+        val axi_wstrb   = Output(UInt(8.W))
         val axi_wdata   = Output(UInt(64.W))
         val axi_wlast   = Output(Bool())
         val axi_awready = Input(Bool())

@@ -14781,7 +14781,7 @@ module DCache(	// <stdin>:3274:10
   input          io_axi_arready,
                  io_axi_rvalid,
                  io_axi_rlast,
-  input  [31:0]  io_axi_rdata,
+  input  [63:0]  io_axi_rdata,
   input          io_axi_awready,
                  io_axi_wready,
   output [63:0]  io_rdata,
@@ -25227,7 +25227,7 @@ module DCache(	// <stdin>:3274:10
       if (_T_3 | _T_4 | _T_16 | ~(_T_18 & io_axi_rvalid)) begin	// DCache.scala:87:34, :165:18, :233:32
       end
       else	// DCache.scala:87:34, :165:18, :233:32
-        lineBuf <= {lineBuf[63:0], 32'h0, io_axi_rdata};	// Bitwise.scala:77:12, DCache.scala:87:34, :234:38
+        lineBuf <= {lineBuf[63:0], io_axi_rdata};	// DCache.scala:87:34, :234:38
       if (_T) begin	// DCache.scala:121:19
         if (_dataQueue_io_empty)	// DCache.scala:109:33
           qstate <= 2'h0;	// DCache.scala:111:34
@@ -28963,7 +28963,7 @@ module MEM_pre_stage(	// <stdin>:3906:10
     .io_axi_arready (axi_readAddr_ready),
     .io_axi_rvalid  (axi_readData_valid),
     .io_axi_rlast   (axi_readData_bits_last),
-    .io_axi_rdata   (axi_readData_bits_data[31:0]),	// PMEM.scala:97:32
+    .io_axi_rdata   (axi_readData_bits_data),
     .io_axi_awready (axi_writeAddr_ready),
     .io_axi_wready  (axi_writeData_ready),
     .io_rdata       (_mem_cache_io_rdata),
