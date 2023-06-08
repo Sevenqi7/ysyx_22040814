@@ -220,6 +220,7 @@ class top extends Module{
     inst_decode_unit.io.WB_to_ID_forward    <> wb_unit.io.WB_to_ID_forward
     inst_decode_unit.io.PMEM_to_ID_forward  <> pre_mem_unit.io.PMEM_to_ID_forward
     inst_decode_unit.io.MEM_to_ID_forward   <> mem_unit.io.MEM_to_ID_forward
+    inst_decode_unit.io.dcache_miss         := pre_mem_unit.io.dcache_miss
     inst_decode_unit.io.EX_ALUResult        := excute_unit.io.EX_ALUResult_Pass
     inst_decode_unit.io.CSR_csrReadData     := csr.io.readData
 

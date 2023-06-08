@@ -48,6 +48,7 @@ class IDU extends Module{
         //2. Data from MEM (from ex_unit in top)
         val PMEM_to_ID_forward = Flipped(Decoupled(new PMEM_to_ID_Message))
         val MEM_to_ID_forward = Flipped(Decoupled(new MEM_to_ID_Message))
+        val dcache_miss       = Input(Bool())
         
         //3. ALUResult from EX
         //this signal is connected to  "ALU_Result" in EXU, not "EX_ALUResult" because the
@@ -205,7 +206,7 @@ class IDU extends Module{
     val load_use_stall      = Wire(Bool())
     val csr_stall           = Wire(Bool())
     val dcache_miss_stall   = (io.MEM_to_ID_forward.valid && (MEM_regWriteID === rs2 || MEM_regWriteID === rs1) 
-                              && MEM_regWriteEn && !io.MEM_to_ID_forward.bits.dcache_miss)
+                              && MEM_regWriteEn && !io.dcache_miss)
     val csrWriteEn          = instType === TYPE_E | io.ID_ecall
     val csrWriteAddr        = Mux(io.ID_ecall, 0x341.U, immI)
     val flush = reset.asBool | load_use_stall  | !io.IF_to_ID_bus.valid | csr_stall
