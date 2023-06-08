@@ -93,7 +93,7 @@ module sim_sram(
                 arready_r       <= 1'b1;
             end
         end
-        $display("arvalid:%d arready:%d arv_arr_flag:%d arlen_cntr:%d rdata:0x%x rvalid:%d rready:%d, rlast:%d, rid:%d", arvalid, arready_r, arv_arr_flag, arlen_cntr, rdata, rvalid_r, rready, rlast_r, rid_r);
+        // $display("arvalid:%d arready:%d arv_arr_flag:%d arlen_cntr:%d rdata:0x%x rvalid:%d rready:%d, rlast:%d, rid:%d", arvalid, arready_r, arv_arr_flag, arlen_cntr, rdata, rvalid_r, rready, rlast_r, rid_r);
     end
 
 
@@ -218,7 +218,7 @@ module sim_sram(
                 endcase
             end
         end
-        $display("awready:%d wvalid:%d wready:%d awv_arw_flag:%d wlast:%d", awready_r, wvalid, wready_r, awv_arw_flag, wlast);
+        // $display("awready:%d wvalid:%d wready:%d awv_arw_flag:%d wlast:%d", awready_r, wvalid, wready_r, awv_arw_flag, wlast);
     end
 
     always@(posedge aclk) begin
