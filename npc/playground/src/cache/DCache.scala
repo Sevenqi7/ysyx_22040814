@@ -205,6 +205,8 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
                 req_valid            := io.valid
                 req_addr             := io.addr
                 req_op               := io.op
+                req_wdata            := io.wdata
+                req_wstrb            := io.wstrb 
                 addr_ok              := 1.U
             }.otherwise{
                 state                := sIdle
