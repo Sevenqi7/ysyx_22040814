@@ -327,7 +327,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     }
 
 
-    io.miss         := !io.data_ok & io.addr_ok & war_stall
+    io.miss         := (!io.data_ok & io.addr_ok) | war_stall
 
 
     //statistic
