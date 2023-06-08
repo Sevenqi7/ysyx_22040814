@@ -187,8 +187,9 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
                         }
                     }
                     .otherwise{
-                        req_wset     := set
-                        req_wline    := i.U
+                        req_wset        := set
+                        req_woffset     := offset
+                        req_wline       := i.U
                     }
                     //write operation is in WriteBuffer FSM
                     io.data_ok                  := 1.U
@@ -231,6 +232,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
         }
         is (sReplace){
             state                    := sIdle
+            io.axi_rreq                     := 0.U
             for(i <- 0 until nrLines-1){
                 when(!cache(set)(i).valid){
                     refillHit        := 1.U
