@@ -202,12 +202,14 @@ class IDU extends Module{
                             (opType === OpType.OP_MRET , 0x341.U)
                         ))
 
-    val load_use_stall = Wire(Bool())
-    val csr_stall      = Wire(Bool())
-    val csrWriteEn     = instType === TYPE_E | io.ID_ecall
-    val csrWriteAddr   = Mux(io.ID_ecall, 0x341.U, immI)
+    val load_use_stall      = Wire(Bool())
+    val csr_stall           = Wire(Bool())
+    val dcache_miss_stall   = io.MEM_to_ID_forward.valid && (MEM_regWriteID === rs2 || MEM_regWriteID === rs1) 
+                              && MEM_regWriteEn && !io.MEM_to_ID_forward.bits.dcache_miss
+    val csrWriteEn          = instType === TYPE_E | io.ID_ecall
+    val csrWriteAddr        = Mux(io.ID_ecall, 0x341.U, immI)
     val flush = reset.asBool | load_use_stall  | !io.IF_to_ID_bus.valid | csr_stall
-    io.ID_stall := load_use_stall | csr_stall
+    io.ID_stall := load_use_stall | csr_stall | dcache_miss_stall
 
 
     regConnectWithStall(io.ID_to_EX_bus.bits.PC             , IF_pc                     , !io.ID_to_EX_bus.ready)
