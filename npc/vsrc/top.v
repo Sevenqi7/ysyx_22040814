@@ -27145,8 +27145,9 @@ module sim_sram(
             end
             else if(rvalid_r && rready && arlen_cntr > arlen_r) begin
                 arv_arr_flag    <= 1'b0;
+                arready_r       <= 1'b1;
             end
-            else if(rvalid_r && rready && arlen_cntr <= arlen_r) begin
+            else if(arv_arr_flag && (arlen_cntr <= arlen_r)) begin
                 arready_r       <= 1'b0;
             end
             else begin
