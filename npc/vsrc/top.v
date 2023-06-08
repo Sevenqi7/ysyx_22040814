@@ -16182,9 +16182,9 @@ module DCache(	// <stdin>:3274:10
   wire [126:0]        _dataMask_T_15 = 127'hFFFFFFFFFFFFFFFF << {121'h0, req_woffset[2:0], 3'h0};	// DCache.scala:79:34, :161:30, :305:{58,73}
   wire [63:0]         _GEN_35 = wstate ? (req_wstrb_1 == 8'h1 ? _dataMask_T_3[63:0] : req_wstrb_1 == 8'h3 ?
                 _dataMask_T_7[63:0] : req_wstrb_1 == 8'hF ? _dataMask_T_11[63:0] : (&req_wstrb_1) ?
-                _dataMask_T_15[63:0] : 64'h0) : 64'h0;	// DCache.scala:71:34, :78:34, :288:31, :291:27, :294:19, :301:32, :302:{41,58}, :303:{41,58}, :304:{41,58}, :305:{41,58}
+                _dataMask_T_15[63:0] : 64'h0) : 64'h0;	// DCache.scala:71:34, :78:34, :288:31, :291:22, :294:19, :301:32, :302:{41,58}, :303:{41,58}, :304:{41,58}, :305:{41,58}
   wire [126:0]        _maskedData_T_2 = {63'h0, req_wdata_1} << {121'h0, req_woffset[2:0], 3'h0};	// DCache.scala:76:34, :79:34, :161:30, :302:58, :305:58, :308:{67,82}
-  wire [63:0]         _GEN_36 = wstate ? _maskedData_T_2[63:0] & _GEN_35 : 64'h0;	// DCache.scala:71:34, :288:31, :291:27, :292:27, :294:19, :308:{67,98}
+  wire [63:0]         _GEN_36 = wstate ? _maskedData_T_2[63:0] & _GEN_35 : 64'h0;	// DCache.scala:71:34, :288:31, :291:22, :292:22, :294:19, :308:{67,98}
   wire [127:0]        _GEN_37;	// DCache.scala:309:51
   wire [127:0]        _GEN_38 = _GEN_5[req_wset] /* cadence map_to_mux */;	// DCache.scala:80:34, :187:40, :309:51
   /* synopsys infer_mux_override */
@@ -18787,7 +18787,7 @@ module DCache(	// <stdin>:3274:10
         _GEN_811 = (&req_wset) & req_wline;	// DCache.scala:80:34, :81:34, :170:18, :309:51, :311:51
         if (req_woffset[3]) begin	// DCache.scala:79:34, :310:31
           automatic logic [127:0] _cache_data_T_5;	// Cat.scala:33:92
-          _cache_data_T_5 = {_GEN_555[127:64], _GEN_555[63:0] & ~_GEN_35 | _GEN_36};	// Cat.scala:33:92, DCache.scala:291:27, :292:27, :294:19, :309:51, :311:89, :312:{89,97,99,109}
+          _cache_data_T_5 = {_GEN_555[127:64], _GEN_555[63:0] & ~_GEN_35 | _GEN_36};	// Cat.scala:33:92, DCache.scala:291:22, :292:22, :294:19, :309:51, :311:89, :312:{89,97,99,109}
           if (_GEN_556) begin	// DCache.scala:170:18, :311:51
             if (_GEN_171) begin	// DCache.scala:64:24, :170:18
             end
@@ -20583,7 +20583,7 @@ module DCache(	// <stdin>:3274:10
         end
         else begin	// DCache.scala:79:34, :310:31
           automatic logic [127:0] _cache_data_T_11;	// Cat.scala:33:92
-          _cache_data_T_11 = {_GEN_555[127:64] & ~_GEN_35 | _GEN_36, _GEN_555[63:0]};	// Cat.scala:33:92, DCache.scala:291:27, :292:27, :294:19, :309:51, :315:{89,99,101,111}, :316:89
+          _cache_data_T_11 = {_GEN_555[127:64] & ~_GEN_35 | _GEN_36, _GEN_555[63:0]};	// Cat.scala:33:92, DCache.scala:291:22, :292:22, :294:19, :309:51, :315:{89,99,101,111}, :316:89
           if (_GEN_556) begin	// DCache.scala:170:18, :311:51
             if (_GEN_171) begin	// DCache.scala:64:24, :170:18
             end
@@ -28806,12 +28806,12 @@ module DCache(	// <stdin>:3274:10
   assign io_state = state;	// <stdin>:3274:10, DCache.scala:161:30
   assign io_qstate = {1'h0, qstate};	// <stdin>:3274:10, DCache.scala:60:25, :116:34, :332:25
   assign io_wstate = {2'h0, wstate};	// <stdin>:3274:10, DCache.scala:116:34, :288:31, :333:25
-  assign io_dataMask = _GEN_35;	// <stdin>:3274:10, DCache.scala:291:27, :294:19
-  assign io_maskedData = _GEN_36;	// <stdin>:3274:10, DCache.scala:292:27, :294:19
+  assign io_dataMask = _GEN_35;	// <stdin>:3274:10, DCache.scala:291:22, :294:19
+  assign io_maskedData = _GEN_36;	// <stdin>:3274:10, DCache.scala:292:22, :294:19
   assign io_originWdata = req_wdata_1;	// <stdin>:3274:10, DCache.scala:76:34
   assign io_req_addr = req_addr;	// <stdin>:3274:10, DCache.scala:71:34
   assign io_linewdata = req_woffset[3] ? _GEN_43 & {64'h0, ~_GEN_35} | {64'h0, _GEN_36} : {_GEN_43[127:64] &
-                ~_GEN_35 | _GEN_36, _GEN_43[63:0]};	// <stdin>:3274:10, DCache.scala:71:34, :79:34, :291:27, :292:27, :294:19, :310:31, :338:{31,100}, :339:{90,92,102}, :340:{103,115}, :341:89
+                ~_GEN_35 | _GEN_36, _GEN_43[63:0]};	// <stdin>:3274:10, DCache.scala:71:34, :79:34, :291:22, :292:22, :294:19, :310:31, :338:{31,100}, :339:{90,92,102}, :340:{103,115}, :341:89
   assign io_linerdata = _GEN_20 ? 128'h0 : _T_11 ? _GEN_15 : _T_6 ? _GEN_6 : 128'h0;	// <stdin>:3274:10, DCache.scala:90:34, :168:21, :170:18, :187:{40,48,71}, :189:37
 endmodule
 
