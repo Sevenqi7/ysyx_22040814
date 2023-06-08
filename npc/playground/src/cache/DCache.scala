@@ -105,7 +105,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     
     war_stall       := 0.U
     req_rline       := 0.U
-    
+
     /************************FSM************************/
     
     //cache-axi FIFO
@@ -325,6 +325,9 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
             war_stall       := req_valid & !req_op & (req_wset === set) & (req_wline === req_rline) & (req_woffset(3) === offset(3))
         }
     }
+
+
+    io.miss         := !io.data_ok & io.addr_ok & war_stall
 
 
     //statistic
