@@ -148,50 +148,6 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
         }
     }
     
-
-    //Write Buffer
-
-    // WriteBuffer States
-    val wsIdle :: wsWrite :: Nil = Enum(2) 
-    val wstate       = RegInit(wsIdle)
-    val dataMask     = Wire(UInt(64.W))
-    val maskedData   = Wire(UInt(64.W))
-    dataMask              := 0.U
-    maskedData            := 0.U
-
-    switch(wstate){
-        is (wsIdle){
-            when(io.hit & req_op){
-                wstate      := wsWrite
-            }
-        }
-        is (wsWrite){
-            switch(req_wstrb_1){
-                is (0x01.U) { dataMask  := Fill(8 , 1.U) << (req_woffset(2, 0) << 3.U)}
-                is (0x03.U) { dataMask  := Fill(16, 1.U) << (req_woffset(2, 0) << 3.U)}
-                is (0x0F.U) { dataMask  := Fill(32, 1.U) << (req_woffset(2, 0) << 3.U)}
-                is (0xFF.U) { dataMask  := Fill(64, 1.U) << (req_woffset(2, 0) << 3.U)}
-            }
-            
-            maskedData                            := (req_wdata_1 << (req_woffset(2, 0) << 3.U)) & dataMask
-            cache(req_wset)(req_wline).dirty      := 1.U
-            when((req_woffset & "b1000".U) > 0.U){
-                cache(req_wset)(req_wline).data   := Cat(cache(req_wset)(req_wline).data(127, 64), 
-                                                         cache(req_wset)(req_wline).data(63, 0) & ~dataMask | maskedData)
-            }
-            .otherwise{
-                cache(req_wset)(req_wline).data   := Cat(cache(req_wset)(req_wline).data(127, 64) & ~dataMask | maskedData, 
-                                                         cache(req_wset)(req_wline).data(63, 0))
-            }
-            when(io.hit & req_op){
-                wstate      := wsWrite
-            }
-            .otherwise{
-                wstate      := wsIdle
-            }
-
-        }
-    }
     
     //cache main state machine
     
@@ -319,7 +275,49 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
         }
     }
 
+    //Write Buffer
 
+    // WriteBuffer States
+    val wsIdle :: wsWrite :: Nil = Enum(2) 
+    val wstate       = RegInit(wsIdle)
+    val dataMask     = Wire(UInt(64.W))
+    val maskedData   = Wire(UInt(64.W))
+    dataMask              := 0.U
+    maskedData            := 0.U
+
+    switch(wstate){
+        is (wsIdle){
+            when(io.hit & req_op){
+                wstate      := wsWrite
+            }
+        }
+        is (wsWrite){
+            switch(req_wstrb_1){
+                is (0x01.U) { dataMask  := Fill(8 , 1.U) << (req_woffset(2, 0) << 3.U)}
+                is (0x03.U) { dataMask  := Fill(16, 1.U) << (req_woffset(2, 0) << 3.U)}
+                is (0x0F.U) { dataMask  := Fill(32, 1.U) << (req_woffset(2, 0) << 3.U)}
+                is (0xFF.U) { dataMask  := Fill(64, 1.U) << (req_woffset(2, 0) << 3.U)}
+            }
+            
+            maskedData                            := (req_wdata_1 << (req_woffset(2, 0) << 3.U)) & dataMask
+            cache(req_wset)(req_wline).dirty      := 1.U
+            when((req_woffset & "b1000".U) > 0.U){
+                cache(req_wset)(req_wline).data   := Cat(cache(req_wset)(req_wline).data(127, 64), 
+                                                         cache(req_wset)(req_wline).data(63, 0) & ~dataMask | maskedData)
+            }
+            .otherwise{
+                cache(req_wset)(req_wline).data   := Cat(cache(req_wset)(req_wline).data(127, 64) & ~dataMask | maskedData, 
+                                                         cache(req_wset)(req_wline).data(63, 0))
+            }
+            when(io.hit & req_op){
+                wstate      := wsWrite
+            }
+            .otherwise{
+                wstate      := wsIdle
+            }
+
+        }
+    }
 
 
     //statistic
