@@ -71,7 +71,6 @@ class MEMU extends Module{
     io.MEM_to_ID_forward.bits.regWriteID   := regWriteID
     io.MEM_to_ID_forward.bits.csrWriteEn   := csrWriteEn
     io.MEM_to_ID_forward.bits.csrWriteAddr := csrWriteAddr
-    io.MEM_to_ID_forward.bits.dcache_miss  := io.dcache_miss
     io.MEM_to_ID_forward.valid             := regWriteEn & (regWriteID > 0.U) & io.PMEM_to_MEM_bus.valid & !io.dcache_miss
 
 }  
