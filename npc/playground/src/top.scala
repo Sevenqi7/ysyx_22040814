@@ -68,16 +68,30 @@ class top extends Module{
         val mepc      = Output(UInt(64.W))
         val mcause    = Output(UInt(64.W))      
 
-        val cache_hit = Output(Bool())
-        val cache_state = Output(UInt(3.W))
-        val cache_rvalid = Output(Bool())
-        val cache_axi_req = Output(Bool())
-        val cache_tag    = Output(UInt(21.W))
-        val cache_set    = Output(UInt(2.W))
-        val cache_offset = Output(UInt(4.W))
-        val cache_rlast  = Output(Bool())
-        val cache_miss_cnt = Output(UInt(32.W))
+        val icache_hit = Output(Bool())
+        val icache_state = Output(UInt(3.W))
+        val icache_rvalid = Output(Bool())
+        val icache_axi_req = Output(Bool())
+        val icache_tag    = Output(UInt(21.W))
+        val icache_set    = Output(UInt(2.W))
+        val icache_offset = Output(UInt(4.W))
+        val icache_miss_cnt = Output(UInt(32.W))
         val lineBuf      = Output(UInt(128.W))
+
+        val dcache_hit = Output(Bool())
+        val dcache_miss = Output(Bool())
+        val dcache_state = Output(UInt(3.W))
+        val dcache_qstate = Output(UInt(3.W))
+        val dcache_wstate = Output(UInt(3.W))
+        val dcache_rdata  = Output(UInt(64.W))
+        val dcache_maskedData = Output(UInt(64.W))
+        val dcache_dataMask = Output(UInt(64.W))
+        val dcache_originWdata = Output(UInt(64.W))
+        val dcache_req_addr    = Output(UInt(64.W))
+        val dcache_linewdata1   = Output(UInt(64.W))
+        val dcache_linewdata2   = Output(UInt(64.W))
+        val dcache_linerdata1   = Output(UInt(64.W))
+        val dcache_linerdata2   = Output(UInt(64.W))
 
         val IF_Inst = Output(UInt(32.W))
         val IF_valid = Output(Bool())
@@ -132,15 +146,30 @@ class top extends Module{
 
     io.IF_Inst  := inst_fetch_unit.io.IF_to_ID_bus.bits.Inst
     io.IF_valid := inst_fetch_unit.io.IF_to_ID_bus.valid
-    io.cache_hit := inst_fetch_unit.io.cache_hit
-    io.cache_state := inst_fetch_unit.io.cache_state
-    io.cache_axi_req := inst_fetch_unit.axi.readAddr.valid
-    io.cache_rvalid := inst_fetch_unit.io.cache_rvalid
-    io.cache_tag        := inst_fetch_unit.io.cache_tag
-    io.cache_set        := inst_fetch_unit.io.cache_set
-    io.cache_offset     := inst_fetch_unit.io.cache_offset
-    io.cache_miss_cnt   := inst_fetch_unit.io.cache_miss_cnt
-    io.lineBuf          := inst_fetch_unit.io.lineBuf
+    io.icache_hit := inst_fetch_unit.io.cache_hit
+    io.icache_state := inst_fetch_unit.io.cache_state
+    io.icache_axi_req := inst_fetch_unit.axi.readAddr.valid
+    io.icache_rvalid := inst_fetch_unit.io.cache_rvalid
+    io.icache_tag           := inst_fetch_unit.io.cache_tag
+    io.icache_set           := inst_fetch_unit.io.cache_set
+    io.icache_offset        := inst_fetch_unit.io.cache_offset
+    io.icache_miss_cnt      := inst_fetch_unit.io.cache_miss_cnt
+    io.lineBuf              := inst_fetch_unit.io.lineBuf
+    io.dcache_hit           := pre_mem_unit.io.dcache_hit
+    io.dcache_miss          := pre_mem_unit.io.dcache_miss
+    io.dcache_qstate        := pre_mem_unit.io.dcache_qstate
+    io.dcache_wstate        := pre_mem_unit.io.dcache_wstate
+    io.dcache_state         := pre_mem_unit.io.dcache_state
+    io.dcache_rdata         := pre_mem_unit.io.dcache_rdata
+    io.dcache_req_addr      := pre_mem_unit.io.dcache_req_addr
+    io.dcache_maskedData    := pre_mem_unit.io.dcache_maskedData
+    io.dcache_dataMask      := pre_mem_unit.io.dcache_dataMask
+    io.dcache_originWdata   := pre_mem_unit.io.dcache_originWdata
+    io.dcache_linewdata1    := pre_mem_unit.io.dcache_linewdata(63, 0)
+    io.dcache_linewdata2    := pre_mem_unit.io.dcache_linewdata(127, 64)
+    io.dcache_linerdata1    := pre_mem_unit.io.dcache_linerdata(63, 0)
+    io.dcache_linerdata2    := pre_mem_unit.io.dcache_linerdata(127, 64)
+
 
     io.ID_npc   := inst_decode_unit.io.ID_to_BPU_bus.bits.br_target
     io.PF_npc   := inst_fetch_unit.io.PF_npc
@@ -191,6 +220,7 @@ class top extends Module{
     inst_decode_unit.io.WB_to_ID_forward    <> wb_unit.io.WB_to_ID_forward
     inst_decode_unit.io.PMEM_to_ID_forward  <> pre_mem_unit.io.PMEM_to_ID_forward
     inst_decode_unit.io.MEM_to_ID_forward   <> mem_unit.io.MEM_to_ID_forward
+    inst_decode_unit.io.dcache_miss         := pre_mem_unit.io.dcache_miss
     inst_decode_unit.io.EX_ALUResult        := excute_unit.io.EX_ALUResult_Pass
     inst_decode_unit.io.CSR_csrReadData     := csr.io.readData
 
@@ -202,6 +232,7 @@ class top extends Module{
 
     mem_unit.io.PMEM_to_MEM_bus             <> pre_mem_unit.io.PMEM_to_MEM_bus
     mem_unit.io.memReadData                 := pre_mem_unit.io.memReadData
+    mem_unit.io.dcache_miss                 := pre_mem_unit.io.dcache_miss
 
     wb_unit.io.MEM_to_WB_bus                <> mem_unit.io.MEM_to_WB_bus
 
@@ -220,11 +251,7 @@ class top extends Module{
     arb.in(1)       <> inst_fetch_unit.axi
     arb.req(0)      <> pre_mem_unit.axi_req
     arb.req(1)      <> inst_fetch_unit.axi_req
-    arb.axi_busy    := ram_unit.axi_busy
     io.PF_axidata := inst_fetch_unit.axi.readData.bits.data
-    io.cache_rlast := inst_fetch_unit.axi.readData.bits.last
-
-
 
     //debug
     io.MEM_AXIREQ:= arb.req(0).ready

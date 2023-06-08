@@ -48,6 +48,7 @@ class IDU extends Module{
         //2. Data from MEM (from ex_unit in top)
         val PMEM_to_ID_forward = Flipped(Decoupled(new PMEM_to_ID_Message))
         val MEM_to_ID_forward = Flipped(Decoupled(new MEM_to_ID_Message))
+        val dcache_miss       = Input(Bool())
         
         //3. ALUResult from EX
         //this signal is connected to  "ALU_Result" in EXU, not "EX_ALUResult" because the
@@ -202,12 +203,14 @@ class IDU extends Module{
                             (opType === OpType.OP_MRET , 0x341.U)
                         ))
 
-    val load_use_stall = Wire(Bool())
-    val csr_stall      = Wire(Bool())
-    val csrWriteEn     = instType === TYPE_E | io.ID_ecall
-    val csrWriteAddr   = Mux(io.ID_ecall, 0x341.U, immI)
+    val load_use_stall      = Wire(Bool())
+    val csr_stall           = Wire(Bool())
+    val dcache_miss_stall   = ((MEM_regWriteID === rs2 || MEM_regWriteID === rs1) 
+                              && MEM_regWriteEn && io.dcache_miss)
+    val csrWriteEn          = instType === TYPE_E | io.ID_ecall
+    val csrWriteAddr        = Mux(io.ID_ecall, 0x341.U, immI)
     val flush = reset.asBool | load_use_stall  | !io.IF_to_ID_bus.valid | csr_stall
-    io.ID_stall := load_use_stall | csr_stall
+    io.ID_stall := load_use_stall | csr_stall | dcache_miss_stall
 
 
     regConnectWithStall(io.ID_to_EX_bus.bits.PC             , IF_pc                     , !io.ID_to_EX_bus.ready)
@@ -227,7 +230,7 @@ class IDU extends Module{
     regConnectWithStall(io.ID_to_EX_bus.bits.csrWriteEn     , csrWriteEn                , !io.ID_to_EX_bus.ready)
     regConnectWithStall(io.ID_to_EX_bus.bits.csrWriteAddr   , csrWriteAddr              , !io.ID_to_EX_bus.ready)
     regConnectWithStall(io.ID_to_EX_bus.valid               , ID_valid                  , !io.ID_to_EX_bus.ready)
-    io.IF_to_ID_bus.ready := !io.ID_stall
+    io.IF_to_ID_bus.ready := !io.ID_stall & io.ID_to_EX_bus.ready
     io.MEM_to_ID_forward.ready := 1.U
     io.PMEM_to_ID_forward.ready := 1.U
     io.WB_to_ID_forward.ready := 1.U

@@ -35,8 +35,7 @@ class IF_pre_fetch extends Module{
     io.PF_npc    := PF_npc
     val axi_busy = RegInit(0.U(1.W))
     axi_busy        := !axi_req.ready
-    axi_req.valid   := 1.U
-
+    
     /*****************ICache******************/
     
     //parameter
@@ -44,7 +43,10 @@ class IF_pre_fetch extends Module{
     val tagWidth    = 21
     val nrSets      = 128
     val nrLines     = 2
+    
     val inst_cache  = Module(new ICache(tagWidth, nrSets, nrLines, offsetWidth))
+    axi_req.valid              := inst_cache.io.axi_rreq
+
     io.cache_hit               := inst_cache.io.hit
     io.cache_state             := inst_cache.io.state
     io.cache_rvalid            := inst_cache.io.rvalid
@@ -62,10 +64,10 @@ class IF_pre_fetch extends Module{
     axi.readAddr.bits.prot     := 0.U
     axi.readAddr.bits.addr     := inst_cache.io.axi_raddr(31, 0)
     axi.readAddr.valid         := inst_cache.io.axi_rreq
-    axi.readData.ready         := !io.stall
+    axi.readData.ready         := 1.U
     inst_cache.io.addr         := MuxCase(PF_npc(31, 0), Seq(
         (io.bp_flush, io.bp_npc),
-        (io.stall | inst_cache.io.miss, io.PF_pc ),
+        (io.stall | inst_cache.io.miss, io.PF_pc),
         (io.bp_taken, io.bp_npc)
         ))
     inst_cache.io.valid        := !reset.asBool
@@ -75,6 +77,7 @@ class IF_pre_fetch extends Module{
     inst_cache.io.axi_rlast    := axi.readData.bits.last
     inst_cache.io.axi_rdata    := axi.readData.bits.data
 
+    //statistics
     io.cache_miss_cnt          := inst_cache.io.cache_miss_cnt
     /***************ICache  End****************/
     

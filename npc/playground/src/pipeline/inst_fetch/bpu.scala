@@ -138,8 +138,8 @@ class BPU extends Module{
     val JAL    = Wire(Bool())
     val JALR   = Wire(Bool())
  
-    JAL     := (opcode === "b1100111".U)
-    JALR    := (opcode === "b1101111".U)
+    JALR     := (opcode === "b1100111".U)
+    JAL      := (opcode === "b1101111".U)
 
     B_type  := (opcode === "b1100011".U)
     J_type  :=  JAL | JALR

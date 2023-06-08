@@ -34,6 +34,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
 
     val sIdle :: sLookup :: sMiss :: sRefill :: sReplace :: Nil = Enum(5)
 
+    //statistic
     val cache_miss_cnt = RegInit(0.U(32.W))
     io.cache_miss_cnt   := cache_miss_cnt
 
@@ -121,11 +122,11 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
             }
         }
         is (sMiss){
+            io.axi_rreq         := 1.U
             when(!io.axi_arready | io.axi_busy){ 
                 state           := sMiss
             }       
             .otherwise{
-                io.axi_rreq     := 1.U
                 io.axi_raddr    := req_addr & (0xFFFFFFFFL.U << offsetWidth)
                 state           := sRefill
             }
@@ -165,6 +166,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
             cache(set)(refillIDX).tag   := tag
             cache(set)(refillIDX).data  := lineBuf
             io.axi_rreq                 := 0.U
+
             cache_miss_cnt              := cache_miss_cnt+1.U
         }
     }

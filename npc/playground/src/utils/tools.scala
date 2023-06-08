@@ -82,6 +82,7 @@ class FIFO[T <: Data](gen: T, depth: Int) extends Module{
     foo         := 0.U.asTypeOf(gen)
     val queue   = RegInit(VecInit.fill(depth)(foo))
     val qrear   = RegInit(0.U(log2Ceil(depth).W))
+    val qptr    = RegInit(0.U(log2Ceil(depth).W))
     val qfront  = RegInit(0.U(log2Ceil(depth).W))
     val full    = RegInit(0.B)
     val empty   = RegInit(1.B)
@@ -89,7 +90,6 @@ class FIFO[T <: Data](gen: T, depth: Int) extends Module{
 
     io.empty    := empty
     io.full     := full
-
 
     when(io.enqValid & !full){
         queue(qrear)    := io.enqData
@@ -106,5 +106,5 @@ class FIFO[T <: Data](gen: T, depth: Int) extends Module{
         }
     }
 
-    io.deqData          := queue(qrear-1.U)
+    io.deqData          := queue(qfront)
 }
