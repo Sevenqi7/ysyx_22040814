@@ -14791,7 +14791,7 @@ module DCache(	// <stdin>:3274:10
   output [31:0]  io_axi_raddr,
   output         io_axi_wreq,
   output [31:0]  io_axi_waddr,
-  output [3:0]   io_axi_wstrb,
+  output [7:0]   io_axi_wstrb,
   output [63:0]  io_axi_wdata,
   output         io_axi_wlast,
   output [2:0]   io_state,
@@ -28773,7 +28773,7 @@ module DCache(	// <stdin>:3274:10
   assign io_axi_raddr = _T_3 | _T_4 | ~_GEN_20 ? 32'h0 : {req_addr[31:4], 4'h0};	// <stdin>:3274:10, Bitwise.scala:77:12, DCache.scala:72:34, :78:34, :95:21, :165:18, :221:34
   assign io_axi_wreq = _T ? ~_dataQueue_io_empty : _T_2;	// <stdin>:3274:10, DCache.scala:109:33, :121:19, :124:{18,38}
   assign io_axi_waddr = ~_T | _dataQueue_io_empty ? 32'h0 : _addrQueue_io_deqData;	// <stdin>:3274:10, Bitwise.scala:77:12, DCache.scala:98:21, :109:33, :110:33, :121:19, :124:38
-  assign io_axi_wstrb = _T ? {4{~_dataQueue_io_empty}} : {4{_T_2}};	// <stdin>:3274:10, DCache.scala:99:21, :109:33, :121:19, :124:{18,38}, :126:33, :136:37
+  assign io_axi_wstrb = _T ? {8{~_dataQueue_io_empty}} : {8{_T_2}};	// <stdin>:3274:10, DCache.scala:99:21, :109:33, :121:19, :124:{18,38}, :126:33, :136:37
   assign io_axi_wdata = _T ? (_dataQueue_io_empty ? 64'h7777 : _dataQueue_io_deqData[127:64]) : _T_2 ?
                 _dataQueue_io_deqData[63:0] : 64'h7777;	// <stdin>:3274:10, DCache.scala:93:21, :101:21, :109:33, :121:19, :124:38, :127:{33,56}, :135:{37,60}
   assign io_axi_wlast = _GEN_0;	// <stdin>:3274:10, DCache.scala:100:21, :121:19
@@ -28857,7 +28857,6 @@ module MEM_pre_stage(	// <stdin>:3906:10
   wire        _mem_cache_io_miss;	// PMEM.scala:80:27
   wire        _mem_cache_io_axi_rreq;	// PMEM.scala:80:27
   wire        _mem_cache_io_axi_wreq;	// PMEM.scala:80:27
-  wire [3:0]  _mem_cache_io_axi_wstrb;	// PMEM.scala:80:27
   reg  [63:0] rhsReg;	// tools.scala:23:29
   reg  [31:0] rhsReg_1;	// tools.scala:23:29
   reg  [63:0] rhsReg_2;	// tools.scala:23:29
@@ -28973,7 +28972,7 @@ module MEM_pre_stage(	// <stdin>:3906:10
     .io_axi_raddr   (axi_readAddr_bits_addr),
     .io_axi_wreq    (_mem_cache_io_axi_wreq),
     .io_axi_waddr   (axi_writeAddr_bits_addr),
-    .io_axi_wstrb   (_mem_cache_io_axi_wstrb),
+    .io_axi_wstrb   (axi_writeData_bits_strb),
     .io_axi_wdata   (axi_writeData_bits_data),
     .io_axi_wlast   (axi_writeData_bits_last),
     .io_state       (io_dcache_state),
@@ -29014,7 +29013,6 @@ module MEM_pre_stage(	// <stdin>:3906:10
   assign io_dcache_rdata = _mem_cache_io_rdata;	// <stdin>:3906:10, PMEM.scala:80:27
   assign axi_writeAddr_valid = _mem_cache_io_axi_wreq;	// <stdin>:3906:10, PMEM.scala:80:27
   assign axi_writeData_valid = _mem_cache_io_axi_wreq;	// <stdin>:3906:10, PMEM.scala:80:27
-  assign axi_writeData_bits_strb = {4'h0, _mem_cache_io_axi_wstrb};	// <stdin>:3906:10, PMEM.scala:80:27, :154:32
   assign axi_readAddr_valid = _mem_cache_io_axi_rreq;	// <stdin>:3906:10, PMEM.scala:80:27
   assign axi_req_valid = _mem_cache_io_axi_rreq | _mem_cache_io_axi_wreq;	// <stdin>:3906:10, PMEM.scala:80:27, :129:57
 endmodule

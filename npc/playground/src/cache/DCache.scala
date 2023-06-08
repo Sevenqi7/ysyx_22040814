@@ -67,13 +67,13 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     val lineWidth       = log2Ceil(nrLines)
     val dataWidth       = 128
     
-    
     //pipeline request
     val req_addr        = RegInit(0.U(64.W))
     val req_valid       = RegInit(0.B)
     val req_op          = RegInit(0.B)
     
-    val req_wdata       = RegInit(0.U(64.W))
+    val req_wdata_0     = RegInit(0.U(64.W))
+    val req_wdata_1     = RegInit(0.U(64.W))
     val req_wstrb       = RegInit(0.U(8.W))
     val req_woffset     = RegInit(0.U(4.W))
     val req_wset        = RegInit(0.U(setWidth.W))
@@ -173,8 +173,8 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
                 req_addr    := io.addr
                 req_op      := io.op
                 addr_ok     := 1.U
-                req_wdata    := io.wdata
-                req_wstrb    := io.wstrb 
+                req_wdata_0 := io.wdata
+                req_wstrb   := io.wstrb 
             }
         }
         is (sLookup){
@@ -192,6 +192,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
                         }
                     }
                     .otherwise{
+                        req_wdata_1     := req_wdata_0
                         req_wset        := set
                         req_woffset     := offset
                         req_wline       := i.U
@@ -209,9 +210,10 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
                 req_valid            := io.valid
                 req_addr             := io.addr
                 req_op               := io.op
-                req_wdata            := io.wdata
+                req_wdata_0          := io.wdata
                 req_wstrb            := io.wstrb 
                 addr_ok              := 1.U
+
             }.otherwise{
                 state                := sIdle
             }
@@ -293,7 +295,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
                 is (0xFF.U) { dataMask  := Fill(64, 1.U) << (req_woffset(2, 0) << 3.U)}
             }
             
-            maskedData                            := (req_wdata << (req_woffset(2, 0) << 3.U)) & dataMask
+            maskedData                            := (req_wdata_1 << (req_woffset(2, 0) << 3.U)) & dataMask
             cache(req_wset)(req_wline).dirty      := 1.U
             when((req_woffset & "b1000".U) > 0.U){
                 cache(req_wset)(req_wline).data   := Cat(cache(req_wset)(req_wline).data(127, 64), 
@@ -319,7 +321,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     io.wstate           := wstate
     io.dataMask         := dataMask
     io.maskedData       := maskedData
-    io.originWdata      := req_wdata
+    io.originWdata      := req_wdata_1
     io.req_addr         := req_addr
     io.linewdata        := Mux((req_woffset & "b1000".U) > 0.U, Cat(cache(req_wset)(req_wline).data(127, 64), 
                                                          cache(req_wset)(req_wline).data & ~dataMask | maskedData),
