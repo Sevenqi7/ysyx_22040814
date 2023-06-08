@@ -106,7 +106,7 @@ class MEM_pre_stage extends Module{
     io.dcache_maskedData       := mem_cache.io.maskedData
     io.dcache_dataMask         := mem_cache.io.dataMask
     io.dcache_originWdata      := mem_cache.io.originWdata
-    io.dcache_rdata            := mem_cachhe.io.rdata
+    io.dcache_rdata            := mem_cache.io.rdata
 
     val memReadData = Wire(UInt(64.W))
     memReadData := 0.U

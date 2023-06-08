@@ -57,6 +57,7 @@ void clock_step()
     Log("MEM_req:%d", top->io_MEM_AXIREQ);
     Log("dcache_hit:%d", top->io_dcache_hit);
     Log("dcache_miss:%d", top->io_dcache_miss);
+    Log("dcache_rdata:0x%lx", top->io_dcache_rdata);
     Log("dcache_state:%d", top->io_dcache_state);
     Log("dcache_qstae:%d", top->io_dcache_qstate);
     Log("dcache_wstate:%d", top->io_dcache_wstate);
