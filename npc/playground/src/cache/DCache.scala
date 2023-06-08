@@ -181,10 +181,10 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
                     //read opereation
                     when(!req_op){
                         when((offset & "b1000".U) > 0.U){
-                            io.rdata                := cache(set)(i).data(63, 0) >> (offset(2, 0) << 3.U)
+                            io.rdata                := (cache(set)(i).data(63, 0) >> (offset(2, 0) << 3.U))
                         }
                         .otherwise{
-                            io.rdata                := cache(set)(i).data(127, 64) >> (offset(2, 0) << 3.U)
+                            io.rdata                := (cache(set)(i).data(127, 64) >> (offset(2, 0) << 3.U))
                         }
                     }
                     .otherwise{
