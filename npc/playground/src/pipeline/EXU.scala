@@ -79,7 +79,7 @@ class EXU extends Module{
     regConnectWithStall(io.EX_to_MEM_bus.bits.csrWriteAddr   ,   csrWriteAddr         , !io.EX_to_MEM_bus.ready)
     regConnectWithStall(io.EX_to_MEM_bus.bits.csrWriteData   ,   csrWriteData         , !io.EX_to_MEM_bus.ready)
     regConnectWithStall(io.EX_to_MEM_bus.valid               ,   io.ID_to_EX_bus.valid, !io.EX_to_MEM_bus.ready)
-    io.ID_to_EX_bus.ready := io.EX_to_MEM_bus.ready | !io.EX_to_MEM_bus.valid
+    io.ID_to_EX_bus.ready := io.EX_to_MEM_bus.ready 
 
     io.EX_ALUResult_Pass := ALU_result
     
