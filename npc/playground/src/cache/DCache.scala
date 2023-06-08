@@ -51,6 +51,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
         val originWdata = Output(UInt(64.W))
         val req_addr    = Output(UInt(64.W))
         val linewdata   = Output(UInt(128.W))
+        val linerdata   = Output(UInt(128.W))
     })
     
 
@@ -159,6 +160,8 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     io.data_ok      := 0.U
     io.addr_ok      := addr_ok
     
+    io.linerdata    := 0.U
+
     switch(state){
         is (sIdle){
             when(addr_ok){
@@ -177,7 +180,8 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
         is (sLookup){
             for(i <- 0 until nrLines){
                 when(cache(set)(i).tag === tag && cache(set)(i).valid){
-                    io.hit  := 1.U
+                    io.hit          := 1.U
+                    io.linerdata    := cache(set)(i).data
                     //read opereation
                     when(!req_op){
                         when((offset & "b1000".U) > 0.U){

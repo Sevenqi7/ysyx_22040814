@@ -88,7 +88,10 @@ class top extends Module{
         val dcache_dataMask = Output(UInt(64.W))
         val dcache_originWdata = Output(UInt(64.W))
         val dcache_req_addr    = Output(UInt(64.W))
-        val dcache_linewdata   = Output(UInt(64.W))
+        val dcache_linewdata1   = Output(UInt(64.W))
+        val dcache_linewdata2   = Output(UInt(64.W))
+        val dcache_linerdata1   = Output(UInt(64.W))
+        val dcache_linerdata2   = Output(UInt(64.W))
 
         val IF_Inst = Output(UInt(32.W))
         val IF_valid = Output(Bool())
@@ -162,7 +165,11 @@ class top extends Module{
     io.dcache_maskedData    := pre_mem_unit.io.dcache_maskedData
     io.dcache_dataMask      := pre_mem_unit.io.dcache_dataMask
     io.dcache_originWdata   := pre_mem_unit.io.dcache_originWdata
-    io.dcache_linewdata     := pre_mem_unit.io.dcache_linewdata
+    io.dcache_linewdata1    := pre_mem_unit.io.dcache_linewdata(63, 0)
+    io.dcache_linewdata2    := pre_mem_unit.io.dcache_linewdata(127, 64)
+    io.dcache_linerdata1    := pre_mem_unit.io.dcache_linerdata(63, 0)
+    io.dcache_linerdata2    := pre_mem_unit.io.dcache_linerdata(127, 64)
+
 
     io.ID_npc   := inst_decode_unit.io.ID_to_BPU_bus.bits.br_target
     io.PF_npc   := inst_fetch_unit.io.PF_npc
