@@ -79,6 +79,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     val req_woffset     = RegInit(0.U(4.W))
     val req_wset        = RegInit(0.U(setWidth.W))
     val req_wline       = RegInit(0.U(lineWidth.W))
+    val req_rline       = Wire(UInt(lineWidth.W))
     val war_stall       = Wire(Bool())                      //write after read stall
     
     val offset          = req_addr(offsetWidth - 1, 0)
@@ -102,8 +103,9 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     io.axi_wlast    := 0.U
     io.axi_wdata    := 0x7777.U  
     
-    io.miss         := !io.data_ok & io.addr_ok
+    io.miss         := !io.data_ok & io.addr_ok & !war_stall
     war_stall       := 0.U
+    req_rline       := 0.U
     /************************FSM************************/
     
     //cache-axi FIFO
@@ -187,6 +189,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
                     io.linerdata    := cache(set)(i).data
                     //read opereation
                     when(!req_op){
+                        req_rline                   := i.U
                         when((offset & "b1000".U) > 0.U){
                             io.rdata                := (cache(set)(i).data(63, 0) >> (offset(2, 0) << 3.U))
                         }
@@ -208,6 +211,9 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
             }
             when(!io.hit){
                 state                := sMiss
+            }
+            .elsewhen(war_stall){
+                state                := sLookup
             }
             .elsewhen(io.valid){
                 state                := sLookup
@@ -316,6 +322,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
                 wstate      := wsIdle
             }
 
+            war_stall       := req_valid & !req_op & (req_wset === set) & (req_wline === req_rline) & (req_woffset(3) === offset(3))
         }
     }
 
