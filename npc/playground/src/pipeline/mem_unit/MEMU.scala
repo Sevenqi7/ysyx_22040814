@@ -12,6 +12,7 @@ class MEM_to_ID_Message extends Bundle{
     val regWriteID   = UInt(5.W)
     val csrWriteEn   = Bool()
     val csrWriteAddr = UInt(12.W)
+    val dcache_miss  = Bool()
 }
 
 class MEM_to_WB_Message extends Bundle{
@@ -63,14 +64,16 @@ class MEMU extends Module{
     regConnectWithStall(io.MEM_to_WB_bus.bits.csrWriteAddr      , csrWriteAddr   , io.dcache_miss)
     regConnectWithStall(io.MEM_to_WB_bus.bits.csrWriteData      , csrWriteData   , io.dcache_miss)
 
-    regConnect(io.MEM_to_WB_bus.valid                  , io.PMEM_to_MEM_bus.valid & !io.dcache_miss)
 
+    regConnect(io.MEM_to_WB_bus.valid                  , io.PMEM_to_MEM_bus.valid & !io.dcache_miss)
+    io.PMEM_to_MEM_bus.ready               := !io.dcache_miss
 
     io.MEM_to_ID_forward.bits.regWriteData := regWriteData
     io.MEM_to_ID_forward.bits.regWriteEn   := regWriteEn
     io.MEM_to_ID_forward.bits.regWriteID   := regWriteID
     io.MEM_to_ID_forward.bits.csrWriteEn   := csrWriteEn
     io.MEM_to_ID_forward.bits.csrWriteAddr := csrWriteAddr
+    io.MEM_to_ID_forward.bits.dcache_miss  := io.dcache_miss
     io.MEM_to_ID_forward.valid             := regWriteEn & (regWriteID > 0.U) & io.PMEM_to_MEM_bus.valid & !io.dcache_miss
 
 }  
