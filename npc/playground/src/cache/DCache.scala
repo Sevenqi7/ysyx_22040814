@@ -74,7 +74,8 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     
     val req_wdata_0     = RegInit(0.U(64.W))
     val req_wdata_1     = RegInit(0.U(64.W))
-    val req_wstrb       = RegInit(0.U(8.W))
+    val req_wstrb_0     = RegInit(0.U(8.W))
+    val req_wstrb_1     = RegInit(0.U(8.W))
     val req_woffset     = RegInit(0.U(4.W))
     val req_wset        = RegInit(0.U(setWidth.W))
     val req_wline       = RegInit(0.U(lineWidth.W))
@@ -174,7 +175,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
                 req_op      := io.op
                 addr_ok     := 1.U
                 req_wdata_0 := io.wdata
-                req_wstrb   := io.wstrb 
+                req_wstrb_0 := io.wstrb 
             }
         }
         is (sLookup){
@@ -193,6 +194,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
                     }
                     .otherwise{
                         req_wdata_1     := req_wdata_0
+                        req_wstrb_1     := req_wstrb_0
                         req_wset        := set
                         req_woffset     := offset
                         req_wline       := i.U
@@ -211,7 +213,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
                 req_addr             := io.addr
                 req_op               := io.op
                 req_wdata_0          := io.wdata
-                req_wstrb            := io.wstrb 
+                req_wstrb_0          := io.wstrb 
                 addr_ok              := 1.U
 
             }.otherwise{
@@ -288,7 +290,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
             }
         }
         is (wsWrite){
-            switch(req_wstrb){
+            switch(req_wstrb_1){
                 is (0x01.U) { dataMask  := Fill(8 , 1.U) << (req_woffset(2, 0) << 3.U)}
                 is (0x03.U) { dataMask  := Fill(16, 1.U) << (req_woffset(2, 0) << 3.U)}
                 is (0x0F.U) { dataMask  := Fill(32, 1.U) << (req_woffset(2, 0) << 3.U)}
