@@ -87,6 +87,7 @@ class top extends Module{
         val dcache_maskedData = Output(UInt(64.W))
         val dcache_dataMask = Output(UInt(64.W))
         val dcache_originWdata = Output(UInt(64.W))
+        val dcache_req_addr    = Output(UInt(64.W))
 
         val IF_Inst = Output(UInt(32.W))
         val IF_valid = Output(Bool())
@@ -156,6 +157,7 @@ class top extends Module{
     io.dcache_wstate        := pre_mem_unit.io.dcache_wstate
     io.dcache_state         := pre_mem_unit.io.dcache_state
     io.dcache_rdata         := pre_mem_unit.io.dcache_rdata
+    io.dcache_req_addr      := pre_mem_unit.io.dcache_req_addr
     io.dcache_maskedData    := pre_mem_unit.io.dcache_maskedData
     io.dcache_dataMask      := pre_mem_unit.io.dcache_dataMask
     io.dcache_originWdata   := pre_mem_unit.io.dcache_originWdata

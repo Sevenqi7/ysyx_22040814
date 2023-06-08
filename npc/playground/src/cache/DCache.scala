@@ -49,6 +49,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
         val dataMask    = Output(UInt(64.W))
         val maskedData  = Output(UInt(64.W))
         val originWdata = Output(UInt(64.W))
+        val req_addr    = Output(UInt(64.W))
     })
     
 
@@ -310,5 +311,6 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     io.dataMask         := dataMask
     io.maskedData       := maskedData
     io.originWdata      := req_wdata
+    io.req_addr         := req_addr
 }
     
