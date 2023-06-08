@@ -30,6 +30,7 @@ checkformat:
 
 clean:
 	-rm -rf $(BUILD_DIR)
+	mkdir -p $(BUILD_DIR)
 
 .PHONY: test verilog help compile bsp reformat checkformat clean
 
