@@ -50,6 +50,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
         val maskedData  = Output(UInt(64.W))
         val originWdata = Output(UInt(64.W))
         val req_addr    = Output(UInt(64.W))
+        val linewdata   = Output(UInt(128.W))
     })
     
 
@@ -188,7 +189,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
                     }
                     .otherwise{
                         req_wset        := set
-                        // req_woffset     := offset
+                        req_woffset     := offset
                         req_wline       := i.U
                     }
                     //write operation is in WriteBuffer FSM
@@ -314,5 +315,9 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     io.maskedData       := maskedData
     io.originWdata      := req_wdata
     io.req_addr         := req_addr
+    io.linewdata        := Mux((req_woffset & "b1000".U) > 0.U, Cat(cache(req_wset)(req_wline).data(127, 64), 
+                                                         cache(req_wset)(req_wline).data & ~dataMask | maskedData),
+                                                         Cat(cache(req_wset)(req_wline).data(127, 64) & ~dataMask | maskedData, 
+                                                         cache(req_wset)(req_wline).data(63, 0)))
 }
     
