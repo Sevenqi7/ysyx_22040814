@@ -288,8 +288,8 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     val wstate       = RegInit(wsIdle)
     val dataMask     = Wire(UInt(64.W))
     val maskedData   = Wire(UInt(64.W))
-    dataMask              := 0.U
-    maskedData            := 0.U
+    dataMask         := 0.U
+    maskedData       := 0.U
 
     switch(wstate){
         is (wsIdle){
