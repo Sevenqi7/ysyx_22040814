@@ -188,7 +188,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
                     }
                     .otherwise{
                         req_wset        := set
-                        req_woffset     := offset
+                        // req_woffset     := offset
                         req_wline       := i.U
                     }
                     //write operation is in WriteBuffer FSM
