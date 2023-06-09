@@ -185,7 +185,7 @@ class top extends Module{
     io.WB_RegWriteID   := wb_unit.io.WB_to_ID_forward.bits.regWriteID
     io.WB_valid     := wb_unit.io.WB_to_ID_forward.valid
     io.MEM_memReadEn    := pre_mem_unit.io.PMEM_to_MEM_bus.bits.memReadEn
-    io.MEM_RegWriteData := pre_mem_unit.axi.readData.bits.data
+    io.MEM_RegWriteData := pre_mem_unit.io.memReadData
     
     io.ID_ALU_Data1 := inst_decode_unit.io.ID_to_EX_bus.bits.ALU_Data1
     io.ID_ALU_Data2 := inst_decode_unit.io.ID_to_EX_bus.bits.ALU_Data2
