@@ -160,7 +160,7 @@ class MEM_pre_stage extends Module{
     axi.writeData.bits.id      := 1.U
     axi.writeData.bits.data    := Mux(!uncached_write, mem_cache.io.axi_wdata, memWriteData)
     axi.writeData.bits.strb    := Mux(!uncached_write, mem_cache.io.axi_wstrb, wstrb)
-    axi.writeData.bits.last    := mem_cache.io.axi_wlast
+    axi.writeData.bits.last    := Mux(!uncached_write, mem_cache.io.axi_wlast, 1.U)
     axi.writeData.valid        := mem_cache.io.axi_wreq | uncached_write
     axi.writeResp.ready        := 1.U
     /***************DCache  End****************/
