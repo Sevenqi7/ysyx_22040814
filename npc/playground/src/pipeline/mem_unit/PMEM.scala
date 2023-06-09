@@ -136,7 +136,7 @@ class MEM_pre_stage extends Module{
     
     axi_req.valid              := mem_cache.io.axi_rreq | mem_cache.io.axi_wreq | uncached_read | uncached_write
     axi.readAddr.bits.id       := 1.U
-    axi.readAddr.bits.addr     := mem_cache.io.axi_raddr
+    axi.readAddr.bits.addr     := Mux(!uncached_read, mem_cache.io.axi_raddr, ALU_result(31, 0))
     axi.readAddr.bits.len      := Mux(!uncached_read, 1.U, 0.U)
     axi.readAddr.bits.size     := "b011".U
     axi.readAddr.bits.burst    := "b01".U
@@ -148,7 +148,7 @@ class MEM_pre_stage extends Module{
 
     //w
     axi.writeAddr.bits.id      := 1.U
-    axi.writeAddr.bits.addr    := mem_cache.io.axi_waddr
+    axi.writeAddr.bits.addr    := Mux(!uncached_write, mem_cache.io.axi_waddr, ALU_result(31, 0))
     axi.writeAddr.bits.len     := Mux(!uncached_write, 1.U, 0.U)
     axi.writeAddr.bits.size    := "b011".U
     axi.writeAddr.bits.burst   := "b01".U
