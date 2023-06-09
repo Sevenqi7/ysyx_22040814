@@ -267,7 +267,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
             when(cache(set)(refillIDX).dirty & cache(set)(refillIDX).valid){
                 cache(set)(refillIDX).dirty := 0.U
                 addrQueue.io.enqValid       := 1.U
-                addrQueue.io.enqData        := Cat(Seq(cache(set)(refillIDX).tag, set, "b0000".U))
+                addrQueue.io.enqData        := Cat(Seq(cache(set)(refillIDX).tag, set, 0.U(4.W)))
                 dataQueue.io.enqValid       := 1.U
                 dataQueue.io.enqData        := cache(set)(refillIDX).data
             }
