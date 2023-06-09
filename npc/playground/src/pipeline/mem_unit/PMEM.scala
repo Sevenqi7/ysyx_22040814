@@ -128,7 +128,7 @@ class MEM_pre_stage extends Module{
     val memReadData = Wire(UInt(64.W))
     memReadData := 0.U
     switch(io.PMEM_to_MEM_bus.bits.lsutype){
-        is (ld) {memReadData := readSouce                          }
+        is (ld) {memReadData := readSource                         }
         is (lw) {memReadData := SEXT(readSource(31, 0), 32)        }
         is (lh) {memReadData := SEXT(readSource(15, 0), 16)        }
         is (lb) {memReadData := SEXT(readSource( 7, 0),  8)        }
