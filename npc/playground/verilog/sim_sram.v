@@ -203,7 +203,7 @@ module sim_sram(
                 awburst_r   <= awburst;
                 awlen_r     <= awlen;
                 awsize_r    <= awsize;
-                awlen_cntr  <= 8'b0;
+                awlen_cntr  <= 8'b1;
                 wstrb_r     <= wstrb;
             end
             else if((awlen_cntr <= awlen_r) && wvalid && wready) begin
@@ -226,11 +226,11 @@ module sim_sram(
             wready_r        = 1'b0;
         end
         else begin
-            if(awvalid & wvalid & !awv_arw_flag) begin
+            if(awvalid & wvalid & wready_r & !awv_arw_flag) begin
                 dci_pmem_write({32'b0, awaddr}, wdata, wstrb);
                 wready_r    = 1'b1;
             end
-            else if(awv_arw_flag) begin
+            else if(awv_arw_flag & wready_r & wvalid) begin
                 dci_pmem_write({32'b0, awaddr_r}, wdata, wstrb_r);
                 wready_r    = 1'b1;
             end
