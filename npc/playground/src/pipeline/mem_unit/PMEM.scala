@@ -105,6 +105,7 @@ class MEM_pre_stage extends Module{
 
     io.dcache_miss             := mem_cache.io.miss
 
+    //debug
     io.dcache_hit              := mem_cache.io.hit
     io.dcache_state            := mem_cache.io.state
     io.dcache_qstate           := mem_cache.io.qstate
@@ -133,7 +134,7 @@ class MEM_pre_stage extends Module{
     axi.readAddr.bits.id       := 1.U
     axi.readAddr.bits.addr     := mem_cache.io.axi_raddr
     axi.readAddr.bits.len      := 1.U
-    axi.readAddr.bits.size     := "b101".U
+    axi.readAddr.bits.size     := "b011".U
     axi.readAddr.bits.burst    := "b01".U
     axi.readAddr.bits.lock     := 0.U
     axi.readAddr.bits.cache    := 0.U
@@ -145,7 +146,7 @@ class MEM_pre_stage extends Module{
     axi.writeAddr.bits.id      := 1.U
     axi.writeAddr.bits.addr    := mem_cache.io.axi_waddr
     axi.writeAddr.bits.len     := 1.U
-    axi.writeAddr.bits.size    := "b101".U
+    axi.writeAddr.bits.size    := "b011".U
     axi.writeAddr.bits.burst   := "b01".U
     axi.writeAddr.bits.lock    := 0.U
     axi.writeAddr.bits.cache   := 0.U
