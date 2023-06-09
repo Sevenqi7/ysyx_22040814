@@ -134,7 +134,7 @@ class MEM_pre_stage extends Module{
         is (lbu){memReadData := mem_cache.io.rdata( 7 ,0)}
     }
     
-    axi_req.valid              := mem_cache.io.axi_rreq | mem_cache.io.axi_wreq | uncached_read | uncached_write
+    axi_req.valid              := mem_cache.io.axi_rreq | mem_cache.io.axi_wreq | uncached_read | uncached_write | io.PMEM_to_MEM_bus.bits.uncached
     axi.readAddr.bits.id       := 1.U
     axi.readAddr.bits.addr     := Mux(!uncached_read, mem_cache.io.axi_raddr, ALU_result(31, 0))
     axi.readAddr.bits.len      := Mux(!uncached_read, 1.U, 0.U)
@@ -182,7 +182,7 @@ class MEM_pre_stage extends Module{
     regConnectWithStall(io.PMEM_to_MEM_bus.valid             , io.EX_to_MEM_bus.valid, io.dcache_miss)
     
     io.memReadData             := memReadData
-    io.EX_to_MEM_bus.ready     := !mem_cache.io.miss
+    io.EX_to_MEM_bus.ready     := !io.dcache_miss
 
     
     //forward
