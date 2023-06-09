@@ -79,7 +79,7 @@ class MEM_pre_stage extends Module{
     val nrLines     = 2
 
     val mem_cache = Module(new DCache(tagWidth, nrSets, nrLines, offsetWidth))
-    val uncached  = io.EX_to_MEM_bus.bits.valid && (memReadEn | memWriteEn) && (ALU_result(31, 0) < MBASE || ALU_result(31, 0) > (MBASE + MSIZE))
+    val uncached  = io.EX_to_MEM_bus.valid && (memReadEn | memWriteEn) && (ALU_result(31, 0) < MBASE || ALU_result(31, 0) > (MBASE + MSIZE))
 
     val wstrb = Wire(UInt(8.W))
     wstrb := 0.U
