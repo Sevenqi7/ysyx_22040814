@@ -248,7 +248,7 @@ module sim_sram(
             bid_r    <= 4'b0;
         end
         else begin
-            if(awvalid & !awv_arw_flag) begin
+            if(awvalid & awready_r & !awv_arw_flag) begin
                 bid_r    <= wid;
             end
             else if(wlast) begin
