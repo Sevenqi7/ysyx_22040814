@@ -122,7 +122,7 @@ class MEM_pre_stage extends Module{
     io.dcache_linewdata        := mem_cache.io.linewdata
     io.dcache_linerdata        := mem_cache.io.linerdata
 
-    val readSouce   = Wire(UInt(64.W))
+    val readSource   = Wire(UInt(64.W))
     readSource       := Mux(io.PMEM_to_MEM_bus.bits.uncached & io.PMEM_to_MEM_bus.bits.memReadEn, axi.readData.bits.data, mem_cache.io.rdata)
 
     val memReadData = Wire(UInt(64.W))
