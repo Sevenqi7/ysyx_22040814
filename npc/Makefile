@@ -63,7 +63,7 @@ CFLAGS += $(INCFLAGS) -DTOP_NAME="\"V$(TOPNAME)\""
 CFLAGS += -I/usr/lib/llvm-14/include -std=c++14 -fno-exceptions -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS -D__STDC_LIMIT_MACROS -fPIE
 LDFLAGS += -lreadline $(shell llvm-config --libs) -lSDL2
 # LDFLAGS += -$(DIFF_REF_SO)
-VERILATOR_FLAGS += -cc --exe -MMD -x-assign 0 -j 6 --trace --build
+VERILATOR_FLAGS += -cc --exe -MMD -x-assign 0 -j 12 --trace --build
 
 
 $(BIN): $(VSRC_OBJ) $(CSRC_OBJ)
