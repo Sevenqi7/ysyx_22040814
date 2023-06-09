@@ -3,6 +3,7 @@ import chisel3.util._
 import AXIDefs._
 import utils._
 import LSUOpType._
+import AddressSpace._
 
 class PMEM_MEM_Message extends Bundle{
     val ALU_result      =   UInt(64.W)
@@ -100,6 +101,8 @@ class MEM_pre_stage extends Module{
     mem_cache.io.axi_rvalid    := axi.readData.valid
     mem_cache.io.axi_awready   := axi.writeAddr.ready
     mem_cache.io.axi_wready    := axi.writeData.ready
+    mem_cache.io.uncached      := (ALU_result(31, 0) >= MBASE && ALU_result(31, 0) <= (MBASE + MSIZE))
+
     io.dcache_miss             := mem_cache.io.miss
 
     io.dcache_hit              := mem_cache.io.hit
