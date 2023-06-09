@@ -15,7 +15,6 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
         val op          = Input(UInt(1.W))
         val addr        = Input(UInt(64.W))
         val wstrb       = Input(UInt(8.W))  
-        val uncache     = Input(Bool())
         val wdata       = Input(UInt(64.W)) 
         val rdata       = Output(UInt(64.W))
         val miss        = Output(Bool())
@@ -27,7 +26,6 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
 
         //cache-axi
         val axi_rreq    = Output(Bool())
-        // val axi_rtype   = Output(UInt(3.W))
         val axi_raddr   = Output(UInt(32.W))
         val axi_arready = Input(Bool())
         val axi_rvalid  = Input(Bool())
@@ -35,7 +33,6 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
         val axi_rdata   = Input(UInt(64.W))
 
         val axi_wreq    = Output(Bool())
-        // val axi_wtype   = Output(UInt(3.W))
         val axi_waddr   = Output(UInt(32.W))
         val axi_wstrb   = Output(UInt(8.W))
         val axi_wdata   = Output(UInt(64.W))
@@ -81,7 +78,6 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     val req_wset        = RegInit(0.U(setWidth.W))
     val req_wline       = RegInit(0.U(lineWidth.W))
     val req_rline       = Wire(UInt(lineWidth.W))
-    val req_uncache     = RegInit(0.B)
     val war_stall       = Wire(Bool())                      //write after read stall
     
     val offset          = req_addr(offsetWidth - 1, 0)
@@ -115,6 +111,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     val qsIdle :: qsWrite1 :: qsWrite2 :: Nil = Enum(3)
     val dataQueue       = Module(new FIFO(UInt(128.W), 8))
     val addrQueue       = Module(new FIFO(UInt( 32.W), 8))
+    val strbQueue       = Module(new FIFO(UInt(  8.W), 8))
     val qstate          = RegInit(qsIdle)
     
     dataQueue.io.enqValid   := 0.U
@@ -123,6 +120,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     addrQueue.io.enqValid   := 0.U
     addrQueue.io.enqData    := 0.U
     addrQueue.io.deqValid   := 0.U
+    
     
     switch(qstate){
         is (qsIdle){
@@ -181,7 +179,6 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
                 addr_ok     := 1.U
                 req_wdata_0 := io.wdata
                 req_wstrb_0 := io.wstrb 
-                req_uncache := io.uncache
             }
         }
         is (sLookup){
@@ -224,9 +221,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
                 req_op               := io.op
                 req_wdata_0          := io.wdata
                 req_wstrb_0          := io.wstrb
-                req_uncache          := io.uncache 
                 addr_ok              := 1.U
-
             }.otherwise{
                 state                := sIdle
             }
@@ -280,8 +275,9 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
             cache(set)(refillIDX).valid     := 1.U
             cache(set)(refillIDX).tag       := tag
             cache(set)(refillIDX).data      := lineBuf
-            //TODO: Cache-AXI interaction when write miss
         }
+            //TODO: Cache-AXI interaction when write miss
+        
     }
 
     //Write Buffer
@@ -296,7 +292,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
 
     switch(wstate){
         is (wsIdle){
-            when(io.hit & req_op & req_valid & !req_uncache){
+            when(io.hit & req_op & req_valid){
                 wstate      := wsWrite
             }
         }
@@ -318,7 +314,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
                 cache(req_wset)(req_wline).data   := Cat(cache(req_wset)(req_wline).data(127, 64) & ~dataMask | maskedData, 
                                                          cache(req_wset)(req_wline).data(63, 0))
             }
-            when(io.hit & req_op & req_valid & !req_uncache){
+            when(io.hit & req_op & req_valid){
                 wstate      := wsWrite
             }
             .otherwise{

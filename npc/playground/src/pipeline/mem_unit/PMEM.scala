@@ -79,6 +79,7 @@ class MEM_pre_stage extends Module{
     val nrLines     = 2
 
     val mem_cache = Module(new DCache(tagWidth, nrSets, nrLines, offsetWidth))
+    val uncached  = io.EX_to_MEM_bus.bits.valid && (memReadEn | memWriteEn) && (ALU_result(31, 0) < MBASE || ALU_result(31, 0) > (MBASE + MSIZE))
 
     val wstrb = Wire(UInt(8.W))
     wstrb := 0.U
@@ -101,7 +102,6 @@ class MEM_pre_stage extends Module{
     mem_cache.io.axi_rvalid    := axi.readData.valid
     mem_cache.io.axi_awready   := axi.writeAddr.ready
     mem_cache.io.axi_wready    := axi.writeData.ready
-    mem_cache.io.uncache       := !(ALU_result(31, 0) >= MBASE && ALU_result(31, 0) <= (MBASE + MSIZE))
 
     io.dcache_miss             := mem_cache.io.miss
 
@@ -133,7 +133,7 @@ class MEM_pre_stage extends Module{
     axi.readAddr.bits.id       := 1.U
     axi.readAddr.bits.addr     := mem_cache.io.axi_raddr
     axi.readAddr.bits.len      := 1.U
-    axi.readAddr.bits.size     := "b011".U       //64 bits
+    axi.readAddr.bits.size     := "b101".U
     axi.readAddr.bits.burst    := "b01".U
     axi.readAddr.bits.lock     := 0.U
     axi.readAddr.bits.cache    := 0.U
@@ -145,7 +145,7 @@ class MEM_pre_stage extends Module{
     axi.writeAddr.bits.id      := 1.U
     axi.writeAddr.bits.addr    := mem_cache.io.axi_waddr
     axi.writeAddr.bits.len     := 1.U
-    axi.writeAddr.bits.size    := "b011".U
+    axi.writeAddr.bits.size    := "b101".U
     axi.writeAddr.bits.burst   := "b01".U
     axi.writeAddr.bits.lock    := 0.U
     axi.writeAddr.bits.cache   := 0.U
