@@ -28897,7 +28897,7 @@ module MEM_pre_stage(	// <stdin>:3941:10
   wire [63:0] _mem_cache_io_axi_wdata;	// PMEM.scala:82:27
   wire        _mem_cache_io_axi_wlast;	// PMEM.scala:82:27
   wire        uncached = io_EX_to_MEM_bus_valid & (~(io_EX_to_MEM_bus_bits_ALU_result[31]) |
-                io_EX_to_MEM_bus_bits_ALU_result[31:0] > 32'h80800000);	// PMEM.scala:83:{44,58,66,74,95,104}
+                io_EX_to_MEM_bus_bits_ALU_result[31:0] > 32'h88000000);	// PMEM.scala:83:{44,58,66,74,95,104}
   wire        uncached_read = uncached & io_EX_to_MEM_bus_bits_memReadEn;	// PMEM.scala:83:44, :84:35
   wire        uncached_write = uncached & io_EX_to_MEM_bus_bits_memWriteEn;	// PMEM.scala:83:44, :85:35
   wire [7:0]  _GEN = io_EX_to_MEM_bus_bits_lsutype == 5'h10 ? 8'hFF : io_EX_to_MEM_bus_bits_lsutype == 5'h8 ?
@@ -30376,7 +30376,7 @@ module sim_sram(
                 arready_r       <= 1'b1;
             end
         end
-        // $display("arvalid:%d arready:%d arv_arr_flag:%d arlen_cntr:%d rdata:0x%x rvalid:%d rready:%d, rlast:%d, rid:%d", arvalid, arready_r, arv_arr_flag, arlen_cntr, rdata, rvalid_r, rready, rlast_r, rid_r);
+        $display("arvalid:%d arready:%d arv_arr_flag:%d arlen_cntr:%d rdata:0x%x rvalid:%d rready:%d, rlast:%d, rid:%d", arvalid, arready_r, arv_arr_flag, arlen_cntr, rdata, rvalid_r, rready, rlast_r, rid_r);
     end
 
 
@@ -30501,7 +30501,7 @@ module sim_sram(
                 endcase
             end
         end
-        // $display("awvalid:%d awready:%d wvalid:%d wready:%d awv_arw_flag:%d wlast:%d, awaddr_r:0x%x, bvalid:%d",awvalid, awready_r, wvalid, wready_r, awv_arw_flag, wlast, awaddr_r, bvalid_r);
+        $display("awvalid:%d awready:%d wvalid:%d wready:%d awv_arw_flag:%d wlast:%d, awaddr_r:0x%x, bvalid:%d",awvalid, awready_r, wvalid, wready_r, awv_arw_flag, wlast, awaddr_r, bvalid_r);
     end
 
     always@(posedge aclk) begin
