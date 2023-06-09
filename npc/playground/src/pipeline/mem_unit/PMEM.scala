@@ -178,7 +178,7 @@ class MEM_pre_stage extends Module{
     regConnectWithStall(io.PMEM_to_MEM_bus.bits.csrWriteAddr , csrWriteAddr, io.dcache_miss)
     regConnectWithStall(io.PMEM_to_MEM_bus.bits.csrWriteData , csrWriteData, io.dcache_miss)
     regConnectWithStall(io.PMEM_to_MEM_bus.bits.wstrb        , wstrb       , io.dcache_miss)
-    regCOnnectWithStall(io.PMEM_to_MEM_bus.bits.uncached     , uncached    , io.dcache_miss)
+    regConnectWithStall(io.PMEM_to_MEM_bus.bits.uncached     , uncached    , io.dcache_miss)
     regConnectWithStall(io.PMEM_to_MEM_bus.valid             , io.EX_to_MEM_bus.valid, io.dcache_miss)
     
     io.memReadData             := memReadData
