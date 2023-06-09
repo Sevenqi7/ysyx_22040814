@@ -111,7 +111,6 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     val qsIdle :: qsWrite1 :: qsWrite2 :: Nil = Enum(3)
     val dataQueue       = Module(new FIFO(UInt(128.W), 8))
     val addrQueue       = Module(new FIFO(UInt( 32.W), 8))
-    val strbQueue       = Module(new FIFO(UInt(  8.W), 8))
     val qstate          = RegInit(qsIdle)
     
     dataQueue.io.enqValid   := 0.U
