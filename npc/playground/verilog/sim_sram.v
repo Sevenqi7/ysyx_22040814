@@ -226,7 +226,7 @@ module sim_sram(
             wready_r        = 1'b0;
         end
         else begin
-            if(awvalid & wvalid & wready_r & !awv_arw_flag) begin
+            if(awvalid & awready & wvalid & wready_r & !awv_arw_flag) begin
                 dci_pmem_write({32'b0, awaddr}, wdata, wstrb);
                 wready_r    = 1'b1;
             end
