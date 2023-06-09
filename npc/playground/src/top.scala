@@ -32,6 +32,7 @@ class top extends Module{
         val WB_RegWriteID = Output(UInt(64.W))
         val WB_valid = Output(Bool())
         // val MEM_pc = Output(UInt(64.W))
+        val MEM_memReadEn    = Output(Bool())
         val MEM_RegWriteData = Output(UInt(64.W))
         val stall   = Output(Bool())
 
@@ -183,6 +184,7 @@ class top extends Module{
     io.WB_RegWriteData := wb_unit.io.WB_to_ID_forward.bits.regWriteData
     io.WB_RegWriteID   := wb_unit.io.WB_to_ID_forward.bits.regWriteID
     io.WB_valid     := wb_unit.io.WB_to_ID_forward.valid
+    io.MEM_memReadEn    := pre_mem_unit.io.PMEM_to_MEM_bus.bits.memReadEn
     io.MEM_RegWriteData := pre_mem_unit.axi.readData.bits.data
     
     io.ID_ALU_Data1 := inst_decode_unit.io.ID_to_EX_bus.bits.ALU_Data1
