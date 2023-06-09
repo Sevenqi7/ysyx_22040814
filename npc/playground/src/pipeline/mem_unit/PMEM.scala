@@ -168,7 +168,7 @@ class MEM_pre_stage extends Module{
     axi.writeResp.ready        := 1.U
     /***************DCache  End****************/
 
-    val PMEM_stall = uncached_read & !axi_req.ready
+    val PMEM_stall = (uncached_read | uncached_write) & !axi_req.ready
 
     regConnectWithStall(io.PMEM_to_MEM_bus.bits.PC           , EX_pc       , io.dcache_miss)
     regConnectWithStall(io.PMEM_to_MEM_bus.bits.Inst         , EX_Inst     , io.dcache_miss)
