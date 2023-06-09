@@ -17,6 +17,7 @@ class PMEM_MEM_Message extends Bundle{
     val csrWriteAddr    =   UInt(12.W)
     val csrWriteEn      =   Bool()
     val csrWriteData    =   UInt(64.W)
+    val uncached        =   Bool()
 
     val PC              =   UInt(64.W)
     val Inst            =   UInt(32.W)
@@ -79,7 +80,9 @@ class MEM_pre_stage extends Module{
     val nrLines     = 2
 
     val mem_cache = Module(new DCache(tagWidth, nrSets, nrLines, offsetWidth))
-    val uncached  = io.EX_to_MEM_bus.valid && (memReadEn | memWriteEn) && (ALU_result(31, 0) < MBASE || ALU_result(31, 0) > (MBASE + MSIZE))
+    val uncached  = io.EX_to_MEM_bus.valid && (ALU_result(31, 0) < MBASE || ALU_result(31, 0) > (MBASE + MSIZE))
+    val uncached_read  = uncached && memReadEn 
+    val uncached_write = uncached && memWriteEn
 
     val wstrb = Wire(UInt(8.W))
     wstrb := 0.U
@@ -91,7 +94,7 @@ class MEM_pre_stage extends Module{
     }
     //r
     
-    mem_cache.io.valid         := (memReadEn | memWriteEn) & io.EX_to_MEM_bus.valid
+    mem_cache.io.valid         := (memReadEn | memWriteEn) & io.EX_to_MEM_bus.valid & !uncached_read & !uncached_write
     mem_cache.io.op            := memWriteEn
     mem_cache.io.wstrb         := wstrb
     mem_cache.io.addr          := ALU_result(31, 0)
@@ -103,7 +106,8 @@ class MEM_pre_stage extends Module{
     mem_cache.io.axi_awready   := axi.writeAddr.ready
     mem_cache.io.axi_wready    := axi.writeData.ready
 
-    io.dcache_miss             := mem_cache.io.miss
+    io.dcache_miss             := mem_cache.io.miss || (io.PMEM_to_MEM_bus.bits.uncached & io.PMEM_to_MEM_bus.bits.memReadEn & !axi.readData.valid) ||
+                                  (io.PMEM_to_MEM_bus.bits.uncached & io.PMEM_to_MEM_bus.bits.memWriteEn & !axi.writeResp.valid)
 
     //debug
     io.dcache_hit              := mem_cache.io.hit
@@ -130,22 +134,22 @@ class MEM_pre_stage extends Module{
         is (lbu){memReadData := mem_cache.io.rdata( 7 ,0)}
     }
     
-    axi_req.valid              := mem_cache.io.axi_rreq | mem_cache.io.axi_wreq
+    axi_req.valid              := mem_cache.io.axi_rreq | mem_cache.io.axi_wreq | uncached_read | uncached_write
     axi.readAddr.bits.id       := 1.U
     axi.readAddr.bits.addr     := mem_cache.io.axi_raddr
-    axi.readAddr.bits.len      := 1.U
+    axi.readAddr.bits.len      := Mux(!uncached_read, 1.U, 0.U)
     axi.readAddr.bits.size     := "b011".U
     axi.readAddr.bits.burst    := "b01".U
     axi.readAddr.bits.lock     := 0.U
     axi.readAddr.bits.cache    := 0.U
     axi.readAddr.bits.prot     := 0.U
-    axi.readAddr.valid         := mem_cache.io.axi_rreq
+    axi.readAddr.valid         := mem_cache.io.axi_rreq | uncached_read
     axi.readData.ready         := 1.U
 
     //w
     axi.writeAddr.bits.id      := 1.U
     axi.writeAddr.bits.addr    := mem_cache.io.axi_waddr
-    axi.writeAddr.bits.len     := 1.U
+    axi.writeAddr.bits.len     := Mux(!uncached_write, 1.U, 0.U)
     axi.writeAddr.bits.size    := "b011".U
     axi.writeAddr.bits.burst   := "b01".U
     axi.writeAddr.bits.lock    := 0.U
@@ -155,26 +159,27 @@ class MEM_pre_stage extends Module{
 
     axi.writeData.bits.id      := 1.U
     axi.writeData.bits.data    := mem_cache.io.axi_wdata
-    axi.writeData.bits.strb    := mem_cache.io.axi_wstrb
+    axi.writeData.bits.strb    := Mux(!uncached_write, mem_cache.io.axi_wstrb, wstrb)
     axi.writeData.bits.last    := mem_cache.io.axi_wlast
-    axi.writeData.valid        := mem_cache.io.axi_wreq
+    axi.writeData.valid        := mem_cache.io.axi_wreq | uncached_write
     axi.writeResp.ready        := 1.U
     /***************DCache  End****************/
 
-    regConnectWithStall(io.PMEM_to_MEM_bus.bits.PC           , EX_pc       , mem_cache.io.miss)
-    regConnectWithStall(io.PMEM_to_MEM_bus.bits.Inst         , EX_Inst     , mem_cache.io.miss)
-    regConnectWithStall(io.PMEM_to_MEM_bus.bits.ALU_result   , ALU_result  , mem_cache.io.miss)
-    regConnectWithStall(io.PMEM_to_MEM_bus.bits.regWriteEn   , regWriteEn  , mem_cache.io.miss)
-    regConnectWithStall(io.PMEM_to_MEM_bus.bits.regWriteID   , regWriteID  , mem_cache.io.miss)
-    regConnectWithStall(io.PMEM_to_MEM_bus.bits.memReadEn    , memReadEn   , mem_cache.io.miss)
-    regConnectWithStall(io.PMEM_to_MEM_bus.bits.memWriteEn   , memWriteEn  , mem_cache.io.miss)
-    regConnectWithStall(io.PMEM_to_MEM_bus.bits.memWriteData , memWriteData, mem_cache.io.miss)
-    regConnectWithStall(io.PMEM_to_MEM_bus.bits.lsutype      , lsutype     , mem_cache.io.miss)
-    regConnectWithStall(io.PMEM_to_MEM_bus.bits.csrWriteEn   , csrWriteEn  , mem_cache.io.miss)
-    regConnectWithStall(io.PMEM_to_MEM_bus.bits.csrWriteAddr , csrWriteAddr, mem_cache.io.miss)
-    regConnectWithStall(io.PMEM_to_MEM_bus.bits.csrWriteData , csrWriteData, mem_cache.io.miss)
-    regConnectWithStall(io.PMEM_to_MEM_bus.bits.wstrb        , wstrb       , mem_cache.io.miss)
-    regConnectWithStall(io.PMEM_to_MEM_bus.valid             , io.EX_to_MEM_bus.valid, mem_cache.io.miss)
+    regConnectWithStall(io.PMEM_to_MEM_bus.bits.PC           , EX_pc       , io.dcache_miss)
+    regConnectWithStall(io.PMEM_to_MEM_bus.bits.Inst         , EX_Inst     , io.dcache_miss)
+    regConnectWithStall(io.PMEM_to_MEM_bus.bits.ALU_result   , ALU_result  , io.dcache_miss)
+    regConnectWithStall(io.PMEM_to_MEM_bus.bits.regWriteEn   , regWriteEn  , io.dcache_miss)
+    regConnectWithStall(io.PMEM_to_MEM_bus.bits.regWriteID   , regWriteID  , io.dcache_miss)
+    regConnectWithStall(io.PMEM_to_MEM_bus.bits.memReadEn    , memReadEn   , io.dcache_miss)
+    regConnectWithStall(io.PMEM_to_MEM_bus.bits.memWriteEn   , memWriteEn  , io.dcache_miss)
+    regConnectWithStall(io.PMEM_to_MEM_bus.bits.memWriteData , memWriteData, io.dcache_miss)
+    regConnectWithStall(io.PMEM_to_MEM_bus.bits.lsutype      , lsutype     , io.dcache_miss)
+    regConnectWithStall(io.PMEM_to_MEM_bus.bits.csrWriteEn   , csrWriteEn  , io.dcache_miss)
+    regConnectWithStall(io.PMEM_to_MEM_bus.bits.csrWriteAddr , csrWriteAddr, io.dcache_miss)
+    regConnectWithStall(io.PMEM_to_MEM_bus.bits.csrWriteData , csrWriteData, io.dcache_miss)
+    regConnectWithStall(io.PMEM_to_MEM_bus.bits.wstrb        , wstrb       , io.dcache_miss)
+    regCOnnectWithStall(io.PMEM_to_MEM_bus.bits.uncached     , uncached    , io.dcache_miss)
+    regConnectWithStall(io.PMEM_to_MEM_bus.valid             , io.EX_to_MEM_bus.valid, io.dcache_miss)
     
     io.memReadData             := memReadData
     io.EX_to_MEM_bus.ready     := !mem_cache.io.miss

@@ -45,14 +45,17 @@ class MEMU extends Module{
     val regWriteEn      = io.PMEM_to_MEM_bus.bits.regWriteEn
     val regWriteID      = io.PMEM_to_MEM_bus.bits.regWriteID
     val memReadEn       = io.PMEM_to_MEM_bus.bits.memReadEn
+    val memWriteEn      = io.PMEM_to_MEM_bus.bits.memWriteEn
     val lsutype         = io.PMEM_to_MEM_bus.bits.lsutype
     val csrWriteEn      = io.PMEM_to_MEM_bus.bits.csrWriteEn
     val csrWriteAddr    = io.PMEM_to_MEM_bus.bits.csrWriteAddr
     val csrWriteData    = io.PMEM_to_MEM_bus.bits.csrWriteData
+    val uncached        = io.PMEM_to_MEM_bus.bits.uncached
 
     val regWriteData = Wire(UInt(64.W))
-
     regWriteData := Mux(memReadEn, io.memReadData, ALU_result)
+
+    val MEM_stall       = io.dcache_miss
     
     regConnectWithStall(io.MEM_to_WB_bus.bits.PC                , PMEM_pc        , io.dcache_miss)
     regConnectWithStall(io.MEM_to_WB_bus.bits.Inst              , PMEM_Inst      , io.dcache_miss)
