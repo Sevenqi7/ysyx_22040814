@@ -28766,7 +28766,7 @@ module DCache(	// <stdin>:3280:10
     .clock       (clock),
     .reset       (reset),
     .io_enqValid (_GEN_32),	// DCache.scala:119:29, :168:18
-    .io_enqData  (_GEN_33 ? 32'h0 : {3'h0, _GEN_31 ? _GEN_26 : _GEN_21, req_addr[10:4], 1'h0}),	// Bitwise.scala:77:12, DCache.scala:58:25, :69:34, :84:35, :120:29, :159:30, :160:21, :168:18, :253:22, :267:46, :270:45
+    .io_enqData  (_GEN_33 ? 32'h0 : {_GEN_31 ? _GEN_26 : _GEN_21, req_addr[10:4], 4'h0}),	// Bitwise.scala:77:12, Cat.scala:33:92, DCache.scala:69:34, :77:34, :84:35, :120:29, :160:21, :168:18, :253:22, :267:46
     .io_deqValid (_GEN),	// DCache.scala:101:21, :124:19
     .io_deqData  (_addrQueue_io_deqData)
   );
