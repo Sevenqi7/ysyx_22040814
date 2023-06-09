@@ -199,7 +199,7 @@ module sim_sram(
         end
         else begin
             if(awvalid & !awv_arw_flag) begin
-                awaddr_r    <= awaddr;
+                awaddr_r    <= awaddr + (1 << awsize);
                 awburst_r   <= awburst;
                 awlen_r     <= awlen;
                 awsize_r    <= awsize;

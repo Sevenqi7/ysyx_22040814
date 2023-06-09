@@ -30472,7 +30472,7 @@ module sim_sram(
             end
             else if((awlen_cntr <= awlen_r) && wvalid && wready) begin
                 awlen_cntr      <= awlen_cntr + 1'b1;
-                case (awburst_r)
+                case (awburst_r) 
                     2'b01: begin
                         awaddr_r <= awaddr_r + (1 << awsize_r);
                     end
@@ -30482,7 +30482,7 @@ module sim_sram(
                 endcase
             end
         end
-        $display("awready:%d wvalid:%d wready:%d awv_arw_flag:%d wlast:%d, awaddr_r:0x%x", awready_r, wvalid, wready_r, awv_arw_flag, wlast, awaddr_r);
+        $display("awvalid:%d awready:%d wvalid:%d wready:%d awv_arw_flag:%d wlast:%d, awaddr_r:0x%x",awvalid, awready_r, wvalid, wready_r, awv_arw_flag, wlast, awaddr_r);
     end
 
     always@(posedge aclk) begin
