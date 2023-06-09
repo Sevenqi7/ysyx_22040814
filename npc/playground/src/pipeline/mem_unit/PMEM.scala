@@ -155,7 +155,7 @@ class MEM_pre_stage extends Module{
     axi.writeAddr.bits.lock    := 0.U
     axi.writeAddr.bits.cache   := 0.U
     axi.writeAddr.bits.prot    := 0.U
-    axi.writeAddr.valid        := mem_cache.io.axi_wreq
+    axi.writeAddr.valid        := mem_cache.io.axi_wreq | uncached_write
 
     axi.writeData.bits.id      := 1.U
     axi.writeData.bits.data    := mem_cache.io.axi_wdata
