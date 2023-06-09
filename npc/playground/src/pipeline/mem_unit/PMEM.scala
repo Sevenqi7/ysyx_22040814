@@ -101,7 +101,7 @@ class MEM_pre_stage extends Module{
     mem_cache.io.axi_rvalid    := axi.readData.valid
     mem_cache.io.axi_awready   := axi.writeAddr.ready
     mem_cache.io.axi_wready    := axi.writeData.ready
-    mem_cache.io.uncached      := (ALU_result(31, 0) >= MBASE && ALU_result(31, 0) <= (MBASE + MSIZE))
+    mem_cache.io.uncache       := (ALU_result(31, 0) >= MBASE && ALU_result(31, 0) <= (MBASE + MSIZE))
 
     io.dcache_miss             := mem_cache.io.miss
 
