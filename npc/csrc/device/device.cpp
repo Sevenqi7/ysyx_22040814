@@ -18,7 +18,7 @@ uint64_t device_read(uint64_t addr)
 {
     assert(addr>MMIO_BASE && addr<MMIO_END);
     device_io_pc = top->io_EX_pc;
-    // Log("device_io_read at pc:%lx", top->io_MEM_pc);
+    Log("device_io_read addr:%lx", addr);
     if(addr == RTC_ADDR)
         return get_time();
     else if(addr == SYNC_ADDR)

@@ -59,7 +59,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     cacheline.data      := 0.U
     cacheline.valid     := 0.U
     cacheline.dirty     := 0.U
-    val cache = RegInit(VecInit.fill(nrSets, nrLines)(cacheline))
+    val cache           = RegInit(VecInit.fill(nrSets, nrLines)(cacheline))
     
     val setWidth        = log2Ceil(nrSets)
     val lineWidth       = log2Ceil(nrLines)
@@ -82,7 +82,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     
     val offset          = req_addr(offsetWidth - 1, 0)
     val set             = req_addr(offsetWidth + setWidth - 1, offsetWidth)
-    val tag             = req_addr(offsetWidth + setWidth + tagWidth -1 , offsetWidth + setWidth)
+    val tag             = req_addr(offsetWidth + setWidth + tagWidth - 1, offsetWidth + setWidth)
     val index           = 127.U - offset * 8.U
     
     val lineBuf         = RegInit(0.U(dataWidth.W))
@@ -119,7 +119,6 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     addrQueue.io.enqValid   := 0.U
     addrQueue.io.enqData    := 0.U
     addrQueue.io.deqValid   := 0.U
-    
     
     switch(qstate){
         is (qsIdle){
