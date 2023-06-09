@@ -81,10 +81,10 @@ void exec_once()            //disassemble实质上是反汇编的上一个已执
     while(!top->io_WB_valid)
     {
         bubble_cnt++;
-        if(bubble_cnt > 50){        //deadlock
-            printf("\033[0m\033[1;31m%s\033[0m\n", "Deadlock detected! NPC ABORT.");
-            return ;
-        }
+        // if(bubble_cnt > 50){        //deadlock
+        //     printf("\033[0m\033[1;31m%s\033[0m\n", "Deadlock detected! NPC ABORT.");
+        //     return ;
+        // }
         nr_bubble++;
         clock_step();
     }
