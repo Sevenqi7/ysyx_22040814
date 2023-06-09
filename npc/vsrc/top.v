@@ -30491,7 +30491,7 @@ module sim_sram(
                 endcase
             end
         end
-        $display("awvalid:%d awready:%d wvalid:%d wready:%d awv_arw_flag:%d wlast:%d, awaddr_r:0x%x",awvalid, awready_r, wvalid, wready_r, awv_arw_flag, wlast, awaddr_r);
+        $display("awvalid:%d awready:%d wvalid:%d wready:%d awv_arw_flag:%d wlast:%d, awaddr_r:0x%x, bvalid:%d",awvalid, awready_r, wvalid, wready_r, awv_arw_flag, wlast, awaddr_r, bvalid_r);
     end
 
     always@(posedge aclk) begin

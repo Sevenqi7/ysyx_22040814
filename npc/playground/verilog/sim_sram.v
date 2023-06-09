@@ -250,6 +250,10 @@ module sim_sram(
         else begin
             if(awvalid & awready_r & !awv_arw_flag) begin
                 bid_r    <= wid;
+                if(wlast) begin
+                    bresp_r  <= 2'b0;
+                    bvalid_r <= wlast;
+                end
             end
             else if(wlast) begin
                 bvalid_r <= 1'b1;
