@@ -122,16 +122,19 @@ class MEM_pre_stage extends Module{
     io.dcache_linewdata        := mem_cache.io.linewdata
     io.dcache_linerdata        := mem_cache.io.linerdata
 
+    val readSouce   = Wire(UInt(64.W))
+    readSource       := Mux(io.PMEM_to_MEM_bus.bits.uncached & io.PMEM_to_MEM_bus.bits.memReadEn, axi.readData.bits.data, mem_cache.io.rdata)
+
     val memReadData = Wire(UInt(64.W))
     memReadData := 0.U
     switch(io.PMEM_to_MEM_bus.bits.lsutype){
-        is (ld) {memReadData := mem_cache.io.rdata}
-        is (lw) {memReadData := SEXT(mem_cache.io.rdata(31, 0), 32)}
-        is (lh) {memReadData := SEXT(mem_cache.io.rdata(15, 0), 16)}
-        is (lb) {memReadData := SEXT(mem_cache.io.rdata( 7, 0),  8)}
-        is (lwu){memReadData := mem_cache.io.rdata(31, 0)}
-        is (lhu){memReadData := mem_cache.io.rdata(15, 0)}
-        is (lbu){memReadData := mem_cache.io.rdata( 7 ,0)}
+        is (ld) {memReadData := readSouce                          }
+        is (lw) {memReadData := SEXT(readSource(31, 0), 32)        }
+        is (lh) {memReadData := SEXT(readSource(15, 0), 16)        }
+        is (lb) {memReadData := SEXT(readSource( 7, 0),  8)        }
+        is (lwu){memReadData := readSource(31, 0)                  }
+        is (lhu){memReadData := readSource(15, 0)                  }
+        is (lbu){memReadData := readSource( 7 ,0)                  }
     }
     
     axi_req.valid              := mem_cache.io.axi_rreq | mem_cache.io.axi_wreq | uncached_read | uncached_write | io.PMEM_to_MEM_bus.bits.uncached

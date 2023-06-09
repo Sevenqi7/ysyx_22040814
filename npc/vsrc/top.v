@@ -30217,7 +30217,7 @@ sim simulate (	// top.scala:24:26
   assign io_WB_RegWriteID = {59'h0, _wb_unit_io_WB_to_ID_forward_bits_regWriteID};	// <stdin>:4593:10, top.scala:116:25, :185:24
   assign io_WB_valid = _wb_unit_io_WB_to_ID_forward_valid;	// <stdin>:4593:10, top.scala:116:25
   assign io_MEM_memReadEn = _pre_mem_unit_io_PMEM_to_MEM_bus_bits_memReadEn;	// <stdin>:4593:10, top.scala:114:30
-  assign io_MEM_RegWriteData = _arb_in_0_readData_bits_data;	// <stdin>:4593:10, top.scala:250:21
+  assign io_MEM_RegWriteData = _pre_mem_unit_io_memReadData;	// <stdin>:4593:10, top.scala:114:30
   assign io_bp_npc = _bp_unit_io_bp_npc;	// <stdin>:4593:10, top.scala:110:33
   assign io_bp_taken = _bp_unit_io_bp_taken;	// <stdin>:4593:10, top.scala:110:33
   assign io_bp_flush = _bp_unit_io_bp_flush;	// <stdin>:4593:10, top.scala:110:33
