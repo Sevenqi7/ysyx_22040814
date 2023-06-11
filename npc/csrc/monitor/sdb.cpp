@@ -77,6 +77,7 @@ static int cmd_w(char *args)
     return 0;
 }
 
+extern bool debugmsg_flag;
 static int cmd_d(char *args)
 {
     int wp_num;
@@ -93,6 +94,18 @@ static int cmd_d(char *args)
             printf("Watchpoint %d doesn't exist.\n", wp_num);
     }
     return 0;
+}
+
+static int cmd_debug(char *args){
+    if(debugmsg_flag){
+        debugmsg_flag = 0;
+        printf("Output of Messages for debug has been disabled.\n");
+    }
+    else{
+        debugmsg_flag = 1;
+        printf("Output of Messages for debug has been enabled.\n");
+    }
+    return 1;
 }
 
 
@@ -185,6 +198,7 @@ static int cmd_ptrace(char *args)
     Log("IF_Inst:0x%lx", top->io_IF_Inst);
     Log("ID_pc:0x%lx", top->io_ID_pc);
     Log("EX_pc:0x%lx", top->io_EX_pc);
+    Log("MEM_pc:0x%lx", top->io_PMEM_pc);
     Log("WB_pc:0x%lx ", top->io_WB_pc);
     Log("ID_ALUData1:0x%lx ID_ALUData2:0x%lx", top->io_ID_ALU_Data1, top->io_ID_ALU_Data2);
     Log("ID_Rs1Data:0x%lx ID_Rs2Data:0x%lx", top->io_ID_Rs1Data, top->io_ID_Rs2Data);
@@ -207,6 +221,7 @@ static struct {
   { "x", "Print the content of memory with a given address.", cmd_x},
   { "w", "Set watchpoint.", cmd_w},
   { "d", "Delete watchpoint.", cmd_d},
+  { "debug", "Enabel the output of debug messages when running pipelines.", cmd_debug},
   #ifdef CONFIG_FTRACE
   { "ftrace", "Display function call trace.", cmd_ftrace},
   #endif

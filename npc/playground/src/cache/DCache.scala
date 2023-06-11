@@ -26,7 +26,6 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
 
         //cache-axi
         val axi_rreq    = Output(Bool())
-        // val axi_rtype   = Output(UInt(3.W))
         val axi_raddr   = Output(UInt(32.W))
         val axi_arready = Input(Bool())
         val axi_rvalid  = Input(Bool())
@@ -34,7 +33,6 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
         val axi_rdata   = Input(UInt(64.W))
 
         val axi_wreq    = Output(Bool())
-        // val axi_wtype   = Output(UInt(3.W))
         val axi_waddr   = Output(UInt(32.W))
         val axi_wstrb   = Output(UInt(8.W))
         val axi_wdata   = Output(UInt(64.W))
@@ -61,7 +59,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     cacheline.data      := 0.U
     cacheline.valid     := 0.U
     cacheline.dirty     := 0.U
-    val cache = RegInit(VecInit.fill(nrSets, nrLines)(cacheline))
+    val cache           = RegInit(VecInit.fill(nrSets, nrLines)(cacheline))
     
     val setWidth        = log2Ceil(nrSets)
     val lineWidth       = log2Ceil(nrLines)
@@ -84,7 +82,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     
     val offset          = req_addr(offsetWidth - 1, 0)
     val set             = req_addr(offsetWidth + setWidth - 1, offsetWidth)
-    val tag             = req_addr(offsetWidth + setWidth + tagWidth -1 , offsetWidth + setWidth)
+    val tag             = req_addr(offsetWidth + setWidth + tagWidth - 1, offsetWidth + setWidth)
     val index           = 127.U - offset * 8.U
     
     val lineBuf         = RegInit(0.U(dataWidth.W))
@@ -122,7 +120,6 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
     addrQueue.io.enqData    := 0.U
     addrQueue.io.deqValid   := 0.U
     
-    val wcnt            = RegInit(0.B)
     switch(qstate){
         is (qsIdle){
             qstate              := qsIdle
@@ -185,24 +182,24 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
         is (sLookup){
             for(i <- 0 until nrLines){
                 when(cache(set)(i).tag === tag && cache(set)(i).valid){
-                    io.hit          := 1.U
-                    io.linerdata    := cache(set)(i).data
+                    io.hit                  := 1.U
+                    io.linerdata            := cache(set)(i).data
                     //read opereation
                     when(!req_op){
-                        req_rline                   := i.U
+                        req_rline           := i.U
                         when((offset & "b1000".U) > 0.U){
-                            io.rdata                := (cache(set)(i).data(63, 0) >> (offset(2, 0) << 3.U))
+                            io.rdata        := (cache(set)(i).data(63, 0) >> (offset(2, 0) << 3.U))
                         }
                         .otherwise{
-                            io.rdata                := (cache(set)(i).data(127, 64) >> (offset(2, 0) << 3.U))
+                            io.rdata        := (cache(set)(i).data(127, 64) >> (offset(2, 0) << 3.U))
                         }
                     }
                     .otherwise{
-                        req_wdata_1     := req_wdata_0
-                        req_wstrb_1     := req_wstrb_0
-                        req_wset        := set
-                        req_woffset     := offset
-                        req_wline       := i.U
+                        req_wdata_1  := req_wdata_0
+                        req_wstrb_1  := req_wstrb_0
+                        req_wset     := set
+                        req_woffset  := offset
+                        req_wline    := i.U
                     }
                     //write operation is in WriteBuffer FSM
                     io.data_ok                  := 1.U
@@ -221,16 +218,15 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
                 req_addr             := io.addr
                 req_op               := io.op
                 req_wdata_0          := io.wdata
-                req_wstrb_0          := io.wstrb 
+                req_wstrb_0          := io.wstrb
                 addr_ok              := 1.U
-
             }.otherwise{
                 state                := sIdle
             }
         }
         is (sMiss){
-            io.axi_rreq          := 1.U
-            io.axi_raddr         := req_addr & (0xFFFFFFFFL.U << offsetWidth)
+            io.axi_rreq              := 1.U
+            io.axi_raddr             := req_addr & (0xFFFFFFFFL.U << offsetWidth)
             when(!io.axi_arready){
                 state                := sMiss
             }
@@ -251,7 +247,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
         }
         is (sReplace){
             state                    := sIdle
-            io.axi_rreq                     := 0.U
+            io.axi_rreq              := 0.U
             for(i <- 0 until nrLines-1){
                 when(!cache(set)(i).valid){
                     refillHit        := 1.U
@@ -270,15 +266,16 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
             when(cache(set)(refillIDX).dirty & cache(set)(refillIDX).valid){
                 cache(set)(refillIDX).dirty := 0.U
                 addrQueue.io.enqValid       := 1.U
-                addrQueue.io.enqData        := Cat(Seq(cache(set)(refillIDX).tag, set, refillIDX))
+                addrQueue.io.enqData        := Cat(Seq(cache(set)(refillIDX).tag, set, 0.U(4.W)))
                 dataQueue.io.enqValid       := 1.U
                 dataQueue.io.enqData        := cache(set)(refillIDX).data
             }
             cache(set)(refillIDX).valid     := 1.U
             cache(set)(refillIDX).tag       := tag
             cache(set)(refillIDX).data      := lineBuf
-            //TODO: Cache-AXI interaction when write miss
         }
+            //TODO: Cache-AXI interaction when write miss
+        
     }
 
     //Write Buffer
@@ -293,7 +290,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
 
     switch(wstate){
         is (wsIdle){
-            when(io.hit & req_op){
+            when(io.hit & req_op & req_valid){
                 wstate      := wsWrite
             }
         }
@@ -315,7 +312,7 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
                 cache(req_wset)(req_wline).data   := Cat(cache(req_wset)(req_wline).data(127, 64) & ~dataMask | maskedData, 
                                                          cache(req_wset)(req_wline).data(63, 0))
             }
-            when(io.hit & req_op){
+            when(io.hit & req_op & req_valid){
                 wstate      := wsWrite
             }
             .otherwise{

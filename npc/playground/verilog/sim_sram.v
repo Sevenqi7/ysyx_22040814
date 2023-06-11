@@ -93,7 +93,7 @@ module sim_sram(
                 arready_r       <= 1'b1;
             end
         end
-        // $display("arvalid:%d arready:%d arv_arr_flag:%d arlen_cntr:%d rdata:0x%x rvalid:%d rready:%d, rlast:%d, rid:%d", arvalid, arready_r, arv_arr_flag, arlen_cntr, rdata, rvalid_r, rready, rlast_r, rid_r);
+        $display("arvalid:%d arready:%d arv_arr_flag:%d arlen_cntr:%d rdata:0x%x rvalid:%d rready:%d, rlast:%d, rid:%d", arvalid, arready_r, arv_arr_flag, arlen_cntr, rdata, rvalid_r, rready, rlast_r, rid_r);
     end
 
 
@@ -199,16 +199,16 @@ module sim_sram(
         end
         else begin
             if(awvalid & !awv_arw_flag) begin
-                awaddr_r    <= awaddr;
+                awaddr_r    <= awaddr + (1 << awsize);
                 awburst_r   <= awburst;
                 awlen_r     <= awlen;
                 awsize_r    <= awsize;
-                awlen_cntr  <= 8'b0;
+                awlen_cntr  <= 8'b1;
                 wstrb_r     <= wstrb;
             end
             else if((awlen_cntr <= awlen_r) && wvalid && wready) begin
                 awlen_cntr      <= awlen_cntr + 1'b1;
-                case (awburst_r)
+                case (awburst_r) 
                     2'b01: begin
                         awaddr_r <= awaddr_r + (1 << awsize_r);
                     end
@@ -218,7 +218,7 @@ module sim_sram(
                 endcase
             end
         end
-        // $display("awready:%d wvalid:%d wready:%d awv_arw_flag:%d wlast:%d", awready_r, wvalid, wready_r, awv_arw_flag, wlast);
+        $display("awvalid:%d awready:%d wvalid:%d wready:%d awv_arw_flag:%d wlast:%d, awaddr_r:0x%x, bvalid:%d",awvalid, awready_r, wvalid, wready_r, awv_arw_flag, wlast, awaddr_r, bvalid_r);
     end
 
     always@(posedge aclk) begin
@@ -226,11 +226,11 @@ module sim_sram(
             wready_r        = 1'b0;
         end
         else begin
-            if(awvalid & wvalid & !awv_arw_flag) begin
+            if(awvalid & awready_r & wvalid & wready_r & !awv_arw_flag) begin
                 dci_pmem_write({32'b0, awaddr}, wdata, wstrb);
                 wready_r    = 1'b1;
             end
-            else if(awv_arw_flag) begin
+            else if(awv_arw_flag & wready_r & wvalid) begin
                 dci_pmem_write({32'b0, awaddr_r}, wdata, wstrb_r);
                 wready_r    = 1'b1;
             end
@@ -248,8 +248,12 @@ module sim_sram(
             bid_r    <= 4'b0;
         end
         else begin
-            if(awvalid & !awv_arw_flag) begin
+            if(awvalid & awready_r & !awv_arw_flag) begin
                 bid_r    <= wid;
+                if(wlast & wvalid & wready_r) begin
+                    bresp_r  <= 2'b0;
+                    bvalid_r <= 1'b1;
+                end
             end
             else if(wlast) begin
                 bvalid_r <= 1'b1;

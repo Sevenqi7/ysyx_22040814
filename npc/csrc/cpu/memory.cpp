@@ -73,7 +73,7 @@ extern "C" void dci_pmem_read(long long raddr, long long *rdata, char rmask) {
   for(;mask;mask=mask>>1,len++);
   *rdata = pmem_read(raddr, len);
   #ifdef CONFIG_DEBUGMSG
-  Log("raddr:%lx value:%lx len:%d", raddr, *rdata, len);
+  Log("raddr:0x%lx value:0x%lx len:%d", raddr, *rdata, len);
   #endif
 }
 extern "C" void dci_pmem_write(long long waddr, long long wdata, char wmask) {
@@ -86,6 +86,6 @@ extern "C" void dci_pmem_write(long long waddr, long long wdata, char wmask) {
   for(;mask;mask=mask>>1,len++);
   pmem_write(waddr, len, wdata);
   #ifdef CONFIG_DEBUGMSG
-  Log("waddr:%lx value:%lx len:%d", waddr, wdata, len);
+  Log("waddr:0x%lx value:0x%lx len:%d", waddr, wdata, len);
   #endif
 }

@@ -29,6 +29,11 @@ object utils {
 
 }
 
+object AddressSpace{
+    val MBASE = 0x80000000L.U
+    val MSIZE = 0x8000000L.U
+}
+
 class CacheLine(tagWidth: Int, dataWidth: Int) extends Bundle{
     val tag  = UInt(tagWidth.W)
     val data = UInt(dataWidth.W)
