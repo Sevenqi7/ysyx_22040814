@@ -248,13 +248,13 @@ class DCache (tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extend
         is (sReplace){
             state                    := sIdle
             io.axi_rreq              := 0.U
-            for(i <- 0 until nrLines-1){
+            for(i <- 0 until nrLines){
                 when(!cache(set)(i).valid){
                     refillHit        := 1.U
                     refillIDX        := i.U
                 }
             }
-            for(i <- 0 until nrLines-1){
+            for(i <- 0 until nrLines){
                 when(cache(set)(i).valid & tag === cache(set)(i).tag){
                     refillHit        := 1.U
                     refillIDX        := i.U

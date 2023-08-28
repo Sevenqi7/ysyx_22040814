@@ -95,7 +95,7 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
             }
         }
         is (sLookup){
-            for(i <- 0 until nrLines-1){
+            for(i <- 0 until nrLines){
                 when(cache(set)(i).tag === tag && cache(set)(i).valid){
                     io.hit      := 1.U
                     io.rvalid   := 1.U
@@ -147,13 +147,13 @@ class ICache(tagWidth: Int, nrSets: Int, nrLines: Int, offsetWidth: Int) extends
         }   
         is (sReplace){
             state                       := sIdle
-            for(i <- 0 until nrLines-1){
+            for(i <- 0 until nrLines){
                 when(!cache(set)(i).valid){
                     refillHit           := 1.U
                     refillIDX           := i.U
                 }
             }
-            for(i  <- 0 until nrLines-1){
+            for(i  <- 0 until nrLines){
                 when(cache(set)(i).valid & tag === cache(set)(i).tag){
                     refillHit           := 1.U
                     refillIDX           := i.U
