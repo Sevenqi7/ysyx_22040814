@@ -3,7 +3,7 @@ import chisel3.util._
 
 
 
-class IDU extends Bundle{
+class IDU extends ThaliaModule{
     
 }
 

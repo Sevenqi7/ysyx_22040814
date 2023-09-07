@@ -11,7 +11,7 @@ class IF_ID_Message extends Bundle {
   val Inst   = Vec(FetchNr, UInt(32.W))
 }
 
-class IFU extends Module {
+class IFU extends ThaliaModule {
   val io = IO {
     val ICache_IF_Bus = new ICache_IF_Message()
     val PF_IF_Bus     = Flipped(Decoupled(new PF_IF_Message()))

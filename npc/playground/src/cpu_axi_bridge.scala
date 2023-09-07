@@ -1,7 +1,7 @@
 import chisel3._
 import chisel3.util._ 
 
-class cpu_axi_interface extends Module{
+class cpu_axi_interface extends ThaliaModule{
     //inst axi
     val icache_rd_req       = IO(Input(Bool()))
     val icache_rd_addr      = IO(Input(UInt(32.W)))

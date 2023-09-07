@@ -16,7 +16,7 @@ class PF_IF_Message extends Bundle {
   val PCBase = Output(UInt(64.W))
 }
 
-class PFU extends Module {
+class PFU extends ThaliaModule {
   val io = IO {
     val PF_ICache_Bus = new PF_ICache_Message()
     val PF_IF_Bus     = Decoupled(new PF_IF_Message())
