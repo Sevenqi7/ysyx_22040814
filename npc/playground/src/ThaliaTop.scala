@@ -1,5 +1,5 @@
 import chisel3._
-import chisel3.utils._
+import chisel3.util._
 
 class ThaliaTop extends Module {
     val io = IO(new Bundle{
@@ -8,5 +8,5 @@ class ThaliaTop extends Module {
     })
 
     val prefetch_unit = Module(new PFU())
-    val 
+    // val 
 }

@@ -1,14 +1,16 @@
 import chisel3._
-import chisel3.utils._
+import chisel3.util._
+import RV64IInstr._
 
-import ThaliaUtils._
+import ThaliaUtils.util._
+import ThaliaUtils.util.uintToBitPat
 
 class ThaliaDecodeUnit extends ThaliaModule {
   val io = IO {new Bundle{
 
   }}
 
-  val decode_table = 
+  val decode_table = ALUOpDecoder.table ++ LSUOpDecoder.table
 }
 
 abstract trait DecodeConstants {
@@ -19,10 +21,10 @@ abstract trait DecodeConstants {
 
   def decodeDefault: List[BitPat] =
     List(
-      FuType.X,   //    0: fuType
-      SrcType.X,  //    1: srcType(0)
-      SrcType.X,  //    2: srcTYpe(1)
-      FuOpType.X, //    3: fuOpType
+      FuType.INV,   //    0: fuType
+      SrcType.INV,  //    1: srcType(0)
+      SrcType.INV,  //    2: srcTYpe(1)
+      FuOpType.INV, //    3: fuOpType
       N,          //    4: rfWen
       N,          //    5: flush pipeline
       N           //    6: selImm
@@ -31,22 +33,28 @@ abstract trait DecodeConstants {
   val table: Array[(BitPat, List[BitPat])]
 }
 
+abstract class Imm(val len: Int) extends Bundle {
+  def toImm32(minBits: UInt): UInt = do_toImm32(minBits(len - 1, 0))
+  def do_toImm32(minBits: UInt): UInt
+  def minBitsFromInstr(instr: UInt): UInt
+}
+
 case class Imm_I() extends Imm(12) {
-  override def do_toImm32(minBits: UInt): UInt = SignExt(minBits(len - 1, 0), 32)
+  override def do_toImm32(minBits: UInt): UInt = SEXT(minBits(len - 1, 0), 32)
 
   override def minBitsFromInstr(instr: UInt): UInt =
     Cat(instr(31, 20))
 }
 
 case class Imm_S() extends Imm(12) {
-  override def do_toImm32(minBits: UInt): UInt = SignExt(minBits, 32)
+  override def do_toImm32(minBits: UInt): UInt = SEXT(minBits, 32)
 
   override def minBitsFromInstr(instr: UInt): UInt =
     Cat(instr(31, 25), instr(11, 7))
 }
 
 case class Imm_B() extends Imm(12) {
-  override def do_toImm32(minBits: UInt): UInt = SignExt(Cat(minBits, 0.U(1.W)), 32)
+  override def do_toImm32(minBits: UInt): UInt = SEXT(Cat(minBits, 0.U(1.W)), 32)
 
   override def minBitsFromInstr(instr: UInt): UInt =
     Cat(instr(31), instr(7), instr(30, 25), instr(11, 8))
@@ -61,7 +69,7 @@ case class Imm_U() extends Imm(20){
 }
 
 case class Imm_J() extends Imm(20){
-  override def do_toImm32(minBits: UInt): UInt = SignExt(Cat(minBits, 0.U(1.W)), 32)
+  override def do_toImm32(minBits: UInt): UInt = SEXT(Cat(minBits, 0.U(1.W)), 32)
 
   override def minBitsFromInstr(instr: UInt): UInt = {
     Cat(instr(31), instr(19, 12), instr(20), instr(30, 25), instr(24, 21))
@@ -74,27 +82,26 @@ object ImmSel {
   def IMM_I  = "b010".U
   def IMM_J  = "b011".U
   def IMM_B  = "b101".U
-  def DC     = "b???".U
+  def DC     = BitPat("b???")
   
   def INV     = BitPat("b???")
   def apply() = UInt(3.W)
 }
 
-object ImmSet {
+object ImmUnion {
   val I = Imm_I()
   val S = Imm_S()
   val B = Imm_B()
   val U = Imm_U()
   val J = Imm_J()
-  val B6 = Imm_B6()
   val imms = Seq(I, S, B, U, J)
   val maxLen = imms.maxBy(_.len).len
   val immSelMap = Seq(
-    SelImm.IMM_I,
-    SelImm.IMM_S,
-    SelImm.IMM_B,
-    SelImm.IMM_U,
-    SelImm.IMM_J,
+    ImmSel.IMM_I,
+    ImmSel.IMM_S,
+    ImmSel.IMM_B,
+    ImmSel.IMM_U,
+    ImmSel.IMM_J,
   ).zip(imms)
 }
 
@@ -106,8 +113,8 @@ object SrcType {
   def csr  = "b10".U
   def zero = "b00".U
 
-  def DC = imm // Don't Care
-  def N  = BitPat("b??")
+  def DC   = imm // Don't Care
+  def INV  = BitPat("b??")
 
   def isReg(srcType: UInt)      = srcType === reg
   def isPc(srcType: UInt)       = srcType === pc
@@ -120,13 +127,14 @@ object SrcType {
 }
 
 object FuType {
-  def FuNum = 5
+  def FuNum = 6
 
   def alu = "b0000".U
   def ldu = "b0001".U
   def stu = "b0010".U
   def csr = "b0011".U
-  def INV = "b????".U
+  def jmp = "b0100".U
+  def INV = BitPat("b????")
 
   def isLoad(fuType: UInt)   = fuType === ldu
   def isStore(fuType: UInt)  = fuType === stu
@@ -149,27 +157,35 @@ object ALUOpType {
   val OP_SRA   = 8.U
   val OP_SLT   = 9.U
   val OP_SLTU  = 10.U
-  val OP_MUL   = 11.U
-  val OP_DIV   = 12.U
-  val OP_DIVU  = 13.U
-  val OP_REM   = 14.U
-  val OP_REMU  = 15.U
-  val OP_ADDW  = 16.U
-  val OP_SUBW  = 17.U
-  val OP_SLLW  = 18.U
-  val OP_SRAW  = 19.U
-  val OP_SRLW  = 20.U
-  val OP_XORW  = 21.U
-  val OP_ORW   = 22.U
-  val OP_ANDW  = 23.U
-  val OP_MULW  = 24.U
-  val OP_DIVW  = 25.U
-  val OP_DIVUW = 26.U
-  val OP_REMW  = 27.U
-  val OP_REMUW = 28.U
-  val OP_ECALL = 29.U
-  val OP_MRET  = 30.U
-  val OP_NONE  = 31.U
+  val OP_BEQ   = 11.U
+  val OP_BNE   = 12.U
+  val OP_BLT   = 13.U
+  val OP_BLTU  = 14.U
+  val OP_BGE   = 15.U
+  val OP_BGEU  = 16.U
+  val OP_MUL   = 17.U
+  val OP_DIV   = 18.U
+  val OP_DIVU  = 19.U
+  val OP_REM   = 20.U
+  val OP_REMU  = 21.U
+  val OP_ADDW  = 22.U
+  val OP_SUBW  = 23.U
+  val OP_SLLW  = 24.U
+  val OP_SRAW  = 25.U
+  val OP_SRLW  = 26.U
+  val OP_XORW  = 27.U
+  val OP_ORW   = 28.U
+  val OP_ANDW  = 29.U
+  val OP_MULW  = 30.U
+  val OP_DIVW  = 31.U
+  val OP_DIVUW = 32.U
+  val OP_REMW  = 33.U
+  val OP_REMUW = 34.U
+  val OP_ECALL = 35.U
+  val OP_MRET  = 36.U
+  val OP_NONE  = 37.U
+
+  def apply() = UInt(log2Ceil(OpNum).W)
 }
 
 object LSUOpType {
@@ -187,6 +203,10 @@ object LSUOpType {
   def sd = "b1011".U
 
   def size(op: UInt) = op(1, 0)
+}
+
+object FuOpType {
+  def INV = BitPat("b????")
 }
 
 object JumpOpType {
@@ -285,14 +305,14 @@ object ALUOpDecoder extends DecodeConstants {
 
   val table: Array[(BitPat, List[BitPat])] = Array(
     // Special insts
-    EBREAK -> List(FuType.alu, SrcType.X, SrcType.X, ALUOpType.OP_PLUS, N, Y, ImmSel.IMM_I),
+    EBREAK -> List(FuType.alu, SrcType.INV, SrcType.INV, ALUOpType.OP_PLUS, N, Y, ImmSel.IMM_I),
     ECALL  -> List(FuType.alu, SrcType.pc,   SrcType.csr, ALUOpType.OP_ECALL, N, Y, ImmSel.IMM_I),
     CSRRS  -> List(FuType.alu, SrcType.reg,  SrcType.csr, ALUOpType.OP_OR   , Y, N, ImmSel.IMM_I),
     CSRRW  -> List(FuType.alu, SrcType.reg,  SrcType.csr, ALUOpType.OP_NONE , Y, N, ImmSel.IMM_I),
     MRET   -> List(FuType.alu, SrcType.zero, SrcType.csr, ALUOpType.OP_MRET , N, N, ImmSel.IMM_I),
     // U Type
     AUIPC  -> List(FuType.alu, SrcType.pc, SrcType.imm,   ALUOpType.OP_PLUS, N, N, ImmSel.IMM_U),
-    LUI    -> List(FuType.alu, SrcType.zero, SrcType.imm, ALUOpType.OP_PLUS, Y, N, Immsel.IMM_U),
+    LUI    -> List(FuType.alu, SrcType.zero, SrcType.imm, ALUOpType.OP_PLUS, Y, N, ImmSel.IMM_U),
     // I Type
     ADDI   -> List(FuType.alu, SrcType.reg, SrcType.imm, ALUOpType.OP_PLUS, Y, N, ImmSel.IMM_I),
     SLLI   -> List(FuType.alu, SrcType.reg, SrcType.imm, ALUOpType.OP_SLL , Y, N, ImmSel.IMM_I),
@@ -333,18 +353,18 @@ object ALUOpDecoder extends DecodeConstants {
     REMW   -> List(FuType.alu, SrcType.reg, SrcType.reg, ALUOpType.OP_REMW , Y, N, ImmSel.DC),
     REMUW  -> List(FuType.alu, SrcType.reg, SrcType.reg, ALUOpType.OP_REMUW, Y, N, ImmSel.DC),
     // J Type
-    JAL    -> List(FuType.alu, SrcType.pc, SrcType.zero, JumpOpType.jal    , Y, N, ImmSel.J ),
+    JAL    -> List(FuType.alu, SrcType.pc, SrcType.zero, JumpOpType.jal    , Y, N, ImmSel.IMM_J ),
     // B Type
-    BEQ    -> List(FuType.alu, SrcType.pc, SrcType.imm, BType.BEQ , N, N, ImmSel.IMM_B),
-    BNE    -> List(FuType.alu, SrcType.pc, SrcType.imm, BType.BNE , N, N, ImmSel.IMM_B),
-    BLT    -> List(FuType.alu, SrcType.pc, SrcType.imm, BType.BLT , N, N, ImmSel.IMM_B),
-    BLTU   -> List(FuType.alu, SrcType.pc, SrcType.imm, BType.BLTU, N, N, ImmSel.IMM_B),
-    BGE    -> List(FuType.alu, SrcType.pc, SrcType.imm, BType.BGE , N, N, ImmSel.IMM_B),
-    BGEU   -> List(FuType.alu, SrcType.pc, SrcType.imm, BType.BGEU, N, N, ImmSel.IMM_B)
+    BEQ    -> List(FuType.alu, SrcType.pc, SrcType.imm, ALUOpType.OP_BEQ , N, N, ImmSel.IMM_B),
+    BNE    -> List(FuType.alu, SrcType.pc, SrcType.imm, ALUOpType.OP_BNE , N, N, ImmSel.IMM_B),
+    BLT    -> List(FuType.alu, SrcType.pc, SrcType.imm, ALUOpType.OP_BLT , N, N, ImmSel.IMM_B),
+    BLTU   -> List(FuType.alu, SrcType.pc, SrcType.imm, ALUOpType.OP_BLTU, N, N, ImmSel.IMM_B),
+    BGE    -> List(FuType.alu, SrcType.pc, SrcType.imm, ALUOpType.OP_BGE , N, N, ImmSel.IMM_B),
+    BGEU   -> List(FuType.alu, SrcType.pc, SrcType.imm, ALUOpType.OP_BGEU, N, N, ImmSel.IMM_B)
   )
 }
 
-object LSUOpType extends DecodeConstants {
+object LSUOpDecoder extends DecodeConstants {
   val table: Array[(BitPat, List[BitPat])] = Array(
     LB  -> List(FuType.ldu, SrcType.reg, SrcType.imm, LSUOpType.lb , Y, N, ImmSel.IMM_S),
     LH  -> List(FuType.ldu, SrcType.reg, SrcType.imm, LSUOpType.lh , Y, N, ImmSel.IMM_S),
