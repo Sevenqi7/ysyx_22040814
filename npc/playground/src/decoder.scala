@@ -5,9 +5,14 @@ import RV64IInstr._
 import ThaliaUtils.util._
 import ThaliaUtils.util.uintToBitPat
 
+class ThaliaDecodeUnitIO extends ThaliaBundle {
+  val instr = UInt(32.W)
+  val pc = UInt(32.W)
+}
+
 class ThaliaDecodeUnit extends ThaliaModule {
   val io = IO {new Bundle{
-
+    
   }}
 
   val decode_table = ALUOpDecoder.table ++ LSUOpDecoder.table
