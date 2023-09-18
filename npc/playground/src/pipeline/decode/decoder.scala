@@ -11,9 +11,10 @@ class ThaliaDecodeUnitIO extends ThaliaBundle {
 }
 
 class ThaliaDecodeUnit extends ThaliaModule {
-  val io = IO {new Bundle{
-    
-  }}
+  val io = IO {
+     val in = Vec(DecodeWidth, Flipped(DecoupledIO(new ThaliaDecodeUnitIO)))
+     val out = Vec(DecodeWidth, DecoupledIO(new ))
+  }
 
   val decode_table = ALUOpDecoder.table ++ LSUOpDecoder.table
 }
@@ -28,14 +29,37 @@ abstract trait DecodeConstants {
     List(
       FuType.INV,   //    0: fuType
       SrcType.INV,  //    1: srcType(0)
-      SrcType.INV,  //    2: srcTYpe(1)
-      FuOpType.INV, //    3: fuOpType
-      N,          //    4: rfWen
-      N,          //    5: flush pipeline
-      N           //    6: selImm
+      SrcType.INV,  //    2: srcType(1)
+      SrcType.INV,  //    3: srcType(2)
+      FuOpType.INV, //    4: fuOpType
+      N,          //    5: rfWen
+      N,          //    6: flush pipeline
+      N           //    7: selImm
     ) // Use SelImm to indicate invalid instr
 
   val table: Array[(BitPat, List[BitPat])]
+}
+
+class DecodedInst extends ThaliaBundle{
+  val srcType = Vec(3, SrcType())
+  val lsrc = Vec(3, UInt(5.W))
+  val ldest = UInt(5.W)
+  val fuType = FuType()
+  val fuOpType = FuOpType()
+  val regWriteEn = Bool()
+  val flushPipeline = Bool()
+  val immSel = ImmSel()
+  val imm = UInt(ImmUnion.maxLen.W)
+
+
+  private def ctrlSignals = Seq(fuType) ++ srcType ++ Seq(fuOpType, regWriteEn, flushPipeline, immSel)
+
+  //!NOTE: 调用rocket-chip里的DecodeLogic完成译码
+  def decode(inst: UInt, table: Iterable[(BitPat, List[BitPat])]):DecodedInst = {
+    val decoder = DecodeLogic(inst, ALUOpDecoder.decodeDefault, table)
+    ctrlSignals.zip(decoder).foreach{case (s, d) => s := d}
+    this
+  }
 }
 
 abstract class Imm(val len: Int) extends Bundle {
@@ -212,6 +236,7 @@ object LSUOpType {
 
 object FuOpType {
   def INV = BitPat("b????")
+  def apply() = UInt(4.W)
 }
 
 object JumpOpType {
@@ -310,78 +335,78 @@ object ALUOpDecoder extends DecodeConstants {
 
   val table: Array[(BitPat, List[BitPat])] = Array(
     // Special insts
-    EBREAK -> List(FuType.alu, SrcType.INV, SrcType.INV, ALUOpType.OP_PLUS, N, Y, ImmSel.IMM_I),
-    ECALL  -> List(FuType.alu, SrcType.pc,   SrcType.csr, ALUOpType.OP_ECALL, N, Y, ImmSel.IMM_I),
-    CSRRS  -> List(FuType.alu, SrcType.reg,  SrcType.csr, ALUOpType.OP_OR   , Y, N, ImmSel.IMM_I),
-    CSRRW  -> List(FuType.alu, SrcType.reg,  SrcType.csr, ALUOpType.OP_NONE , Y, N, ImmSel.IMM_I),
-    MRET   -> List(FuType.alu, SrcType.zero, SrcType.csr, ALUOpType.OP_MRET , N, N, ImmSel.IMM_I),
+    EBREAK -> List(FuType.alu, SrcType.INV,  SrcType.INV, SrcType.INV, ALUOpType.OP_PLUS, N, Y, ImmSel.IMM_I),
+    ECALL  -> List(FuType.alu, SrcType.pc,   SrcType.csr, SrcType.INV, ALUOpType.OP_ECALL, N, Y, ImmSel.IMM_I),
+    CSRRS  -> List(FuType.alu, SrcType.reg,  SrcType.csr, SrcType.INV, ALUOpType.OP_OR   , Y, N, ImmSel.IMM_I),
+    CSRRW  -> List(FuType.alu, SrcType.reg,  SrcType.csr, SrcType.INV, ALUOpType.OP_NONE , Y, N, ImmSel.IMM_I),
+    MRET   -> List(FuType.alu, SrcType.zero, SrcType.csr, SrcType.INV, ALUOpType.OP_MRET , N, N, ImmSel.IMM_I),
     // U Type
-    AUIPC  -> List(FuType.alu, SrcType.pc, SrcType.imm,   ALUOpType.OP_PLUS, N, N, ImmSel.IMM_U),
-    LUI    -> List(FuType.alu, SrcType.zero, SrcType.imm, ALUOpType.OP_PLUS, Y, N, ImmSel.IMM_U),
+    AUIPC  -> List(FuType.alu, SrcType.pc  , SrcType.imm, SrcType.INV, ALUOpType.OP_PLUS, N, N, ImmSel.IMM_U),
+    LUI    -> List(FuType.alu, SrcType.zero, SrcType.imm, SrcType.INV, ALUOpType.OP_PLUS, Y, N, ImmSel.IMM_U),
     // I Type
-    ADDI   -> List(FuType.alu, SrcType.reg, SrcType.imm, ALUOpType.OP_PLUS, Y, N, ImmSel.IMM_I),
-    SLLI   -> List(FuType.alu, SrcType.reg, SrcType.imm, ALUOpType.OP_SLL , Y, N, ImmSel.IMM_I),
-    SRLI   -> List(FuType.alu, SrcType.reg, SrcType.imm, ALUOpType.OP_SRL , Y, N, ImmSel.IMM_I),
-    SRAI   -> List(FuType.alu, SrcType.reg, SrcType.imm, ALUOpType.OP_SRA , Y, N, ImmSel.IMM_I),
-    JALR   -> List(FuType.alu, SrcType.pc, SrcType.zero, JumpOpType.jalr  , Y, N, ImmSel.IMM_I),
-    XORI   -> List(FuType.alu, SrcType.reg, SrcType.imm, ALUOpType.OP_XOR , Y, N, ImmSel.IMM_I),
-    ORI    -> List(FuType.alu, SrcType.reg, SrcType.imm, ALUOpType.OP_OR  , Y, N, ImmSel.IMM_I),
-    ANDI   -> List(FuType.alu, SrcType.reg, SrcType.imm, ALUOpType.OP_AND , Y, N, ImmSel.IMM_I),
-    SLTI   -> List(FuType.alu, SrcType.reg, SrcType.imm, ALUOpType.OP_SLT , Y, N, ImmSel.IMM_I),
-    SLTIU  -> List(FuType.alu, SrcType.reg, SrcType.imm, ALUOpType.OP_SLTU, Y, N, ImmSel.IMM_I),
-    ADDIW  -> List(FuType.alu, SrcType.reg, SrcType.imm, ALUOpType.OP_ADDW, Y, N, ImmSel.IMM_I),
-    SLLIW  -> List(FuType.alu, SrcType.reg, SrcType.imm, ALUOpType.OP_SLLW, Y, N, ImmSel.IMM_I),
-    SRLIW  -> List(FuType.alu, SrcType.reg, SrcType.imm, ALUOpType.OP_SRLW, Y, N, ImmSel.IMM_I),
-    SRAIW  -> List(FuType.alu, SrcType.reg, SrcType.imm, ALUOpType.OP_SRAW, Y, N, ImmSel.IMM_I),
+    ADDI   -> List(FuType.alu, SrcType.reg, SrcType.imm, SrcType.INV, ALUOpType.OP_PLUS, Y, N, ImmSel.IMM_I),
+    SLLI   -> List(FuType.alu, SrcType.reg, SrcType.imm, SrcType.INV, ALUOpType.OP_SLL , Y, N, ImmSel.IMM_I),
+    SRLI   -> List(FuType.alu, SrcType.reg, SrcType.imm, SrcType.INV, ALUOpType.OP_SRL , Y, N, ImmSel.IMM_I),
+    SRAI   -> List(FuType.alu, SrcType.reg, SrcType.imm, SrcType.INV, ALUOpType.OP_SRA , Y, N, ImmSel.IMM_I),
+    JALR   -> List(FuType.alu, SrcType.pc, SrcType.zero, SrcType.INV, JumpOpType.jalr  , Y, N, ImmSel.IMM_I),
+    XORI   -> List(FuType.alu, SrcType.reg, SrcType.imm, SrcType.INV, ALUOpType.OP_XOR , Y, N, ImmSel.IMM_I),
+    ORI    -> List(FuType.alu, SrcType.reg, SrcType.imm, SrcType.INV, ALUOpType.OP_OR  , Y, N, ImmSel.IMM_I),
+    ANDI   -> List(FuType.alu, SrcType.reg, SrcType.imm, SrcType.INV, ALUOpType.OP_AND , Y, N, ImmSel.IMM_I),
+    SLTI   -> List(FuType.alu, SrcType.reg, SrcType.imm, SrcType.INV, ALUOpType.OP_SLT , Y, N, ImmSel.IMM_I),
+    SLTIU  -> List(FuType.alu, SrcType.reg, SrcType.imm, SrcType.INV, ALUOpType.OP_SLTU, Y, N, ImmSel.IMM_I),
+    ADDIW  -> List(FuType.alu, SrcType.reg, SrcType.imm, SrcType.INV, ALUOpType.OP_ADDW, Y, N, ImmSel.IMM_I),
+    SLLIW  -> List(FuType.alu, SrcType.reg, SrcType.imm, SrcType.INV, ALUOpType.OP_SLLW, Y, N, ImmSel.IMM_I),
+    SRLIW  -> List(FuType.alu, SrcType.reg, SrcType.imm, SrcType.INV, ALUOpType.OP_SRLW, Y, N, ImmSel.IMM_I),
+    SRAIW  -> List(FuType.alu, SrcType.reg, SrcType.imm, SrcType.INV, ALUOpType.OP_SRAW, Y, N, ImmSel.IMM_I),
     // R Type
-    ADD    -> List(FuType.alu, SrcType.reg, SrcType.reg, ALUOpType.OP_PLUS , Y, N, ImmSel.DC),
-    SLL    -> List(FuType.alu, SrcType.reg, SrcType.reg, ALUOpType.OP_SLL  , Y, N, ImmSel.DC),
-    SUB    -> List(FuType.alu, SrcType.reg, SrcType.reg, ALUOpType.OP_SUB  , Y, N, ImmSel.DC),
-    XOR    -> List(FuType.alu, SrcType.reg, SrcType.reg, ALUOpType.OP_XOR  , Y, N, ImmSel.DC),
-    OR     -> List(FuType.alu, SrcType.reg, SrcType.reg, ALUOpType.OP_OR   , Y, N, ImmSel.DC),
-    AND    -> List(FuType.alu, SrcType.reg, SrcType.reg, ALUOpType.OP_AND  , Y, N, ImmSel.DC),
-    SLT    -> List(FuType.alu, SrcType.reg, SrcType.reg, ALUOpType.OP_SLT  , Y, N, ImmSel.DC),
-    SLTU   -> List(FuType.alu, SrcType.reg, SrcType.reg, ALUOpType.OP_SLTU , Y, N, ImmSel.DC),
-    MUL    -> List(FuType.alu, SrcType.reg, SrcType.reg, ALUOpType.OP_MUL  , Y, N, ImmSel.DC),
-    DIV    -> List(FuType.alu, SrcType.reg, SrcType.reg, ALUOpType.OP_DIV  , Y, N, ImmSel.DC),
-    DIVU   -> List(FuType.alu, SrcType.reg, SrcType.reg, ALUOpType.OP_DIVU , Y, N, ImmSel.DC),
-    REM    -> List(FuType.alu, SrcType.reg, SrcType.reg, ALUOpType.OP_REM  , Y, N, ImmSel.DC),
-    REMU   -> List(FuType.alu, SrcType.reg, SrcType.reg, ALUOpType.OP_REMU , Y, N, ImmSel.DC),
-    ADDW   -> List(FuType.alu, SrcType.reg, SrcType.reg, ALUOpType.OP_ADDW , Y, N, ImmSel.DC),
-    SUBW   -> List(FuType.alu, SrcType.reg, SrcType.reg, ALUOpType.OP_SUBW , Y, N, ImmSel.DC),
-    SLLW   -> List(FuType.alu, SrcType.reg, SrcType.reg, ALUOpType.OP_SLLW , Y, N, ImmSel.DC),
-    SRLW   -> List(FuType.alu, SrcType.reg, SrcType.reg, ALUOpType.OP_SRLW , Y, N, ImmSel.DC),
-    SRAW   -> List(FuType.alu, SrcType.reg, SrcType.reg, ALUOpType.OP_SRAW , Y, N, ImmSel.DC),
-    MULW   -> List(FuType.alu, SrcType.reg, SrcType.reg, ALUOpType.OP_MULW , Y, N, ImmSel.DC),
-    DIVW   -> List(FuType.alu, SrcType.reg, SrcType.reg, ALUOpType.OP_DIVW , Y, N, ImmSel.DC),
-    DIVUW  -> List(FuType.alu, SrcType.reg, SrcType.reg, ALUOpType.OP_DIVUW, Y, N, ImmSel.DC),
-    REMW   -> List(FuType.alu, SrcType.reg, SrcType.reg, ALUOpType.OP_REMW , Y, N, ImmSel.DC),
-    REMUW  -> List(FuType.alu, SrcType.reg, SrcType.reg, ALUOpType.OP_REMUW, Y, N, ImmSel.DC),
+    ADD    -> List(FuType.alu, SrcType.reg, SrcType.reg, SrcType.INV, ALUOpType.OP_PLUS , Y, N, ImmSel.DC),
+    SLL    -> List(FuType.alu, SrcType.reg, SrcType.reg, SrcType.INV, ALUOpType.OP_SLL  , Y, N, ImmSel.DC),
+    SUB    -> List(FuType.alu, SrcType.reg, SrcType.reg, SrcType.INV, ALUOpType.OP_SUB  , Y, N, ImmSel.DC),
+    XOR    -> List(FuType.alu, SrcType.reg, SrcType.reg, SrcType.INV, ALUOpType.OP_XOR  , Y, N, ImmSel.DC),
+    OR     -> List(FuType.alu, SrcType.reg, SrcType.reg, SrcType.INV, ALUOpType.OP_OR   , Y, N, ImmSel.DC),
+    AND    -> List(FuType.alu, SrcType.reg, SrcType.reg, SrcType.INV, ALUOpType.OP_AND  , Y, N, ImmSel.DC),
+    SLT    -> List(FuType.alu, SrcType.reg, SrcType.reg, SrcType.INV, ALUOpType.OP_SLT  , Y, N, ImmSel.DC),
+    SLTU   -> List(FuType.alu, SrcType.reg, SrcType.reg, SrcType.INV, ALUOpType.OP_SLTU , Y, N, ImmSel.DC),
+    MUL    -> List(FuType.alu, SrcType.reg, SrcType.reg, SrcType.INV, ALUOpType.OP_MUL  , Y, N, ImmSel.DC),
+    DIV    -> List(FuType.alu, SrcType.reg, SrcType.reg, SrcType.INV, ALUOpType.OP_DIV  , Y, N, ImmSel.DC),
+    DIVU   -> List(FuType.alu, SrcType.reg, SrcType.reg, SrcType.INV, ALUOpType.OP_DIVU , Y, N, ImmSel.DC),
+    REM    -> List(FuType.alu, SrcType.reg, SrcType.reg, SrcType.INV, ALUOpType.OP_REM  , Y, N, ImmSel.DC),
+    REMU   -> List(FuType.alu, SrcType.reg, SrcType.reg, SrcType.INV, ALUOpType.OP_REMU , Y, N, ImmSel.DC),
+    ADDW   -> List(FuType.alu, SrcType.reg, SrcType.reg, SrcType.INV, ALUOpType.OP_ADDW , Y, N, ImmSel.DC),
+    SUBW   -> List(FuType.alu, SrcType.reg, SrcType.reg, SrcType.INV, ALUOpType.OP_SUBW , Y, N, ImmSel.DC),
+    SLLW   -> List(FuType.alu, SrcType.reg, SrcType.reg, SrcType.INV, ALUOpType.OP_SLLW , Y, N, ImmSel.DC),
+    SRLW   -> List(FuType.alu, SrcType.reg, SrcType.reg, SrcType.INV, ALUOpType.OP_SRLW , Y, N, ImmSel.DC),
+    SRAW   -> List(FuType.alu, SrcType.reg, SrcType.reg, SrcType.INV, ALUOpType.OP_SRAW , Y, N, ImmSel.DC),
+    MULW   -> List(FuType.alu, SrcType.reg, SrcType.reg, SrcType.INV, ALUOpType.OP_MULW , Y, N, ImmSel.DC),
+    DIVW   -> List(FuType.alu, SrcType.reg, SrcType.reg, SrcType.INV, ALUOpType.OP_DIVW , Y, N, ImmSel.DC),
+    DIVUW  -> List(FuType.alu, SrcType.reg, SrcType.reg, SrcType.INV, ALUOpType.OP_DIVUW, Y, N, ImmSel.DC),
+    REMW   -> List(FuType.alu, SrcType.reg, SrcType.reg, SrcType.INV, ALUOpType.OP_REMW , Y, N, ImmSel.DC),
+    REMUW  -> List(FuType.alu, SrcType.reg, SrcType.reg, SrcType.INV, ALUOpType.OP_REMUW, Y, N, ImmSel.DC),
     // J Type
-    JAL    -> List(FuType.alu, SrcType.pc, SrcType.zero, JumpOpType.jal    , Y, N, ImmSel.IMM_J ),
+    JAL    -> List(FuType.alu, SrcType.pc, SrcType.zero, SrcType.INV, JumpOpType.jal    , Y, N, ImmSel.IMM_J ),
     // B Type
-    BEQ    -> List(FuType.alu, SrcType.pc, SrcType.imm, ALUOpType.OP_BEQ , N, N, ImmSel.IMM_B),
-    BNE    -> List(FuType.alu, SrcType.pc, SrcType.imm, ALUOpType.OP_BNE , N, N, ImmSel.IMM_B),
-    BLT    -> List(FuType.alu, SrcType.pc, SrcType.imm, ALUOpType.OP_BLT , N, N, ImmSel.IMM_B),
-    BLTU   -> List(FuType.alu, SrcType.pc, SrcType.imm, ALUOpType.OP_BLTU, N, N, ImmSel.IMM_B),
-    BGE    -> List(FuType.alu, SrcType.pc, SrcType.imm, ALUOpType.OP_BGE , N, N, ImmSel.IMM_B),
-    BGEU   -> List(FuType.alu, SrcType.pc, SrcType.imm, ALUOpType.OP_BGEU, N, N, ImmSel.IMM_B)
+    BEQ    -> List(FuType.alu, SrcType.pc, SrcType.imm, SrcType.INV, ALUOpType.OP_BEQ , N, N, ImmSel.IMM_B),
+    BNE    -> List(FuType.alu, SrcType.pc, SrcType.imm, SrcType.INV, ALUOpType.OP_BNE , N, N, ImmSel.IMM_B),
+    BLT    -> List(FuType.alu, SrcType.pc, SrcType.imm, SrcType.INV, ALUOpType.OP_BLT , N, N, ImmSel.IMM_B),
+    BLTU   -> List(FuType.alu, SrcType.pc, SrcType.imm, SrcType.INV, ALUOpType.OP_BLTU, N, N, ImmSel.IMM_B),
+    BGE    -> List(FuType.alu, SrcType.pc, SrcType.imm, SrcType.INV, ALUOpType.OP_BGE , N, N, ImmSel.IMM_B),
+    BGEU   -> List(FuType.alu, SrcType.pc, SrcType.imm, SrcType.INV, ALUOpType.OP_BGEU, N, N, ImmSel.IMM_B)
   )
 }
 
 object LSUOpDecoder extends DecodeConstants {
   val table: Array[(BitPat, List[BitPat])] = Array(
-    LB  -> List(FuType.ldu, SrcType.reg, SrcType.imm, LSUOpType.lb , Y, N, ImmSel.IMM_S),
-    LH  -> List(FuType.ldu, SrcType.reg, SrcType.imm, LSUOpType.lh , Y, N, ImmSel.IMM_S),
-    LW  -> List(FuType.ldu, SrcType.reg, SrcType.imm, LSUOpType.lw , Y, N, ImmSel.IMM_S),
-    LD  -> List(FuType.ldu, SrcType.reg, SrcType.imm, LSUOpType.ld , Y, N, ImmSel.IMM_S),
-    LBU -> List(FuType.ldu, SrcType.reg, SrcType.imm, LSUOpType.lbu, Y, N, ImmSel.IMM_S),
-    LHU -> List(FuType.ldu, SrcType.reg, SrcType.imm, LSUOpType.lhu, Y, N, ImmSel.IMM_S),
-    LWU -> List(FuType.ldu, SrcType.reg, SrcType.imm, LSUOpType.lwu, Y, N, ImmSel.IMM_S),
+    LB  -> List(FuType.ldu, SrcType.reg, SrcType.imm, SrcType.INV, LSUOpType.lb , Y, N, ImmSel.IMM_S),
+    LH  -> List(FuType.ldu, SrcType.reg, SrcType.imm, SrcType.INV, LSUOpType.lh , Y, N, ImmSel.IMM_S),
+    LW  -> List(FuType.ldu, SrcType.reg, SrcType.imm, SrcType.INV, LSUOpType.lw , Y, N, ImmSel.IMM_S),
+    LD  -> List(FuType.ldu, SrcType.reg, SrcType.imm, SrcType.INV, LSUOpType.ld , Y, N, ImmSel.IMM_S),
+    LBU -> List(FuType.ldu, SrcType.reg, SrcType.imm, SrcType.INV, LSUOpType.lbu, Y, N, ImmSel.IMM_S),
+    LHU -> List(FuType.ldu, SrcType.reg, SrcType.imm, SrcType.INV, LSUOpType.lhu, Y, N, ImmSel.IMM_S),
+    LWU -> List(FuType.ldu, SrcType.reg, SrcType.imm, SrcType.INV, LSUOpType.lwu, Y, N, ImmSel.IMM_S),
     // S Type
-    SD  -> List(FuType.stu, SrcType.reg, SrcType.imm, LSUOpType.sd, Y, N, ImmSel.IMM_S),
-    SW  -> List(FuType.stu, SrcType.reg, SrcType.imm, LSUOpType.sw, Y, N, ImmSel.IMM_S),
-    SH  -> List(FuType.stu, SrcType.reg, SrcType.imm, LSUOpType.sh, Y, N, ImmSel.IMM_S),
-    SB  -> List(FuType.stu, SrcType.reg, SrcType.imm, LSUOpType.sb, Y, N, ImmSel.IMM_S)
+    SD  -> List(FuType.stu, SrcType.reg, SrcType.imm, SrcType.INV, LSUOpType.sd, Y, N, ImmSel.IMM_S),
+    SW  -> List(FuType.stu, SrcType.reg, SrcType.imm, SrcType.INV, LSUOpType.sw, Y, N, ImmSel.IMM_S),
+    SH  -> List(FuType.stu, SrcType.reg, SrcType.imm, SrcType.INV, LSUOpType.sh, Y, N, ImmSel.IMM_S),
+    SB  -> List(FuType.stu, SrcType.reg, SrcType.imm, SrcType.INV, LSUOpType.sb, Y, N, ImmSel.IMM_S)
   )
 }

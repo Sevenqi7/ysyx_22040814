@@ -6,6 +6,9 @@ trait ThaliaParameters{
     val HasICache = true
     val HasDCache = false
     val AddrBits = 64
-    val FetchNr = 2
+    val FetchNr = 3
+    
+    val DecodeWidth = 3
+    val IssueWidth = 3
 }
 
